@@ -42,7 +42,7 @@ export function Login () {
                 {...register('email', {
                   required: {
                     value: true,
-                    message: '* E-mail é obrigatório',
+                    message: 'E-mail é obrigatório',
                   },
                 })}
               />
@@ -56,7 +56,7 @@ export function Login () {
                 {...register('password', {
                   required: {
                     value: true,
-                    message: '* Senha é obrigatória',
+                    message: 'Senha é obrigatória',
                   },
                 })}
               />

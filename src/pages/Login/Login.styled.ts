@@ -77,7 +77,8 @@ export const Form = styled.div`
 export const Input = styled.input`
   height: 40px;
   width: 444px;
-  border: 2px solid ${theme.colors.white[100]};
+  background: ${theme.colors.darkBlack};
+  border: 2px solid ${theme.colors.black};
   border-radius: 5px;
   padding: 0 0 0 15px;
   outline: none;
