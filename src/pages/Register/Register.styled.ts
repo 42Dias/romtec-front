@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
 import { theme } from '../../ui'
 
-export const ContainerLogin = styled.div`
+export const ContainerRegister = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -77,8 +77,8 @@ export const Form = styled.div`
   }
 
   a {
-    color: ${theme.colors.white};
-    margin: 30px 1px 2px 14px;
+    color: ${theme.colors.yellow};
+    margin: 0;
   }
 `
 

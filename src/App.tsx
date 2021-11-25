@@ -1,15 +1,19 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import { Login } from './pages/Login'
+import { Login, Home, Register, ForgotPassword, Terms } from './pages'
 
 import { GlobalStyle } from './ui'
-import { LOGIN } from './routes'
+import { LOGIN, HOME, REGISTER, FORGOTPASSWORD, TERMS } from './routes'
 
 export function App () {
   return (
     <BrowserRouter>
       <Routes>
         <Route path={LOGIN} element={<Login />} />
+        <Route path={HOME} element={<Home />} />
+        <Route path={REGISTER} element={<Register />} />
+        <Route path={FORGOTPASSWORD} element={<ForgotPassword />} />
+        <Route path={TERMS} element={<Terms />} />
       </Routes>
       <GlobalStyle />
     </BrowserRouter>

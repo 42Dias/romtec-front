@@ -1,25 +1,28 @@
-import { theme } from '../../ui'
 
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
 
-import * as S from './Login.styled'
+import * as S from './Register.styled'
 import { Link } from 'react-router-dom'
 
 type FormData = {
+  name: string;
   email: string;
   password: string;
+  terms: boolean;
 }
 
-export function Login () {
+export function Register () {
   const navigate = useNavigate()
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit ({ email, password }: FormData) {
+  function onSubmit ({ email, password, name, terms }: FormData) {
     const submit = {
+      name,
       email,
       password,
+      terms,
     }
     reset()
 
@@ -29,12 +32,25 @@ export function Login () {
   }
 
   return (
-    <S.ContainerLogin>
+    <S.ContainerRegister>
       <S.Content>
-        <h1>Entrar</h1>
-        <p>Faça login em nossa plataforma para aproveitar ao máximo todo o nosso sistema</p>
+        <h1>Cadastro</h1>
+        <p>Faça o cadastro em nossa plataforma para aproveitar ao máximo todo o nosso sistema</p>
         <S.Form>
           <form onSubmit={handleSubmit(onSubmit)}>
+            <fieldset>
+              <label htmlFor='name'>Nome</label>
+              <S.Input
+                id='name' placeholder='Seu nome'
+                {...register('name', {
+                  required: {
+                    value: true,
+                    message: 'Nome é obrigatório',
+                  },
+                })}
+              />
+              <span>{errors.name?.message}</span>
+            </fieldset>
             <fieldset>
               <label htmlFor='email'>E-mail</label>
               <S.Input
@@ -64,14 +80,26 @@ export function Login () {
               />
               <span>{errors.password?.message}</span>
             </fieldset>
-            <Link to='/recuperar-senha'>Esqueceu a sua senha?</Link>
+
+            <fieldset>
+              <input
+                id='terms'
+                type='checkbox'
+                {...register('terms', {
+                  required: {
+                    value: true,
+                    message: 'Aceitação dos termos é obrigatória',
+                  },
+                })}
+              />
+              <label htmlFor='terms'> Aceito os <Link to='/termos'>Termos e condições</Link> e autorizo o uso de meus dados de acordo com a Declaração de privacidade.</label>
+              <span>{errors.terms?.message}</span>
+            </fieldset>
 
             <button type='submit'>Entrar</button>
           </form>
         </S.Form>
-        <strong>ou</strong>
-        <Link to='/cadastro' style={{ color: `${theme.colors.yellow}` }}>Cadastrar-se</Link>
       </S.Content>
-    </S.ContainerLogin>
+    </S.ContainerRegister>
   )
 }
