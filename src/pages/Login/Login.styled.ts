@@ -45,7 +45,7 @@ export const Content = styled.div`
   }
 `
 
-export const Form = styled.div`
+export const Form = styled.form`
   p {
     max-width: 400px;
   }
@@ -95,5 +95,35 @@ export const Input = styled.input`
 
   :focus {
     border: 1px solid ${theme.colors.yellow}
+  }
+`
+
+export const Test = styled.div`
+  display:flex;
+  align-items: center;
+  justify-content: center;
+
+  input {
+    height: 40px;
+    width: 444px;
+  }
+
+  button {
+    position: relative;
+    right: 90px;
+    bottom: 10px;
+    height: 40px;
+    width: 30px;
+    background: none !important ;
+  border: 0;
+  transition: 1s;
+
+  svg {
+    color: ${theme.colors.yellow};
+
+    :hover {
+      opacity: 85%;
+    }
+  }
   }
 `
