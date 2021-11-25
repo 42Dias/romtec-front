@@ -7,8 +7,8 @@ import * as S from './Login.styled'
 import { Link } from 'react-router-dom'
 
 type FormData = {
-  email: string | number;
-  password: string | number;
+  email: string;
+  password: string;
 }
 
 export function Login () {
