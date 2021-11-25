@@ -68,7 +68,9 @@ export function Register () {
             <fieldset>
               <label htmlFor='password'>Senha</label>
               <S.Input
-                id='password' placeholder='Sua melhor senha'
+                id='password'
+                placeholder='Sua melhor senha'
+                type='password'
                 {...register('password', {
                   required: {
                     value: true,
