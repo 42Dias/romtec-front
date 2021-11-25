@@ -31,8 +31,8 @@ export function Login () {
   return (
     <S.ContainerLogin>
       <S.Content>
-        <h1>Lorem Ipsum</h1>
-        <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
+        <h1>Entrar</h1>
+        <p>Faça login em nossa plataforma para aproveitar ao máximo todo o nosso sistema</p>
         <S.Form>
           <form onSubmit={handleSubmit(onSubmit)}>
             <fieldset>
@@ -62,7 +62,7 @@ export function Login () {
               />
               <span>{errors.password?.message}</span>
             </fieldset>
-            <p>Esqueceu a sua senha?</p>
+            <Link to='/recuperar-senha'>Esqueceu a sua senha?</Link>
 
             <button type='submit'>Entrar</button>
           </form>

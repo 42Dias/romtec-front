@@ -14,7 +14,6 @@ export const GlobalStyle = createGlobalStyle`
     color: ${theme.colors.white};
     font-family: ${theme.font.family};
     overflow-x: hidden;
-    position: relative;
   }
 
   button {
