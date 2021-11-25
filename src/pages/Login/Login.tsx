@@ -1,7 +1,10 @@
 import { theme } from '../../ui'
 
+import { useState } from 'react'
+
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
+import { FiEye } from 'react-icons/fi'
 
 import * as S from './Login.styled'
 import { Link } from 'react-router-dom'
@@ -13,6 +16,8 @@ type FormData = {
 
 export function Login () {
   const navigate = useNavigate()
+
+  const [textPass, setTextPass] = useState(true)
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
@@ -33,28 +38,28 @@ export function Login () {
       <S.Content>
         <h1>Entrar</h1>
         <p>Faça login em nossa plataforma para aproveitar ao máximo todo o nosso sistema</p>
-        <S.Form>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <fieldset>
-              <label htmlFor='email'>E-mail</label>
-              <S.Input
-                id='email' placeholder='Seu melhor e-mail'
-                {...register('email', {
-                  required: {
-                    value: true,
-                    message: 'E-mail é obrigatório',
-                  },
-                })}
-              />
-              <span>{errors.email?.message}</span>
-            </fieldset>
+        <S.Form onSubmit={handleSubmit(onSubmit)}>
+          <fieldset>
+            <label htmlFor='email'>E-mail</label>
+            <S.Input
+              id='email' placeholder='Seu melhor e-mail'
+              {...register('email', {
+                required: {
+                  value: true,
+                  message: 'E-mail é obrigatório',
+                },
+              })}
+            />
+            <span>{errors.email?.message}</span>
+          </fieldset>
 
-            <fieldset>
-              <label htmlFor='password'>Senha</label>
+          <fieldset>
+            <label htmlFor='password'>Senha</label>
+            <S.Test>
               <S.Input
                 id='password'
                 placeholder='Sua melhor senha'
-                type='password'
+                type={textPass ? 'password' : 'text'}
                 {...register('password', {
                   required: {
                     value: true,
@@ -63,11 +68,14 @@ export function Login () {
                 })}
               />
               <span>{errors.password?.message}</span>
-            </fieldset>
-            <Link to='/recuperar-senha'>Esqueceu a sua senha?</Link>
 
-            <button type='submit'>Entrar</button>
-          </form>
+              <button onClick={() => setTextPass(!textPass)} type='button'><FiEye /></button>
+            </S.Test>
+
+          </fieldset>
+          <Link to='/recuperar-senha'>Esqueceu a sua senha?</Link>
+
+          <button type='submit'>Entrar</button>
         </S.Form>
         <strong>ou</strong>
         <Link to='/cadastro' style={{ color: `${theme.colors.yellow}` }}>Cadastrar-se</Link>
