@@ -69,6 +69,11 @@ export const Form = styled.div`
     width: 444px;
     border: 0;
     margin: 30px 1px 2px 14px;
+    transition: 1s;
+
+    :hover {
+      opacity: 85%;
+    }
   }
 
   a {
