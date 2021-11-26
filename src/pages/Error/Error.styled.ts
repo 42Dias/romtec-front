@@ -2,13 +2,13 @@ import styled from 'styled-components/macro'
 import { theme } from '../../ui'
 
 export const ContainerError = styled.div`
- display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
   flex-direction: column;
   height: 100%;
-  padding: 40px 15px;
+  padding: 20px 15px;
 
   h2 {
     font-size: 24px;
@@ -18,7 +18,7 @@ export const ContainerError = styled.div`
 `
 
 export const ContentError = styled.div`
- display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
@@ -31,12 +31,11 @@ export const ContentError = styled.div`
   }
 
   img {
-    width: 430px;
-    height: 430px;
+    width: 410px;
+    height: 410px;
   }
 
   a {
-    margin: 20px 0;
     display: flex;
     align-items: center;
     justify-content: center;
