@@ -32,19 +32,16 @@ export const Navbar = styled.div`
     border-radius: 5px 0 0 5px;
     border: 0;
     outline: none;
-    padding: 0 7px;
+    padding: 0 25px;
     color: #CBCBCB;
     margin-left: 40px;
     background: ${theme.colors.black};
   }
 `
 
-export const User = styled.div`
-  padding: 0 40px;
-  display: flex;
-  align-items: center;
-
-  span {
-    margin-left: 16px;
+export const ShowSidebar = styled.div`
+  button {
+    position: relative;
+    background: none;
   }
 `
