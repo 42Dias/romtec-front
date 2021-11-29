@@ -8,7 +8,7 @@ export default function Navbar () {
       <button>
         <FiIcons.FiSearch />
       </button>
-      <h3>Olá</h3>
+      <h3>Olá, pessoa!</h3>
       <Link to='/'><FiIcons.FiLogIn /></Link>
     </div>
   )

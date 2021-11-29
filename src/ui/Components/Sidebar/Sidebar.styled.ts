@@ -41,7 +41,9 @@ export const Navbar = styled.div`
 
 export const ShowSidebar = styled.div`
   button {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     background: none;
   }
 `
