@@ -24,10 +24,6 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: none;
   }
 
-  ul {
-    list-style: none;
-  }
-
   &::selection {
     color: ${theme.colors.white};
     background: ${theme.colors.yellow};

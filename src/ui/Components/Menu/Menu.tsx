@@ -17,23 +17,23 @@ const Menu = ({ children, onClose }: Props) => {
           <li><Link to='/home'>Início</Link></li>
           <li><Link to=''>Usuários</Link></li>
           <h4>Cadastros</h4>
-          <li><Link to=''>Mão de obra</Link></li>
-          <li><Link to=''>Maquina Perfuratriz</Link></li>
-          <li><Link to=''>Hastes</Link></li>
-          <li><Link to=''>Tipos de Solos</Link></li>
-          <li><Link to=''>Ferramentas</Link></li>
-          <li><Link to=''>Fluido de Perfuração</Link></li>
-          <li><Link to=''>Companhias</Link></li>
-          <li><Link to=''>Topografia</Link></li>
-          <li><Link to=''>Config. da travessia</Link></li>
+          <li><Link to='/mao-de-obra'>Mão de obra</Link></li>
+          <li><Link to='/maquina-perfuratriz'>Maquina Perfuratriz</Link></li>
+          <li><Link to='/hastes'>Hastes</Link></li>
+          <li><Link to='/tipos-de-solo'>Tipos de Solos</Link></li>
+          <li><Link to='/ferramentas'>Ferramentas</Link></li>
+          <li><Link to='/fluido-de-perfuracao'>Fluido de Perfuração</Link></li>
+          <li><Link to='/companhias'>Companhias</Link></li>
+          <li><Link to='/topografia'>Topografia</Link></li>
+          <li><Link to='/configuracao-da-travessia'>Config. da travessia</Link></li>
           <h4>Comercial</h4>
-          <li><Link to=''>Clientes</Link></li>
-          <li><Link to=''>Pagamentos</Link></li>
-          <li><Link to=''>Planos</Link></li>
+          <li><Link to='/clientes'>Clientes</Link></li>
+          <li><Link to='/pagamentos'>Pagamentos</Link></li>
+          <li><Link to='/planos'>Planos</Link></li>
           <h4>Relatórios</h4>
-          <li><Link to=''>Relatórios</Link></li>
+          <li><Link to='/relatorios'>Relatórios</Link></li>
           <h4>Travessias</h4>
-          <li><Link to=''>Perfurações</Link></li>
+          <li><Link to='/perfuracoes'>Perfurações</Link></li>
         </S.List>
       </S.Container>
       {children}
