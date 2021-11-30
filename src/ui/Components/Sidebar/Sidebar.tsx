@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import * as FaIcons from 'react-icons/fa'
-import { IconContext } from 'react-icons'
 import * as S from './Sidebar.styled'
 import Menu from '../Menu/Menu'
 

@@ -11,8 +11,8 @@ const Modal = ({ onClose, children }: Props) => {
   return (
     <S.Modal>
       <S.Container>
-        {children}
         <button onClick={onClose} style={{ background: 'none' }}><FiX size={20} /></button>
+        {children}
       </S.Container>
     </S.Modal>
   )
