@@ -3,7 +3,7 @@ import { theme } from '../../styles/theme'
 
 export const Modal = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 200vh;
   position: absolute;
   top: 0;
   left: 0;
@@ -18,7 +18,7 @@ export const Container = styled.div`
   background: ${theme.colors.darkBlack};
   width: 70%;
   color: ${theme.colors.white};
-  height: 90%;
+  height: 80%;
   padding: 10px;
   border-radius: 5px;
 

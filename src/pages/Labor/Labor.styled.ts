@@ -78,6 +78,7 @@ export const Form = styled.form`
     border: 0;
     transition: 1s;
     margin-bottom: 20px;
+    margin-right: 250px;
 
     :hover {
       opacity: 80%;
