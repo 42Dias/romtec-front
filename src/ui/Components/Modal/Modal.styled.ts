@@ -15,7 +15,7 @@ export const Modal = styled.div`
 `
 
 export const Container = styled.div`
-  background: ${theme.colors.black};
+  background: ${theme.colors.darkBlack};
   width: 70%;
   color: ${theme.colors.white};
   height: 90%;

@@ -115,15 +115,15 @@ export const Test = styled.div`
     height: 40px;
     width: 30px;
     background: none !important ;
-  border: 0;
-  transition: 1s;
+    border: 0;
+    transition: 1s;
 
-  svg {
+    svg {
     color: ${theme.colors.yellow};
 
-    :hover {
-      opacity: 85%;
+      :hover {
+        opacity: 85%;
+      }
     }
-  }
   }
 `
