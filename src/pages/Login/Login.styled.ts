@@ -98,7 +98,7 @@ export const Input = styled.input`
   }
 `
 
-export const Test = styled.div`
+export const Password = styled.div`
   display:flex;
   align-items: center;
   justify-content: center;
@@ -110,7 +110,7 @@ export const Test = styled.div`
 
   button {
     position: relative;
-    right: 90px;
+    right: 60px;
     bottom: 10px;
     height: 40px;
     width: 30px;

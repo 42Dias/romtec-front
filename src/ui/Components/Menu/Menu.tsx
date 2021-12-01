@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { FiX } from 'react-icons/fi'
+import { FiX, FiHome, FiUser, FiFileText, FiBriefcase, FiClipboard, FiSettings } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import * as S from './Menu.styled'
 
@@ -10,13 +10,13 @@ type Props = {
 
 const Menu = ({ children, onClose }: Props) => {
   return (
-    <S.Modal>
+    <S.Aside>
       <button onClick={onClose}><FiX size={20} /></button>
       <S.Container>
         <S.List>
-          <li><Link to='/home'>Início</Link></li>
-          <li><Link to=''>Usuários</Link></li>
-          <h4>Cadastros</h4>
+          <li><FiHome size={20} /><Link to='/home'>Início</Link></li>
+          <li><FiUser size={20} /><Link to=''>Usuários</Link></li>
+          <h4><FiFileText size={20} />Cadastros</h4>
           <li><Link to='/mao-de-obra'>Mão de obra</Link></li>
           <li><Link to='/maquina-perfuratriz'>Maquina Perfuratriz</Link></li>
           <li><Link to='/hastes'>Hastes</Link></li>
@@ -26,18 +26,18 @@ const Menu = ({ children, onClose }: Props) => {
           <li><Link to='/companhias'>Companhias</Link></li>
           <li><Link to='/topografia'>Topografia</Link></li>
           <li><Link to='/configuracao-da-travessia'>Config. da travessia</Link></li>
-          <h4>Comercial</h4>
+          <h4><FiBriefcase size={20} />Comercial</h4>
           <li><Link to='/clientes'>Clientes</Link></li>
           <li><Link to='/pagamentos'>Pagamentos</Link></li>
           <li><Link to='/planos'>Planos</Link></li>
-          <h4>Relatórios</h4>
+          <h4><FiClipboard size={20} />Relatórios</h4>
           <li><Link to='/relatorios'>Relatórios</Link></li>
-          <h4>Travessias</h4>
+          <h4><FiSettings size={20} />Travessias</h4>
           <li><Link to='/perfuracoes'>Perfurações</Link></li>
         </S.List>
       </S.Container>
       {children}
-    </S.Modal>
+    </S.Aside>
   )
 }
 

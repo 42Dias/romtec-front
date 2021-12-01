@@ -10,9 +10,14 @@ export const Navbar = styled.div`
 
   a {
     margin-left: 20px;
-    font-size: 16px !important;
+    font-size: 14px;
     background: transparent;
-    color: ${theme.colors.yellow};
+    color: ${theme.colors.white};
+    transition: 0.5s;
+
+    :hover {
+      color: ${theme.colors.yellow};
+    }
   }
 
   button {
