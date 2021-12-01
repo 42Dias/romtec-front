@@ -1,3 +1,12 @@
+import Sidebar from '../../ui/Components/Sidebar/Sidebar'
+import Navbar from '../../ui/Components/Navbar/Navbar'
+
 export function Home () {
-  return <h1>Home</h1>
+  return (
+    <>
+      <Sidebar />
+      <Navbar />
+      <h1>dashboard</h1>
+    </>
+  )
 }

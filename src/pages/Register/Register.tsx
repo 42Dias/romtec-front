@@ -45,7 +45,7 @@ export function Register () {
                 {...register('name', {
                   required: {
                     value: true,
-                    message: 'Nome é obrigatório',
+                    message: 'Todos os campos são obrigatórios',
                   },
                 })}
               />
@@ -62,7 +62,6 @@ export function Register () {
                   },
                 })}
               />
-              <span>{errors.email?.message}</span>
             </fieldset>
 
             <fieldset>
@@ -78,7 +77,6 @@ export function Register () {
                   },
                 })}
               />
-              <span>{errors.password?.message}</span>
             </fieldset>
 
             <fieldset>
@@ -92,10 +90,11 @@ export function Register () {
                   },
                 })}
               />
-              <label htmlFor='terms'> Aceito os <Link to='/termos'>Termos e condições</Link> e autorizo o uso de meus dados de acordo com a Declaração de privacidade.</label>
-              <span>{errors.terms?.message}</span>
+              <label htmlFor='terms'>
+                Aceito os <Link to='/termos'>Termos e condições</Link>
+                e autorizo o uso de meus dados de acordo com a Declaração de privacidade.
+              </label>
             </fieldset>
-
             <button type='submit'>Entrar</button>
           </form>
         </S.Form>

@@ -8,14 +8,16 @@ import Navbar from '../../ui/Components/Navbar/Navbar'
 
 export function Error () {
   return (
-    <S.ContainerError>
+    <>
       <Sidebar />
       <Navbar />
-      <h2>Ops! Página não encontrada</h2>
-      <S.ContentError>
-        <img src={image} alt='error' />
-        <Link to='/home'>Voltar</Link>
-      </S.ContentError>
-    </S.ContainerError>
+      <S.ContainerError>
+        <h2>Ops! Página não encontrada</h2>
+        <S.ContentError>
+          <img src={image} alt='error' />
+          <Link to='/home'>Voltar</Link>
+        </S.ContentError>
+      </S.ContainerError>
+    </>
   )
 }

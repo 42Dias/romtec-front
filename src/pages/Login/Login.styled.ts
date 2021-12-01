@@ -98,7 +98,7 @@ export const Input = styled.input`
   }
 `
 
-export const Test = styled.div`
+export const Password = styled.div`
   display:flex;
   align-items: center;
   justify-content: center;
@@ -110,20 +110,20 @@ export const Test = styled.div`
 
   button {
     position: relative;
-    right: 90px;
+    right: 60px;
     bottom: 10px;
     height: 40px;
     width: 30px;
     background: none !important ;
-  border: 0;
-  transition: 1s;
+    border: 0;
+    transition: 1s;
 
-  svg {
+    svg {
     color: ${theme.colors.yellow};
 
-    :hover {
-      opacity: 85%;
+      :hover {
+        opacity: 85%;
+      }
     }
-  }
   }
 `

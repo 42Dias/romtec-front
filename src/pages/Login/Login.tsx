@@ -42,11 +42,11 @@ export function Login () {
           <fieldset>
             <label htmlFor='email'>E-mail</label>
             <S.Input
-              id='email' placeholder='Seu melhor e-mail'
+              id='email' placeholder='Seu melhor e-mail' type='email'
               {...register('email', {
                 required: {
                   value: true,
-                  message: 'E-mail é obrigatório',
+                  message: 'Todos os campos são obrigatórios',
                 },
               })}
             />
@@ -55,7 +55,7 @@ export function Login () {
 
           <fieldset>
             <label htmlFor='password'>Senha</label>
-            <S.Test>
+            <S.Password>
               <S.Input
                 id='password'
                 placeholder='Sua melhor senha'
@@ -67,10 +67,8 @@ export function Login () {
                   },
                 })}
               />
-              <span>{errors.password?.message}</span>
-
               <button onClick={() => setTextPass(!textPass)} type='button'><FiEye /></button>
-            </S.Test>
+            </S.Password>
 
           </fieldset>
           <Link to='/recuperar-senha'>Esqueceu a sua senha?</Link>

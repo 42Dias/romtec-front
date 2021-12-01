@@ -10,9 +10,14 @@ export const Navbar = styled.div`
 
   a {
     margin-left: 20px;
-    font-size: 16px !important;
+    font-size: 14px;
     background: transparent;
-    color: ${theme.colors.yellow};
+    color: ${theme.colors.white};
+    transition: 0.5s;
+
+    :hover {
+      color: ${theme.colors.yellow};
+    }
   }
 
   button {
@@ -41,7 +46,9 @@ export const Navbar = styled.div`
 
 export const ShowSidebar = styled.div`
   button {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     background: none;
   }
 `
