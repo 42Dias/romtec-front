@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import { Login, Home, Register, ForgotPassword, Terms, Error, Labor, Rods } from './pages'
+import { Login, Home, Register, ForgotPassword, Terms, Error, Labor, Rods, SoilTypes } from './pages'
 
 import { GlobalStyle } from './ui'
-import { LOGIN, HOME, REGISTER, FORGOTPASSWORD, TERMS, LABOR, RODS } from './routes'
+import { LOGIN, HOME, REGISTER, FORGOTPASSWORD, TERMS, LABOR, RODS, SOILTYPES } from './routes'
 
 export function App () {
   return (
@@ -16,6 +16,7 @@ export function App () {
         <Route path={TERMS} element={<Terms />} />
         <Route path={LABOR} element={<Labor />} />
         <Route path={RODS} element={<Rods />} />
+        <Route path={SOILTYPES} element={<SoilTypes />} />
         <Route path='*' element={<Error />} />
       </Routes>
       <GlobalStyle />
