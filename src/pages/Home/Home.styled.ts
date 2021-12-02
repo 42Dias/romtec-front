@@ -39,6 +39,7 @@ export const Content = styled.div`
    margin-left: 61.5rem;
    margin-top: -13rem;
    border-radius:20px;
+   object-fit: cover;
   }
 `
 
@@ -51,11 +52,6 @@ export const ContainerSteps = styled.div`
 
 export const ContentSteps = styled.div`
   padding-left: 20px;
-
-  :hover {
-    width: 255px;
-    height: 100px;
-  }
 
   h4 {
     font-size: 14px;
