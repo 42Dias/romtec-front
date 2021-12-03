@@ -17,7 +17,6 @@ export function Home () {
           <img src={image} alt='' />
         </S.Content>
 
-        <h3>Etapas</h3>
         <S.ContainerSteps>
           <S.ContentSteps>
             <FiSettings size={20} />

@@ -3,11 +3,6 @@ import { theme } from '../../ui'
 
 export const Container = styled.div`
   padding: 20px 15px;
-
-  h3 {
-    margin-left: 36px;
-    padding: 20px;
-  }
 `
 
 export const Content = styled.div`
