@@ -8,21 +8,14 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 type FormData = {
-  identification: string;
-  name: string;
-  rg: string;
-  cpf: string;
-  phone: string;
-  zipCode: string;
-  state: string;
-  city: string;
-  district: string;
-  publicPlace: string;
-  number: string;
-  complement: string;
-  occupation: string;
-  experience: string;
-  certificateValidity: Date;
+  code: string;
+  ray: string;
+  diameter: string;
+  condition: string;
+  toolJoin: string;
+  torque: string;
+  length: string;
+  screwThread: string;
 }
 
 export function Rods () {
@@ -31,38 +24,24 @@ export function Rods () {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit ({
-    identification,
-    name,
-    rg,
-    cpf,
-    phone,
-    zipCode,
-    state,
-    city,
-    district,
-    publicPlace,
-    number,
-    complement,
-    occupation,
-    experience,
-    certificateValidity,
+    code,
+    ray,
+    diameter,
+    condition,
+    toolJoin,
+    torque,
+    length,
+    screwThread,
   }: FormData) {
     const submit = {
-      identification,
-      name,
-      rg,
-      cpf,
-      phone,
-      zipCode,
-      state,
-      city,
-      district,
-      publicPlace,
-      number,
-      complement,
-      occupation,
-      experience,
-      certificateValidity,
+      code,
+      ray,
+      diameter,
+      condition,
+      toolJoin,
+      torque,
+      length,
+      screwThread,
     }
     reset()
 
@@ -76,135 +55,142 @@ export function Rods () {
       <S.ContainerConfirmation>
         <h2>Hastes</h2>
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
+        <S.GridConfirmation>
+          <span>Código </span>
+          <span>Diametro do tubo(mm)</span>
+          <span>Diametro do Tool Joint(mm)</span>
+          <span>Comprimento total(m)</span>
+          <span>Modelo da rosca</span>
+        </S.GridConfirmation>
         {isOpen
           ? <Modal onClose={() => setIsOpen(false)}>
             <S.Container>
               <S.Form onSubmit={handleSubmit(onSubmit)}>
                 <S.ContentForm>
                   <fieldset>
-                    <label htmlFor='identification'>Código do jogo de Hastes</label>
+                    <label htmlFor='code'>Código do jogo de Hastes</label>
                     <input
-                      id='identification' placeholder='Sua identificação'
-                      {...register('identification', {
+                      id='code' placeholder='Seu código'
+                      {...register('code', {
                         required: {
                           value: true,
-                          message: 'Identificação é obrigatória',
+                          message: 'Código é obrigatóri0',
                         },
                       })}
                     />
-                    <span>{errors.identification?.message}</span>
+                    <span>{errors.code?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
                 <S.ContentForm>
                   <fieldset>
-                    <label htmlFor='name'>Raio de curvatura</label>
+                    <label htmlFor='ray'>Raio de curvatura</label>
                     <input
-                      id='name' placeholder='Seu nome'
-                      {...register('name', {
+                      id='ray' placeholder='Raio da haste'
+                      {...register('ray', {
                         required: {
                           value: true,
-                          message: 'Nome é obrigatório',
+                          message: 'Raio é obrigatório',
                         },
                       })}
                     />
-                    <span>{errors.name?.message}</span>
+                    <span>{errors.ray?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
                 <S.ContentForm>
                   <fieldset>
-                    <label htmlFor='rg'>Diâmetro do tubo(mm)</label>
+                    <label htmlFor='diameter'>Diâmetro do tubo(mm)</label>
                     <input
-                      id='rg' placeholder='Seu rg'
-                      {...register('rg', {
+                      id='diameter' placeholder='Diâmetro'
+                      {...register('diameter', {
                         required: {
                           value: true,
-                          message: 'Seu RG é obrigatório',
+                          message: 'Diâmetro é obrigatório',
                         },
                       })}
                     />
-                    <span>{errors.rg?.message}</span>
+                    <span>{errors.diameter?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
                 <S.ContentForm>
                   <fieldset>
-                    <label htmlFor='cpf'>Estado geral/condição</label>
+                    <label htmlFor='condition'>Estado geral/condição</label>
                     <input
-                      id='cpf' placeholder='Seu CPF'
-                      {...register('cpf', {
+                      id='condition' placeholder='Sua condição'
+                      {...register('condition', {
                         required: {
                           value: true,
-                          message: 'CPF é obrigatório',
+                          message: 'Condição é obrigatória',
                         },
                       })}
                     />
-                    <span>{errors.cpf?.message}</span>
+                    <span>{errors.condition?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
                 <S.ContentForm>
                   <fieldset>
-                    <label htmlFor='phone'>Diâmetro do Tool Joint(mm)</label>
+                    <label htmlFor='toolJoin'>Diâmetro do Tool Joint(mm)</label>
                     <input
-                      id='phone' placeholder='Seu celular'
-                      {...register('phone', {
+                      id='toolJoin' placeholder='Tool Join'
+                      {...register('toolJoin', {
                         required: {
                           value: true,
-                          message: 'Celular é obrigatório',
+                          message: 'Tool Join é obrigatório',
                         },
                       })}
                     />
-                    <span>{errors.phone?.message}</span>
+                    <span>{errors.toolJoin?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
                 <S.ContentForm>
                   <fieldset>
-                    <label htmlFor='zipCode'>Torque máximo</label>
+                    <label htmlFor='torque'>Torque máximo</label>
                     <input
-                      id='zipCode' placeholder='Seu CEP' type='number'
-                      {...register('zipCode', {
+                      id='torque' placeholder='Torque'
+                      {...register('torque', {
                         required: {
                           value: true,
-                          message: 'CEP é obrigatório',
+                          message: 'Torque é obrigatório',
                         },
                       })}
                     />
-                    <span>{errors.zipCode?.message}</span>
+                    <span>{errors.torque?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
                 <S.ContentForm>
                   <fieldset>
-                    <label htmlFor='state'>Comprimento total(m)</label>
+                    <label htmlFor='length'>Comprimento total(m)</label>
                     <input
-                      id='state' placeholder='Seu estado'
-                      {...register('state', {
+                      id='length' placeholder='Comprimento'
+                      {...register('length', {
                         required: {
                           value: true,
-                          message: 'Estado é obrigatório',
+                          message: 'Comprimento é obrigatório',
                         },
                       })}
                     />
-                    <span>{errors.state?.message}</span>
+                    <span>{errors.length?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
                 <S.ContentForm>
                   <fieldset>
-                    <label htmlFor='city'>Modelo da Rosca</label>
+                    <label htmlFor='screwThread'>Modelo da Rosca</label>
                     <input
-                      id='city' placeholder='Sua cidade'
-                      {...register('city', {
+                      id='screwThread' placeholder='Modelo'
+                      {...register('screwThread', {
                         required: {
                           value: true,
-                          message: 'Cidade é obrigatória',
+                          message: 'Modelo é obrigatório',
                         },
                       })}
                     />
-                    <span>{errors.city?.message}</span>
+                    <span>{errors.screwThread?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
@@ -214,13 +200,6 @@ export function Rods () {
             {/* eslint-disable-next-line */}
             </Modal>
           : null}
-        <S.GridConfirmation>
-          <span>Código </span>
-          <span>Diametro do tubo(mm)</span>
-          <span>Diametro do Tool Joint(mm)</span>
-          <span>Comprimento total(m)</span>
-          <span>Modelo da rosca</span>
-        </S.GridConfirmation>
       </S.ContainerConfirmation>
     </>
   )
