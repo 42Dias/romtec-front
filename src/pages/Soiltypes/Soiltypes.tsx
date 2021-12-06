@@ -68,7 +68,7 @@ export function SoilTypes () {
                       {...register('soilSpecification', {
                         required: {
                           value: true,
-                          message: 'Todos os campos são obrigatório',
+                          message: 'Todos os campos são obrigatórios',
                         },
                       })}
                     />
