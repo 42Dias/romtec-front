@@ -74,7 +74,7 @@ export function Rods () {
                       {...register('code', {
                         required: {
                           value: true,
-                          message: 'Código é obrigatóri0',
+                          message: 'Todos os campos são obrigatórios',
                         },
                       })}
                     />
@@ -94,7 +94,6 @@ export function Rods () {
                         },
                       })}
                     />
-                    <span>{errors.ray?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
@@ -110,7 +109,6 @@ export function Rods () {
                         },
                       })}
                     />
-                    <span>{errors.diameter?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
@@ -126,7 +124,6 @@ export function Rods () {
                         },
                       })}
                     />
-                    <span>{errors.condition?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
@@ -142,7 +139,6 @@ export function Rods () {
                         },
                       })}
                     />
-                    <span>{errors.toolJoin?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
@@ -158,7 +154,6 @@ export function Rods () {
                         },
                       })}
                     />
-                    <span>{errors.torque?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
@@ -174,7 +169,6 @@ export function Rods () {
                         },
                       })}
                     />
-                    <span>{errors.length?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
@@ -190,7 +184,6 @@ export function Rods () {
                         },
                       })}
                     />
-                    <span>{errors.screwThread?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 

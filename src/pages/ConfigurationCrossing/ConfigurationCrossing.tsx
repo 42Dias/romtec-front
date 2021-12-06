@@ -53,7 +53,7 @@ export function ConfigurationCrossing () {
                       {...register('name', {
                         required: {
                           value: true,
-                          message: 'Nome é obrigatório',
+                          message: 'Todos os campos são obrigatórios',
                         },
                       })}
                     />
@@ -73,7 +73,6 @@ export function ConfigurationCrossing () {
                         },
                       })}
                     />
-                    <span>{errors.description?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 

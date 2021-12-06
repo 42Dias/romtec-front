@@ -53,7 +53,7 @@ export function Topography () {
                       {...register('responsibleTopography', {
                         required: {
                           value: true,
-                          message: 'Responsável é obrigatório',
+                          message: 'Todos os campos são obrigatórios',
                         },
                       })}
                     />
@@ -73,7 +73,6 @@ export function Topography () {
                         },
                       })}
                     />
-                    <span>{errors.executionDate?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 

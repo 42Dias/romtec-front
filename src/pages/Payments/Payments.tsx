@@ -61,7 +61,7 @@ export function Payments () {
                       {...register('year', {
                         required: {
                           value: true,
-                          message: 'Ano é obrigatório',
+                          message: 'Todos os campos são obrigatórios',
                         },
                       })}
                     />
@@ -81,7 +81,6 @@ export function Payments () {
                         },
                       })}
                     />
-                    <span>{errors.month?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
@@ -97,7 +96,6 @@ export function Payments () {
                         },
                       })}
                     />
-                    <span>{errors.payday?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
@@ -113,7 +111,6 @@ export function Payments () {
                         },
                       })}
                     />
-                    <span>{errors.amountPaid?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 

@@ -57,7 +57,7 @@ export function Plans () {
                       {...register('name', {
                         required: {
                           value: true,
-                          message: 'Nome é obrigatório',
+                          message: 'Todos os campos são obirgatórios',
                         },
                       })}
                     />
@@ -77,7 +77,6 @@ export function Plans () {
                         },
                       })}
                     />
-                    <span>{errors.value?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
@@ -93,7 +92,6 @@ export function Plans () {
                         },
                       })}
                     />
-                    <span>{errors.timeCourse?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
