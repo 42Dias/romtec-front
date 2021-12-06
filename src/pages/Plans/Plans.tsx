@@ -1,4 +1,4 @@
-import * as S from './Topography.styled'
+import * as S from './Plans.styled'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
@@ -8,22 +8,25 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 type FormData = {
-  responsibleTopography: string;
-  executionDate: Date;
+  name: string,
+  value: string,
+  timeCourse: string,
 }
 
-export function Topography () {
+export function Plans () {
   const [isOpen, setIsOpen] = useState(false)
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit ({
-    responsibleTopography,
-    executionDate,
+    name,
+    value,
+    timeCourse,
   }: FormData) {
     const submit = {
-      responsibleTopography,
-      executionDate,
+      name,
+      value,
+      timeCourse,
     }
     reset()
 
@@ -35,11 +38,12 @@ export function Topography () {
       <Sidebar />
       <Navbar />
       <S.ContainerConfirmation>
-        <h2>Topografia</h2>
+        <h2>Planos</h2>
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
         <S.GridConfirmation>
-          <span>Responsável pela Topografia</span>
-          <span>Data da execução da Topografia</span>
+          <span>Nome</span>
+          <span>Valor</span>
+          <span>Periodo</span>
         </S.GridConfirmation>
         {isOpen
           ? <Modal onClose={() => setIsOpen(false)}>
@@ -47,29 +51,44 @@ export function Topography () {
               <S.Form onSubmit={handleSubmit(onSubmit)}>
                 <S.ContentForm>
                   <fieldset>
-                    <label htmlFor='responsibleTopography'>Responsável pela topografia</label>
+                    <label htmlFor='name'>Nome</label>
                     <input
-                      id='responsibleTopography' placeholder='Responsável'
-                      {...register('responsibleTopography', {
+                      id='name' placeholder='Nome do plano'
+                      {...register('name', {
                         required: {
                           value: true,
-                          message: 'Todos os campos são obrigatórios',
+                          message: 'Todos os campos são obirgatórios',
                         },
                       })}
                     />
-                    <span>{errors.responsibleTopography?.message}</span>
+                    <span>{errors.name?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
                 <S.ContentForm>
                   <fieldset>
-                    <label htmlFor='executionDate'>Data da execução da Topografia</label>
+                    <label htmlFor='value'>Valor</label>
                     <input
-                      id='executionDate' placeholder='Data de execução'
-                      {...register('executionDate', {
+                      id='value' placeholder='Valor do plano'
+                      {...register('value', {
                         required: {
                           value: true,
-                          message: 'Data é obrigatória',
+                          message: 'Valor é obrigatório',
+                        },
+                      })}
+                    />
+                  </fieldset>
+                </S.ContentForm>
+
+                <S.ContentForm>
+                  <fieldset>
+                    <label htmlFor='timeCourse'>Periodo</label>
+                    <input
+                      id='timeCourse' placeholder='Mensal, Semestral, Anual...'
+                      {...register('timeCourse', {
+                        required: {
+                          value: true,
+                          message: 'Periodo é obrigatório',
                         },
                       })}
                     />

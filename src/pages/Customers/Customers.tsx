@@ -1,4 +1,4 @@
-import * as S from './Labor.styled'
+import * as S from './Customers.styled'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
@@ -8,61 +8,46 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 type FormData = {
-  identification: string;
-  name: string;
-  rg: string;
-  cpf: string;
-  phone: string;
+  cnpj: string;
+  corporateName: string;
+  fantasyName: string;
   zipCode: string;
-  state: string;
+  uf: string;
   city: string;
   district: string;
   publicPlace: string;
   number: string;
   complement: string;
-  occupation: string;
-  experience: string;
-  certificateValidity: Date;
 }
 
-export function Labor () {
+export function Customers () {
   const [isOpen, setIsOpen] = useState(false)
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit ({
-    identification,
-    name,
-    rg,
-    cpf,
-    phone,
+    cnpj,
+    corporateName,
+    fantasyName,
     zipCode,
-    state,
+    uf,
     city,
     district,
     publicPlace,
     number,
     complement,
-    occupation,
-    experience,
-    certificateValidity,
   }: FormData) {
     const submit = {
-      identification,
-      name,
-      rg,
-      cpf,
-      phone,
+      cnpj,
+      corporateName,
+      fantasyName,
       zipCode,
-      state,
+      uf,
       city,
       district,
       publicPlace,
       number,
       complement,
-      occupation,
-      experience,
-      certificateValidity,
     }
     reset()
 
@@ -74,16 +59,19 @@ export function Labor () {
       <Sidebar />
       <Navbar />
       <S.ContainerConfirmation>
-        <h2>Mão de obra</h2>
+        <h2>Clientes</h2>
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
         <S.GridConfirmation>
-          <span>N° de identificação</span>
-          <span>Nome</span>
-          <span>Estado</span>
+          <span>CNPJ</span>
+          <span>Razão Social</span>
+          <span>Nome Fantasia</span>
+          <span>CEP</span>
+          <span>UF</span>
           <span>Cidade</span>
-          <span>Função</span>
-          <span>Experiência</span>
-          <span>Validade do certificado</span>
+          <span>Bairro</span>
+          <span>Logradouro</span>
+          <span>Número</span>
+          <span>Complemento</span>
         </S.GridConfirmation>
         {isOpen
           ? <Modal onClose={() => setIsOpen(false)}>
@@ -91,29 +79,29 @@ export function Labor () {
               <S.Form onSubmit={handleSubmit(onSubmit)}>
                 <S.ContentForm>
                   <fieldset>
-                    <label htmlFor='identification'>Identificação</label>
+                    <label htmlFor='cnpj'>CNPJ</label>
                     <input
-                      id='identification' placeholder='Sua identificação'
-                      {...register('identification', {
+                      id='cnpj' placeholder='Seu CNPJ'
+                      {...register('cnpj', {
                         required: {
                           value: true,
                           message: 'Todos os campos são obrigatórios',
                         },
                       })}
                     />
-                    <span>{errors.identification?.message}</span>
+                    <span>{errors.cnpj?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
                 <S.ContentForm>
                   <fieldset>
-                    <label htmlFor='name'>Nome</label>
+                    <label htmlFor='corporateName'>Razão Social</label>
                     <input
-                      id='name' placeholder='Seu nome'
-                      {...register('name', {
+                      id='corporateName' placeholder='Sua razão social'
+                      {...register('corporateName', {
                         required: {
                           value: true,
-                          message: 'Nome é obrigatório',
+                          message: 'Razão Social é obrigatória',
                         },
                       })}
                     />
@@ -122,43 +110,13 @@ export function Labor () {
 
                 <S.ContentForm>
                   <fieldset>
-                    <label htmlFor='rg'>Registro Geral(RG)</label>
+                    <label htmlFor='fantasyName'>Nome Fantasia</label>
                     <input
-                      id='rg' placeholder='Seu rg'
-                      {...register('rg', {
+                      id='fantasyName' placeholder='Seu nome fantasia'
+                      {...register('fantasyName', {
                         required: {
                           value: true,
-                          message: 'Seu RG é obrigatório',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
-
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='cpf'>Cadastro de Pessoa Física(CPF)</label>
-                    <input
-                      id='cpf' placeholder='Seu CPF'
-                      {...register('cpf', {
-                        required: {
-                          value: true,
-                          message: 'CPF é obrigatório',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
-
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='phone'>Celular</label>
-                    <input
-                      id='phone' placeholder='Seu celular'
-                      {...register('phone', {
-                        required: {
-                          value: true,
-                          message: 'Celular é obrigatório',
+                          message: 'Nome fanstasia é obrigatório',
                         },
                       })}
                     />
@@ -169,7 +127,7 @@ export function Labor () {
                   <fieldset>
                     <label htmlFor='zipCode'>Código de Endereçamento Postal(CEP)</label>
                     <input
-                      id='zipCode' placeholder='Seu CEP' type='number'
+                      id='zipCode' placeholder='Seu CEP'
                       {...register('zipCode', {
                         required: {
                           value: true,
@@ -182,13 +140,13 @@ export function Labor () {
 
                 <S.ContentForm>
                   <fieldset>
-                    <label htmlFor='state'>Estado</label>
+                    <label htmlFor='uf'>Unidade Federativa(UF)</label>
                     <input
-                      id='state' placeholder='Seu estado'
-                      {...register('state', {
+                      id='uf' placeholder='Sua UF'
+                      {...register('uf', {
                         required: {
                           value: true,
-                          message: 'Estado é obrigatório',
+                          message: 'UF é obrigatória',
                         },
                       })}
                     />
@@ -230,7 +188,12 @@ export function Labor () {
                     <label htmlFor='publicPlace'>Logradouro</label>
                     <input
                       id='publicPlace' placeholder='Seu logradouro'
-                      {...register('publicPlace')}
+                      {...register('publicPlace', {
+                        required: {
+                          value: true,
+                          message: 'Logradouro é obrigatório',
+                        },
+                      })}
                     />
                   </fieldset>
                 </S.ContentForm>
@@ -250,53 +213,20 @@ export function Labor () {
                   </fieldset>
                 </S.ContentForm>
 
-                <fieldset>
-                  <label htmlFor='complement'>Complemento</label>
-                  <input
-                    id='complement' placeholder='Seu complemento' type='number'
-                    {...register('complement')}
-                  />
-                </fieldset>
-
-                <fieldset>
-                  <label htmlFor='occupation'>Função</label>
-                  <input
-                    id='occupation' placeholder='Sua função'
-                    {...register('occupation', {
-                      required: {
-                        value: true,
-                        message: 'Função é obrigatória',
-                      },
-                    })}
-                  />
-                </fieldset>
-
-                <fieldset>
-                  <label htmlFor='experience'>Experiência</label>
-                  <input
-                    id='experience' placeholder='Sua experiência'
-                    {...register('experience', {
-                      required: {
-                        value: true,
-                        message: 'Experiência é obrigatória',
-                      },
-                    })}
-                  />
-                </fieldset>
-
-                <fieldset>
-                  <label htmlFor='certificateValidity'>Validade do certificado</label>
-                  <input
-                    id='certificateValidity' placeholder='Validade do certificado'
-                    type='date'
-                    {...register('certificateValidity', {
-                      required: {
-                        value: true,
-                        message: 'Validade do seu certificado é obrigatória',
-                      },
-                    })}
-                  />
-                </fieldset>
+                <S.ContentForm>
+                  <fieldset>
+                    <label htmlFor='complement'>Complemento</label>
+                    <input
+                      id='complement' placeholder='Seu complemento'
+                      {...register('complement', {
+                        required: {
+                          value: true,
+                          message: 'Complemento é obrigatório',
+                        },
+                      })}
+                    />
+                  </fieldset>
+                </S.ContentForm>
 
                 <button type='submit'>Salvar</button>
               </S.Form>

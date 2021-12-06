@@ -68,7 +68,7 @@ export function SoilTypes () {
                       {...register('soilSpecification', {
                         required: {
                           value: true,
-                          message: 'Solo é obrigatório',
+                          message: 'Todos os campos são obrigatórios',
                         },
                       })}
                     />
@@ -88,7 +88,6 @@ export function SoilTypes () {
                         },
                       })}
                     />
-                    <span>{errors.dryResistance?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
@@ -104,7 +103,6 @@ export function SoilTypes () {
                         },
                       })}
                     />
-                    <span>{errors.description?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
@@ -120,7 +118,6 @@ export function SoilTypes () {
                         },
                       })}
                     />
-                    <span>{errors.reactionDilation?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
@@ -136,7 +133,6 @@ export function SoilTypes () {
                         },
                       })}
                     />
-                    <span>{errors.plasticHardness?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
@@ -152,7 +148,6 @@ export function SoilTypes () {
                         },
                       })}
                     />
-                    <span>{errors.plasticityIndex?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
