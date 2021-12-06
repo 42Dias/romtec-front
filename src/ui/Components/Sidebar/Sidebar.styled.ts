@@ -29,6 +29,7 @@ export const Navbar = styled.div`
     border-radius: 0 5px 5px 0;
     background: ${theme.colors.yellow};
     color: white;
+    margin: 35px 0 0 0;
   }
 
   input {
