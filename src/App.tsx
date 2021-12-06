@@ -17,6 +17,7 @@ import {
   Customers,
   DrillingFluid,
   Companies,
+  Tools,
 } from './pages'
 
 import { GlobalStyle } from './ui'
@@ -36,6 +37,7 @@ import {
   CUSTOMERS,
   DRILLINGFLUID,
   COMPANIES,
+  TOOLS,
 } from './routes'
 
 export function App () {
@@ -57,6 +59,7 @@ export function App () {
         <Route path={CUSTOMERS} element={<Customers />} />
         <Route path={DRILLINGFLUID} element={<DrillingFluid />} />
         <Route path={COMPANIES} element={<Companies />} />
+        <Route path={TOOLS} element={<Tools />} />
         <Route path='*' element={<Error />} />
       </Routes>
       <GlobalStyle />
