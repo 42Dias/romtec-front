@@ -119,7 +119,7 @@ export function Crossings () {
                       {...register('company', {
                         required: {
                           value: true,
-                          message: 'Comapnhia é obrigatória',
+                          message: 'Companhia é obrigatória',
                         },
                       })}
                     />
