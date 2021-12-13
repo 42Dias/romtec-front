@@ -23,6 +23,7 @@ import {
   Crossings,
   InterferenceMapping,
   DrillingPlanning,
+  InterferenceVerification,
 } from './pages'
 
 import { GlobalStyle } from './ui'
@@ -48,6 +49,7 @@ import {
   CROSSINGS,
   INTERFERENCEMAPPING,
   DRILLINGPLANNING,
+  INTERFERENCEVERIFICATION,
 } from './routes'
 
 export function App () {
@@ -75,6 +77,7 @@ export function App () {
         <Route path={CROSSINGS} element={<Crossings />} />
         <Route path={INTERFERENCEMAPPING} element={<InterferenceMapping />} />
         <Route path={DRILLINGPLANNING} element={<DrillingPlanning />} />
+        <Route path={INTERFERENCEVERIFICATION} element={<InterferenceVerification />} />
         <Route path='*' element={<Error />} />
       </Routes>
       <GlobalStyle />

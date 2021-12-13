@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 import { theme } from '../../styles/theme'
 
 export const Modal = styled.div`
-  width: 100%;
+ width: 100%;
   height: 200vh;
   position: absolute;
   top: 0;
@@ -18,7 +18,7 @@ export const Container = styled.div`
   background: ${theme.colors.darkBlack};
   width: 70%;
   color: ${theme.colors.white};
-  height: 100%;
+  min-height: 40%;
   padding: 10px;
   border-radius: 5px;
 
