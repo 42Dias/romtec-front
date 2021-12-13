@@ -21,6 +21,8 @@ import {
   DrillingMachine,
   Reports,
   Crossings,
+  InterferenceMapping,
+  DrillingPlanning,
 } from './pages'
 
 import { GlobalStyle } from './ui'
@@ -44,6 +46,8 @@ import {
   MACHINE,
   REPORTS,
   CROSSINGS,
+  INTERFERENCEMAPPING,
+  DRILLINGPLANNING,
 } from './routes'
 
 export function App () {
@@ -69,6 +73,8 @@ export function App () {
         <Route path={MACHINE} element={<DrillingMachine />} />
         <Route path={REPORTS} element={<Reports />} />
         <Route path={CROSSINGS} element={<Crossings />} />
+        <Route path={INTERFERENCEMAPPING} element={<InterferenceMapping />} />
+        <Route path={DRILLINGPLANNING} element={<DrillingPlanning />} />
         <Route path='*' element={<Error />} />
       </Routes>
       <GlobalStyle />

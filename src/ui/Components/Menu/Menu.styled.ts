@@ -3,7 +3,7 @@ import { theme } from '../../../ui'
 
 export const Aside = styled.aside`
 width: 300px;
-height: 100vh;
+height: 100%;
 position: absolute;
 top: 0;
 left: 0;
