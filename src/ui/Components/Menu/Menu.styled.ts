@@ -3,8 +3,8 @@ import { theme } from '../../../ui'
 
 export const Aside = styled.aside`
 width: 300px;
-height: 100%;
-position: absolute;
+bottom: 0;
+position: fixed;
 top: 0;
 left: 0;
 background: ${theme.colors.darkBlack};
