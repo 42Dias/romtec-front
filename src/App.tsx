@@ -26,6 +26,7 @@ import {
   InterferenceVerification,
   FluidPreparation,
   DitchOpening,
+  PilotHoleTargeting,
 } from './pages'
 
 import { GlobalStyle } from './ui'
@@ -54,6 +55,7 @@ import {
   INTERFERENCEVERIFICATION,
   FLUIDPREPARATION,
   DITCHOPENING,
+  PILOTHOLETARGETING,
 } from './routes'
 
 export function App () {
@@ -84,6 +86,7 @@ export function App () {
         <Route path={INTERFERENCEVERIFICATION} element={<InterferenceVerification />} />
         <Route path={FLUIDPREPARATION} element={<FluidPreparation />} />
         <Route path={DITCHOPENING} element={<DitchOpening />} />
+        <Route path={PILOTHOLETARGETING} element={<PilotHoleTargeting />} />
         <Route path='*' element={<Error />} />
       </Routes>
       <GlobalStyle />
