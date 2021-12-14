@@ -6,12 +6,16 @@ import * as S from './Navbar.styled'
 export default function Navbar () {
   return (
     <S.Nav>
-      <input type='text' placeholder='Pesquisar' />
-      <button>
-        <FiIcons.FiSearch size={15} />
-      </button>
-      <h3>Olá, pessoa!</h3>
-      <Link to='/'><FiIcons.FiLogIn style={{ color: `${theme.colors.red}` }} /></Link>
+      <div>
+        <input type='text' placeholder='Pesquisar' />
+        <button>
+          <FiIcons.FiSearch size={15} />
+        </button>
+      </div>
+      <S.ContentNav>
+        <h4>Olá, pessoa!</h4>
+        <Link to='/'><FiIcons.FiLogIn style={{ color: `${theme.colors.red}` }} /></Link>
+      </S.ContentNav>
     </S.Nav>
   )
 }

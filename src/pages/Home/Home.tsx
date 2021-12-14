@@ -11,37 +11,71 @@ export function Home () {
       <Navbar />
       <S.Container>
         <S.Content>
-          <span>Bem vindo</span>
-          <h2>Veja o passo-a-passo para utilizar nosso sistema da melhor forma</h2>
-          <p>Com esse guia rápido você entenderá como nosso sistema funciona</p>
+          <div>
+            <span>Bem vindo</span>
+            <h2>Veja o passo-a-passo para utilizar nosso sistema da melhor forma</h2>
+            <p>Com esse guia rápido você entenderá como nosso sistema funciona</p>
+          </div>
           <img src={image} alt='' />
         </S.Content>
 
-        <S.ContainerSteps>
-          <S.ContentSteps>
-            <FiSettings size={20} />
-            <h4>Morbi vitae lorem nisl.</h4>
-            <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
-          </S.ContentSteps>
+        <S.Steps>
+          <h2>Etapas</h2>
+          <S.ContainerSteps>
+            <S.ContentSteps>
+              <FiSettings size={20} />
+              <h4>Morbi vitae lorem nisl.</h4>
+              <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
+            </S.ContentSteps>
 
-          <S.ContentSteps>
-            <FiSettings size={20} />
-            <h4>Morbi vitae lorem nisl.</h4>
-            <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
-          </S.ContentSteps>
+            <S.ContentSteps>
+              <FiSettings size={20} />
+              <h4>Morbi vitae lorem nisl.</h4>
+              <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
+            </S.ContentSteps>
 
-          <S.ContentSteps>
-            <FiSettings size={20} />
-            <h4>Morbi vitae lorem nisl.</h4>
-            <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
-          </S.ContentSteps>
+            <S.ContentSteps>
+              <FiSettings size={20} />
+              <h4>Morbi vitae lorem nisl.</h4>
+              <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
+            </S.ContentSteps>
 
-          <S.ContentSteps>
-            <FiSettings size={20} />
-            <h4>Morbi vitae lorem nisl.</h4>
-            <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
-          </S.ContentSteps>
-        </S.ContainerSteps>
+            <S.ContentSteps>
+              <FiSettings size={20} />
+              <h4>Morbi vitae lorem nisl.</h4>
+              <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
+            </S.ContentSteps>
+          </S.ContainerSteps>
+        </S.Steps>
+
+        <S.Steps>
+          <h2>Últimas Atualizações</h2>
+          <S.ContainerSteps>
+            <S.ContentSteps>
+              <FiSettings size={20} />
+              <h4>Morbi vitae lorem nisl.</h4>
+              <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
+            </S.ContentSteps>
+
+            <S.ContentSteps>
+              <FiSettings size={20} />
+              <h4>Morbi vitae lorem nisl.</h4>
+              <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
+            </S.ContentSteps>
+
+            <S.ContentSteps>
+              <FiSettings size={20} />
+              <h4>Morbi vitae lorem nisl.</h4>
+              <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
+            </S.ContentSteps>
+
+            <S.ContentSteps>
+              <FiSettings size={20} />
+              <h4>Morbi vitae lorem nisl.</h4>
+              <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
+            </S.ContentSteps>
+          </S.ContainerSteps>
+        </S.Steps>
       </S.Container>
     </>
   )

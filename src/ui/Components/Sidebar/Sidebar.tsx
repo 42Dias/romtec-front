@@ -8,16 +8,16 @@ export default function Sidebar () {
 
   return (
     <>
-      <>
-        <S.Navbar>
-          <S.ShowSidebar>
-            <button onClick={() => setIsOpen(true)}>
-              <FaIcons.FaBars />
-            </button>
-            {isOpen ? <Menu onClose={() => setIsOpen(false)} /> : null}
-          </S.ShowSidebar>
-        </S.Navbar>
-      </>
+      <S.Navbar>
+        <S.ShowSidebar>
+          <button
+            onClick={() => setIsOpen(true)}
+          >
+            <FaIcons.FaBars />
+          </button>
+          {isOpen ? <Menu onClose={() => setIsOpen(false)} /> : null}
+        </S.ShowSidebar>
+      </S.Navbar>
     </>
   )
 }
