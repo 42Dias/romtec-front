@@ -14,15 +14,11 @@ type FormData = {
   cpf: string;
   phone: string;
   zipCode: string;
-  state: string;
   city: string;
-  district: string;
-  publicPlace: string;
-  number: string;
-  complement: string;
   occupation: string;
-  experience: string;
   certificateValidity: Date;
+  certificateNumber: string;
+  certificate: string;
 }
 
 export function Labor () {
@@ -37,15 +33,11 @@ export function Labor () {
     cpf,
     phone,
     zipCode,
-    state,
     city,
-    district,
-    publicPlace,
-    number,
-    complement,
     occupation,
-    experience,
     certificateValidity,
+    certificateNumber,
+    certificate,
   }: FormData) {
     const submit = {
       identification,
@@ -54,15 +46,11 @@ export function Labor () {
       cpf,
       phone,
       zipCode,
-      state,
       city,
-      district,
-      publicPlace,
-      number,
-      complement,
       occupation,
-      experience,
       certificateValidity,
+      certificateNumber,
+      certificate,
     }
     reset()
 
@@ -82,7 +70,7 @@ export function Labor () {
           <span>Estado</span>
           <span>Cidade</span>
           <span>Função</span>
-          <span>Experiência</span>
+          <span>Celular</span>
           <span>Validade do certificado</span>
         </S.GridConfirmation>
         {isOpen
@@ -139,7 +127,7 @@ export function Labor () {
                   <fieldset>
                     <label htmlFor='cpf'>Cadastro de Pessoa Física(CPF)</label>
                     <input
-                      id='cpf' placeholder='Seu CPF'
+                      id='cpf' placeholder='Seu CPF' type='number'
                       {...register('cpf', {
                         required: {
                           value: true,
@@ -182,21 +170,6 @@ export function Labor () {
 
                 <S.ContentForm>
                   <fieldset>
-                    <label htmlFor='state'>Estado</label>
-                    <input
-                      id='state' placeholder='Seu estado'
-                      {...register('state', {
-                        required: {
-                          value: true,
-                          message: 'Estado é obrigatório',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
-
-                <S.ContentForm>
-                  <fieldset>
                     <label htmlFor='city'>Cidade</label>
                     <input
                       id='city' placeholder='Sua cidade'
@@ -210,54 +183,6 @@ export function Labor () {
                   </fieldset>
                 </S.ContentForm>
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='district'>Bairro</label>
-                    <input
-                      id='district' placeholder='Seu bairro'
-                      {...register('district', {
-                        required: {
-                          value: true,
-                          message: 'Bairro é obrigatório',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
-
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='publicPlace'>Logradouro</label>
-                    <input
-                      id='publicPlace' placeholder='Seu logradouro'
-                      {...register('publicPlace')}
-                    />
-                  </fieldset>
-                </S.ContentForm>
-
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='number'>Número</label>
-                    <input
-                      id='number' placeholder='Seu número'
-                      {...register('number', {
-                        required: {
-                          value: true,
-                          message: 'Número é obrigatório',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
-
-                <fieldset>
-                  <label htmlFor='complement'>Complemento</label>
-                  <input
-                    id='complement' placeholder='Seu complemento' type='number'
-                    {...register('complement')}
-                  />
-                </fieldset>
-
                 <fieldset>
                   <label htmlFor='occupation'>Função</label>
                   <input
@@ -266,19 +191,6 @@ export function Labor () {
                       required: {
                         value: true,
                         message: 'Função é obrigatória',
-                      },
-                    })}
-                  />
-                </fieldset>
-
-                <fieldset>
-                  <label htmlFor='experience'>Experiência</label>
-                  <input
-                    id='experience' placeholder='Sua experiência'
-                    {...register('experience', {
-                      required: {
-                        value: true,
-                        message: 'Experiência é obrigatória',
                       },
                     })}
                   />
@@ -296,6 +208,30 @@ export function Labor () {
                       },
                     })}
                   />
+                </fieldset>
+
+                <fieldset>
+                  <label htmlFor='certificateNumber'>Número do certificado</label>
+                  <input
+                    id='certificateNumber' placeholder='Número do certificado'
+                    type='number'
+                    {...register('certificateNumber', {
+                      required: {
+                        value: true,
+                        message: 'Número do seu certificado é obrigatório',
+                      },
+                    })}
+                  />
+                </fieldset>
+
+                <fieldset>
+                  <label htmlFor='certificate'>Certificado</label>
+                  <select id='certificate' {...register('certificate')}>
+                    <option value=''>Select...</option>
+                    <option value='Navegador'>Navegador</option>
+                    <option value='Operador'>Operador</option>
+                    <option value='Outro'>Outro</option>
+                  </select>
                 </fieldset>
 
                 <button type='submit'>Salvar</button>
