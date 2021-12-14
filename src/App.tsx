@@ -24,6 +24,7 @@ import {
   InterferenceMapping,
   DrillingPlanning,
   InterferenceVerification,
+  FluidPreparation,
 } from './pages'
 
 import { GlobalStyle } from './ui'
@@ -50,6 +51,7 @@ import {
   INTERFERENCEMAPPING,
   DRILLINGPLANNING,
   INTERFERENCEVERIFICATION,
+  FLUIDPREPARATION,
 } from './routes'
 
 export function App () {
@@ -78,6 +80,7 @@ export function App () {
         <Route path={INTERFERENCEMAPPING} element={<InterferenceMapping />} />
         <Route path={DRILLINGPLANNING} element={<DrillingPlanning />} />
         <Route path={INTERFERENCEVERIFICATION} element={<InterferenceVerification />} />
+        <Route path={FLUIDPREPARATION} element={<FluidPreparation />} />
         <Route path='*' element={<Error />} />
       </Routes>
       <GlobalStyle />
