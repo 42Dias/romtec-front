@@ -27,6 +27,7 @@ import {
   FluidPreparation,
   DitchOpening,
   PilotHoleTargeting,
+  DitchClosing,
 } from './pages'
 
 import { GlobalStyle } from './ui'
@@ -56,6 +57,7 @@ import {
   FLUIDPREPARATION,
   DITCHOPENING,
   PILOTHOLETARGETING,
+  DITCHCLOSING,
 } from './routes'
 
 export function App () {
@@ -87,6 +89,7 @@ export function App () {
         <Route path={FLUIDPREPARATION} element={<FluidPreparation />} />
         <Route path={DITCHOPENING} element={<DitchOpening />} />
         <Route path={PILOTHOLETARGETING} element={<PilotHoleTargeting />} />
+        <Route path={DITCHCLOSING} element={<DitchClosing />} />
         <Route path='*' element={<Error />} />
       </Routes>
       <GlobalStyle />
