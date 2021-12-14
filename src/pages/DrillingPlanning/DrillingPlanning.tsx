@@ -1,10 +1,7 @@
 import * as S from './DrillingPlanning.styled'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
-import Modal from '../../ui/Components/Modal/Modal'
 
-import { FiPlus } from 'react-icons/fi'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 type FormData = {
@@ -18,8 +15,6 @@ type FormData = {
 }
 
 export function DrillingPlanning () {
-  const [isOpen, setIsOpen] = useState(false)
-
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit ({

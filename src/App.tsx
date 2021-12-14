@@ -28,6 +28,7 @@ import {
   DitchOpening,
   PilotHoleTargeting,
   DitchClosing,
+  Interferences,
 } from './pages'
 
 import { GlobalStyle } from './ui'
@@ -58,6 +59,7 @@ import {
   DITCHOPENING,
   PILOTHOLETARGETING,
   DITCHCLOSING,
+  INTERFERENCES,
 } from './routes'
 
 export function App () {
@@ -90,6 +92,7 @@ export function App () {
         <Route path={DITCHOPENING} element={<DitchOpening />} />
         <Route path={PILOTHOLETARGETING} element={<PilotHoleTargeting />} />
         <Route path={DITCHCLOSING} element={<DitchClosing />} />
+        <Route path={INTERFERENCES} element={<Interferences />} />
         <Route path='*' element={<Error />} />
       </Routes>
       <GlobalStyle />
