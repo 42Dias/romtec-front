@@ -8,7 +8,6 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 type FormData = {
-  machineCode: string;
   manufacturer: string;
   drillingMachineName: string;
   hourmeter: string;
@@ -38,7 +37,6 @@ export function DrillingMachine () {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit ({
-    machineCode,
     manufacturer,
     drillingMachineName,
     hourmeter,
@@ -62,7 +60,6 @@ export function DrillingMachine () {
     maximumExtension,
   }: FormData) {
     const submit = {
-      machineCode,
       manufacturer,
       drillingMachineName,
       hourmeter,
@@ -110,32 +107,17 @@ export function DrillingMachine () {
               <S.Form onSubmit={handleSubmit(onSubmit)}>
                 <S.ContentForm>
                   <fieldset>
-                    <label htmlFor='machineCode'>Código da maquina</label>
-                    <input
-                      id='machineCode' placeholder='Insira o código da máquina'
-                      {...register('machineCode', {
-                        required: {
-                          value: true,
-                          message: 'Todos os campos são obrigatórios',
-                        },
-                      })}
-                    />
-                    <span>{errors.machineCode?.message}</span>
-                  </fieldset>
-                </S.ContentForm>
-
-                <S.ContentForm>
-                  <fieldset>
                     <label htmlFor='manufacturer'>Fabricante</label>
                     <input
                       id='manufacturer' placeholder='Nome do fabricante'
                       {...register('manufacturer', {
                         required: {
                           value: true,
-                          message: 'Fabricante é obrigatório',
+                          message: 'Todos os campos são obrigatórios',
                         },
                       })}
                     />
+                    <span>{errors.manufacturer?.message}</span>
                   </fieldset>
                 </S.ContentForm>
 
@@ -217,15 +199,12 @@ export function DrillingMachine () {
                 <S.ContentForm>
                   <fieldset>
                     <label htmlFor='revisionSubtypes'>Subtipos de revisão</label>
-                    <input
-                      id='revisionSubtypes' placeholder='Subtipos'
-                      {...register('revisionSubtypes', {
-                        required: {
-                          value: true,
-                          message: 'Subtipos é obrigatório',
-                        },
-                      })}
-                    />
+                    <select id='revisionSubtypes' {...register('revisionSubtypes')}>
+                      <option value=''>Select...</option>
+                      <option value='Navegador'>Preventiva</option>
+                      <option value='Operador'>Preditiva</option>
+                      <option value='Outro'>Corretiva</option>
+                    </select>
                   </fieldset>
                 </S.ContentForm>
 
