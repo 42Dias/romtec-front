@@ -1,9 +1,8 @@
 import * as S from './DrillingPlanning.styled'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
+
 import { useForm } from 'react-hook-form'
-import { FiPlus } from 'react-icons/fi'
-import { Link } from 'react-router-dom'
 
 type FormData = {
   latEntryCheckpoint: string;
@@ -158,19 +157,6 @@ export function DrillingPlanning () {
             <button type='submit'>Salvar</button>
           </S.Form>
         </S.Container>
-
-        <h2>Interferências</h2>
-        <Link to='/mapeamento-interferencias'><FiPlus /></Link>
-
-        <S.GridConfirmation>
-          <span>Nome</span>
-          <span>Travessia</span>
-          <span>Trabalhadores</span>
-          <span>Companhia</span>
-          <span>Fluido de perfuração</span>
-          <span>Haste</span>
-          <span>Máquina perfuratriz</span>
-        </S.GridConfirmation>
       </S.ContainerConfirmation>
     </>
   )
