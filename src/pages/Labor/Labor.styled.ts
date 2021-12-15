@@ -11,6 +11,7 @@ export const ContainerConfirmation = styled.div`
     font-size: 24px;
     padding: 20px 0;
   }
+
   button {
     width: 54px;
     height: 44px;
@@ -53,7 +54,7 @@ export const Form = styled.form`
   justify-items: center;
   align-items: center;
 
-  input {
+  select, input {
     width: 345px;
     height: 48px;
     box-sizing: border-box;
@@ -62,7 +63,7 @@ export const Form = styled.form`
     padding: 0 7px;
     border: 1px solid ${theme.colors.black};
     background: ${theme.colors.darkBlack};
-    color: ${theme.colors.white};
+    color: ${theme.colors.yellow};
 
     :focus {
       border: 1px solid ${theme.colors.yellow};

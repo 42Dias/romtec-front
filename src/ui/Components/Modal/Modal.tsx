@@ -3,11 +3,14 @@ import { ReactNode } from 'react'
 import { FiX } from 'react-icons/fi'
 
 type Props = {
+  isOpen?: boolean;
   children?: ReactNode
   onClose: () => void
 }
 
-const Modal = ({ onClose, children }: Props) => {
+const Modal = ({ onClose, children, isOpen = false }: Props) => {
+  if (!isOpen) { return null }
+
   return (
     <S.Modal>
       <S.Container>

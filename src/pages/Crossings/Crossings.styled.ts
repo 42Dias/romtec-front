@@ -53,23 +53,6 @@ export const Form = styled.form`
   justify-items: center;
   align-items: center;
 
-  input {
-    width: 345px;
-    height: 48px;
-    box-sizing: border-box;
-    border-radius: 4px;
-    margin: 10px 0;
-    padding: 0 7px;
-    border: 1px solid ${theme.colors.black};
-    background: ${theme.colors.darkBlack};
-    color: ${theme.colors.white};
-
-    :focus {
-      border: 1px solid ${theme.colors.yellow};
-      background: transparent;
-    }
-  }
-
   button {
     width: 101px;
     height: 44px;
@@ -84,30 +67,9 @@ export const Form = styled.form`
       opacity: 80%;
     }
   }
-
-  span {
-    color: ${theme.colors.red};
-    font-size: 10px;
-    margin: 0 0 0 15px;
-  }
-
-  fieldset {
-    border: 0;
-    margin: 5px 1px 5px 14px;
-  }
 `
 
 export const Container = styled.aside`
   max-width: 780px;
   margin: 0 auto;
-`
-
-export const ContentForm = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  label {
-    font-size: 14px;
-    color: ${theme.colors.white};
-  }
 `

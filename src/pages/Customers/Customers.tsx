@@ -6,6 +6,7 @@ import Modal from '../../ui/Components/Modal/Modal'
 import { FiPlus } from 'react-icons/fi'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { TextField } from '../../ui/Components/TextField'
 
 type FormData = {
   cnpj: string;
@@ -25,33 +26,10 @@ export function Customers () {
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit ({
-    cnpj,
-    corporateName,
-    fantasyName,
-    zipCode,
-    uf,
-    city,
-    district,
-    publicPlace,
-    number,
-    complement,
-  }: FormData) {
-    const submit = {
-      cnpj,
-      corporateName,
-      fantasyName,
-      zipCode,
-      uf,
-      city,
-      district,
-      publicPlace,
-      number,
-      complement,
-    }
-    reset()
+  function onSubmit (data: FormData) {
+    console.log(data)
 
-    console.log(submit)
+    reset()
   }
 
   return (
@@ -61,6 +39,7 @@ export function Customers () {
       <S.ContainerConfirmation>
         <h2>Clientes</h2>
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
+
         <S.GridConfirmation>
           <span>CNPJ</span>
           <span>Razão Social</span>
@@ -73,167 +52,118 @@ export function Customers () {
           <span>Número</span>
           <span>Complemento</span>
         </S.GridConfirmation>
-        {isOpen
-          ? <Modal onClose={() => setIsOpen(false)}>
-            <S.Container>
-              <S.Form onSubmit={handleSubmit(onSubmit)}>
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='cnpj'>CNPJ</label>
-                    <input
-                      id='cnpj' placeholder='Seu CNPJ'
-                      {...register('cnpj', {
-                        required: {
-                          value: true,
-                          message: 'Todos os campos são obrigatórios',
-                        },
-                      })}
-                    />
-                    <span>{errors.cnpj?.message}</span>
-                  </fieldset>
-                </S.ContentForm>
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='corporateName'>Razão Social</label>
-                    <input
-                      id='corporateName' placeholder='Sua razão social'
-                      {...register('corporateName', {
-                        required: {
-                          value: true,
-                          message: 'Razão Social é obrigatória',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <S.Container>
+            <S.Form onSubmit={handleSubmit(onSubmit)}>
+              <TextField
+                label='CNPJ'
+                type='number'
+                errorMessage={errors.cnpj?.message}
+                {...register('cnpj', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              />
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='fantasyName'>Nome Fantasia</label>
-                    <input
-                      id='fantasyName' placeholder='Seu nome fantasia'
-                      {...register('fantasyName', {
-                        required: {
-                          value: true,
-                          message: 'Nome fanstasia é obrigatório',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+              <TextField
+                label='Razão Social'
+                {...register('corporateName', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='zipCode'>Código de Endereçamento Postal(CEP)</label>
-                    <input
-                      id='zipCode' placeholder='Seu CEP'
-                      {...register('zipCode', {
-                        required: {
-                          value: true,
-                          message: 'CEP é obrigatório',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+              <TextField
+                label='Nome Fantasia'
+                {...register('fantasyName', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='uf'>Unidade Federativa(UF)</label>
-                    <input
-                      id='uf' placeholder='Sua UF'
-                      {...register('uf', {
-                        required: {
-                          value: true,
-                          message: 'UF é obrigatória',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+              <TextField
+                label='CEP'
+                type='number'
+                {...register('zipCode', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='city'>Cidade</label>
-                    <input
-                      id='city' placeholder='Sua cidade'
-                      {...register('city', {
-                        required: {
-                          value: true,
-                          message: 'Cidade é obrigatória',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+              <TextField
+                label='UF'
+                {...register('uf', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='district'>Bairro</label>
-                    <input
-                      id='district' placeholder='Seu bairro'
-                      {...register('district', {
-                        required: {
-                          value: true,
-                          message: 'Bairro é obrigatório',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+              <TextField
+                label='Cidade'
+                {...register('city', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='publicPlace'>Logradouro</label>
-                    <input
-                      id='publicPlace' placeholder='Seu logradouro'
-                      {...register('publicPlace', {
-                        required: {
-                          value: true,
-                          message: 'Logradouro é obrigatório',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+              <TextField
+                label='Bairro'
+                {...register('district', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='number'>Número</label>
-                    <input
-                      id='number' placeholder='Seu número'
-                      {...register('number', {
-                        required: {
-                          value: true,
-                          message: 'Número é obrigatório',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+              <TextField
+                label='Logradouro'
+                {...register('publicPlace', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='complement'>Complemento</label>
-                    <input
-                      id='complement' placeholder='Seu complemento'
-                      {...register('complement', {
-                        required: {
-                          value: true,
-                          message: 'Complemento é obrigatório',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+              <TextField
+                label='Número'
+                type='number'
+                {...register('number', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
 
-                <button type='submit'>Salvar</button>
-              </S.Form>
-            </S.Container>
-            {/* eslint-disable-next-line */}
-            </Modal>
-          : null}
+              <TextField
+                label='Complemento'
+                {...register('complement', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <button type='submit'>Salvar</button>
+            </S.Form>
+          </S.Container>
+        </Modal>
       </S.ContainerConfirmation>
     </>
   )
