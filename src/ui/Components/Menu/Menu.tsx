@@ -15,7 +15,7 @@ const Menu = ({ children, onClose }: Props) => {
       <S.Container>
         <S.List>
           <li><FiHome size={20} /><Link to='/home'>Início</Link></li>
-          <li><FiUser size={20} /><Link to=''>Usuários</Link></li>
+          <li><FiUser size={20} /><Link to='/usuarios'>Usuários</Link></li>
           <h4><FiFileText size={20} />Cadastros</h4>
           <li><Link to='/mao-de-obra'>Mão de obra</Link></li>
           <li><Link to='/maquina-perfuratriz'>Maquina Perfuratriz</Link></li>

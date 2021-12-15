@@ -19,7 +19,7 @@ export function Users () {
         </S.Content>
 
         <S.Steps>
-          <h2>Etapas</h2>
+          <h2>Usuários</h2>
 
           <S.ContainerUsers>
             <div>
