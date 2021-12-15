@@ -23,7 +23,10 @@ const Menu = ({ children, onClose }: Props) => {
           <li><Link to='/tipos-de-solo'>Tipos de Solos</Link></li>
           <li><Link to='/ferramentas'>Ferramentas</Link></li>
           <li><Link to='/fluido-de-perfuracao'>Fluido de Perfuração</Link></li>
+          <li><Link to='/equipamentos'>Equipamentos</Link></li>
+          <li><Link to='/alargador'>Alargador</Link></li>
           <li><Link to='/companhias'>Companhias</Link></li>
+          <li><Link to='/porta-sonda'>Porta Sonda</Link></li>
           <li><Link to='/topografia'>Topografia</Link></li>
           <li><Link to='/configuracao-da-travessia'>Config. da travessia</Link></li>
           <h4><FiBriefcase size={20} />Comercial</h4>

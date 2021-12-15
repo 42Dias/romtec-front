@@ -29,6 +29,9 @@ import {
   PilotHoleTargeting,
   DitchClosing,
   Interferences,
+  Equipment,
+  Reamer,
+  ProbeHolder,
 } from './pages'
 
 import { GlobalStyle } from './ui'
@@ -60,6 +63,9 @@ import {
   PILOTHOLETARGETING,
   DITCHCLOSING,
   INTERFERENCES,
+  EQUIPMENT,
+  REAMER,
+  PROBEHOLDER,
 } from './routes'
 
 export function App () {
@@ -93,6 +99,9 @@ export function App () {
         <Route path={PILOTHOLETARGETING} element={<PilotHoleTargeting />} />
         <Route path={DITCHCLOSING} element={<DitchClosing />} />
         <Route path={INTERFERENCES} element={<Interferences />} />
+        <Route path={EQUIPMENT} element={<Equipment />} />
+        <Route path={REAMER} element={<Reamer />} />
+        <Route path={PROBEHOLDER} element={<ProbeHolder />} />
         <Route path='*' element={<Error />} />
       </Routes>
       <GlobalStyle />
