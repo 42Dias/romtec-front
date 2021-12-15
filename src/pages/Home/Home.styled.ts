@@ -6,12 +6,16 @@ export const Container = styled.div`
 `
 
 export const Content = styled.div`
-  margin: 0 auto;
+  margin: 50px auto 0 auto;
   background: ${theme.colors.black};
   width: 100%;
-  height: 340px;
+  height: 246px;
   padding: 15px;
   border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
 
   span {
     background: ${theme.colors.yellow};
@@ -21,27 +25,33 @@ export const Content = styled.div`
   }
 
   h2 {
-    margin: 36px;
+    max-width: 553px;
+    margin-left: 36px;
+    padding: 10px 0;
   }
 
   p {
-    margin: 36px;
+    margin-left: 36px;
   }
 
   img {
-   width: 350px;
-   height: 340px;
-   margin-left: 80%;
-   margin-top: -13rem;
-   border-radius:20px;
-   object-fit: cover;
+    position: absolute;
+    right: 0;
+    border-radius: 0 20px 20px 0;
+  }
+`
+
+export const Steps = styled.div`
+  h2 {
+    color: ${theme.colors.yellow};
+    padding: 80px 0 20px 0;
   }
 `
 
 export const ContainerSteps = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 20px 0 80px 0;
   min-height: 200px;
 `
 

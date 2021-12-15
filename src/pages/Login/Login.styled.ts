@@ -11,20 +11,19 @@ export const Content = styled.div`
   background: ${theme.colors.white[50]};
   width: 500px;
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
   height: 100vh;
   border-radius: 5px;
-  margin: 0 0 0 20px;
 
   h1 {
     font-size: 24px;
     color: ${theme.colors.white};
-    margin: 30px 1px 2px 14px;
   }
 
   fieldset {
     border: 0;
-    margin: 5px 1px 5px 14px;
   }
 
   span {
@@ -33,23 +32,20 @@ export const Content = styled.div`
   }
 
   p {
-    margin: 15px 0 2px 14px;
+    max-width: 445px;
+    padding: 10px 0;
   }
 
   strong {
-    margin: 30px 1px 2px 220px;
+    padding: 20px 0;
   }
 
   a {
-    margin: 30px 1px 2px 170px;
+    padding: 20px 0;
   }
 `
 
 export const Form = styled.form`
-  p {
-    max-width: 400px;
-  }
-
   label {
     color: ${theme.colors.white};
   }
@@ -57,10 +53,10 @@ export const Form = styled.form`
   span {
     color: ${theme.colors.red};
     font-size: 10px;
-    margin: 0 0 0 31px;
   }
 
   button {
+    margin: 10px 0 0 0;
     font-size: 15px;
     color: ${theme.colors.white};
     background: ${theme.colors.yellow};
@@ -68,17 +64,17 @@ export const Form = styled.form`
     height: 50px;
     width: 444px;
     border: 0;
-    margin: 30px 1px 2px 14px;
     transition: 1s;
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
     :hover {
-      opacity: 85%;
+      opacity: 65%;
     }
   }
 
   a {
     color: ${theme.colors.white};
-    margin: 30px 1px 2px 14px;
   }
 `
 
@@ -88,11 +84,10 @@ export const Input = styled.input`
   background: ${theme.colors.darkBlack};
   border: 2px solid ${theme.colors.black};
   border-radius: 5px;
-  padding: 0 0 0 15px;
   outline: none;
-  margin: 10px 0 9px 0;
+  margin: 10px 0;
   color: ${theme.colors.yellow};
-
+  padding: 0 5px;
   :focus {
     border: 1px solid ${theme.colors.yellow}
   }
@@ -102,28 +97,43 @@ export const Password = styled.div`
   display:flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  position: relative;
 
-  input {
-    height: 40px;
-    width: 444px;
+  fieldset {
+    flex-direction: column;
+    display: flex;
   }
 
   button {
-    position: relative;
-    right: 60px;
-    bottom: 10px;
+    position: absolute;
     height: 40px;
     width: 30px;
-    background: none !important ;
+    background: none !important;
     border: 0;
     transition: 1s;
+    right: 0;
+    bottom: 0;
+    left: 410px;
+    top: 25px;
 
     svg {
-    color: ${theme.colors.yellow};
-
+      color: ${theme.colors.yellow};
+      position: relative;
       :hover {
         opacity: 85%;
       }
     }
+  }
+`
+
+export const LoginInput = styled.div`
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  fieldset {
+    flex-direction: column;
+    display:flex;
   }
 `

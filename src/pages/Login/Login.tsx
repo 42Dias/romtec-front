@@ -39,23 +39,26 @@ export function Login () {
         <h1>Entrar</h1>
         <p>Faça login em nossa plataforma para aproveitar ao máximo todo o nosso sistema</p>
         <S.Form onSubmit={handleSubmit(onSubmit)}>
-          <fieldset>
-            <label htmlFor='email'>E-mail</label>
-            <S.Input
-              id='email' placeholder='Seu melhor e-mail' type='email'
-              {...register('email', {
-                required: {
-                  value: true,
-                  message: 'Todos os campos são obrigatórios',
-                },
-              })}
-            />
-            <span>{errors.email?.message}</span>
-          </fieldset>
+          <S.LoginInput>
+            <fieldset>
+              <label htmlFor='email'>E-mail</label>
+              <S.Input
+                id='email' placeholder='Seu melhor e-mail' type='email'
+                {...register('email', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              />
+              <span>{errors.email?.message}</span>
+            </fieldset>
+          </S.LoginInput>
 
-          <fieldset>
-            <label htmlFor='password'>Senha</label>
-            <S.Password>
+          <S.Password>
+            <fieldset>
+
+              <label htmlFor='password'>Senha</label>
               <S.Input
                 id='password'
                 placeholder='Sua melhor senha'
@@ -68,9 +71,9 @@ export function Login () {
                 })}
               />
               <button onClick={() => setTextPass(!textPass)} type='button'><FiEye /></button>
-            </S.Password>
 
-          </fieldset>
+            </fieldset>
+          </S.Password>
           <Link to='/recuperar-senha'>Esqueceu a sua senha?</Link>
 
           <button type='submit'>Entrar</button>

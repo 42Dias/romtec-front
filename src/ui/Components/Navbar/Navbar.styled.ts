@@ -4,7 +4,11 @@ import { theme } from '../../../ui'
 export const Nav = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  width: 50%;
+  float: right;
+  clear: both;
+  margin-right: 60px;
 
   input {
     width: 300px;
@@ -24,13 +28,15 @@ export const Nav = styled.div`
     border-radius: 0 5px 5px 0;
   }
 
-  h3 {
-    margin-left: 60px;
-    font-size: 15px;
-  }
+`
 
-  a {
-    margin-left: 60px;
-    padding: 10px;
+export const ContentNav = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h4 {
+    margin-right: 20px;
+    margin-bottom: 7px;
   }
 `
