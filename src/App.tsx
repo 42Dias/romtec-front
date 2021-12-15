@@ -32,6 +32,7 @@ import {
   Equipment,
   Reamer,
   ProbeHolder,
+  Users,
 } from './pages'
 
 import { GlobalStyle } from './ui'
@@ -66,6 +67,7 @@ import {
   EQUIPMENT,
   REAMER,
   PROBEHOLDER,
+  USERS,
 } from './routes'
 
 export function App () {
@@ -102,6 +104,7 @@ export function App () {
         <Route path={EQUIPMENT} element={<Equipment />} />
         <Route path={REAMER} element={<Reamer />} />
         <Route path={PROBEHOLDER} element={<ProbeHolder />} />
+        <Route path={USERS} element={<Users />} />
         <Route path='*' element={<Error />} />
       </Routes>
       <GlobalStyle />
