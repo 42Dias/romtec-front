@@ -1,12 +1,13 @@
-import * as S from './Tools.styled'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 
+import * as S from './Tools.styled'
+
+import { TextField } from '../../ui/Components/TextField'
+import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { TextField } from '../../ui/Components/TextField'
 
 type FormData = {
   toolCode: string;
@@ -73,40 +74,28 @@ export function Tools () {
                 label='Brocas'
                 placeholder='pá, broca tricônica, rock bit'
                 {...register('drills', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Máquina'
                 {...register('machine', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Motor de fundo'
                 {...register('bottomEngine', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Diâmetro'
                 {...register('diameter', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
@@ -114,70 +103,49 @@ export function Tools () {
                 label='Alargadores'
                 placeholder='Cortadores, compactadores, limpeza'
                 {...register('reamers', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Capacidade de carga'
                 {...register('batteryCapacity', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Swivel'
                 {...register('swivel', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Descrição'
                 {...register('description', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Porta Sonda'
                 {...register('probeHolder', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Pulling Head'
                 {...register('pullingHead', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Fusilink'
                 {...register('fusilink', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
@@ -185,56 +153,40 @@ export function Tools () {
                 label='Componentes'
                 placeholder='Coluna de perfuraçãoo Conexões e Adaptadores'
                 {...register('components', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Haste inicial'
                 {...register('initialStem', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Luva'
                 {...register('glove', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Mordentes'
                 {...register('cheeks', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Flexobarra'
                 {...register('flexbar', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
               <button type='submit'>Salvar</button>
             </S.Form>
           </S.Container>
-          {/* eslint-disable-next-line */}
         </Modal>
       </S.ContainerConfirmation>
     </>
