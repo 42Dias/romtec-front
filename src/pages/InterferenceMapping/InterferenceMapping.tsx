@@ -18,31 +18,10 @@ type FormData = {
 export function InterferenceMapping () {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit ({
-    responsible,
-    equipments,
-    documents,
-    networkType,
-    owningCompany,
-    ConfirmationInterferenceProbe,
-    survey,
-    creatingHolePlan,
-    whenHappens,
-  }: FormData) {
-    const submit = {
-      responsible,
-      equipments,
-      documents,
-      networkType,
-      owningCompany,
-      ConfirmationInterferenceProbe,
-      survey,
-      creatingHolePlan,
-      whenHappens,
-    }
-    reset()
+  function onSubmit (data: FormData) {
+    console.log(data)
 
-    console.log(submit)
+    reset()
   }
 
   return (

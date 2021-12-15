@@ -17,27 +17,10 @@ type FormData = {
 export function DrillingPlanning () {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit ({
-    latEntryCheckpoint,
-    longEntryCheckpoint,
-    latOutputCheckpoint,
-    longOutputCheckpoint,
-    pipeType,
-    drillingDiameter,
-    soilTypes,
-  }: FormData) {
-    const submit = {
-      latEntryCheckpoint,
-      longEntryCheckpoint,
-      latOutputCheckpoint,
-      longOutputCheckpoint,
-      pipeType,
-      drillingDiameter,
-      soilTypes,
-    }
-    reset()
+  function onSubmit (data: FormData) {
+    console.log(data)
 
-    console.log(submit)
+    reset()
   }
 
   return (

@@ -17,17 +17,10 @@ export function Topography () {
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit ({
-    responsibleTopography,
-    executionDate,
-  }: FormData) {
-    const submit = {
-      responsibleTopography,
-      executionDate,
-    }
-    reset()
+  function onSubmit (data: FormData) {
+    console.log(data)
 
-    console.log(submit)
+    reset()
   }
 
   return (
@@ -41,47 +34,45 @@ export function Topography () {
           <span>Responsável pela Topografia</span>
           <span>Data da execução da Topografia</span>
         </S.GridConfirmation>
-        {isOpen
-          ? <Modal onClose={() => setIsOpen(false)}>
-            <S.Container>
-              <S.Form onSubmit={handleSubmit(onSubmit)}>
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='responsibleTopography'>Responsável pela topografia</label>
-                    <input
-                      id='responsibleTopography' placeholder='Responsável'
-                      {...register('responsibleTopography', {
-                        required: {
-                          value: true,
-                          message: 'Todos os campos são obrigatórios',
-                        },
-                      })}
-                    />
-                    <span>{errors.responsibleTopography?.message}</span>
-                  </fieldset>
-                </S.ContentForm>
+        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <S.Container>
+            <S.Form onSubmit={handleSubmit(onSubmit)}>
+              <S.ContentForm>
+                <fieldset>
+                  <label htmlFor='responsibleTopography'>Responsável pela topografia</label>
+                  <input
+                    id='responsibleTopography' placeholder='Responsável'
+                    {...register('responsibleTopography', {
+                      required: {
+                        value: true,
+                        message: 'Todos os campos são obrigatórios',
+                      },
+                    })}
+                  />
+                  <span>{errors.responsibleTopography?.message}</span>
+                </fieldset>
+              </S.ContentForm>
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='executionDate'>Data da execução da Topografia</label>
-                    <input
-                      id='executionDate' placeholder='Data de execução'
-                      {...register('executionDate', {
-                        required: {
-                          value: true,
-                          message: 'Data é obrigatória',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+              <S.ContentForm>
+                <fieldset>
+                  <label htmlFor='executionDate'>Data da execução da Topografia</label>
+                  <input
+                    id='executionDate' placeholder='Data de execução'
+                    {...register('executionDate', {
+                      required: {
+                        value: true,
+                        message: 'Data é obrigatória',
+                      },
+                    })}
+                  />
+                </fieldset>
+              </S.ContentForm>
 
-                <button type='submit'>Salvar</button>
-              </S.Form>
-            </S.Container>
-            {/* eslint-disable-next-line */}
-            </Modal>
-          : null}
+              <button type='submit'>Salvar</button>
+            </S.Form>
+          </S.Container>
+          {/* eslint-disable-next-line */}
+        </Modal>
       </S.ContainerConfirmation>
     </>
   )

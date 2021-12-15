@@ -6,13 +6,26 @@ import Modal from '../../ui/Components/Modal/Modal'
 import { FiPlus } from 'react-icons/fi'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { TextField } from '../../ui/Components/TextField'
 
 type FormData = {
   toolCode: string;
+  drills: string;
   machine: string;
+  bottomEngine: string;
   diameter: string;
+  reamers: string;
   batteryCapacity: string;
+  swivel: string;
   description: string;
+  probeHolder: string;
+  pullingHead: string;
+  fusilink: string;
+  components: string;
+  initialStem: string;
+  glove: string;
+  cheeks: string;
+  flexbar: string;
 }
 
 export function Tools () {
@@ -20,23 +33,10 @@ export function Tools () {
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit ({
-    toolCode,
-    machine,
-    diameter,
-    batteryCapacity,
-    description,
-  }: FormData) {
-    const submit = {
-      toolCode,
-      machine,
-      diameter,
-      batteryCapacity,
-      description,
-    }
-    reset()
+  function onSubmit (data: FormData) {
+    console.log(data)
 
-    console.log(submit)
+    reset()
   }
 
   return (
@@ -46,6 +46,7 @@ export function Tools () {
       <S.ContainerConfirmation>
         <h2>Ferramentas</h2>
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
+
         <S.GridConfirmation>
           <span>Código de ferramenta</span>
           <span>Máquina</span>
@@ -53,92 +54,188 @@ export function Tools () {
           <span>Capacidade de carga</span>
           <span>Descrição</span>
         </S.GridConfirmation>
-        {isOpen
-          ? <Modal onClose={() => setIsOpen(false)}>
-            <S.Container>
-              <S.Form onSubmit={handleSubmit(onSubmit)}>
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='toolCode'>Código de ferramenta</label>
-                    <input
-                      id='toolCode' placeholder='Código'
-                      {...register('toolCode', {
-                        required: {
-                          value: true,
-                          message: 'Todos os campos são obrigatórios',
-                        },
-                      })}
-                    />
-                    <span>{errors.toolCode?.message}</span>
-                  </fieldset>
-                </S.ContentForm>
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='machine'>Máquina</label>
-                    <input
-                      id='machine' placeholder='Sua máquina'
-                      {...register('machine', {
-                        required: {
-                          value: true,
-                          message: 'Máquina é obrigatória',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <S.Container>
+            <S.Form onSubmit={handleSubmit(onSubmit)}>
+              <TextField
+                label='Código da ferramenta'
+                errorMessage={errors.toolCode?.message}
+                {...register('toolCode', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              />
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='diameter'>Diâmetro</label>
-                    <input
-                      id='diameter' placeholder='Diâmetro da ferramenta'
-                      {...register('diameter', {
-                        required: {
-                          value: true,
-                          message: 'Diâmetro é obrigatório',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+              <TextField
+                label='Brocas'
+                placeholder='pá, broca tricônica, rock bit'
+                {...register('drills', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='batteryCapacity'>Capacidade de carga</label>
-                    <input
-                      id='batteryCapacity' placeholder='Capacidade de carga'
-                      {...register('batteryCapacity', {
-                        required: {
-                          value: true,
-                          message: 'Carga é obrigatória',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+              <TextField
+                label='Máquina'
+                {...register('machine', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='description'>Descrição</label>
-                    <input
-                      id='description' placeholder='Descrição da ferramenta'
-                      {...register('description', {
-                        required: {
-                          value: true,
-                          message: 'Descrição é obrigatória',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+              <TextField
+                label='Motor de fundo'
+                {...register('bottomEngine', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
 
-                <button type='submit'>Salvar</button>
-              </S.Form>
-            </S.Container>
-            {/* eslint-disable-next-line */}
-            </Modal>
-          : null}
+              <TextField
+                label='Diâmetro'
+                {...register('diameter', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Alargadores'
+                placeholder='Cortadores, compactadores, limpeza'
+                {...register('reamers', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Capacidade de carga'
+                {...register('batteryCapacity', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Swivel'
+                {...register('swivel', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Descrição'
+                {...register('description', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Porta Sonda'
+                {...register('probeHolder', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Pulling Head'
+                {...register('pullingHead', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Fusilink'
+                {...register('fusilink', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Componentes'
+                placeholder='Coluna de perfuraçãoo Conexões e Adaptadores'
+                {...register('components', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Haste inicial'
+                {...register('initialStem', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Luva'
+                {...register('glove', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Mordentes'
+                {...register('cheeks', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Flexobarra'
+                {...register('flexbar', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+              <button type='submit'>Salvar</button>
+            </S.Form>
+          </S.Container>
+          {/* eslint-disable-next-line */}
+        </Modal>
       </S.ContainerConfirmation>
     </>
   )

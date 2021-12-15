@@ -21,25 +21,10 @@ export function SoilTypes () {
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit ({
-    soilSpecification,
-    dryResistance,
-    description,
-    reactionDilation,
-    plasticHardness,
-    plasticityIndex,
-  }: FormData) {
-    const submit = {
-      soilSpecification,
-      dryResistance,
-      description,
-      reactionDilation,
-      plasticHardness,
-      plasticityIndex,
-    }
-    reset()
+  function onSubmit (data: FormData) {
+    console.log(data)
 
-    console.log(submit)
+    reset()
   }
 
   return (
@@ -56,107 +41,105 @@ export function SoilTypes () {
           <span>Dureza Plástica</span>
           <span>Indice de plasticidade</span>
         </S.GridConfirmation>
-        {isOpen
-          ? <Modal onClose={() => setIsOpen(false)}>
-            <S.Container>
-              <S.Form onSubmit={handleSubmit(onSubmit)}>
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='soil'>Especificação do solo*</label>
-                    <input
-                      id='soil' placeholder='Solo'
-                      {...register('soilSpecification', {
-                        required: {
-                          value: true,
-                          message: 'Todos os campos são obrigatórios',
-                        },
-                      })}
-                    />
-                    <span>{errors.soilSpecification?.message}</span>
-                  </fieldset>
-                </S.ContentForm>
+        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <S.Container>
+            <S.Form onSubmit={handleSubmit(onSubmit)}>
+              <S.ContentForm>
+                <fieldset>
+                  <label htmlFor='soil'>Especificação do solo*</label>
+                  <input
+                    id='soil' placeholder='Solo'
+                    {...register('soilSpecification', {
+                      required: {
+                        value: true,
+                        message: 'Todos os campos são obrigatórios',
+                      },
+                    })}
+                  />
+                  <span>{errors.soilSpecification?.message}</span>
+                </fieldset>
+              </S.ContentForm>
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='dryResistance'>Resistência seca*</label>
-                    <input
-                      id='dryResistance' placeholder='Resistência'
-                      {...register('dryResistance', {
-                        required: {
-                          value: true,
-                          message: 'Resistência é obrigatória',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+              <S.ContentForm>
+                <fieldset>
+                  <label htmlFor='dryResistance'>Resistência seca*</label>
+                  <input
+                    id='dryResistance' placeholder='Resistência'
+                    {...register('dryResistance', {
+                      required: {
+                        value: true,
+                        message: 'Resistência é obrigatória',
+                      },
+                    })}
+                  />
+                </fieldset>
+              </S.ContentForm>
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='description'>Descrição</label>
-                    <input
-                      id='description' placeholder='Descrição'
-                      {...register('description', {
-                        required: {
-                          value: true,
-                          message: 'Descrição é obrigatória',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+              <S.ContentForm>
+                <fieldset>
+                  <label htmlFor='description'>Descrição</label>
+                  <input
+                    id='description' placeholder='Descrição'
+                    {...register('description', {
+                      required: {
+                        value: true,
+                        message: 'Descrição é obrigatória',
+                      },
+                    })}
+                  />
+                </fieldset>
+              </S.ContentForm>
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='reactionDilation'>Reação a dilatação</label>
-                    <input
-                      id='reactionDilation' placeholder='Dilatação'
-                      {...register('reactionDilation', {
-                        required: {
-                          value: true,
-                          message: 'Dilatação é obrigatória',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+              <S.ContentForm>
+                <fieldset>
+                  <label htmlFor='reactionDilation'>Reação a dilatação</label>
+                  <input
+                    id='reactionDilation' placeholder='Dilatação'
+                    {...register('reactionDilation', {
+                      required: {
+                        value: true,
+                        message: 'Dilatação é obrigatória',
+                      },
+                    })}
+                  />
+                </fieldset>
+              </S.ContentForm>
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='plasticHardness'>Dureza plastica*</label>
-                    <input
-                      id='plasticHardness' placeholder='Dureza'
-                      {...register('plasticHardness', {
-                        required: {
-                          value: true,
-                          message: 'Dureza é obrigatória',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+              <S.ContentForm>
+                <fieldset>
+                  <label htmlFor='plasticHardness'>Dureza plastica*</label>
+                  <input
+                    id='plasticHardness' placeholder='Dureza'
+                    {...register('plasticHardness', {
+                      required: {
+                        value: true,
+                        message: 'Dureza é obrigatória',
+                      },
+                    })}
+                  />
+                </fieldset>
+              </S.ContentForm>
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='plasticityIndex'>Índice de plasticidade*</label>
-                    <input
-                      id='plasticityIndex' placeholder='Índice'
-                      {...register('plasticityIndex', {
-                        required: {
-                          value: true,
-                          message: 'Índice é obrigatório',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+              <S.ContentForm>
+                <fieldset>
+                  <label htmlFor='plasticityIndex'>Índice de plasticidade*</label>
+                  <input
+                    id='plasticityIndex' placeholder='Índice'
+                    {...register('plasticityIndex', {
+                      required: {
+                        value: true,
+                        message: 'Índice é obrigatório',
+                      },
+                    })}
+                  />
+                </fieldset>
+              </S.ContentForm>
 
-                <button type='submit'>Salvar</button>
-              </S.Form>
-            </S.Container>
-            {/* eslint-disable-next-line */}
-            </Modal>
-          : null}
+              <button type='submit'>Salvar</button>
+            </S.Form>
+          </S.Container>
+          {/* eslint-disable-next-line */}
+        </Modal>
       </S.ContainerConfirmation>
     </>
   )

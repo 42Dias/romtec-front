@@ -18,19 +18,10 @@ export function Plans () {
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit ({
-    name,
-    value,
-    timeCourse,
-  }: FormData) {
-    const submit = {
-      name,
-      value,
-      timeCourse,
-    }
-    reset()
+  function onSubmit (data: FormData) {
+    console.log(data)
 
-    console.log(submit)
+    reset()
   }
 
   return (
@@ -45,62 +36,60 @@ export function Plans () {
           <span>Valor</span>
           <span>Periodo</span>
         </S.GridConfirmation>
-        {isOpen
-          ? <Modal onClose={() => setIsOpen(false)}>
-            <S.Container>
-              <S.Form onSubmit={handleSubmit(onSubmit)}>
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='name'>Nome</label>
-                    <input
-                      id='name' placeholder='Nome do plano'
-                      {...register('name', {
-                        required: {
-                          value: true,
-                          message: 'Todos os campos são obirgatórios',
-                        },
-                      })}
-                    />
-                    <span>{errors.name?.message}</span>
-                  </fieldset>
-                </S.ContentForm>
+        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <S.Container>
+            <S.Form onSubmit={handleSubmit(onSubmit)}>
+              <S.ContentForm>
+                <fieldset>
+                  <label htmlFor='name'>Nome</label>
+                  <input
+                    id='name' placeholder='Nome do plano'
+                    {...register('name', {
+                      required: {
+                        value: true,
+                        message: 'Todos os campos são obirgatórios',
+                      },
+                    })}
+                  />
+                  <span>{errors.name?.message}</span>
+                </fieldset>
+              </S.ContentForm>
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='value'>Valor</label>
-                    <input
-                      id='value' placeholder='Valor do plano'
-                      {...register('value', {
-                        required: {
-                          value: true,
-                          message: 'Valor é obrigatório',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+              <S.ContentForm>
+                <fieldset>
+                  <label htmlFor='value'>Valor</label>
+                  <input
+                    id='value' placeholder='Valor do plano'
+                    {...register('value', {
+                      required: {
+                        value: true,
+                        message: 'Valor é obrigatório',
+                      },
+                    })}
+                  />
+                </fieldset>
+              </S.ContentForm>
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='timeCourse'>Periodo</label>
-                    <input
-                      id='timeCourse' placeholder='Mensal, Semestral, Anual...'
-                      {...register('timeCourse', {
-                        required: {
-                          value: true,
-                          message: 'Periodo é obrigatório',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+              <S.ContentForm>
+                <fieldset>
+                  <label htmlFor='timeCourse'>Periodo</label>
+                  <input
+                    id='timeCourse' placeholder='Mensal, Semestral, Anual...'
+                    {...register('timeCourse', {
+                      required: {
+                        value: true,
+                        message: 'Periodo é obrigatório',
+                      },
+                    })}
+                  />
+                </fieldset>
+              </S.ContentForm>
 
-                <button type='submit'>Salvar</button>
-              </S.Form>
-            </S.Container>
-            {/* eslint-disable-next-line */}
-            </Modal>
-          : null}
+              <button type='submit'>Salvar</button>
+            </S.Form>
+          </S.Container>
+          {/* eslint-disable-next-line */}
+        </Modal>
       </S.ContainerConfirmation>
     </>
   )

@@ -18,19 +18,10 @@ export function FluidPreparation () {
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit ({
-    responsible,
-    equipment,
-    documents,
-  }: FormData) {
-    const submit = {
-      responsible,
-      equipment,
-      documents,
-    }
-    reset()
+  function onSubmit (data: FormData) {
+    console.log(data)
 
-    console.log(submit)
+    reset()
   }
 
   return (
@@ -45,62 +36,60 @@ export function FluidPreparation () {
           <span>Equipamentos</span>
           <span>Documentos</span>
         </S.GridConfirmation>
-        {isOpen
-          ? <Modal onClose={() => setIsOpen(false)}>
-            <S.Container>
-              <S.Form onSubmit={handleSubmit(onSubmit)}>
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='responsible'>Responsável</label>
-                    <input
-                      id='responsible' placeholder='Nome'
-                      {...register('responsible', {
-                        required: {
-                          value: true,
-                          message: 'Todos os campos são obrigatórios',
-                        },
-                      })}
-                    />
-                    <span>{errors.responsible?.message}</span>
-                  </fieldset>
-                </S.ContentForm>
+        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <S.Container>
+            <S.Form onSubmit={handleSubmit(onSubmit)}>
+              <S.ContentForm>
+                <fieldset>
+                  <label htmlFor='responsible'>Responsável</label>
+                  <input
+                    id='responsible' placeholder='Nome'
+                    {...register('responsible', {
+                      required: {
+                        value: true,
+                        message: 'Todos os campos são obrigatórios',
+                      },
+                    })}
+                  />
+                  <span>{errors.responsible?.message}</span>
+                </fieldset>
+              </S.ContentForm>
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='equipment'>Equipamentos</label>
-                    <input
-                      id='equipment' placeholder='Nome dos equipamentos'
-                      {...register('equipment', {
-                        required: {
-                          value: true,
-                          message: 'Equipamentos são obrigatórios',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+              <S.ContentForm>
+                <fieldset>
+                  <label htmlFor='equipment'>Equipamentos</label>
+                  <input
+                    id='equipment' placeholder='Nome dos equipamentos'
+                    {...register('equipment', {
+                      required: {
+                        value: true,
+                        message: 'Equipamentos são obrigatórios',
+                      },
+                    })}
+                  />
+                </fieldset>
+              </S.ContentForm>
 
-                <S.ContentForm>
-                  <fieldset>
-                    <label htmlFor='documents'>Documentos</label>
-                    <input
-                      id='documents' placeholder='Documentos aqui'
-                      {...register('documents', {
-                        required: {
-                          value: true,
-                          message: 'Documentos são obrigatórios',
-                        },
-                      })}
-                    />
-                  </fieldset>
-                </S.ContentForm>
+              <S.ContentForm>
+                <fieldset>
+                  <label htmlFor='documents'>Documentos</label>
+                  <input
+                    id='documents' placeholder='Documentos aqui'
+                    {...register('documents', {
+                      required: {
+                        value: true,
+                        message: 'Documentos são obrigatórios',
+                      },
+                    })}
+                  />
+                </fieldset>
+              </S.ContentForm>
 
-                <button type='submit'>Salvar</button>
-              </S.Form>
-            </S.Container>
-            {/* eslint-disable-next-line */}
-            </Modal>
-          : null}
+              <button type='submit'>Salvar</button>
+            </S.Form>
+          </S.Container>
+          {/* eslint-disable-next-line */}
+        </Modal>
       </S.ContainerConfirmation>
     </>
   )
