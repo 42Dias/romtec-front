@@ -6,6 +6,7 @@ import Modal from '../../ui/Components/Modal/Modal'
 import { FiPlus } from 'react-icons/fi'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { TextField } from '../../ui/Components/TextField'
 
 type FormData = {
   identification: string;
@@ -34,107 +35,63 @@ export function DrillingFluid () {
       <S.ContainerConfirmation>
         <h2>Fluídos de perfuração</h2>
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
+
         <S.GridConfirmation>
-          <span>Nome</span>
+          <span>Identificação</span>
         </S.GridConfirmation>
+
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='identification'>Identificação</label>
-                  <input
-                    id='identification' placeholder='Identificação do fluído'
-                    {...register('identification', {
-                      required: {
-                        value: true,
-                        message: 'Todos os campos são obrigatórios',
-                      },
-                    })}
-                  />
-                  <span>{errors.identification?.message}</span>
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Identificação'
+                errorMessage={errors.identification?.message}
+                {...register('identification', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='expectedViscosity'>Viscosidade esperada (Segundos Marsh - cP)</label>
-                  <input
-                    id='expectedViscosity' placeholder='Sua razão social'
-                    {...register('expectedViscosity', {
-                      required: {
-                        value: true,
-                        message: 'Razão Social é obrigatória',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Viscosidade esperada (Segundos Marsh - cP)'
+                {...register('expectedViscosity', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='phWater'>pH da água</label>
-                  <input
-                    id='phWater' placeholder='pH da água no fluído'
-                    {...register('phWater', {
-                      required: {
-                        value: true,
-                        message: 'pH da água é obrigatório',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='pH da Água'
+                {...register('phWater', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='baseQuantityFormulation'>Quantidade base para formulação (m²)</label>
-                  <input
-                    id='baseQuantityFormulation' placeholder='Quantidade base para formulação do fluído'
-                    {...register('baseQuantityFormulation', {
-                      required: {
-                        value: true,
-                        message: 'Quantidade base é obrigatório',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Quantidade base para formulação (Metros cúbicos - m²)'
+                {...register('baseQuantityFormulation', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='flowLimit'>Limite de escoamento (Número - N)</label>
-                  <input
-                    id='flowLimit' placeholder='Limite de escoamento do fluído'
-                    {...register('flowLimit', {
-                      required: {
-                        value: true,
-                        message: 'Limite de escoamento é obrigatório',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Limite de escoamento (Número - N)'
+                {...register('flowLimit', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='sandContent'>Teor de areia (Porcentagem - %)</label>
-                  <input
-                    id='sandContent' placeholder='Teor de areia no fluído'
-                    {...register('sandContent', {
-                      required: {
-                        value: true,
-                        message: 'Teor de areia é obrigatório',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Teor de areia (Porcentagem - %)'
+                {...register('sandContent', {
+                  required: true,
+                })}
+              />
 
               <button type='submit'>Salvar</button>
             </S.Form>
           </S.Container>
-          {/* eslint-disable-next-line */}
         </Modal>
       </S.ContainerConfirmation>
     </>
