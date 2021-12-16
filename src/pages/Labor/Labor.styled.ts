@@ -54,7 +54,7 @@ export const Form = styled.form`
   justify-items: center;
   align-items: center;
 
-  select, input {
+  select {
     width: 345px;
     height: 48px;
     box-sizing: border-box;
