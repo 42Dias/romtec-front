@@ -18,7 +18,7 @@ export const Container = styled.div`
   background: ${theme.colors.darkBlack};
   width: 70%;
   color: ${theme.colors.white};
-  min-height: 60%;
+  min-height: 35%;
   padding: 10px;
   border-radius: 5px;
 

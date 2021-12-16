@@ -3,13 +3,14 @@ import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 
+import { TextField } from '../../ui/Components/TextField'
 import { FiPlus } from 'react-icons/fi'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 type FormData = {
   responsible: string;
-  equipment: string;
+  equipments: string;
   documents: string;
 }
 
@@ -31,64 +32,44 @@ export function FluidPreparation () {
       <S.ContainerConfirmation>
         <h2>Preparação do Fluido</h2>
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
+
         <S.GridConfirmation>
           <span>Responsável</span>
           <span>Equipamentos</span>
           <span>Documentos</span>
         </S.GridConfirmation>
+
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='responsible'>Responsável</label>
-                  <input
-                    id='responsible' placeholder='Nome'
-                    {...register('responsible', {
-                      required: {
-                        value: true,
-                        message: 'Todos os campos são obrigatórios',
-                      },
-                    })}
-                  />
-                  <span>{errors.responsible?.message}</span>
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Responsável'
+                errorMessage={errors.responsible?.message}
+                {...register('responsible', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='equipment'>Equipamentos</label>
-                  <input
-                    id='equipment' placeholder='Nome dos equipamentos'
-                    {...register('equipment', {
-                      required: {
-                        value: true,
-                        message: 'Equipamentos são obrigatórios',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Equipamentos'
+                {...register('equipments', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='documents'>Documentos</label>
-                  <input
-                    id='documents' placeholder='Documentos aqui'
-                    {...register('documents', {
-                      required: {
-                        value: true,
-                        message: 'Documentos são obrigatórios',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Documentos'
+                {...register('documents', {
+                  required: true,
+                })}
+              />
 
               <button type='submit'>Salvar</button>
             </S.Form>
           </S.Container>
-          {/* eslint-disable-next-line */}
         </Modal>
       </S.ContainerConfirmation>
     </>
