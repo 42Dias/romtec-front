@@ -68,11 +68,6 @@ export const Form = styled.form`
       opacity: 80%;
     }
   }
-
-  fieldset {
-    border: 0;
-    margin: 5px 1px 5px 14px;
-  }
 `
 
 export const Container = styled.aside`

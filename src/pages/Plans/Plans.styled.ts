@@ -11,6 +11,7 @@ export const ContainerConfirmation = styled.div`
     font-size: 24px;
     padding: 20px 0;
   }
+
   button {
     width: 54px;
     height: 44px;
@@ -53,7 +54,7 @@ export const Form = styled.form`
   justify-items: center;
   align-items: center;
 
-  input {
+  select {
     width: 345px;
     height: 48px;
     box-sizing: border-box;
@@ -62,7 +63,7 @@ export const Form = styled.form`
     padding: 0 7px;
     border: 1px solid ${theme.colors.black};
     background: ${theme.colors.darkBlack};
-    color: ${theme.colors.white};
+    color: ${theme.colors.yellow};
 
     :focus {
       border: 1px solid ${theme.colors.yellow};
@@ -88,26 +89,30 @@ export const Form = styled.form`
   span {
     color: ${theme.colors.red};
     font-size: 10px;
-    margin: 0 0 0 15px;
   }
 
   fieldset {
     border: 0;
-    margin: 5px 1px 5px 14px;
+    margin: 5px 1px 5px 22px;
+  }
+
+  button {
+    width: 101px;
+    height: 44px;
+    border-radius: 5px;
+    background: ${theme.colors.green};
+    border: 0;
+    transition: 1s;
+    margin-bottom: 20px;
+    margin-right: 250px;
+
+    :hover {
+      opacity: 80%;
+    }
   }
 `
 
 export const Container = styled.aside`
   max-width: 780px;
   margin: 0 auto;
-`
-
-export const ContentForm = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  label {
-    font-size: 14px;
-    color: ${theme.colors.white};
-  }
 `
