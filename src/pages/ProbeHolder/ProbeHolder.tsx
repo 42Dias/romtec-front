@@ -1,19 +1,19 @@
-import * as S from './ProbeHolder.styled'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 
+import * as S from './ProbeHolder.styled'
+
+import { TextField } from '../../ui/Components/TextField'
+import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
 
 type FormData = {
-  name: string;
-  expectedViscosity: string;
-  quantityWater: string;
-  baseQuantityFormulation: string;
-  flowLimit: string;
-  sandContent: string;
+  compatibleProbe: string;
+  compatibleShovel: string;
+  numberJets: string;
+  connection: string;
 }
 
 export function ProbeHolder () {
@@ -21,25 +21,10 @@ export function ProbeHolder () {
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit ({
-    name,
-    expectedViscosity,
-    quantityWater,
-    baseQuantityFormulation,
-    flowLimit,
-    sandContent,
-  }: FormData) {
-    const submit = {
-      name,
-      expectedViscosity,
-      quantityWater,
-      baseQuantityFormulation,
-      flowLimit,
-      sandContent,
-    }
-    reset()
+  function onSubmit (data: FormData) {
+    console.log(data)
 
-    console.log(submit)
+    reset()
   }
 
   return (
@@ -49,103 +34,56 @@ export function ProbeHolder () {
       <S.ContainerConfirmation>
         <h2>Porta sonda</h2>
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
+
         <S.GridConfirmation>
-          <span>Código de ferramenta</span>
-          <span>Máquina</span>
-          <span>Diâmetro</span>
-          <span>Capacidade de carga</span>
-          <span>Descrição</span>
+          <span>Sonda compatível/marca</span>
+          <span>Pá compatível</span>
+          <span>Número de Jatos</span>
+          <span>Conexão/Rosca</span>
         </S.GridConfirmation>
-        {isOpen
-          ? <Modal onClose={() => setIsOpen(false)}>
-            <S.Container>
-              <S.Form onSubmit={handleSubmit(onSubmit)}>
 
-                <div className='grid'>
-                  <S.ContentForm>
-                    <fieldset>
-                      <label htmlFor='name'>SONDA COMPATÍVEL/MARCA*</label>
-                      <input
-                        id='name' placeholder='SONDA COMPATÍVEL/MARCA*'
-                        {...register('name', {
-                          required: {
-                            value: true,
-                            message: 'Todos os campos são obrigatórios',
-                          },
-                        })}
-                      />
-                      <span>{errors.name?.message}</span>
-                    </fieldset>
-                  </S.ContentForm>
+        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <S.Container>
+            <S.Form onSubmit={handleSubmit(onSubmit)}>
+              <TextField
+                label='Sonda compatível/marca'
+                errorMessage={errors.compatibleProbe?.message}
+                id='compatibleProbe'
+                {...register('compatibleProbe', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              />
 
-                  <S.ContentForm>
-                    <fieldset>
-                      <label htmlFor='expectedViscosity'>PÁ COMPATÍVEL*</label>
-                      <input
-                        id='expectedViscosity' placeholder='PÁ COMPATÍVEL'
-                        {...register('expectedViscosity', {
-                          required: {
-                            value: true,
-                            message: 'Todos os campos são obrigatórios',
-                          },
-                        })}
-                      />
-                    </fieldset>
-                  </S.ContentForm>
+              <TextField
+                label='Pá compatível'
+                id='compatibleShovel'
+                {...register('compatibleShovel', {
+                  required: true,
+                })}
+              />
 
-                  <S.ContentForm>
-                    <fieldset>
-                      <label htmlFor='quantityWater'>NÚMERO DE JATOS*</label>
-                      <input
-                        id='quantityWater' placeholder='NÚMERO DE JATOS'
-                        {...register('quantityWater', {
-                          required: {
-                            value: true,
-                            message: 'Todos os campos são obrigatórios',
-                          },
-                        })}
-                      />
-                    </fieldset>
-                  </S.ContentForm>
+              <TextField
+                label='Número de Jatos'
+                id='numberJets'
+                {...register('numberJets', {
+                  required: true,
+                })}
+              />
 
-                  <S.ContentForm>
-                    <fieldset>
-                      <label htmlFor='baseQuantityFormulation'>CONEXÃO/ROSCA*</label>
-                      <input
-                        id='baseQuantityFormulation' placeholder='CONEXÃO/ROSCA*'
-                        {...register('baseQuantityFormulation', {
-                          required: {
-                            value: true,
-                            message: 'Todos os campos são obrigatórios',
-                          },
-                        })}
-                      />
-                    </fieldset>
-                  </S.ContentForm>
-
-                  <S.ContentForm>
-                    <fieldset>
-                      <label htmlFor='name'>INFORMAÇÃO DE OBRIGATORIEDADE DE PREENCHIMENTO*</label>
-                      <input
-                        id='name' placeholder='INFORMAÇÃO DE OBRIGATORIEDADE DE PREENCHIMENTO*'
-                        {...register('name', {
-                          required: {
-                            value: true,
-                            message: 'Todos os campos são obrigatórios',
-                          },
-                        })}
-                      />
-                      <span>{errors.name?.message}</span>
-                    </fieldset>
-                  </S.ContentForm>
-                </div>
-
-                <button type='submit'>Salvar</button>
-              </S.Form>
-            </S.Container>
-            {/* eslint-disable-next-line */}
-            </Modal>
-          : null}
+              <TextField
+                label='Conexão/Rosca'
+                id='connection'
+                {...register('connection', {
+                  required: true,
+                })}
+              />
+              <button type='submit'>Salvar</button>
+            </S.Form>
+          </S.Container>
+        </Modal>
       </S.ContainerConfirmation>
     </>
   )
