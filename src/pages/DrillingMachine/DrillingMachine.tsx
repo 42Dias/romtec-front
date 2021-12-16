@@ -6,6 +6,7 @@ import Modal from '../../ui/Components/Modal/Modal'
 import { FiPlus } from 'react-icons/fi'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { TextField } from '../../ui/Components/TextField'
 
 type FormData = {
   manufacturer: string;
@@ -20,7 +21,7 @@ type FormData = {
   torque: string;
   spindleRotation: string;
   tractionSpeed: string;
-  CompressionSpeed: string;
+  compressionSpeed: string;
   pilotHoleDiameter: string;
   entryAngle: string;
   nominalDiameter: string;
@@ -49,6 +50,7 @@ export function DrillingMachine () {
       <S.ContainerConfirmation>
         <h2>Máquina Perfuratriz</h2>
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
+
         <S.GridConfirmation>
           <span>Modelo</span>
           <span>Fabricante</span>
@@ -56,99 +58,55 @@ export function DrillingMachine () {
           <span>Torque(N.m)</span>
           <span>Alargamento máximo</span>
         </S.GridConfirmation>
+
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='manufacturer'>Fabricante</label>
-                  <input
-                    id='manufacturer' placeholder='Nome do fabricante'
-                    {...register('manufacturer', {
-                      required: {
-                        value: true,
-                        message: 'Todos os campos são obrigatórios',
-                      },
-                    })}
-                  />
-                  <span>{errors.manufacturer?.message}</span>
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Fabricante'
+                errorMessage={errors.manufacturer?.message}
+                {...register('manufacturer', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='drillingMachineName'>Nome da Máquina Perfuratriz</label>
-                  <input
-                    id='drillingMachineName' placeholder='Máquina Perfuratriz'
-                    {...register('drillingMachineName', {
-                      required: {
-                        value: true,
-                        message: 'Nome da maquina é obrigatório',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Nome da Máquina Perfuratriz'
+                {...register('drillingMachineName', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='hourmeter'>Horimetro</label>
-                  <input
-                    id='hourmeter' placeholder='Horimetro'
-                    {...register('hourmeter', {
-                      required: {
-                        value: true,
-                        message: 'Horimetro é obrigatório',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Horimetro'
+                {...register('hourmeter', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='lastOverhaul'>Última revisão/manutenção</label>
-                  <input
-                    id='lastOverhaul' placeholder='Insira a data' type='date'
-                    {...register('lastOverhaul', {
-                      required: {
-                        value: true,
-                        message: 'Data de revisão é obrigatória',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Última revisão/manutenção'
+                {...register('lastOverhaul', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='nextOverhaul'>Próxima revisão/manutenção</label>
-                  <input
-                    id='nextOverhaul' placeholder='Insira a data' type='date'
-                    {...register('nextOverhaul', {
-                      required: {
-                        value: true,
-                        message: 'Data de revisão é obrigatória',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Próxima revisão/manutenção'
+                {...register('nextOverhaul', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='reviewUpload'>Upload da revisão</label>
-                  <input
-                    id='reviewUpload' placeholder='Upload da revisão'
-                    {...register('reviewUpload', {
-                      required: {
-                        value: true,
-                        message: 'Upload da revisão é obrigatório',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Upload da revisão'
+                {...register('reviewUpload', {
+                  required: true,
+                })}
+              />
 
               <S.ContentForm>
                 <fieldset>
@@ -162,221 +120,108 @@ export function DrillingMachine () {
                 </fieldset>
               </S.ContentForm>
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='traction'>Tração (ton)</label>
-                  <input
-                    id='traction' placeholder='Tração'
-                    {...register('traction', {
-                      required: {
-                        value: true,
-                        message: 'Tração é obrigatória',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Tração (ton)'
+                {...register('traction', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='compression'>Compressão (KN)</label>
-                  <input
-                    id='compression' placeholder='Compressão'
-                    {...register('compression', {
-                      required: {
-                        value: true,
-                        message: 'Compressão é obrigatório',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Compressão (KN)'
+                {...register('compression', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='torque'>Torque (N.m)</label>
-                  <input
-                    id='torque' placeholder='Torque'
-                    {...register('torque', {
-                      required: {
-                        value: true,
-                        message: 'Torque é obrigatório',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Torque'
+                {...register('torque', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='spindleRotation'>Rotação Spindle (RPM)</label>
-                  <input
-                    id='spindleRotation' placeholder='Rotação'
-                    {...register('spindleRotation', {
-                      required: {
-                        value: true,
-                        message: 'Rotação é obrigatória',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Rotação Spindle (RPM)'
+                {...register('spindleRotation', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='tractionSpeed'>Velocidade Tração (m/min)</label>
-                  <input
-                    id='tractionSpeed' placeholder='Velocidade'
-                    {...register('tractionSpeed', {
-                      required: {
-                        value: true,
-                        message: 'Velocidade é obrigatória',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Velocidade Tração (m/min)'
+                {...register('tractionSpeed', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='CompressionSpeed'>Velocidade Compressão (m/min)</label>
-                  <input
-                    id='CompressionSpeed' placeholder='Velocidade'
-                    {...register('CompressionSpeed', {
-                      required: {
-                        value: true,
-                        message: 'Velocidade é obrigatório',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Velocidade Compressão (m/min)'
+                {...register('compressionSpeed', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='pilotHoleDiameter'>Diâmetro furo piloto (pol)</label>
-                  <input
-                    id='pilotHoleDiameter' placeholder='Diâmetro'
-                    {...register('pilotHoleDiameter', {
-                      required: {
-                        value: true,
-                        message: 'Diâmetro é obrigatório',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Diâmetro furo piloto (pol)'
+                {...register('pilotHoleDiameter', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='entryAngle'>Ângulo de entrada</label>
-                  <input
-                    id='entryAngle' placeholder='Ângulo'
-                    {...register('entryAngle', {
-                      required: {
-                        value: true,
-                        message: 'Ângulo é obrigatório',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Ângulo de entrada'
+                {...register('entryAngle', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='nominalDiameter'>Diâmetro nominal (mm)</label>
-                  <input
-                    id='nominalDiameter' placeholder='Diâmetro'
-                    {...register('nominalDiameter', {
-                      required: {
-                        value: true,
-                        message: 'Diâmetro é obrigatório',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Diâmetro nominal (mm)'
+                {...register('nominalDiameter', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='radiusCurvature'>Raio de curvatura (m)</label>
-                  <input
-                    id='radiusCurvature' placeholder='Raio'
-                    {...register('radiusCurvature', {
-                      required: {
-                        value: true,
-                        message: 'Raio é obrigatório',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Raio de curvatura (m)'
+                {...register('radiusCurvature', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='length'>Comprimento (m)</label>
-                  <input
-                    id='length' placeholder='Comprimento'
-                    {...register('length', {
-                      required: {
-                        value: true,
-                        message: 'Comprimento é obrigatório',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Comprimento (m)'
+                {...register('length', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='flow'>Vazão (L/min)</label>
-                  <input
-                    id='flow' placeholder='Vazão'
-                    {...register('flow', {
-                      required: {
-                        value: true,
-                        message: 'Vazão é obrigatório',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Vazão (L/min)'
+                {...register('flow', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='pressure'>Pressão (psi)</label>
-                  <input
-                    id='pressure' placeholder='Pressão'
-                    {...register('pressure', {
-                      required: {
-                        value: true,
-                        message: 'Pressão é obrigatória',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Pressão (psi)'
+                {...register('pressure', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='maximumExtension'>Alargamento máximo (pol)</label>
-                  <input
-                    id='maximumExtension' placeholder='Alargamento máximo'
-                    {...register('maximumExtension', {
-                      required: {
-                        value: true,
-                        message: 'Alargamento é obrigatório',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Alargamento máximo (pol)'
+                {...register('maximumExtension', {
+                  required: true,
+                })}
+              />
 
               <button type='submit'>Salvar</button>
             </S.Form>
           </S.Container>
-          {/* eslint-disable-next-line */}
-            </Modal>
+        </Modal>
       </S.ContainerConfirmation>
     </>
   )
