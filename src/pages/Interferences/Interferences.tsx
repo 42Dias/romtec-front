@@ -3,9 +3,10 @@ import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 
+import { TextField } from '../../ui/Components/TextField'
+import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
 
 type FormData = {
   name: string;
@@ -35,6 +36,7 @@ export function Interferences () {
       <S.ContainerConfirmation>
         <h2>Interferências</h2>
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
+
         <S.GridConfirmation>
           <span>Nome</span>
           <span>Travessia</span>
@@ -44,114 +46,55 @@ export function Interferences () {
           <span>Haste</span>
           <span>Maquina perfuratriz</span>
         </S.GridConfirmation>
+
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='name'>Nome</label>
-                  <input
-                    id='name' placeholder='Nome'
-                    {...register('name', {
-                      required: {
-                        value: true,
-                        message: 'Todos os campos são obrigatórios',
-                      },
-                    })}
-                  />
-                  <span>{errors.name?.message}</span>
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Nome'
+                errorMessage={errors.name?.message}
+                {...register('name', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='crossing'>Travessia</label>
-                  <input
-                    id='crossing' placeholder='Travessia'
-                    {...register('crossing', {
-                      required: {
-                        value: true,
-                        message: 'Todos os campos são obrigatórios',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Travessia'
+                {...register('crossing', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='workers'>Trabalhadores</label>
-                  <input
-                    id='workers' placeholder='Nome dos trabalhadores'
-                    {...register('workers', {
-                      required: {
-                        value: true,
-                        message: 'Todos os campos são obrigatórios',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Trabalhadores'
+                {...register('workers', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='company'>Companhia</label>
-                  <input
-                    id='company' placeholder='Nome da companhia'
-                    {...register('company', {
-                      required: {
-                        value: true,
-                        message: 'Todos os campos são obrigatórios',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Fluido de perfuração'
+                {...register('drillingFluid', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='drillingFluid'>Fluído de perfuração</label>
-                  <input
-                    id='drillingFluid' placeholder='Nome da companhia'
-                    {...register('drillingFluid', {
-                      required: {
-                        value: true,
-                        message: 'Todos os campos são obrigatórios',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Haste'
+                {...register('rods', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='rods'>Hastes</label>
-                  <input
-                    id='rods' placeholder='Haste'
-                    {...register('rods', {
-                      required: {
-                        value: true,
-                        message: 'Todos os campos são obrigatórios',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
-
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='drillingMachine'>Máquina Perfuratriz</label>
-                  <input
-                    id='drillingMachine' placeholder='Máquina'
-                    {...register('drillingMachine', {
-                      required: {
-                        value: true,
-                        message: 'Todos os campos são obrigatórios',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Máquina Perfuratriz'
+                {...register('drillingMachine', {
+                  required: true,
+                })}
+              />
 
               <button type='submit'>Salvar</button>
             </S.Form>
