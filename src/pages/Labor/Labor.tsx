@@ -40,6 +40,7 @@ export function Labor () {
       <S.ContainerConfirmation>
         <h2>Mão de obra</h2>
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
+
         <S.GridConfirmation>
           <span>N° de identificação</span>
           <span>Nome</span>
@@ -49,6 +50,7 @@ export function Labor () {
           <span>Celular</span>
           <span>Validade do certificado</span>
         </S.GridConfirmation>
+
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
@@ -157,7 +159,6 @@ export function Labor () {
               <button type='submit'>Salvar</button>
             </S.Form>
           </S.Container>
-          {/* eslint-disable-next-line */}
         </Modal>
       </S.ContainerConfirmation>
     </>

@@ -38,7 +38,9 @@ export function Login () {
       <S.Content>
         <h1>Entrar</h1>
         <p>Faça login em nossa plataforma para aproveitar ao máximo todo o nosso sistema</p>
+
         <S.Form onSubmit={handleSubmit(onSubmit)}>
+
           <S.LoginInput>
             <fieldset>
               <label htmlFor='email'>E-mail</label>
