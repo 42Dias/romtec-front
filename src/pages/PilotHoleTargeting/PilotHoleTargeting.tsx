@@ -1,11 +1,13 @@
-import * as S from './PilotHoleTargeting.styled'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 
+import * as S from './PilotHoleTargeting.styled'
+
+import { TextField } from '../../ui/Components/TextField'
+import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
 
 type FormData = {
   responsible: string;
@@ -13,7 +15,7 @@ type FormData = {
   equipment: string;
   documents: string;
   information: string;
-  whenHappens: string;
+  whenHappens: Date;
 }
 
 export function PilotHoleTargeting () {
@@ -34,8 +36,8 @@ export function PilotHoleTargeting () {
       <S.ContainerConfirmation>
         <h2>Direcionamento do Furo Piloto</h2>
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
-        <S.GridConfirmation>
 
+        <S.GridConfirmation>
           <span>Responsável</span>
           <span>Ferramentas</span>
           <span>Equipamentos</span>
@@ -43,104 +45,66 @@ export function PilotHoleTargeting () {
           <span>Informações Envolvidas</span>
           <span>Quando acontece</span>
         </S.GridConfirmation>
+
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='responsible'>Responsável</label>
-                  <input
-                    id='responsible' placeholder='Nome'
-                    {...register('responsible', {
-                      required: {
-                        value: true,
-                        message: 'Todos os campos são obrigatórios',
-                      },
-                    })}
-                  />
-                  <span>{errors.responsible?.message}</span>
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Responsável'
+                id='responsible'
+                errorMessage={errors.responsible?.message}
+                {...register('responsible', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='tools'>Ferramentas</label>
-                  <input
-                    id='tools' placeholder='Nome das ferramentas'
-                    {...register('tools', {
-                      required: {
-                        value: true,
-                        message: 'Ferramentas são obrigatórias',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Ferramentas'
+                id='tools'
+                {...register('tools', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='equipment'>Equipamentos</label>
-                  <input
-                    id='equipment' placeholder='Nome dos equipamentos'
-                    {...register('equipment', {
-                      required: {
-                        value: true,
-                        message: 'Equipamentos são obrigatórios',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Equipamentos'
+                id='equipment'
+                {...register('equipment', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='documents'>Documentos</label>
-                  <input
-                    id='documents' placeholder='Documentos aqui'
-                    {...register('documents', {
-                      required: {
-                        value: true,
-                        message: 'Documentos são obrigatórios',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Documentos'
+                id='documents'
+                {...register('documents', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='information'>Informações Envolvidas</label>
-                  <input
-                    id='information' placeholder='Informações da abertura'
-                    {...register('information', {
-                      required: {
-                        value: true,
-                        message: 'Informações são obrigatórios',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='informações Envolvidas'
+                id='information'
+                {...register('information', {
+                  required: true,
+                })}
+              />
 
-              <S.ContentForm>
-                <fieldset>
-                  <label htmlFor='whenHappens'>Quando acontece</label>
-                  <input
-                    id='whenHappens' type='date'
-                    {...register('whenHappens', {
-                      required: {
-                        value: true,
-                        message: 'Data é obrigatória',
-                      },
-                    })}
-                  />
-                </fieldset>
-              </S.ContentForm>
+              <TextField
+                label='Quando acontece'
+                id='whenHappens'
+                type='date'
+                {...register('whenHappens', {
+                  required: true,
+                })}
+              />
 
               <button type='submit'>Salvar</button>
             </S.Form>
           </S.Container>
-          {/* eslint-disable-next-line */}
         </Modal>
 
       </S.ContainerConfirmation>

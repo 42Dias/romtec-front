@@ -2,6 +2,7 @@ import * as S from './DrillingPlanning.styled'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 
+import { TextField } from '../../ui/Components/TextField'
 import { useForm } from 'react-hook-form'
 
 type FormData = {
@@ -31,111 +32,69 @@ export function DrillingPlanning () {
         <h2>Planejamento de perfuração</h2>
         <S.Container>
           <S.Form onSubmit={handleSubmit(onSubmit)}>
-            <S.ContentForm>
-              <fieldset>
-                <label htmlFor='latEntryCheckpoint'>Ponto de verificação de entrada (lat)</label>
-                <input
-                  id='latEntryCheckpoint' placeholder='Latitude'
-                  {...register('latEntryCheckpoint', {
-                    required: {
-                      value: true,
-                      message: 'Todos os campos são obrigatórios',
-                    },
-                  })}
-                />
-                <span>{errors.latEntryCheckpoint?.message}</span>
-              </fieldset>
-            </S.ContentForm>
+            <TextField
+              label='Ponto de verificação de entrada (lat)'
+              errorMessage={errors.latEntryCheckpoint?.message}
+              placeholder='Latitude'
+              type='number'
+              {...register('latEntryCheckpoint', {
+                required: {
+                  value: true,
+                  message: 'Todos os campos são obrigatórios',
+                },
+              })}
+            />
 
-            <S.ContentForm>
-              <fieldset>
-                <label htmlFor='longEntryCheckpoint'>Ponto de verificação de entrada (long)</label>
-                <input
-                  id='longEntryCheckpoint' placeholder='Longitude'
-                  {...register('longEntryCheckpoint', {
-                    required: {
-                      value: true,
-                      message: 'Longitude é obrigatória',
-                    },
-                  })}
-                />
-              </fieldset>
-            </S.ContentForm>
+            <TextField
+              label='Ponto de verificação de entrada (long)'
+              placeholder='Longitude'
+              type='number'
+              {...register('longEntryCheckpoint', {
+                required: true,
+              })}
+            />
 
-            <S.ContentForm>
-              <fieldset>
-                <label htmlFor='latOutputCheckpoint'>Ponto de verificação de saída (lat)</label>
-                <input
-                  id='latOutputCheckpoint' placeholder='Latitude'
-                  {...register('latOutputCheckpoint', {
-                    required: {
-                      value: true,
-                      message: 'Latitude é obrigatória',
-                    },
-                  })}
-                />
-              </fieldset>
-            </S.ContentForm>
+            <TextField
+              label='Ponto de verificação de saída (lat)'
+              placeholder='Latitude'
+              type='number'
+              {...register('latOutputCheckpoint', {
+                required: true,
+              })}
+            />
 
-            <S.ContentForm>
-              <fieldset>
-                <label htmlFor='longOutputCheckpoint'>Ponto de verificação de saída (long)</label>
-                <input
-                  id='longOutputCheckpoint' placeholder='Longitude'
-                  {...register('longOutputCheckpoint', {
-                    required: {
-                      value: true,
-                      message: 'Longitude é obrigatória',
-                    },
-                  })}
-                />
-              </fieldset>
-            </S.ContentForm>
+            <TextField
+              label='Ponto de verificação de saída (long)'
+              placeholder='Longitude'
+              type='number'
+              {...register('longOutputCheckpoint', {
+                required: true,
+              })}
+            />
 
-            <S.ContentForm>
-              <fieldset>
-                <label htmlFor='pipeType'>Tipo de tubulação</label>
-                <input
-                  id='pipeType' placeholder='Fibra óptica'
-                  {...register('pipeType', {
-                    required: {
-                      value: true,
-                      message: 'Tubulação é obrigatória',
-                    },
-                  })}
-                />
-              </fieldset>
-            </S.ContentForm>
+            <TextField
+              label='Tipo de tubulação'
+              placeholder='Fibra óptica'
+              {...register('pipeType', {
+                required: true,
+              })}
+            />
 
-            <S.ContentForm>
-              <fieldset>
-                <label htmlFor='drillingDiameter'>Diâmetro de perfuração</label>
-                <input
-                  id='drillingDiameter' placeholder='20 metros'
-                  {...register('drillingDiameter', {
-                    required: {
-                      value: true,
-                      message: 'Diâmetro é obrigatório',
-                    },
-                  })}
-                />
-              </fieldset>
-            </S.ContentForm>
+            <TextField
+              label='Diâmetro de perfuração'
+              placeholder='20 metros'
+              {...register('drillingDiameter', {
+                required: true,
+              })}
+            />
 
-            <S.ContentForm>
-              <fieldset>
-                <label htmlFor='soilTypes'>Tipos de solo</label>
-                <input
-                  id='soilTypes' placeholder='Barro'
-                  {...register('soilTypes', {
-                    required: {
-                      value: true,
-                      message: 'Tipos de solo são obrigatórios',
-                    },
-                  })}
-                />
-              </fieldset>
-            </S.ContentForm>
+            <TextField
+              label='Tipos de solo'
+              placeholder='Barro'
+              {...register('soilTypes', {
+                required: true,
+              })}
+            />
 
             <button type='submit'>Salvar</button>
           </S.Form>

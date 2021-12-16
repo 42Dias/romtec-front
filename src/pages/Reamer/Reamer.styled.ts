@@ -29,7 +29,7 @@ export const ContainerConfirmation = styled.div`
 
 export const GridConfirmation = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   justify-items: center;
   align-items: center;
   background-color: ${theme.colors.black};
@@ -49,15 +49,12 @@ export const GridConfirmation = styled.div`
 `
 
 export const Form = styled.form`
-  /* display: flex;
-  flex-direction: column; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  align-items: center;
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  input {
+  select {
     width: 345px;
     height: 48px;
     box-sizing: border-box;
@@ -66,7 +63,7 @@ export const Form = styled.form`
     padding: 0 7px;
     border: 1px solid ${theme.colors.black};
     background: ${theme.colors.darkBlack};
-    color: ${theme.colors.white};
+    color: ${theme.colors.yellow};
 
     :focus {
       border: 1px solid ${theme.colors.yellow};
@@ -81,7 +78,9 @@ export const Form = styled.form`
     background: ${theme.colors.green};
     border: 0;
     transition: 1s;
-    margin-left: 15px;
+    margin-bottom: 20px;
+    margin-right: 250px;
+
     :hover {
       opacity: 80%;
     }
@@ -90,7 +89,6 @@ export const Form = styled.form`
   span {
     color: ${theme.colors.red};
     font-size: 10px;
-    margin: 0 0 0 15px;
   }
 
   fieldset {
