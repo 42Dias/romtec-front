@@ -53,7 +53,7 @@ export const Form = styled.form`
   justify-items: center;
   align-items: center;
 
-  select, input {
+  select {
     width: 345px;
     height: 48px;
     box-sizing: border-box;
@@ -93,7 +93,7 @@ export const Form = styled.form`
 
   fieldset {
     border: 0;
-    margin: 5px 1px 5px 14px;
+    margin: 5px 1px 5px 22px;
   }
 `
 
