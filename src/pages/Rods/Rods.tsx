@@ -17,6 +17,7 @@ type FormData = {
   torque: string;
   length: string;
   screwThread: string;
+  quantities: string;
 }
 
 export function Rods () {
@@ -105,6 +106,14 @@ export function Rods () {
               <TextField
                 label='Modelo da Rosca'
                 {...register('screwThread', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Quantidade de haste'
+                type='number'
+                {...register('quantities', {
                   required: true,
                 })}
               />
