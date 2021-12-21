@@ -14,20 +14,27 @@ export const Aside = styled.aside`
 `
 
 export const Container = styled.div`
+  width: 250px;
   display: flex;
-  align-items: center;
-  justify-content: left;
-  text-align: left;
+  flex-direction: column;
+  height: 100vh;
+  border-radius: 5px;
   overflow: hidden;
-  transition: width 2s;
 `
 
 export const List = styled.ul`
   list-style: none;
   width: 500px;
   padding: 20px;
-  margin: 15px 0 0 40px;
+  margin: 15px 0 0 30px;
   transition: width 2s;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 7px;
+    border-radius: 1px;
+  }
+
   h4 {
     margin: 10px 0 8px 10px;
 
@@ -47,7 +54,7 @@ export const List = styled.ul`
     }
 
     :hover {
-      padding: 8px;
+      padding: 6px;
       background: ${theme.colors.black};
       border-radius: 4px;
     }
