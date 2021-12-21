@@ -16,20 +16,24 @@ export const Content = styled.div`
   align-items: center;
   justify-content: space-between;
   position: relative;
+
   span {
     background: ${theme.colors.yellow};
     padding: 5px 15px 5px 15px;
     border-radius: 7px;
     margin-left: 36px;
   }
+
   h2 {
     max-width: 553px;
     margin-left: 36px;
     padding: 10px 0;
   }
+
   p {
     margin-left: 36px;
   }
+
   img {
     position: absolute;
     right: 0;
@@ -53,7 +57,7 @@ export const ContainerUsers = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 30px;
+  padding: 0 50px;
 
   button {
     width: 145px;
@@ -63,5 +67,71 @@ export const ContainerUsers = styled.div`
     background-color: ${theme.colors.yellow};
     color: ${theme.colors.black};
     font-weight: bold;
+  }
+`
+
+export const NavList = styled.nav`
+  display: flex;
+  li {
+    margin: 10px 40px;
+  } 
+`
+
+export const GridModal = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0 20px !important;
+`
+
+export const ContainerModal = styled.div`
+
+  margin: 40px 0;
+
+  button {
+    margin: 10px 20px;
+  }
+  svg {
+    color: ${theme.colors.yellow};
+    font-size: 22px;
+  }
+`
+
+export const BoxModal = styled.button`
+  width: 258px;
+  height: 232px;
+  background: #252332;
+  box-shadow: 0px 4px 15px -10px rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  &:focus {
+    border: 1px solid ${theme.colors.yellow};
+  }
+`
+
+export const TitleUser = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 40px 20px 10px 20px;
+  h2 {
+    margin-left: 20px;
+  }
+`
+
+export const Btns = styled.div`
+  display: flex;  
+  align-items: center;
+  justify-content: center;
+
+  button {
+    width: 101px;
+    height: 44px;
+    background-color: ${theme.colors.green};
+    font-weight: bold;
+  }
+
+  button:last-child {
+    background-color: ${theme.colors.red};
   }
 `
