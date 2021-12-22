@@ -10,6 +10,7 @@ import { FiPlus } from 'react-icons/fi'
 import { useState } from 'react'
 
 type FormData = {
+  code: string;
   compatibleProbe: string;
   compatibleShovel: string;
   numberJets: string;
@@ -46,14 +47,22 @@ export function ProbeHolder () {
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField
-                label='Sonda compatível/marca'
-                errorMessage={errors.compatibleProbe?.message}
-                id='compatibleProbe'
-                {...register('compatibleProbe', {
+                label='Código'
+                errorMessage={errors.code?.message}
+                id='code'
+                {...register('code', {
                   required: {
                     value: true,
                     message: 'Todos os campos são obrigatórios',
                   },
+                })}
+              />
+
+              <TextField
+                label='Sonda compatível/marca'
+                id='compatibleProbe'
+                {...register('compatibleProbe', {
+                  required: true,
                 })}
               />
 
