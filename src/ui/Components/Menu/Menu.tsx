@@ -36,9 +36,6 @@ const Menu = ({ children, onClose }: Props) => {
             <Link to='/fluido-de-perfuracao'>Fluido de Perfuração</Link>
           </li>
           <li>
-            <Link to='/equipamentos'>Equipamentos</Link>
-          </li>
-          <li>
             <Link to='/companhias'>Companhias</Link>
           </li>
           <li>
