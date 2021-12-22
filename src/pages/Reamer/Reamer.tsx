@@ -9,6 +9,7 @@ import { FiPlus } from 'react-icons/fi'
 import { useState } from 'react'
 
 type FormData = {
+  code: string;
   swivelCapacity: string;
   conditionOfUse: string;
   typeOfReamer: string;
@@ -49,13 +50,21 @@ export function Reamer () {
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField
-                label='Capacidade do Swivel'
-                errorMessage={errors.swivelCapacity?.message}
-                {...register('swivelCapacity', {
+                label='Código'
+                errorMessage={errors.code?.message}
+                id='code'
+                {...register('code', {
                   required: {
                     value: true,
                     message: 'Todos os campos são obrigatórios',
                   },
+                })}
+              />
+
+              <TextField
+                label='Capacidade do Swivel'
+                {...register('swivelCapacity', {
+                  required: true,
                 })}
               />
 
@@ -88,7 +97,7 @@ export function Reamer () {
               />
 
               <TextField
-                label='Unidade de medida'
+                label='Diâmetro(mm)'
                 {...register('unitOfMeasurement', {
                   required: true,
                 })}

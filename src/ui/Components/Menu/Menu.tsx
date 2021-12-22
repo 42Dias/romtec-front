@@ -39,9 +39,6 @@ const Menu = ({ children, onClose }: Props) => {
             <Link to='/companhias'>Companhias</Link>
           </li>
           <li>
-            <Link to='/topografia'>Topografia</Link>
-          </li>
-          <li>
             <Link to='/configuracao-da-travessia'>Config. da travessia</Link>
           </li>
           <h4><FiTool size={20} />Ferramentas</h4>

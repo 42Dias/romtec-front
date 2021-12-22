@@ -111,7 +111,7 @@ export function Rods () {
               />
 
               <TextField
-                label='Quantidade de haste'
+                label='Quantidade de hastes'
                 type='number'
                 {...register('quantities', {
                   required: true,
