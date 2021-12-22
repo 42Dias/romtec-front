@@ -43,7 +43,7 @@ const Menu = ({ children, onClose }: Props) => {
           </li>
           <h4><FiTool size={20} />Ferramentas</h4>
           <li>
-            <Link to='/ferramentas'>Ferramentas</Link>
+            <Link to='/ferramentas'>Cadastrar</Link>
           </li>
           <li>
             <Link to='/alargador'>Alargador</Link>
