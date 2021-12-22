@@ -24,9 +24,10 @@ export const Container = styled.div`
 
 export const List = styled.ul`
   list-style: none;
-  width: 500px;
+  width: 300px;
+  height: 645px;
   padding: 20px;
-  margin: 15px 0 0 30px;
+  margin: 50px 0 0 50px;
   transition: width 2s;
   overflow-y: scroll;
 

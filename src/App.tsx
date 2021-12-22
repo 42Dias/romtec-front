@@ -29,7 +29,6 @@ import {
   PilotHoleTargeting,
   DitchClosing,
   Interferences,
-  Equipment,
   Reamer,
   ProbeHolder,
   Users,
@@ -64,7 +63,6 @@ import {
   PILOTHOLETARGETING,
   DITCHCLOSING,
   INTERFERENCES,
-  EQUIPMENT,
   REAMER,
   PROBEHOLDER,
   USERS,
@@ -101,7 +99,6 @@ export function App () {
         <Route path={PILOTHOLETARGETING} element={<PilotHoleTargeting />} />
         <Route path={DITCHCLOSING} element={<DitchClosing />} />
         <Route path={INTERFERENCES} element={<Interferences />} />
-        <Route path={EQUIPMENT} element={<Equipment />} />
         <Route path={REAMER} element={<Reamer />} />
         <Route path={PROBEHOLDER} element={<ProbeHolder />} />
         <Route path={USERS} element={<Users />} />
