@@ -1,29 +1,43 @@
-import * as S from './Crossings.styled'
+import { useState } from 'react'
+import * as S from './Phases.styled'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import SwiperCore, { Pagination, Navigation } from 'swiper'
+
+// Import Swiper styles
+import 'swiper/swiper-bundle.min.css'
+import 'swiper/swiper.min.css'
+
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 
-import { FiTrash, FiPlus, FiEye } from 'react-icons/fi'
+import { FiPlus, FiCheck, FiPlay, FiLock } from 'react-icons/fi'
 
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { TextField } from '../../ui/Components/TextField'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
 type FormData = {
-  name: string;
-  crossing: string;
-  workers: string;
-  company: string;
-  drillingFluid: string;
-  hurry: string;
-  drillingMachine: string;
+  name: string
+  crossing: string
+  workers: string
+  company: string
+  drillingFluid: string
+  hurry: string
+  drillingMachine: string
 }
 
-export function Crossings () {
+SwiperCore.use([Pagination, Navigation])
+
+export function Phases () {
   const [isOpen, setIsOpen] = useState(false)
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
     console.log(data)
@@ -31,68 +45,81 @@ export function Crossings () {
     reset()
   }
 
+  // const [showText, setShowText] = useState(false)
+  // const [showText2, setShowText2] = useState(false)
+  // const onClick = () => setShowText(true)
+  // const onClick2 = () => setShowText2(true)
+
+  // const Text = () => <div>voce clicou</div>
+  // const Text2 = () => <div>oi</div>
+
   return (
     <>
       <Sidebar />
       <Navbar />
       <S.ContainerConfirmation>
-        <h2>Perfurações</h2>
-        <button onClick={() => setIsOpen(true)}><FiPlus /></button>
+        <h2>Selecione uma etapa</h2>
+        <button onClick={() => setIsOpen(true)}>
+          <FiPlus />
+        </button>
 
-        <S.GridConfirmation>
-          <span>Nome</span>
-          <span>Travessia</span>
-          <span>Trabalhadores</span>
-          <span>Companhia</span>
-          <span>Fluido de perfuração</span>
-          <span>Pressa</span>
-          <span>Maquina perfuratriz</span>
-        </S.GridConfirmation>
+        {/* <div>
+          <button onClick={onClick}>Clique aqui 1</button>
+          {showText ? <Text /> : null}
+        </div>
 
-        <S.GridConfirmation>
-          <span>XXXXXXXXXX</span>
-          <span>XXXXXX</span>
-          <span>XXXXX</span>
-          <span>XXXXX</span>
-          <span>XXXXXXXX</span>
-          <span>XXXXXXXX</span>
-          <span>XXXXXXXX</span>
-          <Link to='/etapas' className='exec'><span>Executar travessia</span></Link>
-          <div>
-            <button className='del'><FiTrash size={22} /></button>
-            <button className='edit'><FiEye size={22} /></button>
-          </div>
-        </S.GridConfirmation>
+        <div>
+          <button onClick={onClick2}>clique aqui dois</button>
+          {showText2 ? <Text2 /> : null}
+        </div> */}
 
-        <S.GridConfirmation>
-          <span>XXXXXXXXXX</span>
-          <span>XXXXXX</span>
-          <span>XXXXX</span>
-          <span>XXXXX</span>
-          <span>XXXXXXXX</span>
-          <span>XXXXXXXX</span>
-          <span>XXXXXXXX</span>
-          <Link to='/etapas' className='exec'><span>Executar travessia</span></Link>
-          <div>
-            <button className='del'><FiTrash size={22} /></button>
-            <button className='edit'><FiEye size={22} /></button>
-          </div>
-        </S.GridConfirmation>
-
-        <S.GridConfirmation>
-          <span>XXXXXXXXXX</span>
-          <span>XXXXXX</span>
-          <span>XXXXX</span>
-          <span>XXXXX</span>
-          <span>XXXXXXXX</span>
-          <span>XXXXXXXX</span>
-          <span>XXXXXXXX</span>
-          <Link to='/etapas' className='exec'><span>Executar travessia</span></Link>
-          <div>
-            <button className='del'><FiTrash size={22} /></button>
-            <button className='edit'><FiEye size={22} /></button>
-          </div>
-        </S.GridConfirmation>
+        <Swiper
+          spaceBetween={40}
+          breakpoints={{
+            620: {
+              width: 620,
+              slidesPerView: 1,
+            },
+            768: {
+              width: 768,
+              slidesPerView: 2,
+            },
+          }}
+          pagination={{
+            clickable: true,
+          }}
+          navigation
+        >
+          <SwiperSlide>
+            <button>
+              <FiCheck />
+              <h1>Planejamento de perfuração</h1>
+            </button>
+          </SwiperSlide>
+          <SwiperSlide>
+            <button>
+              <FiCheck />
+              <h1>Levantamento e Mapeamento de interferências</h1>
+            </button>
+          </SwiperSlide>
+          <SwiperSlide>
+            <button>
+              <FiCheck />
+              <h1>Verificação de Interferências Físicas e Magnéticas</h1>
+            </button>
+          </SwiperSlide>
+          <SwiperSlide>
+            <button>
+              <FiPlay />
+              <h1>Direcionamento do Furo Piloto</h1>
+            </button>
+          </SwiperSlide>
+          <SwiperSlide>
+            <button>
+              <FiLock />
+            </button>
+          </SwiperSlide>
+        </Swiper>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>

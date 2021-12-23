@@ -32,6 +32,7 @@ import {
   Reamer,
   ProbeHolder,
   Users,
+  Phases,
 } from './pages'
 
 import { GlobalStyle } from './ui'
@@ -66,6 +67,7 @@ import {
   REAMER,
   PROBEHOLDER,
   USERS,
+  PHASES,
 } from './routes'
 
 export function App () {
@@ -102,6 +104,7 @@ export function App () {
         <Route path={REAMER} element={<Reamer />} />
         <Route path={PROBEHOLDER} element={<ProbeHolder />} />
         <Route path={USERS} element={<Users />} />
+        <Route path={PHASES} element={<Phases />} />
         <Route path='*' element={<Error />} />
       </Routes>
       <GlobalStyle />

@@ -28,13 +28,44 @@ export const ContainerConfirmation = styled.div`
 
 export const GridConfirmation = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(9, 1fr);
   justify-items: center;
   align-items: center;
   background-color: ${theme.colors.black};
   padding: 20px;
   border-radius: 5px;
   margin-bottom: 13px;
+
+
+  .exec {
+    width: 155px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    background-color: ${theme.colors.yellow};
+    span {
+      color: ${theme.colors.black};
+      font-weight: bold;
+    }
+  }
+
+  .del {
+    background-color: transparent;
+    margin-top: 20px;
+    svg {
+      color: ${theme.colors.red};
+    }
+  }
+
+  .edit {
+    background-color: transparent;
+    margin-top: 20px;
+    svg {
+      color: ${theme.colors.yellow};
+    }
+  }
 
   span {
     font-size: 14px;
