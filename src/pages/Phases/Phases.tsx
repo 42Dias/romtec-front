@@ -13,18 +13,6 @@ import Navbar from '../../ui/Components/Navbar/Navbar'
 
 import { FiPlus, FiCheck, FiPlay, FiLock } from 'react-icons/fi'
 
-import { useForm } from 'react-hook-form'
-
-type FormData = {
-  name: string
-  crossing: string
-  workers: string
-  company: string
-  drillingFluid: string
-  hurry: string
-  drillingMachine: string
-}
-
 SwiperCore.use([Pagination, Navigation])
 
 export function Phases () {
@@ -55,7 +43,6 @@ export function Phases () {
     setIsOpen4(false)
     setIsOpen5(false)
   }
-
   function closeModal2 () {
     setIsOpen2(false)
   }
@@ -67,7 +54,6 @@ export function Phases () {
     setIsOpen4(false)
     setIsOpen5(false)
   }
-
   function closeModal3 () {
     setIsOpen3(false)
   }
@@ -79,11 +65,10 @@ export function Phases () {
     setIsOpen3(false)
     setIsOpen5(false)
   }
-
   function closeModal4 () {
     setIsOpen4(false)
   }
-  //
+
   function openModal5 () {
     setIsOpen5(true)
     setIsOpen(false)
@@ -93,7 +78,7 @@ export function Phases () {
   }
 
   function closeModal5 () {
-    setIsOpen5(false)
+    setIsOpen4(false)
   }
 
   return (
@@ -465,7 +450,7 @@ export function Phases () {
           onAfterOpen={() => afterOpenModal}
           onRequestClose={() => closeModal5}
         >
-          <h2>Direcionamento do Furo Piloto</h2>
+          <h2>Direcionamento do furo piloto</h2>
           {/* <button onClick={closeModal}>close</button> */}
 
           <S.FormContent>
