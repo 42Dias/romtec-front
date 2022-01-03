@@ -2,7 +2,6 @@ import styled from 'styled-components/macro'
 import { theme } from '../../styles/theme'
 
 export const Modal = styled.div`
-
   display: flex;
   align-items: center;
   justify-content: center;

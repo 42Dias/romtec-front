@@ -9,6 +9,7 @@ export const ContainerConfirmation = styled.div`
     .swiper-container {
       margin: 0 auto;
       text-align: center;
+      z-index: 0 !important;
     }
 
     .swiper-slide {
@@ -16,6 +17,7 @@ export const ContainerConfirmation = styled.div`
       width: 247px;
       height: 194px;
       border-radius: 20px;
+      z-index: 1 !important;
       button {
         background: #252332;
         width: 100%;
@@ -145,6 +147,51 @@ export const Form = styled.form`
   `
 
 export const Container = styled.aside`
-    max-width: 780px;
-    margin: 0 auto;
-  `
+  max-width: 780px;
+  margin: 0 auto;
+`
+
+export const FormContent = styled.form`
+  button {
+    width: 101px;
+    height: 44px;
+
+    background: #00E1AF;
+    border-radius: 5px;
+    color: white;
+    border: 0;
+  }
+`
+
+export const GridForm = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  div {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0 0 0;
+
+    label {
+      font-size: 12px;
+    }
+
+    input {
+      width: 480px;
+      height: 48px;
+      font-size: 12px;
+      border-radius: 5px;
+      border: 1px solid #252332;
+      background-color: ${theme.colors.darkBlack};
+      color: rgba(255, 255, 255, 0.35);
+      padding: 7px;
+      margin: 10px 0;
+
+      transition: .4s;
+
+      &:focus {
+        border: 1px solid ${theme.colors.yellow};
+      }
+    }
+  }
+`
