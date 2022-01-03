@@ -16,7 +16,6 @@ import { FiPlus, FiCheck, FiPlay, FiLock } from 'react-icons/fi'
 
 import { useForm } from 'react-hook-form'
 import { TextField } from '../../ui/Components/TextField'
-// import { Link } from 'react-router-dom'
 
 type FormData = {
   name: string
@@ -125,66 +124,47 @@ export function Phases () {
               <TextField
                 label='Travessia'
                 {...register('crossing', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Trabalhadores'
                 {...register('workers', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Companhia'
                 {...register('company', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Fluído de perfuração'
                 {...register('drillingFluid', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Pressa'
                 {...register('hurry', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Máquina Perfuratriz'
                 {...register('drillingMachine', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
               <button type='submit'>Salvar</button>
             </S.Form>
           </S.Container>
-          {/* eslint-disable-next-line */}
         </Modal>
 
         <PhasesContent
@@ -195,7 +175,7 @@ export function Phases () {
             <h2>Verificação de Interferências Físicas e Magnéticas</h2>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField
-                label='Responsável:'
+                label='Responsável'
                 errorMessage={errors.name?.message}
                 {...register('name', {
                   required: {
@@ -208,86 +188,61 @@ export function Phases () {
               <TextField
                 label='Equipamentos:'
                 {...register('crossing', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Documentos'
                 {...register('workers', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Tipo de rede:'
                 {...register('company', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Empresa proprietária'
                 {...register('drillingFluid', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Confirmação da sondagem da interferência:'
                 {...register('hurry', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Sondagem'
                 {...register('drillingMachine', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Criação do plano de furo'
                 {...register('drillingMachine', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Quando acontece:'
                 {...register('drillingMachine', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
               <button type='submit'>Salvar</button>
             </S.Form>
           </S.Container>
-          {/* eslint-disable-next-line */}
         </PhasesContent>
       </S.ContainerConfirmation>
     </>
