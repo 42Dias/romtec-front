@@ -10,6 +10,7 @@ import 'swiper/swiper.min.css'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
+import PhasesContent from '../../ui/Components/PhasesContent/PhasesContent'
 
 import { FiPlus, FiCheck, FiPlay, FiLock } from 'react-icons/fi'
 
@@ -31,6 +32,7 @@ SwiperCore.use([Pagination, Navigation])
 
 export function Phases () {
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenContent, setIsOpenContent] = useState(false)
 
   const {
     register,
@@ -45,14 +47,6 @@ export function Phases () {
     reset()
   }
 
-  // const [showText, setShowText] = useState(false)
-  // const [showText2, setShowText2] = useState(false)
-  // const onClick = () => setShowText(true)
-  // const onClick2 = () => setShowText2(true)
-
-  // const Text = () => <div>voce clicou</div>
-  // const Text2 = () => <div>oi</div>
-
   return (
     <>
       <Sidebar />
@@ -62,16 +56,6 @@ export function Phases () {
         <button onClick={() => setIsOpen(true)}>
           <FiPlus />
         </button>
-
-        {/* <div>
-          <button onClick={onClick}>Clique aqui 1</button>
-          {showText ? <Text /> : null}
-        </div>
-
-        <div>
-          <button onClick={onClick2}>clique aqui dois</button>
-          {showText2 ? <Text2 /> : null}
-        </div> */}
 
         <Swiper
           spaceBetween={40}
@@ -91,7 +75,7 @@ export function Phases () {
           navigation
         >
           <SwiperSlide>
-            <button>
+            <button onClick={() => setIsOpenContent(true)}>
               <FiCheck />
               <h1>Planejamento de perfuração</h1>
             </button>
@@ -115,7 +99,10 @@ export function Phases () {
             </button>
           </SwiperSlide>
           <SwiperSlide>
-            <button>
+            <button
+              style={{ cursor: 'not-allowed' }}
+              disabled
+            >
               <FiLock />
             </button>
           </SwiperSlide>
@@ -199,6 +186,109 @@ export function Phases () {
           </S.Container>
           {/* eslint-disable-next-line */}
         </Modal>
+
+        <PhasesContent
+          isOpenContent={isOpenContent}
+          onClose={() => setIsOpenContent(false)}
+        >
+          <S.Container>
+            <h2>Verificação de Interferências Físicas e Magnéticas</h2>
+            <S.Form onSubmit={handleSubmit(onSubmit)}>
+              <TextField
+                label='Responsável:'
+                errorMessage={errors.name?.message}
+                {...register('name', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Equipamentos:'
+                {...register('crossing', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Documentos'
+                {...register('workers', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Tipo de rede:'
+                {...register('company', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Empresa proprietária'
+                {...register('drillingFluid', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Confirmação da sondagem da interferência:'
+                {...register('hurry', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Sondagem'
+                {...register('drillingMachine', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Criação do plano de furo'
+                {...register('drillingMachine', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Quando acontece:'
+                {...register('drillingMachine', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+              <button type='submit'>Salvar</button>
+            </S.Form>
+          </S.Container>
+          {/* eslint-disable-next-line */}
+        </PhasesContent>
       </S.ContainerConfirmation>
     </>
   )
