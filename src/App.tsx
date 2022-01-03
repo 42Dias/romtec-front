@@ -69,6 +69,7 @@ import {
   USERS,
   PHASES,
 } from './routes'
+import { ToastContainer } from 'react-toastify'
 
 export function App () {
   return (
@@ -108,6 +109,17 @@ export function App () {
         <Route path='*' element={<Error />} />
       </Routes>
       <GlobalStyle />
+      <><ToastContainer
+         position="top-right"
+         autoClose={5000}
+         hideProgressBar={false}
+         newestOnTop={false}
+         closeOnClick
+         rtl={false}
+         pauseOnFocusLoss
+         draggable
+         pauseOnHover
+        /></>
     </BrowserRouter>
   )
 }

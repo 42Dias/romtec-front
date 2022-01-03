@@ -3,12 +3,52 @@ import Navbar from '../../ui/Components/Navbar/Navbar'
 import * as S from './Users.styled'
 import image from '../../assets/obra.png'
 import Modal from '../../ui/Components/Modal/Modal'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FiTool } from 'react-icons/fi'
+import axios from 'axios'
+import { toast } from 'react-toastify'
+import { api, id, ip, nome, token } from '../../services/api'
 
-export function Users () {
+export function Users() {
   const [isOpen, setIsOpen] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [user, setUsers] = useState<any[]>([]);
+  const [role, setRole] = useState('');
 
+  async function users() {
+    setLoading(true)
+    let responser = api.get('user/',
+    ).then((response) => {
+      console.log(response.data.rows);
+      if (response.statusText === "OK") {
+        setUsers(response.data.rows)
+      }
+    }).catch(res => {
+      console.log(res.response.data);
+      toast.error(res.response.data);
+      setLoading(false)
+    })
+
+  }
+  function editUser(user: any) {
+    setLoading(true)
+    let responser = axios.put('http://' + ip + ':8145/api/tenant/03c34402-8216-4ce7-aca0-3cc6a03b7a63/user/', {
+      data: user
+    }
+    ).then((response) => {
+      console.log(response.data.rows);
+      if (response.statusText === "OK") {
+        setUsers(response.data.rows)
+      }
+    }).catch(res => {
+      console.log(res.response.data);
+      toast.error(res.response.data);
+      setLoading(false)
+    })
+  }
+  useEffect(() => {
+    users()
+  }, []);
   return (
     <>
       <Sidebar />
@@ -25,17 +65,18 @@ export function Users () {
 
         <S.Steps>
           <h2>Usuários</h2>
+          {user.map((user) => (
+            <S.ContainerUsers>
+              <div>
+                <h4>{user.firstName}</h4>
+                <span>{user.email}</span> <br />
+                <span>CNPJ: {user.cnpj}</span> <br />
+                <span>Telefone: {user.tel}</span>
+              </div>
 
-          <S.ContainerUsers>
-            <div>
-              <h4>Luciano</h4>
-              <span>Luciano@gmail.com</span> <br />
-              <span>CNPJ: XX. XXX. XXX/0001-XX</span> <br />
-              <span>Telefone: (12) 9 9999-9999</span>
-            </div>
-
-            <button onClick={() => setIsOpen(true)}>Atribuir perfil</button>
-          </S.ContainerUsers>
+              <button onClick={() => setIsOpen(true)}>Atribuir perfil</button>
+            </S.ContainerUsers>
+          ))}
         </S.Steps>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
@@ -89,9 +130,9 @@ export function Users () {
 
               <S.BoxModal>
 
-                <S.TitleUser>
+                <S.TitleUser onClick={() => setRole('admin')}>
                   <FiTool />
-                  <h2>Engenharia ADM</h2>
+                  <h2 >Engenharia ADM</h2>
                 </S.TitleUser>
 
                 <S.NavList>
@@ -138,8 +179,8 @@ export function Users () {
             </S.GridModal>
 
             <S.Btns>
-              <button>Salvar</button>
-              <button>Cancelar</button>
+              <button onClick={() => editUser(user)}>Salvar</button>
+              <button onClick={() => setIsOpen(false)}>Cancelar</button>
             </S.Btns>
 
           </S.ContainerModal>

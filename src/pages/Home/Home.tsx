@@ -3,8 +3,38 @@ import Navbar from '../../ui/Components/Navbar/Navbar'
 import * as S from './Home.styled'
 import { FiSettings } from 'react-icons/fi'
 import image from '../../assets/obra.png'
+import axios from 'axios'
+import { useEffect } from 'react'
+import { ip, token } from '../../services/api'
 
 export function Home () {
+  async function loadUser(token:any) {
+    const response = await axios({
+      method: 'get',
+      url: `http://${ip}:8145/api/auth/me`,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token 
+      },
+      timeout: 50000
+    }).then(response => {
+      return response.data;
+    })
+    console.log(response);
+    //console.log(response.tenants[0].roles[0]);
+    //localStorage.setItem("roles", JSON.stringify(response.tenants[0].roles[0]));//saves client's data into localStorage:
+    //console.log(response.tenants[0].tenant.id);
+    localStorage.setItem("tenantId", JSON.stringify(response.tenants[0].tenant.id));//saves client's data into localStorage:
+    localStorage.setItem("id", JSON.stringify(response.id));//saves client's data into localStorage:
+    //localStorage.setItem("status", JSON.stringify(response.tenants[0].status));//saves client's data into localStorage:
+  }
+  useEffect(() => {
+    if(!token){
+      window.location.reload()
+    }
+    loadUser(token)
+  }, []);
   return (
     <>
       <Sidebar />
@@ -77,6 +107,7 @@ export function Home () {
           </S.ContainerSteps>
         </S.Steps>
       </S.Container>
+      
     </>
   )
 }

@@ -6,33 +6,78 @@ import Modal from '../../ui/Components/Modal/Modal'
 import { TextField } from '../../ui/Components/TextField'
 import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import { toast } from 'react-toastify'
+import { api, ip, tenantId } from '../../services/api'
 
 type FormData = {
-  identification: string;
-  name: string;
+  nIdentificacao: string;
+  nome: string;
   rg: string;
   cpf: string;
-  phone: string;
-  zipCode: string;
-  city: string;
-  occupation: string;
-  certificateValidity: Date;
-  certificateNumber: string;
+  celular: string;
+  cep: string;
+  cidade: string;
+  funcao: string;
+  validadeCertificado: Date;
+  numero: string;
   certificate: string;
 }
 
-export function Labor () {
+export function Labor() {
   const [isOpen, setIsOpen] = useState(false)
-
+  const [loading, setLoading] = useState(false);
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
+  const [maoDeObra, setMaoDeObra] = useState<any[]>([]);
 
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
     console.log(data)
-
+    Cadastro(data)
     reset()
   }
+  async function Cadastro(submit: any) {
+    setLoading(true)
+    let responser = api.post(`mao-de-obra`, {
+      data: submit,
+    }).then((response) => {
+      console.log(response);
+      if (response.statusText === "OK") {
+        toast.success('Recebemos o seu registro');
+        setLoading(false)
+      } else if (response.statusText === "Forbidden") {
+        toast.error("Ops, Não tem permisão!");
+        setLoading(false)
+      } else {
+        toast.error("Ops, Dados Incorretos!");
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res);
+      //toast.error(res.response.data);
+      setLoading(false)
+    })
+  }
 
+  async function MaoDeObra() {
+    setLoading(true)
+    let responser = api.get('mao-de-obra',
+    ).then((response) => {
+      console.log(response.data.rows);
+      if (response.statusText === "OK") {
+        setMaoDeObra(response.data.rows)
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data);
+      toast.error(res.response.data);
+      setLoading(false)
+    })
+  }
+  useEffect(() => {
+    setLoading(true)
+    MaoDeObra()
+  }, []);
   return (
     <>
       <Sidebar />
@@ -58,9 +103,9 @@ export function Labor () {
               <TextField
                 label='N° de identificação'
                 type='number'
-                id='identification'
-                errorMessage={errors.identification?.message}
-                {...register('identification', {
+                id='nIdentificacao'
+                errorMessage={errors.nIdentificacao?.message}
+                {...register('nIdentificacao', {
                   required: {
                     value: true,
                     message: 'Todos os campos são obrigatórios',
@@ -70,8 +115,8 @@ export function Labor () {
 
               <TextField
                 label='Nome'
-                id='name'
-                {...register('name', {
+                id='nome'
+                {...register('nome', {
                   required: true,
                 })}
               />
@@ -96,9 +141,9 @@ export function Labor () {
 
               <TextField
                 label='Celular'
-                id='phone'
-                type='number'
-                {...register('phone', {
+                id='celular'
+                type='phone'
+                {...register('celular', {
                   required: true,
                 })}
               />
@@ -106,24 +151,24 @@ export function Labor () {
               <TextField
                 label='CEP'
                 id='cep'
-                type='number'
-                {...register('zipCode', {
+                type='cep'
+                {...register('cep', {
                   required: true,
                 })}
               />
 
               <TextField
                 label='Cidade'
-                id='city'
-                {...register('city', {
+                id='cidade'
+                {...register('cidade', {
                   required: true,
                 })}
               />
 
               <TextField
                 label='Função'
-                id='occupation'
-                {...register('occupation', {
+                id='funcao'
+                {...register('funcao', {
                   required: true,
                 })}
               />
@@ -131,8 +176,8 @@ export function Labor () {
               <TextField
                 label='Validade do certificado'
                 type='date'
-                id='certificateValidity'
-                {...register('certificateValidity', {
+                id='validadeCertificado'
+                {...register('validadeCertificado', {
                   required: true,
                 })}
               />
@@ -140,8 +185,8 @@ export function Labor () {
               <TextField
                 label='Número do certificado'
                 type='number'
-                id='certificateNumber'
-                {...register('certificateNumber', {
+                id='numero'
+                {...register('numero', {
                   required: true,
                 })}
               />
@@ -156,7 +201,7 @@ export function Labor () {
                 </select>
               </fieldset>
 
-              <button type='submit'>Salvar</button>
+              <button type='submit'>{loading ? <img width="40px" style={{margin: 'auto'}} height="" src={'https://contribua.org/mb-static/images/loading.gif'} alt="Loading" /> :'Salvar'}</button>
             </S.Form>
           </S.Container>
         </Modal>

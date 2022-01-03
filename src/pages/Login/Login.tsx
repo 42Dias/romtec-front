@@ -8,31 +8,99 @@ import { FiEye } from 'react-icons/fi'
 
 import * as S from './Login.styled'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+import { toast } from 'react-toastify'
+import { ip } from '../../services/api'
 
 type FormData = {
   email: string;
   password: string;
 }
 
-export function Login () {
+export function Login() {
   const navigate = useNavigate()
 
   const [textPass, setTextPass] = useState(true)
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
+  const [loading, setLoading] = useState(false);
 
-  function onSubmit ({ email, password }: FormData) {
+  function onSubmit({ email, password }: FormData) {
     const submit = {
       email,
       password,
     }
-    reset()
+    Login(submit)
+    //reset()
 
-    navigate('/home', { replace: true })
 
-    console.log(submit)
+
+    //console.log(submit)
   }
+  function handleLocalStorage(emailA: string, passwordB: string) {
 
+    localStorage.setItem("email", JSON.stringify(emailA));//saves client's data into localStorage:
+    localStorage.setItem("password", JSON.stringify(passwordB));//saves client's data into localStorage:
+    console.log();
+  }
+  function handleLocalStorageToken(token: string[]) {
+    const setLocalStorage = (data: string[]) => {
+      localStorage.setItem("token", JSON.stringify(data)); //saves client's data into localStorage:
+      console.log("OK!!!");
+    };
+    setLocalStorage(token);
+    loadUser(token)
+  }
+  async function Login(submit: any) {
+    setLoading(true)
+    let responser = axios.post('http://' + ip + ':8145/api/auth/sign-in', {
+      email: submit.email,
+      password: submit.password,
+      invitationToken: '',
+      tenantId: ''
+    }).then((response) => {
+      console.log(response.statusText);
+      if (response.statusText === "OK") {
+        toast.success('Login efetuado com sucesso!');
+        handleLocalStorage(submit.email, submit.password);
+        handleLocalStorageToken(response.data);
+      } else if (response.statusText === "Forbidden") {
+        toast.error("Ops, Não tem permisão!");
+        setLoading(false)
+      } else {
+        toast.error("Ops, Dados Incorretos!");
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data);
+      toast.error(res.response.data);
+      setLoading(false)
+    })
+
+  }
+  async function loadUser(token: any) {
+    const response = await axios({
+      method: 'get',
+      url: `http://${ip}:8145/api/auth/me`,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      timeout: 50000
+    }).then(response => {
+      navigate('/home', { replace: true })
+      return response.data;
+    })
+    console.log(response);
+    //console.log(response.tenants[0].roles[0]);
+    //localStorage.setItem("roles", JSON.stringify(response.tenants[0].roles[0]));//saves client's data into localStorage:
+    //console.log(response.tenants[0].tenant.id);
+    localStorage.setItem("tenantId", JSON.stringify(response.tenants[0].tenant.id));//saves client's data into localStorage:
+    localStorage.setItem("id", JSON.stringify(response.id));//saves client's data into localStorage:
+    localStorage.setItem("nome", JSON.stringify(response.firstName));
+    //localStorage.setItem("status", JSON.stringify(response.tenants[0].status));//saves client's data into localStorage:
+  }
   return (
     <S.ContainerLogin>
       <S.Content>
@@ -77,8 +145,8 @@ export function Login () {
             </fieldset>
           </S.Password>
           <Link to='/recuperar-senha'>Esqueceu a sua senha?</Link>
-
-          <button type='submit'>Entrar</button>
+          
+            <button type='submit'>{loading ? <img width="40px" style={{ margin: 'auto' }} height="" src={'https://contribua.org/mb-static/images/loading.gif'} alt="Loading" /> :'Entrar'}</button>
         </S.Form>
         <strong>ou</strong>
         <Link to='/cadastro' style={{ color: `${theme.colors.yellow}` }}>Cadastrar-se</Link>
