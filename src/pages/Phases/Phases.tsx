@@ -14,7 +14,6 @@ import Navbar from '../../ui/Components/Navbar/Navbar'
 import { FiPlus, FiCheck, FiPlay, FiLock } from 'react-icons/fi'
 
 import { useForm } from 'react-hook-form'
-import { TextField } from '../../ui/Components/TextField'
 
 type FormData = {
   name: string
@@ -443,65 +442,6 @@ export function Phases () {
             </S.GridForm>
             <button>Salvar</button>
           </S.FormContent>
-
-        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-          <S.Container>
-            <S.Form onSubmit={handleSubmit(onSubmit)}>
-              <TextField
-                label='Nome'
-                errorMessage={errors.name?.message}
-                {...register('name', {
-                  required: {
-                    value: true,
-                    message: 'Todos os campos são obrigatórios',
-                  },
-                })}
-              />
-
-              <TextField
-                label='Travessia'
-                {...register('crossing', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Trabalhadores'
-                {...register('workers', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Companhia'
-                {...register('company', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Fluído de perfuração'
-                {...register('drillingFluid', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Pressa'
-                {...register('hurry', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Máquina Perfuratriz'
-                {...register('drillingMachine', {
-                  required: true,
-                })}
-              />
-              <button type='submit'>Salvar</button>
-            </S.Form>
-          </S.Container>
         </Modal>
 
         <Modal
@@ -525,7 +465,6 @@ export function Phases () {
           onAfterOpen={() => afterOpenModal}
           onRequestClose={() => closeModal5}
         >
-
           <h2>Direcionamento do Furo Piloto</h2>
           {/* <button onClick={closeModal}>close</button> */}
 
@@ -564,80 +503,6 @@ export function Phases () {
             <button>Salvar</button>
           </S.FormContent>
         </Modal>
-
-          <S.Container>
-            <h2>Verificação de Interferências Físicas e Magnéticas</h2>
-            <S.Form onSubmit={handleSubmit(onSubmit)}>
-              <TextField
-                label='Responsável'
-                errorMessage={errors.name?.message}
-                {...register('name', {
-                  required: {
-                    value: true,
-                    message: 'Todos os campos são obrigatórios',
-                  },
-                })}
-              />
-
-              <TextField
-                label='Equipamentos:'
-                {...register('crossing', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Documentos'
-                {...register('workers', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Tipo de rede:'
-                {...register('company', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Empresa proprietária'
-                {...register('drillingFluid', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Confirmação da sondagem da interferência:'
-                {...register('hurry', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Sondagem'
-                {...register('drillingMachine', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Criação do plano de furo'
-                {...register('drillingMachine', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Quando acontece:'
-                {...register('drillingMachine', {
-                  required: true,
-                })}
-              />
-              <button type='submit'>Salvar</button>
-            </S.Form>
-          </S.Container>
-        </PhasesContent>
       </S.ContainerConfirmation>
     </>
   )
