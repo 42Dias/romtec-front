@@ -43,6 +43,7 @@ export function Phases () {
     setIsOpen4(false)
     setIsOpen5(false)
   }
+
   function closeModal2 () {
     setIsOpen2(false)
   }
@@ -54,6 +55,7 @@ export function Phases () {
     setIsOpen4(false)
     setIsOpen5(false)
   }
+
   function closeModal3 () {
     setIsOpen3(false)
   }
@@ -65,6 +67,7 @@ export function Phases () {
     setIsOpen3(false)
     setIsOpen5(false)
   }
+
   function closeModal4 () {
     setIsOpen4(false)
   }
@@ -109,31 +112,31 @@ export function Phases () {
           navigation
         >
           <SwiperSlide>
-            <button onClick={() => openModal}>
+            <button onClick={openModal}>
               <FiCheck />
               <h1>Planejamento de perfuração</h1>
             </button>
           </SwiperSlide>
           <SwiperSlide>
-            <button onClick={() => openModal2}>
+            <button onClick={openModal2}>
               <FiCheck />
               <h1>Levantamento e Mapeamento de interferências</h1>
             </button>
           </SwiperSlide>
           <SwiperSlide>
-            <button onClick={() => openModal3}>
+            <button onClick={openModal3}>
               <FiCheck />
               <h1>Verificação de Interferências Físicas e Magnéticas</h1>
             </button>
           </SwiperSlide>
           <SwiperSlide>
-            <button onClick={() => openModal4}>
+            <button onClick={openModal4}>
               <FiCheck />
               <h1>Abertura da vala</h1>
             </button>
           </SwiperSlide>
           <SwiperSlide>
-            <button onClick={() => openModal5}>
+            <button onClick={openModal5}>
               <FiPlay />
               <h1>Direcionamento do Furo Piloto</h1>
             </button>
@@ -450,7 +453,7 @@ export function Phases () {
           onAfterOpen={() => afterOpenModal}
           onRequestClose={() => closeModal5}
         >
-          <h2>Direcionamento do furo piloto</h2>
+          <h2>Direcionamento do furo furo piloto</h2>
           {/* <button onClick={closeModal}>close</button> */}
 
           <S.FormContent>
