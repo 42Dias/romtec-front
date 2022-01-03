@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import ReactDOM from 'react-dom'
+import { useState } from 'react'
 import Modal from 'react-modal'
 import * as S from './Phases.styled'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -14,27 +13,14 @@ import Navbar from '../../ui/Components/Navbar/Navbar'
 
 import { FiPlus, FiCheck, FiPlay, FiLock } from 'react-icons/fi'
 
-import { useForm } from 'react-hook-form'
-import { TextField } from '../../ui/Components/TextField'
-
-type FormData = {
-  name: string
-  crossing: string
-  workers: string
-  company: string
-  drillingFluid: string
-  hurry: string
-  drillingMachine: string
-}
-
 SwiperCore.use([Pagination, Navigation])
 
 export function Phases () {
-  const [modalIsOpen, setIsOpen] = React.useState(false)
-  const [modalIsOpen2, setIsOpen2] = React.useState(false)
-  const [modalIsOpen3, setIsOpen3] = React.useState(false)
-  const [modalIsOpen4, setIsOpen4] = React.useState(false)
-  const [modalIsOpen5, setIsOpen5] = React.useState(false)
+  const [modalIsOpen, setIsOpen] = useState(false)
+  const [modalIsOpen2, setIsOpen2] = useState(false)
+  const [modalIsOpen3, setIsOpen3] = useState(false)
+  const [modalIsOpen4, setIsOpen4] = useState(false)
+  const [modalIsOpen5, setIsOpen5] = useState(false)
 
   function openModal () {
     setIsOpen(true)
@@ -57,9 +43,6 @@ export function Phases () {
     setIsOpen4(false)
     setIsOpen5(false)
   }
-  function afterOpenModal2 () {
-    // references are now sync'd and can be accessed.
-  }
   function closeModal2 () {
     setIsOpen2(false)
   }
@@ -70,9 +53,6 @@ export function Phases () {
     setIsOpen2(false)
     setIsOpen4(false)
     setIsOpen5(false)
-  }
-  function afterOpenModal3 () {
-    // references are now sync'd and can be accessed.
   }
   function closeModal3 () {
     setIsOpen3(false)
@@ -85,14 +65,10 @@ export function Phases () {
     setIsOpen3(false)
     setIsOpen5(false)
   }
-  function afterOpenModal4 () {
-    // references are now sync'd and can be accessed.
-  }
-
   function closeModal4 () {
     setIsOpen4(false)
   }
-  //
+
   function openModal5 () {
     setIsOpen5(true)
     setIsOpen(false)
@@ -100,25 +76,9 @@ export function Phases () {
     setIsOpen3(false)
     setIsOpen4(false)
   }
-  function afterOpenModal5 () {
-    // references are now sync'd and can be accessed.
-  }
 
   function closeModal5 () {
-    setIsOpen5(false)
-  }
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<FormData>()
-
-  function onSubmit (data: FormData) {
-    console.log(data)
-
-    reset()
+    setIsOpen4(false)
   }
 
   return (
@@ -149,31 +109,31 @@ export function Phases () {
           navigation
         >
           <SwiperSlide>
-            <button onClick={openModal}>
+            <button onClick={() => openModal}>
               <FiCheck />
               <h1>Planejamento de perfuração</h1>
             </button>
           </SwiperSlide>
           <SwiperSlide>
-            <button onClick={openModal2}>
+            <button onClick={() => openModal2}>
               <FiCheck />
               <h1>Levantamento e Mapeamento de interferências</h1>
             </button>
           </SwiperSlide>
           <SwiperSlide>
-            <button onClick={openModal3}>
+            <button onClick={() => openModal3}>
               <FiCheck />
               <h1>Verificação de Interferências Físicas e Magnéticas</h1>
             </button>
           </SwiperSlide>
           <SwiperSlide>
-            <button onClick={openModal4}>
+            <button onClick={() => openModal4}>
               <FiCheck />
               <h1>Abertura da vala</h1>
             </button>
           </SwiperSlide>
           <SwiperSlide>
-            <button onClick={openModal5}>
+            <button onClick={() => openModal5}>
               <FiPlay />
               <h1>Direcionamento do Furo Piloto</h1>
             </button>
@@ -207,8 +167,8 @@ export function Phases () {
             },
           }}
           isOpen={modalIsOpen}
-          onAfterOpen={afterOpenModal}
-          onRequestClose={closeModal}
+          onAfterOpen={() => afterOpenModal}
+          onRequestClose={() => closeModal}
         >
           <h2>Planejamento de perfuração</h2>
           {/* <button onClick={closeModal}>close</button> */}
@@ -272,8 +232,8 @@ export function Phases () {
             },
           }}
           isOpen={modalIsOpen2}
-          onAfterOpen={afterOpenModal}
-          onRequestClose={closeModal2}
+          onAfterOpen={() => afterOpenModal}
+          onRequestClose={() => closeModal2}
         >
           <h2>Levantamento e Mapeamento de interferências</h2>
           {/* <button onClick={closeModal}>close</button> */}
@@ -352,8 +312,8 @@ export function Phases () {
             },
           }}
           isOpen={modalIsOpen3}
-          onAfterOpen={afterOpenModal}
-          onRequestClose={closeModal3}
+          onAfterOpen={() => afterOpenModal}
+          onRequestClose={() => closeModal3}
         >
           <h2>Verificação de Interferências Físicas e Magnéticas</h2>
           {/* <button onClick={closeModal}>close</button> */}
@@ -432,8 +392,8 @@ export function Phases () {
             },
           }}
           isOpen={modalIsOpen4}
-          onAfterOpen={afterOpenModal}
-          onRequestClose={closeModal4}
+          onAfterOpen={() => afterOpenModal}
+          onRequestClose={() => closeModal4}
         >
           <h2>Abertura da vala</h2>
           {/* <button onClick={closeModal}>close</button> */}
@@ -467,65 +427,6 @@ export function Phases () {
             </S.GridForm>
             <button>Salvar</button>
           </S.FormContent>
-
-        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-          <S.Container>
-            <S.Form onSubmit={handleSubmit(onSubmit)}>
-              <TextField
-                label='Nome'
-                errorMessage={errors.name?.message}
-                {...register('name', {
-                  required: {
-                    value: true,
-                    message: 'Todos os campos são obrigatórios',
-                  },
-                })}
-              />
-
-              <TextField
-                label='Travessia'
-                {...register('crossing', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Trabalhadores'
-                {...register('workers', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Companhia'
-                {...register('company', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Fluído de perfuração'
-                {...register('drillingFluid', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Pressa'
-                {...register('hurry', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Máquina Perfuratriz'
-                {...register('drillingMachine', {
-                  required: true,
-                })}
-              />
-              <button type='submit'>Salvar</button>
-            </S.Form>
-          </S.Container>
         </Modal>
 
         <Modal
@@ -546,11 +447,10 @@ export function Phases () {
             },
           }}
           isOpen={modalIsOpen5}
-          onAfterOpen={afterOpenModal}
-          onRequestClose={closeModal5}
+          onAfterOpen={() => afterOpenModal}
+          onRequestClose={() => closeModal5}
         >
-
-          <h2>Direcionamento do Furo Piloto</h2>
+          <h2>Direcionamento do furo piloto</h2>
           {/* <button onClick={closeModal}>close</button> */}
 
           <S.FormContent>
@@ -588,80 +488,6 @@ export function Phases () {
             <button>Salvar</button>
           </S.FormContent>
         </Modal>
-
-          <S.Container>
-            <h2>Verificação de Interferências Físicas e Magnéticas</h2>
-            <S.Form onSubmit={handleSubmit(onSubmit)}>
-              <TextField
-                label='Responsável'
-                errorMessage={errors.name?.message}
-                {...register('name', {
-                  required: {
-                    value: true,
-                    message: 'Todos os campos são obrigatórios',
-                  },
-                })}
-              />
-
-              <TextField
-                label='Equipamentos:'
-                {...register('crossing', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Documentos'
-                {...register('workers', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Tipo de rede:'
-                {...register('company', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Empresa proprietária'
-                {...register('drillingFluid', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Confirmação da sondagem da interferência:'
-                {...register('hurry', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Sondagem'
-                {...register('drillingMachine', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Criação do plano de furo'
-                {...register('drillingMachine', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Quando acontece:'
-                {...register('drillingMachine', {
-                  required: true,
-                })}
-              />
-              <button type='submit'>Salvar</button>
-            </S.Form>
-          </S.Container>
-        </PhasesContent>
       </S.ContainerConfirmation>
     </>
   )
