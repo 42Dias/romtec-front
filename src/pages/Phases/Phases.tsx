@@ -13,7 +13,7 @@ import Navbar from '../../ui/Components/Navbar/Navbar'
 
 import { FiPlus, FiCheck, FiPlay, FiLock } from 'react-icons/fi'
 
-SwiperCore.use([Pagination, Navigation])
+SwiperCore.use([Pagination, Navigation]) 
 
 export function Phases () {
   const [modalIsOpen, setIsOpen] = useState(false)

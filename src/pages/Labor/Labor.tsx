@@ -29,7 +29,7 @@ export function Labor() {
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false);
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
-  const [maoDeObra, setMaoDeObra] = useState<any[]>([]);
+  const [maoDeObras, setMaoDeObra] = useState<any[]>([]);
 
   function onSubmit(data: FormData) {
     console.log(data)
@@ -45,6 +45,7 @@ export function Labor() {
       if (response.statusText === "OK") {
         toast.success('Recebemos o seu registro');
         setLoading(false)
+        loadDados()
       } else if (response.statusText === "Forbidden") {
         toast.error("Ops, Não tem permisão!");
         setLoading(false)
@@ -59,7 +60,7 @@ export function Labor() {
     })
   }
 
-  async function MaoDeObra() {
+  async function loadDados() {
     setLoading(true)
     let responser = api.get('mao-de-obra',
     ).then((response) => {
@@ -76,7 +77,7 @@ export function Labor() {
   }
   useEffect(() => {
     setLoading(true)
-    MaoDeObra()
+    loadDados()
   }, []);
   return (
     <>
@@ -95,6 +96,18 @@ export function Labor() {
           <span>Celular</span>
           <span>Validade do certificado</span>
         </S.GridConfirmation>
+        {maoDeObras.map((maoDeObra) =>
+          <S.GridConfirmation>
+            <span>{maoDeObra.nIdentificacao}</span>
+            <span>{maoDeObra.nome}</span>
+            <span>{maoDeObra.cpf}</span>
+            <span>{maoDeObra.cidade}</span>
+            <span>{maoDeObra.funcao}</span>
+            <span>{maoDeObra.celular}</span>
+            <span>{maoDeObra.validadeCertificado}</span>
+          </S.GridConfirmation>
+        )}
+
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
@@ -201,7 +214,7 @@ export function Labor() {
                 </select>
               </fieldset>
 
-              <button type='submit'>{loading ? <img width="40px" style={{margin: 'auto'}} height="" src={'https://contribua.org/mb-static/images/loading.gif'} alt="Loading" /> :'Salvar'}</button>
+              <button type='submit'>{loading ? <img width="40px" style={{ margin: 'auto' }} height="" src={'https://contribua.org/mb-static/images/loading.gif'} alt="Loading" /> : 'Salvar'}</button>
             </S.Form>
           </S.Container>
         </Modal>
