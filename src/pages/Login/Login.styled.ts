@@ -34,6 +34,12 @@ export const Content = styled.div`
   p {
     max-width: 445px;
     padding: 10px 0;
+
+    @media (max-width: 520px) {
+      width: 320px;
+      text-align: center;
+      padding: 20px 0;
+    }
   }
 
   strong {
@@ -71,10 +77,21 @@ export const Form = styled.form`
     :hover {
       opacity: 65%;
     }
+
+    @media (max-width: 520px) {
+      width: 320px;
+    }
   }
 
   a {
     color: ${theme.colors.white};
+     
+    @media (max-width: 520px) {
+      text-align: center !important;
+      display: flex;
+      align-items: center !important;
+      justify-content: center !important;
+    }
   }
 `
 
@@ -90,6 +107,10 @@ export const Input = styled.input`
   padding: 0 5px;
   :focus {
     border: 1px solid ${theme.colors.yellow}
+  }
+
+  @media (max-width: 520px) {
+    width: 320px;
   }
 `
 
@@ -116,6 +137,10 @@ export const Password = styled.div`
     bottom: 0;
     left: 410px;
     top: 25px;
+
+    @media (max-width: 520px) {
+      left: 280px;
+    }
 
     svg {
       color: ${theme.colors.yellow};
