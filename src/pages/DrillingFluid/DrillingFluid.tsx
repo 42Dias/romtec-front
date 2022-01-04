@@ -38,6 +38,11 @@ export function DrillingFluid () {
 
         <S.GridConfirmation>
           <span>Identificação</span>
+          <span>Viscosidade</span>
+          <span>pH</span>
+          <span>base para formulação</span>
+          <span>Escoamento</span>
+          <span>Teor da areia</span>
         </S.GridConfirmation>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>

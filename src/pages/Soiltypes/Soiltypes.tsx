@@ -2,6 +2,7 @@ import * as S from './Soiltypes.styled'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
+import { api } from '../../services/api'
 
 import { TextField } from '../../ui/Components/TextField'
 import { FiPlus } from 'react-icons/fi'
