@@ -9,46 +9,45 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import { api, id, ip, nome, token } from '../../services/api'
 
-export function Users() {
+export function Users () {
   const [isOpen, setIsOpen] = useState(false)
-  const [loading, setLoading] = useState(false);
-  const [user, setUsers] = useState<any[]>([]);
-  const [role, setRole] = useState('');
+  const [loading, setLoading] = useState(false)
+  const [user, setUsers] = useState<any[]>([])
+  const [role, setRole] = useState('')
 
-  async function users() {
+  async function users () {
     setLoading(true)
-    let responser = api.get('user/',
+    const responser = api.get('user/',
     ).then((response) => {
-      console.log(response.data.rows);
-      if (response.statusText === "OK") {
+      console.log(response.data.rows)
+      if (response.statusText === 'OK') {
         setUsers(response.data.rows)
       }
     }).catch(res => {
-      console.log(res.response.data);
-      toast.error(res.response.data);
+      console.log(res.response.data)
+      toast.error(res.response.data)
       setLoading(false)
     })
-
   }
-  function editUser(user: any) {
+  function editUser (user: any) {
     setLoading(true)
-    let responser = axios.put('http://' + ip + ':8145/api/tenant/03c34402-8216-4ce7-aca0-3cc6a03b7a63/user/', {
-      data: user
-    }
+    const responser = axios.put('http://' + ip + ':8145/api/tenant/03c34402-8216-4ce7-aca0-3cc6a03b7a63/user/', {
+      data: user,
+    },
     ).then((response) => {
-      console.log(response.data.rows);
-      if (response.statusText === "OK") {
+      console.log(response.data.rows)
+      if (response.statusText === 'OK') {
         setUsers(response.data.rows)
       }
     }).catch(res => {
-      console.log(res.response.data);
-      toast.error(res.response.data);
+      console.log(res.response.data)
+      toast.error(res.response.data)
       setLoading(false)
     })
   }
   useEffect(() => {
     users()
-  }, []);
+  }, [])
   return (
     <>
       <Sidebar />
@@ -132,7 +131,7 @@ export function Users() {
 
                 <S.TitleUser onClick={() => setRole('admin')}>
                   <FiTool />
-                  <h2 >Engenharia ADM</h2>
+                  <h2>Engenharia ADM</h2>
                 </S.TitleUser>
 
                 <S.NavList>

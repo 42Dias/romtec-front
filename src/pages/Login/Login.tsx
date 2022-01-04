@@ -18,12 +18,11 @@ type FormData = {
 }
 
 export function Login () {
-  const navigate = useNavigate()
-
   const [textPass, setTextPass] = useState(true)
-
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
   const [loading, setLoading] = useState(false)
+
+  const { register, handleSubmit, formState: { errors } } = useForm<FormData>()
+  const navigate = useNavigate()
 
   function onSubmit ({ email, password }: FormData) {
     const submit = {
@@ -31,18 +30,17 @@ export function Login () {
       password,
     }
     Login(submit)
-    // reset()
-
-    // console.log(submit)
+    console.log(submit)
   }
+  
   function handleLocalStorage (emailA: string, passwordB: string) {
-    localStorage.setItem('email', JSON.stringify(emailA))// saves client's data into localStorage:
-    localStorage.setItem('password', JSON.stringify(passwordB))// saves client's data into localStorage:
+    localStorage.setItem('email', JSON.stringify(emailA))
+    localStorage.setItem('password', JSON.stringify(passwordB))
     console.log()
   }
   function handleLocalStorageToken (token: string[]) {
     const setLocalStorage = (data: string[]) => {
-      localStorage.setItem('token', JSON.stringify(data)) // saves client's data into localStorage:
+      localStorage.setItem('token', JSON.stringify(data))
       console.log('OK!!!')
     }
     setLocalStorage(token)
@@ -50,6 +48,7 @@ export function Login () {
   }
   async function Login (submit: any) {
     setLoading(true)
+    
     const responser = axios.post('http://' + ip + ':8145/api/auth/sign-in', {
       email: submit.email,
       password: submit.password,
@@ -74,6 +73,7 @@ export function Login () {
       setLoading(false)
     })
   }
+  
   async function loadUser (token: any) {
     const response = await axios({
       method: 'get',
@@ -89,14 +89,18 @@ export function Login () {
       return response.data
     })
     console.log(response)
-    // console.log(response.tenants[0].roles[0]);
-    // localStorage.setItem("roles", JSON.stringify(response.tenants[0].roles[0]));//saves client's data into localStorage:
-    // console.log(response.tenants[0].tenant.id);
-    localStorage.setItem('tenantId', JSON.stringify(response.tenants[0].tenant.id))// saves client's data into localStorage:
-    localStorage.setItem('id', JSON.stringify(response.id))// saves client's data into localStorage:
+
+    // saves client's data into localStorage
+    // localStorage.setItem('roles', JSON.stringify(response.tenants[0].roles[0]))
+    // saves client's data into localStorage
+    localStorage.setItem('tenantId', JSON.stringify(response.tenants[0].tenant.id))
+    // saves client's data into localStorage
+    localStorage.setItem('id', JSON.stringify(response.id))
     localStorage.setItem('nome', JSON.stringify(response.firstName))
-    // localStorage.setItem("status", JSON.stringify(response.tenants[0].status));//saves client's data into localStorage:
+    // saves client's data into localStorage
+    // localStorage.setItem('status', JSON.stringify(response.tenants[0].status))
   }
+  
   return (
     <S.ContainerLogin>
       <S.Content>

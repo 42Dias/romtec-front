@@ -25,6 +25,10 @@ export const ContainerConfirmation = styled.div`
       opacity: 80%;
     }
   }
+
+  ul {
+    list-style: none;
+  }
 `
 
 export const GridConfirmation = styled.div`
@@ -44,6 +48,14 @@ export const GridConfirmation = styled.div`
 
     :hover {
       opacity: 80%;
+    }
+  }
+
+  button {
+    margin: 5px 0 0 200px !important;
+
+    svg {
+      color: ${theme.colors.red};
     }
   }
 `

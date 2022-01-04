@@ -1,78 +1,85 @@
-import * as S from './Soiltypes.styled'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
+import { FiTrash, FiPlus } from 'react-icons/fi'
 
 import { TextField } from '../../ui/Components/TextField'
-import { FiPlus } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { toast } from 'react-toastify'
 import { api } from '../../services/api'
+import { toast } from 'react-toastify'
+
+import * as S from './Soiltypes.styled'
 
 type FormData = {
-  especificacaoSolo: string;
-  resistenciaSeca: string;
-  descricao: string;
-  reacaoDilatacao: string;
-  durezaPlastica: string;
-  indicePlasticidade: string;
+  id: string;
+  soilSpecification: string;
+  dryResistance: string;
+  description: string;
+  reactionDilation: string;
+  plasticHardness: string;
+  plasticityIndex: string;
 }
 
-export function SoilTypes() {
+export function SoilTypes () {
   const [isOpen, setIsOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [soilTypes, setSoilTypes] = useState<any[]>([])
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
-  const [loading, setLoading] = useState(false);
-  const [tiposDeSolos, setTiposDeSolos] = useState<any[]>([]);
 
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     console.log(data)
-    Cadastro(data)
+    createNewFile(data)
     reset()
   }
-  async function Cadastro(submit: any) {
+  async function createNewFile (submit: any) {
     setLoading(true)
-    let responser = api.post(`tipo-solo`, {
+    const responser = api.post('tipo-solo', {
       data: submit,
     }).then((response) => {
-      console.log(response);
-      if (response.statusText === "OK") {
-        toast.success('Recebemos o seu registro');
+      if (response.statusText === 'OK') {
+        toast.success('Recebemos o seu registro')
         setLoading(false)
         loadDados()
-      } else if (response.statusText === "Forbidden") {
-        toast.error("Ops, Não tem permisão!");
+      } else if (response.statusText === 'Forbidden') {
+        toast.error('Ops, Não tem permisão!')
         setLoading(false)
       } else {
-        toast.error("Ops, Dados Incorretos!");
+        toast.error('Ops, Dados Incorretos!')
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res);
-      //toast.error(res.response.data);
+      console.log(res)
       setLoading(false)
     })
   }
 
-  async function loadDados() {
+  async function loadDados () {
     setLoading(true)
-    let responser = api.get('tipo-solo',
+    const responser = api.get('tipo-solo',
     ).then((response) => {
-      console.log(response.data.rows);
-      if (response.statusText === "OK") {
-        setTiposDeSolos(response.data.rows)
+      if (response.statusText === 'OK') {
+        setSoilTypes(response.data.rows)
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res.response.data);
-      toast.error(res.response.data);
+      console.log(res.response.data)
+      toast.error(res.response.data)
       setLoading(false)
     })
   }
+
   useEffect(() => {
     setLoading(true)
     loadDados()
-  }, []);
+  }, [])
+
+  function handleDelete (id: string) {
+    setSoilTypes(soilTypes =>
+      soilTypes.filter(soilType => soilType.id !== id),
+    )
+  }
+
   return (
     <>
       <Sidebar />
@@ -84,27 +91,40 @@ export function SoilTypes() {
         <S.GridConfirmation>
           <span>Especificação do solo</span>
           <span>Resistencia Seca</span>
+          <span>Descrição</span>
           <span>Reação a dilatação</span>
           <span>Dureza Plástica</span>
           <span>Indice de plasticidade</span>
         </S.GridConfirmation>
-        {tiposDeSolos.map((tiposDeSolo) =>
-          <S.GridConfirmation>
-            <span>{tiposDeSolo.especificacaoSolo}</span>
-            <span>{tiposDeSolo.resistenciaSeca}</span>
-            <span>{tiposDeSolo.reacaoDilatacao}</span>
-            <span>{tiposDeSolo.durezaPlastica}</span>
-            <span>{tiposDeSolo.indicePlasticidade}</span>
-          </S.GridConfirmation>
-        )}
 
+        <ul>
+          {soilTypes.map((soilType) =>
+            <li key={soilType.id}>
+              <S.GridConfirmation>
+                <span>{soilType.especificacaoSolo}</span>
+                <span>{soilType.resistenciaSeca}</span>
+                <span>{soilType.descricao}</span>
+                <span>{soilType.reacaoDilatacao}</span>
+                <span>{soilType.durezaPlastica}</span>
+                <span>{soilType.indicePlasticidade}</span>
+                <button
+                  style={{ background: 'none' }}
+                  onClick={() => handleDelete(soilType.id)}
+                  title='Deletar?'
+                >
+                  <FiTrash size={20} />
+                </button>
+              </S.GridConfirmation>
+            </li>,
+          )}
+        </ul>
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 label='Especificação do solo'
-                errorMessage={errors.especificacaoSolo?.message}
-                {...register('especificacaoSolo', {
+                errorMessage={errors.soilSpecification?.message}
+                {...register('soilSpecification', {
                   required: {
                     value: true,
                     message: 'Todos os campos são obrigatórios',
@@ -114,39 +134,43 @@ export function SoilTypes() {
 
               <TextField
                 label='Resistência seca'
-                {...register('resistenciaSeca', {
+                {...register('dryResistance', {
                   required: true,
                 })}
               />
 
               <TextField
                 label='Descrição'
-                {...register('descricao', {
+                {...register('description', {
                   required: true,
                 })}
               />
 
               <TextField
                 label='Reação a dilatação'
-                {...register('reacaoDilatacao', {
+                {...register('reactionDilation', {
                   required: true,
                 })}
               />
 
               <TextField
                 label='Dureza plastica'
-                {...register('durezaPlastica', {
+                {...register('plasticHardness', {
                   required: true,
                 })}
               />
 
               <TextField
                 label='Índice de plasticidade'
-                {...register('indicePlasticidade', {
+                {...register('plasticityIndex', {
                   required: true,
                 })}
               />
-              <button type='submit'>{loading ? <img width="40px" style={{margin: 'auto'}} height="" src={'https://contribua.org/mb-static/images/loading.gif'} alt="Loading" /> :'Salvar'}</button>
+              <button type='submit'>
+                {loading
+                  ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' />
+                  : 'Salvar'}
+              </button>
             </S.Form>
           </S.Container>
         </Modal>
