@@ -121,7 +121,7 @@ export function Phases () {
             <button onClick={openModal2}>
               <FiCheck />
               <h1>Levantamento e Mapeamento de interferências</h1>
-            </button>
+            </button>""
           </SwiperSlide>
           <SwiperSlide>
             <button onClick={openModal3}>
