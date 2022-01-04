@@ -11,7 +11,7 @@ import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 
 type FormData = {
-  soilSpecification: string;
+  especificacaoSolo: string;
   resistenciaSeca: string;
   descricao: string;
   reacaoDilatacao: string;
@@ -90,7 +90,7 @@ export function SoilTypes() {
         </S.GridConfirmation>
         {tiposDeSolos.map((tiposDeSolo) =>
           <S.GridConfirmation>
-            <span>{tiposDeSolo.soilSpecification}</span>
+            <span>{tiposDeSolo.especificacaoSolo}</span>
             <span>{tiposDeSolo.resistenciaSeca}</span>
             <span>{tiposDeSolo.reacaoDilatacao}</span>
             <span>{tiposDeSolo.durezaPlastica}</span>
@@ -103,8 +103,8 @@ export function SoilTypes() {
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 label='Especificação do solo'
-                errorMessage={errors.soilSpecification?.message}
-                {...register('soilSpecification', {
+                errorMessage={errors.especificacaoSolo?.message}
+                {...register('especificacaoSolo', {
                   required: {
                     value: true,
                     message: 'Todos os campos são obrigatórios',
