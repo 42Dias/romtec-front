@@ -18,12 +18,11 @@ type FormData = {
 }
 
 export function Login () {
-  const navigate = useNavigate()
-
   const [textPass, setTextPass] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>()
-  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
   function onSubmit ({ email, password }: FormData) {
     const submit = {
@@ -31,17 +30,17 @@ export function Login () {
       password,
     }
     Login(submit)
-
     console.log(submit)
   }
+  
   function handleLocalStorage (emailA: string, passwordB: string) {
-    localStorage.setItem('email', JSON.stringify(emailA))// saves client's data into localStorage:
-    localStorage.setItem('password', JSON.stringify(passwordB))// saves client's data into localStorage:
+    localStorage.setItem('email', JSON.stringify(emailA))
+    localStorage.setItem('password', JSON.stringify(passwordB))
     console.log()
   }
   function handleLocalStorageToken (token: string[]) {
     const setLocalStorage = (data: string[]) => {
-      localStorage.setItem('token', JSON.stringify(data)) // saves client's data into localStorage:
+      localStorage.setItem('token', JSON.stringify(data))
       console.log('OK!!!')
     }
     setLocalStorage(token)
@@ -49,6 +48,7 @@ export function Login () {
   }
   async function Login (submit: any) {
     setLoading(true)
+    
     const responser = axios.post('http://' + ip + ':8145/api/auth/sign-in', {
       email: submit.email,
       password: submit.password,
@@ -73,6 +73,7 @@ export function Login () {
       setLoading(false)
     })
   }
+  
   async function loadUser (token: any) {
     const response = await axios({
       method: 'get',
@@ -99,6 +100,7 @@ export function Login () {
     // saves client's data into localStorage
     // localStorage.setItem('status', JSON.stringify(response.tenants[0].status))
   }
+  
   return (
     <S.ContainerLogin>
       <S.Content>
