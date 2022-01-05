@@ -6,23 +6,26 @@ import Modal from '../../ui/Components/Modal/Modal'
 import { TextField } from '../../ui/Components/TextField'
 import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
+import { api } from '../../services/api'
 
 type FormData = {
-  code: string;
+  codigo: string;
   ray: string;
   diameter: string;
   condition: string;
-  toolJoin: string;
+  diametroToolJoint: string;
   torque: string;
-  length: string;
+  comprimentoTotal: string;
   screwThread: string;
   quantities: string;
 }
 
 export function Rods () {
   const [isOpen, setIsOpen] = useState(false)
-
+  const [loading, setLoading] = useState(false);
+  const [hastes, setHastes] = useState<any[]>([]);
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
@@ -30,7 +33,50 @@ export function Rods () {
 
     reset()
   }
+  async function Cadastro(submit: any) {
+    setLoading(true)
+    let responser = api.post(`ferramenta`, {
+      data: submit,
+    }).then((response) => {
+      console.log(response);
+      if (response.statusText === "OK") {
+        toast.success('Recebemos o seu registro');
+        setLoading(false)
+        loadDados()
+      } else if (response.statusText === "Forbidden") {
+        toast.error("Ops, Não tem permisão!");
+        setLoading(false)
+      } else {
+        toast.error("Ops, Dados Incorretos!");
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res);
+      //toast.error(res.response.data);
+      setLoading(false)
+    })
+  }
 
+  async function loadDados() {
+    setLoading(true)
+    let responser = api.get('ferramenta',
+    ).then((response) => {
+      console.log(response.data.rows);
+      if (response.statusText === "OK") {
+        setHastes(response.data.rows)
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data);
+      toast.error(res.response.data);
+      setLoading(false)
+    })
+  }
+  useEffect(() => {
+    setLoading(true)
+    loadDados()
+  }, []);
+  
   return (
     <>
       <Sidebar />
@@ -52,8 +98,8 @@ export function Rods () {
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 label='Código do jogo de Hastes'
-                errorMessage={errors.code?.message}
-                {...register('code', {
+                errorMessage={errors.codigo?.message}
+                {...register('codigo', {
                   required: {
                     value: true,
                     message: 'Todos os campos são obrigatórios',
@@ -84,7 +130,7 @@ export function Rods () {
 
               <TextField
                 label='Diâmetro do Tool Joint(mm)'
-                {...register('toolJoin', {
+                {...register('diametroToolJoint', {
                   required: true,
                 })}
               />
@@ -98,7 +144,7 @@ export function Rods () {
 
               <TextField
                 label='Comprimento total(m)'
-                {...register('length', {
+                {...register('comprimentoTotal', {
                   required: true,
                 })}
               />
