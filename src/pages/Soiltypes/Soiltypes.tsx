@@ -102,12 +102,24 @@ export function SoilTypes () {
           {soilTypes.map((soilType) =>
             <li key={soilType.id}>
               <S.GridConfirmation>
-                <span>{soilType.especificacaoSolo}</span>
-                <span>{soilType.resistenciaSeca}</span>
-                <span>{soilType.descricao}</span>
-                <span>{soilType.reacaoDilatacao}</span>
-                <span>{soilType.durezaPlastica}</span>
-                <span>{soilType.indicePlasticidade}</span>
+                <span>
+                  {soilType.especificacaoSolo}
+                </span>
+                <span>
+                  {soilType.resistenciaSeca}
+                </span>
+                <span>
+                  {soilType.descricao}
+                </span>
+                <span>
+                  {soilType.reacaoDilatacao}
+                </span>
+                <span>
+                  {soilType.durezaPlastica}
+                </span>
+                <span>
+                  {soilType.indicePlasticidade}
+                </span>
                 <DeleteButton
                   onDelete={() => handleDelete(soilType.id)}
                 />
