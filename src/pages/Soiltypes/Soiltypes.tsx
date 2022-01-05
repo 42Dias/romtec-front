@@ -33,6 +33,7 @@ export function SoilTypes () {
     createNewFile(data)
     reset()
   }
+
   async function createNewFile (submit: any) {
     setLoading(true)
     const responser = api.post('tipo-solo', {
