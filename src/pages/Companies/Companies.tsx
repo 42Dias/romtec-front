@@ -1,13 +1,14 @@
-import * as S from './Companies.styled'
+import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 
+import { TextField } from '../../ui/Components/TextField'
+import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { TextField } from '../../ui/Components/TextField'
-import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
+
+import * as S from './Companies.styled'
 
 type FormData = {
   cnpj: string;
@@ -49,6 +50,7 @@ export function Companies () {
       <S.ContainerConfirmation>
         <h2>Companhias</h2>
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
+
         <S.GridConfirmation>
           <span>Nome fantasia</span>
           <span>Estado</span>
@@ -71,6 +73,7 @@ export function Companies () {
             </li>,
           )}
         </ul>
+
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>

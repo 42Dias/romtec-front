@@ -9,14 +9,17 @@ type Props = {
 
 const EditButton = ({ onEdit, children }: Props) => {
   return (
-    <>
+    <S.Content>
       <button
         onClick={onEdit}
         style={{ background: 'none' }}
-        title='Deletar?'
+        title='Editar?'
       >
         <FaEdit size={20} />
       </button>
-    </>
+      {children}
+    </S.Content>
   )
 }
+
+export default EditButton
