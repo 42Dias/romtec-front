@@ -1,4 +1,5 @@
 import { FiTrash } from 'react-icons/fi'
+import * as S from './DeleteButton.styled'
 
 type Props = {
   onDelete: () => void
@@ -6,14 +7,14 @@ type Props = {
 
 const DeleteButton = ({ onDelete }: Props) => {
   return (
-    <>
+    <S.Content>
       <button
         onClick={onDelete}
         style={{ background: 'none' }}
       >
         <FiTrash size={20} />
       </button>
-    </>
+    </S.Content>
   )
 }
 
