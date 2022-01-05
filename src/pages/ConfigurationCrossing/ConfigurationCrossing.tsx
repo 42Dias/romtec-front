@@ -1,12 +1,13 @@
-import * as S from './ConfigurationCrossing.styled'
+import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
+import * as S from './ConfigurationCrossing.styled'
 
+import { TextField } from '../../ui/Components/TextField'
+import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { TextField } from '../../ui/Components/TextField'
 
 type FormData = {
   description: string;
@@ -15,6 +16,7 @@ type FormData = {
 
 export function ConfigurationCrossing () {
   const [isOpen, setIsOpen] = useState(false)
+  const [configurationCrossings, setConfigurationCrossings] = useState<any[]>([])
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
@@ -22,6 +24,12 @@ export function ConfigurationCrossing () {
     console.log(data)
 
     reset()
+  }
+
+  function handleDelete (id: string) {
+    setConfigurationCrossings(configurationCrossings =>
+      configurationCrossings.filter(configurationCrossing => configurationCrossing.id !== id),
+    )
   }
 
   return (
@@ -36,6 +44,21 @@ export function ConfigurationCrossing () {
           <span>Nome</span>
           <span>Descrição</span>
         </S.GridConfirmation>
+
+        <ul>
+          {configurationCrossings.map((configurationCrossing) =>
+            <li key={configurationCrossing.id}>
+              <S.GridConfirmation>
+                <span>
+                  {configurationCrossing}
+                </span>
+                <DeleteButton
+                  onDelete={() => handleDelete(configurationCrossing.id)}
+                />
+              </S.GridConfirmation>
+            </li>,
+          )}
+        </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
@@ -63,7 +86,6 @@ export function ConfigurationCrossing () {
               <button type='submit'>Salvar</button>
             </S.Form>
           </S.Container>
-          {/* eslint-disable-next-line */}
         </Modal>
       </S.ContainerConfirmation>
     </>

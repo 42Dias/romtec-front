@@ -1,14 +1,16 @@
-import * as S from './DrillingMachine.styled'
+import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 
-import { FiPlus } from 'react-icons/fi'
+import { TextField } from '../../ui/Components/TextField'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { TextField } from '../../ui/Components/TextField'
-import { toast } from 'react-toastify'
 import { api } from '../../services/api'
+import { FiPlus } from 'react-icons/fi'
+import { toast } from 'react-toastify'
+
+import * as S from './DrillingMachine.styled'
 
 type FormData = {
   fabricante: string;
@@ -45,6 +47,7 @@ export function DrillingMachine () {
     Cadastro(data)
     reset()
   }
+
   async function Cadastro (submit: any) {
     setLoading(true)
     const responser = api.post('maquina-perfuratis', {
@@ -88,6 +91,13 @@ export function DrillingMachine () {
     setLoading(true)
     loadDados()
   }, [])
+
+  function handleDelete (id: string) {
+    setMaqPerfuratriz(maqPerfuratrizs =>
+      maqPerfuratrizs.filter(maqPerfuratriz => maqPerfuratriz.id !== id),
+    )
+  }
+
   return (
     <>
       <Sidebar />
@@ -103,15 +113,24 @@ export function DrillingMachine () {
           <span>Torque(N.m)</span>
           <span>Alargamento máximo</span>
         </S.GridConfirmation>
-        {maqPerfuratriz.map((maquinas) =>
-          <S.GridConfirmation>
-            <span>{maquinas.modelo}</span>
-            <span>{maquinas.fabricante}</span>
-            <span>{maquinas.tracao}</span>
-            <span>{maquinas.torque}</span>
-            <span>{maquinas.alergamentoMaximo}</span>
-          </S.GridConfirmation>,
-        )}
+
+        <ul>
+          {maqPerfuratriz.map((maquinas) =>
+            <li key={maquinas.id}>
+              <S.GridConfirmation>
+                <span>{maquinas.modelo}</span>
+                <span>{maquinas.fabricante}</span>
+                <span>{maquinas.tracao}</span>
+                <span>{maquinas.torque}</span>
+                <span>{maquinas.alergamentoMaximo}</span>
+                <DeleteButton
+                  onDelete={() => handleDelete(maquinas.id)}
+                />
+              </S.GridConfirmation>
+            </li>,
+          )}
+        </ul>
+
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
@@ -271,7 +290,18 @@ export function DrillingMachine () {
                 })}
               />
 
-              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <button
+                type='submit'
+              >{loading
+                ? <img
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height=''
+                    src='https://contribua.org/mb-static/images/loading.gif'
+                    alt='Loading'
+                  />
+                : 'Salvar'}
+              </button>
             </S.Form>
           </S.Container>
         </Modal>

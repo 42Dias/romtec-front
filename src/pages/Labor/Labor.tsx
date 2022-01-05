@@ -1,15 +1,16 @@
-import * as S from './Labor.styled'
+import { TextField } from '../../ui/Components/TextField'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 
-import { TextField } from '../../ui/Components/TextField'
-import { useForm } from 'react-hook-form'
-import { FiPlus } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { useForm } from 'react-hook-form'
+import { api } from '../../services/api'
+import { FiPlus } from 'react-icons/fi'
 import { toast } from 'react-toastify'
-import { api, ip, tenantId } from '../../services/api'
+
+import * as S from './Labor.styled'
+import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 
 type FormData = {
   nIdentificacao: string;
@@ -62,6 +63,7 @@ export function Labor () {
 
   async function loadDados () {
     setLoading(true)
+
     const responser = api.get('mao-de-obra',
     ).then((response) => {
       console.log(response.data.rows)
@@ -75,10 +77,18 @@ export function Labor () {
       setLoading(false)
     })
   }
+
   useEffect(() => {
     setLoading(true)
     loadDados()
   }, [])
+
+  function handleDelete (id: string) {
+    setMaoDeObra(maoDeObras =>
+      maoDeObras.filter(maoDeObra => maoDeObra.id !== id),
+    )
+  }
+
   return (
     <>
       <Sidebar />
@@ -96,17 +106,39 @@ export function Labor () {
           <span>Celular</span>
           <span>Validade do certificado</span>
         </S.GridConfirmation>
-        {maoDeObras.map((maoDeObra) =>
-          <S.GridConfirmation>
-            <span>{maoDeObra.nIdentificacao}</span>
-            <span>{maoDeObra.nome}</span>
-            <span>{maoDeObra.cpf}</span>
-            <span>{maoDeObra.cidade}</span>
-            <span>{maoDeObra.funcao}</span>
-            <span>{maoDeObra.celular}</span>
-            <span>{maoDeObra.validadeCertificado}</span>
-          </S.GridConfirmation>,
-        )}
+
+        <ul>
+          {maoDeObras.map((maoDeObra) =>
+            <li key={maoDeObra.id}>
+              <S.GridConfirmation>
+                <span>
+                  {maoDeObra.nIdentificacao}
+                </span>
+                <span>
+                  {maoDeObra.nome}
+                </span>
+                <span>
+                  {maoDeObra.cpf}
+                </span>
+                <span>
+                  {maoDeObra.cidade}
+                </span>
+                <span>
+                  {maoDeObra.funcao}
+                </span>
+                <span>
+                  {maoDeObra.celular}
+                </span>
+                <span>
+                  {maoDeObra.validadeCertificado}
+                </span>
+                <DeleteButton
+                  onDelete={() => handleDelete(maoDeObra.id)}
+                />
+              </S.GridConfirmation>
+            </li>,
+          )}
+        </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
@@ -213,7 +245,17 @@ export function Labor () {
                 </select>
               </fieldset>
 
-              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <button type='submit'>
+                {loading
+                  ? <img
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height=''
+                      src='https://contribua.org/mb-static/images/loading.gif'
+                      alt='Loading'
+                    />
+                  : 'Salvar'}
+              </button>
             </S.Form>
           </S.Container>
         </Modal>
