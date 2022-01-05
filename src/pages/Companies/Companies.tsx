@@ -7,6 +7,7 @@ import { FiPlus } from 'react-icons/fi'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { TextField } from '../../ui/Components/TextField'
+import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 
 type FormData = {
   cnpj: string;
@@ -25,6 +26,7 @@ type FormData = {
 
 export function Companies () {
   const [isOpen, setIsOpen] = useState(false)
+  const [companhies, setCompanhies] = useState<any[]>([])
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
@@ -32,6 +34,12 @@ export function Companies () {
     console.log(data)
 
     reset()
+  }
+
+  function handleDelete (id: string) {
+    setCompanhies(companhies =>
+      companhies.filter(companhie => companhie.id !== id),
+    )
   }
 
   return (
@@ -48,6 +56,21 @@ export function Companies () {
           <span>E-mail</span>
           <span>Responsável Técnico</span>
         </S.GridConfirmation>
+
+        <ul>
+          {companhies.map((companhie) =>
+            <li key={companhie.id}>
+              <S.GridConfirmation>
+                <span>
+                  {companhie}
+                </span>
+                <DeleteButton
+                  onDelete={() => handleDelete(companhie.id)}
+                />
+              </S.GridConfirmation>
+            </li>,
+          )}
+        </ul>
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
