@@ -75,10 +75,25 @@ export function Companies() {
       setLoading(false)
     })
   }
+  async function deleteDados (id:string) {
+    setLoading(true)
+    const responser = api.delete('companhia/'+id
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
+  }
   useEffect(() => {
     setLoading(true)
     loadDados()
   }, []);
+
   return (
     <>
       <Sidebar />

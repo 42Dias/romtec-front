@@ -13,22 +13,22 @@ import { api } from '../../services/api'
 
 type FormData = {
   codigo: string;
-  drills: string;
-  machine: string;
-  bottomEngine: string;
-  diameter: string;
-  reamers: string;
+  brocas: string;
+  maquinaId: string;
+  motorFundo: string;
+  diametro: string;
+  alargadores: string;
   capacidadeCarga: string;
   swivel: string;
   descricao: string;
-  probeHolder: string;
+  portaSonda: string;
   pullingHead: string;
   fusilink: string;
   components: string;
-  initialStem: string;
-  glove: string;
-  cheeks: string;
-  flexbar: string;
+  hasteInicial: string;
+  luva: string;
+  mordentes: string;
+  flexobarra: string;
 }
 
 export function Tools () {
@@ -61,7 +61,7 @@ export function Tools () {
       }
     }).catch(res => {
       console.log(res);
-      //toast.error(res.response.data);
+      toast.error(res.response.data);
       setLoading(false)
     })
   }
@@ -119,28 +119,28 @@ export function Tools () {
               <TextField
                 label='Brocas'
                 placeholder='pá, broca tricônica, rock bit'
-                {...register('drills', {
+                {...register('brocas', {
                   required: true,
                 })}
               />
 
               <TextField
                 label='Máquina'
-                {...register('machine', {
+                {...register('maquinaId', {
                   required: true,
                 })}
               />
 
               <TextField
                 label='Motor de fundo'
-                {...register('bottomEngine', {
+                {...register('motorFundo', {
                   required: true,
                 })}
               />
 
               <TextField
                 label='Diâmetro'
-                {...register('diameter', {
+                {...register('diametro', {
                   required: true,
                 })}
               />
@@ -148,7 +148,7 @@ export function Tools () {
               <TextField
                 label='Alargadores'
                 placeholder='Cortadores, compactadores, limpeza'
-                {...register('reamers', {
+                {...register('alargadores', {
                   required: true,
                 })}
               />
@@ -176,7 +176,7 @@ export function Tools () {
 
               <TextField
                 label='Porta Sonda'
-                {...register('probeHolder', {
+                {...register('portaSonda', {
                   required: true,
                 })}
               />
@@ -200,33 +200,33 @@ export function Tools () {
                 placeholder='Coluna de perfuraçãoo Conexões e Adaptadores'
                 {...register('components', {
                   required: true,
-                })}
+                })} 
               />
 
               <TextField
                 label='Haste inicial'
-                {...register('initialStem', {
+                {...register('hasteInicial', {
                   required: true,
                 })}
               />
 
               <TextField
                 label='Luva'
-                {...register('glove', {
+                {...register('luva', {
                   required: true,
                 })}
               />
 
               <TextField
                 label='Mordentes'
-                {...register('cheeks', {
+                {...register('mordentes', {
                   required: true,
                 })}
               />
 
               <TextField
                 label='Flexobarra'
-                {...register('flexbar', {
+                {...register('flexobarra', {
                   required: true,
                 })}
               />

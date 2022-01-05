@@ -12,30 +12,30 @@ import { api } from '../../services/api'
 
 type FormData = {
   codigo: string;
-  ray: string;
-  diameter: string;
-  condition: string;
+  raioCurvatura: string;
+  diametroTubo: string;
+  condicao: string;
   diametroToolJoint: string;
   torque: string;
   comprimentoTotal: string;
-  screwThread: string;
-  quantities: string;
+  modeloRosca: string;
+  quantidade: string;
 }
 
-export function Rods () {
+export function Rods() {
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false);
   const [hastes, setHastes] = useState<any[]>([]);
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
     console.log(data)
-
+    Cadastro(data)
     reset()
   }
   async function Cadastro(submit: any) {
     setLoading(true)
-    let responser = api.post(`ferramenta`, {
+    let responser = api.post(`hastes`, {
       data: submit,
     }).then((response) => {
       console.log(response);
@@ -52,18 +52,19 @@ export function Rods () {
       }
     }).catch(res => {
       console.log(res);
-      //toast.error(res.response.data);
+      toast.error(res.response.data);
       setLoading(false)
     })
   }
 
   async function loadDados() {
     setLoading(true)
-    let responser = api.get('ferramenta',
+    let responser = api.get('hastes',
     ).then((response) => {
       console.log(response.data.rows);
       if (response.statusText === "OK") {
         setHastes(response.data.rows)
+        console.log(hastes.length)
         setLoading(false)
       }
     }).catch(res => {
@@ -76,7 +77,7 @@ export function Rods () {
     setLoading(true)
     loadDados()
   }, []);
-  
+
   return (
     <>
       <Sidebar />
@@ -92,6 +93,17 @@ export function Rods () {
           <span>Comprimento total(m)</span>
           <span>Modelo da rosca</span>
         </S.GridConfirmation>
+        {hastes.length > 0 ?
+          hastes.map((haste) =>
+            <S.GridConfirmation>
+              <span>{haste.codigo}</span>
+              <span>{haste.diametroTubo}</span>
+              <span>{haste.diametroToolJoint}</span>
+              <span>{haste.comprimentoTotal}</span>
+              <span>{haste.modeloRosca}</span>
+            </S.GridConfirmation>
+
+          ) : <p>Nenhum cadastro</p>}
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
@@ -109,21 +121,21 @@ export function Rods () {
 
               <TextField
                 label='Raio de curvatura'
-                {...register('ray', {
+                {...register('raioCurvatura', {
                   required: true,
                 })}
               />
 
               <TextField
                 label='Diâmetro do tubo(mm)*'
-                {...register('diameter', {
+                {...register('diametroTubo', {
                   required: true,
                 })}
               />
 
               <TextField
                 label='Estado geral/condição'
-                {...register('condition', {
+                {...register('condicao', {
                   required: true,
                 })}
               />
@@ -151,7 +163,7 @@ export function Rods () {
 
               <TextField
                 label='Modelo da Rosca'
-                {...register('screwThread', {
+                {...register('modeloRosca', {
                   required: true,
                 })}
               />
@@ -159,11 +171,11 @@ export function Rods () {
               <TextField
                 label='Quantidade de hastes'
                 type='number'
-                {...register('quantities', {
+                {...register('quantidade', {
                   required: true,
                 })}
               />
-              <button type='submit'>Salvar</button>
+              <button type='submit'>{loading ? <img width="40px" style={{ margin: 'auto' }} height="" src={'https://contribua.org/mb-static/images/loading.gif'} alt="Loading" /> : 'Salvar'}</button>
             </S.Form>
           </S.Container>
         </Modal>

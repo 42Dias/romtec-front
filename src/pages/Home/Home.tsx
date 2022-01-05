@@ -8,33 +8,33 @@ import { useEffect } from 'react'
 import { ip, token } from '../../services/api'
 
 export function Home () {
-  async function loadUser(token:any) {
+  async function loadUser (token:any) {
     const response = await axios({
       method: 'get',
-      url: `http://${ip}:8145/api/auth/me`,
+      url: `${ip}:8145/api/auth/me`,
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token 
+        Authorization: 'Bearer ' + token,
       },
-      timeout: 50000
+      timeout: 50000,
     }).then(response => {
-      return response.data;
+      return response.data
     })
-    console.log(response);
-    //console.log(response.tenants[0].roles[0]);
-    //localStorage.setItem("roles", JSON.stringify(response.tenants[0].roles[0]));//saves client's data into localStorage:
-    //console.log(response.tenants[0].tenant.id);
-    localStorage.setItem("tenantId", JSON.stringify(response.tenants[0].tenant.id));//saves client's data into localStorage:
-    localStorage.setItem("id", JSON.stringify(response.id));//saves client's data into localStorage:
-    //localStorage.setItem("status", JSON.stringify(response.tenants[0].status));//saves client's data into localStorage:
+    console.log(response)
+    // console.log(response.tenants[0].roles[0]);
+    // localStorage.setItem("roles", JSON.stringify(response.tenants[0].roles[0]));//saves client's data into localStorage:
+    // console.log(response.tenants[0].tenant.id);
+    localStorage.setItem('tenantId', JSON.stringify(response.tenants[0].tenant.id))// saves client's data into localStorage:
+    localStorage.setItem('id', JSON.stringify(response.id))// saves client's data into localStorage:
+    // localStorage.setItem("status", JSON.stringify(response.tenants[0].status));//saves client's data into localStorage:
   }
   useEffect(() => {
-    if(!token){
+    if (!token) {
       window.location.reload()
     }
     loadUser(token)
-  }, []);
+  }, [])
   return (
     <>
       <Sidebar />
@@ -107,7 +107,7 @@ export function Home () {
           </S.ContainerSteps>
         </S.Steps>
       </S.Container>
-      
+
     </>
   )
 }

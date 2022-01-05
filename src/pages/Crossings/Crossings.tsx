@@ -5,13 +5,15 @@ import Modal from '../../ui/Components/Modal/Modal'
 
 import { FiTrash, FiPlus, FiEye } from 'react-icons/fi'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { TextField } from '../../ui/Components/TextField'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { api } from '../../services/api'
 
 type FormData = {
-  name: string;
+  nome: string;
   crossing: string;
   workers: string;
   company: string;
@@ -22,7 +24,8 @@ type FormData = {
 
 export function Crossings () {
   const [isOpen, setIsOpen] = useState(false)
-
+  const [loading, setLoading] = useState(false);
+  const [companhias, setCompanhias] = useState<any[]>([]);
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
@@ -30,7 +33,63 @@ export function Crossings () {
 
     reset()
   }
+  async function Cadastro(submit: any) {
+    setLoading(true)
+    let responser = api.post(`perfuracao`, {
+      data: submit,
+    }).then((response) => {
+      console.log(response);
+      if (response.statusText === "OK") {
+        toast.success('Recebemos o seu registro');
+        setLoading(false)
+        loadDados()
+      } else if (response.statusText === "Forbidden") {
+        toast.error("Ops, Não tem permisão!");
+        setLoading(false)
+      } else {
+        toast.error("Ops, Dados Incorretos!");
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res);
+      //toast.error(res.response.data);
+      setLoading(false)
+    })
+  }
 
+  async function loadDados() {
+    setLoading(true)
+    let responser = api.get('perfuracao',
+    ).then((response) => {
+      console.log(response.data.rows);
+      if (response.statusText === "OK") {
+        setCompanhias(response.data.rows)
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data);
+      toast.error(res.response.data);
+      setLoading(false)
+    })
+  }
+  async function deleteDados (id:string) {
+    setLoading(true)
+    const responser = api.delete('perfuracao/'+id
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
+  }
+  useEffect(() => {
+    setLoading(true)
+    loadDados()
+  }, []);
   return (
     <>
       <Sidebar />
@@ -64,43 +123,13 @@ export function Crossings () {
           </div>
         </S.GridConfirmation>
 
-        <S.GridConfirmation>
-          <span>XXXXXXXXXX</span>
-          <span>XXXXXX</span>
-          <span>XXXXX</span>
-          <span>XXXXX</span>
-          <span>XXXXXXXX</span>
-          <span>XXXXXXXX</span>
-          <span>XXXXXXXX</span>
-          <Link to='/etapas' className='exec'><span>Executar travessia</span></Link>
-          <div>
-            <button className='del'><FiTrash size={22} /></button>
-            <button className='edit'><FiEye size={22} /></button>
-          </div>
-        </S.GridConfirmation>
-
-        <S.GridConfirmation>
-          <span>XXXXXXXXXX</span>
-          <span>XXXXXX</span>
-          <span>XXXXX</span>
-          <span>XXXXX</span>
-          <span>XXXXXXXX</span>
-          <span>XXXXXXXX</span>
-          <span>XXXXXXXX</span>
-          <Link to='/etapas' className='exec'><span>Executar travessia</span></Link>
-          <div>
-            <button className='del'><FiTrash size={22} /></button>
-            <button className='edit'><FiEye size={22} /></button>
-          </div>
-        </S.GridConfirmation>
-
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 label='Nome'
-                errorMessage={errors.name?.message}
-                {...register('name', {
+                errorMessage={errors.nome?.message}
+                {...register('nome', {
                   required: {
                     value: true,
                     message: 'Todos os campos são obrigatórios',
