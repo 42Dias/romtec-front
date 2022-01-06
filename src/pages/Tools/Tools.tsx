@@ -33,59 +33,63 @@ type FormData = {
 
 export function Tools () {
   const [isOpen, setIsOpen] = useState(false)
-  const [loading, setLoading] = useState(false);
-  const [ferramentas, setFerramentas] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false)
+  // eslint-disable-next-line
+  const [ferramentas, setFerramentas] = useState<any[]>([])
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
     console.log(data)
-    toast.warning("Falta terminar!")
+    toast.warning('Falta terminar!')
     reset()
   }
-  async function Cadastro(submit: any) {
+  // eslint-disable-next-line
+  async function Cadastro (submit: any) {
     setLoading(true)
-    let responser = api.post(`ferramenta`, {
+    // eslint-disable-next-line
+    const responser = api.post('ferramenta', {
       data: submit,
     }).then((response) => {
-      console.log(response);
-      if (response.statusText === "OK") {
-        toast.success('Recebemos o seu registro');
+      console.log(response)
+      if (response.statusText === 'OK') {
+        toast.success('Recebemos o seu registro')
         setLoading(false)
         loadDados()
-      } else if (response.statusText === "Forbidden") {
-        toast.error("Ops, Não tem permisão!");
+      } else if (response.statusText === 'Forbidden') {
+        toast.error('Ops, Não tem permisão!')
         setLoading(false)
       } else {
-        toast.error("Ops, Dados Incorretos!");
+        toast.error('Ops, Dados Incorretos!')
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res);
-      toast.error(res.response.data);
+      console.log(res)
+      toast.error(res.response.data)
       setLoading(false)
     })
   }
 
-  async function loadDados() {
+  async function loadDados () {
     setLoading(true)
-    let responser = api.get('ferramenta',
+    // eslint-disable-next-line
+    const responser = api.get('ferramenta',
     ).then((response) => {
-      console.log(response.data.rows);
-      if (response.statusText === "OK") {
+      console.log(response.data.rows)
+      if (response.statusText === 'OK') {
         setFerramentas(response.data.rows)
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res.response.data);
-      toast.error(res.response.data);
+      console.log(res.response.data)
+      toast.error(res.response.data)
       setLoading(false)
     })
   }
   useEffect(() => {
     setLoading(true)
     loadDados()
-  }, []);
-  
+  }, [])
+
   return (
     <>
       <Sidebar />
@@ -200,7 +204,7 @@ export function Tools () {
                 placeholder='Coluna de perfuraçãoo Conexões e Adaptadores'
                 {...register('components', {
                   required: true,
-                })} 
+                })}
               />
 
               <TextField
@@ -230,7 +234,7 @@ export function Tools () {
                   required: true,
                 })}
               />
-              <button type='submit'>{loading ? <img width="40px" style={{ margin: 'auto' }} height="" src={'https://contribua.org/mb-static/images/loading.gif'} alt="Loading" /> : 'Salvar'}</button>
+              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
             </S.Form>
           </S.Container>
         </Modal>

@@ -23,60 +23,62 @@ type FormData = {
   complemento: string;
 }
 
-export function Customers() {
+export function Customers () {
   const [isOpen, setIsOpen] = useState(false)
-  const [loading, setLoading] = useState(false);
-  const [clientes, setClientes] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false)
+  const [clientes, setClientes] = useState<any[]>([])
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     console.log(data)
     Cadastro(data)
     reset()
   }
-  async function Cadastro(submit: any) {
+  async function Cadastro (submit: any) {
     setLoading(true)
-    let responser = api.post(`clientes`, {
+    // eslint-disable-next-line
+    const responser = api.post('clientes', {
       data: submit,
     }).then((response) => {
-      console.log(response);
-      if (response.statusText === "OK") {
-        toast.success('Recebemos o seu registro');
+      console.log(response)
+      if (response.statusText === 'OK') {
+        toast.success('Recebemos o seu registro')
         setLoading(false)
         loadDados()
-      } else if (response.statusText === "Forbidden") {
-        toast.error("Ops, Não tem permisão!");
+      } else if (response.statusText === 'Forbidden') {
+        toast.error('Ops, Não tem permisão!')
         setLoading(false)
       } else {
-        toast.error("Ops, Dados Incorretos!");
+        toast.error('Ops, Dados Incorretos!')
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res);
-      //toast.error(res.response.data);
+      console.log(res)
+      // toast.error(res.response.data);
       setLoading(false)
     })
   }
 
-  async function loadDados() {
+  async function loadDados () {
     setLoading(true)
-    let responser = api.get('clientes',
+    // eslint-disable-next-line
+    const responser = api.get('clientes',
     ).then((response) => {
-      console.log(response.data.rows);
-      if (response.statusText === "OK") {
+      console.log(response.data.rows)
+      if (response.statusText === 'OK') {
         setClientes(response.data.rows)
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res.response.data);
-      toast.error(res.response.data);
+      console.log(res.response.data)
+      toast.error(res.response.data)
       setLoading(false)
     })
   }
   useEffect(() => {
     setLoading(true)
     loadDados()
-  }, []);
+  }, [])
 
   return (
     <>
@@ -98,20 +100,25 @@ export function Customers() {
           <span>Número</span>
           <span>Complemento</span>
         </S.GridConfirmation>
-        {clientes.map((cliente) =>
-          <S.GridConfirmation>
-            <span>{cliente.cnpj}</span>
-            <span>{cliente.razaoSocial}</span>
-            <span>{cliente.nomeFantasia}</span>
-            <span>{cliente.cep}</span>
-            <span>{cliente.uf}</span>
-            <span>{cliente.cidade}</span>
-            <span>{cliente.bairro}</span>
-            <span>{cliente.logradouro}</span>
-            <span>{cliente.numero}</span>
-            <span>{cliente.complemento}</span>
-          </S.GridConfirmation>
-        )}
+
+        <ul>
+          {clientes.map((cliente) =>
+            <li key={cliente.id}>
+              <S.GridConfirmation>
+                <span>{cliente.cnpj}</span>
+                <span>{cliente.razaoSocial}</span>
+                <span>{cliente.nomeFantasia}</span>
+                <span>{cliente.cep}</span>
+                <span>{cliente.uf}</span>
+                <span>{cliente.cidade}</span>
+                <span>{cliente.bairro}</span>
+                <span>{cliente.logradouro}</span>
+                <span>{cliente.numero}</span>
+                <span>{cliente.complemento}</span>
+              </S.GridConfirmation>,
+            </li>,
+          )}
+        </ul>
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
@@ -219,7 +226,7 @@ export function Customers() {
                 })}
               />
 
-              <button type='submit'>{loading ? <img width="40px" style={{ margin: 'auto' }} height="" src={'https://contribua.org/mb-static/images/loading.gif'} alt="Loading" /> : 'Salvar'}</button>
+              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
             </S.Form>
           </S.Container>
         </Modal>

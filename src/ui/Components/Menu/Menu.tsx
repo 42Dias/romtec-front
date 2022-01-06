@@ -42,9 +42,7 @@ const Menu = ({ children, onClose }: Props) => {
             <Link to='/configuracao-da-travessia'>Config. da travessia</Link>
           </li>
           <h4><FiTool size={20} />Ferramentas</h4>
-          {/*<li>
-            <Link to='/ferramentas'>Cadastrar</Link>
-          </li>*/} 
+          <Link to='/ferramentas'>Cadastrar</Link>
           <li>
             <Link to='/alargador'>Alargador</Link>
           </li>

@@ -22,61 +22,64 @@ type FormData = {
   quantidade: string;
 }
 
-export function Rods() {
+export function Rods () {
   const [isOpen, setIsOpen] = useState(false)
-  const [loading, setLoading] = useState(false);
-  const [hastes, setHastes] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false)
+  const [hastes, setHastes] = useState<any[]>([])
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     console.log(data)
     Cadastro(data)
     reset()
   }
-  async function Cadastro(submit: any) {
+  async function Cadastro (submit: any) {
     setLoading(true)
-    let responser = api.post(`hastes`, {
+    // eslint-disable-next-line
+    const responser = api.post('hastes', {
       data: submit,
     }).then((response) => {
-      console.log(response);
-      if (response.statusText === "OK") {
-        toast.success('Recebemos o seu registro');
+      console.log(response)
+      if (response.statusText === 'OK') {
+        toast.success('Recebemos o seu registro')
         setLoading(false)
         loadDados()
-      } else if (response.statusText === "Forbidden") {
-        toast.error("Ops, Não tem permisão!");
+      } else if (response.statusText === 'Forbidden') {
+        toast.error('Ops, Não tem permisão!')
         setLoading(false)
       } else {
-        toast.error("Ops, Dados Incorretos!");
+        toast.error('Ops, Dados Incorretos!')
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res);
-      toast.error(res.response.data);
+      console.log(res)
+      toast.error(res.response.data)
       setLoading(false)
     })
   }
 
-  async function loadDados() {
+  async function loadDados () {
     setLoading(true)
-    let responser = api.get('hastes',
+    // eslint-disable-next-line
+    const responser = api.get('hastes',
     ).then((response) => {
-      console.log(response.data.rows);
-      if (response.statusText === "OK") {
+      console.log(response.data.rows)
+      if (response.statusText === 'OK') {
         setHastes(response.data.rows)
         console.log(hastes.length)
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res.response.data);
-      toast.error(res.response.data);
+      console.log(res.response.data)
+      toast.error(res.response.data)
       setLoading(false)
     })
   }
   useEffect(() => {
     setLoading(true)
     loadDados()
-  }, []);
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <>
@@ -93,18 +96,22 @@ export function Rods() {
           <span>Comprimento total(m)</span>
           <span>Modelo da rosca</span>
         </S.GridConfirmation>
-        {hastes.length > 0 ?
-          hastes.map((haste) =>
-            <S.GridConfirmation>
-              <span>{haste.codigo}</span>
-              <span>{haste.diametroTubo}</span>
-              <span>{haste.diametroToolJoint}</span>
-              <span>{haste.comprimentoTotal}</span>
-              <span>{haste.modeloRosca}</span>
-            </S.GridConfirmation>
 
-          ) : <p>Nenhum cadastro</p>}
-
+        <ul>
+          {hastes.length > 0
+            ? hastes.map((haste) =>
+              <li key={haste.id}>
+                <S.GridConfirmation>
+                  <span>{haste.codigo}</span>
+                  <span>{haste.diametroTubo}</span>
+                  <span>{haste.diametroToolJoint}</span>
+                  <span>{haste.comprimentoTotal}</span>
+                  <span>{haste.modeloRosca}</span>
+                </S.GridConfirmation>,
+              </li>,
+            )
+            : <p>Nenhum cadastro</p>}
+        </ul>
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
@@ -175,7 +182,7 @@ export function Rods() {
                   required: true,
                 })}
               />
-              <button type='submit'>{loading ? <img width="40px" style={{ margin: 'auto' }} height="" src={'https://contribua.org/mb-static/images/loading.gif'} alt="Loading" /> : 'Salvar'}</button>
+              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
             </S.Form>
           </S.Container>
         </Modal>
