@@ -5,12 +5,13 @@ import { FiPlus } from 'react-icons/fi'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 
 import { TextField } from '../../ui/Components/TextField'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 import { api } from '../../services/api'
 import { toast } from 'react-toastify'
 
 import * as S from './Soiltypes.styled'
+import EditButton from '../../ui/Components/EditButton/EditButton'
 
 type FormData = {
   id: string;
@@ -82,6 +83,18 @@ export function SoilTypes () {
     )
   }
 
+  const handleUpdate = (id: string) => (e: ChangeEvent) => {
+    setSoilTypes(soilTypes => soilTypes.map(soilType => {
+      if (soilType.id === id) {
+        return {
+          ...SoilTypes,
+        }
+      }
+
+      return soilType
+    }))
+  }
+
   return (
     <>
       <Sidebar />
@@ -124,6 +137,7 @@ export function SoilTypes () {
                 <DeleteButton
                   onDelete={() => handleDelete(soilType.id)}
                 />
+                <EditButton onEdit={() => handleUpdate(soilType.id)} />
               </S.GridConfirmation>
             </li>,
           )}
