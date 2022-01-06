@@ -41,7 +41,7 @@ export function Customers() {
     }).then((response) => {
       console.log(response);
       if (response.statusText === "OK") {
-        toast.success('Recebemos o seu registro');
+        toast.success('Cliente cadastrado com sucesso!');
         setLoading(false)
         loadDados()
       } else if (response.statusText === "Forbidden") {
@@ -53,7 +53,7 @@ export function Customers() {
       }
     }).catch(res => {
       console.log(res);
-      //toast.error(res.response.data);
+      toast.error(res.response.data);
       setLoading(false)
     })
   }
@@ -98,7 +98,8 @@ export function Customers() {
           <span>Número</span>
           <span>Complemento</span>
         </S.GridConfirmation>
-        {clientes.map((cliente) =>
+        {clientes.length > 0 ?
+        clientes.map((cliente) =>
           <S.GridConfirmation>
             <span>{cliente.cnpj}</span>
             <span>{cliente.razaoSocial}</span>
@@ -111,7 +112,7 @@ export function Customers() {
             <span>{cliente.numero}</span>
             <span>{cliente.complemento}</span>
           </S.GridConfirmation>
-        )}
+        ): 'Nenhum Cliente cadastrado!'}
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>

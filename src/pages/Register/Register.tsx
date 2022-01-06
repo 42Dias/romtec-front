@@ -49,7 +49,6 @@ export function Register () {
 
   async function Cadastro (submit:any) {
     setLoading(true)
-    const responser = axios.post('http://' + ip + ':8145/api/auth/sign-up', {
     const responser = axios.post(ip + ':8145/api/auth/sign-up', {
       nome: submit.name,
       email: submit.email,
@@ -78,7 +77,6 @@ export function Register () {
   async function loadUser (token:any) {
     const response = await axios({
       method: 'get',
-      url: `http://${ip}:8145/api/auth/me`,
       url: `${ip}:8145/api/auth/me`,
       headers: {
         Accept: 'application/json',

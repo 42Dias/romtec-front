@@ -12,6 +12,7 @@ import { toast } from 'react-toastify'
 
 import * as S from './Soiltypes.styled'
 import EditButton from '../../ui/Components/EditButton/EditButton'
+import { FaEdit } from 'react-icons/fa'
 
 type FormData = {
   id: string;
@@ -23,19 +24,21 @@ type FormData = {
   indicePlasticidade: string;
 }
 
-export function SoilTypes () {
+export function SoilTypes() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
   const [soilTypes, setSoilTypes] = useState<any[]>([])
+  const [soilTypesUp, setSoilTypesUp] = useState(0)
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
     console.log(data)
     createNewFile(data)
     reset()
   }
 
-  async function createNewFile (submit: any) {
+  async function createNewFile(submit: any) {
     setLoading(true)
     const responser = api.post('tipo-solo', {
       data: submit,
@@ -57,7 +60,7 @@ export function SoilTypes () {
     })
   }
 
-  async function loadDados () {
+  async function loadDados() {
     setLoading(true)
     const responser = api.get('tipo-solo',
     ).then((response) => {
@@ -71,7 +74,7 @@ export function SoilTypes () {
       setLoading(false)
     })
   }
-  async function deleteDados (id:string) {
+  async function deleteDados(id: string) {
     setLoading(true)
     const responser = api.delete('tipo-solo/' + id,
     ).then((response) => {
@@ -86,26 +89,31 @@ export function SoilTypes () {
     })
   }
   useEffect(() => {
+    console.log(soilTypesUp)
     setLoading(true)
     loadDados()
   }, [])
 
-  function handleDelete (id: string) {
-    setSoilTypes(soilTypes =>
-      soilTypes.filter(soilType => soilType.id !== id),
-    )
+  function update(tipoSolo: any){
+    setSoilTypes([tipoSolo])
+    console.log(soilTypes)
+    setIsOpenUpdate(true)
   }
-
-  const handleUpdate = (id: string) => (e: ChangeEvent) => {
-    setSoilTypes(soilTypes => soilTypes.map(soilType => {
-      if (soilType.id === id) {
-        return {
-          ...SoilTypes,
-        }
+  async function updateDados(tipoSolo: any) {
+    setLoading(true)
+    const responser = api.put('tipo-solo/' + tipoSolo.id, {
+      data: tipoSolo
+    }
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setLoading(false)
       }
-
-      return soilType
-    }))
+    }).catch(res => {
+      console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
   }
 
   return (
@@ -149,9 +157,17 @@ export function SoilTypes () {
                     {soilType.indicePlasticidade}
                   </span>
                   <DeleteButton
-                    onDelete={() => handleDelete(soilType.id)}
+                    onDelete={() => deleteDados(soilType.id)}
                   />
-                  <EditButton onEdit={() => handleUpdate(soilType.id)} />
+                  {/*<EditButton onEdit={() => updateDados(soilType)} />*/}
+                  <button
+                    //onChange={onEdit}
+                    onClick={() => update(soilType)}
+                    style={{ background: 'none', color: 'yellow' }}
+                    title='Editar?'
+                  >
+                    <FaEdit size={20} />
+                  </button>
                 </S.GridConfirmation>
               </li>,
             )
@@ -207,6 +223,50 @@ export function SoilTypes () {
                 })}
               />
               <button type='submit'>
+                {loading
+                  ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' />
+                  : 'Salvar'}
+              </button>
+            </S.Form>
+          </S.Container>
+        </Modal>
+
+        <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
+          <S.Container>
+            <S.Form > 
+              {/*<TextField
+                label='Especificação do solo'
+                value={soilTypes != undefined ? soilTypes[0].especificacaoSolo : false }
+              />
+
+              <TextField
+                label='Resistência seca'
+                value={soilTypes != undefined ? soilTypes[0].resistenciaSeca: false}
+              />
+
+              <TextField
+                label='Descrição'
+                value={soilTypesUp != undefined ? soilTypes[soilTypesUp].descricao : false}
+              />
+
+              <TextField
+                label='Reação a dilatação'
+                value={soilTypes != undefined ? soilTypes[soilTypesUp].reacaoDilatacao : false}
+                
+              />
+
+              <TextField
+                label='Dureza plastica'
+                value={soilTypes != undefined ? soilTypes[soilTypesUp].durezaPlastica : false}
+                
+              />
+
+              <TextField
+                label='Índice de plasticidade'
+                value={soilTypes != undefined ? soilTypes[soilTypesUp].indicePlasticidade : false}
+                
+              />*/}
+              <button onClick={() => updateDados(soilTypesUp)}>
                 {loading
                   ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' />
                   : 'Salvar'}
