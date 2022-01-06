@@ -31,6 +31,8 @@ export function Companies() {
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false);
   const [companhias, setCompanhias] = useState<any[]>([]);
+  const [companhies, setCompanhies] = useState<any[]>([])
+
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit(data: FormData) {
