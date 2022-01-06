@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 import { theme } from '../../styles/theme'
 
 export const Modal = styled.div`
- width: 100%;
+  width: 100%;
   height: 200vh;
   position: absolute;
   top: 0;
@@ -12,6 +12,10 @@ export const Modal = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 520px) {
+    height: 210vh;
+  }
 `
 
 export const Container = styled.div`
@@ -21,6 +25,10 @@ export const Container = styled.div`
   min-height: 35%;
   padding: 10px;
   border-radius: 5px;
+
+  @media (max-width: 520px) {
+    width: 90%;
+  }
 
   button {
     color: ${theme.colors.white};
