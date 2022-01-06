@@ -91,7 +91,7 @@ export function Login () {
     console.log(response)
 
     // saves client's data into localStorage
-    // localStorage.setItem('roles', JSON.stringify(response.tenants[0].roles[0]))
+    localStorage.setItem('roles', JSON.stringify(response.tenants[0].roles[0]))
     // saves client's data into localStorage
     localStorage.setItem('tenantId', JSON.stringify(response.tenants[0].tenant.id))
     // saves client's data into localStorage

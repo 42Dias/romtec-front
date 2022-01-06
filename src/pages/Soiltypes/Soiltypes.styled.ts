@@ -50,14 +50,6 @@ export const GridConfirmation = styled.div`
       opacity: 80%;
     }
   }
-
-  button {
-    margin: 5px 0 0 200px !important;
-
-    svg {
-      color: ${theme.colors.red};
-    }
-  }
 `
 
 export const Form = styled.form`

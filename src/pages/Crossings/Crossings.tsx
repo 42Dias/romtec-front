@@ -19,7 +19,7 @@ type FormData = {
   company: string;
   drillingFluid: string;
   hurry: string;
-  drillingMachine: string;
+  maquinaPerfuratizId: string;
 }
 
 export function Crossings () {
@@ -189,7 +189,7 @@ export function Crossings () {
 
               <TextField
                 label='Máquina Perfuratriz'
-                {...register('drillingMachine', {
+                {...register('maquinaPerfuratizId', {
                   required: {
                     value: true,
                     message: '',

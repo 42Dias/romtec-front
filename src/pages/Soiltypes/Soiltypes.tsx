@@ -1,7 +1,8 @@
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
-import { FiTrash, FiPlus } from 'react-icons/fi'
+import { FiPlus } from 'react-icons/fi'
+import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 
 import { TextField } from '../../ui/Components/TextField'
 import { useEffect, useState } from 'react'
@@ -120,17 +121,14 @@ export function SoilTypes () {
                 <span>{soilType.reacaoDilatacao}</span>
                 <span>{soilType.durezaPlastica}</span>
                 <span>{soilType.indicePlasticidade}</span>
-                <button
-                  style={{ background: 'none' }}
-                  onClick={() => deleteDados(soilType.id)}
-                  title='Deletar?'
-                >
-                  <FiTrash size={20} />
-                </button>
+                <DeleteButton
+                  onDelete={() => deleteDados(soilType.id)}
+                /> 
               </S.GridConfirmation>
             </li>,
           )}
         </ul>
+
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>

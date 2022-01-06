@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router'
 import * as S from './Register.styled'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import { ip } from '../../services/api'
+import { api, ip } from '../../services/api'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 
@@ -57,7 +57,7 @@ export function Register () {
     }).then((response) => {
       console.log(response)
       if (response.statusText === 'OK') {
-        toast.success('Opa, recebemos o seu registro')
+        toast.success('Cadastro realizado com sucesso!')
         handleLocalStorage(submit.email, submit.password)
         handleLocalStorageToken(response.data)
       } else if (response.statusText === 'Forbidden') {
@@ -89,9 +89,9 @@ export function Register () {
     })
     console.log(response)
     // console.log(response.tenants[0].roles[0]);
-    // localStorage.setItem("roles", JSON.stringify(response.tenants[0].roles[0]));//saves client's data into localStorage:
+    localStorage.setItem("roles", JSON.stringify(response.tenants[0].roles[0]));//saves client's data into localStorage:
     // console.log(response.tenants[0].tenant.id);
-    // localStorage.setItem("tenantId", JSON.stringify(response.tenants[0].tenant.id));//saves client's data into localStorage:
+    localStorage.setItem("tenantId", JSON.stringify(response.tenants[0].tenant.id));//saves client's data into localStorage:
     localStorage.setItem('id', JSON.stringify(response.id))// saves client's data into localStorage:
     localStorage.setItem('nome', JSON.stringify(response.firstName))
   // localStorage.setItem("status", JSON.stringify(response.tenants[0].status));//saves client's data into localStorage:
