@@ -1,14 +1,16 @@
-import * as S from './DrillingFluid.styled'
+import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 
+import { TextField } from '../../ui/Components/TextField'
+import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { TextField } from '../../ui/Components/TextField'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
+
+import * as S from './DrillingFluid.styled'
 
 type FormData = {
   nome: string;
@@ -24,6 +26,8 @@ export function DrillingFluid () {
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false);
   const [fluidos, setFluidos] = useState<any[]>([]);
+  const [drillingFluid, setDrillingFluid] = useState<any[]>([])
+
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
@@ -89,6 +93,12 @@ export function DrillingFluid () {
     loadDados()
   }, []);
 
+  function handleDelete (id: string) {
+    setDrillingFluid(drillingFluids =>
+      drillingFluids.filter(drillingFluid => drillingFluid.id !== id),
+    )
+  }
+
   return (
     <>
       <Sidebar />
@@ -99,6 +109,11 @@ export function DrillingFluid () {
 
         <S.GridConfirmation>
           <span>Identificação</span>
+          <span>Viscosidade</span>
+          <span>pH</span>
+          <span>Base para formulação</span>
+          <span>Escoamento</span>
+          <span>Teor de areia</span>
         </S.GridConfirmation>
         {fluidos.length > 0 ? 
         fluidos.map((fluido) => 
@@ -106,6 +121,22 @@ export function DrillingFluid () {
           <span>{fluido.nome}</span>
         </S.GridConfirmation>
         ): 'Nenhum fluido  de perfuração cadastrado'}
+
+        <ul>
+          {drillingFluid.map((fluid) =>
+            <li key={fluid.id}>
+              <S.GridConfirmation>
+                <span>
+                  {fluid}
+                </span>
+                <DeleteButton
+                  onDelete={() => handleDelete(fluid.id)}
+                />
+              </S.GridConfirmation>
+            </li>,
+          )}
+        </ul>
+
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>

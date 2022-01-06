@@ -6,7 +6,7 @@ export const Content = styled.div`
     margin: 5px 0 0 0;
 
     svg {
-      color: ${theme.colors.red};
+      color: ${theme.colors.yellow};
     }
   }
 `

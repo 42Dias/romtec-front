@@ -1,12 +1,14 @@
-import * as S from './Companies.styled'
+import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 
+import { TextField } from '../../ui/Components/TextField'
+import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { TextField } from '../../ui/Components/TextField'
+
+import * as S from './Companies.styled'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 
@@ -29,6 +31,8 @@ export function Companies() {
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false);
   const [companhias, setCompanhias] = useState<any[]>([]);
+  const [companhies, setCompanhies] = useState<any[]>([])
+
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit(data: FormData) {
@@ -94,6 +98,12 @@ export function Companies() {
     loadDados()
   }, []);
 
+  function handleDelete (id: string) {
+    setCompanhies(companhies =>
+      companhies.filter(companhie => companhie.id !== id),
+    )
+  }
+
   return (
     <>
       <Sidebar />
@@ -101,6 +111,7 @@ export function Companies() {
       <S.ContainerConfirmation>
         <h2>Companhias</h2>
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
+
         <S.GridConfirmation>
           <span>Nome fantasia</span>
           <span>Estado</span>
@@ -116,6 +127,22 @@ export function Companies() {
             <span>{companhia.email}</span>
             <span>{companhia.responsavelTecnico}</span>
           </S.GridConfirmation>)}
+
+        <ul>
+          {companhies.map((companhie) =>
+            <li key={companhie.id}>
+              <S.GridConfirmation>
+                <span>
+                  {companhie}
+                </span>
+                <DeleteButton
+                  onDelete={() => handleDelete(companhie.id)}
+                />
+              </S.GridConfirmation>
+            </li>,
+          )}
+        </ul>
+
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
