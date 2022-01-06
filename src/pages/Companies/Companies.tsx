@@ -27,62 +27,64 @@ type FormData = {
   responsavelTecnico: string;
 }
 
-export function Companies() {
+export function Companies () {
   const [isOpen, setIsOpen] = useState(false)
-  const [loading, setLoading] = useState(false);
-  const [companhias, setCompanhias] = useState<any[]>([]);
-  const [companhies, setCompanhies] = useState<any[]>([])
+  const [loading, setLoading] = useState(false)
+  const [companhias, setCompanhias] = useState<any[]>([])
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     console.log(data)
     Cadastro(data)
     reset()
   }
-  async function Cadastro(submit: any) {
+  async function Cadastro (submit: any) {
     setLoading(true)
-    let responser = api.post(`companhia`, {
+    // eslint-disable-next-line
+    const responser = api.post('companhia', {
       data: submit,
     }).then((response) => {
-      console.log(response);
-      if (response.statusText === "OK") {
-        toast.success('Companhia cadastrada com sucesso!');
+      console.log(response)
+      if (response.statusText === 'OK') {
+        toast.success('Companhia cadastrada com sucesso!')
         setLoading(false)
         loadDados()
-      } else if (response.statusText === "Forbidden") {
-        toast.error("Ops, Não tem permisão!");
+      } else if (response.statusText === 'Forbidden') {
+        toast.error('Ops, Não tem permisão!')
         setLoading(false)
       } else {
-        toast.error("Ops, Dados Incorretos!");
+        toast.error('Ops, Dados Incorretos!')
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res);
-      toast.error(res.response.data);
+      console.log(res)
+      toast.error(res.response.data)
       setLoading(false)
     })
   }
 
-  async function loadDados() {
+  async function loadDados () {
     setLoading(true)
-    let responser = api.get('companhia',
+    // eslint-disable-next-line
+    const responser = api.get('companhia',
     ).then((response) => {
-      console.log(response.data.rows);
+      console.log(response.data.rows)
       console.log(typeof (response.data.rows))
-      if (response.statusText === "OK") {
+      if (response.statusText === 'OK') {
         setCompanhias(response.data.rows)
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res);
-      toast.error(res);
+      console.log(res)
+      toast.error(res)
       setLoading(false)
     })
   }
-  async function deleteDados(id: string) {
+  async function deleteDados (id: string) {
     setLoading(true)
-    const responser = api.delete('companhia/' + id
+    // eslint-disable-next-line
+    const responser = api.delete('companhia/' + id,
     ).then((response) => {
       if (response.statusText === 'OK') {
         loadDados()
@@ -97,13 +99,7 @@ export function Companies() {
   useEffect(() => {
     setLoading(true)
     loadDados()
-  }, []);
-
-  function handleDelete(id: string) {
-    /*setCompanhias(companhies =>
-      companhies.filter(companhie => companhie.id !== id),
-    )*/
-  }
+  }, [])
 
   return (
     <>
@@ -120,30 +116,24 @@ export function Companies() {
           <span>E-mail</span>
           <span>Responsável Técnico</span>
         </S.GridConfirmation>
-        {/*companhias.map((companhia) =>
-          <S.GridConfirmation>
-            <span>{companhia.nomeFantasia}</span>
-            <span>{companhia.estado}</span>
-            <span>{companhia.cidade}</span>
-            <span>{companhia.email}</span>
-            <span>{companhia.responsavelTecnico}</span>
-        </S.GridConfirmation>)*/}
 
         <ul>
-          {companhias.length > 0 ? companhias.map((companhia) =>
-            <li key={companhia.id}>
-              <S.GridConfirmation>
-                <span>{companhia.nomeFantasia}</span>
-                <span>{companhia.estado}</span>
-                <span>{companhia.cidade}</span>
-                <span>{companhia.email}</span>
-                <span>{companhia.responsavelTecnico}</span>
-                <DeleteButton
-                  onDelete={() => deleteDados(companhia.id)}
-                />
-              </S.GridConfirmation>
-            </li>,
-          ): 'Nenhuma companhia cadastrada!'}
+          {companhias.length > 0
+            ? companhias.map((companhia) =>
+              <li key={companhia.id}>
+                <S.GridConfirmation>
+                  <span>{companhia.nomeFantasia}</span>
+                  <span>{companhia.estado}</span>
+                  <span>{companhia.cidade}</span>
+                  <span>{companhia.email}</span>
+                  <span>{companhia.responsavelTecnico}</span>
+                  <DeleteButton
+                    onDelete={() => deleteDados(companhia.id)}
+                  />
+                </S.GridConfirmation>
+              </li>,
+            )
+            : 'Nenhuma companhia cadastrada!'}
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
@@ -270,7 +260,7 @@ export function Companies() {
                 })}
               />
 
-              <button type='submit'>{loading ? <img width="40px" style={{ margin: 'auto' }} height="" src={'https://contribua.org/mb-static/images/loading.gif'} alt="Loading" /> : 'Salvar'}</button>
+              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
             </S.Form>
           </S.Container>
           {/* eslint-disable-next-line */}

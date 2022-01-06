@@ -39,6 +39,7 @@ export function Labor () {
   }
   async function Cadastro (submit: any) {
     setLoading(true)
+    // eslint-disable-next-line
     const responser = api.post('mao-de-obra', {
       data: submit,
     }).then((response) => {
@@ -56,14 +57,14 @@ export function Labor () {
       }
     }).catch(res => {
       console.log(res)
-      toast.error(res.response.data);
+      toast.error(res.response.data)
       setLoading(false)
     })
   }
 
   async function loadDados () {
     setLoading(true)
-
+    // eslint-disable-next-line
     const responser = api.get('mao-de-obra',
     ).then((response) => {
       console.log(response.data.rows)
@@ -77,9 +78,10 @@ export function Labor () {
       setLoading(false)
     })
   }
-  async function deleteDados(id: string) {
+  async function deleteDados (id: string) {
     setLoading(true)
-    const responser = api.delete('mao-de-obra/' + id
+    // eslint-disable-next-line
+    const responser = api.delete('mao-de-obra/' + id,
     ).then((response) => {
       if (response.statusText === 'OK') {
         loadDados()
@@ -95,7 +97,7 @@ export function Labor () {
     setLoading(true)
     loadDados()
   }, [])
-
+  // eslint-disable-next-line
   function handleDelete (id: string) {
     setMaoDeObra(maoDeObras =>
       maoDeObras.filter(maoDeObra => maoDeObra.id !== id),
@@ -121,37 +123,38 @@ export function Labor () {
         </S.GridConfirmation>
 
         <ul>
-          {maoDeObras.length > 0 ?
-           maoDeObras.map((maoDeObra) =>
-            <li key={maoDeObra.id}>
-              <S.GridConfirmation>
-                <span>
-                  {maoDeObra.nIdentificacao}
-                </span>
-                <span>
-                  {maoDeObra.nome}
-                </span>
-                <span>
-                  {maoDeObra.cpf}
-                </span>
-                <span>
-                  {maoDeObra.cidade}
-                </span>
-                <span>
-                  {maoDeObra.funcao}
-                </span>
-                <span>
-                  {maoDeObra.celular}
-                </span>
-                <span>
-                  {maoDeObra.validadeCertificado}
-                </span>
-                <DeleteButton
-                  onDelete={() => deleteDados(maoDeObra.id)}
-                />
-              </S.GridConfirmation>
-            </li>,
-          ):'Nenhuma mão de obra cadastrada!'}
+          {maoDeObras.length > 0
+            ? maoDeObras.map((maoDeObra) =>
+              <li key={maoDeObra.id}>
+                <S.GridConfirmation>
+                  <span>
+                    {maoDeObra.nIdentificacao}
+                  </span>
+                  <span>
+                    {maoDeObra.nome}
+                  </span>
+                  <span>
+                    {maoDeObra.cpf}
+                  </span>
+                  <span>
+                    {maoDeObra.cidade}
+                  </span>
+                  <span>
+                    {maoDeObra.funcao}
+                  </span>
+                  <span>
+                    {maoDeObra.celular}
+                  </span>
+                  <span>
+                    {maoDeObra.validadeCertificado}
+                  </span>
+                  <DeleteButton
+                    onDelete={() => deleteDados(maoDeObra.id)}
+                  />
+                </S.GridConfirmation>
+              </li>,
+            )
+            : 'Nenhuma mão de obra cadastrada!'}
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>

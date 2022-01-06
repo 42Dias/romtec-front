@@ -23,20 +23,21 @@ type FormData = {
   complemento: string;
 }
 
-export function Customers() {
+export function Customers () {
   const [isOpen, setIsOpen] = useState(false)
-  const [loading, setLoading] = useState(false);
-  const [clientes, setClientes] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false)
+  const [clientes, setClientes] = useState<any[]>([])
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     console.log(data)
     Cadastro(data)
     reset()
   }
-  async function Cadastro(submit: any) {
+  async function Cadastro (submit: any) {
     setLoading(true)
-    let responser = api.post(`clientes`, {
+    // eslint-disable-next-line
+    const responser = api.post('clientes', {
       data: submit,
     }).then((response) => {
       console.log(response);
@@ -44,11 +45,11 @@ export function Customers() {
         toast.success('Cliente cadastrado com sucesso!');
         setLoading(false)
         loadDados()
-      } else if (response.statusText === "Forbidden") {
-        toast.error("Ops, Não tem permisão!");
+      } else if (response.statusText === 'Forbidden') {
+        toast.error('Ops, Não tem permisão!')
         setLoading(false)
       } else {
-        toast.error("Ops, Dados Incorretos!");
+        toast.error('Ops, Dados Incorretos!')
         setLoading(false)
       }
     }).catch(res => {
@@ -58,25 +59,26 @@ export function Customers() {
     })
   }
 
-  async function loadDados() {
+  async function loadDados () {
     setLoading(true)
-    let responser = api.get('clientes',
+    // eslint-disable-next-line
+    const responser = api.get('clientes',
     ).then((response) => {
-      console.log(response.data.rows);
-      if (response.statusText === "OK") {
+      console.log(response.data.rows)
+      if (response.statusText === 'OK') {
         setClientes(response.data.rows)
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res.response.data);
-      toast.error(res.response.data);
+      console.log(res.response.data)
+      toast.error(res.response.data)
       setLoading(false)
     })
   }
   useEffect(() => {
     setLoading(true)
     loadDados()
-  }, []);
+  }, [])
 
   return (
     <>
@@ -220,7 +222,7 @@ export function Customers() {
                 })}
               />
 
-              <button type='submit'>{loading ? <img width="40px" style={{ margin: 'auto' }} height="" src={'https://contribua.org/mb-static/images/loading.gif'} alt="Loading" /> : 'Salvar'}</button>
+              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
             </S.Form>
           </S.Container>
         </Modal>

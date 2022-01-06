@@ -5,7 +5,7 @@ import { FiPlus } from 'react-icons/fi'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 
 import { TextField } from '../../ui/Components/TextField'
-import { useEffect, useState, ChangeEvent } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { api } from '../../services/api'
 import { toast } from 'react-toastify'
@@ -40,6 +40,7 @@ export function SoilTypes() {
 
   async function createNewFile(submit: any) {
     setLoading(true)
+    // eslint-disable-next-line
     const responser = api.post('tipo-solo', {
       data: submit,
     }).then((response) => {
@@ -62,6 +63,7 @@ export function SoilTypes() {
 
   async function loadDados() {
     setLoading(true)
+    // eslint-disable-next-line
     const responser = api.get('tipo-solo',
     ).then((response) => {
       if (response.statusText === 'OK') {
@@ -76,6 +78,7 @@ export function SoilTypes() {
   }
   async function deleteDados(id: string) {
     setLoading(true)
+    // eslint-disable-next-line
     const responser = api.delete('tipo-solo/' + id,
     ).then((response) => {
       if (response.statusText === 'OK') {

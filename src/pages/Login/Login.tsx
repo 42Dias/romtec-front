@@ -22,6 +22,7 @@ export function Login () {
   const [loading, setLoading] = useState(false)
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>()
+  // eslint-disable-next-line
   const navigate = useNavigate()
 
   function onSubmit ({ email, password }: FormData) {
@@ -32,7 +33,7 @@ export function Login () {
     Login(submit)
     console.log(submit)
   }
-  
+
   function handleLocalStorage (emailA: string, passwordB: string) {
     localStorage.setItem('email', JSON.stringify(emailA))
     localStorage.setItem('password', JSON.stringify(passwordB))
@@ -48,7 +49,7 @@ export function Login () {
   }
   async function Login (submit: any) {
     setLoading(true)
-    
+    // eslint-disable-next-line
     const responser = axios.post(ip + ':8145/api/auth/sign-in', {
       email: submit.email,
       password: submit.password,
@@ -73,7 +74,7 @@ export function Login () {
       setLoading(false)
     })
   }
-  
+
   async function loadUser (token: any) {
     const response = await axios({
       method: 'get',
@@ -85,8 +86,8 @@ export function Login () {
       },
       timeout: 50000,
     }).then(response => {
-      //navigate('/home', { replace: true })
-      window.location.href = window.location.href+'home'
+      // navigate('/home', { replace: true })
+      window.location.href = window.location.href + 'home'
       return response.data
     })
     console.log(response)
@@ -101,7 +102,7 @@ export function Login () {
     // saves client's data into localStorage
     localStorage.setItem('status', JSON.stringify(response.tenants[0].status))
   }
-  
+
   return (
     <S.ContainerLogin>
       <S.Content>

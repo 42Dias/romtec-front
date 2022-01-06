@@ -17,60 +17,62 @@ type FormData = {
   periodo: string,
 }
 
-export function Plans() {
+export function Plans () {
   const [isOpen, setIsOpen] = useState(false)
-  const [loading, setLoading] = useState(false);
-  const [planos, setPlanos] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false)
+  const [planos, setPlanos] = useState<any[]>([])
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     console.log(data)
     Cadastro(data)
     reset()
   }
-  async function Cadastro(submit: any) {
+  async function Cadastro (submit: any) {
     setLoading(true)
-    let responser = api.post(`plano`, {
+    // eslint-disable-next-line
+    const responser = api.post('plano', {
       data: submit,
     }).then((response) => {
-      console.log(response);
-      if (response.statusText === "OK") {
-        toast.success('Recebemos o seu registro');
+      console.log(response)
+      if (response.statusText === 'OK') {
+        toast.success('Recebemos o seu registro')
         setLoading(false)
         loadDados()
-      } else if (response.statusText === "Forbidden") {
-        toast.error("Ops, Não tem permisão!");
+      } else if (response.statusText === 'Forbidden') {
+        toast.error('Ops, Não tem permisão!')
         setLoading(false)
       } else {
-        toast.error("Ops, Dados Incorretos!");
+        toast.error('Ops, Dados Incorretos!')
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res);
-      //toast.error(res.response.data);
+      console.log(res)
+      // toast.error(res.response.data);
       setLoading(false)
     })
   }
 
-  async function loadDados() {
+  async function loadDados () {
     setLoading(true)
-    let responser = api.get('plano',
+    // eslint-disable-next-line
+    const responser = api.get('plano',
     ).then((response) => {
-      console.log(response.data.rows);
-      if (response.statusText === "OK") {
+      console.log(response.data.rows)
+      if (response.statusText === 'OK') {
         setPlanos(response.data.rows)
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res.response.data);
-      toast.error(res.response.data);
+      console.log(res.response.data)
+      toast.error(res.response.data)
       setLoading(false)
     })
   }
   useEffect(() => {
     setLoading(true)
     loadDados()
-  }, []);
+  }, [])
 
   return (
     <>
@@ -85,15 +87,19 @@ export function Plans() {
           <span>Valor</span>
           <span>Periodo</span>
         </S.GridConfirmation>
-        {planos.length > 0 ?
-          planos.map((plano) =>
-            <S.GridConfirmation>
-              <span>{plano.nome}</span>
-              <span>{plano.valor}</span>
-              <span>{plano.periodo}</span>
-            </S.GridConfirmation>
-          ) : 'Nenhum plano cadastrado'}
-
+        <ul>
+          {planos.length > 0
+            ? planos.map((plano) =>
+              <li key={plano.id}>
+                <S.GridConfirmation>
+                  <span>{plano.nome}</span>
+                  <span>{plano.valor}</span>
+                  <span>{plano.periodo}</span>
+                </S.GridConfirmation>,
+              </li>,
+            )
+            : 'Nenhum plano cadastrado'}
+        </ul>
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
@@ -125,7 +131,7 @@ export function Plans() {
                 </select>
               </fieldset>
 
-              <button type='submit'>{loading ? <img width="40px" style={{ margin: 'auto' }} height="" src={'https://contribua.org/mb-static/images/loading.gif'} alt="Loading" /> : 'Salvar'}</button>
+              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
             </S.Form>
           </S.Container>
         </Modal>

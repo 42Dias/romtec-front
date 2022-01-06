@@ -22,63 +22,67 @@ type FormData = {
   agua: string
 }
 
-export function DrillingFluid() {
+export function DrillingFluid () {
   const [isOpen, setIsOpen] = useState(false)
-  const [loading, setLoading] = useState(false);
-  const [fluidos, setFluidos] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false)
+  const [fluidos, setFluidos] = useState<any[]>([])
+  // eslint-disable-next-line
   const [drillingFluid, setDrillingFluid] = useState<any[]>([])
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     console.log(data)
     Cadastro(data)
     reset()
   }
-  async function Cadastro(submit: any) {
+  async function Cadastro (submit: any) {
     setLoading(true)
-    submit.agua = "0"
-    let responser = api.post(`fluido-perfuracao`, {
+    submit.agua = '0'
+    // eslint-disable-next-line
+    const responser = api.post('fluido-perfuracao', {
       data: submit,
     }).then((response) => {
-      console.log(response);
-      if (response.statusText === "OK") {
-        toast.success('Fluido cadastrado com sucesso!');
+      console.log(response)
+      if (response.statusText === 'OK') {
+        toast.success('Fluido cadastrado com sucesso!')
         setLoading(false)
         loadDados()
-      } else if (response.statusText === "Forbidden") {
-        toast.error("Ops, Não tem permisão!");
+      } else if (response.statusText === 'Forbidden') {
+        toast.error('Ops, Não tem permisão!')
         setLoading(false)
       } else {
-        toast.error("Ops, Dados Incorretos!");
+        toast.error('Ops, Dados Incorretos!')
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res);
-      toast.error(res.response.data);
+      console.log(res)
+      toast.error(res.response.data)
       setLoading(false)
     })
   }
 
-  async function loadDados() {
+  async function loadDados () {
     setLoading(true)
-    let responser = api.get('fluido-perfuracao',
+    // eslint-disable-next-line
+    const responser = api.get('fluido-perfuracao',
     ).then((response) => {
-      console.log(response.data.rows);
+      console.log(response.data.rows)
       console.log(typeof (response.data.rows))
-      if (response.statusText === "OK") {
+      if (response.statusText === 'OK') {
         setFluidos(response.data.rows)
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res.response.data);
-      toast.error(res.response.data);
+      console.log(res.response.data)
+      toast.error(res.response.data)
       setLoading(false)
     })
   }
-  async function deleteDados(id: string) {
+  async function deleteDados (id: string) {
     setLoading(true)
-    const responser = api.delete('fluido-perfuracao/' + id
+    // eslint-disable-next-line
+    const responser = api.delete('fluido-perfuracao/' + id,
     ).then((response) => {
       if (response.statusText === 'OK') {
         loadDados()
@@ -93,9 +97,9 @@ export function DrillingFluid() {
   useEffect(() => {
     setLoading(true)
     loadDados()
-  }, []);
-
-  function handleDelete(id: string) {
+  }, [])
+  // eslint-disable-next-line
+  function handleDelete (id: string) {
     setDrillingFluid(drillingFluids =>
       drillingFluids.filter(drillingFluid => drillingFluid.id !== id),
     )
@@ -111,35 +115,28 @@ export function DrillingFluid() {
 
         <S.GridConfirmation>
           <span>Identificação</span>
-          {/*<span>Viscosidade</span>
+          {/* <span>Viscosidade</span>
           <span>pH</span>
           <span>Base para formulação</span>
           <span>Escoamento</span>
-          <span>Teor de areia</span>*/}
-          </S.GridConfirmation>
+          <span>Teor de areia</span> */}
+        </S.GridConfirmation>
         <ul>
-          {fluidos.length > 0 ?
-            fluidos.map((fluido) =>
+          {fluidos.length > 0
+          // eslint-disable-next-line
+            ? fluidos.map((fluido) =>
               <li key={fluido.id}>
                 <S.GridConfirmation>
                   <span>{fluido.nome}</span>
-                  {/*<span>{fluido.viscosidadeEsperada}</span>
-                  <span>{fluido.nome}</span>
-                  <span>{fluido.nome}</span>
-                  <span>{fluido.nome}</span>
-                  <span>{fluido.nome}</span>}*/}
                   <DeleteButton
                     onDelete={() => deleteDados(fluido.id)}
                   />
                 </S.GridConfirmation>
-                </li>
-                ): 'Nenhum Fluídos de perfuração cadastrado'}
-              
-
+              </li>,
+            ) : 'Nenhum Fluídos de perfuração cadastrado'}
         </ul>
 
-
-        {/*<ul>
+        {/* <ul>
           {drillingFluid.map((fluid) =>
             <li key={fluid.id}>
               <S.GridConfirmation>
@@ -152,7 +149,7 @@ export function DrillingFluid() {
               </S.GridConfirmation>
             </li>,
           )}
-          </ul>*/}
+          </ul> */}
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
@@ -208,7 +205,7 @@ export function DrillingFluid() {
                 })}
               />
 
-              <button type='submit'>{loading ? <img width="40px" style={{ margin: 'auto' }} height="" src={'https://contribua.org/mb-static/images/loading.gif'} alt="Loading" /> : 'Salvar'}</button>
+              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
             </S.Form>
           </S.Container>
         </Modal>

@@ -50,6 +50,7 @@ export function DrillingMachine () {
 
   async function Cadastro (submit: any) {
     setLoading(true)
+    // eslint-disable-next-line
     const responser = api.post('maquina-perfuratis', {
       data: submit,
     }).then((response) => {
@@ -67,6 +68,7 @@ export function DrillingMachine () {
       }
     }).catch(res => {
       console.log(res)
+      // eslint-disable-next-line
       toast.error(res.response.data);
       setLoading(false)
     })
@@ -74,6 +76,7 @@ export function DrillingMachine () {
 
   async function loadDados () {
     setLoading(true)
+    // eslint-disable-next-line
     const responser = api.get('maquina-perfuratis',
     ).then((response) => {
       console.log(response.data.rows)
@@ -87,8 +90,10 @@ export function DrillingMachine () {
       setLoading(false)
     })
   }
+  // eslint-disable-next-line
   async function deleteDados(id: string) {
     setLoading(true)
+    // eslint-disable-next-line
     const responser = api.delete('maquina-perfuratis/' + id
     ).then((response) => {
       if (response.statusText === 'OK') {
@@ -105,7 +110,7 @@ export function DrillingMachine () {
     setLoading(true)
     loadDados()
   }, [])
-
+  // eslint-disable-next-line
   function handleDelete (id: string) {
     setMaqPerfuratriz(maqPerfuratrizs =>
       maqPerfuratrizs.filter(maqPerfuratriz => maqPerfuratriz.id !== id),
@@ -129,21 +134,22 @@ export function DrillingMachine () {
         </S.GridConfirmation>
 
         <ul>
-          {maqPerfuratriz.length > 0 ?
-          maqPerfuratriz.map((maquinas) =>
-            <li key={maquinas.id}>
-              <S.GridConfirmation>
-                <span>{maquinas.modelo}</span>
-                <span>{maquinas.fabricante}</span>
-                <span>{maquinas.tracao}</span>
-                <span>{maquinas.torque}</span>
-                <span>{maquinas.alergamentoMaximo}</span>
-                <DeleteButton
-                  onDelete={() => deleteDados(maquinas.id)}
-                />
-              </S.GridConfirmation>
-            </li>,
-          ): 'Nenhuma Máquina Perfuratriz cadastrada!'}
+          {maqPerfuratriz.length > 0
+            ? maqPerfuratriz.map((maquinas) =>
+              <li key={maquinas.id}>
+                <S.GridConfirmation>
+                  <span>{maquinas.modelo}</span>
+                  <span>{maquinas.fabricante}</span>
+                  <span>{maquinas.tracao}</span>
+                  <span>{maquinas.torque}</span>
+                  <span>{maquinas.alergamentoMaximo}</span>
+                  <DeleteButton
+                    onDelete={() => deleteDados(maquinas.id)}
+                  />
+                </S.GridConfirmation>
+              </li>,
+            )
+            : 'Nenhuma Máquina Perfuratriz cadastrada!'}
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>

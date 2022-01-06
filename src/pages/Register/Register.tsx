@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router'
 import * as S from './Register.styled'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import { api, ip } from '../../services/api'
+import { ip } from '../../services/api'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 
@@ -86,8 +86,8 @@ export function Register () {
       timeout: 50000,
     }).then(response => {
       navigate('/home', { replace: true })
-      //navigate('/home', { replace: true })
-      window.location.href = window.location.href+'home'
+      // navigate('/home', { replace: true })
+      window.location.href = window.location.href + 'home'
       return response.data
     })
     console.log(response)
@@ -95,9 +95,9 @@ export function Register () {
     // localStorage.setItem("roles", JSON.stringify(response.tenants[0].roles[0]));//saves client's data into localStorage:
     // console.log(response.tenants[0].tenant.id);
     // localStorage.setItem("tenantId", JSON.stringify(response.tenants[0].tenant.id));//saves client's data into localStorage:
-    localStorage.setItem("roles", JSON.stringify(response.tenants[0].roles[0]));//saves client's data into localStorage:
+    localStorage.setItem('roles', JSON.stringify(response.tenants[0].roles[0]))// saves client's data into localStorage:
     // console.log(response.tenants[0].tenant.id);
-    localStorage.setItem("tenantId", JSON.stringify(response.tenants[0].tenant.id));//saves client's data into localStorage:
+    localStorage.setItem('tenantId', JSON.stringify(response.tenants[0].tenant.id))// saves client's data into localStorage:
     localStorage.setItem('id', JSON.stringify(response.id))// saves client's data into localStorage:
     localStorage.setItem('nome', JSON.stringify(response.firstName))
   // localStorage.setItem("status", JSON.stringify(response.tenants[0].status));//saves client's data into localStorage:

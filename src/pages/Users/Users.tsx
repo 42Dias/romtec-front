@@ -5,18 +5,20 @@ import image from '../../assets/obra.png'
 import Modal from '../../ui/Components/Modal/Modal'
 import { useEffect, useState } from 'react'
 import { FiTool } from 'react-icons/fi'
-import axios from 'axios'
 import { toast } from 'react-toastify'
-import { api, id, ip, nome, token } from '../../services/api'
+import { api, ip } from '../../services/api'
 
 export function Users () {
   const [isOpen, setIsOpen] = useState(false)
+  // eslint-disable-next-line
   const [loading, setLoading] = useState(false)
   const [user, setUsers] = useState<any[]>([])
+  // eslint-disable-next-line
   const [role, setRole] = useState('')
 
   async function users () {
     setLoading(true)
+    // eslint-disable-next-line
     const responser = api.get('user/',
     ).then((response) => {
       console.log(response.data.rows)
@@ -31,6 +33,7 @@ export function Users () {
   }
   function editUser (user: any) {
     setLoading(true)
+    // eslint-disable-next-line
     const responser = api.put(ip + 'user/', {
       data: user,
     },
@@ -64,18 +67,22 @@ export function Users () {
 
         <S.Steps>
           <h2>Usuários</h2>
-          {user.map((user) => (
-            <S.ContainerUsers>
-              <div>
-                <h4>{user.firstName}</h4>
-                <span>{user.email}</span> <br />
-                <span>CNPJ: {user.cnpj}</span> <br />
-                <span>Telefone: {user.tel}</span>
-              </div>
+          <ul>
+            {user.map((user) => (
+              <li key={user.id}>
+                <S.ContainerUsers>
+                  <div>
+                    <h4>{user.firstName}</h4>
+                    <span>{user.email}</span> <br />
+                    <span>CNPJ: {user.cnpj}</span> <br />
+                    <span>Telefone: {user.tel}</span>
+                  </div>
 
-              <button onClick={() => setIsOpen(true)}>Atribuir perfil</button>
-            </S.ContainerUsers>
-          ))}
+                  <button onClick={() => setIsOpen(true)}>Atribuir perfil</button>
+                </S.ContainerUsers>
+              </li>
+            ))}
+          </ul>
         </S.Steps>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
