@@ -73,7 +73,7 @@ export function SoilTypes () {
   }
   async function deleteDados (id:string) {
     setLoading(true)
-    const responser = api.delete('tipo-solo/'+id
+    const responser = api.delete('tipo-solo/' + id,
     ).then((response) => {
       if (response.statusText === 'OK') {
         loadDados()
@@ -126,37 +126,36 @@ export function SoilTypes () {
         </S.GridConfirmation>
 
         <ul>
-          {soilTypes.length > 0 ?
-          soilTypes.map((soilType) =>
-            <li key={soilType.id}>
-              <S.GridConfirmation>
-                <span>
-                  {soilType.especificacaoSolo}
-                </span>
-                <span>
-                  {soilType.resistenciaSeca}
-                </span>
-                <span>
-                  {soilType.descricao}
-                </span>
-                <span>
-                  {soilType.reacaoDilatacao}
-                </span>
-                <span>
-                  {soilType.durezaPlastica}
-                </span>
-                <span>
-                  {soilType.indicePlasticidade}
-                </span>
-                <DeleteButton
-                  onDelete={() => handleDelete(soilType.id)}
-                />
-                <EditButton onEdit={() => handleUpdate(soilType.id)} />
-                  onDelete={() => deleteDados(soilType.id)}
-                /> 
-              </S.GridConfirmation>
-            </li>,
-          ): 'Nenhum Tipo de solo cadastrado!'}
+          {soilTypes.length > 0
+            ? soilTypes.map((soilType) =>
+              <li key={soilType.id}>
+                <S.GridConfirmation>
+                  <span>
+                    {soilType.especificacaoSolo}
+                  </span>
+                  <span>
+                    {soilType.resistenciaSeca}
+                  </span>
+                  <span>
+                    {soilType.descricao}
+                  </span>
+                  <span>
+                    {soilType.reacaoDilatacao}
+                  </span>
+                  <span>
+                    {soilType.durezaPlastica}
+                  </span>
+                  <span>
+                    {soilType.indicePlasticidade}
+                  </span>
+                  <DeleteButton
+                    onDelete={() => handleDelete(soilType.id)}
+                  />
+                  <EditButton onEdit={() => handleUpdate(soilType.id)} />
+                </S.GridConfirmation>
+              </li>,
+            )
+            : 'Nenhum Tipo de solo cadastrado!'}
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
