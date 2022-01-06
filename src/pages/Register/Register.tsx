@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router'
 import * as S from './Register.styled'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import { api, ip } from '../../services/api'
+import { ip } from '../../services/api'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 
@@ -49,7 +49,6 @@ export function Register () {
 
   async function Cadastro (submit:any) {
     setLoading(true)
-    const responser = axios.post('http://' + ip + ':8145/api/auth/sign-up', {
     const responser = axios.post(ip + ':8145/api/auth/sign-up', {
       nome: submit.name,
       email: submit.email,
@@ -78,7 +77,6 @@ export function Register () {
   async function loadUser (token:any) {
     const response = await axios({
       method: 'get',
-      url: `http://${ip}:8145/api/auth/me`,
       url: `${ip}:8145/api/auth/me`,
       headers: {
         Accept: 'application/json',
@@ -88,8 +86,8 @@ export function Register () {
       timeout: 50000,
     }).then(response => {
       navigate('/home', { replace: true })
-      //navigate('/home', { replace: true })
-      window.location.href = window.location.href+'home'
+      // navigate('/home', { replace: true })
+      window.location.href = window.location.href + 'home'
       return response.data
     })
     console.log(response)
@@ -97,9 +95,9 @@ export function Register () {
     // localStorage.setItem("roles", JSON.stringify(response.tenants[0].roles[0]));//saves client's data into localStorage:
     // console.log(response.tenants[0].tenant.id);
     // localStorage.setItem("tenantId", JSON.stringify(response.tenants[0].tenant.id));//saves client's data into localStorage:
-    localStorage.setItem("roles", JSON.stringify(response.tenants[0].roles[0]));//saves client's data into localStorage:
+    localStorage.setItem('roles', JSON.stringify(response.tenants[0].roles[0]))// saves client's data into localStorage:
     // console.log(response.tenants[0].tenant.id);
-    localStorage.setItem("tenantId", JSON.stringify(response.tenants[0].tenant.id));//saves client's data into localStorage:
+    localStorage.setItem('tenantId', JSON.stringify(response.tenants[0].tenant.id))// saves client's data into localStorage:
     localStorage.setItem('id', JSON.stringify(response.id))// saves client's data into localStorage:
     localStorage.setItem('nome', JSON.stringify(response.firstName))
   // localStorage.setItem("status", JSON.stringify(response.tenants[0].status));//saves client's data into localStorage:
