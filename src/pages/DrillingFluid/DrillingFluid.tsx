@@ -1,12 +1,14 @@
-import * as S from './DrillingFluid.styled'
+import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 
+import { TextField } from '../../ui/Components/TextField'
+import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { TextField } from '../../ui/Components/TextField'
+
+import * as S from './DrillingFluid.styled'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 
@@ -20,25 +22,28 @@ type FormData = {
   agua: string
 }
 
-export function DrillingFluid () {
+export function DrillingFluid() {
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false);
   const [fluidos, setFluidos] = useState<any[]>([]);
+  const [drillingFluid, setDrillingFluid] = useState<any[]>([])
+
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
     console.log(data)
     Cadastro(data)
     reset()
   }
   async function Cadastro(submit: any) {
     setLoading(true)
+    submit.agua = "0"
     let responser = api.post(`fluido-perfuracao`, {
       data: submit,
     }).then((response) => {
       console.log(response);
       if (response.statusText === "OK") {
-        toast.success('Recebemos o seu registro');
+        toast.success('Fluido cadastrado com sucesso!');
         setLoading(false)
         loadDados()
       } else if (response.statusText === "Forbidden") {
@@ -60,6 +65,7 @@ export function DrillingFluid () {
     let responser = api.get('fluido-perfuracao',
     ).then((response) => {
       console.log(response.data.rows);
+      console.log(typeof (response.data.rows))
       if (response.statusText === "OK") {
         setFluidos(response.data.rows)
         setLoading(false)
@@ -70,9 +76,9 @@ export function DrillingFluid () {
       setLoading(false)
     })
   }
-  async function deleteDados (id:string) {
+  async function deleteDados(id: string) {
     setLoading(true)
-    const responser = api.delete('fluido-perfuracao/'+id
+    const responser = api.delete('fluido-perfuracao/' + id
     ).then((response) => {
       if (response.statusText === 'OK') {
         loadDados()
@@ -89,6 +95,12 @@ export function DrillingFluid () {
     loadDados()
   }, []);
 
+  function handleDelete(id: string) {
+    setDrillingFluid(drillingFluids =>
+      drillingFluids.filter(drillingFluid => drillingFluid.id !== id),
+    )
+  }
+
   return (
     <>
       <Sidebar />
@@ -99,13 +111,49 @@ export function DrillingFluid () {
 
         <S.GridConfirmation>
           <span>Identificação</span>
-        </S.GridConfirmation>
-        {fluidos.length > 0 ? 
-        fluidos.map((fluido) => 
-        <S.GridConfirmation>
-          <span>{fluido.nome}</span>
-        </S.GridConfirmation>
-        ): 'Nenhum fluido  de perfuração cadastrado'}
+          {/*<span>Viscosidade</span>
+          <span>pH</span>
+          <span>Base para formulação</span>
+          <span>Escoamento</span>
+          <span>Teor de areia</span>*/}
+          </S.GridConfirmation>
+        <ul>
+          {fluidos.length > 0 ?
+            fluidos.map((fluido) =>
+              <li key={fluido.id}>
+                <S.GridConfirmation>
+                  <span>{fluido.nome}</span>
+                  {/*<span>{fluido.viscosidadeEsperada}</span>
+                  <span>{fluido.nome}</span>
+                  <span>{fluido.nome}</span>
+                  <span>{fluido.nome}</span>
+                  <span>{fluido.nome}</span>}*/}
+                  <DeleteButton
+                    onDelete={() => deleteDados(fluido.id)}
+                  />
+                </S.GridConfirmation>
+                </li>
+                ): 'Nenhum Fluídos de perfuração cadastrado'}
+              
+
+        </ul>
+
+
+        {/*<ul>
+          {drillingFluid.map((fluid) =>
+            <li key={fluid.id}>
+              <S.GridConfirmation>
+                <span>
+                  {fluid}
+                </span>
+                <DeleteButton
+                  onDelete={() => handleDelete(fluid.id)}
+                />
+              </S.GridConfirmation>
+            </li>,
+          )}
+          </ul>*/}
+
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>

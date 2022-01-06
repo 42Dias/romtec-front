@@ -33,13 +33,14 @@ export function SoilTypes () {
     createNewFile(data)
     reset()
   }
+
   async function createNewFile (submit: any) {
     setLoading(true)
     const responser = api.post('tipo-solo', {
       data: submit,
     }).then((response) => {
       if (response.statusText === 'OK') {
-        toast.success('Recebemos o seu registro')
+        toast.success('Tipo de solo cadastrado com sucesso!')
         setLoading(false)
         loadDados()
       } else if (response.statusText === 'Forbidden') {
@@ -112,21 +113,34 @@ export function SoilTypes () {
         </S.GridConfirmation>
 
         <ul>
-          {soilTypes.map((soilType) =>
+          {soilTypes.length > 0 ?
+          soilTypes.map((soilType) =>
             <li key={soilType.id}>
               <S.GridConfirmation>
-                <span>{soilType.especificacaoSolo}</span>
-                <span>{soilType.resistenciaSeca}</span>
-                <span>{soilType.descricao}</span>
-                <span>{soilType.reacaoDilatacao}</span>
-                <span>{soilType.durezaPlastica}</span>
-                <span>{soilType.indicePlasticidade}</span>
+                <span>
+                  {soilType.especificacaoSolo}
+                </span>
+                <span>
+                  {soilType.resistenciaSeca}
+                </span>
+                <span>
+                  {soilType.descricao}
+                </span>
+                <span>
+                  {soilType.reacaoDilatacao}
+                </span>
+                <span>
+                  {soilType.durezaPlastica}
+                </span>
+                <span>
+                  {soilType.indicePlasticidade}
+                </span>
                 <DeleteButton
                   onDelete={() => deleteDados(soilType.id)}
                 /> 
               </S.GridConfirmation>
             </li>,
-          )}
+          ): 'Nenhum Tipo de solo cadastrado!'}
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>

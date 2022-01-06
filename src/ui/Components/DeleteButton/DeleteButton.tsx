@@ -11,6 +11,7 @@ const DeleteButton = ({ onDelete }: Props) => {
       <button
         onClick={onDelete}
         style={{ background: 'none' }}
+        title='Deletar?'
       >
         <FiTrash size={20} />
       </button>

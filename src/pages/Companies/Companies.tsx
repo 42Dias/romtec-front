@@ -1,12 +1,14 @@
-import * as S from './Companies.styled'
+import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 
+import { TextField } from '../../ui/Components/TextField'
+import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { TextField } from '../../ui/Components/TextField'
+
+import * as S from './Companies.styled'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 
@@ -43,7 +45,7 @@ export function Companies() {
     }).then((response) => {
       console.log(response);
       if (response.statusText === "OK") {
-        toast.success('Recebemos o seu registro');
+        toast.success('Companhia cadastrada com sucesso!');
         setLoading(false)
         loadDados()
       } else if (response.statusText === "Forbidden") {
@@ -55,7 +57,7 @@ export function Companies() {
       }
     }).catch(res => {
       console.log(res);
-      //toast.error(res.response.data);
+      toast.error(res.response.data);
       setLoading(false)
     })
   }
@@ -65,27 +67,28 @@ export function Companies() {
     let responser = api.get('companhia',
     ).then((response) => {
       console.log(response.data.rows);
+      console.log(typeof (response.data.rows))
       if (response.statusText === "OK") {
         setCompanhias(response.data.rows)
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res.response.data);
-      toast.error(res.response.data);
+      console.log(res);
+      toast.error(res);
       setLoading(false)
     })
   }
-  async function deleteDados (id:string) {
+  async function deleteDados(id: string) {
     setLoading(true)
-    const responser = api.delete('companhia/'+id
+    const responser = api.delete('companhia/' + id
     ).then((response) => {
       if (response.statusText === 'OK') {
         loadDados()
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res.response.data)
-      toast.error(res.response.data)
+      console.log(res.response)
+      toast.error(res.response)
       setLoading(false)
     })
   }
@@ -94,6 +97,12 @@ export function Companies() {
     loadDados()
   }, []);
 
+  function handleDelete(id: string) {
+    /*setCompanhias(companhies =>
+      companhies.filter(companhie => companhie.id !== id),
+    )*/
+  }
+
   return (
     <>
       <Sidebar />
@@ -101,6 +110,7 @@ export function Companies() {
       <S.ContainerConfirmation>
         <h2>Companhias</h2>
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
+
         <S.GridConfirmation>
           <span>Nome fantasia</span>
           <span>Estado</span>
@@ -108,14 +118,32 @@ export function Companies() {
           <span>E-mail</span>
           <span>Responsável Técnico</span>
         </S.GridConfirmation>
-        {companhias.map((companhia) =>
+        {/*companhias.map((companhia) =>
           <S.GridConfirmation>
             <span>{companhia.nomeFantasia}</span>
             <span>{companhia.estado}</span>
             <span>{companhia.cidade}</span>
             <span>{companhia.email}</span>
             <span>{companhia.responsavelTecnico}</span>
-          </S.GridConfirmation>)}
+        </S.GridConfirmation>)*/}
+
+        <ul>
+          {companhias.length > 0 ? companhias.map((companhia) =>
+            <li key={companhia.id}>
+              <S.GridConfirmation>
+                <span>{companhia.nomeFantasia}</span>
+                <span>{companhia.estado}</span>
+                <span>{companhia.cidade}</span>
+                <span>{companhia.email}</span>
+                <span>{companhia.responsavelTecnico}</span>
+                <DeleteButton
+                  onDelete={() => deleteDados(companhia.id)}
+                />
+              </S.GridConfirmation>
+            </li>,
+          ): 'Nenhuma companhia cadastrada!'}
+        </ul>
+
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
