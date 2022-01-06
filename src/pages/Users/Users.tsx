@@ -31,7 +31,7 @@ export function Users () {
   }
   function editUser (user: any) {
     setLoading(true)
-    const responser = axios.put('http://' + ip + ':8145/api/tenant/03c34402-8216-4ce7-aca0-3cc6a03b7a63/user/', {
+    const responser = api.put(ip + 'user/', {
       data: user,
     },
     ).then((response) => {

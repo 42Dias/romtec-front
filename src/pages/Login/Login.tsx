@@ -49,7 +49,7 @@ export function Login () {
   async function Login (submit: any) {
     setLoading(true)
     
-    const responser = axios.post('http://' + ip + ':8145/api/auth/sign-in', {
+    const responser = axios.post(ip + ':8145/api/auth/sign-in', {
       email: submit.email,
       password: submit.password,
       invitationToken: '',
@@ -77,7 +77,7 @@ export function Login () {
   async function loadUser (token: any) {
     const response = await axios({
       method: 'get',
-      url: `http://${ip}:8145/api/auth/me`,
+      url: `${ip}:8145/api/auth/me`,
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ export function Login () {
     console.log(response)
 
     // saves client's data into localStorage
-    // localStorage.setItem('roles', JSON.stringify(response.tenants[0].roles[0]))
+    localStorage.setItem('roles', JSON.stringify(response.tenants[0].roles[0]))
     // saves client's data into localStorage
     localStorage.setItem('tenantId', JSON.stringify(response.tenants[0].tenant.id))
     // saves client's data into localStorage

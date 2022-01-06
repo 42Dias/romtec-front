@@ -6,30 +6,92 @@ import Modal from '../../ui/Components/Modal/Modal'
 import { TextField } from '../../ui/Components/TextField'
 import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
+import { api } from '../../services/api'
 
 import * as S from './DrillingFluid.styled'
 
 type FormData = {
-  identification: string;
-  expectedViscosity: string;
-  phWater: string;
-  baseQuantityFormulation: string;
-  flowLimit: string;
-  sandContent: string;
+  nome: string;
+  viscosidadeEsperada: string;
+  qtdePHPA: string;
+  qtdeBase: string;
+  limiteEscoamento: string;
+  teorAreia: string;
+  agua: string
 }
 
 export function DrillingFluid () {
   const [isOpen, setIsOpen] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [fluidos, setFluidos] = useState<any[]>([]);
   const [drillingFluid, setDrillingFluid] = useState<any[]>([])
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
     console.log(data)
-
+    Cadastro(data)
     reset()
   }
+  async function Cadastro(submit: any) {
+    setLoading(true)
+    let responser = api.post(`fluido-perfuracao`, {
+      data: submit,
+    }).then((response) => {
+      console.log(response);
+      if (response.statusText === "OK") {
+        toast.success('Recebemos o seu registro');
+        setLoading(false)
+        loadDados()
+      } else if (response.statusText === "Forbidden") {
+        toast.error("Ops, Não tem permisão!");
+        setLoading(false)
+      } else {
+        toast.error("Ops, Dados Incorretos!");
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res);
+      toast.error(res.response.data);
+      setLoading(false)
+    })
+  }
+
+  async function loadDados() {
+    setLoading(true)
+    let responser = api.get('fluido-perfuracao',
+    ).then((response) => {
+      console.log(response.data.rows);
+      if (response.statusText === "OK") {
+        setFluidos(response.data.rows)
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data);
+      toast.error(res.response.data);
+      setLoading(false)
+    })
+  }
+  async function deleteDados (id:string) {
+    setLoading(true)
+    const responser = api.delete('fluido-perfuracao/'+id
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
+  }
+  useEffect(() => {
+    setLoading(true)
+    loadDados()
+  }, []);
 
   function handleDelete (id: string) {
     setDrillingFluid(drillingFluids =>
@@ -53,6 +115,12 @@ export function DrillingFluid () {
           <span>Escoamento</span>
           <span>Teor de areia</span>
         </S.GridConfirmation>
+        {fluidos.length > 0 ? 
+        fluidos.map((fluido) => 
+        <S.GridConfirmation>
+          <span>{fluido.nome}</span>
+        </S.GridConfirmation>
+        ): 'Nenhum fluido  de perfuração cadastrado'}
 
         <ul>
           {drillingFluid.map((fluid) =>
@@ -74,8 +142,8 @@ export function DrillingFluid () {
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 label='Identificação'
-                errorMessage={errors.identification?.message}
-                {...register('identification', {
+                errorMessage={errors.nome?.message}
+                {...register('nome', {
                   required: {
                     value: true,
                     message: 'Todos os campos são obrigatórios',
@@ -85,40 +153,45 @@ export function DrillingFluid () {
 
               <TextField
                 label='Viscosidade esperada (Segundos Marsh - cP)'
-                {...register('expectedViscosity', {
-                  required: true,
+                value={0}
+                {...register('viscosidadeEsperada', {
+                  required: false,
                 })}
               />
 
               <TextField
                 label='pH da Água'
-                {...register('phWater', {
-                  required: true,
+                value={0}
+                {...register('qtdePHPA', {
+                  required: false,
                 })}
               />
 
               <TextField
-                label='Quantidade base para formulação (m²)'
-                {...register('baseQuantityFormulation', {
-                  required: true,
+                label='Quantidade base para formulação (Metros cúbicos - m²)'
+                value={0}
+                {...register('qtdeBase', {
+                  required: false,
                 })}
               />
 
               <TextField
                 label='Limite de escoamento (Número - N)'
-                {...register('flowLimit', {
-                  required: true,
+                value={0}
+                {...register('limiteEscoamento', {
+                  required: false,
                 })}
               />
 
               <TextField
                 label='Teor de areia (Porcentagem - %)'
-                {...register('sandContent', {
-                  required: true,
+                value={0}
+                {...register('teorAreia', {
+                  required: false,
                 })}
               />
 
-              <button type='submit'>Salvar</button>
+              <button type='submit'>{loading ? <img width="40px" style={{ margin: 'auto' }} height="" src={'https://contribua.org/mb-static/images/loading.gif'} alt="Loading" /> : 'Salvar'}</button>
             </S.Form>
           </S.Container>
         </Modal>
