@@ -41,6 +41,7 @@ export function Companies () {
   }
   async function Cadastro (submit: any) {
     setLoading(true)
+    // eslint-disable-next-line
     const responser = api.post('companhia', {
       data: submit,
     }).then((response) => {
@@ -65,6 +66,7 @@ export function Companies () {
 
   async function loadDados () {
     setLoading(true)
+    // eslint-disable-next-line
     const responser = api.get('companhia',
     ).then((response) => {
       console.log(response.data.rows)
@@ -81,6 +83,7 @@ export function Companies () {
   }
   async function deleteDados (id: string) {
     setLoading(true)
+    // eslint-disable-next-line
     const responser = api.delete('companhia/' + id,
     ).then((response) => {
       if (response.statusText === 'OK') {
