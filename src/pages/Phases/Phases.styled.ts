@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro'
+import { darken, transparentize } from 'polished'
 import { theme } from '../../ui'
 
 export const ContainerConfirmation = styled.div`
@@ -57,7 +58,28 @@ export const ContainerConfirmation = styled.div`
       font-size: 24px;
       padding: 20px 0;
     }
+
+    .buttons {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
     button {
+      border: 0;
+    }
+
+    .import {
+      width: 159px;
+      height: 44px;
+      margin-bottom: 20px;
+      background: ${theme.colors.yellow};
+      color: ${theme.colors.black};
+      border-radius: 5px;
+      margin-left: 20px;
+    }
+
+    button.add {
       width: 54px;
       height: 44px;
       border-radius: 5px;
@@ -69,6 +91,10 @@ export const ContainerConfirmation = styled.div`
       :hover {
         opacity: 80%;
       }
+    }
+
+    .btn-close {
+      width: 120px;
     }
   `
 
@@ -156,7 +182,7 @@ export const FormContent = styled.form`
     width: 101px;
     height: 44px;
 
-    background: #00E1AF;
+    background: ${theme.colors.green};
     border-radius: 5px;
     color: white;
     border: 0;
@@ -192,6 +218,156 @@ export const GridForm = styled.div`
       &:focus {
         border: 1px solid ${theme.colors.yellow};
       }
+    }
+  }
+`
+
+export const PhasesModal = styled.div`
+  h2 {
+    font-size: 22px;
+  }
+
+  h3 {
+    font-size: 18px;
+    margin-top: 20px;
+  }
+
+  input {
+    width: 420px;
+    height: 48px;
+    border: 1px solid #252332;
+    border-radius: 6px;
+    padding: 7px;
+    background-color: transparent;
+
+    transition: .5s;
+
+    &:focus {
+      border: 1px solid ${theme.colors.yellow};
+    }
+  }
+
+  .ant-switch-checked {
+    border: 1px solid ${theme.colors.green};
+    background: transparent;
+  }
+  
+  .ant-switch-checked .ant-switch-handle {
+    display: none;
+  }
+
+  .ant-switch-handle::before {
+    display: none;
+  }
+
+  .ant-switch-handle {
+    width: 32px;
+    height: 32px;
+    top: 4px;
+    border-radius: 4px;
+  }
+
+  .ant-switch {
+    border-radius: 4px;
+  }
+
+  .ant-switch-inner {
+    margin: 0;
+  }
+
+  button {
+    -webkit-appearance: button;
+    margin-top: 10px;
+    width: 180px;
+    height: 40px;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+  }
+
+  h4 {
+    margin: 20px 0 20px 0;
+  }
+
+  .save {
+    background: ${theme.colors.green};
+    border: 0;
+    border-radius: 5px;
+  }
+
+  .saveModel {
+    background: ${theme.colors.yellow};    
+    border: 0;
+    border-radius: 5px;
+    margin-left: 20px;
+    color: ${theme.colors.darkBlack};
+  }
+
+  .modelsContent {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: auto;
+    bottom: auto;
+    transform: translate(-10%, -50%);
+  }
+`
+
+export const ModelsModal = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+
+  div {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    @media (max-width: 520px) {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  button {
+    -webkit-appearance: button;
+    margin-top: 10px;
+    width: 180px;
+    height: 40px;
+
+  }
+
+  .save {
+    background: ${theme.colors.green};
+    border: 0;
+    border-radius: 5px;
+  }
+
+  .saveModel {
+    background: ${theme.colors.yellow};    
+    border: 0;
+    border-radius: 5px;
+    color: ${theme.colors.darkBlack};
+
+    transition: .4s;
+
+    &:focus {
+      background: transparent !important;    
+      color: white;
+      border: 1px solid  ${theme.colors.yellow};  
+    }
+  }
+
+  .saveModel + .saveModel {
+    margin-left: 20px;
+
+    @media (max-width: 520px) {
+      margin-left: 0;
     }
   }
 `

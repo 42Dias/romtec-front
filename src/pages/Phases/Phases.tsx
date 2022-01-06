@@ -3,6 +3,8 @@ import Modal from 'react-modal'
 import * as S from './Phases.styled'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Pagination, Navigation } from 'swiper'
+import { Switch } from 'antd'
+import 'antd/dist/antd.css'
 
 // Import Swiper styles
 import 'swiper/swiper-bundle.min.css'
@@ -11,7 +13,7 @@ import 'swiper/swiper.min.css'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 
-import { FiPlus, FiCheck, FiPlay, FiLock } from 'react-icons/fi'
+import { FiPlus, FiCheck, FiPlay, FiLock, FiX } from 'react-icons/fi'
 
 SwiperCore.use([Pagination, Navigation])
 
@@ -21,6 +23,9 @@ export function Phases () {
   const [modalIsOpen3, setIsOpen3] = useState(false)
   const [modalIsOpen4, setIsOpen4] = useState(false)
   const [modalIsOpen5, setIsOpen5] = useState(false)
+  const [modalIsOpen6, setIsOpen6] = useState(false)
+  const [modalIsOpen7, setIsOpen7] = useState(false)
+  const [modalIsOpen8, setIsOpen8] = useState(false)
 
   function openModal () {
     setIsOpen(true)
@@ -28,6 +33,9 @@ export function Phases () {
     setIsOpen3(false)
     setIsOpen4(false)
     setIsOpen5(false)
+    setIsOpen6(false)
+    setIsOpen7(false)
+    setIsOpen8(false)
   }
   function afterOpenModal () {
     // references are now sync'd and can be accessed.
@@ -42,6 +50,9 @@ export function Phases () {
     setIsOpen3(false)
     setIsOpen4(false)
     setIsOpen5(false)
+    setIsOpen6(false)
+    setIsOpen7(false)
+    setIsOpen8(false)
   }
 
   function closeModal2 () {
@@ -54,6 +65,9 @@ export function Phases () {
     setIsOpen2(false)
     setIsOpen4(false)
     setIsOpen5(false)
+    setIsOpen6(false)
+    setIsOpen7(false)
+    setIsOpen8(false)
   }
 
   function closeModal3 () {
@@ -66,6 +80,9 @@ export function Phases () {
     setIsOpen2(false)
     setIsOpen3(false)
     setIsOpen5(false)
+    setIsOpen6(false)
+    setIsOpen7(false)
+    setIsOpen8(false)
   }
 
   function closeModal4 () {
@@ -78,10 +95,58 @@ export function Phases () {
     setIsOpen2(false)
     setIsOpen3(false)
     setIsOpen4(false)
+    setIsOpen6(false)
+    setIsOpen7(false)
+    setIsOpen8(false)
   }
 
   function closeModal5 () {
+    setIsOpen5(false)
+  }
+
+  function openModal6 () {
+    setIsOpen6(true)
+    setIsOpen5(false)
+    setIsOpen(false)
+    setIsOpen2(false)
+    setIsOpen3(false)
     setIsOpen4(false)
+    setIsOpen7(false)
+    setIsOpen8(false)
+  }
+
+  function closeModal6 () {
+    setIsOpen6(false)
+  }
+
+  function openModal7 () {
+    setIsOpen7(true)
+    setIsOpen6(false)
+    setIsOpen5(false)
+    setIsOpen(false)
+    setIsOpen2(false)
+    setIsOpen3(false)
+    setIsOpen4(false)
+    setIsOpen8(false)
+  }
+
+  function closeModal7 () {
+    setIsOpen7(false)
+  }
+
+  function openModal8 () {
+    setIsOpen8(true)
+    setIsOpen7(false)
+    setIsOpen6(false)
+    setIsOpen5(false)
+    setIsOpen(false)
+    setIsOpen2(false)
+    setIsOpen3(false)
+    setIsOpen4(false)
+  }
+
+  function closeModal8 () {
+    setIsOpen8(false)
   }
 
   return (
@@ -90,9 +155,119 @@ export function Phases () {
       <Navbar />
       <S.ContainerConfirmation>
         <h2>Selecione uma etapa</h2>
-        <button>
-          <FiPlus />
-        </button>
+        <div className='buttons'>
+          <button onClick={openModal6} className='add'>
+            <FiPlus />
+          </button>
+          <button onClick={openModal7} className='import'>
+            Importar modelo
+          </button>
+        </div>
+
+        <div className='modal-styles'>
+          <Modal
+            className='phaes-modal'
+            style={{
+              overlay: {
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              },
+            }}
+            isOpen={modalIsOpen6}
+            onAfterOpen={() => afterOpenModal}
+            onRequestClose={() => closeModal6}
+          >
+            <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModal6}><FiX color='white' /></button>
+
+            <S.PhasesModal>
+              <h2>Nome da etapa</h2>
+              <input type='text' placeholder='Nome da etapa' />
+
+              <h3>Adicione os campos da etapa</h3>
+              <input type='text' placeholder='Adicione os campos da etapa' />
+
+              <div>
+                <h4>Selecione alguns campos pré selecionados para a sua etapa</h4>
+                <Switch
+                  checkedChildren='Documentos'
+                  unCheckedChildren='Documentos'
+                />
+
+                <Switch
+                  checkedChildren='Responsavel'
+                  unCheckedChildren='Responsavel'
+                />
+
+                <Switch
+                  checkedChildren='Criação do plano de furo'
+                  unCheckedChildren='Criação do plano de furo'
+                />
+
+                <Switch
+                  checkedChildren='Confirmação da sondagem da interferência'
+                  unCheckedChildren='Confirmação da sondagem da interferência'
+                />
+
+                <Switch
+                  checkedChildren='Sondagem'
+                  unCheckedChildren='Sondagem'
+                />
+              </div>
+
+              <button className='save'>Salvar</button>
+              <button onClick={openModal8} className='saveModel'>Salvar modelo</button>
+            </S.PhasesModal>
+
+          </Modal>
+        </div>
+
+        <Modal
+          className='phaes-modal'
+          style={{
+            overlay: {
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            },
+          }}
+          isOpen={modalIsOpen7}
+          onAfterOpen={() => afterOpenModal}
+          onRequestClose={() => closeModal7}
+        >
+          <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModal7}><FiX color='white' /></button>
+
+          <S.ModelsModal>
+            <div>
+              <button className='saveModel'>Modelo 1</button>
+              <button className='saveModel'>Modelo 2</button>
+              <button className='saveModel'>Modelo 3</button>
+              <button className='saveModel'>Modelo 4</button>
+            </div>
+
+            <button className='save'>Salvar</button>
+          </S.ModelsModal>
+
+        </Modal>
+
+        <Modal
+          className='phaes-modal'
+          style={{
+            overlay: {
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            },
+          }}
+          isOpen={modalIsOpen8}
+          onAfterOpen={() => afterOpenModal}
+          onRequestClose={() => closeModal8}
+        >
+          <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModal8}><FiX color='white' /></button>
+
+          <S.PhasesModal>
+            <div className='modelsContent'>
+              <h2>Nome do modelo</h2>
+              <input type='text' placeholder='Nome do modelo' />
+              <br />
+              <button className='save'>Salvar</button>
+            </div>
+          </S.PhasesModal>
+        </Modal>
 
         <Swiper
           spaceBetween={40}

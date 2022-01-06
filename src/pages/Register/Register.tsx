@@ -49,6 +49,7 @@ export function Register () {
 
   async function Cadastro (submit:any) {
     setLoading(true)
+    const responser = axios.post('http://' + ip + ':8145/api/auth/sign-up', {
     const responser = axios.post(ip + ':8145/api/auth/sign-up', {
       nome: submit.name,
       email: submit.email,
@@ -57,6 +58,7 @@ export function Register () {
     }).then((response) => {
       console.log(response)
       if (response.statusText === 'OK') {
+        toast.success('Opa, recebemos o seu registro')
         toast.success('Cadastro realizado com sucesso!')
         handleLocalStorage(submit.email, submit.password)
         handleLocalStorageToken(response.data)
@@ -76,6 +78,7 @@ export function Register () {
   async function loadUser (token:any) {
     const response = await axios({
       method: 'get',
+      url: `http://${ip}:8145/api/auth/me`,
       url: `${ip}:8145/api/auth/me`,
       headers: {
         Accept: 'application/json',
@@ -84,12 +87,16 @@ export function Register () {
       },
       timeout: 50000,
     }).then(response => {
+      navigate('/home', { replace: true })
       //navigate('/home', { replace: true })
       window.location.href = window.location.href+'home'
       return response.data
     })
     console.log(response)
     // console.log(response.tenants[0].roles[0]);
+    // localStorage.setItem("roles", JSON.stringify(response.tenants[0].roles[0]));//saves client's data into localStorage:
+    // console.log(response.tenants[0].tenant.id);
+    // localStorage.setItem("tenantId", JSON.stringify(response.tenants[0].tenant.id));//saves client's data into localStorage:
     localStorage.setItem("roles", JSON.stringify(response.tenants[0].roles[0]));//saves client's data into localStorage:
     // console.log(response.tenants[0].tenant.id);
     localStorage.setItem("tenantId", JSON.stringify(response.tenants[0].tenant.id));//saves client's data into localStorage:
@@ -101,7 +108,7 @@ export function Register () {
     <S.ContainerRegister>
       <S.Content>
         <h1>Cadastro</h1>
-        <p>Faça o cadastro em nossa plataforma para aproveitar ao máximo todo o nosso sistema</p>
+        <p className='register'>Faça o cadastro em nossa plataforma para aproveitar ao máximo todo o nosso sistema</p>
         <S.Form>
           <form onSubmit={handleSubmit(onSubmit)}>
             <fieldset>
@@ -145,7 +152,7 @@ export function Register () {
               />
             </fieldset>
 
-            <fieldset>
+            <fieldset className='input-box'>
               <input
                 id='terms'
                 type='checkbox'
@@ -157,8 +164,8 @@ export function Register () {
                 })}
               />
               <label htmlFor='terms'>
-                Aceito os <Link to='/termos'>Termos e condições</Link>
-                e autorizo o uso de meus dados de acordo com a Declaração de privacidade.
+                <p> Aceito os <Link to='/termos'>Termos e condições</Link> e autorizo o uso de meus dados de acordo com a Declaração de privacidade.
+                </p>
               </label>
             </fieldset>
 

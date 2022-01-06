@@ -33,6 +33,7 @@ export const ContainerConfirmation = styled.div`
 
 export const GridConfirmation = styled.div`
   display: grid;
+  grid-template-columns: repeat(7, 1fr);
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   justify-items: center;
   align-items: center;
@@ -40,6 +41,13 @@ export const GridConfirmation = styled.div`
   padding: 20px;
   border-radius: 5px;
   margin-bottom: 13px;
+
+  @media (max-width: 520px) {
+    overflow: auto;
+    span {
+      margin: 0 30px;
+    }
+  }
 
   span {
     font-size: 14px;

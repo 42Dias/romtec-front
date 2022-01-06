@@ -1,12 +1,14 @@
 import styled from 'styled-components/macro'
 import { theme } from '../../ui'
+import banner from '../../assets/banner-mobile.png'
 
 export const Container = styled.div`
   padding: 20px 15px;
 `
 
 export const Content = styled.div`
-  margin: 50px auto 0 auto;
+
+margin: 50px auto 0 auto;
   background: ${theme.colors.black};
   width: 100%;
   height: 246px;
@@ -17,27 +19,55 @@ export const Content = styled.div`
   justify-content: space-between;
   position: relative;
 
+  @media (max-width: 520px) {
+    background: url(${banner});
+    height: 200px;
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    width: 100%;
+    background-size: cover;
+  }
+
   span {
     background: ${theme.colors.yellow};
     padding: 5px 15px 5px 15px;
     border-radius: 7px;
     margin-left: 36px;
+
+    @media (max-width: 520px) {
+      z-index: 4;
+      font-size: 12px;
+    }
   }
 
   h2 {
     max-width: 553px;
     margin-left: 36px;
     padding: 10px 0;
+    
+    @media (max-width: 520px) {
+      z-index: 4;
+      font-size: 16px;
+    }
   }
 
   p {
     margin-left: 36px;
+
+    @media (max-width: 520px) {
+      z-index: 4;
+      font-size: 14px;
+    }
   }
 
   img {
     position: absolute;
     right: 0;
     border-radius: 0 20px 20px 0;
+
+    @media (max-width: 520px) {
+      display: none;
+    }
   }
 `
 
@@ -59,8 +89,22 @@ export const ContainerUsers = styled.div`
   justify-content: space-between;
   padding: 0 50px;
 
+  @media (max-width: 520px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 20px;
+    height: 180px;
+    margin: 20px 0;
+
+    div {
+      span {
+        max-width: 60px;
+      }
+    }
+  }
+
   button {
-    width: 145px;
+    width: 120px;
     height: 35px;
     border-radius: 5px;
     border: 0;
@@ -81,15 +125,25 @@ export const GridModal = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin: 0 20px !important;
+
+  @media (max-width: 520px) {
+    margin: 0;
+    grid-template-columns: 1fr;
+  }
 `
 
 export const ContainerModal = styled.div`
-
   margin: 40px 0;
-
+  @media (max-width: 520px) {
+    margin: 0;
+  }
   button {
     margin: 10px 20px;
+    @media (max-width: 520px) {
+      margin: 10px 0;
+    }
   }
+  
   svg {
     color: ${theme.colors.yellow};
     font-size: 22px;
@@ -105,6 +159,12 @@ export const BoxModal = styled.button`
   border: 0;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 520px) {
+    margin: 0;
+    width: 100%;
+  }
+  
   &:focus {
     border: 1px solid ${theme.colors.yellow};
   }

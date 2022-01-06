@@ -9,6 +9,7 @@ export const Nav = styled.div`
   float: right;
   clear: both;
   margin-right: 60px;
+
   input {
     width: 300px;
     height: 44px;
@@ -17,7 +18,14 @@ export const Nav = styled.div`
     padding: 20px;
     border-radius: 5px 0 0 5px;
     color: ${theme.colors.white};
+
+    @media (max-width: 968px) {
+      display: none;
+    }
   }
+
+  /* desktop */
+
   button {
     width: 50px;
     height: 44px;
@@ -26,6 +34,10 @@ export const Nav = styled.div`
     background: ${theme.colors.yellow};
     border: 0;
     border-radius: 0 5px 5px 0;
+
+    @media (max-width: 968px) {
+      display: none;
+    }
   }
 `
 
