@@ -11,7 +11,7 @@ const EditButton = ({ onEdit, children }: Props) => {
   return (
     <S.Content>
       <button
-        onClick={onEdit}
+        onChange={onEdit}
         style={{ background: 'none' }}
         title='Editar?'
       >
