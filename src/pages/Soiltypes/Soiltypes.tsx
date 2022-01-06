@@ -15,12 +15,12 @@ import EditButton from '../../ui/Components/EditButton/EditButton'
 
 type FormData = {
   id: string;
-  soilSpecification: string;
-  dryResistance: string;
-  description: string;
-  reactionDilation: string;
-  plasticHardness: string;
-  plasticityIndex: string;
+  especificacaoSolo: string;
+  resistenciaSeca: string;
+  descricao: string;
+  reacaoDilatacao: string;
+  durezaPlastica: string;
+  indicePlasticidade: string;
 }
 
 export function SoilTypes () {
@@ -41,7 +41,7 @@ export function SoilTypes () {
       data: submit,
     }).then((response) => {
       if (response.statusText === 'OK') {
-        toast.success('Recebemos o seu registro')
+        toast.success('Tipo de solo cadastrado com sucesso!')
         setLoading(false)
         loadDados()
       } else if (response.statusText === 'Forbidden') {
@@ -71,7 +71,20 @@ export function SoilTypes () {
       setLoading(false)
     })
   }
-
+  async function deleteDados (id:string) {
+    setLoading(true)
+    const responser = api.delete('tipo-solo/'+id
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
+  }
   useEffect(() => {
     setLoading(true)
     loadDados()
@@ -113,7 +126,8 @@ export function SoilTypes () {
         </S.GridConfirmation>
 
         <ul>
-          {soilTypes.map((soilType) =>
+          {soilTypes.length > 0 ?
+          soilTypes.map((soilType) =>
             <li key={soilType.id}>
               <S.GridConfirmation>
                 <span>
@@ -138,9 +152,11 @@ export function SoilTypes () {
                   onDelete={() => handleDelete(soilType.id)}
                 />
                 <EditButton onEdit={() => handleUpdate(soilType.id)} />
+                  onDelete={() => deleteDados(soilType.id)}
+                /> 
               </S.GridConfirmation>
             </li>,
-          )}
+          ): 'Nenhum Tipo de solo cadastrado!'}
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
@@ -148,8 +164,8 @@ export function SoilTypes () {
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 label='Especificação do solo'
-                errorMessage={errors.soilSpecification?.message}
-                {...register('soilSpecification', {
+                errorMessage={errors.especificacaoSolo?.message}
+                {...register('especificacaoSolo', {
                   required: {
                     value: true,
                     message: 'Todos os campos são obrigatórios',
@@ -159,35 +175,35 @@ export function SoilTypes () {
 
               <TextField
                 label='Resistência seca'
-                {...register('dryResistance', {
+                {...register('resistenciaSeca', {
                   required: true,
                 })}
               />
 
               <TextField
                 label='Descrição'
-                {...register('description', {
+                {...register('descricao', {
                   required: true,
                 })}
               />
 
               <TextField
                 label='Reação a dilatação'
-                {...register('reactionDilation', {
+                {...register('reacaoDilatacao', {
                   required: true,
                 })}
               />
 
               <TextField
                 label='Dureza plastica'
-                {...register('plasticHardness', {
+                {...register('durezaPlastica', {
                   required: true,
                 })}
               />
 
               <TextField
                 label='Índice de plasticidade'
-                {...register('plasticityIndex', {
+                {...register('indicePlasticidade', {
                   required: true,
                 })}
               />

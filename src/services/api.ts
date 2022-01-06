@@ -8,10 +8,10 @@ export const idPessoa = localStorage.getItem('idPessoa')?.replace(/"/g, '')
 export const status = localStorage.getItem('status')?.replace(/"/g, '')
 export const Email = localStorage.getItem('email')?.replace(/"/g, '')
 export const nome = localStorage.getItem('nome')?.replace(/"/g, '')
-export const ip = 'localhost'
+export const ip = 'http://localhost'
 
 export const api = axios.create({
-  baseURL: 'http://' + ip + ':8145/api/tenant/' + tenantId + '/',
+  baseURL: ip + ':8145/api/tenant/' + tenantId + '/',
   timeout: 50000,
   headers: { Authorization: 'Bearer ' + token },
 })

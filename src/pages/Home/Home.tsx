@@ -11,7 +11,7 @@ export function Home () {
   async function loadUser (token:any) {
     const response = await axios({
       method: 'get',
-      url: `http://${ip}:8145/api/auth/me`,
+      url: `${ip}:8145/api/auth/me`,
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',

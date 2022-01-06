@@ -55,7 +55,7 @@ export function DrillingMachine () {
     }).then((response) => {
       console.log(response)
       if (response.statusText === 'OK') {
-        toast.success('Recebemos o seu registro')
+        toast.success('Maquina perfuratriz cadastrada com sucesso!')
         setLoading(false)
         loadDados()
       } else if (response.statusText === 'Forbidden') {
@@ -67,7 +67,7 @@ export function DrillingMachine () {
       }
     }).catch(res => {
       console.log(res)
-      // toast.error(res.response.data);
+      toast.error(res.response.data);
       setLoading(false)
     })
   }
@@ -84,6 +84,20 @@ export function DrillingMachine () {
     }).catch(res => {
       console.log(res.response.data)
       toast.error(res.response.data)
+      setLoading(false)
+    })
+  }
+  async function deleteDados(id: string) {
+    setLoading(true)
+    const responser = api.delete('maquina-perfuratis/' + id
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response)
+      toast.error(res.response)
       setLoading(false)
     })
   }
@@ -115,7 +129,8 @@ export function DrillingMachine () {
         </S.GridConfirmation>
 
         <ul>
-          {maqPerfuratriz.map((maquinas) =>
+          {maqPerfuratriz.length > 0 ?
+          maqPerfuratriz.map((maquinas) =>
             <li key={maquinas.id}>
               <S.GridConfirmation>
                 <span>{maquinas.modelo}</span>
@@ -124,11 +139,11 @@ export function DrillingMachine () {
                 <span>{maquinas.torque}</span>
                 <span>{maquinas.alergamentoMaximo}</span>
                 <DeleteButton
-                  onDelete={() => handleDelete(maquinas.id)}
+                  onDelete={() => deleteDados(maquinas.id)}
                 />
               </S.GridConfirmation>
             </li>,
-          )}
+          ): 'Nenhuma Máquina Perfuratriz cadastrada!'}
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>

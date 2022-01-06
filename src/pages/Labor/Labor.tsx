@@ -44,7 +44,7 @@ export function Labor () {
     }).then((response) => {
       console.log(response)
       if (response.statusText === 'OK') {
-        toast.success('Recebemos o seu registro')
+        toast.success('Mão de obra cadastrado com sucesso!')
         setLoading(false)
         loadDados()
       } else if (response.statusText === 'Forbidden') {
@@ -56,7 +56,7 @@ export function Labor () {
       }
     }).catch(res => {
       console.log(res)
-      // toast.error(res.response.data);
+      toast.error(res.response.data);
       setLoading(false)
     })
   }
@@ -77,7 +77,20 @@ export function Labor () {
       setLoading(false)
     })
   }
-
+  async function deleteDados(id: string) {
+    setLoading(true)
+    const responser = api.delete('mao-de-obra/' + id
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response)
+      toast.error(res.response)
+      setLoading(false)
+    })
+  }
   useEffect(() => {
     setLoading(true)
     loadDados()
@@ -108,7 +121,8 @@ export function Labor () {
         </S.GridConfirmation>
 
         <ul>
-          {maoDeObras.map((maoDeObra) =>
+          {maoDeObras.length > 0 ?
+           maoDeObras.map((maoDeObra) =>
             <li key={maoDeObra.id}>
               <S.GridConfirmation>
                 <span>
@@ -133,11 +147,11 @@ export function Labor () {
                   {maoDeObra.validadeCertificado}
                 </span>
                 <DeleteButton
-                  onDelete={() => handleDelete(maoDeObra.id)}
+                  onDelete={() => deleteDados(maoDeObra.id)}
                 />
               </S.GridConfirmation>
             </li>,
-          )}
+          ):'Nenhuma mão de obra cadastrada!'}
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
