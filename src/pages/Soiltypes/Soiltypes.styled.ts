@@ -25,6 +25,10 @@ export const ContainerConfirmation = styled.div`
       opacity: 80%;
     }
   }
+
+  ul {
+    list-style: none;
+  }
 `
 
 export const GridConfirmation = styled.div`

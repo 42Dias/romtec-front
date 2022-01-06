@@ -1,16 +1,19 @@
-import * as S from './Soiltypes.styled'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
+import { FiPlus } from 'react-icons/fi'
+import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 
 import { TextField } from '../../ui/Components/TextField'
-import { FiPlus } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { toast } from 'react-toastify'
 import { api } from '../../services/api'
+import { toast } from 'react-toastify'
+
+import * as S from './Soiltypes.styled'
 
 type FormData = {
+  id: string;
   especificacaoSolo: string;
   resistenciaSeca: string;
   descricao: string;
@@ -19,60 +22,79 @@ type FormData = {
   indicePlasticidade: string;
 }
 
-export function SoilTypes() {
+export function SoilTypes () {
   const [isOpen, setIsOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [soilTypes, setSoilTypes] = useState<any[]>([])
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
-  const [loading, setLoading] = useState(false);
-  const [tiposDeSolos, setTiposDeSolos] = useState<any[]>([]);
 
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     console.log(data)
-    Cadastro(data)
+    createNewFile(data)
     reset()
   }
-  async function Cadastro(submit: any) {
+
+  async function createNewFile (submit: any) {
     setLoading(true)
-    let responser = api.post(`tipo-solo`, {
+    const responser = api.post('tipo-solo', {
       data: submit,
     }).then((response) => {
-      console.log(response);
-      if (response.statusText === "OK") {
-        toast.success('Recebemos o seu registro');
+      if (response.statusText === 'OK') {
+        toast.success('Tipo de solo cadastrado com sucesso!')
         setLoading(false)
         loadDados()
-      } else if (response.statusText === "Forbidden") {
-        toast.error("Ops, Não tem permisão!");
+      } else if (response.statusText === 'Forbidden') {
+        toast.error('Ops, Não tem permisão!')
         setLoading(false)
       } else {
-        toast.error("Ops, Dados Incorretos!");
+        toast.error('Ops, Dados Incorretos!')
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res);
-      //toast.error(res.response.data);
+      console.log(res)
       setLoading(false)
     })
   }
 
-  async function loadDados() {
+  async function loadDados () {
     setLoading(true)
-    let responser = api.get('tipo-solo',
+    const responser = api.get('tipo-solo',
     ).then((response) => {
-      console.log(response.data.rows);
-      if (response.statusText === "OK") {
-        setTiposDeSolos(response.data.rows)
+      if (response.statusText === 'OK') {
+        setSoilTypes(response.data.rows)
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res.response.data);
-      toast.error(res.response.data);
+      console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
+  }
+  async function deleteDados (id:string) {
+    setLoading(true)
+    const responser = api.delete('tipo-solo/'+id
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data)
+      toast.error(res.response.data)
       setLoading(false)
     })
   }
   useEffect(() => {
     setLoading(true)
     loadDados()
-  }, []);
+  }, [])
+
+  function handleDelete (id: string) {
+    setSoilTypes(soilTypes =>
+      soilTypes.filter(soilType => soilType.id !== id),
+    )
+  }
+
   return (
     <>
       <Sidebar />
@@ -84,19 +106,42 @@ export function SoilTypes() {
         <S.GridConfirmation>
           <span>Especificação do solo</span>
           <span>Resistencia Seca</span>
+          <span>Descrição</span>
           <span>Reação a dilatação</span>
           <span>Dureza Plástica</span>
           <span>Indice de plasticidade</span>
         </S.GridConfirmation>
-        {tiposDeSolos.map((tiposDeSolo) =>
-          <S.GridConfirmation>
-            <span>{tiposDeSolo.especificacaoSolo}</span>
-            <span>{tiposDeSolo.resistenciaSeca}</span>
-            <span>{tiposDeSolo.reacaoDilatacao}</span>
-            <span>{tiposDeSolo.durezaPlastica}</span>
-            <span>{tiposDeSolo.indicePlasticidade}</span>
-          </S.GridConfirmation>
-        )}
+
+        <ul>
+          {soilTypes.length > 0 ?
+          soilTypes.map((soilType) =>
+            <li key={soilType.id}>
+              <S.GridConfirmation>
+                <span>
+                  {soilType.especificacaoSolo}
+                </span>
+                <span>
+                  {soilType.resistenciaSeca}
+                </span>
+                <span>
+                  {soilType.descricao}
+                </span>
+                <span>
+                  {soilType.reacaoDilatacao}
+                </span>
+                <span>
+                  {soilType.durezaPlastica}
+                </span>
+                <span>
+                  {soilType.indicePlasticidade}
+                </span>
+                <DeleteButton
+                  onDelete={() => deleteDados(soilType.id)}
+                /> 
+              </S.GridConfirmation>
+            </li>,
+          ): 'Nenhum Tipo de solo cadastrado!'}
+        </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
@@ -146,7 +191,11 @@ export function SoilTypes() {
                   required: true,
                 })}
               />
-              <button type='submit'>{loading ? <img width="40px" style={{margin: 'auto'}} height="" src={'https://contribua.org/mb-static/images/loading.gif'} alt="Loading" /> :'Salvar'}</button>
+              <button type='submit'>
+                {loading
+                  ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' />
+                  : 'Salvar'}
+              </button>
             </S.Form>
           </S.Container>
         </Modal>

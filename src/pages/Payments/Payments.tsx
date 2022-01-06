@@ -6,25 +6,71 @@ import Modal from '../../ui/Components/Modal/Modal'
 import { TextField } from '../../ui/Components/TextField'
 import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
+import { api } from '../../services/api'
 
 type FormData = {
-  year: Date,
-  month: Date,
-  payday: Date,
-  amountPaid: string,
+  ano: Date,
+  mes: Date,
+  dataPagamento: Date,
+  valorPago: string,
 }
 
-export function Payments () {
+export function Payments() {
   const [isOpen, setIsOpen] = useState(false)
-
+  const [loading, setLoading] = useState(false);
+  const [pagamentos, setPagamentos] = useState<any[]>([]);
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
     console.log(data)
-
+    Cadastro(data)
     reset()
   }
+  async function Cadastro(submit: any) {
+    setLoading(true)
+    let responser = api.post(`pagamento`, {
+      data: submit,
+    }).then((response) => {
+      console.log(response);
+      if (response.statusText === "OK") {
+        toast.success('Recebemos o seu registro');
+        setLoading(false)
+        loadDados()
+      } else if (response.statusText === "Forbidden") {
+        toast.error("Ops, Não tem permisão!");
+        setLoading(false)
+      } else {
+        toast.error("Ops, Dados Incorretos!");
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res);
+      //toast.error(res.response.data);
+      setLoading(false)
+    })
+  }
+
+  async function loadDados() {
+    setLoading(true)
+    let responser = api.get('pagamento',
+    ).then((response) => {
+      console.log(response.data.rows);
+      if (response.statusText === "OK") {
+        setPagamentos(response.data.rows)
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data);
+      toast.error(res.response.data);
+      setLoading(false)
+    })
+  }
+  useEffect(() => {
+    setLoading(true)
+    loadDados()
+  }, []);
 
   return (
     <>
@@ -35,21 +81,29 @@ export function Payments () {
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
 
         <S.GridConfirmation>
-          <span>Ano de pagamento</span>
-          <span>Mês de pagamento</span>
-          <span>Dia de pagamento</span>
+          <span>Data de pagamento</span>
+          {/*<span>Mês de pagamento</span>
+          <span>Dia de pagamento</span>*/}
           <span>Valor de pagamento</span>
         </S.GridConfirmation>
+        {pagamentos.length > 0 ?
+          pagamentos.map((pagamento) =>
+            <S.GridConfirmation>
+              <span>{pagamento.dataPagamento.split('T')[0]}</span>
+              <span>{pagamento.valorPago}</span>
+            </S.GridConfirmation>
+          ) : <p>Nenhum pagamento cadastrado</p>
+        }
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField
-                label='Ano de pagamento'
-                errorMessage={errors.year?.message}
+                label=/*'Ano de pagamento'*/'Data de pagamento'
+                errorMessage={errors.dataPagamento?.message}
                 type='date'
-                id='year'
-                {...register('year', {
+                id='dataPagamento'
+                {...register('dataPagamento', {
                   required: {
                     value: true,
                     message: 'Todos os campos são obrigatórios',
@@ -57,11 +111,11 @@ export function Payments () {
                 })}
               />
 
-              <TextField
+              {/*<TextField
                 label='Mês de pagamento'
                 type='date'
-                id='month'
-                {...register('month', {
+                id='mes'
+                {...register('mes', {
                   required: true,
                 })}
               />
@@ -73,18 +127,18 @@ export function Payments () {
                 {...register('payday', {
                   required: true,
                 })}
-              />
+              />*/}
 
               <TextField
                 label='Valor de pagamento'
                 type='number'
-                id='amountpaid'
-                {...register('amountPaid', {
+                id='valorPago'
+                {...register('valorPago', {
                   required: true,
                 })}
               />
 
-              <button type='submit'>Salvar</button>
+              <button type='submit'>{loading ? <img width="40px" style={{ margin: 'auto' }} height="" src={'https://contribua.org/mb-static/images/loading.gif'} alt="Loading" /> : 'Salvar'}</button>
             </S.Form>
           </S.Container>
           {/* eslint-disable-next-line */}
