@@ -7,11 +7,12 @@ import {
 import * as S from './TextField.styled'
 
 type Props = {
-  label: string
-  errorMessage?: string
+  label: string;
+  errorMessage?: string;
 } & InputHTMLAttributes<HTMLInputElement>
 
 const TextFieldElement: ForwardRefRenderFunction<HTMLInputElement, Props> = (
+  // eslint-disable-next-line
   { label, errorMessage, ...rest },
   ref,
 ) => {

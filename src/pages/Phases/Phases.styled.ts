@@ -1,5 +1,4 @@
 import styled from 'styled-components/macro'
-import { darken, transparentize } from 'polished'
 import { theme } from '../../ui'
 
 export const ContainerConfirmation = styled.div`
@@ -251,7 +250,7 @@ export const PhasesModal = styled.div`
     border: 1px solid ${theme.colors.green};
     background: transparent;
   }
-  
+
   .ant-switch-checked .ant-switch-handle {
     display: none;
   }
@@ -299,7 +298,7 @@ export const PhasesModal = styled.div`
   }
 
   .saveModel {
-    background: ${theme.colors.yellow};    
+    background: ${theme.colors.yellow};
     border: 0;
     border-radius: 5px;
     margin-left: 20px;
@@ -349,7 +348,7 @@ export const ModelsModal = styled.div`
   }
 
   .saveModel {
-    background: ${theme.colors.yellow};    
+    background: ${theme.colors.yellow};
     border: 0;
     border-radius: 5px;
     color: ${theme.colors.darkBlack};
@@ -357,9 +356,9 @@ export const ModelsModal = styled.div`
     transition: .4s;
 
     &:focus {
-      background: transparent !important;    
+      background: transparent !important;
       color: white;
-      border: 1px solid  ${theme.colors.yellow};  
+      border: 1px solid  ${theme.colors.yellow};
     }
   }
 
