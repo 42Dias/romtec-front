@@ -115,8 +115,8 @@ export function Labor () {
         <S.GridConfirmation>
           <span>N° de identificação</span>
           <span>Nome</span>
-          <span>CEP</span>
-          <span>Cidade</span>
+          {/*<span>CEP</span>
+          <span>Cidade</span>*/}
           <span>Função</span>
           <span>Celular</span>
           <span>Validade do certificado</span>
@@ -133,12 +133,12 @@ export function Labor () {
                   <span>
                     {maoDeObra.nome}
                   </span>
-                  <span>
-                    {maoDeObra.cpf}
+                 {/* <span>
+                    {maoDeObra.cep}
                   </span>
                   <span>
                     {maoDeObra.cidade}
-                  </span>
+                  </span>*/}
                   <span>
                     {maoDeObra.funcao}
                   </span>

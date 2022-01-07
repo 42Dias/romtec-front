@@ -85,9 +85,8 @@ export function Register () {
       },
       timeout: 50000,
     }).then(response => {
-      navigate('/home', { replace: true })
       // navigate('/home', { replace: true })
-      window.location.href = window.location.href + 'home'
+      window.location.href = window.location.href + '/home'
       return response.data
     })
     console.log(response)

@@ -13,6 +13,7 @@ import { toast } from 'react-toastify'
 import * as S from './Soiltypes.styled'
 import EditButton from '../../ui/Components/EditButton/EditButton'
 import { FaEdit } from 'react-icons/fa'
+import { deepStrictEqual } from 'assert'
 
 type FormData = {
   id: string;
@@ -29,8 +30,15 @@ export function SoilTypes() {
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
   const [soilTypes, setSoilTypes] = useState<any[]>([])
-  const [soilTypesUp, setSoilTypesUp] = useState(0)
+  const [soilTypesUp, setSoilTypesUp] = useState<any>()
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
+  const [idTipoSolo, setId] = useState('')
+  const [especificacaoSolo, setEspecificacaoSolo] = useState('')
+  const [resistenciaSeca, setResistenciaSeca] = useState('')
+  const [reacaoDilatacao, setReacaoDilatacao] = useState('')
+  const [descricao, setDescricao] = useState('')
+  const [durezaPlastica, setDurezaPlastica] = useState('')
+  const [indicePlasticidade, setIndicePlasticidade] = useState('')
 
   function onSubmit(data: FormData) {
     console.log(data)
@@ -97,19 +105,40 @@ export function SoilTypes() {
     loadDados()
   }, [])
 
-  function update(tipoSolo: any){
-    setSoilTypes([tipoSolo])
-    console.log(soilTypes)
+  function update(tipoSolo: any) {
+    console.log('tipoSolo')
+    console.log(tipoSolo)
+    setSoilTypesUp(tipoSolo)
+    setId(tipoSolo.id)
+    setEspecificacaoSolo(tipoSolo.especificacaoSolo)
+    setDescricao(tipoSolo.descricao)
+    setDurezaPlastica(tipoSolo.durezaPlastica)
+    setIndicePlasticidade(tipoSolo.indicePlasticidade)
+    setResistenciaSeca(tipoSolo.resistenciaSeca)
+    setReacaoDilatacao(tipoSolo.reacaoDilatacao)
+    console.log(idTipoSolo)
     setIsOpenUpdate(true)
   }
-  async function updateDados(tipoSolo: any) {
+  async function updateDados() {
     setLoading(true)
-    const responser = api.put('tipo-solo/' + tipoSolo.id, {
-      data: tipoSolo
+    console.log('idTipoSolo')
+    console.log(idTipoSolo)
+    console.log(soilTypesUp)
+    const responser = api.put('tipo-solo/' + soilTypesUp.id, {
+      data: {
+        id: idTipoSolo,
+        especificacaoSolo: especificacaoSolo,
+        descricao: descricao,
+        durezaPlastica: durezaPlastica,
+        indicePlasticidade: indicePlasticidade,
+        resistenciaSeca:resistenciaSeca,
+        reacaoDilatacao: reacaoDilatacao,
+    }
     }
     ).then((response) => {
       if (response.statusText === 'OK') {
         loadDados()
+        setIsOpenUpdate(false)
         setLoading(false)
       }
     }).catch(res => {
@@ -236,45 +265,51 @@ export function SoilTypes() {
 
         <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
-            <S.Form > 
-              {/*<TextField
+            <S.Div >
+              <TextField
                 label='Especificação do solo'
-                value={soilTypes != undefined ? soilTypes[0].especificacaoSolo : false }
+                value={especificacaoSolo}
+                onChange={(text) => setEspecificacaoSolo(text.target.value)}
               />
 
               <TextField
                 label='Resistência seca'
-                value={soilTypes != undefined ? soilTypes[0].resistenciaSeca: false}
+                value={resistenciaSeca}
+                onChange={(text) => setResistenciaSeca(text.target.value)}
               />
 
               <TextField
                 label='Descrição'
-                value={soilTypesUp != undefined ? soilTypes[soilTypesUp].descricao : false}
+                value={descricao}
+                onChange={(text) => setDescricao(text.target.value)}
               />
 
               <TextField
                 label='Reação a dilatação'
-                value={soilTypes != undefined ? soilTypes[soilTypesUp].reacaoDilatacao : false}
-                
+                value={reacaoDilatacao}
+                onChange={(text) => setReacaoDilatacao(text.target.value)}
+
               />
 
               <TextField
                 label='Dureza plastica'
-                value={soilTypes != undefined ? soilTypes[soilTypesUp].durezaPlastica : false}
-                
+                value={durezaPlastica}
+                onChange={(text) => setDurezaPlastica(text.target.value)}
+
               />
 
               <TextField
                 label='Índice de plasticidade'
-                value={soilTypes != undefined ? soilTypes[soilTypesUp].indicePlasticidade : false}
-                
-              />*/}
-              <button onClick={() => updateDados(soilTypesUp)}>
+                value={indicePlasticidade}
+                onChange={(text) => setIndicePlasticidade(text.target.value)}
+
+              />
+              <button onClick={() => updateDados()}>
                 {loading
                   ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' />
                   : 'Salvar'}
               </button>
-            </S.Form>
+            </S.Div>
           </S.Container>
         </Modal>
       </S.ContainerConfirmation>
