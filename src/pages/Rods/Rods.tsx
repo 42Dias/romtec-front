@@ -9,6 +9,7 @@ import { FiPlus } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
+import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 
 type FormData = {
   codigo: string;
@@ -81,6 +82,12 @@ export function Rods () {
     // eslint-disable-next-line
   }, [])
 
+  function handleDelete (id: string) {
+    setHastes(hastes =>
+      hastes.filter(haste => haste.id !== id),
+    )
+  }
+
   return (
     <>
       <Sidebar />
@@ -107,10 +114,13 @@ export function Rods () {
                   <span>{haste.diametroToolJoint}</span>
                   <span>{haste.comprimentoTotal}</span>
                   <span>{haste.modeloRosca}</span>
-                </S.GridConfirmation>,
+                  <DeleteButton
+                    onDelete={() => handleDelete(haste.id)}
+                  />
+                </S.GridConfirmation>
               </li>,
             )
-            : <p>Nenhum cadastro</p>}
+            : <p>🤔 Nenhuma haste cadastrada</p>}
         </ul>
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>

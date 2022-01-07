@@ -25,7 +25,7 @@ export const Container = styled.div`
 export const List = styled.ul`
   list-style: none;
   width: 300px;
-  height: 645px;
+  height: 745px;
   padding: 20px;
   margin: 50px 0 0 50px;
   transition: width 2s;

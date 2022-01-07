@@ -9,6 +9,7 @@ import { FiPlus } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
+import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 
 type FormData = {
   ano: Date,
@@ -51,6 +52,12 @@ export function Payments () {
       // toast.error(res.response.data);
       setLoading(false)
     })
+  }
+
+  function handleDelete (id: string) {
+    setPagamentos(pagamentos =>
+      pagamentos.filter(pagamento => pagamento.id !== id),
+    )
   }
 
   async function loadDados () {
@@ -96,10 +103,13 @@ export function Payments () {
                 <S.GridConfirmation>
                   <span>{pagamento.dataPagamento.split('T')[0]}</span>
                   <span>{pagamento.valorPago}</span>
+                  <DeleteButton
+                    onDelete={() => handleDelete(pagamento.id)}
+                  />
                 </S.GridConfirmation>
               </li>,
             )
-            : <p>Nenhum pagamento cadastrado</p>}
+            : <p>🤔 Nenhum pagamento cadastrado</p>}
         </ul>
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>

@@ -1,8 +1,8 @@
+import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 import { FiPlus } from 'react-icons/fi'
-import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 
 import { TextField } from '../../ui/Components/TextField'
 import { useEffect, useState } from 'react'
@@ -131,9 +131,9 @@ export function SoilTypes() {
         descricao: descricao,
         durezaPlastica: durezaPlastica,
         indicePlasticidade: indicePlasticidade,
-        resistenciaSeca:resistenciaSeca,
+        resistenciaSeca: resistenciaSeca,
         reacaoDilatacao: reacaoDilatacao,
-    }
+      }
     }
     ).then((response) => {
       if (response.statusText === 'OK') {
@@ -141,13 +141,8 @@ export function SoilTypes() {
         setIsOpenUpdate(false)
         setLoading(false)
       }
-    }).catch(res => {
-      console.log(res.response.data)
-      toast.error(res.response.data)
-      setLoading(false)
-    })
-  }
-
+  })
+}
   return (
     <>
       <Sidebar />
@@ -203,7 +198,7 @@ export function SoilTypes() {
                 </S.GridConfirmation>
               </li>,
             )
-            : 'Nenhum Tipo de solo cadastrado!'}
+            : <p>🤔 Nenhum tipo de solo cadastrado</p>}
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
@@ -256,7 +251,12 @@ export function SoilTypes() {
               />
               <button type='submit'>
                 {loading
-                  ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' />
+                  ? <img
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height='' src='https://contribua.org/mb-static/images/loading.gif'
+                    alt='Loading'
+                  />
                   : 'Salvar'}
               </button>
             </S.Form>

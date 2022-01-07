@@ -24,6 +24,18 @@ export const ContainerConfirmation = styled.div`
       opacity: 80%;
     }
   }
+
+  p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+    font-size: 20px;
+  }
+
+  ul {
+    list-style: none;
+  }
 `
 
 export const GridConfirmation = styled.div`

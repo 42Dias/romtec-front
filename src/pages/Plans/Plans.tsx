@@ -1,15 +1,16 @@
+import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 
-import * as S from './Plans.styled'
-
 import { TextField } from '../../ui/Components/TextField'
-import { useForm } from 'react-hook-form'
-import { FiPlus } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
+import { useForm } from 'react-hook-form'
 import { api } from '../../services/api'
+import { FiPlus } from 'react-icons/fi'
+import { toast } from 'react-toastify'
+
+import * as S from './Plans.styled'
 
 type FormData = {
   nome: string,
@@ -74,6 +75,12 @@ export function Plans () {
     loadDados()
   }, [])
 
+  function handleDelete (id: string) {
+    setPlanos(planos =>
+      planos.filter(plano => plano.id !== id),
+    )
+  }
+
   return (
     <>
       <Sidebar />
@@ -87,6 +94,7 @@ export function Plans () {
           <span>Valor</span>
           <span>Periodo</span>
         </S.GridConfirmation>
+
         <ul>
           {planos.length > 0
             ? planos.map((plano) =>
@@ -95,11 +103,15 @@ export function Plans () {
                   <span>{plano.nome}</span>
                   <span>{plano.valor}</span>
                   <span>{plano.periodo}</span>
-                </S.GridConfirmation>,
+                  <DeleteButton
+                    onDelete={() => handleDelete(plano.id)}
+                  />
+                </S.GridConfirmation>
               </li>,
             )
-            : 'Nenhum plano cadastrado'}
+            : <p>🤔 Nenhum plano cadastrado</p>}
         </ul>
+
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
@@ -131,7 +143,17 @@ export function Plans () {
                 </select>
               </fieldset>
 
-              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <button type='submit'>
+                {loading
+                  ? <img
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height=''
+                      src='https://contribua.org/mb-static/images/loading.gif'
+                      alt='Loading'
+                    />
+                  : 'Salvar'}
+              </button>
             </S.Form>
           </S.Container>
         </Modal>

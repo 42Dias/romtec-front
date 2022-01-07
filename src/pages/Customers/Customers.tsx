@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form'
 import { TextField } from '../../ui/Components/TextField'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
+import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 
 type FormData = {
   cnpj: string;
@@ -80,6 +81,12 @@ export function Customers () {
     loadDados()
   }, [])
 
+  function handleDelete (id: string) {
+    setClientes(clientes =>
+      clientes.filter(cliente => cliente.id !== id),
+    )
+  }
+
   return (
     <>
       <Sidebar />
@@ -100,7 +107,7 @@ export function Customers () {
           <span>Número</span>
           <span>Complemento</span>
         </S.GridConfirmation>
-        {clientes.length > 0 ?
+        {/*clientes.length > 0 ?
         clientes.map((cliente) =>
           <S.GridConfirmation>
             <span>{cliente.cnpj}</span>
@@ -114,7 +121,30 @@ export function Customers () {
             <span>{cliente.numero}</span>
             <span>{cliente.complemento}</span>
           </S.GridConfirmation>
-        ): 'Nenhum Cliente cadastrado!'}
+        ): 'Nenhum Cliente cadastrado!'*/}
+
+        <ul>
+          {clientes.length > 0 ?
+          clientes.map((cliente) =>
+            <li key={cliente.id}>
+              <S.GridConfirmation>
+                <span>{cliente.cnpj}</span>
+                <span>{cliente.razaoSocial}</span>
+                <span>{cliente.nomeFantasia}</span>
+                <span>{cliente.cep}</span>
+                <span>{cliente.uf}</span>
+                <span>{cliente.cidade}</span>
+                <span>{cliente.bairro}</span>
+                <span>{cliente.logradouro}</span>
+                <span>{cliente.numero}</span>
+                <span>{cliente.complemento}</span>
+                <DeleteButton
+                  onDelete={() => handleDelete(cliente.id)}
+                />
+              </S.GridConfirmation>
+            </li>,
+          ): 'Nenhum Cliente cadastrado!'}
+        </ul>
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>

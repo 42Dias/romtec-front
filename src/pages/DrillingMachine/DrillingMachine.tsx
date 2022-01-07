@@ -110,7 +110,7 @@ export function DrillingMachine () {
     setLoading(true)
     loadDados()
   }, [])
-  // eslint-disable-next-line
+
   function handleDelete (id: string) {
     setMaqPerfuratriz(maqPerfuratrizs =>
       maqPerfuratrizs.filter(maqPerfuratriz => maqPerfuratriz.id !== id),
@@ -144,12 +144,12 @@ export function DrillingMachine () {
                   <span>{maquinas.torque}</span>
                   <span>{maquinas.alergamentoMaximo}</span>
                   <DeleteButton
-                    onDelete={() => deleteDados(maquinas.id)}
+                    onDelete={() => handleDelete(maquinas.id)}
                   />
                 </S.GridConfirmation>
               </li>,
             )
-            : 'Nenhuma Máquina Perfuratriz cadastrada!'}
+            : <p>🤔 Nenhuma máquina cadastrada</p>}
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>

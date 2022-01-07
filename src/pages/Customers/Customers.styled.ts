@@ -25,11 +25,15 @@ export const ContainerConfirmation = styled.div`
       opacity: 80%;
     }
   }
+
+  ul {
+    list-style: none;
+  }
 `
 
 export const GridConfirmation = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   justify-items: center;
   align-items: center;
   background-color: ${theme.colors.black};

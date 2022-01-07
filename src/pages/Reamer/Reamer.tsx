@@ -7,6 +7,7 @@ import { TextField } from '../../ui/Components/TextField'
 import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
 import { useState } from 'react'
+import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 
 type FormData = {
   code: string;
@@ -21,6 +22,7 @@ type FormData = {
 
 export function Reamer () {
   const [isOpen, setIsOpen] = useState(false)
+  const [reamers, setReamers] = useState<any[]>([])
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
@@ -28,6 +30,12 @@ export function Reamer () {
     console.log(data)
 
     reset()
+  }
+
+  function handleDelete (id: string) {
+    setReamers(reamers =>
+      reamers.filter(reamer => reamer.id !== id),
+    )
   }
 
   return (
@@ -45,6 +53,23 @@ export function Reamer () {
           <span>Capacidade de carga</span>
           <span>Descrição</span>
         </S.GridConfirmation>
+
+        <ul>
+          {reamers.length > 0
+            ? reamers.map((reamer) =>
+              <li key={reamer.id}>
+                <S.GridConfirmation>
+                  <span>
+                    {reamer}
+                  </span>
+                  <DeleteButton
+                    onDelete={() => handleDelete(reamer.id)}
+                  />
+                </S.GridConfirmation>
+              </li>,
+            )
+            : <p>🤔 Nenhum alargador encontrado</p>}
+        </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>

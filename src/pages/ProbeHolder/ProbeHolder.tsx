@@ -8,6 +8,7 @@ import { TextField } from '../../ui/Components/TextField'
 import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
 import { useState } from 'react'
+import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 
 type FormData = {
   code: string;
@@ -19,6 +20,7 @@ type FormData = {
 
 export function ProbeHolder () {
   const [isOpen, setIsOpen] = useState(false)
+  const [probeHolders, setProbeHolders] = useState<any[]>([])
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
@@ -26,6 +28,12 @@ export function ProbeHolder () {
     console.log(data)
 
     reset()
+  }
+
+  function handleDelete (id: string) {
+    setProbeHolders(probeHolders =>
+      probeHolders.filter(probeHolder => probeHolder.id !== id),
+    )
   }
 
   return (
@@ -42,6 +50,23 @@ export function ProbeHolder () {
           <span>Número de Jatos</span>
           <span>Conexão/Rosca</span>
         </S.GridConfirmation>
+
+        <ul>
+          {probeHolders.length > 0
+            ? probeHolders.map((probeHolder) =>
+              <li key={probeHolder.id}>
+                <S.GridConfirmation>
+                  <span>
+                    {probeHolder}
+                  </span>
+                  <DeleteButton
+                    onDelete={() => handleDelete(probeHolder.id)}
+                  />
+                </S.GridConfirmation>
+              </li>,
+            )
+            : <p>🤔 Nenhum porta sonda encontrado</p>}
+        </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>

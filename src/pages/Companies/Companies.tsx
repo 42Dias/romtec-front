@@ -81,6 +81,8 @@ export function Companies () {
       setLoading(false)
     })
   }
+
+  // eslint-disable-next-line
   async function deleteDados (id: string) {
     setLoading(true)
     // eslint-disable-next-line
@@ -100,6 +102,12 @@ export function Companies () {
     setLoading(true)
     loadDados()
   }, [])
+
+  function handleDelete (id: string) {
+    setCompanhias(companhias =>
+      companhias.filter(companhia => companhia.id !== id),
+    )
+  }
 
   return (
     <>
@@ -128,12 +136,12 @@ export function Companies () {
                   <span>{companhia.email}</span>
                   <span>{companhia.responsavelTecnico}</span>
                   <DeleteButton
-                    onDelete={() => deleteDados(companhia.id)}
+                    onDelete={() => handleDelete(companhia.id)}
                   />
                 </S.GridConfirmation>
               </li>,
             )
-            : 'Nenhuma companhia cadastrada!'}
+            : <p>🤔 Nenhuma companhia cadastrada</p>}
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>

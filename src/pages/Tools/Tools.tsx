@@ -10,6 +10,7 @@ import { FiPlus } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
+import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 
 type FormData = {
   codigo: string;
@@ -90,6 +91,12 @@ export function Tools () {
     loadDados()
   }, [])
 
+  function handleDelete (id: string) {
+    setFerramentas(ferramentas =>
+      ferramentas.filter(ferramenta => ferramenta.id !== id),
+    )
+  }
+
   return (
     <>
       <Sidebar />
@@ -105,6 +112,23 @@ export function Tools () {
           <span>Capacidade de carga</span>
           <span>Descrição</span>
         </S.GridConfirmation>
+
+        <ul>
+          {ferramentas.length > 0
+            ? ferramentas.map((ferramenta) =>
+              <li key={ferramenta.id}>
+                <S.GridConfirmation>
+                  <span>
+                    {ferramenta}
+                  </span>
+                  <DeleteButton
+                    onDelete={() => handleDelete(ferramenta.id)}
+                  />
+                </S.GridConfirmation>
+              </li>,
+            )
+            : <p>🤔 Nenhuma ferramenta cadastrada</p>}
+        </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
