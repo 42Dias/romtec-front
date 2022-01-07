@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form'
 import { TextField } from '../../ui/Components/TextField'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
+import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 
 type FormData = {
   cnpj: string;
@@ -80,6 +81,12 @@ export function Customers () {
     loadDados()
   }, [])
 
+  function handleDelete (id: string) {
+    setClientes(clientes =>
+      clientes.filter(cliente => cliente.id !== id),
+    )
+  }
+
   return (
     <>
       <Sidebar />
@@ -115,7 +122,10 @@ export function Customers () {
                 <span>{cliente.logradouro}</span>
                 <span>{cliente.numero}</span>
                 <span>{cliente.complemento}</span>
-              </S.GridConfirmation>,
+                <DeleteButton
+                  onDelete={() => handleDelete(cliente.id)}
+                />
+              </S.GridConfirmation>
             </li>,
           )}
         </ul>

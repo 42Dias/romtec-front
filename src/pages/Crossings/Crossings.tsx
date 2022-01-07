@@ -11,6 +11,7 @@ import { TextField } from '../../ui/Components/TextField'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
+import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 
 type FormData = {
   nome: string;
@@ -27,7 +28,7 @@ export function Crossings () {
   // eslint-disable-next-line
   const [loading, setLoading] = useState(false)
   // eslint-disable-next-line
-  const [companhias, setCompanhias] = useState<any[]>([])
+  const [perfuracoes, setPerfuracoes] = useState<any[]>([])
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
@@ -68,7 +69,7 @@ export function Crossings () {
     ).then((response) => {
       console.log(response.data.rows)
       if (response.statusText === 'OK') {
-        setCompanhias(response.data.rows)
+        setPerfuracoes(response.data.rows)
         setLoading(false)
       }
     }).catch(res => {
@@ -97,6 +98,12 @@ export function Crossings () {
     setLoading(true)
     loadDados()
   }, [])
+
+  function handleDelete (id: string) {
+    setPerfuracoes(perfuracoes =>
+      perfuracoes.filter(perfuracao => perfuracao.id !== id),
+    )
+  }
   return (
     <>
       <Sidebar />
@@ -114,6 +121,22 @@ export function Crossings () {
           <span>Pressa</span>
           <span>Maquina perfuratriz</span>
         </S.GridConfirmation>
+
+        <ul>
+          {perfuracoes.length > 0
+            ? perfuracoes.map((perfuracao) =>
+              <li key={perfuracao.id}>
+                <S.GridConfirmation>
+                  <span>{perfuracao}</span>
+                  <Link to='/etapas' className='exec'><span>Executar travessia</span></Link>
+                  <DeleteButton
+                    onDelete={() => handleDelete(perfuracao.id)}
+                  />
+                </S.GridConfirmation>
+              </li>,
+            )
+            : 'Nenhuma perfuração cadastrada'}
+        </ul>
 
         <S.GridConfirmation>
           <span>XXXXXXXXXX</span>

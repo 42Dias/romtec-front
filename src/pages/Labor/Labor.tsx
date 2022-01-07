@@ -78,6 +78,7 @@ export function Labor () {
       setLoading(false)
     })
   }
+  // eslint-disable-next-line
   async function deleteDados (id: string) {
     setLoading(true)
     // eslint-disable-next-line
@@ -97,7 +98,7 @@ export function Labor () {
     setLoading(true)
     loadDados()
   }, [])
-  // eslint-disable-next-line
+
   function handleDelete (id: string) {
     setMaoDeObra(maoDeObras =>
       maoDeObras.filter(maoDeObra => maoDeObra.id !== id),
@@ -149,7 +150,7 @@ export function Labor () {
                     {maoDeObra.validadeCertificado}
                   </span>
                   <DeleteButton
-                    onDelete={() => deleteDados(maoDeObra.id)}
+                    onDelete={() => handleDelete(maoDeObra.id)}
                   />
                 </S.GridConfirmation>
               </li>,

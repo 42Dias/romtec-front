@@ -1,8 +1,9 @@
+import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
+import EditButton from '../../ui/Components/EditButton/EditButton'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 import { FiPlus } from 'react-icons/fi'
-import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 
 import { TextField } from '../../ui/Components/TextField'
 import { useEffect, useState } from 'react'
@@ -11,7 +12,6 @@ import { api } from '../../services/api'
 import { toast } from 'react-toastify'
 
 import * as S from './Soiltypes.styled'
-import EditButton from '../../ui/Components/EditButton/EditButton'
 
 type FormData = {
   id: string;
@@ -104,7 +104,7 @@ export function SoilTypes () {
     setSoilTypes(soilTypes => soilTypes.map(soilType => {
       if (soilType.id === id) {
         return {
-          ...SoilTypes,
+          ...soilTypes,
         }
       }
 
@@ -212,7 +212,12 @@ export function SoilTypes () {
               />
               <button type='submit'>
                 {loading
-                  ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' />
+                  ? <img
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height='' src='https://contribua.org/mb-static/images/loading.gif'
+                      alt='Loading'
+                    />
                   : 'Salvar'}
               </button>
             </S.Form>
