@@ -159,7 +159,7 @@ export function SoilTypes () {
                 </S.GridConfirmation>
               </li>,
             )
-            : 'Nenhum Tipo de solo cadastrado!'}
+            : <p>🤔 Nenhum tipo de solo cadastrado</p>}
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>

@@ -135,7 +135,7 @@ export function Crossings () {
                 </S.GridConfirmation>
               </li>,
             )
-            : 'Nenhuma perfuração cadastrada'}
+            : <p>🤔 Nenhuma perfuração cadastrada</p>}
         </ul>
 
         <S.GridConfirmation>

@@ -29,6 +29,14 @@ export const ContainerConfirmation = styled.div`
   ul {
     list-style: none;
   }
+
+  p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+    font-size: 20px;
+  }
 `
 
 export const GridConfirmation = styled.div`

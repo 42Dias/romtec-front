@@ -12,6 +12,14 @@ export const ContainerConfirmation = styled.div`
     padding: 20px 0;
   }
 
+  p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+    font-size: 20px;
+  }
+
   button {
     width: 54px;
     height: 44px;
@@ -24,6 +32,10 @@ export const ContainerConfirmation = styled.div`
     :hover {
       opacity: 80%;
     }
+  }
+
+  ul {
+    list-style: none;
   }
 `
 

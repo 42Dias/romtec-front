@@ -30,6 +30,7 @@ export const Navbar = styled.div`
     background: ${theme.colors.yellow};
     color: white;
     margin: 35px 0 0 0;
+    transition: 2s;
   }
 
   input {
@@ -50,6 +51,6 @@ export const ShowSidebar = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    background: none; 
+    background: none;
   }
 `

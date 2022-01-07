@@ -109,7 +109,7 @@ export function Payments () {
                 </S.GridConfirmation>
               </li>,
             )
-            : <p>Nenhum pagamento cadastrado</p>}
+            : <p>🤔 Nenhum pagamento cadastrado</p>}
         </ul>
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>

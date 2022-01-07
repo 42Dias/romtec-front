@@ -149,7 +149,7 @@ export function DrillingMachine () {
                 </S.GridConfirmation>
               </li>,
             )
-            : 'Nenhuma Máquina Perfuratriz cadastrada!'}
+            : <p>🤔 Nenhuma máquina cadastrada</p>}
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>

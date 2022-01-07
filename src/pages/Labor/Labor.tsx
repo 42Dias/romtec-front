@@ -155,7 +155,7 @@ export function Labor () {
                 </S.GridConfirmation>
               </li>,
             )
-            : 'Nenhuma mão de obra cadastrada!'}
+            : <p>🤔 Nenhuma mão de obra cadastrada!</p>}
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>

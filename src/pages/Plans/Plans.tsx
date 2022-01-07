@@ -109,7 +109,7 @@ export function Plans () {
                 </S.GridConfirmation>
               </li>,
             )
-            : 'Nenhum plano cadastrado'}
+            : <p>🤔 Nenhum plano cadastrado</p>}
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>

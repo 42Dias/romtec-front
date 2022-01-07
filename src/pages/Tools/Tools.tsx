@@ -127,7 +127,7 @@ export function Tools () {
                 </S.GridConfirmation>
               </li>,
             )
-            : 'Nenhuma ferramenta cadastrada!'}
+            : <p>🤔 Nenhuma ferramenta cadastrada</p>}
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>

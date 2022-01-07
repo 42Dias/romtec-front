@@ -77,6 +77,7 @@ export function ConfigurationCrossing () {
     setLoading(true)
     loadDados()
   }, [])
+
   function handleDelete (id: string) {
     setConfigurationCrossings(configurationCrossings =>
       configurationCrossings.filter(configurationCrossing => configurationCrossing.id !== id),
@@ -97,18 +98,22 @@ export function ConfigurationCrossing () {
         </S.GridConfirmation>
 
         <ul>
-          {configurationCrossings.map((configurationCrossing) =>
-            <li key={configurationCrossing.id}>
-              <S.GridConfirmation>
-                <span>
-                  {configurationCrossing}
-                </span>
-                <DeleteButton
-                  onDelete={() => handleDelete(configurationCrossing.id)}
-                />
-              </S.GridConfirmation>
-            </li>,
-          )}
+          {configurationCrossings.length > 0
+            ? configurationCrossings.map((configurationCrossing) =>
+              <li key={configurationCrossing.id}>
+                <S.GridConfirmation>
+                  <span>{configurationCrossing.nomeFantasia}</span>
+                  <span>{configurationCrossing.estado}</span>
+                  <span>{configurationCrossing.cidade}</span>
+                  <span>{configurationCrossing.email}</span>
+                  <span>{configurationCrossing.responsavelTecnico}</span>
+                  <DeleteButton
+                    onDelete={() => handleDelete(configurationCrossing.id)}
+                  />
+                </S.GridConfirmation>
+              </li>,
+            )
+            : <p>🤔 Nenhuma configuração cadastrada</p>}
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>

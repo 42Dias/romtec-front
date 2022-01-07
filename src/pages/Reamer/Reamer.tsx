@@ -68,7 +68,7 @@ export function Reamer () {
                 </S.GridConfirmation>
               </li>,
             )
-            : 'Nenhum alargador encontrado!'}
+            : <p>🤔 Nenhum alargador encontrado</p>}
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>

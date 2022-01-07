@@ -65,7 +65,7 @@ export function ProbeHolder () {
                 </S.GridConfirmation>
               </li>,
             )
-            : 'Nenhum alargador encontrado!'}
+            : <p>🤔 Nenhum porta sonda encontrado</p>}
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>

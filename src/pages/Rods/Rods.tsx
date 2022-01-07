@@ -120,7 +120,7 @@ export function Rods () {
                 </S.GridConfirmation>
               </li>,
             )
-            : <p>Nenhum cadastro encontrado</p>}
+            : <p>🤔 Nenhuma haste cadastrada</p>}
         </ul>
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>

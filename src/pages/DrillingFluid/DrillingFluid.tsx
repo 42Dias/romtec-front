@@ -26,8 +26,6 @@ export function DrillingFluid () {
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [fluidos, setFluidos] = useState<any[]>([])
-  // eslint-disable-next-line
-  const [drillingFluid, setDrillingFluid] = useState<any[]>([])
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
@@ -79,6 +77,7 @@ export function DrillingFluid () {
       setLoading(false)
     })
   }
+  // eslint-disable-next-line
   async function deleteDados (id: string) {
     setLoading(true)
     // eslint-disable-next-line
@@ -98,10 +97,10 @@ export function DrillingFluid () {
     setLoading(true)
     loadDados()
   }, [])
-  // eslint-disable-next-line
+
   function handleDelete (id: string) {
-    setDrillingFluid(drillingFluids =>
-      drillingFluids.filter(drillingFluid => drillingFluid.id !== id),
+    setFluidos(fluidos =>
+      fluidos.filter(fluido => fluido.id !== id),
     )
   }
 
@@ -115,41 +114,32 @@ export function DrillingFluid () {
 
         <S.GridConfirmation>
           <span>Identificação</span>
-          {/* <span>Viscosidade</span>
+          <span>Viscosidade</span>
           <span>pH</span>
           <span>Base para formulação</span>
           <span>Escoamento</span>
-          <span>Teor de areia</span> */}
+          <span>Teor de areia</span>
         </S.GridConfirmation>
+
         <ul>
           {fluidos.length > 0
-          // eslint-disable-next-line
             ? fluidos.map((fluido) =>
               <li key={fluido.id}>
                 <S.GridConfirmation>
                   <span>{fluido.nome}</span>
+                  <span>{fluido.nome}</span>
+                  <span>{fluido.nome}</span>
+                  <span>{fluido.nome}</span>
+                  <span>{fluido.nome}</span>
+                  <span>{fluido.nome}</span>
                   <DeleteButton
-                    onDelete={() => deleteDados(fluido.id)}
+                    onDelete={() => handleDelete(fluido.id)}
                   />
                 </S.GridConfirmation>
               </li>,
-            ) : 'Nenhum Fluídos de perfuração cadastrado'}
+            )
+            : <p>🤔 Nenhum fluído cadastrado</p>}
         </ul>
-
-        {/* <ul>
-          {drillingFluid.map((fluid) =>
-            <li key={fluid.id}>
-              <S.GridConfirmation>
-                <span>
-                  {fluid}
-                </span>
-                <DeleteButton
-                  onDelete={() => handleDelete(fluid.id)}
-                />
-              </S.GridConfirmation>
-            </li>,
-          )}
-          </ul> */}
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>

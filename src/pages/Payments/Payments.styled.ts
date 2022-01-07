@@ -26,6 +26,14 @@ export const ContainerConfirmation = styled.div`
     }
   }
 
+  p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+    font-size: 20px;
+  }
+
   ul {
     list-style: none;
   }
