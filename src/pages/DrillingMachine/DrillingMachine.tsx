@@ -11,6 +11,7 @@ import { FiPlus } from 'react-icons/fi'
 import { toast } from 'react-toastify'
 
 import * as S from './DrillingMachine.styled'
+import EditButton from '../../ui/Components/EditButton/EditButton'
 
 type FormData = {
   fabricante: string;
@@ -117,6 +118,18 @@ export function DrillingMachine () {
     )
   }
 
+  const handleUpdate = (id: string) => {
+    setMaqPerfuratriz(maqPerfuratrizs => maqPerfuratrizs.map(maqPerfuratriz => {
+      if (maqPerfuratriz.id === id) {
+        return {
+          ...maqPerfuratriz,
+        }
+      }
+
+      return maqPerfuratriz
+    }))
+  }
+
   return (
     <>
       <Sidebar />
@@ -145,6 +158,9 @@ export function DrillingMachine () {
                   <span>{maquinas.alergamentoMaximo}</span>
                   <DeleteButton
                     onDelete={() => handleDelete(maquinas.id)}
+                  />
+                  <EditButton
+                    onEdit={() => handleUpdate(maquinas.id)}
                   />
                 </S.GridConfirmation>
               </li>,
