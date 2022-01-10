@@ -73,7 +73,7 @@ import { ToastContainer } from 'react-toastify'
 
 export function App () {
   return (
-    <BrowserRouter basename='romtec'>
+    <BrowserRouter>
       <Routes>
         <Route path={LOGIN} element={<Login />} />
         <Route path={HOME} element={<Home />} />

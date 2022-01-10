@@ -87,7 +87,8 @@ export function Login () {
       timeout: 50000,
     }).then(response => {
       // navigate('/home', { replace: true })
-      window.location.href = window.location.href + 'home'
+     console.log(window.location.href = window.location.href + 'home') 
+      
       return response.data
     })
     console.log(response)
