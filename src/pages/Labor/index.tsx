@@ -11,6 +11,7 @@ import { toast } from 'react-toastify'
 
 import * as S from './styled'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
+import EditButton from '../../ui/Components/EditButton/EditButton'
 
 type FormData = {
   nIdentificacao: string;
@@ -106,6 +107,18 @@ export default function
     )
   }
 
+  const handleUpdate = (id: string) => {
+    setMaoDeObra(maoDeObras => maoDeObras.map(maoDeObra => {
+      if (maoDeObra.id === id) {
+        return {
+          ...maoDeObra,
+        }
+      }
+
+      return maoDeObra
+    }))
+  }
+
   return (
     <>
       <Sidebar />
@@ -152,6 +165,9 @@ export default function
                   </span>
                   <DeleteButton
                     onDelete={() => handleDelete(maoDeObra.id)}
+                  />
+                  <EditButton
+                    onEdit={() => handleUpdate(maoDeObra.id)}
                   />
                 </S.GridConfirmation>
               </li>,

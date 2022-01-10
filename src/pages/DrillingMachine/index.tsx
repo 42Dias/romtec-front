@@ -12,6 +12,7 @@ import { FiPlus } from 'react-icons/fi'
 import { toast } from 'react-toastify'
 
 import * as S from './styled'
+import EditButton from '../../ui/Components/EditButton/EditButton'
 
 type FormData = {
   fabricante: string;
@@ -119,6 +120,18 @@ export default function
     )
   }
 
+  const handleUpdate = (id: string) => {
+    setMaqPerfuratriz(maqPerfuratrizs => maqPerfuratrizs.map(maqPerfuratriz => {
+      if (maqPerfuratriz.id === id) {
+        return {
+          ...maqPerfuratriz,
+        }
+      }
+
+      return maqPerfuratriz
+    }))
+  }
+
   return (
     <>
       <Sidebar />
@@ -147,6 +160,9 @@ export default function
                   <span>{maquinas.alergamentoMaximo}</span>
                   <DeleteButton
                     onDelete={() => handleDelete(maquinas.id)}
+                  />
+                  <EditButton
+                    onEdit={() => handleUpdate(maquinas.id)}
                   />
                 </S.GridConfirmation>
               </li>,
