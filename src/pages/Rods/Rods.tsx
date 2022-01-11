@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
+import EditButton from '../../ui/Components/EditButton/EditButton'
 
 type FormData = {
   codigo: string;
@@ -88,6 +89,18 @@ export function Rods () {
     )
   }
 
+  const handleUpdate = (id: string) => {
+    setHastes(hastes => hastes.map(haste => {
+      if (haste.id === id) {
+        return {
+          ...haste,
+        }
+      }
+
+      return haste
+    }))
+  }
+
   return (
     <>
       <Sidebar />
@@ -116,6 +129,9 @@ export function Rods () {
                   <span>{haste.modeloRosca}</span>
                   <DeleteButton
                     onDelete={() => handleDelete(haste.id)}
+                  />
+                  <EditButton
+                    onEdit={() => handleUpdate(haste.id)}
                   />
                 </S.GridConfirmation>
               </li>,

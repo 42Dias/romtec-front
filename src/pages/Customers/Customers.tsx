@@ -10,6 +10,7 @@ import { TextField } from '../../ui/Components/TextField'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
+import EditButton from '../../ui/Components/EditButton/EditButton'
 
 type FormData = {
   cnpj: string;
@@ -87,6 +88,18 @@ export function Customers () {
     )
   }
 
+  const handleUpdate = (id: string) => {
+    setClientes(clientes => clientes.map(cliente => {
+      if (cliente.id === id) {
+        return {
+          ...cliente,
+        }
+      }
+
+      return cliente
+    }))
+  }
+
   return (
     <>
       <Sidebar />
@@ -124,6 +137,9 @@ export function Customers () {
                 <span>{cliente.complemento}</span>
                 <DeleteButton
                   onDelete={() => handleDelete(cliente.id)}
+                />
+                <EditButton
+                  onEdit={() => handleUpdate(cliente.id)}
                 />
               </S.GridConfirmation>
             </li>,
