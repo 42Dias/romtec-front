@@ -11,6 +11,7 @@ import { FiPlus } from 'react-icons/fi'
 import { toast } from 'react-toastify'
 
 import * as S from './styled'
+import EditButton from '../../ui/Components/EditButton/EditButton'
 
 type FormData = {
   nome: string,
@@ -82,6 +83,18 @@ export default function
     )
   }
 
+  const handleUpdate = (id: string) => {
+    setPlanos(planos => planos.map(plano => {
+      if (plano.id === id) {
+        return {
+          ...plano,
+        }
+      }
+
+      return plano
+    }))
+  }
+
   return (
     <>
       <Sidebar />
@@ -106,6 +119,9 @@ export default function
                   <span>{plano.periodo}</span>
                   <DeleteButton
                     onDelete={() => handleDelete(plano.id)}
+                  />
+                  <EditButton
+                    onEdit={() => handleUpdate(plano.id)}
                   />
                 </S.GridConfirmation>
               </li>,

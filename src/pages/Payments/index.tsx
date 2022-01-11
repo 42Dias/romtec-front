@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
+import EditButton from '../../ui/Components/EditButton/EditButton'
 
 type FormData = {
   ano: Date,
@@ -82,6 +83,18 @@ export default function
     loadDados()
   }, [])
 
+  const handleUpdate = (id: string) => {
+    setPagamentos(pagamentos => pagamentos.map(pagamento => {
+      if (pagamento.id === id) {
+        return {
+          ...pagamento,
+        }
+      }
+
+      return pagamento
+    }))
+  }
+
   return (
     <>
       <Sidebar />
@@ -106,6 +119,9 @@ export default function
                   <span>{pagamento.valorPago}</span>
                   <DeleteButton
                     onDelete={() => handleDelete(pagamento.id)}
+                  />
+                  <EditButton
+                    onEdit={() => handleUpdate(pagamento.id)}
                   />
                 </S.GridConfirmation>
               </li>,

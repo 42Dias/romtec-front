@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
+import EditButton from '../../ui/Components/EditButton/EditButton'
 
 type FormData = {
   nome: string;
@@ -105,6 +106,19 @@ export default function
       perfuracoes.filter(perfuracao => perfuracao.id !== id),
     )
   }
+
+  const handleUpdate = (id: string) => {
+    setPerfuracoes(perfuracoes => perfuracoes.map(perfuracao => {
+      if (perfuracao.id === id) {
+        return {
+          ...perfuracao,
+        }
+      }
+
+      return perfuracao
+    }))
+  }
+
   return (
     <>
       <Sidebar />
@@ -132,6 +146,9 @@ export default function
                   <Link to='/etapas' className='exec'><span>Executar travessia</span></Link>
                   <DeleteButton
                     onDelete={() => handleDelete(perfuracao.id)}
+                  />
+                  <EditButton
+                    onEdit={() => handleUpdate(perfuracao.id)}
                   />
                 </S.GridConfirmation>
               </li>,

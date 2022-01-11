@@ -10,6 +10,7 @@ import { FiPlus } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
+import EditButton from '../../ui/Components/EditButton/EditButton'
 
 type FormData = {
   description: string;
@@ -85,6 +86,18 @@ export default function
     )
   }
 
+  const handleUpdate = (id: string) => {
+    setConfigurationCrossings(configurationCrossings => configurationCrossings.map(configurationCrossing => {
+      if (configurationCrossing.id === id) {
+        return {
+          ...configurationCrossing,
+        }
+      }
+
+      return configurationCrossing
+    }))
+  }
+
   return (
     <>
       <Sidebar />
@@ -110,6 +123,9 @@ export default function
                   <span>{configurationCrossing.responsavelTecnico}</span>
                   <DeleteButton
                     onDelete={() => handleDelete(configurationCrossing.id)}
+                  />
+                  <EditButton
+                    onEdit={() => handleUpdate(configurationCrossing.id)}
                   />
                 </S.GridConfirmation>
               </li>,

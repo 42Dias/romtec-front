@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
 import { useState } from 'react'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
+import EditButton from '../../ui/Components/EditButton/EditButton'
 
 type FormData = {
   code: string;
@@ -37,6 +38,18 @@ export default function
     )
   }
 
+  const handleUpdate = (id: string) => {
+    setProbeHolders(probeHolders => probeHolders.map(probeHolder => {
+      if (probeHolder.id === id) {
+        return {
+          ...probeHolder,
+        }
+      }
+
+      return probeHolder
+    }))
+  }
+
   return (
     <>
       <Sidebar />
@@ -62,6 +75,9 @@ export default function
                   </span>
                   <DeleteButton
                     onDelete={() => handleDelete(probeHolder.id)}
+                  />
+                  <EditButton
+                    onEdit={() => handleUpdate(probeHolder.id)}
                   />
                 </S.GridConfirmation>
               </li>,

@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
+import EditButton from '../../ui/Components/EditButton/EditButton'
 
 type FormData = {
   codigo: string;
@@ -98,6 +99,18 @@ export default function
     )
   }
 
+  const handleUpdate = (id: string) => {
+    setFerramentas(ferramentas => ferramentas.map(ferramenta => {
+      if (ferramenta.id === id) {
+        return {
+          ...ferramenta,
+        }
+      }
+
+      return ferramenta
+    }))
+  }
+
   return (
     <>
       <Sidebar />
@@ -124,6 +137,9 @@ export default function
                   </span>
                   <DeleteButton
                     onDelete={() => handleDelete(ferramenta.id)}
+                  />
+                  <EditButton
+                    onEdit={() => handleUpdate(ferramenta.id)}
                   />
                 </S.GridConfirmation>
               </li>,
