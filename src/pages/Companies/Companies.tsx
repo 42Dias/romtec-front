@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 import * as S from './Companies.styled'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
+import EditButton from '../../ui/Components/EditButton/EditButton'
 
 type FormData = {
   cnpj: string;
@@ -109,6 +110,18 @@ export function Companies () {
     )
   }
 
+  const handleUpdate = (id: string) => {
+    setCompanhias(companhias => companhias.map(companhia => {
+      if (companhia.id === id) {
+        return {
+          ...companhia,
+        }
+      }
+
+      return companhia
+    }))
+  }
+
   return (
     <>
       <Sidebar />
@@ -137,6 +150,9 @@ export function Companies () {
                   <span>{companhia.responsavelTecnico}</span>
                   <DeleteButton
                     onDelete={() => handleDelete(companhia.id)}
+                  />
+                  <EditButton
+                    onEdit={() => handleUpdate(companhia.id)}
                   />
                 </S.GridConfirmation>
               </li>,

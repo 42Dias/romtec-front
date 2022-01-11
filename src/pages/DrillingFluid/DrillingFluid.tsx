@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 import * as S from './DrillingFluid.styled'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
+import EditButton from '../../ui/Components/EditButton/EditButton'
 
 type FormData = {
   nome: string;
@@ -104,6 +105,18 @@ export function DrillingFluid () {
     )
   }
 
+  const handleUpdate = (id: string) => {
+    setFluidos(fluidos => fluidos.map(fluido => {
+      if (fluido.id === id) {
+        return {
+          ...fluido,
+        }
+      }
+
+      return fluido
+    }))
+  }
+
   return (
     <>
       <Sidebar />
@@ -134,6 +147,9 @@ export function DrillingFluid () {
                   <span>{fluido.nome}</span>
                   <DeleteButton
                     onDelete={() => handleDelete(fluido.id)}
+                  />
+                  <EditButton
+                    onEdit={() => handleUpdate(fluido.id)}
                   />
                 </S.GridConfirmation>
               </li>,

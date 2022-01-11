@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
 import { useState } from 'react'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
+import EditButton from '../../ui/Components/EditButton/EditButton'
 
 type FormData = {
   code: string;
@@ -38,6 +39,18 @@ export function Reamer () {
     )
   }
 
+  const handleUpdate = (id: string) => {
+    setReamers(reamers => reamers.map(reamer => {
+      if (reamer.id === id) {
+        return {
+          ...reamer,
+        }
+      }
+
+      return reamer
+    }))
+  }
+
   return (
     <>
       <Sidebar />
@@ -64,6 +77,9 @@ export function Reamer () {
                   </span>
                   <DeleteButton
                     onDelete={() => handleDelete(reamer.id)}
+                  />
+                  <EditButton
+                    onEdit={() => handleUpdate(reamer.id)}
                   />
                 </S.GridConfirmation>
               </li>,
