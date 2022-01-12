@@ -1,7 +1,5 @@
-
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
-
 import * as S from './Register.styled'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
