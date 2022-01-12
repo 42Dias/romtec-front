@@ -18,7 +18,8 @@ export const ContainerConfirmation = styled.div`
     background: ${theme.colors.green};
     border: 0;
     transition: 1s;
-    margin-bottom: 20px;
+    position: relative;
+    top: 0;
 
     :hover {
       opacity: 80%;

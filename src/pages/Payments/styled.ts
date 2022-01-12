@@ -19,7 +19,8 @@ export const ContainerConfirmation = styled.div`
     background: ${theme.colors.green};
     border: 0;
     transition: 1s;
-    margin-bottom: 20px;
+    position: relative;
+    top: 0;
 
     :hover {
       opacity: 80%;
@@ -41,7 +42,7 @@ export const ContainerConfirmation = styled.div`
 
 export const GridConfirmation = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   justify-items: center;
   align-items: center;
   background-color: ${theme.colors.black};

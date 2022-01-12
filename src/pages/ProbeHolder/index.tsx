@@ -10,6 +10,7 @@ import { FiPlus } from 'react-icons/fi'
 import { useState } from 'react'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import EditButton from '../../ui/Components/EditButton/EditButton'
+import { FaEdit } from 'react-icons/fa'
 
 type FormData = {
   code: string;
@@ -20,8 +21,9 @@ type FormData = {
 }
 
 export default function
- ProbeHolder () {
+ProbeHolder () {
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [probeHolders, setProbeHolders] = useState<any[]>([])
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
@@ -76,9 +78,14 @@ export default function
                   <DeleteButton
                     onDelete={() => handleDelete(probeHolder.id)}
                   />
-                  <EditButton
-                    onEdit={() => handleUpdate(probeHolder.id)}
-                  />
+                  <button
+                    // onChange={onEdit}
+                    onClick={() => setIsOpenUpdate(true)}
+                    style={{ background: 'none', color: 'yellow' }}
+                    title='Editar?'
+                  >
+                    <FaEdit size={20} />
+                  </button>
                 </S.GridConfirmation>
               </li>,
             )
@@ -86,6 +93,57 @@ export default function
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <S.Container>
+            <S.Form onSubmit={handleSubmit(onSubmit)}>
+              <TextField
+                label='Código'
+                errorMessage={errors.code?.message}
+                id='code'
+                {...register('code', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Sonda compatível/marca'
+                id='compatibleProbe'
+                {...register('compatibleProbe', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Pá compatível'
+                id='compatibleShovel'
+                {...register('compatibleShovel', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Número de Jatos'
+                id='numberJets'
+                {...register('numberJets', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Conexão/Rosca'
+                id='connection'
+                {...register('connection', {
+                  required: true,
+                })}
+              />
+              <button type='submit'>Salvar</button>
+            </S.Form>
+          </S.Container>
+        </Modal>
+
+        <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField

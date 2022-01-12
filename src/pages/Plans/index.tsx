@@ -12,6 +12,7 @@ import { toast } from 'react-toastify'
 
 import * as S from './styled'
 import EditButton from '../../ui/Components/EditButton/EditButton'
+import { FaEdit } from 'react-icons/fa'
 
 type FormData = {
   nome: string,
@@ -20,8 +21,9 @@ type FormData = {
 }
 
 export default function
- Plans () {
+Plans () {
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
   const [planos, setPlanos] = useState<any[]>([])
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
@@ -120,9 +122,14 @@ export default function
                   <DeleteButton
                     onDelete={() => handleDelete(plano.id)}
                   />
-                  <EditButton
-                    onEdit={() => handleUpdate(plano.id)}
-                  />
+                  <button
+                    // onChange={onEdit}
+                    onClick={() => setIsOpenUpdate(true)}
+                    style={{ background: 'none', color: 'yellow' }}
+                    title='Editar?'
+                  >
+                    <FaEdit size={20} />
+                  </button>
                 </S.GridConfirmation>
               </li>,
             )
@@ -130,6 +137,52 @@ export default function
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <S.Container>
+            <S.Form onSubmit={handleSubmit(onSubmit)}>
+              <TextField
+                label='Nome'
+                errorMessage={errors.nome?.message}
+                {...register('nome', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Valor'
+                {...register('valor', {
+                  required: true,
+                })}
+              />
+
+              <fieldset>
+                <label htmlFor='periodo'>Periodo</label>
+                <select id='periodo' {...register('periodo')}>
+                  <option value=''>Select...</option>
+                  <option value='Mensal'>Mensal</option>
+                  <option value='Semestral'>Semestral</option>
+                  <option value='Anual'>Anual</option>
+                </select>
+              </fieldset>
+
+              <button type='submit'>
+                {loading
+                  ? <img
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height=''
+                      src='https://contribua.org/mb-static/images/loading.gif'
+                      alt='Loading'
+                    />
+                  : 'Salvar'}
+              </button>
+            </S.Form>
+          </S.Container>
+        </Modal>
+
+        <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField

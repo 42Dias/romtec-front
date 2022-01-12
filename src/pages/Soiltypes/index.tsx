@@ -2,7 +2,7 @@ import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
-import { FiPlus } from 'react-icons/fi'
+import { FiPlus, FiEdit } from 'react-icons/fi'
 
 import { TextField } from '../../ui/Components/TextField'
 import { useEffect, useState } from 'react'
@@ -12,8 +12,9 @@ import { toast } from 'react-toastify'
 
 import * as S from './styled'
 import EditButton from '../../ui/Components/EditButton/EditButton'
-import { FaEdit } from 'react-icons/fa'
+
 import { deepStrictEqual } from 'assert'
+import { FaEdit } from 'react-icons/fa'
 
 type FormData = {
   id: string;
@@ -26,7 +27,7 @@ type FormData = {
 }
 
 export default function
- SoilTypes() {
+SoilTypes () {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -41,13 +42,13 @@ export default function
   const [durezaPlastica, setDurezaPlastica] = useState('')
   const [indicePlasticidade, setIndicePlasticidade] = useState('')
 
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     console.log(data)
     createNewFile(data)
     reset()
   }
 
-  async function createNewFile(submit: any) {
+  async function createNewFile (submit: any) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.post('tipo-solo', {
@@ -70,7 +71,7 @@ export default function
     })
   }
 
-  async function loadDados() {
+  async function loadDados () {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.get('tipo-solo',
@@ -85,7 +86,7 @@ export default function
       setLoading(false)
     })
   }
-  async function deleteDados(id: string) {
+  async function deleteDados (id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('tipo-solo/' + id,
@@ -106,7 +107,7 @@ export default function
     loadDados()
   }, [])
 
-  function update(tipoSolo: any) {
+  function update (tipoSolo: any) {
     console.log('tipoSolo')
     console.log(tipoSolo)
     setSoilTypesUp(tipoSolo)
@@ -120,7 +121,7 @@ export default function
     console.log(idTipoSolo)
     setIsOpenUpdate(true)
   }
-  async function updateDados() {
+  async function updateDados () {
     setLoading(true)
     console.log('idTipoSolo')
     console.log(idTipoSolo)
@@ -134,16 +135,16 @@ export default function
         indicePlasticidade: indicePlasticidade,
         resistenciaSeca: resistenciaSeca,
         reacaoDilatacao: reacaoDilatacao,
-      }
-    }
+      },
+    },
     ).then((response) => {
       if (response.statusText === 'OK') {
         loadDados()
         setIsOpenUpdate(false)
         setLoading(false)
       }
-  })
-}
+    })
+  }
   return (
     <>
       <Sidebar />
@@ -187,10 +188,10 @@ export default function
                   <DeleteButton
                     onDelete={() => deleteDados(soilType.id)}
                   />
-                  {/*<EditButton onEdit={() => updateDados(soilType)} />*/}
+                  {/* <EditButton onEdit={() => updateDados(soilType)} /> */}
                   <button
-                    //onChange={onEdit}
-                    onClick={() => update(soilType)}
+                    // onChange={onEdit}
+                    onClick={() => setIsOpenUpdate(true)}
                     style={{ background: 'none', color: 'yellow' }}
                     title='Editar?'
                   >
@@ -253,11 +254,11 @@ export default function
               <button type='submit'>
                 {loading
                   ? <img
-                    width='40px'
-                    style={{ margin: 'auto' }}
-                    height='' src='https://contribua.org/mb-static/images/loading.gif'
-                    alt='Loading'
-                  />
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height='' src='https://contribua.org/mb-static/images/loading.gif'
+                      alt='Loading'
+                    />
                   : 'Salvar'}
               </button>
             </S.Form>
@@ -266,7 +267,7 @@ export default function
 
         <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
-            <S.Div >
+            <S.Div>
               <TextField
                 label='Especificação do solo'
                 value={especificacaoSolo}

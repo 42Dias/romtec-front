@@ -49,6 +49,11 @@ export const GridConfirmation = styled.div`
   border-radius: 5px;
   margin-bottom: 13px;
 
+  button {
+    position: relative;
+    top: 12px;
+  }
+
   span {
     font-size: 14px;
     color: ${theme.colors.white};
@@ -108,6 +113,7 @@ export const Form = styled.form`
     margin: 5px 1px 5px 14px;
   }
 `
+
 export const Div = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;

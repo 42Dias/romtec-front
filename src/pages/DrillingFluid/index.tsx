@@ -12,6 +12,7 @@ import * as S from './styled'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 import EditButton from '../../ui/Components/EditButton/EditButton'
+import { FaEdit } from 'react-icons/fa'
 
 type FormData = {
   nome: string;
@@ -24,8 +25,9 @@ type FormData = {
 }
 
 export default function
- DrillingFluid () {
+DrillingFluid () {
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
   const [fluidos, setFluidos] = useState<any[]>([])
 
@@ -149,9 +151,17 @@ export default function
                   <DeleteButton
                     onDelete={() => handleDelete(fluido.id)}
                   />
-                  <EditButton
+                  {/* <EditButton
                     onEdit={() => handleUpdate(fluido.id)}
-                  />
+                  /> */}
+                  <button
+                    // onChange={onEdit}
+                    onClick={() => setIsOpenUpdate(true)}
+                    style={{ background: 'none', color: 'yellow' }}
+                    title='Editar?'
+                  >
+                    <FaEdit size={20} />
+                  </button>
                 </S.GridConfirmation>
               </li>,
             )
@@ -159,6 +169,65 @@ export default function
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <S.Container>
+            <S.Form onSubmit={handleSubmit(onSubmit)}>
+              <TextField
+                label='Identificação'
+                errorMessage={errors.nome?.message}
+                {...register('nome', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Viscosidade esperada (Segundos Marsh - cP)'
+                value={0}
+                {...register('viscosidadeEsperada', {
+                  required: false,
+                })}
+              />
+
+              <TextField
+                label='pH da Água'
+                value={0}
+                {...register('qtdePHPA', {
+                  required: false,
+                })}
+              />
+
+              <TextField
+                label='Quantidade base para formulação (Metros cúbicos - m²)'
+                value={0}
+                {...register('qtdeBase', {
+                  required: false,
+                })}
+              />
+
+              <TextField
+                label='Limite de escoamento (Número - N)'
+                value={0}
+                {...register('limiteEscoamento', {
+                  required: false,
+                })}
+              />
+
+              <TextField
+                label='Teor de areia (Porcentagem - %)'
+                value={0}
+                {...register('teorAreia', {
+                  required: false,
+                })}
+              />
+
+              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+            </S.Form>
+          </S.Container>
+        </Modal>
+
+        <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField

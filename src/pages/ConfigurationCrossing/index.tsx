@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 import EditButton from '../../ui/Components/EditButton/EditButton'
+import { FaEdit } from 'react-icons/fa'
 
 type FormData = {
   description: string;
@@ -18,8 +19,9 @@ type FormData = {
 }
 
 export default function
- ConfigurationCrossing () {
+ConfigurationCrossing () {
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   // eslint-disable-next-line
   const [loading, setLoading] = useState(false)
   // eslint-disable-next-line
@@ -124,9 +126,17 @@ export default function
                   <DeleteButton
                     onDelete={() => handleDelete(configurationCrossing.id)}
                   />
-                  <EditButton
+                  {/* <EditButton
                     onEdit={() => handleUpdate(configurationCrossing.id)}
-                  />
+                  /> */}
+                  <button
+                    // onChange={onEdit}
+                    onClick={() => setIsOpenUpdate(true)}
+                    style={{ background: 'none', color: 'yellow' }}
+                    title='Editar?'
+                  >
+                    <FaEdit size={20} />
+                  </button>
                 </S.GridConfirmation>
               </li>,
             )
@@ -134,6 +144,34 @@ export default function
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <S.Container>
+            <S.Form onSubmit={handleSubmit(onSubmit)}>
+              <TextField
+                label='Descrição'
+                errorMessage={errors.description?.message}
+                {...register('description', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Nome'
+                {...register('name', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+              <button type='submit'>Salvar</button>
+            </S.Form>
+          </S.Container>
+        </Modal>
+
+        <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField

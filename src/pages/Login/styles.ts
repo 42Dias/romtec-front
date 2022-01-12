@@ -136,7 +136,7 @@ export const Password = styled.div`
     right: 0;
     bottom: 0;
     left: 410px;
-    top: 25px;
+    top: 22px;
 
     @media (max-width: 520px) {
       left: 280px;
