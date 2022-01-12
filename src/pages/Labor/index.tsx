@@ -12,6 +12,7 @@ import { toast } from 'react-toastify'
 import * as S from './styled'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import EditButton from '../../ui/Components/EditButton/EditButton'
+import { FaEdit } from 'react-icons/fa'
 
 type FormData = {
   nIdentificacao: string;
@@ -30,6 +31,7 @@ type FormData = {
 export default function
 Labor () {
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
   const [maoDeObras, setMaoDeObra] = useState<any[]>([])
@@ -166,9 +168,14 @@ Labor () {
                   <DeleteButton
                     onDelete={() => handleDelete(maoDeObra.id)}
                   />
-                  <EditButton
-                    onEdit={() => handleUpdate(maoDeObra.id)}
-                  />
+                  <button
+                    // onChange={onEdit}
+                    onClick={() => setIsOpenUpdate(true)}
+                    style={{ background: 'none', color: 'yellow' }}
+                    title='Editar?'
+                  >
+                    <FaEdit size={20} />
+                  </button>
                 </S.GridConfirmation>
               </li>,
             )
@@ -176,6 +183,126 @@ Labor () {
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <S.Container>
+            <S.Form onSubmit={handleSubmit(onSubmit)}>
+
+              <TextField
+                label='N° de identificação'
+                type='number'
+                id='nIdentificacao'
+                errorMessage={errors.nIdentificacao?.message}
+                {...register('nIdentificacao', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Nome'
+                id='nome'
+                {...register('nome', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='RG'
+                id='rg'
+                type='number'
+                {...register('rg', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='CPF'
+                id='cpf'
+                type='number'
+                {...register('cpf', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Celular'
+                id='celular'
+                type='phone'
+                {...register('celular', {
+                  required: true,
+                })}
+              />
+
+              {/* <TextField
+                label='CEP'
+                id='cep'
+                type='cep'
+                {...register('cep', {
+                  required: true,
+                })}
+              /> */}
+
+              {/* <TextField
+                label='Cidade'
+                id='cidade'
+                {...register('cidade', {
+                  required: true,
+                })}
+              /> */}
+
+              <TextField
+                label='Função'
+                id='funcao'
+                {...register('funcao', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Validade do certificado'
+                type='date'
+                id='validadeCertificado'
+                {...register('validadeCertificado', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Número do certificado'
+                type='number'
+                id='numero'
+                {...register('numero', {
+                  required: true,
+                })}
+              />
+
+              <fieldset>
+                <label htmlFor='certificate'>Certificado</label>
+                <select id='certificate' {...register('certificate')}>
+                  <option value=''>Select...</option>
+                  <option value='Navegador'>Navegador</option>
+                  <option value='Operador'>Operador</option>
+                  <option value='Outro'>Outro</option>
+                </select>
+              </fieldset>
+
+              <button type='submit'>
+                {loading
+                  ? <img
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height=''
+                      src='https://contribua.org/mb-static/images/loading.gif'
+                      alt='Loading'
+                    />
+                  : 'Salvar'}
+              </button>
+            </S.Form>
+          </S.Container>
+        </Modal>
+
+        <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
 

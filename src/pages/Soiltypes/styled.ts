@@ -63,11 +63,21 @@ export const GridConfirmation = styled.div`
       opacity: 80%;
     }
   }
+
+  @media (max-width: 520px) {
+    overflow: auto;
+    span {
+      margin: 0 30px;
+    }
+  }
 `
 
 export const Form = styled.form`
-  display: grid;
+ display: grid;
   grid-template-columns: 1fr 1fr;
+
+
+  
   justify-items: center;
   align-items: center;
 
@@ -82,9 +92,17 @@ export const Form = styled.form`
     background: ${theme.colors.darkBlack};
     color: ${theme.colors.yellow};
 
+
     :focus {
       border: 1px solid ${theme.colors.yellow};
       background: transparent;
+    }
+
+    @media(max-width: 520px) {
+      width: 280px;  
+      margin: 10px 0;
+      padding: 0;
+      margin-right: 90px;
     }
   }
 
@@ -106,17 +124,22 @@ export const Form = styled.form`
   span {
     color: ${theme.colors.red};
     font-size: 10px;
+    margin: 0 0 0 15px;
   }
 
   fieldset {
     border: 0;
-    margin: 5px 1px 5px 14px;
+    margin: 5px 1px 5px 22px;
   }
 `
 
 export const Div = styled.div`
-  display: grid;
+   display: grid;
   grid-template-columns: 1fr 1fr;
+
+  @media (max-width: 520px) {
+    grid-template-columns: 1fr;
+  }
   justify-items: center;
   align-items: center;
 
@@ -131,9 +154,17 @@ export const Div = styled.div`
     background: ${theme.colors.darkBlack};
     color: ${theme.colors.yellow};
 
+
     :focus {
       border: 1px solid ${theme.colors.yellow};
       background: transparent;
+    }
+
+    @media(max-width: 520px) {
+      width: 280px;  
+      margin: 10px 0;
+      padding: 0;
+      margin-right: 90px;
     }
   }
 
@@ -155,11 +186,12 @@ export const Div = styled.div`
   span {
     color: ${theme.colors.red};
     font-size: 10px;
+    margin: 0 0 0 15px;
   }
 
   fieldset {
     border: 0;
-    margin: 5px 1px 5px 14px;
+    margin: 5px 1px 5px 22px;
   }
 `
 export const Container = styled.aside`
@@ -170,7 +202,6 @@ export const Container = styled.aside`
 export const ContentForm = styled.div`
   display: flex;
   flex-direction: column;
-
   label {
     font-size: 14px;
     color: ${theme.colors.white};

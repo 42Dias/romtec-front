@@ -59,11 +59,22 @@ export const GridConfirmation = styled.div`
       opacity: 80%;
     }
   }
+
+  @media (max-width: 520px) {
+    overflow: auto;
+    span {
+      margin: 0 30px;
+    }
+  }
 `
 
 export const Form = styled.form`
   display: grid;
   grid-template-columns: 1fr 1fr;
+
+  @media (max-width: 520px) {
+    grid-template-columns: 1fr;
+  }
   justify-items: center;
   align-items: center;
 

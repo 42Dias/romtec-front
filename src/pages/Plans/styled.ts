@@ -64,6 +64,9 @@ export const GridConfirmation = styled.div`
 export const Form = styled.form`
   display: grid;
   grid-template-columns: 1fr 1fr;
+  @media (max-width: 520px) {
+    grid-template-columns: 1fr;
+  }
   justify-items: center;
   align-items: center;
 
@@ -81,6 +84,13 @@ export const Form = styled.form`
     :focus {
       border: 1px solid ${theme.colors.yellow};
       background: transparent;
+    }
+
+    @media(max-width: 520px) {
+      width: 280px;  
+      margin: 10px 0;
+      margin-right: 90px;
+      padding: 0;
     }
   }
 

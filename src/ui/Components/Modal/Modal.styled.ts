@@ -14,7 +14,7 @@ export const Modal = styled.div`
   justify-content: center;
 
   @media (max-width: 520px) {
-    height: 210vh;
+    height: 250vh;
   }
 `
 
@@ -28,6 +28,7 @@ export const Container = styled.div`
 
   @media (max-width: 520px) {
     width: 90%;
+    padding: 0;
   }
 
   button {

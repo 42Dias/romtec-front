@@ -11,6 +11,7 @@ export const ContainerConfirmation = styled.div`
     font-size: 24px;
     padding: 20px 0;
   }
+
   button {
     width: 54px;
     height: 44px;
@@ -47,7 +48,6 @@ export const GridConfirmation = styled.div`
   padding: 20px;
   border-radius: 5px;
   margin-bottom: 13px;
-
 
   .exec {
     width: 155px;
@@ -86,6 +86,19 @@ export const GridConfirmation = styled.div`
 
     :hover {
       opacity: 80%;
+    }
+  }
+
+  @media (max-width: 520px) {
+    overflow: auto;
+    span {
+      margin: 0 30px;
+    }
+
+    display: flex;
+
+    button {
+      display: flex;  
     }
   }
 `

@@ -38,6 +38,8 @@ export const ContainerConfirmation = styled.div`
   ul {
     list-style: none;
   }
+
+
 `
 
 export const GridConfirmation = styled.div`
@@ -59,11 +61,22 @@ export const GridConfirmation = styled.div`
       opacity: 80%;
     }
   }
+
+  @media (max-width: 520px) {
+    overflow: auto;
+    span {
+      margin: 0 30px;
+    }
+  }
 `
 
 export const Form = styled.form`
   display: grid;
   grid-template-columns: 1fr 1fr;
+
+  @media (max-width: 520px) {
+    grid-template-columns: 1fr;
+  }
   justify-items: center;
   align-items: center;
 
@@ -78,9 +91,17 @@ export const Form = styled.form`
     background: ${theme.colors.darkBlack};
     color: ${theme.colors.yellow};
 
+
     :focus {
       border: 1px solid ${theme.colors.yellow};
       background: transparent;
+    }
+
+    @media(max-width: 520px) {
+      width: 280px;  
+      margin: 10px 0;
+      padding: 0;
+      margin-right: 90px;
     }
   }
 

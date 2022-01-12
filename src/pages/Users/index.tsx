@@ -9,7 +9,7 @@ import { toast } from 'react-toastify'
 import { api, ip } from '../../services/api'
 
 export default function
- Users () {
+Users () {
   const [isOpen, setIsOpen] = useState(false)
   // eslint-disable-next-line
   const [loading, setLoading] = useState(false)
@@ -197,4 +197,3 @@ export default function
     </>
   )
 }
-
