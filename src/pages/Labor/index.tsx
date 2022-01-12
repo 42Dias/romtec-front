@@ -12,6 +12,7 @@ import { toast } from 'react-toastify'
 import * as S from './styled'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import EditButton from '../../ui/Components/EditButton/EditButton'
+import { FaEdit } from 'react-icons/fa'
 
 type FormData = {
   nIdentificacao: string;
@@ -28,18 +29,29 @@ type FormData = {
 }
 
 export default function
- Labor () {
+  Labor() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
   const [maoDeObras, setMaoDeObra] = useState<any[]>([])
+  const [id, setId] = useState('')
+  const [nIdentificacao, setNIdentificacao] = useState('')
+  const [nome, setNome] = useState('')
+  const [rg, setRg] = useState('')
+  const [cpf, setCpf] = useState('')
+  const [funcao, setFuncao] = useState('')
+  const [validadeCertificado, setValidadeCertificado] = useState('')
+  const [certificate, setCertificate] = useState('')
+  const [celular, setCelular] = useState('')
+  const [numero, setNumero] = useState('')
 
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
     console.log(data)
     Cadastro(data)
     reset()
   }
-  async function Cadastro (submit: any) {
+  async function Cadastro(submit: any) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.post('mao-de-obra', {
@@ -64,7 +76,7 @@ export default function
     })
   }
 
-  async function loadDados () {
+  async function loadDados() {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.get('mao-de-obra',
@@ -81,7 +93,7 @@ export default function
     })
   }
   // eslint-disable-next-line
-  async function deleteDados (id: string) {
+  async function deleteDados(id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('mao-de-obra/' + id,
@@ -96,28 +108,51 @@ export default function
       setLoading(false)
     })
   }
+  function update(dados: any) {
+    console.log('dados')
+    console.log(dados)
+    setId(dados.id)
+    setNIdentificacao(dados.nIdentificacao)
+    setNome(dados.nome)
+    setFuncao(dados.funcao)
+    setValidadeCertificado(dados.validadeCertificado)
+    setCertificate(dados.certificate)
+    setCelular(dados.celular)
+    setRg(dados.rg)
+    setCpf(dados.cpf)
+    setNumero(dados.numero)
+    console.log(nIdentificacao)
+    setIsOpenUpdate(true)
+  }
+  async function updateDados() {
+    setLoading(true)
+    console.log('nIdentificacao')
+    console.log(nIdentificacao)
+    const responser = api.put('mao-de-obra/' + id, {
+      data: {
+        nIdentificacao: nIdentificacao,
+        nome: nome,
+        rg: rg,
+        cpf: cpf,
+        celular: celular,
+        funcao: funcao,
+        validadeCertificado: validadeCertificado,
+        numero: numero,
+        certificate: certificate,
+      }
+    }
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setIsOpenUpdate(false)
+        setLoading(false)
+      }
+    })
+  }
   useEffect(() => {
     setLoading(true)
     loadDados()
   }, [])
-
-  function handleDelete (id: string) {
-    setMaoDeObra(maoDeObras =>
-      maoDeObras.filter(maoDeObra => maoDeObra.id !== id),
-    )
-  }
-
-  const handleUpdate = (id: string) => {
-    setMaoDeObra(maoDeObras => maoDeObras.map(maoDeObra => {
-      if (maoDeObra.id === id) {
-        return {
-          ...maoDeObra,
-        }
-      }
-
-      return maoDeObra
-    }))
-  }
 
   return (
     <>
@@ -148,7 +183,7 @@ export default function
                   <span>
                     {maoDeObra.nome}
                   </span>
-                 {/* <span>
+                  {/* <span>
                     {maoDeObra.cep}
                   </span>
                   <span>
@@ -164,11 +199,19 @@ export default function
                     {maoDeObra.validadeCertificado}
                   </span>
                   <DeleteButton
-                    onDelete={() => handleDelete(maoDeObra.id)}
+                    onDelete={() => deleteDados(maoDeObra.id)}
                   />
-                  <EditButton
-                    onEdit={() => handleUpdate(maoDeObra.id)}
-                  />
+                  {/* <EditButton
+                    onEdit={() => update(maoDeObra)}
+                  /> */}
+                  <button
+                    //onChange={onEdit}
+                    onClick={() => update(maoDeObra)}
+                    style={{ background: 'none', color: 'yellow' }}
+                    title='Editar?'
+                  >
+                    <FaEdit size={20} />
+                  </button>
                 </S.GridConfirmation>
               </li>,
             )
@@ -283,15 +326,122 @@ export default function
               <button type='submit'>
                 {loading
                   ? <img
-                      width='40px'
-                      style={{ margin: 'auto' }}
-                      height=''
-                      src='https://contribua.org/mb-static/images/loading.gif'
-                      alt='Loading'
-                    />
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height=''
+                    src='https://contribua.org/mb-static/images/loading.gif'
+                    alt='Loading'
+                  />
                   : 'Salvar'}
               </button>
             </S.Form>
+          </S.Container>
+        </Modal>
+
+        <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
+          <S.Container>
+            <S.Div > 
+
+              <TextField
+                label='N° de identificação'
+                type='number'
+                id='nIdentificacao'
+                value={nIdentificacao}
+                onChange={(text) => setNIdentificacao(text.target.value)}
+              />
+
+              <TextField
+                label='Nome'
+                id='nome'
+                value={nome}
+                onChange={(text) => setNome(text.target.value)}
+              />
+
+              <TextField
+                label='RG'
+                id='rg'
+                type='number'
+                value={rg}
+                onChange={(text) => setRg(text.target.value)}
+              />
+
+              <TextField
+                label='CPF'
+                id='cpf'
+                type='number'
+                value={cpf}
+                onChange={(text) => setCpf(text.target.value)}
+              />
+
+              <TextField
+                label='Celular'
+                id='celular'
+                type='phone'
+                value={celular}
+                onChange={(text) => setCelular(text.target.value)}
+              />
+
+              {/* <TextField
+                label='CEP'
+                id='cep'
+                type='cep'
+                {...register('cep', {
+                  required: true,
+                })}
+              /> */}
+
+              {/* <TextField
+                label='Cidade'
+                id='cidade'
+                {...register('cidade', {
+                  required: true,
+                })}
+              /> */}
+
+              <TextField
+                label='Função'
+                id='funcao'
+                value={funcao}
+                onChange={(text) => setFuncao(text.target.value)}
+              />
+
+              <TextField
+                label='Validade do certificado'
+                type='date'
+                id='validadeCertificado'
+                value={validadeCertificado}
+                onChange={(text) => setValidadeCertificado(text.target.value)}
+              />
+
+              <TextField
+                label='Número do certificado'
+                type='number'
+                value={numero}
+                onChange={(text) => setNumero(text.target.value)}
+              />
+
+              <fieldset>
+                <label htmlFor='certificate'>Certificado</label>
+                <select id='certificate' {...register('certificate')}>
+                  <option value=''>Select...</option>
+                  <option value='Navegador'>Navegador</option>
+                  <option value='Operador'>Operador</option>
+                  <option value='Outro'>Outro</option>
+                </select>
+              </fieldset>
+
+              <button onClick={() => updateDados()}>
+                {loading
+                  ? <img
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height=''
+                    src='https://contribua.org/mb-static/images/loading.gif'
+                    alt='Loading'
+                  />
+                  : 'Salvar'}
+              </button>
+            </S.Div>
           </S.Container>
         </Modal>
       </S.ContainerConfirmation>
