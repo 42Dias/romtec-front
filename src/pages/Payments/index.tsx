@@ -11,6 +11,7 @@ import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import EditButton from '../../ui/Components/EditButton/EditButton'
+import { FaEdit } from 'react-icons/fa'
 
 type FormData = {
   ano: Date,
@@ -20,8 +21,9 @@ type FormData = {
 }
 
 export default function
- Payments () {
+Payments () {
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
   const [pagamentos, setPagamentos] = useState<any[]>([])
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
@@ -120,15 +122,69 @@ export default function
                   <DeleteButton
                     onDelete={() => handleDelete(pagamento.id)}
                   />
-                  <EditButton
-                    onEdit={() => handleUpdate(pagamento.id)}
-                  />
+                  <button
+                    // onChange={onEdit}
+                    onClick={() => setIsOpenUpdate(true)}
+                    style={{ background: 'none', color: 'yellow' }}
+                    title='Editar?'
+                  >
+                    <FaEdit size={20} />
+                  </button>
                 </S.GridConfirmation>
               </li>,
             )
             : <p>🤔 Nenhum pagamento cadastrado</p>}
         </ul>
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <S.Container>
+            <S.Form onSubmit={handleSubmit(onSubmit)}>
+              <TextField
+                label=/* 'Ano de pagamento' */'Data de pagamento'
+                errorMessage={errors.dataPagamento?.message}
+                type='date'
+                id='dataPagamento'
+                {...register('dataPagamento', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              />
+
+              {/* <TextField
+                label='Mês de pagamento'
+                type='date'
+                id='mes'
+                {...register('mes', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Dia de pagamento'
+                type='date'
+                id='payday'
+                {...register('payday', {
+                  required: true,
+                })}
+              /> */}
+
+              <TextField
+                label='Valor de pagamento'
+                type='number'
+                id='valorPago'
+                {...register('valorPago', {
+                  required: true,
+                })}
+              />
+
+              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+            </S.Form>
+          </S.Container>
+          {/* eslint-disable-next-line */}
+        </Modal>
+
+        <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField

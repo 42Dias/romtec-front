@@ -11,6 +11,7 @@ import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import EditButton from '../../ui/Components/EditButton/EditButton'
+import { FaEdit } from 'react-icons/fa'
 
 type FormData = {
   codigo: string;
@@ -25,8 +26,9 @@ type FormData = {
 }
 
 export default function
- Rods () {
+Rods () {
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
   const [hastes, setHastes] = useState<any[]>([])
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
@@ -131,15 +133,95 @@ export default function
                   <DeleteButton
                     onDelete={() => handleDelete(haste.id)}
                   />
-                  <EditButton
-                    onEdit={() => handleUpdate(haste.id)}
-                  />
+                  <button
+                    // onChange={onEdit}
+                    onClick={() => setIsOpenUpdate(true)}
+                    style={{ background: 'none', color: 'yellow' }}
+                    title='Editar?'
+                  >
+                    <FaEdit size={20} />
+                  </button>
                 </S.GridConfirmation>
               </li>,
             )
             : <p>🤔 Nenhuma haste cadastrada</p>}
         </ul>
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <S.Container>
+            <S.Form onSubmit={handleSubmit(onSubmit)}>
+              <TextField
+                label='Código do jogo de Hastes'
+                errorMessage={errors.codigo?.message}
+                {...register('codigo', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Raio de curvatura'
+                {...register('raioCurvatura', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Diâmetro do tubo(mm)*'
+                {...register('diametroTubo', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Estado geral/condição'
+                {...register('condicao', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Diâmetro do Tool Joint(mm)'
+                {...register('diametroToolJoint', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Torque máximo'
+                {...register('torque', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Comprimento total(m)'
+                {...register('comprimentoTotal', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Modelo da Rosca'
+                {...register('modeloRosca', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Quantidade de hastes'
+                type='number'
+                {...register('quantidade', {
+                  required: true,
+                })}
+              />
+              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+            </S.Form>
+          </S.Container>
+        </Modal>
+
+        <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField

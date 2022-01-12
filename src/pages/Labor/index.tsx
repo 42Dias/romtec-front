@@ -29,7 +29,7 @@ type FormData = {
 }
 
 export default function
-  Labor() {
+Labor () {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -165,8 +165,8 @@ export default function
         <S.GridConfirmation>
           <span>N° de identificação</span>
           <span>Nome</span>
-          {/*<span>CEP</span>
-          <span>Cidade</span>*/}
+          {/* <span>CEP</span>
+          <span>Cidade</span> */}
           <span>Função</span>
           <span>Celular</span>
           <span>Validade do certificado</span>
@@ -188,7 +188,7 @@ export default function
                   </span>
                   <span>
                     {maoDeObra.cidade}
-                  </span>*/}
+                  </span> */}
                   <span>
                     {maoDeObra.funcao}
                   </span>

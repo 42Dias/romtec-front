@@ -12,6 +12,7 @@ import * as S from './styles'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 import EditButton from '../../ui/Components/EditButton/EditButton'
+import { FaEdit } from 'react-icons/fa'
 
 type FormData = {
   cnpj: string;
@@ -29,8 +30,9 @@ type FormData = {
 }
 
 export default function
- Companies () {
+Companies () {
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
   const [companhias, setCompanhias] = useState<any[]>([])
 
@@ -152,9 +154,17 @@ export default function
                   <DeleteButton
                     onDelete={() => handleDelete(companhia.id)}
                   />
-                  <EditButton
+                  {/* <EditButton
                     onEdit={() => handleUpdate(companhia.id)}
-                  />
+                  /> */}
+                  <button
+                    // onChange={onEdit}
+                    onClick={() => setIsOpenUpdate(true)}
+                    style={{ background: 'none', color: 'yellow' }}
+                    title='Editar?'
+                  >
+                    <FaEdit size={20} />
+                  </button>
                 </S.GridConfirmation>
               </li>,
             )
@@ -162,6 +172,136 @@ export default function
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <S.Container>
+            <S.Form onSubmit={handleSubmit(onSubmit)}>
+              <TextField
+                label='CNPJ'
+                errorMessage={errors.cnpj?.message}
+                {...register('cnpj', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Razão Social'
+                {...register('razaoSocial', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Nome Fantasia'
+                {...register('nomeFantasia', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='CEP'
+                {...register('cep', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Cidade'
+                {...register('cidade', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Estado'
+                {...register('estado', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Bairro'
+                {...register('bairro', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Logradouro'
+                {...register('logradouro', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Número'
+                {...register('numero', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='E-mail'
+                {...register('email', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Telefone'
+                {...register('tel', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Responsável Técnico'
+                {...register('responsavelTecnico', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+            </S.Form>
+          </S.Container>
+          {/* eslint-disable-next-line */}
+        </Modal>
+
+        <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField

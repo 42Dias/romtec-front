@@ -11,6 +11,7 @@ import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import EditButton from '../../ui/Components/EditButton/EditButton'
+import { FaEdit } from 'react-icons/fa'
 
 type FormData = {
   cnpj: string;
@@ -26,8 +27,9 @@ type FormData = {
 }
 
 export default function
- Customers () {
+Customers () {
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
   const [clientes, setClientes] = useState<any[]>([])
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
@@ -43,9 +45,9 @@ export default function
     const responser = api.post('clientes', {
       data: submit,
     }).then((response) => {
-      console.log(response);
-      if (response.statusText === "OK") {
-        toast.success('Cliente cadastrado com sucesso!');
+      console.log(response)
+      if (response.statusText === 'OK') {
+        toast.success('Cliente cadastrado com sucesso!')
         setLoading(false)
         loadDados()
       } else if (response.statusText === 'Forbidden') {
@@ -56,8 +58,8 @@ export default function
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res);
-      toast.error(res.response.data);
+      console.log(res)
+      toast.error(res.response.data)
       setLoading(false)
     })
   }
@@ -121,7 +123,7 @@ export default function
           <span>Número</span>
           <span>Complemento</span>
         </S.GridConfirmation>
-        {/*clientes.length > 0 ?
+        {/* clientes.length > 0 ?
         clientes.map((cliente) =>
           <S.GridConfirmation>
             <span>{cliente.cnpj}</span>
@@ -135,34 +137,152 @@ export default function
             <span>{cliente.numero}</span>
             <span>{cliente.complemento}</span>
           </S.GridConfirmation>
-        ): 'Nenhum Cliente cadastrado!'*/}
+        ): 'Nenhum Cliente cadastrado!' */}
 
         <ul>
-          {clientes.length > 0 ?
-          clientes.map((cliente) =>
-            <li key={cliente.id}>
-              <S.GridConfirmation>
-                <span>{cliente.cnpj}</span>
-                <span>{cliente.razaoSocial}</span>
-                <span>{cliente.nomeFantasia}</span>
-                <span>{cliente.cep}</span>
-                <span>{cliente.uf}</span>
-                <span>{cliente.cidade}</span>
-                <span>{cliente.bairro}</span>
-                <span>{cliente.logradouro}</span>
-                <span>{cliente.numero}</span>
-                <span>{cliente.complemento}</span>
-                <DeleteButton
-                  onDelete={() => handleDelete(cliente.id)}
-                />
-                <EditButton
-                  onEdit={() => handleUpdate(cliente.id)}
-                />
-              </S.GridConfirmation>
-            </li>,
-          ): 'Nenhum Cliente cadastrado!'}
+          {clientes.length > 0
+            ? clientes.map((cliente) =>
+              <li key={cliente.id}>
+                <S.GridConfirmation>
+                  <span>{cliente.cnpj}</span>
+                  <span>{cliente.razaoSocial}</span>
+                  <span>{cliente.nomeFantasia}</span>
+                  <span>{cliente.cep}</span>
+                  <span>{cliente.uf}</span>
+                  <span>{cliente.cidade}</span>
+                  <span>{cliente.bairro}</span>
+                  <span>{cliente.logradouro}</span>
+                  <span>{cliente.numero}</span>
+                  <span>{cliente.complemento}</span>
+                  <DeleteButton
+                    onDelete={() => handleDelete(cliente.id)}
+                  />
+                  <button
+                    // onChange={onEdit}
+                    onClick={() => setIsOpenUpdate(true)}
+                    style={{ background: 'none', color: 'yellow' }}
+                    title='Editar?'
+                  >
+                    <FaEdit size={20} />
+                  </button>
+                </S.GridConfirmation>
+              </li>,
+            )
+            : 'Nenhum Cliente cadastrado!'}
         </ul>
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <S.Container>
+            <S.Form onSubmit={handleSubmit(onSubmit)}>
+              <TextField
+                label='CNPJ'
+                type='number'
+                errorMessage={errors.cnpj?.message}
+                {...register('cnpj', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Razão Social'
+                {...register('razaoSocial', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Nome Fantasia'
+                {...register('nomeFantasia', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='CEP'
+                type='number'
+                {...register('cep', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='UF'
+                {...register('uf', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Cidade'
+                {...register('cidade', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Bairro'
+                {...register('bairro', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Logradouro'
+                {...register('logradouro', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Número'
+                type='number'
+                {...register('numero', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Complemento'
+                {...register('complemento', {
+                  required: {
+                    value: true,
+                    message: '',
+                  },
+                })}
+              />
+
+              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+            </S.Form>
+          </S.Container>
+        </Modal>
+
+        <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField

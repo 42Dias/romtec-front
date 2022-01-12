@@ -18,7 +18,7 @@ import { FiPlus, FiCheck, FiPlay, FiLock, FiX } from 'react-icons/fi'
 SwiperCore.use([Pagination, Navigation])
 
 export default function
- Phases () {
+Phases () {
   const [modalIsOpen, setIsOpen] = useState(false)
   const [modalIsOpen2, setIsOpen2] = useState(false)
   const [modalIsOpen3, setIsOpen3] = useState(false)
@@ -157,10 +157,10 @@ export default function
       <S.ContainerConfirmation>
         <h2>Selecione uma etapa</h2>
         <div className='buttons'>
-          <button onClick={() => openModal6} className='add'>
+          <button onClick={openModal6} className='add'>
             <FiPlus />
           </button>
-          <button onClick={() => openModal7} className='import'>
+          <button onClick={openModal7} className='import'>
             Importar modelo
           </button>
         </div>
@@ -177,7 +177,7 @@ export default function
             onAfterOpen={() => afterOpenModal}
             onRequestClose={() => closeModal6}
           >
-            <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={() => closeModal6}><FiX color='white' /></button>
+            <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModal6}><FiX color='white' /></button>
 
             <S.PhasesModal>
               <h2>Nome da etapa</h2>
@@ -215,7 +215,7 @@ export default function
               </div>
 
               <button className='save'>Salvar</button>
-              <button onClick={() => openModal8} className='saveModel'>Salvar modelo</button>
+              <button onClick={openModal8} className='saveModel'>Salvar modelo</button>
             </S.PhasesModal>
 
           </Modal>
@@ -232,7 +232,7 @@ export default function
           onAfterOpen={() => afterOpenModal}
           onRequestClose={() => closeModal7}
         >
-          <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={() => closeModal7}><FiX color='white' /></button>
+          <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModal7}><FiX color='white' /></button>
 
           <S.ModelsModal>
             <div>
@@ -258,7 +258,7 @@ export default function
           onAfterOpen={() => afterOpenModal}
           onRequestClose={() => closeModal8}
         >
-          <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={() => closeModal8}><FiX color='white' /></button>
+          <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModal8}><FiX color='white' /></button>
 
           <S.PhasesModal>
             <div className='modelsContent'>
@@ -288,31 +288,31 @@ export default function
           navigation
         >
           <SwiperSlide>
-            <button onClick={() => openModal}>
+            <button onClick={openModal}>
               <FiCheck />
               <h1>Planejamento de perfuração</h1>
             </button>
           </SwiperSlide>
           <SwiperSlide>
-            <button onClick={() => openModal2}>
+            <button onClick={openModal2}>
               <FiCheck />
               <h1>Levantamento e Mapeamento de interferências</h1>
             </button>
           </SwiperSlide>
           <SwiperSlide>
-            <button onClick={() => openModal3}>
+            <button onClick={openModal3}>
               <FiCheck />
               <h1>Verificação de Interferências Físicas e Magnéticas</h1>
             </button>
           </SwiperSlide>
           <SwiperSlide>
-            <button onClick={() => openModal4}>
+            <button onClick={openModal4}>
               <FiCheck />
               <h1>Abertura da vala</h1>
             </button>
           </SwiperSlide>
           <SwiperSlide>
-            <button onClick={() => openModal5}>
+            <button onClick={openModal5}>
               <FiPlay />
               <h1>Direcionamento do Furo Piloto</h1>
             </button>

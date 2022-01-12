@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { api } from '../../services/api'
 import { FiPlus } from 'react-icons/fi'
+import { FaEdit } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 
 import * as S from './styled'
@@ -39,8 +40,9 @@ type FormData = {
 }
 
 export default function
- DrillingMachine () {
+DrillingMachine () {
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
   const [loading, setLoading] = useState(false)
   const [maqPerfuratriz, setMaqPerfuratriz] = useState<any[]>([])
@@ -161,9 +163,18 @@ export default function
                   <DeleteButton
                     onDelete={() => handleDelete(maquinas.id)}
                   />
-                  <EditButton
+                  {/* <EditButton
+                    // onClick={() => }
                     onEdit={() => handleUpdate(maquinas.id)}
-                  />
+                  /> */}
+                  <button
+                    // onChange={onEdit}
+                    onClick={() => setIsOpenUpdate(true)}
+                    style={{ background: 'none', color: 'yellow' }}
+                    title='Editar?'
+                  >
+                    <FaEdit size={20} />
+                  </button>
                 </S.GridConfirmation>
               </li>,
             )
@@ -171,6 +182,181 @@ export default function
         </ul>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <S.Container>
+            <S.Form onSubmit={handleSubmit(onSubmit)}>
+              <TextField
+                label='Fabricante'
+                errorMessage={errors.fabricante?.message}
+                {...register('fabricante', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              />
+
+              <TextField
+                label='Nome da Máquina Perfuratriz'
+                {...register('modelo', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Horimetro'
+                {...register('hourmeter', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Última revisão/manutenção'
+                {...register('lastOverhaul', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Próxima revisão/manutenção'
+                {...register('nextOverhaul', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Upload da revisão'
+                {...register('reviewUpload', {
+                  required: true,
+                })}
+              />
+
+              <S.ContentForm>
+                <fieldset>
+                  <label htmlFor='revisionSubtypes'>Subtipos de revisão</label>
+                  <select id='revisionSubtypes' {...register('revisionSubtypes')}>
+                    <option value=''>Select...</option>
+                    <option value='Navegador'>Preventiva</option>
+                    <option value='Operador'>Preditiva</option>
+                    <option value='Outro'>Corretiva</option>
+                  </select>
+                </fieldset>
+              </S.ContentForm>
+
+              <TextField
+                label='Tração (ton)'
+                {...register('tracao', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Compressão (KN)'
+                {...register('compressao', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Torque'
+                {...register('torque', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Rotação Spindle (RPM)'
+                {...register('rotacaoSpindle', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Velocidade Tração (m/min)'
+                {...register('velocidadeTracao', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Velocidade Compressão (m/min)'
+                {...register('velocidadeCompressa', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Diâmetro furo piloto (pol)'
+                {...register('diametroFuroPiloto', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Ângulo de entrada'
+                {...register('anguloEntrada', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Diâmetro nominal (mm)'
+                {...register('diametroNominal', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Raio de curvatura (m)'
+                {...register('raioCurvatura', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Comprimento (m)'
+                {...register('comprimento', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Vazão (L/min)'
+                {...register('vazao', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Pressão (psi)'
+                {...register('pressao', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Alargamento máximo (pol)'
+                {...register('alergamentoMaximo', {
+                  required: true,
+                })}
+              />
+
+              <button
+                type='submit'
+              >{loading
+                ? <img
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height=''
+                    src='https://contribua.org/mb-static/images/loading.gif'
+                    alt='Loading'
+                  />
+                : 'Salvar'}
+              </button>
+            </S.Form>
+          </S.Container>
+        </Modal>
+
+        <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField
