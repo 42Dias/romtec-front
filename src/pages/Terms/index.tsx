@@ -1,7 +1,8 @@
+import { Link } from 'react-router-dom'
 import * as S from './styled'
 
 export default function
- Terms () {
+Terms () {
   return (
     <S.ContainerTerms>
       <S.Content>
@@ -45,6 +46,8 @@ export default function
           Direito de Revogação do Consentimento
           Este consentimento poderá ser revogado pelo Titular, a qualquer momento, mediante solicitação via e-mail ou correspondência ao Controlador.
         </p>
+
+        <Link to='/cadastro'>Voltar</Link>
       </S.Content>
     </S.ContainerTerms>
   )

@@ -11,6 +11,12 @@ export const Content = styled.div`
   width: 800px;
   display: flex;
   flex-direction: column;
+  margin: 30px 0;
+
+  @media (max-width: 520px) {
+    width: 100%;
+    padding: 0 40px;
+  }
 
   h1 {
     font-size: 24px;
@@ -28,5 +34,19 @@ export const Content = styled.div`
     font-size: 14px;
     margin: 0 1px 20px 0;
     text-align: left;
+  }
+
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 200px;
+    height: 35px;
+    background-color: ${theme.colors.yellow};
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 0 auto;
   }
 `
