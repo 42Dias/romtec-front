@@ -74,7 +74,27 @@ margin: 50px auto 0 auto;
 export const Steps = styled.div`
   h2 {
     color: ${theme.colors.yellow};
+  }
+
+  ul {
+    list-style-type: none;
+  }
+
+  .flex-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 80px 0 20px 0;
+    
+    button {
+      width: 200px;
+      height: 40px;
+      border: 0;
+      border-radius: 5px;
+      background: ${theme.colors.yellow};
+      color: ${theme.colors.darkBlack};
+      font-weight: bold;
+    }
   }
 `
 
@@ -134,6 +154,10 @@ export const GridModal = styled.div`
 
 export const ContainerModal = styled.div`
   margin: 40px 0;
+
+  h1 {
+    text-align: center;
+  }
   @media (max-width: 520px) {
     margin: 0;
   }
@@ -193,5 +217,35 @@ export const Btns = styled.div`
 
   button:last-child {
     background-color: ${theme.colors.red};
+  }
+`
+
+export const GridInvite = styled.form`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    label {
+      margin-top: 10px;
+    }
+  }
+
+  input, select {
+    width: 400px;
+    height: 45px;
+    border-radius: 5px;
+    border: 0;
+    margin-top: 7px;
+    padding: 7px;
+    background: #252332;
+  }
+
+  select {
+    color: white;
   }
 `

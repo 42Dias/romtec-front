@@ -10,6 +10,8 @@ import { api, ip } from '../../services/api'
 
 export default function
 Users () {
+  const [isOpenInvite, setIsOpenInvite] = useState(false)
+
   const [isOpen, setIsOpen] = useState(false)
   // eslint-disable-next-line
   const [loading, setLoading] = useState(false)
@@ -67,7 +69,15 @@ Users () {
         </S.Content>
 
         <S.Steps>
-          <h2>Usuários</h2>
+          <div className='flex-title'>
+            <h2>Usuários</h2>
+            <button
+              onClick={() => setIsOpenInvite(true)}
+              title='Editar?'
+            >
+              Convidar usuário
+            </button>
+          </div>
           <ul>
             {user.map((user) => (
               <li key={user.id}>
@@ -188,6 +198,38 @@ Users () {
             <S.Btns>
               <button onClick={() => editUser(user)}>Salvar</button>
               <button onClick={() => setIsOpen(false)}>Cancelar</button>
+            </S.Btns>
+
+          </S.ContainerModal>
+        </Modal>
+
+        <Modal isOpen={isOpenInvite} onClose={() => setIsOpenInvite(false)}>
+          <S.ContainerModal>
+
+            <h1>Convidar usuário</h1>
+
+            <S.GridInvite>
+              <div>
+                <label htmlFor='email'>Email</label>
+                <input type='email' id='email' placeholder='Email do convidado' />
+              </div>
+              <div>
+                <label htmlFor='select'>Selecione o tipo de permissão</label>
+                <select name='' id='select'>
+                  <option value=''>Operador</option>
+                  <option value=''>Equipe civil</option>
+                  <option value=''>Navegação</option>
+
+                  <option value=''>Engenharia Adm</option>
+                  <option value=''>Engenharia User</option>
+                  <option value=''>Mapeamento</option>
+                </select>
+              </div>
+            </S.GridInvite>
+
+            <S.Btns>
+              <button>Salvar</button>
+              <button>Cancelar</button>
             </S.Btns>
 
           </S.ContainerModal>
