@@ -23,7 +23,7 @@ type FormData = {
 }
 
 export default function
-  ProbeHolder() {
+ProbeHolder () {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -36,19 +36,19 @@ export default function
   const [conexaoRosca, setConexaoRosca] = useState('')
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     console.log(data)
     Cadastro(data)
     reset()
   }
 
-  function handleDelete(id: string) {
+  function handleDelete (id: string) {
     setProbeHolders(probeHolders =>
       probeHolders.filter(probeHolder => probeHolder.id !== id),
     )
   }
 
-  async function Cadastro(submit: any) {
+  async function Cadastro (submit: any) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.post('portaSonda', {
@@ -73,7 +73,7 @@ export default function
     })
   }
 
-  async function loadDados() {
+  async function loadDados () {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.get('portaSonda',
@@ -105,7 +105,7 @@ export default function
       setLoading(false)
     })
   }
-  function update(dados: any) {
+  function update (dados: any) {
     console.log('dados')
     console.log(dados)
     setIdPortaSonda(dados.id)
@@ -116,7 +116,7 @@ export default function
     setConexaoRosca(dados.conexaoRosca)
     setIsOpenUpdate(true)
   }
-  async function updateDados() {
+  async function updateDados () {
     setLoading(true)
     const responser = api.put('portaSonda/' + idPortaSonda, {
       data: {
@@ -124,9 +124,9 @@ export default function
         sondaCompativelMarca: sondaCompativelMarca,
         paCompativel: paCompativel,
         numeroJatos: numeroJatos,
-        conexaoRosca: conexaoRosca
-      }
-    }
+        conexaoRosca: conexaoRosca,
+      },
+    },
     ).then((response) => {
       if (response.statusText === 'OK') {
         loadDados()
@@ -231,14 +231,15 @@ export default function
                 })}
               />
               <button type='submit'> {loading
-                  ? <img
+                ? <img
                     width='40px'
                     style={{ margin: 'auto' }}
                     height=''
                     src='https://contribua.org/mb-static/images/loading.gif'
                     alt='Loading'
                   />
-                  : 'Salvar'}</button>
+                : 'Salvar'}
+              </button>
             </S.Form>
           </S.Container>
         </Modal>
@@ -279,15 +280,15 @@ export default function
                 value={conexaoRosca}
                 onChange={(text) => setConexaoRosca(text.target.value)}
               />
-               <button onClick={() => updateDados()}>
+              <button onClick={() => updateDados()}>
                 {loading
                   ? <img
-                    width='40px'
-                    style={{ margin: 'auto' }}
-                    height=''
-                    src='https://contribua.org/mb-static/images/loading.gif'
-                    alt='Loading'
-                  />
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height=''
+                      src='https://contribua.org/mb-static/images/loading.gif'
+                      alt='Loading'
+                    />
                   : 'Salvar'}
               </button>
             </S.Div>
