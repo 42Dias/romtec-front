@@ -12,6 +12,7 @@ import { api } from '../../services/api'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import EditButton from '../../ui/Components/EditButton/EditButton'
 import { FaEdit } from 'react-icons/fa'
+import { backgroundImages } from 'polished'
 
 type FormData = {
   cnpj: string;
@@ -38,6 +39,11 @@ Customers () {
   const [nomeFantasia, setNomeFantasia] = useState('')
   const [cep, setCep] = useState('')
   const [uf, setUf] = useState('')
+  const [cidade, setCidade] = useState('')
+  const [bairro, setBairro] = useState('')
+  const [logradouro, setLogradouro] = useState('')
+  const [numero, setNumero] = useState('')
+  const [complemento, setComplemento] = useState('')
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
@@ -110,6 +116,11 @@ Customers () {
     setNomeFantasia(dados.nomeFantasia)
     setCep(dados.cep)
     setUf(dados.uf)
+    setCidade(dados.cidade)
+    setBairro(dados.bairro)
+    setLogradouro(dados.logradouro)
+    setNumero(dados.numero)
+    setComplemento(dados.complemento)
     setIsOpenUpdate(true)
   }
   async function updateDados() {
@@ -320,113 +331,72 @@ Customers () {
 
         <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
-            <S.Form onSubmit={handleSubmit(onSubmit)}>
+            <S.Div>
               <TextField
                 label='CNPJ'
                 type='number'
-                errorMessage={errors.cnpj?.message}
-                {...register('cnpj', {
-                  required: {
-                    value: true,
-                    message: 'Todos os campos são obrigatórios',
-                  },
-                })}
+                value={cnpj} 
+                onChange={(text) => setCnpj(text.target.value)}
               />
 
               <TextField
                 label='Razão Social'
-                {...register('razaoSocial', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
+                value={razaoSocial} 
+                onChange={(text) => setRazaoSocial(text.target.value)}
               />
 
               <TextField
                 label='Nome Fantasia'
-                {...register('nomeFantasia', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
+                value={nomeFantasia} 
+                onChange={(text) => setNomeFantasia(text.target.value)}
               />
 
               <TextField
                 label='CEP'
                 type='number'
-                {...register('cep', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
+                value={cep} 
+                onChange={(text) => setCep(text.target.value)}
               />
 
               <TextField
                 label='UF'
-                {...register('uf', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
+                value={uf} 
+                onChange={(text) => setUf(text.target.value)}
               />
 
               <TextField
                 label='Cidade'
-                {...register('cidade', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
+                value={cidade} 
+                onChange={(text) => setCidade(text.target.value)}
               />
 
               <TextField
                 label='Bairro'
-                {...register('bairro', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
+                value={bairro} 
+                onChange={(text) => setBairro(text.target.value)}
               />
 
               <TextField
                 label='Logradouro'
-                {...register('logradouro', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
+                value={logradouro} 
+                onChange={(text) => setLogradouro(text.target.value)}
               />
 
               <TextField
                 label='Número'
                 type='number'
-                {...register('numero', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
+                value={numero} 
+                onChange={(text) => setNumero(text.target.value)}
               />
 
               <TextField
                 label='Complemento'
-                {...register('complemento', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
+                value={complemento} 
+                onChange={(text) => setComplemento(text.target.value)}
               />
 
-              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
-            </S.Form>
+              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+            </S.Div>
           </S.Container>
         </Modal>
       </S.ContainerConfirmation>
