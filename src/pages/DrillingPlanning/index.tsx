@@ -16,10 +16,10 @@ type FormData = {
 }
 
 export default function
- DrillingPlanning () {
+  DrillingPlanning() {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
     console.log(data)
 
     reset()
