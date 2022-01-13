@@ -26,6 +26,10 @@ Plans () {
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
   const [planos, setPlanos] = useState<any[]>([])
+  const [idPlanos, setIdPlanos] = useState('')
+  const [nome, setNome] = useState('')
+  const [valor, setValor] = useState('')
+  const [periodo, setPeriodo] = useState('')
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
@@ -41,7 +45,7 @@ Plans () {
     }).then((response) => {
       console.log(response)
       if (response.statusText === 'OK') {
-        toast.success('Recebemos o seu registro')
+        toast.success('Plano Cadastrado com sucesso!')
         setLoading(false)
         loadDados()
       } else if (response.statusText === 'Forbidden') {
@@ -74,28 +78,56 @@ Plans () {
       setLoading(false)
     })
   }
+  async function deleteDados (id: string) {
+    setLoading(true)
+    toast.info("Deletando...")
+    // eslint-disable-next-line
+    const responser = api.delete('plano/' + id,
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
+  }
+  function update(dados: any) {
+    console.log('dados')
+    console.log(dados)
+    setIdPlanos(dados.id)
+    setNome(dados.nome)
+    setNome(dados.nome)
+    setValor(dados.valor)
+    setPeriodo(dados.periodo)
+    setIsOpenUpdate(true)
+  }
+  async function updateDados() {
+    setLoading(true)
+    const responser = api.put('plano/' + idPlanos, {
+      data: {
+        nome: nome,
+        valor: valor,
+        periodo: periodo,
+      }
+    }
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setIsOpenUpdate(false)
+        setLoading(false)
+      }
+    }).catch((error) => {
+      setLoading(false)
+      toast.error(error.response.data)
+    })
+  }
   useEffect(() => {
     setLoading(true)
     loadDados()
   }, [])
-
-  function handleDelete (id: string) {
-    setPlanos(planos =>
-      planos.filter(plano => plano.id !== id),
-    )
-  }
-
-  const handleUpdate = (id: string) => {
-    setPlanos(planos => planos.map(plano => {
-      if (plano.id === id) {
-        return {
-          ...plano,
-        }
-      }
-
-      return plano
-    }))
-  }
 
   return (
     <>
@@ -120,11 +152,11 @@ Plans () {
                   <span>{plano.valor}</span>
                   <span>{plano.periodo}</span>
                   <DeleteButton
-                    onDelete={() => handleDelete(plano.id)}
+                    onDelete={() => deleteDados(plano.id)}
                   />
                   <button
                     // onChange={onEdit}
-                    onClick={() => setIsOpenUpdate(true)}
+                    onClick={() => update(plano)}
                     style={{ background: 'none', color: 'yellow' }}
                     title='Editar?'
                   >
@@ -187,25 +219,20 @@ Plans () {
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 label='Nome'
-                errorMessage={errors.nome?.message}
-                {...register('nome', {
-                  required: {
-                    value: true,
-                    message: 'Todos os campos são obrigatórios',
-                  },
-                })}
+                value={nome} 
+                onChange={(text) => setNome(text.target.value)}
               />
 
               <TextField
                 label='Valor'
-                {...register('valor', {
-                  required: true,
-                })}
+                value={valor} 
+                onChange={(text) => setValor(text.target.value)}
               />
 
               <fieldset>
                 <label htmlFor='periodo'>Periodo</label>
-                <select id='periodo' {...register('periodo')}>
+                <select id='periodo'  value={periodo} 
+                onChange={(text) => setPeriodo(text.target.value)}>
                   <option value=''>Select...</option>
                   <option value='Mensal'>Mensal</option>
                   <option value='Semestral'>Semestral</option>
@@ -213,7 +240,7 @@ Plans () {
                 </select>
               </fieldset>
 
-              <button type='submit'>
+              <button onClick={() => updateDados()}>
                 {loading
                   ? <img
                       width='40px'

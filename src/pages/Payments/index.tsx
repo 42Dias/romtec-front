@@ -26,6 +26,11 @@ Payments () {
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
   const [pagamentos, setPagamentos] = useState<any[]>([])
+  const [idPagamento, setIdPagamento] = useState('')
+  const [ano, setAno] = useState('')
+  const [mes, setMes] = useState('')
+  const [dataPagamento, setDataPagamento] = useState('')
+  const [valorPago, setValorPago] = useState('')
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
@@ -41,7 +46,7 @@ Payments () {
     }).then((response) => {
       console.log(response)
       if (response.statusText === 'OK') {
-        toast.success('Recebemos o seu registro')
+        toast.success('Pagamento cadastrado com sucesso!')
         setLoading(false)
         loadDados()
       } else if (response.statusText === 'Forbidden') {
@@ -78,6 +83,52 @@ Payments () {
       console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
+    })
+  }
+  async function deleteDados (id: string) {
+    setLoading(true)
+    // eslint-disable-next-line
+    const responser = api.delete('pagamento/' + id,
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
+  }
+  function update(dados: any) {
+    console.log('dados')
+    console.log(dados)
+    setIdPagamento(dados.id)
+    setAno(dados.ano)
+    setMes(dados.mes)
+    setDataPagamento(dados.dataPagamento)
+    setValorPago(dados.valorPago)
+    setIsOpenUpdate(true)
+  }
+  async function updateDados() {
+    setLoading(true)
+    const responser = api.put('pagamento/' + idPagamento, {
+      data: {
+        ano: ano,
+        mes: mes,
+        dataPagamento: dataPagamento,
+        valorPago: valorPago,
+      }
+    }
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setIsOpenUpdate(false)
+        setLoading(false)
+      }
+    }).catch((error) => {
+      setLoading(false)
+      toast.error(error.response.data)
     })
   }
   useEffect(() => {
@@ -120,11 +171,11 @@ Payments () {
                   <span>{pagamento.dataPagamento.split('T')[0]}</span>
                   <span>{pagamento.valorPago}</span>
                   <DeleteButton
-                    onDelete={() => handleDelete(pagamento.id)}
+                    onDelete={() => deleteDados(pagamento.id)}
                   />
                   <button
                     // onChange={onEdit}
-                    onClick={() => setIsOpenUpdate(true)}
+                    onClick={() => update(pagamento)}
                     style={{ background: 'none', color: 'yellow' }}
                     title='Editar?'
                   >
@@ -186,18 +237,13 @@ Payments () {
 
         <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
-            <S.Form onSubmit={handleSubmit(onSubmit)}>
+            <S.Div>
               <TextField
                 label=/* 'Ano de pagamento' */'Data de pagamento'
-                errorMessage={errors.dataPagamento?.message}
                 type='date'
                 id='dataPagamento'
-                {...register('dataPagamento', {
-                  required: {
-                    value: true,
-                    message: 'Todos os campos são obrigatórios',
-                  },
-                })}
+                value={dataPagamento} 
+                onChange={(text) => setDataPagamento(text.target.value)}
               />
 
               {/* <TextField
@@ -222,13 +268,12 @@ Payments () {
                 label='Valor de pagamento'
                 type='number'
                 id='valorPago'
-                {...register('valorPago', {
-                  required: true,
-                })}
+                value={valorPago} 
+                onChange={(text) => setValorPago(text.target.value)}
               />
 
-              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
-            </S.Form>
+              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+            </S.Div>
           </S.Container>
           {/* eslint-disable-next-line */}
         </Modal>
