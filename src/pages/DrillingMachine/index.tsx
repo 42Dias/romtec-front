@@ -40,20 +40,42 @@ type FormData = {
 }
 
 export default function
-DrillingMachine () {
+  DrillingMachine() {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
   const [loading, setLoading] = useState(false)
+  const [idMaquina, setMaquina] = useState('')
+  const [fabricante, setFabricante] = useState('')
+  const [modelo, setModelo] = useState('')
+  const [hourmeter, setHourmeter] = useState('')
+  const [lastOverhaul, setLastOverhaul] = useState('')
+  const [nextOverhaul, setNextOverhaul] = useState('')
+  const [reviewUpload, setReviewUpload] = useState('')
+  const [revisionSubtypes, setRevisionSubtypes] = useState('')
+  const [tracao, setTracao] = useState('')
+  const [compressao, setcompressao] = useState('')
+  const [torque, setTorque] = useState('')
+  const [rotacaoSpindle, setRotacaoSpindle] = useState('')
+  const [velocidadeTracao, setVelocidadeTracao] = useState('')
+  const [velocidadeCompressa, setVelocidadeCompressa] = useState('')
+  const [diametroFuroPiloto, setDiametroFuroPiloto] = useState('')
+  const [anguloEntrada, setVAnguloEntrada] = useState('')
+  const [diametroNominal, setDiametroNominal] = useState('')
+  const [raioCurvatura, setRaioCurvatura] = useState('')
+  const [comprimento, setcomprimento] = useState('')
+  const [vazao, setVazao] = useState('')
+  const [pressao, setPressao] = useState('')
+  const [alergamentoMaximo, setAlergamentoMaximo] = useState('')
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
   const [maqPerfuratriz, setMaqPerfuratriz] = useState<any[]>([])
 
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
     console.log(data)
     Cadastro(data)
-    reset()
+    //reset()
   }
 
-  async function Cadastro (submit: any) {
+  async function Cadastro(submit: any) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.post('maquina-perfuratis', {
@@ -63,6 +85,7 @@ DrillingMachine () {
       if (response.statusText === 'OK') {
         toast.success('Maquina perfuratriz cadastrada com sucesso!')
         setLoading(false)
+        reset()
         loadDados()
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')
@@ -79,7 +102,7 @@ DrillingMachine () {
     })
   }
 
-  async function loadDados () {
+  async function loadDados() {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.get('maquina-perfuratis',
@@ -111,28 +134,77 @@ DrillingMachine () {
       setLoading(false)
     })
   }
+  function update(dados: any) {
+    console.log('dados')
+    console.log(dados)
+    setMaquina(dados.id)
+    setFabricante(dados.fabricante)
+    setModelo(dados.modelo)
+    setHourmeter(dados.hourmeter)
+    setLastOverhaul(dados.lastOverhaul)
+    setNextOverhaul(dados.nextOverhaul)
+    setReviewUpload(dados.reviewUpload)
+    setRevisionSubtypes(dados.revisionSubtypes)
+    setTracao(dados.tracao)
+    setcompressao(dados.compressao)
+    setTorque(dados.torque)
+    setRotacaoSpindle(dados.rotacaoSpindle)
+    setVelocidadeTracao(dados.velocidadeTracao)
+    setVelocidadeCompressa(dados.velocidadeCompressa)
+    setDiametroFuroPiloto(dados.diametroFuroPiloto)
+    setVAnguloEntrada(dados.anguloEntrada)
+    setDiametroNominal(dados.diametroNominal)
+    setRaioCurvatura(dados.raioCurvatura)
+    setcomprimento(dados.comprimento)
+    setVazao(dados.vazao)
+    setPressao(dados.pressao)
+    setAlergamentoMaximo(dados.alergamentoMaximo)
+    setIsOpenUpdate(true)
+  }
+  async function updateDados() {
+    setLoading(true)
+    const responser = api.put('maquina-perfuratis/' + idMaquina, {
+      data: {
+        fabricante: fabricante,
+        modelo: modelo,
+        hourmeter: hourmeter,
+        lastOverhaul: lastOverhaul,
+        nextOverhaul: nextOverhaul,
+        reviewUpload: reviewUpload,
+        revisionSubtypes: revisionSubtypes,
+        tracao: tracao,
+        compressao: compressao,
+        torque: torque,
+        rotacaoSpindle: rotacaoSpindle,
+        velocidadeTracao: velocidadeTracao,
+        velocidadeCompressa: velocidadeCompressa,
+        diametroFuroPiloto: diametroFuroPiloto,
+        anguloEntrada: anguloEntrada,
+        diametroNominal: diametroNominal,
+        raioCurvatura: raioCurvatura,
+        comprimento: comprimento,
+        vazao: vazao,
+        pressao: pressao,
+        alergamentoMaximo: alergamentoMaximo,
+      }
+    }
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setIsOpenUpdate(false)
+        setLoading(false)
+      }
+    }).catch((error) => {
+      setLoading(false)
+      toast.error(error.response.data)
+    })
+  }
   useEffect(() => {
     setLoading(true)
     loadDados()
   }, [])
 
-  function handleDelete (id: string) {
-    setMaqPerfuratriz(maqPerfuratrizs =>
-      maqPerfuratrizs.filter(maqPerfuratriz => maqPerfuratriz.id !== id),
-    )
-  }
 
-  const handleUpdate = (id: string) => {
-    setMaqPerfuratriz(maqPerfuratrizs => maqPerfuratrizs.map(maqPerfuratriz => {
-      if (maqPerfuratriz.id === id) {
-        return {
-          ...maqPerfuratriz,
-        }
-      }
-
-      return maqPerfuratriz
-    }))
-  }
 
   return (
     <>
@@ -161,7 +233,7 @@ DrillingMachine () {
                   <span>{maquinas.torque}</span>
                   <span>{maquinas.alergamentoMaximo}</span>
                   <DeleteButton
-                    onDelete={() => handleDelete(maquinas.id)}
+                    onDelete={() => deleteDados(maquinas.id)}
                   />
                   {/* <EditButton
                     // onClick={() => }
@@ -169,7 +241,7 @@ DrillingMachine () {
                   /> */}
                   <button
                     // onChange={onEdit}
-                    onClick={() => setIsOpenUpdate(true)}
+                    onClick={() => update(maquinas)}
                     style={{ background: 'none', color: 'yellow' }}
                     title='Editar?'
                   >
@@ -344,12 +416,12 @@ DrillingMachine () {
                 type='submit'
               >{loading
                 ? <img
-                    width='40px'
-                    style={{ margin: 'auto' }}
-                    height=''
-                    src='https://contribua.org/mb-static/images/loading.gif'
-                    alt='Loading'
-                  />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height=''
+                  src='https://contribua.org/mb-static/images/loading.gif'
+                  alt='Loading'
+                />
                 : 'Salvar'}
               </button>
             </S.Form>
@@ -358,57 +430,48 @@ DrillingMachine () {
 
         <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
-            <S.Form onSubmit={handleSubmit(onSubmit)}>
+            <S.Div>
               <TextField
                 label='Fabricante'
-                errorMessage={errors.fabricante?.message}
-                {...register('fabricante', {
-                  required: {
-                    value: true,
-                    message: 'Todos os campos são obrigatórios',
-                  },
-                })}
+                value={fabricante}
+                onChange={(text) => setFabricante(text.target.value)}
               />
 
               <TextField
                 label='Nome da Máquina Perfuratriz'
-                {...register('modelo', {
-                  required: true,
-                })}
+                value={modelo}
+                onChange={(text) => setModelo(text.target.value)}
               />
 
               <TextField
                 label='Horimetro'
-                {...register('hourmeter', {
-                  required: true,
-                })}
+                value={hourmeter}
+                onChange={(text) => setHourmeter(text.target.value)}
               />
 
               <TextField
                 label='Última revisão/manutenção'
-                {...register('lastOverhaul', {
-                  required: true,
-                })}
+                value={lastOverhaul}
+                onChange={(text) => setLastOverhaul(text.target.value)}
               />
 
               <TextField
                 label='Próxima revisão/manutenção'
-                {...register('nextOverhaul', {
-                  required: true,
-                })}
+               value={nextOverhaul}
+                onChange={(text) => setNextOverhaul(text.target.value)}
               />
 
               <TextField
                 label='Upload da revisão'
-                {...register('reviewUpload', {
-                  required: true,
-                })}
+                value={reviewUpload}
+                onChange={(text) => setReviewUpload(text.target.value)}
               />
 
               <S.ContentForm>
                 <fieldset>
                   <label htmlFor='revisionSubtypes'>Subtipos de revisão</label>
-                  <select id='revisionSubtypes' {...register('revisionSubtypes')}>
+                  <select id='revisionSubtypes' value={revisionSubtypes}
+                onChange={(text) => setRevisionSubtypes(text.target.value)}>
                     <option value=''>Select...</option>
                     <option value='Navegador'>Preventiva</option>
                     <option value='Operador'>Preditiva</option>
@@ -419,115 +482,101 @@ DrillingMachine () {
 
               <TextField
                 label='Tração (ton)'
-                {...register('tracao', {
-                  required: true,
-                })}
+                value={tracao}
+                onChange={(text) => setTracao(text.target.value)}
               />
 
               <TextField
                 label='Compressão (KN)'
-                {...register('compressao', {
-                  required: true,
-                })}
+                value={compressao}
+                onChange={(text) => setcompressao(text.target.value)}
               />
 
               <TextField
                 label='Torque'
-                {...register('torque', {
-                  required: true,
-                })}
+                value={torque}
+                onChange={(text) => setTorque(text.target.value)}
               />
 
               <TextField
                 label='Rotação Spindle (RPM)'
-                {...register('rotacaoSpindle', {
-                  required: true,
-                })}
+                value={rotacaoSpindle}
+                onChange={(text) => setRotacaoSpindle(text.target.value)}
               />
 
               <TextField
                 label='Velocidade Tração (m/min)'
-                {...register('velocidadeTracao', {
-                  required: true,
-                })}
+                value={velocidadeTracao}
+                onChange={(text) => setVelocidadeTracao(text.target.value)}
               />
 
               <TextField
                 label='Velocidade Compressão (m/min)'
-                {...register('velocidadeCompressa', {
-                  required: true,
-                })}
+                value={velocidadeCompressa}
+                onChange={(text) => setVelocidadeCompressa(text.target.value)}
               />
 
               <TextField
                 label='Diâmetro furo piloto (pol)'
-                {...register('diametroFuroPiloto', {
-                  required: true,
-                })}
+                value={diametroFuroPiloto}
+                onChange={(text) => setDiametroFuroPiloto(text.target.value)}
               />
 
               <TextField
                 label='Ângulo de entrada'
-                {...register('anguloEntrada', {
-                  required: true,
-                })}
+                value={anguloEntrada}
+                onChange={(text) => setVAnguloEntrada(text.target.value)}
               />
 
               <TextField
                 label='Diâmetro nominal (mm)'
-                {...register('diametroNominal', {
-                  required: true,
-                })}
+                value={diametroNominal}
+                onChange={(text) => setDiametroNominal(text.target.value)}
               />
 
               <TextField
                 label='Raio de curvatura (m)'
-                {...register('raioCurvatura', {
-                  required: true,
-                })}
+                value={raioCurvatura}
+                onChange={(text) => setRaioCurvatura(text.target.value)}
               />
 
               <TextField
                 label='Comprimento (m)'
-                {...register('comprimento', {
-                  required: true,
-                })}
+                value={comprimento}
+                onChange={(text) => setcomprimento(text.target.value)}
               />
 
               <TextField
                 label='Vazão (L/min)'
-                {...register('vazao', {
-                  required: true,
-                })}
+                value={vazao}
+                onChange={(text) => setVazao(text.target.value)}
               />
 
               <TextField
                 label='Pressão (psi)'
-                {...register('pressao', {
-                  required: true,
-                })}
+                value={pressao}
+                onChange={(text) => setPressao(text.target.value)}
               />
 
               <TextField
                 label='Alargamento máximo (pol)'
-                {...register('alergamentoMaximo', {
-                  required: true,
-                })}
+                value={alergamentoMaximo}
+                onChange={(text) => setAlergamentoMaximo(text.target.value)}
               />
 
               <button
-                type='submit'
+                onClick={() => updateDados()}
               >{loading
                 ? <img
-                    width='40px'
-                    style={{ margin: 'auto' }}
-                    height=''
-                    src='https://contribua.org/mb-static/images/loading.gif'
-                    alt='Loading'
-                  />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height=''
+                  src='https://contribua.org/mb-static/images/loading.gif'
+                  alt='Loading'
+                />
                 : 'Salvar'}
               </button>
-            </S.Form>
+            </S.Div>
           </S.Container>
         </Modal>
       </S.ContainerConfirmation>

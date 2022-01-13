@@ -31,7 +31,7 @@ export default function
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
   const [reamers, setReamers] = useState<any[]>([])
-  const [idMaoDeObra, setId] = useState('')
+  const [idAlargador, setId] = useState('')
   const [codigo, setCodigo] = useState('')
   const [CapacidadeSwivel, setCapacidadeSwivel] = useState('')
   const [CondicoesUso, setCondicoesUso] = useState('')
@@ -125,12 +125,12 @@ export default function
     setIndicacaoTipoIdealSoloTrabalho(dados.IndicacaoTipoIdealSoloTrabalho)
     setNumeroJatos(dados.numeroJatos)
     setRosca(dados.rosca)
-    console.log(idMaoDeObra)
+    console.log(idAlargador)
     setIsOpenUpdate(true)
   }
   async function updateDados() {
     setLoading(true)
-    const responser = api.put('alargadores/' + id, {
+    const responser = api.put('alargadores/' + idAlargador, {
       data: {
         codigo: codigo,
         CapacidadeSwivel: CapacidadeSwivel,
@@ -148,6 +148,9 @@ export default function
         setIsOpenUpdate(false)
         setLoading(false)
       }
+    }).catch((error) => {
+      setLoading(false)
+      toast.error(error.response.data)
     })
   }
   useEffect(() => {
@@ -206,74 +209,6 @@ export default function
             )
             : <p>🤔 Nenhum alargador encontrado</p>}
         </ul>
-
-        <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
-          <S.Container>
-            <S.Form onSubmit={handleSubmit(onSubmit)}>
-              <TextField
-                label='Código'
-                errorMessage={errors.codigo?.message}
-                id='codigo'
-                {...register('codigo', {
-                  required: {
-                    value: true,
-                    message: 'Todos os campos são obrigatórios',
-                  },
-                })}
-              />
-
-              <TextField
-                label='Capacidade do Swivel'
-                {...register('CapacidadeSwivel', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Condições de uso'
-                {...register('CondicoesUso', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Tipo de alargador'
-                {...register('tipoAlargador', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Indicação de tipo ideal de solo para trabalho'
-                {...register('IndicacaoTipoIdealSoloTrabalho', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Número de jatos'
-                {...register('numeroJatos', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Diâmetro(mm)'
-                {...register('diametro', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Rosca'
-                {...register('rosca', {
-                  required: true,
-                })}
-              />
-              <button type='submit'>Salvar</button>
-            </S.Form>
-          </S.Container>
-        </Modal>
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
@@ -338,8 +273,81 @@ export default function
                   required: true,
                 })}
               />
-              <button type='submit'>Salvar</button>
+              <button type='submit'> {loading
+                ? <img
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height=''
+                  src='https://contribua.org/mb-static/images/loading.gif'
+                  alt='Loading'
+                />
+                : 'Salvar'}</button>
             </S.Form>
+          </S.Container>
+        </Modal>
+
+        <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
+          <S.Container>
+            <S.Div onSubmit={handleSubmit(onSubmit)}>
+              <TextField
+                label='Código'
+                value={codigo}
+                onChange={(text) => setCodigo(text.target.value)}
+              />
+
+              <TextField
+                label='Capacidade do Swivel'
+                value={CapacidadeSwivel}
+                onChange={(text) => setCapacidadeSwivel(text.target.value)}
+              />
+
+              <TextField
+                label='Condições de uso'
+                value={CondicoesUso}
+                onChange={(text) => setCondicoesUso(text.target.value)}
+              />
+
+              <TextField
+                label='Tipo de alargador'
+                value={tipoAlargador}
+                onChange={(text) => setTipoAlargador(text.target.value)}
+              />
+
+              <TextField
+                label='Indicação de tipo ideal de solo para trabalho'
+                value={IndicacaoTipoIdealSoloTrabalho}
+                onChange={(text) => setIndicacaoTipoIdealSoloTrabalho(text.target.value)}
+              />
+
+              <TextField
+                label='Número de jatos'
+                value={numeroJatos}
+                onChange={(text) => setNumeroJatos(text.target.value)}
+              />
+
+              <TextField
+                label='Diâmetro(mm)'
+                value={diametro}
+                onChange={(text) => setDiametro(text.target.value)}
+              />
+
+              <TextField
+                label='Rosca'
+                value={rosca}
+                onChange={(text) => setRosca(text.target.value)}
+              />
+              <button onClick={() => updateDados()}>
+                {loading
+                  ? <img
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height=''
+                    src='https://contribua.org/mb-static/images/loading.gif'
+                    alt='Loading'
+                  />
+                  : 'Salvar'}
+              </button>
+            </S.Div>
           </S.Container>
         </Modal>
       </S.ContainerConfirmation>

@@ -19,7 +19,8 @@ export const ContainerConfirmation = styled.div`
     background: ${theme.colors.green};
     border: 0;
     transition: 1s;
-    margin-bottom: 20px;
+    position: relative;
+    top: 0;
 
     :hover {
       opacity: 80%;
@@ -41,8 +42,7 @@ export const ContainerConfirmation = styled.div`
 
 export const GridConfirmation = styled.div`
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(9, 1fr);
   justify-items: center;
   align-items: center;
   background-color: ${theme.colors.black};
@@ -71,6 +71,11 @@ export const GridConfirmation = styled.div`
 export const Form = styled.form`
   display: grid;
   grid-template-columns: 1fr 1fr;
+
+  @media (max-width: 520px) {
+    grid-template-columns: 1fr;
+  }
+
   justify-items: center;
   align-items: center;
 
@@ -89,6 +94,12 @@ export const Form = styled.form`
       border: 1px solid ${theme.colors.yellow};
       background: transparent;
     }
+
+    @media(max-width: 520px) {
+      width: 280px;  
+      margin: 10px 0;
+      padding: 0;
+    }
   }
 
   button {
@@ -103,6 +114,10 @@ export const Form = styled.form`
 
     :hover {
       opacity: 80%;
+    }
+
+    @media(max-width: 520px) {
+      margin-left: 15px;
     }
   }
 

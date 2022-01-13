@@ -148,7 +148,7 @@ Labor () {
         setLoading(false)
       }
     })
-  }
+  } 
   useEffect(() => {
     setLoading(true)
     loadDados()
@@ -422,7 +422,7 @@ Labor () {
 
               <fieldset>
                 <label htmlFor='certificate'>Certificado</label>
-                <select id='certificate' {...register('certificate')}>
+                <select id='certificate' value={certificate} onChange={(text) => setCertificate(text.target.value)}> 
                   <option value=''>Select...</option>
                   <option value='Navegador'>Navegador</option>
                   <option value='Operador'>Operador</option>

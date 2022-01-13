@@ -25,6 +25,13 @@ export const Input = styled.input`
   :focus {
     border: 1px solid ${theme.colors.yellow};
     background: transparent;
+  } 
+
+  @media(max-width: 520px) {
+    width: 290px;  
+    margin: 10px 0;
+    margin-right: 50px;
+    padding: 0;
   }
 `
 

@@ -191,7 +191,7 @@ SoilTypes () {
                   {/* <EditButton onEdit={() => updateDados(soilType)} /> */}
                   <button
                     // onChange={onEdit}
-                    onClick={() => setIsOpenUpdate(true)}
+                    onClick={() => update(soilType)}
                     style={{ background: 'none', color: 'yellow' }}
                     title='Editar?'
                   >

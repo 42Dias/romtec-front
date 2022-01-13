@@ -30,13 +30,19 @@ DrillingFluid () {
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
   const [fluidos, setFluidos] = useState<any[]>([])
-
+  const [nome, setNome] = useState('')
+  const [idFluidos, setIdFluidos] = useState('')
+  const [viscosidadeEsperada, setViscosidadeEsperada] = useState('')
+  const [qtdePHPA, setQtdePHPA] = useState('')
+  const [qtdeBase, setQtdeBase] = useState('')
+  const [limiteEscoamento, setLimiteEscoamento] = useState('')
+  const [teorAreia, setTeorAreia] = useState('')
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
     console.log(data)
     Cadastro(data)
-    reset()
+    
   }
   async function Cadastro (submit: any) {
     setLoading(true)
@@ -49,6 +55,7 @@ DrillingFluid () {
       if (response.statusText === 'OK') {
         toast.success('Fluido cadastrado com sucesso!')
         setLoading(false)
+        reset()
         loadDados()
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')
@@ -97,28 +104,45 @@ DrillingFluid () {
       setLoading(false)
     })
   }
+  function update(dados: any) {
+    console.log('dados')
+    console.log(dados)
+    setIdFluidos(dados.id)
+    setNome(dados.nome)
+    setViscosidadeEsperada(dados.viscosidadeEsperada)
+    setQtdePHPA(dados.qtdePHPA)
+    setQtdeBase(dados.qtdeBase)
+    setLimiteEscoamento(dados.limiteEscoamento)
+    setTeorAreia(dados.teorAreia)
+    setIsOpenUpdate(true)
+  }
+  async function updateDados() {
+    setLoading(true)
+    const responser = api.put('fluido-perfuracao/' + idFluidos, {
+      data: {
+        nome: nome,
+        viscosidadeEsperada: viscosidadeEsperada,
+        qtdePHPA: qtdePHPA,
+        qtdeBase: qtdeBase,
+        limiteEscoamento: limiteEscoamento,
+        teorAreia: teorAreia
+      }
+    }
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setIsOpenUpdate(false)
+        setLoading(false)
+      }
+    }).catch((error) => {
+      setLoading(false)
+      toast.error(error.response.data)
+    })
+  }
   useEffect(() => {
     setLoading(true)
     loadDados()
   }, [])
-
-  function handleDelete (id: string) {
-    setFluidos(fluidos =>
-      fluidos.filter(fluido => fluido.id !== id),
-    )
-  }
-
-  const handleUpdate = (id: string) => {
-    setFluidos(fluidos => fluidos.map(fluido => {
-      if (fluido.id === id) {
-        return {
-          ...fluido,
-        }
-      }
-
-      return fluido
-    }))
-  }
 
   return (
     <>
@@ -143,20 +167,20 @@ DrillingFluid () {
               <li key={fluido.id}>
                 <S.GridConfirmation>
                   <span>{fluido.nome}</span>
-                  <span>{fluido.nome}</span>
-                  <span>{fluido.nome}</span>
-                  <span>{fluido.nome}</span>
-                  <span>{fluido.nome}</span>
-                  <span>{fluido.nome}</span>
+                  <span>{fluido.viscosidadeEsperada}</span>
+                  <span>{fluido.qtdePHPA}</span>
+                  <span>{fluido.qtdeBase}</span>
+                  <span>{fluido.limiteEscoamento}</span>
+                  <span>{fluido.teorAreia}</span>
                   <DeleteButton
-                    onDelete={() => handleDelete(fluido.id)}
+                    onDelete={() => deleteDados(fluido.id)}
                   />
                   {/* <EditButton
                     onEdit={() => handleUpdate(fluido.id)}
                   /> */}
                   <button
                     // onChange={onEdit}
-                    onClick={() => setIsOpenUpdate(true)}
+                    onClick={() => update(fluido)} 
                     style={{ background: 'none', color: 'yellow' }}
                     title='Editar?'
                   >
@@ -229,60 +253,45 @@ DrillingFluid () {
 
         <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
-            <S.Form onSubmit={handleSubmit(onSubmit)}>
+            <S.Div>
               <TextField
                 label='Identificação'
-                errorMessage={errors.nome?.message}
-                {...register('nome', {
-                  required: {
-                    value: true,
-                    message: 'Todos os campos são obrigatórios',
-                  },
-                })}
+                value={nome} 
+                onChange={(text) => setNome(text.target.value)}
               />
 
               <TextField
                 label='Viscosidade esperada (Segundos Marsh - cP)'
-                value={0}
-                {...register('viscosidadeEsperada', {
-                  required: false,
-                })}
+                value={viscosidadeEsperada}
+                onChange={(text) => setViscosidadeEsperada(text.target.value)}
               />
 
               <TextField
                 label='pH da Água'
-                value={0}
-                {...register('qtdePHPA', {
-                  required: false,
-                })}
+                value={qtdePHPA}
+                onChange={(text) => setQtdePHPA(text.target.value)}
               />
 
               <TextField
                 label='Quantidade base para formulação (Metros cúbicos - m²)'
-                value={0}
-                {...register('qtdeBase', {
-                  required: false,
-                })}
+                value={qtdeBase}
+                onChange={(text) => setQtdeBase(text.target.value)}
               />
 
               <TextField
                 label='Limite de escoamento (Número - N)'
-                value={0}
-                {...register('limiteEscoamento', {
-                  required: false,
-                })}
+                value={limiteEscoamento}
+                onChange={(text) => setLimiteEscoamento(text.target.value)}
               />
 
               <TextField
                 label='Teor de areia (Porcentagem - %)'
-                value={0}
-                {...register('teorAreia', {
-                  required: false,
-                })}
+                value={teorAreia}
+                onChange={(text) => setTeorAreia(text.target.value)}
               />
 
-              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
-            </S.Form>
+              <button  onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+            </S.Div>
           </S.Container>
         </Modal>
       </S.ContainerConfirmation>

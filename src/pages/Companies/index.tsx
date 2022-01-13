@@ -13,6 +13,7 @@ import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 import EditButton from '../../ui/Components/EditButton/EditButton'
 import { FaEdit } from 'react-icons/fa'
+import { em } from 'polished'
 
 type FormData = {
   cnpj: string;
@@ -30,20 +31,32 @@ type FormData = {
 }
 
 export default function
-Companies () {
+  Companies() {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
   const [companhias, setCompanhias] = useState<any[]>([])
-
+  const [idCompanhias, setIdCompanhias] = useState('')
+  const [cnpj, setCnpj] = useState('')
+  const [razaoSocial, setRazaoSocial] = useState('')
+  const [cidade, setCidade] = useState('')
+  const [nomeFantasia, setNomeFantasia] = useState('')
+  const [cep, setCep] = useState('')
+  const [estado, setEstado] = useState('')
+  const [bairro, setBairro] = useState('')
+  const [logradouro, setLogradouro] = useState('')
+  const [tel, setTel] = useState('')
+  const [email, setEmail] = useState('')
+  const [numero, setNumero] = useState('')
+  const [responsavelTecnico, setResponsavelTecnico] = useState('')
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
     console.log(data)
     Cadastro(data)
     reset()
   }
-  async function Cadastro (submit: any) {
+  async function Cadastro(submit: any) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.post('companhia', {
@@ -68,7 +81,7 @@ Companies () {
     })
   }
 
-  async function loadDados () {
+  async function loadDados() {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.get('companhia',
@@ -87,7 +100,7 @@ Companies () {
   }
 
   // eslint-disable-next-line
-  async function deleteDados (id: string) {
+  async function deleteDados(id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('companhia/' + id,
@@ -102,28 +115,57 @@ Companies () {
       setLoading(false)
     })
   }
+  function update(dados: any) {
+    console.log('dados')
+    console.log(dados)
+    setIdCompanhias(dados.id)
+    setCnpj(dados.cnpj)
+    setRazaoSocial(dados.razaoSocial)
+    setCidade(dados.cidade)
+    setNomeFantasia(dados.nomeFantasia)
+    setCep(dados.cep)
+    setEstado(dados.estado)
+    setBairro(dados.bairro)
+    setLogradouro(dados.logradouro)
+    setTel(dados.tel)
+    setEmail(dados.email)
+    setNumero(dados.numero)
+    setResponsavelTecnico(dados.responsavelTecnico)
+    setIsOpenUpdate(true)
+  }
+  async function updateDados() {
+    setLoading(true)
+    const responser = api.put('companhia/' + idCompanhias, {
+      data: {
+        cnpj: cnpj,
+        razaoSocial: razaoSocial,
+        cidade: cidade,
+        nomeFantasia: nomeFantasia,
+        cep: cep,
+        estado: estado,
+        bairro: bairro,
+        logradouro: logradouro,
+        tel: tel,
+        email: email,
+        numero: numero,
+        responsavelTecnico: responsavelTecnico,
+      }
+    }
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setIsOpenUpdate(false)
+        setLoading(false)
+      }
+    }).catch((error) => {
+      setLoading(false)
+      toast.error(error.response.data)
+    })
+  }
   useEffect(() => {
     setLoading(true)
     loadDados()
   }, [])
-
-  function handleDelete (id: string) {
-    setCompanhias(companhias =>
-      companhias.filter(companhia => companhia.id !== id),
-    )
-  }
-
-  const handleUpdate = (id: string) => {
-    setCompanhias(companhias => companhias.map(companhia => {
-      if (companhia.id === id) {
-        return {
-          ...companhia,
-        }
-      }
-
-      return companhia
-    }))
-  }
 
   return (
     <>
@@ -152,14 +194,14 @@ Companies () {
                   <span>{companhia.email}</span>
                   <span>{companhia.responsavelTecnico}</span>
                   <DeleteButton
-                    onDelete={() => handleDelete(companhia.id)}
+                    onDelete={() => deleteDados(companhia.id)}
                   />
                   {/* <EditButton
                     onEdit={() => handleUpdate(companhia.id)}
                   /> */}
                   <button
                     // onChange={onEdit}
-                    onClick={() => setIsOpenUpdate(true)}
+                    onClick={() => update(companhia)}
                     style={{ background: 'none', color: 'yellow' }}
                     title='Editar?'
                   >
@@ -303,130 +345,81 @@ Companies () {
 
         <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
-            <S.Form onSubmit={handleSubmit(onSubmit)}>
+            <S.Div>
               <TextField
                 label='CNPJ'
-                errorMessage={errors.cnpj?.message}
-                {...register('cnpj', {
-                  required: {
-                    value: true,
-                    message: 'Todos os campos são obrigatórios',
-                  },
-                })}
+                value={cnpj} 
+                onChange={(text) => setCnpj(text.target.value)}
               />
 
               <TextField
                 label='Razão Social'
-                {...register('razaoSocial', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
+                value={razaoSocial} 
+                onChange={(text) => setRazaoSocial(text.target.value)}
               />
 
               <TextField
                 label='Nome Fantasia'
-                {...register('nomeFantasia', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
+                value={nomeFantasia} 
+                onChange={(text) => setNomeFantasia(text.target.value)}
               />
 
               <TextField
                 label='CEP'
-                {...register('cep', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
+                value={cep} 
+                onChange={(text) => setCep(text.target.value)}
               />
 
               <TextField
                 label='Cidade'
-                {...register('cidade', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
+                value={cidade} 
+                onChange={(text) => setCidade(text.target.value)}
               />
 
               <TextField
                 label='Estado'
-                {...register('estado', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
+                value={estado} 
+                onChange={(text) => setEstado(text.target.value)}
               />
 
               <TextField
                 label='Bairro'
-                {...register('bairro', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
+                value={bairro} 
+                onChange={(text) => setBairro(text.target.value)}
               />
 
               <TextField
                 label='Logradouro'
-                {...register('logradouro', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
+                value={logradouro} 
+                onChange={(text) => setLogradouro(text.target.value)}
               />
 
               <TextField
                 label='Número'
-                {...register('numero', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
+                value={numero} 
+                onChange={(text) => setNumero(text.target.value)}
               />
 
               <TextField
                 label='E-mail'
-                {...register('email', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
+                value={email} 
+                onChange={(text) => setEmail(text.target.value)}
               />
 
               <TextField
                 label='Telefone'
-                {...register('tel', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
+                value={tel} 
+                onChange={(text) => setTel(text.target.value)}
               />
 
               <TextField
                 label='Responsável Técnico'
-                {...register('responsavelTecnico', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
+                value={responsavelTecnico} 
+                onChange={(text) => setResponsavelTecnico(text.target.value)}
               />
 
-              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
-            </S.Form>
+              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+            </S.Div>
           </S.Container>
           {/* eslint-disable-next-line */}
         </Modal>

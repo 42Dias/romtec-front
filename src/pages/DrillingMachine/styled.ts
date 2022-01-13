@@ -38,6 +38,8 @@ export const ContainerConfirmation = styled.div`
   ul {
     list-style: none;
   }
+
+
 `
 
 export const GridConfirmation = styled.div`
@@ -59,11 +61,22 @@ export const GridConfirmation = styled.div`
       opacity: 80%;
     }
   }
+
+  @media (max-width: 520px) {
+    overflow: auto;
+    span {
+      margin: 0 30px;
+    }
+  }
 `
 
 export const Form = styled.form`
   display: grid;
   grid-template-columns: 1fr 1fr;
+
+  @media (max-width: 520px) {
+    grid-template-columns: 1fr;
+  }
   justify-items: center;
   align-items: center;
 
@@ -78,9 +91,17 @@ export const Form = styled.form`
     background: ${theme.colors.darkBlack};
     color: ${theme.colors.yellow};
 
+
     :focus {
       border: 1px solid ${theme.colors.yellow};
       background: transparent;
+    }
+
+    @media(max-width: 520px) {
+      width: 280px;  
+      margin: 10px 0;
+      padding: 0;
+      margin-right: 90px;
     }
   }
 
@@ -110,7 +131,67 @@ export const Form = styled.form`
     margin: 5px 1px 5px 22px;
   }
 `
+export const Div = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 
+  @media (max-width: 520px) {
+    grid-template-columns: 1fr;
+  }
+  justify-items: center;
+  align-items: center;
+
+  select {
+    width: 345px;
+    height: 48px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    margin: 10px 0;
+    padding: 0 7px;
+    border: 1px solid ${theme.colors.black};
+    background: ${theme.colors.darkBlack};
+    color: ${theme.colors.yellow};
+
+
+    :focus {
+      border: 1px solid ${theme.colors.yellow};
+      background: transparent;
+    }
+
+    @media(max-width: 520px) {
+      width: 280px;  
+      margin: 10px 0;
+      padding: 0;
+      margin-right: 90px;
+    }
+  }
+
+  button {
+    width: 101px;
+    height: 44px;
+    border-radius: 5px;
+    background: ${theme.colors.green};
+    border: 0;
+    transition: 1s;
+    margin-bottom: 20px;
+    margin-right: 250px;
+
+    :hover {
+      opacity: 80%;
+    }
+  }
+
+  span {
+    color: ${theme.colors.red};
+    font-size: 10px;
+    margin: 0 0 0 15px;
+  }
+
+  fieldset {
+    border: 0;
+    margin: 5px 1px 5px 22px;
+  }
+`
 export const Container = styled.aside`
   max-width: 780px;
   margin: 0 auto;

@@ -32,6 +32,12 @@ Customers () {
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
   const [clientes, setClientes] = useState<any[]>([])
+  const [idClientes, setIdClientes] = useState('')
+  const [cnpj, setCnpj] = useState('')
+  const [razaoSocial, setRazaoSocial] = useState('')
+  const [nomeFantasia, setNomeFantasia] = useState('')
+  const [cep, setCep] = useState('')
+  const [uf, setUf] = useState('')
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
@@ -80,28 +86,58 @@ Customers () {
       setLoading(false)
     })
   }
+  async function deleteDados (id: string) {
+    setLoading(true)
+    // eslint-disable-next-line
+    const responser = api.delete('clientes/' + id,
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
+  }
+  function update(dados: any) {
+    console.log('dados')
+    console.log(dados)
+    setIdClientes(dados.id)
+    setCnpj(dados.cnpj)
+    setRazaoSocial(dados.razaoSocial)
+    setNomeFantasia(dados.nomeFantasia)
+    setCep(dados.cep)
+    setUf(dados.uf)
+    setIsOpenUpdate(true)
+  }
+  async function updateDados() {
+    setLoading(true)
+    const responser = api.put('clientes/' + idClientes, {
+      data: {
+        cnpj: cnpj,
+        razaoSocial: razaoSocial,
+        nomeFantasia: nomeFantasia,
+        cep: cep,
+        uf: uf
+      }
+    }
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setIsOpenUpdate(false)
+        setLoading(false)
+      }
+    }).catch((error) => {
+      setLoading(false)
+      toast.error(error.response.data)
+    })
+  }
   useEffect(() => {
     setLoading(true)
     loadDados()
   }, [])
-
-  function handleDelete (id: string) {
-    setClientes(clientes =>
-      clientes.filter(cliente => cliente.id !== id),
-    )
-  }
-
-  const handleUpdate = (id: string) => {
-    setClientes(clientes => clientes.map(cliente => {
-      if (cliente.id === id) {
-        return {
-          ...cliente,
-        }
-      }
-
-      return cliente
-    }))
-  }
 
   return (
     <>
@@ -155,11 +191,11 @@ Customers () {
                   <span>{cliente.numero}</span>
                   <span>{cliente.complemento}</span>
                   <DeleteButton
-                    onDelete={() => handleDelete(cliente.id)}
+                    onDelete={() => deleteDados(cliente.id)}
                   />
                   <button
                     // onChange={onEdit}
-                    onClick={() => setIsOpenUpdate(true)}
+                    onClick={() => update(cliente)}
                     style={{ background: 'none', color: 'yellow' }}
                     title='Editar?'
                   >
