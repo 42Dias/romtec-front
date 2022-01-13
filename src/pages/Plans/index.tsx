@@ -216,7 +216,7 @@ Plans () {
 
         <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
-            <S.Form onSubmit={handleSubmit(onSubmit)}>
+            <S.Form >
               <TextField
                 label='Nome'
                 value={nome} 

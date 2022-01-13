@@ -16,6 +16,7 @@ Users () {
   // eslint-disable-next-line
   const [loading, setLoading] = useState(false)
   const [user, setUsers] = useState<any[]>([])
+  const [email, setEmail] = useState('')
   // eslint-disable-next-line
   const [role, setRole] = useState('')
 
@@ -27,6 +28,7 @@ Users () {
       console.log(response.data.rows)
       if (response.statusText === 'OK') {
         setUsers(response.data.rows)
+        setLoading(false)
       }
     }).catch(res => {
       console.log(res.response.data)
@@ -48,6 +50,33 @@ Users () {
     }).catch(res => {
       console.log(res.response.data)
       toast.error(res.response.data)
+      setLoading(false)
+    })
+  }
+  async function Cadastro () {
+    setLoading(true)
+    // eslint-disable-next-line
+    const responser = api.post('user', {
+      data: {
+        emails: email,
+        roles: role
+      }
+    }).then((response) => {
+      console.log(response)
+      if (response.statusText === 'OK') {
+        toast.success('Email enviado com sucesso!')
+        setLoading(false)
+        users()
+      } else if (response.statusText === 'Forbidden') {
+        toast.error('Ops, Não tem permisão!')
+        setLoading(false)
+      } else {
+        toast.error('Ops, Dados Incorretos!')
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res)
+      // toast.error(res.response.data);
       setLoading(false)
     })
   }
@@ -208,27 +237,35 @@ Users () {
 
             <h1>Convidar usuário</h1>
 
-            <S.GridInvite>
+            <S.GridInvite> 
               <div>
                 <label htmlFor='email'>Email</label>
-                <input type='email' id='email' placeholder='Email do convidado' />
+                <input type='email' id='email' placeholder='Email do convidado' onChange={(text) => setEmail(text.target.value)}/>
               </div>
               <div>
                 <label htmlFor='select'>Selecione o tipo de permissão</label>
-                <select name='' id='select'>
-                  <option value=''>Operador</option>
-                  <option value=''>Equipe civil</option>
-                  <option value=''>Navegação</option>
+                <select name='' id='select' onChange={(text) => setRole(text.target.value)}>
+                  <option value='operador'>Operador</option>
+                  <option value='equipeCivil'>Equipe civil</option>
+                  <option value='navegacao'>Navegação</option>
 
-                  <option value=''>Engenharia Adm</option>
-                  <option value=''>Engenharia User</option>
-                  <option value=''>Mapeamento</option>
+                  <option value='engAdmin'>Engenharia Adm</option>
+                  <option value='engUser'>Engenharia User</option>
+                  <option value='mapeamento'>Mapeamento</option>
                 </select>
               </div>
             </S.GridInvite>
 
             <S.Btns>
-              <button>Salvar</button>
+              <button onClick={() => Cadastro()}>{loading
+                  ? <img
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height=''
+                      src='https://contribua.org/mb-static/images/loading.gif'
+                      alt='Loading'
+                    />
+                  : 'Salvar'}</button>
               <button>Cancelar</button>
             </S.Btns>
 

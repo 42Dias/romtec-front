@@ -31,6 +31,16 @@ Rods () {
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
   const [hastes, setHastes] = useState<any[]>([])
+  const [idHastes, setIdHastes] = useState('')
+  const [codigo, setCodigo] = useState('')
+  const [raioCurvatura, setRaioCurvatura] = useState('')
+  const [diametroTubo, setDiametroTubo] = useState('')
+  const [condicao, setCondicao] = useState('')
+  const [diametroToolJoint, setDiametroToolJoint] = useState('')
+  const [torque, setTorque] = useState('')
+  const [comprimentoTotal, setComprimentoTotal] = useState('')
+  const [modeloRosca, setModeloRosca] = useState('')
+  const [quantidade, setQuantidade] = useState('')
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
@@ -80,29 +90,67 @@ Rods () {
       setLoading(false)
     })
   }
+  async function deleteDados(id: string) {
+    setLoading(true)
+    // eslint-disable-next-line
+    const responser = api.delete('hastes/' + id
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response)
+      toast.error(res.response)
+      setLoading(false)
+    })
+  }
+  function update(dados: any) {
+    console.log('dados')
+    console.log(dados)
+    setIdHastes(dados.id)
+    setCodigo(dados.codigo)
+    setRaioCurvatura(dados.raioCurvatura)
+    setDiametroTubo(dados.diametroTubo)
+    setCondicao(dados.condicao)
+    setDiametroToolJoint(dados.diametroToolJoint)
+    setTorque(dados.torque)
+    setComprimentoTotal(dados.comprimentoTotal)
+    setModeloRosca(dados.modeloRosca)
+    setQuantidade(dados.quantidade)
+    setIsOpenUpdate(true)
+  }
+  async function updateDados() {
+    setLoading(true)
+    const responser = api.put('hastes/' + idHastes, {
+      data: {
+        codigo: codigo,
+        raioCurvatura: raioCurvatura,
+        diametroTubo: diametroTubo,
+        condicao: condicao,
+        diametroToolJoint: diametroToolJoint,
+        torque: torque,
+        comprimentoTotal: comprimentoTotal,
+        modeloRosca: modeloRosca,
+        quantidade: quantidade,
+      }
+    }
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setIsOpenUpdate(false)
+        setLoading(false)
+      }
+    }).catch((error) => {
+      setLoading(false)
+      toast.error(error.response.data)
+    })
+  }
   useEffect(() => {
     setLoading(true)
     loadDados()
     // eslint-disable-next-line
   }, [])
-
-  function handleDelete (id: string) {
-    setHastes(hastes =>
-      hastes.filter(haste => haste.id !== id),
-    )
-  }
-
-  const handleUpdate = (id: string) => {
-    setHastes(hastes => hastes.map(haste => {
-      if (haste.id === id) {
-        return {
-          ...haste,
-        }
-      }
-
-      return haste
-    }))
-  }
 
   return (
     <>
@@ -131,11 +179,11 @@ Rods () {
                   <span>{haste.comprimentoTotal}</span>
                   <span>{haste.modeloRosca}</span>
                   <DeleteButton
-                    onDelete={() => handleDelete(haste.id)}
+                    onDelete={() => deleteDados(haste.id)}
                   />
                   <button
                     // onChange={onEdit}
-                    onClick={() => setIsOpenUpdate(true)}
+                    onClick={() => update(haste)}
                     style={{ background: 'none', color: 'yellow' }}
                     title='Editar?'
                   >
@@ -226,72 +274,59 @@ Rods () {
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 label='Código do jogo de Hastes'
-                errorMessage={errors.codigo?.message}
-                {...register('codigo', {
-                  required: {
-                    value: true,
-                    message: 'Todos os campos são obrigatórios',
-                  },
-                })}
+                value={codigo}
+                onChange={(text) => setCodigo(text.target.value)}
               />
 
               <TextField
                 label='Raio de curvatura'
-                {...register('raioCurvatura', {
-                  required: true,
-                })}
+                value={raioCurvatura}
+                onChange={(text) => setRaioCurvatura(text.target.value)}
               />
 
               <TextField
                 label='Diâmetro do tubo(mm)*'
-                {...register('diametroTubo', {
-                  required: true,
-                })}
+                value={diametroTubo}
+                onChange={(text) => setDiametroTubo(text.target.value)}
               />
 
               <TextField
                 label='Estado geral/condição'
-                {...register('condicao', {
-                  required: true,
-                })}
+                value={condicao}
+                onChange={(text) => setCondicao(text.target.value)}
               />
 
               <TextField
                 label='Diâmetro do Tool Joint(mm)'
-                {...register('diametroToolJoint', {
-                  required: true,
-                })}
+                value={diametroToolJoint}
+                onChange={(text) => setDiametroToolJoint(text.target.value)}
               />
 
               <TextField
                 label='Torque máximo'
-                {...register('torque', {
-                  required: true,
-                })}
+                value={torque}
+                onChange={(text) => setTorque(text.target.value)}
               />
 
               <TextField
                 label='Comprimento total(m)'
-                {...register('comprimentoTotal', {
-                  required: true,
-                })}
+                value={comprimentoTotal}
+                onChange={(text) => setComprimentoTotal(text.target.value)}
               />
 
               <TextField
                 label='Modelo da Rosca'
-                {...register('modeloRosca', {
-                  required: true,
-                })}
+                value={modeloRosca}
+                onChange={(text) => setModeloRosca(text.target.value)}
               />
 
               <TextField
                 label='Quantidade de hastes'
                 type='number'
-                {...register('quantidade', {
-                  required: true,
-                })}
+                value={quantidade}
+                onChange={(text) => setQuantidade(text.target.value)}
               />
-              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
             </S.Form>
           </S.Container>
         </Modal>
