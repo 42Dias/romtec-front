@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { FiX, FiHome, FiUser, FiFileText, FiBriefcase, FiClipboard, FiSettings, FiTool } from 'react-icons/fi'
+import { FiX, FiHome, FiUser, FiFileText, FiBriefcase, FiClipboard, FiTool } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import * as S from './Menu.styled'
 
@@ -68,10 +68,6 @@ const Menu = ({ children, onClose }: Props) => {
           <h4><FiClipboard size={20} />Relatórios</h4>
           <li>
             <Link to='/relatorios'>Relatórios</Link>
-          </li>
-          <h4><FiSettings size={20} />Travessias</h4>
-          <li>
-            <Link to='/perfuracoes'>Perfurações</Link>
           </li>
         </S.List>
       </S.Container>
