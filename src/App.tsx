@@ -33,6 +33,7 @@ import {
   ProbeHolder,
   Users,
   Phases,
+  UpdatePassword,
 } from './pages'
 
 import { GlobalStyle } from './ui'
@@ -68,6 +69,7 @@ import {
   PROBEHOLDER,
   USERS,
   PHASES,
+  UPDATEPASSWORD,
 } from './routes'
 import { ToastContainer } from 'react-toastify'
 
@@ -106,6 +108,7 @@ export function App () {
         <Route path={PROBEHOLDER} element={<ProbeHolder />} />
         <Route path={USERS} element={<Users />} />
         <Route path={PHASES} element={<Phases />} />
+        <Route path={UPDATEPASSWORD} element={<UpdatePassword />} />
         <Route path='*' element={<Error />} />
       </Routes>
       <GlobalStyle />
