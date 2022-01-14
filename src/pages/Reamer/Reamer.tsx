@@ -103,7 +103,7 @@ export function Reamer () {
               />
 
               <TextField
-                label='Capacidade do Swivel'
+                label='Capacidade do Swivel(Ton)'
                 {...register('swivelCapacity', {
                   required: true,
                 })}

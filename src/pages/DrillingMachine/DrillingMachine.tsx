@@ -141,7 +141,7 @@ export function DrillingMachine () {
         <S.GridConfirmation>
           <span>Modelo</span>
           <span>Fabricante</span>
-          <span>Tração(KN)</span>
+          <span>Tração(kN)</span>
           <span>Torque(N.m)</span>
           <span>Alargamento máximo</span>
         </S.GridConfirmation>
@@ -230,7 +230,7 @@ export function DrillingMachine () {
               </S.ContentForm>
 
               <TextField
-                label='Tração (ton)'
+                label='Tração (kN)'
                 {...register('tracao', {
                   required: true,
                 })}
@@ -244,7 +244,7 @@ export function DrillingMachine () {
               />
 
               <TextField
-                label='Torque'
+                label='Torque (N.m)'
                 {...register('torque', {
                   required: true,
                 })}
