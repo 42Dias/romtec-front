@@ -22,9 +22,15 @@ export function Login () {
   const [loading, setLoading] = useState(false)
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>()
+  const navigate = useNavigate()
 
-  function onSubmit (data: FormData) {
-    console.log(data)
+  function onSubmit ({ email, password }: FormData) {
+    const submit = {
+      email,
+      password,
+    }
+    Login(submit)
+    console.log(submit)
   }
 
   function handleLocalStorage (emailA: string, passwordB: string) {
