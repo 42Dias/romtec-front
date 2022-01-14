@@ -208,7 +208,6 @@ DrillingFluid () {
 
               <TextField
                 label='Viscosidade esperada (Segundos Marsh - cP)'
-                value={0}
                 {...register('viscosidadeEsperada', {
                   required: false,
                 })}
@@ -216,7 +215,6 @@ DrillingFluid () {
 
               <TextField
                 label='pH da Água'
-                value={0}
                 {...register('qtdePHPA', {
                   required: false,
                 })}
@@ -224,7 +222,6 @@ DrillingFluid () {
 
               <TextField
                 label='Quantidade base para formulação (Metros cúbicos - m²)'
-                value={0}
                 {...register('qtdeBase', {
                   required: false,
                 })}
@@ -232,7 +229,6 @@ DrillingFluid () {
 
               <TextField
                 label='Limite de escoamento (Número - N)'
-                value={0}
                 {...register('limiteEscoamento', {
                   required: false,
                 })}
@@ -240,7 +236,6 @@ DrillingFluid () {
 
               <TextField
                 label='Teor de areia (Porcentagem - %)'
-                value={0}
                 {...register('teorAreia', {
                   required: false,
                 })}
