@@ -1,15 +1,17 @@
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import InputMask from 'react-input-mask'
+import { api } from '../../services/api'
+import { FiPlus } from 'react-icons/fi'
+import { toast } from 'react-toastify'
+
 import { TextField } from '../../ui/Components/TextField'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 
-import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { api } from '../../services/api'
-import { FiPlus } from 'react-icons/fi'
-import { toast } from 'react-toastify'
-
 import * as S from './Labor.styled'
+
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import EditButton from '../../ui/Components/EditButton/EditButton'
 
@@ -116,6 +118,10 @@ export function Labor () {
 
       return maoDeObra
     }))
+  }
+
+  const Masked = () => {
+    <InputMask mask='999.999.999-99' />
   }
 
   return (

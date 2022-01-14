@@ -2,13 +2,14 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { TextField } from '../../ui/Components/TextField'
 
-import * as S from './ForgotPassword.styled'
+import * as S from './UpdatePassword.styled'
 
 type FormData = {
-  email: string;
+  password: string;
+  confirmPassword: string;
 }
 
-export function ForgotPassword () {
+export function UpdatePassword () {
   const { register, handleSubmit } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
@@ -18,13 +19,22 @@ export function ForgotPassword () {
   return (
     <S.ContainerLogin>
       <S.Content>
-        <h1>Esqueceu a senha?</h1>
-        <p>Coloque seu e-mail que informaremos o passo a passo para sua recuperação</p>
+        <h1>Atualize sua senha</h1>
+        <p>Troque sua senha nos campos abaixo</p>
         <form onSubmit={handleSubmit(onSubmit)}>
           <TextField
-            label='E-mail'
-            placeholder='example@gmail.com'
-            {...register('email', {
+            label='Senha'
+            placeholder='sua melhor senha'
+            id='password'
+            {...register('password', {
+              required: true,
+            })}
+          />
+          <TextField
+            label='Digite sua senha novamente'
+            placeholder='sua melhor senha novamente'
+            id='confirmPassword'
+            {...register('confirmPassword', {
               required: true,
             })}
           />
