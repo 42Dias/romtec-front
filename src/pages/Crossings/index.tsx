@@ -36,7 +36,6 @@ export default function
   function onSubmit (data: FormData) {
     console.log(data)
 
-    reset()
   }
   // eslint-disable-next-line
   async function Cadastro (submit: any) {
@@ -47,8 +46,10 @@ export default function
     }).then((response) => {
       console.log(response)
       if (response.statusText === 'OK') {
-        toast.success('Recebemos o seu registro')
+        toast.success('Cadastrado com sucesso!')
         setLoading(false)
+        setIsOpen(false)
+        reset()
         loadDados()
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')

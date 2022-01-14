@@ -6,7 +6,7 @@ import Modal from '../../ui/Components/Modal/Modal'
 import { useEffect, useState } from 'react'
 import { FiTool } from 'react-icons/fi'
 import { toast } from 'react-toastify'
-import { api, ip } from '../../services/api'
+import { api, ip, roles } from '../../services/api'
 
 export default function
 Users () {
@@ -66,6 +66,7 @@ Users () {
       if (response.statusText === 'OK') {
         toast.success('Email enviado com sucesso!')
         setLoading(false)
+        setIsOpen(false)
         users()
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')
@@ -247,10 +248,10 @@ Users () {
                 <select name='' id='select' onChange={(text) => setRole(text.target.value)}>
                   <option value='operador'>Operador</option>
                   <option value='equipeCivil'>Equipe civil</option>
-                  <option value='navegacao'>Navegação</option>
-
-                  <option value='engAdmin'>Engenharia Adm</option>
-                  <option value='engUser'>Engenharia User</option>
+                  <option value='navegador'>Navegação</option>
+                  {roles === "admin" ? <option value='admin'>Plataforma ADM</option>:false}
+                  <option value='engenhariaADM'>Engenharia ADM</option>
+                  <option value='engenharia'>Engenharia</option>
                   <option value='mapeamento'>Mapeamento</option>
                 </select>
               </div>

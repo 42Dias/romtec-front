@@ -39,7 +39,6 @@ ProbeHolder () {
   function onSubmit (data: FormData) {
     console.log(data)
     Cadastro(data)
-    reset()
   }
 
   function handleDelete (id: string) {
@@ -56,8 +55,10 @@ ProbeHolder () {
     }).then((response) => {
       console.log(response)
       if (response.statusText === 'OK') {
-        toast.success('Porta Sonda cadastrado com sucesso!')
+        toast.success('Cadastrado com sucesso!')
         setLoading(false)
+        setIsOpen(false)
+        reset()
         loadDados()
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')

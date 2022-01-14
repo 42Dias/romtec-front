@@ -14,8 +14,8 @@ import EditButton from '../../ui/Components/EditButton/EditButton'
 import { FaEdit } from 'react-icons/fa'
 
 type FormData = {
-  description: string;
-  name: Date;
+  descricao: string;
+  nome: Date;
 }
 
 export default function
@@ -26,26 +26,31 @@ ConfigurationCrossing () {
   const [loading, setLoading] = useState(false)
   // eslint-disable-next-line
   const [travessia, setTravessia] = useState<any[]>([])
+  const [idconfigTravessia, setIdconfigTravessia] = useState('')
+  const [descricao, setdescricao] = useState('')
+  const [nome, setnome] = useState('')
   const [configurationCrossings, setConfigurationCrossings] = useState<any[]>([])
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
     console.log(data)
-
-    reset()
+    Cadastro(data)
+    
   }
   // eslint-disable-next-line
   async function Cadastro (submit: any) {
     setLoading(true)
     // eslint-disable-next-line
-    const responser = api.post('companhia', {
+    const responser = api.post('configTravessia', {
       data: submit,
     }).then((response) => {
       console.log(response)
       if (response.statusText === 'OK') {
-        toast.success('Recebemos o seu registro')
+        toast.success('Cadastrada com sucesso!')
         setLoading(false)
+        setIsOpen(false)
+        reset()
         loadDados()
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')
@@ -64,7 +69,7 @@ ConfigurationCrossing () {
   async function loadDados () {
     setLoading(true)
     // eslint-disable-next-line
-    const responser = api.get('companhia',
+    const responser = api.get('configTravessia',
     ).then((response) => {
       console.log(response.data.rows)
       if (response.statusText === 'OK') {
@@ -77,28 +82,52 @@ ConfigurationCrossing () {
       setLoading(false)
     })
   }
+  async function deleteDados(id: string) {
+    setLoading(true)
+    // eslint-disable-next-line
+    const responser = api.delete('configTravessia/' + id
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response)
+      toast.error(res.response)
+      setLoading(false)
+    })
+  }
+  function update(dados: any) {
+    console.log('dados')
+    console.log(dados)
+    setIdconfigTravessia(dados.id)
+    setdescricao(dados.descricao)
+    setnome(dados.nome)
+    setIsOpenUpdate(true)
+  }
+  async function updateDados() {
+    setLoading(true)
+    const responser = api.put('configTravessia/' + idconfigTravessia, {
+      data: {
+        descricao: descricao,
+        nome: nome,
+      }
+    }
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setIsOpenUpdate(false)
+        setLoading(false)
+      }
+    }).catch((error) => {
+      setLoading(false)
+      toast.error(error.response.data)
+    })
+  }
   useEffect(() => {
     setLoading(true)
     loadDados()
   }, [])
-
-  function handleDelete (id: string) {
-    setConfigurationCrossings(configurationCrossings =>
-      configurationCrossings.filter(configurationCrossing => configurationCrossing.id !== id),
-    )
-  }
-
-  const handleUpdate = (id: string) => {
-    setConfigurationCrossings(configurationCrossings => configurationCrossings.map(configurationCrossing => {
-      if (configurationCrossing.id === id) {
-        return {
-          ...configurationCrossing,
-        }
-      }
-
-      return configurationCrossing
-    }))
-  }
 
   return (
     <>
@@ -109,29 +138,26 @@ ConfigurationCrossing () {
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
 
         <S.GridConfirmation>
-          <span>Nome</span>
+        <span>Nome</span>
           <span>Descrição</span>
         </S.GridConfirmation>
 
         <ul>
-          {configurationCrossings.length > 0
-            ? configurationCrossings.map((configurationCrossing) =>
+          {travessia.length > 0
+            ? travessia.map((configurationCrossing) =>
               <li key={configurationCrossing.id}>
                 <S.GridConfirmation>
-                  <span>{configurationCrossing.nomeFantasia}</span>
-                  <span>{configurationCrossing.estado}</span>
-                  <span>{configurationCrossing.cidade}</span>
-                  <span>{configurationCrossing.email}</span>
-                  <span>{configurationCrossing.responsavelTecnico}</span>
+                  <span>{configurationCrossing.nome}</span>
+                  <span>{configurationCrossing.descricao}</span>
                   <DeleteButton
-                    onDelete={() => handleDelete(configurationCrossing.id)}
+                    onDelete={() => deleteDados(configurationCrossing.id)}
                   />
                   {/* <EditButton
                     onEdit={() => handleUpdate(configurationCrossing.id)}
                   /> */}
                   <button
                     // onChange={onEdit}
-                    onClick={() => setIsOpenUpdate(true)}
+                    onClick={() => update(configurationCrossing)}
                     style={{ background: 'none', color: 'yellow' }}
                     title='Editar?'
                   >
@@ -147,55 +173,44 @@ ConfigurationCrossing () {
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField
-                label='Descrição'
-                errorMessage={errors.description?.message}
-                {...register('description', {
-                  required: {
-                    value: true,
-                    message: 'Todos os campos são obrigatórios',
-                  },
-                })}
-              />
-
-              <TextField
                 label='Nome'
-                {...register('name', {
+                {...register('nome', {
                   required: {
                     value: true,
                     message: '',
                   },
                 })}
               />
-              <button type='submit'>Salvar</button>
+              <TextField
+                label='Descrição'
+                errorMessage={errors.descricao?.message}
+                {...register('descricao', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              />
+              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
             </S.Form>
           </S.Container>
         </Modal>
 
         <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
-            <S.Form onSubmit={handleSubmit(onSubmit)}>
+            <S.Div>
+            <TextField
+                label='Nome'
+                value={nome}
+                onChange={(text) => setnome(text.target.value)}
+              />
               <TextField
                 label='Descrição'
-                errorMessage={errors.description?.message}
-                {...register('description', {
-                  required: {
-                    value: true,
-                    message: 'Todos os campos são obrigatórios',
-                  },
-                })}
+                value={descricao}
+                onChange={(text) => setdescricao(text.target.value)}
               />
-
-              <TextField
-                label='Nome'
-                {...register('name', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
-              />
-              <button type='submit'>Salvar</button>
-            </S.Form>
+              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+            </S.Div>
           </S.Container>
         </Modal>
       </S.ContainerConfirmation>

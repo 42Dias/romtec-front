@@ -83,7 +83,7 @@ export default function
     }).then((response) => {
       console.log(response)
       if (response.statusText === 'OK') {
-        toast.success('Maquina perfuratriz cadastrada com sucesso!')
+        toast.success('Cadastrada com sucesso!')
         setLoading(false)
         reset()
         loadDados()

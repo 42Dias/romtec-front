@@ -47,7 +47,6 @@ export default function
   function onSubmit(data: FormData) {
     console.log(data)
     Cadastro(data)
-    reset()
   }
 
   function handleDelete(id: string) {
@@ -64,8 +63,10 @@ export default function
     }).then((response) => {
       console.log(response)
       if (response.statusText === 'OK') {
-        toast.success('Alargador cadastrado com sucesso!')
+        toast.success('Cadastrado com sucesso!')
         setLoading(false)
+        setIsOpen(false)
+        reset()
         loadDados()
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')

@@ -35,7 +35,6 @@ Plans () {
   function onSubmit (data: FormData) {
     console.log(data)
     Cadastro(data)
-    reset()
   }
   async function Cadastro (submit: any) {
     setLoading(true)
@@ -45,8 +44,10 @@ Plans () {
     }).then((response) => {
       console.log(response)
       if (response.statusText === 'OK') {
-        toast.success('Plano Cadastrado com sucesso!')
+        toast.success('Cadastrado com sucesso!')
         setLoading(false)
+        setIsOpen(false)
+        reset()
         loadDados()
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')

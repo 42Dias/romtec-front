@@ -53,7 +53,7 @@ DrillingFluid () {
     }).then((response) => {
       console.log(response)
       if (response.statusText === 'OK') {
-        toast.success('Fluido cadastrado com sucesso!')
+        toast.success('Cadastrado com sucesso!')
         setLoading(false)
         reset()
         loadDados()

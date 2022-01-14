@@ -88,7 +88,30 @@ export const Form = styled.form`
     }
   }
 `
+export const Div = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  @media (max-width: 520px) {
+    grid-template-columns: 1fr;
+  }
+  justify-items: center;
+  align-items: center;
 
+  button {
+    width: 101px;
+    height: 44px;
+    border-radius: 5px;
+    background: ${theme.colors.green};
+    border: 0;
+    transition: 1s;
+    margin-bottom: 20px;
+    margin-right: 250px;
+
+    :hover {
+      opacity: 80%;
+    }
+  }
+`
 export const Container = styled.aside`
   max-width: 780px;
   margin: 0 auto;

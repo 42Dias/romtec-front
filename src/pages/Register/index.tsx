@@ -55,7 +55,6 @@ export default function Register () {
     }).then((response) => {
       console.log(response)
       if (response.statusText === 'OK') {
-        toast.success('Opa, recebemos o seu registro')
         toast.success('Cadastro realizado com sucesso!')
         handleLocalStorage(submit.email, submit.password)
         handleLocalStorageToken(response.data)
