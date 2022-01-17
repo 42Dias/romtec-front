@@ -1,15 +1,15 @@
-import { TextField } from '../../ui/Components/TextField'
-import Sidebar from '../../ui/Components/Sidebar/Sidebar'
-import Navbar from '../../ui/Components/Navbar/Navbar'
-import Modal from '../../ui/Components/Modal/Modal'
-
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import InputMask from 'react-input-mask'
 import { api } from '../../services/api'
 import { FiPlus } from 'react-icons/fi'
 import { toast } from 'react-toastify'
 
 import * as S from './styled'
+import { TextField } from '../../ui/Components/TextField'
+import Sidebar from '../../ui/Components/Sidebar/Sidebar'
+import Navbar from '../../ui/Components/Navbar/Navbar'
+import Modal from '../../ui/Components/Modal/Modal'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import EditButton from '../../ui/Components/EditButton/EditButton'
 import { FaEdit } from 'react-icons/fa'
@@ -154,6 +154,28 @@ Labor () {
     setLoading(true)
     loadDados()
   }, [])
+
+  function handleDelete (id: string) {
+    setMaoDeObra(maoDeObras =>
+      maoDeObras.filter(maoDeObra => maoDeObra.id !== id),
+    )
+  }
+
+  const handleUpdate = (id: string) => {
+    setMaoDeObra(maoDeObras => maoDeObras.map(maoDeObra => {
+      if (maoDeObra.id === id) {
+        return {
+          ...maoDeObra,
+        }
+      }
+
+      return maoDeObra
+    }))
+  }
+
+  const Masked = () => {
+    <InputMask mask='999.999.999-99' />
+  }
 
   return (
     <>

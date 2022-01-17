@@ -1,5 +1,6 @@
 
 import { Switch, Route, HashRouter } from 'react-router-dom'
+import { UpdatePassword } from './pages'
 import Companies from './pages/Companies'
 import ConfigurationCrossing from './pages/ConfigurationCrossing'
 import Crossings from './pages/Crossings'
@@ -69,6 +70,7 @@ const Routes = (): JSX.Element => {
           <Route path='/porta-sonda' exact component={ProbeHolder} />
           <Route path='/usuarios' exact component={Users} />
           <Route path='/etapas' exact component={Phases} />
+          <Route path='/atualizar-senha/:token' exact component={UpdatePassword} />
         </Switch>
       </HashRouter>
     </HashRouter>
