@@ -11,6 +11,7 @@ export const ContainerConfirmation = styled.div`
     font-size: 24px;
     padding: 20px 0;
   }
+
   button {
     width: 54px;
     height: 44px;
@@ -48,7 +49,6 @@ export const GridConfirmation = styled.div`
   border-radius: 5px;
   margin-bottom: 13px;
 
-
   .exec {
     width: 155px;
     height: 36px;
@@ -57,6 +57,7 @@ export const GridConfirmation = styled.div`
     justify-content: center;
     border-radius: 5px;
     background-color: ${theme.colors.yellow};
+
     span {
       color: ${theme.colors.black};
       font-weight: bold;
@@ -66,6 +67,7 @@ export const GridConfirmation = styled.div`
   .del {
     background-color: transparent;
     margin-top: 20px;
+
     svg {
       color: ${theme.colors.red};
     }
