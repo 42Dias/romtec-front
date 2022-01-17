@@ -142,7 +142,6 @@ export function Crossings () {
               <li key={perfuracao.id}>
                 <S.GridConfirmation>
                   <span>{perfuracao}</span>
-                  <Link to='/etapas' className='exec'><span>Executar travessia</span></Link>
                   <DeleteButton
                     onDelete={() => handleDelete(perfuracao.id)}
                   />

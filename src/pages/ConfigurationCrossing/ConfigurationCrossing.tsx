@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 import EditButton from '../../ui/Components/EditButton/EditButton'
+import { Link } from 'react-router-dom'
 
 type FormData = {
   description: string;
@@ -104,6 +105,7 @@ export function ConfigurationCrossing () {
       <S.ContainerConfirmation>
         <h2>Configurações</h2>
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
+        <Link to='/etapas'><span>Executar travessia</span></Link>
 
         <S.GridConfirmation>
           <span>Nome</span>
