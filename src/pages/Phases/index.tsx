@@ -79,6 +79,7 @@ export default function
   const [sondagem, setsondagem] = useState('')
   const [criacaoplanoFuro, setcriacaoplanoFuro] = useState('')
   const [url, setUrl] = useState('')
+  const [isUpdate, setIsUpdate] = useState(false)
 
   function onSubmit(data: FormData) {
     data.idConfigTravessia = idConfigTravessia.replace("#/etapas/", '');
@@ -104,7 +105,12 @@ export default function
 
 
     console.log(data)
-    createNewFile(data)
+    if (isUpdate) {
+      updateDados()
+    } else {
+      createNewFile(data)
+    }
+
   }
   async function createNewFile(submit: any) {
     setLoading(true)
@@ -115,7 +121,7 @@ export default function
       data: submit,
     }).then((response) => {
       if (response.statusText === 'OK') {
-        toast.success('Tipo de solo cadastrado com sucesso!')
+        toast.success('Cadastrado realizado com sucesso!')
         setLoading(false)
         reset()
         setIsOpenPlanejamento(false)
@@ -182,7 +188,7 @@ export default function
       settipoTubulacao(data[0].tipoTubulacao)
       setisOpenUpdatePlanejamentoPerfuração(true)
     }
-    else if (url === 'levantametoMapInteferencia/'){
+    else if (url === 'levantametoMapInteferencia/') {
       setresponsavel(data[0].responsavel)
       setequipamentos(data[0].equipamentos)
       setdocumentos(data[0].documentos)
@@ -196,22 +202,31 @@ export default function
     }
 
     console.log(idDados)
-    
+
   }
   async function updateDados() {
     setLoading(true)
     console.log('idDados')
     console.log(idDados)
     //console.log(soilTypesUp)
-    const responser = api.put('planejamentoPerfuracao/' + idDados, {
+    const responser = api.put(url + idDados, {
       data: {
         id: idDados,
         latitudeEntrada: latitudeEntrada,
         longitudeSaida: longitudeSaida,
         tipoTubulacao: tipoTubulacao,
-        idConfigTravessia: idConfigTravessia,
+        idConfigTravessia: idConfigTravessia.replace("#/etapas/", ''),
         longitudeEntrada: longitudeEntrada,
         latitudeSaida: latitudeSaida,
+        responsavel: responsavel,
+        equipamentos: equipamentos,
+        documentos: documentos,
+        tipoRede: tipoRede,
+        empresa: empresa,
+        sondagemInterferencia: sondagemInterferencia,
+        sondagem: sondagem,
+        criacaoplanoFuro: criacaoplanoFuro,
+        diametroPerfuracao: diametroPerfuracao
       },
     },
     ).then((response) => {
@@ -244,7 +259,7 @@ export default function
       } else {
         update(dados)
       }
-    }else{
+    } else {
       toast.info("Clique mais uma vez!")
     }
     setIsOpen2(false)
@@ -268,9 +283,10 @@ export default function
       if (dados.length == 0) {
         setIsOpen2(true)
       } else {
+        setIsUpdate(true)
         update(dados)
       }
-    }else{
+    } else {
       toast.info("Clique mais uma vez!")
     }
 
