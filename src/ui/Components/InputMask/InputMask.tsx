@@ -29,7 +29,7 @@ export default function MaskedInput ({
   return (
     <Input
       {...props}
-      onChange={() => handleOnChange}
+      onChange={handleOnChange}
       value={value ? masker(value as string, mask) : undefined}
     />
   )

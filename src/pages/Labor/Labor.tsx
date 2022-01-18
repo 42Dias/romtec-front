@@ -219,7 +219,7 @@ export function Labor () {
                 })}
               />
 
-              <MaskedInput mask={['(99) 9999-9999']} />
+              <MaskedInput mask={['(99) 99999-9999']} value='12342137777' />
 
               <TextField
                 label='Celular'
