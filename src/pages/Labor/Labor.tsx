@@ -219,7 +219,12 @@ export function Labor () {
                 })}
               />
 
-              <MaskedInput mask={['(99) 99999-9999']} value='12342137777' />
+              <MaskedInput
+                mask={['(99) 99999-9999']}
+                {...register('celular', {
+                  required: true,
+                })}
+              />
 
               <TextField
                 label='Celular'
