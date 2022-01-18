@@ -187,6 +187,17 @@ export const FormContent = styled.form`
     border: 0;
   }
 `
+export const Div = styled.div`
+  button {
+    width: 101px;
+    height: 44px;
+
+    background: ${theme.colors.green};
+    border-radius: 5px;
+    color: white;
+    border: 0;
+  }
+`
 
 export const GridForm = styled.div`
   display: grid;

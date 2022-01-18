@@ -101,12 +101,6 @@ SoilTypes () {
       setLoading(false)
     })
   }
-  useEffect(() => {
-    console.log(soilTypesUp)
-    setLoading(true)
-    loadDados()
-  }, [])
-
   function update (tipoSolo: any) {
     console.log('tipoSolo')
     console.log(tipoSolo)
@@ -145,6 +139,13 @@ SoilTypes () {
       }
     })
   }
+  useEffect(() => {
+    console.log(soilTypesUp)
+    setLoading(true)
+    loadDados()
+  }, [])
+
+  
   return (
     <>
       <Sidebar />

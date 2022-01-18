@@ -21,11 +21,14 @@ export default function Login () {
   const [loading, setLoading] = useState(false)
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>()
-  // eslint-disable-next-line
 
-  function onSubmit (data: FormData) {
-    console.log(data)
-    Login(data)
+  function onSubmit ({ email, password }: FormData) {
+    const submit = {
+      email,
+      password,
+    }
+    Login(submit)
+    console.log(submit)
   }
 
   function handleLocalStorage (emailA: string, passwordB: string) {
@@ -151,3 +154,4 @@ export default function Login () {
     </S.ContainerLogin>
   )
 }
+

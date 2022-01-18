@@ -57,6 +57,7 @@ export const GridConfirmation = styled.div`
     justify-content: center;
     border-radius: 5px;
     background-color: ${theme.colors.yellow};
+
     span {
       color: ${theme.colors.black};
       font-weight: bold;
@@ -66,6 +67,7 @@ export const GridConfirmation = styled.div`
   .del {
     background-color: transparent;
     margin-top: 20px;
+
     svg {
       color: ${theme.colors.red};
     }

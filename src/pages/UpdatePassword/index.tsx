@@ -28,10 +28,10 @@ export default function UpdatePassword () {
     console.log(hash)
     if (hash) {
 
-      var token = hash.replace("#/atualizar-senha/", '');
+      var token = hash.replace("#/atualizar-senha/", ''); 
       console.log(token)
       if (token) {
-        localStorage.setItem("token", JSON.stringify(token));
+        //localStorage.setItem("token", JSON.stringify(token));
         loadUser()
       }
     }

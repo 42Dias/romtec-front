@@ -34,6 +34,22 @@ export const ContainerConfirmation = styled.div`
       opacity: 80%;
     }
   }
+
+  a {
+    width: 155px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    background-color: ${theme.colors.yellow};
+    margin-bottom: 20px;
+
+    span {
+      color: ${theme.colors.black};
+      font-weight: bold;
+    }
+  }
 `
 
 export const GridConfirmation = styled.div`

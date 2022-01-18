@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Modal from 'react-modal'
 import * as S from './styled'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -14,12 +14,42 @@ import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 
 import { FiPlus, FiCheck, FiPlay, FiLock, FiX } from 'react-icons/fi'
+import { api, ip } from '../../services/api'
+import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
+import { type } from 'os'
 
 SwiperCore.use([Pagination, Navigation])
 
+type FormData = {
+  id: string;
+  latitudeEntrada: string;
+  longitudeEntrada: string;
+  latitudeSaida: string;
+  longitudeSaida: string;
+  tipoTubulacao: string;
+  diametroPerfuracao: string;
+  tipoSolo: string;
+  idConfigTravessia: string;
+  banco: string;
+}
+type levantamento = {
+  id: string;
+  responsavel: string;
+  latitudeSaida: string;
+  equipamentos: string;
+  documentos: string;
+  tipoRede: string;
+  empresa: string;
+  sondagemInterferencia: string;
+  sondagem: string;
+  criacaoplanoFuro: string;
+  idConfigTravessia: string;
+  banco: string;
+}
 export default function
-Phases () {
-  const [modalIsOpen, setIsOpen] = useState(false)
+  Phases() {
+  const [modalIsOpenPlanejamento, setIsOpenPlanejamento] = useState(false)
   const [modalIsOpen2, setIsOpen2] = useState(false)
   const [modalIsOpen3, setIsOpen3] = useState(false)
   const [modalIsOpen4, setIsOpen4] = useState(false)
@@ -27,9 +57,196 @@ Phases () {
   const [modalIsOpen6, setIsOpen6] = useState(false)
   const [modalIsOpen7, setIsOpen7] = useState(false)
   const [modalIsOpen8, setIsOpen8] = useState(false)
+  var idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas/', '');
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
+  const [loading, setLoading] = useState(false)
+  const [dados, setDados] = useState<any>()
+  const [idDados, setId] = useState('')
+  const [responsavel, setresponsavel] = useState('')
+  const [equipamentos, setequipamentos] = useState('')
+  const [documentos, setdocumentos] = useState('')
+  const [longitudeSaida, setlongitudeSaida] = useState('')
+  const [tipoTubulacao, settipoTubulacao] = useState('')
+  const [diametroPerfuracao, setdiametroPerfuracao] = useState('')
+  const [tipoSolo, setTipoSolo] = useState('')
+  const [isOpenUpdatePlanejamentoPerfuração, setisOpenUpdatePlanejamentoPerfuração] = useState(false)
+  const [latitudeEntrada, setlatitudeEntrada] = useState('')
+  const [longitudeEntrada, setlongitudeEntrada] = useState('')
+  const [latitudeSaida, setlatitudeSaida] = useState('')
+  const [tipoRede, settipoRede] = useState('')
+  const [empresa, setempresa] = useState('')
+  const [sondagemInterferencia, setsondagemInterferencia] = useState('')
+  const [sondagem, setsondagem] = useState('')
+  const [criacaoplanoFuro, setcriacaoplanoFuro] = useState('')
+  const [url, setUrl] = useState('')
 
-  function openModal () {
-    setIsOpen(true)
+  function onSubmit(data: FormData) {
+    data.idConfigTravessia = idConfigTravessia.replace("#/etapas/", '');
+    data.banco = 'planejamentoPerfuracao'
+    console.log(data)
+    createNewFile(data)
+  }
+  function onSubmitLevantamento() {
+    console.log(responsavel)
+    const data = {
+      idConfigTravessia: idConfigTravessia.replace("#/etapas/", ''),
+      banco: 'levantametoMapInteferencia',
+      responsavel: responsavel,
+      latitudeSaida: latitudeSaida,
+      equipamentos: equipamentos,
+      documentos: documentos,
+      tipoRede: tipoRede,
+      empresa: empresa,
+      sondagemInterferencia: sondagemInterferencia,
+      sondagem: sondagem,
+      criacaoplanoFuro: criacaoplanoFuro
+    }
+
+
+    console.log(data)
+    createNewFile(data)
+  }
+  async function createNewFile(submit: any) {
+    setLoading(true)
+    console.log('submit')
+    console.log(submit)
+    // eslint-disable-next-line
+    const responser = await api.post(submit.banco, {
+      data: submit,
+    }).then((response) => {
+      if (response.statusText === 'OK') {
+        toast.success('Tipo de solo cadastrado com sucesso!')
+        setLoading(false)
+        reset()
+        setIsOpenPlanejamento(false)
+        //loadDados()
+      } else if (response.statusText === 'Forbidden') {
+        toast.error('Ops, Não tem permisão!')
+        setLoading(false)
+      } else {
+        toast.error('Ops, Dados Incorretos!')
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
+  }
+  async function loadDados(url: string) {
+    setLoading(true)
+    // eslint-disable-next-line
+    const responser = await api.get(url + `?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/etapas/", '')}`,
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        setDados(response.data.rows)
+        setUrl(url)
+        console.log(dados)
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
+  }
+  async function deleteDados(id: string) {
+    setLoading(true)
+    // eslint-disable-next-line
+    const responser = api.delete('tipo-solo/' + id,
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        //loadDados()
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
+  }
+  function update(data: any) {
+    console.log('data')
+    console.log(data)
+    //setDados(data)
+    setId(data[0].id)
+    console.log(url)
+    if (url === 'planejamentoPerfuracao/') {
+      setlatitudeEntrada(data[0].latitudeEntrada)
+      setlongitudeSaida(data[0].longitudeSaida)
+      settipoTubulacao(data[0].tipoTubulacao)
+      setlongitudeEntrada(data[0].longitudeEntrada)
+      setlatitudeSaida(data[0].latitudeSaida)
+      setdiametroPerfuracao(data[0].diametroPerfuracao)
+      setTipoSolo(data[0].tipoSolo)
+      settipoTubulacao(data[0].tipoTubulacao)
+      setisOpenUpdatePlanejamentoPerfuração(true)
+    }
+    else if (url === 'levantametoMapInteferencia/'){
+      setresponsavel(data[0].responsavel)
+      setequipamentos(data[0].equipamentos)
+      setdocumentos(data[0].documentos)
+      setlatitudeSaida(data[0].latitudeSaida)
+      settipoRede(data[0].tipoRede)
+      setempresa(data[0].empresa)
+      setsondagemInterferencia(data[0].sondagemInterferencia)
+      setsondagem(data[0].sondagem)
+      setcriacaoplanoFuro(data[0].criacaoplanoFuro)
+      setIsOpen2(true)
+    }
+
+    console.log(idDados)
+    
+  }
+  async function updateDados() {
+    setLoading(true)
+    console.log('idDados')
+    console.log(idDados)
+    //console.log(soilTypesUp)
+    const responser = api.put('planejamentoPerfuracao/' + idDados, {
+      data: {
+        id: idDados,
+        latitudeEntrada: latitudeEntrada,
+        longitudeSaida: longitudeSaida,
+        tipoTubulacao: tipoTubulacao,
+        idConfigTravessia: idConfigTravessia,
+        longitudeEntrada: longitudeEntrada,
+        latitudeSaida: latitudeSaida,
+      },
+    },
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados('planejamentoPerfuracao/')
+        setisOpenUpdatePlanejamentoPerfuração(false)
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
+  }
+  useEffect(() => {
+    //console.log(soilTypesUp)
+    idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas/', '');
+    console.log("useEffect")
+    console.log(idConfigTravessia)
+    setLoading(true)
+    //loadDados('planejamentoPerfuracao/')
+
+  }, [])
+
+  function openModal() {
+    loadDados('planejamentoPerfuracao/')
+    if (dados) {
+      if (dados.length == 0) {
+        setIsOpenPlanejamento(true)
+      } else {
+        update(dados)
+      }
+    }else{
+      toast.info("Clique mais uma vez!")
+    }
     setIsOpen2(false)
     setIsOpen3(false)
     setIsOpen4(false)
@@ -38,16 +255,27 @@ Phases () {
     setIsOpen7(false)
     setIsOpen8(false)
   }
-  function afterOpenModal () {
+  function afterOpenModal() {
     // references are now sync'd and can be accessed.
   }
-  function closeModal () {
-    setIsOpen(false)
+  function closeModal() {
+    setIsOpenPlanejamento(false)
   }
 
-  function openModal2 () {
-    setIsOpen2(true)
-    setIsOpen(false)
+  function openModal2() {
+    loadDados('levantametoMapInteferencia/')
+    if (dados) {
+      if (dados.length == 0) {
+        setIsOpen2(true)
+      } else {
+        update(dados)
+      }
+    }else{
+      toast.info("Clique mais uma vez!")
+    }
+
+    setIsOpenPlanejamento(false)
+    setisOpenUpdatePlanejamentoPerfuração(false)
     setIsOpen3(false)
     setIsOpen4(false)
     setIsOpen5(false)
@@ -56,13 +284,14 @@ Phases () {
     setIsOpen8(false)
   }
 
-  function closeModal2 () {
+  function closeModal2() {
     setIsOpen2(false)
   }
 
-  function openModal3 () {
+  function openModal3() {
     setIsOpen3(true)
-    setIsOpen(false)
+    setIsOpenPlanejamento(false)
+    setisOpenUpdatePlanejamentoPerfuração(false)
     setIsOpen2(false)
     setIsOpen4(false)
     setIsOpen5(false)
@@ -71,13 +300,14 @@ Phases () {
     setIsOpen8(false)
   }
 
-  function closeModal3 () {
+  function closeModal3() {
     setIsOpen3(false)
   }
   //
-  function openModal4 () {
+  function openModal4() {
     setIsOpen4(true)
-    setIsOpen(false)
+    setIsOpenPlanejamento(false)
+    setisOpenUpdatePlanejamentoPerfuração(false)
     setIsOpen2(false)
     setIsOpen3(false)
     setIsOpen5(false)
@@ -86,13 +316,14 @@ Phases () {
     setIsOpen8(false)
   }
 
-  function closeModal4 () {
+  function closeModal4() {
     setIsOpen4(false)
   }
 
-  function openModal5 () {
+  function openModal5() {
     setIsOpen5(true)
-    setIsOpen(false)
+    setIsOpenPlanejamento(false)
+    setisOpenUpdatePlanejamentoPerfuração(false)
     setIsOpen2(false)
     setIsOpen3(false)
     setIsOpen4(false)
@@ -101,14 +332,15 @@ Phases () {
     setIsOpen8(false)
   }
 
-  function closeModal5 () {
+  function closeModal5() {
     setIsOpen5(false)
   }
 
-  function openModal6 () {
+  function openModal6() {
     setIsOpen6(true)
     setIsOpen5(false)
-    setIsOpen(false)
+    setIsOpenPlanejamento(false)
+    setisOpenUpdatePlanejamentoPerfuração(false)
     setIsOpen2(false)
     setIsOpen3(false)
     setIsOpen4(false)
@@ -116,37 +348,39 @@ Phases () {
     setIsOpen8(false)
   }
 
-  function closeModal6 () {
+  function closeModal6() {
     setIsOpen6(false)
   }
 
-  function openModal7 () {
+  function openModal7() {
     setIsOpen7(true)
     setIsOpen6(false)
     setIsOpen5(false)
-    setIsOpen(false)
+    setIsOpenPlanejamento(false)
+    setisOpenUpdatePlanejamentoPerfuração(false)
     setIsOpen2(false)
     setIsOpen3(false)
     setIsOpen4(false)
     setIsOpen8(false)
   }
 
-  function closeModal7 () {
+  function closeModal7() {
     setIsOpen7(false)
   }
 
-  function openModal8 () {
+  function openModal8() {
     setIsOpen8(true)
     setIsOpen7(false)
     setIsOpen6(false)
     setIsOpen5(false)
-    setIsOpen(false)
+    setIsOpenPlanejamento(false)
+    setisOpenUpdatePlanejamentoPerfuração(false)
     setIsOpen2(false)
     setIsOpen3(false)
     setIsOpen4(false)
   }
 
-  function closeModal8 () {
+  function closeModal8() {
     setIsOpen8(false)
   }
 
@@ -345,52 +579,168 @@ Phases () {
               backgroundColor: '#1B1925',
             },
           }}
-          isOpen={modalIsOpen}
+          isOpen={modalIsOpenPlanejamento}
           onAfterOpen={() => afterOpenModal}
           onRequestClose={() => closeModal}
         >
           <h2>Planejamento de perfuração</h2>
           {/* <button onClick={closeModal}>close</button> */}
 
-          <S.FormContent>
+          <S.FormContent onSubmit={handleSubmit(onSubmit)}>
             <S.GridForm>
               <div>
                 <label htmlFor=''>Ponto de verificação de entrada (lat)</label>
-                <input type='text' placeholder='Latitude' />
+                <input type='text' placeholder='Latitude'
+                  {...register('latitudeEntrada', {
+                    required: {
+                      value: true,
+                      message: 'Todos os campos são obrigatórios',
+                    },
+                  })} />
               </div>
 
               <div>
                 <label htmlFor=''>Ponto de verificação de entrada (long)</label>
-                <input type='text' placeholder='Longitude' />
+                <input type='text' placeholder='Longitude'
+                  {...register('longitudeEntrada', {
+                    required: true,
+                  })} />
               </div>
 
               <div>
                 <label htmlFor=''>Ponto de verificação de saída (lat)</label>
-                <input type='text' placeholder='Latitude' />
+                <input type='text' placeholder='Latitude'
+                  {...register('latitudeSaida', {
+                    required: true,
+                  })} />
               </div>
 
               <div>
                 <label htmlFor=''>Ponto de verificação de saída (long)</label>
-                <input type='text' placeholder='Longitude' />
+                <input type='text' placeholder='Longitude'
+                  {...register('longitudeSaida', {
+                    required: true,
+                  })} />
               </div>
 
               <div>
                 <label htmlFor=''>Tipo de tubulação</label>
-                <input type='text' placeholder='Fibra óptica' />
+                <input type='text' placeholder='Fibra óptica'
+                  {...register('tipoTubulacao', {
+                    required: true,
+                  })} />
               </div>
 
               <div>
                 <label htmlFor=''>Diâmetro de perfuração</label>
-                <input type='text' placeholder='20 metros' />
+                <input type='text' placeholder='20 metros'
+                  {...register('diametroPerfuracao', {
+                    required: true,
+                  })} />
               </div>
 
               <div>
                 <label htmlFor=''>Tipos de solo</label>
-                <input type='text' placeholder='Barro' />
+                <input type='text' placeholder='Barro'
+                  {...register('tipoSolo', {
+                    required: true,
+                  })} />
               </div>
             </S.GridForm>
-            <button>Salvar</button>
+            <button>{loading
+              ? <img
+                width='40px'
+                style={{ margin: 'auto' }}
+                height='' src='https://contribua.org/mb-static/images/loading.gif'
+                alt='Loading'
+              />
+              : 'Salvar'}</button>
           </S.FormContent>
+        </Modal>
+        <Modal
+          style={{
+            overlay: {
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              position: 'inherit',
+            },
+            content: {
+              border: '0',
+              overflow: 'auto',
+              WebkitOverflowScrolling: 'touch',
+              borderRadius: '0',
+              outline: 'none',
+              padding: '20px',
+              position: 'inherit',
+              backgroundColor: '#1B1925',
+            },
+          }}
+          isOpen={isOpenUpdatePlanejamentoPerfuração}
+          onAfterOpen={() => afterOpenModal}
+          onRequestClose={() => closeModal}
+        >
+          <h2>Planejamento de perfuração</h2>
+          {/* <button onClick={closeModal}>close</button> */}
+
+          <S.Div>
+            <S.GridForm>
+              <div>
+                <label htmlFor=''>Ponto de verificação de entrada (lat)</label>
+                <input type='text' placeholder='Latitude'
+                  value={latitudeEntrada}
+                  onChange={(text) => setlatitudeEntrada(text.target.value)} />
+              </div>
+
+              <div>
+                <label htmlFor=''>Ponto de verificação de entrada (long)</label>
+                <input type='text' placeholder='Longitude'
+                  value={longitudeEntrada}
+                  onChange={(text) => setlongitudeEntrada(text.target.value)} />
+              </div>
+
+              <div>
+                <label htmlFor=''>Ponto de verificação de saída (lat)</label>
+                <input type='text' placeholder='Latitude'
+                  value={latitudeSaida}
+                  onChange={(text) => setlatitudeSaida(text.target.value)} />
+              </div>
+
+              <div>
+                <label htmlFor=''>Ponto de verificação de saída (long)</label>
+                <input type='text' placeholder='Longitude'
+                  value={longitudeSaida}
+                  onChange={(text) => setlongitudeSaida(text.target.value)} />
+              </div>
+
+              <div>
+                <label htmlFor=''>Tipo de tubulação</label>
+                <input type='text' placeholder='Fibra óptica'
+                  value={tipoTubulacao}
+                  onChange={(text) => settipoTubulacao(text.target.value)} />
+              </div>
+
+              <div>
+                <label htmlFor=''>Diâmetro de perfuração</label>
+                <input type='text' placeholder='20 metros'
+                  value={diametroPerfuracao}
+                  onChange={(text) => setdiametroPerfuracao(text.target.value)} />
+              </div>
+
+              <div>
+                <label htmlFor=''>Tipos de solo</label>
+                <input type='text' placeholder='Barro'
+                  value={tipoSolo}
+                  onChange={(text) => setTipoSolo(text.target.value)} />
+              </div>
+            </S.GridForm>
+            <button onClick={() => updateDados()}>{loading
+              ? <img
+                width='40px'
+                style={{ margin: 'auto' }}
+                height='' src='https://contribua.org/mb-static/images/loading.gif'
+                alt='Loading'
+              />
+              : 'Salvar'}</button>
+          </S.Div>
         </Modal>
 
         <Modal
@@ -417,60 +767,85 @@ Phases () {
           <h2>Levantamento e Mapeamento de interferências</h2>
           {/* <button onClick={closeModal}>close</button> */}
 
-          <S.FormContent>
+          <S.Div>
             <S.GridForm>
               <div>
                 <label htmlFor=''>Responsável</label>
-                <input type='text' />
+                <input type='text'
+                  value={responsavel}
+                  onChange={(text) => setresponsavel(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Equipamentos</label>
-                <input type='text' />
+                <input type='text'
+                  value={equipamentos}
+                  onChange={(text) => setequipamentos(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Ponto de verificação de saída (lat)</label>
-                <input type='text' />
+                <input type='text'
+                  value={latitudeSaida}
+                  onChange={(text) => setlatitudeSaida(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Documentos</label>
-                <input type='text' />
+                <input type='text'
+                  value={documentos}
+                  onChange={(text) => setdocumentos(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Tipo de rede</label>
-                <input type='text' />
+                <input type='text'
+                  value={tipoRede}
+                  onChange={(text) => settipoRede(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Empresa proprietária</label>
-                <input type='text' />
+                <input type='text'
+                  value={empresa}
+                  onChange={(text) => setempresa(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Confirmação da sondagem da interferência:</label>
-                <input type='text' />
+                <input type='text'
+                  value={sondagemInterferencia}
+                  onChange={(text) => setsondagemInterferencia(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Sondagem</label>
-                <input type='text' />
+                <input type='text'
+                  value={sondagem}
+                  onChange={(text) => setsondagem(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Criação do plano de furo</label>
-                <input type='text' />
+                <input type='text'
+                  value={criacaoplanoFuro}
+                  onChange={(text) => setcriacaoplanoFuro(text.target.value)} />
               </div>
 
-              <div>
+              {/* <div>
                 <label htmlFor=''>Quando acontece</label>
                 <input type='text' />
-              </div>
+              </div> */}
             </S.GridForm>
-            <button>Salvar</button>
-          </S.FormContent>
+            <button onClick={() => onSubmitLevantamento()}>{loading
+              ? <img
+                width='40px'
+                style={{ margin: 'auto' }}
+                height='' src='https://contribua.org/mb-static/images/loading.gif'
+                alt='Loading'
+              />
+              : 'Salvar'}</button>
+          </S.Div>
         </Modal>
 
         <Modal

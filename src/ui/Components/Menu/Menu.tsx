@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { FiX, FiHome, FiUser, FiFileText, FiBriefcase, FiClipboard, FiSettings, FiTool } from 'react-icons/fi'
+import { FiX, FiHome, FiUser, FiFileText, FiBriefcase, FiClipboard, FiTool, FiSettings } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import * as S from './Menu.styled'
 
@@ -22,6 +22,10 @@ const Menu = ({ children, onClose }: Props) => {
             <FiUser size={20} />
             <Link to='/usuarios'>Usuários</Link>
           </li>
+          <h4><FiSettings size={20} />Travessias</h4>
+          <li>
+            <Link to='/configuracao-da-travessia'>Config. da travessia</Link>
+          </li>
           <h4><FiFileText size={20} />Cadastros</h4>
           <li>
             <Link to='/mao-de-obra'>Mão de obra</Link>
@@ -37,9 +41,6 @@ const Menu = ({ children, onClose }: Props) => {
           </li>
           <li>
             <Link to='/companhias'>Companhias</Link>
-          </li>
-          <li>
-            <Link to='/configuracao-da-travessia'>Config. da travessia</Link>
           </li>
           <h4><FiTool size={20} />Ferramentas</h4>
           {/*<Link to='/ferramentas'>Cadastrar</Link>*/}
@@ -65,10 +66,6 @@ const Menu = ({ children, onClose }: Props) => {
           <h4><FiClipboard size={20} />Relatórios</h4>
           <li>
             <Link to='/relatorios'>Relatórios</Link>
-          </li>
-          <h4><FiSettings size={20} />Travessias</h4>
-          <li>
-            <Link to='/perfuracoes'>Perfurações</Link>
           </li>
         </S.List>
       </S.Container>

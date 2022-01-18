@@ -12,6 +12,7 @@ import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 import EditButton from '../../ui/Components/EditButton/EditButton'
 import { FaEdit } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
 
 type FormData = {
   descricao: string;
@@ -30,7 +31,7 @@ ConfigurationCrossing () {
   const [descricao, setdescricao] = useState('')
   const [nome, setnome] = useState('')
   const [configurationCrossings, setConfigurationCrossings] = useState<any[]>([])
-
+  var link = '/etapas/'
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
@@ -163,6 +164,8 @@ ConfigurationCrossing () {
                   >
                     <FaEdit size={20} />
                   </button>
+                  {<Link to={link+configurationCrossing.id}><span>Executar travessia</span></Link>}
+                  {/* {<button><span>Executar travessia</span></button>} */}
                 </S.GridConfirmation>
               </li>,
             )
