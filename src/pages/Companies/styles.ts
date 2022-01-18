@@ -11,6 +11,7 @@ export const ContainerConfirmation = styled.div`
     font-size: 24px;
     padding: 20px 0;
   }
+
   button {
     width: 54px;
     height: 44px;
@@ -67,14 +68,74 @@ export const GridConfirmation = styled.div`
 `
 
 export const Form = styled.form`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: flex-start;
+    align-items: center;
 
-  @media (max-width: 520px) {
-    grid-template-columns: 1fr;
+    @media (max-width: 520px) {
+      grid-template-columns: 1fr;
+    }
+
+    .form-control-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-control-group select {
+      width: 345px;
+      height: 48px;
+      box-sizing: border-box;
+      border-radius: 4px;
+      margin: 10px 0;
+      padding: 0 7px;
+      border: 1px solid ${theme.colors.black};
+      background: ${theme.colors.darkBlack};
+      color: #ccc;
+
+      option {
+        color: black;
+      }
+
+      :focus {
+        border: 1px solid ${theme.colors.yellow};
+        background: transparent;
+      } 
+
+      @media(max-width: 520px) {
+        width: 290px;  
+        margin: 10px 0;
+        margin-right: 50px;
+        padding: 0;
+      }
+    }
+
+    .form-control-group input[type=text] {
+      width: 345px;
+      height: 48px;
+      box-sizing: border-box;
+      border-radius: 4px;
+      margin: 10px 0;
+      padding: 0 7px;
+      border: 1px solid ${theme.colors.black};
+      background: ${theme.colors.darkBlack};
+      color: #ccc;
+
+      :focus {
+        border: 1px solid ${theme.colors.yellow};
+        background: transparent;
+      } 
+
+      @media(max-width: 520px) {
+        width: 290px;  
+        margin: 10px 0;
+        margin-right: 50px;
+        padding: 0;
+      }
+    }
   }
-  justify-items: center;
-  align-items: center;
+
 
   button {
     width: 101px;

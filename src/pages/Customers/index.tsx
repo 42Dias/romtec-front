@@ -2,7 +2,7 @@ import * as S from './styled'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
-
+import { Formik, Field, Form } from 'formik'
 import { FiPlus } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -25,6 +25,10 @@ type FormData = {
   logradouro: string;
   numero: string;
   complemento: string;
+  values: string;
+  actions: string;
+  ev: any;
+  setFieldValue: any;
 }
 
 export default function
@@ -108,7 +112,7 @@ Customers () {
       setLoading(false)
     })
   }
-  function update(dados: any) {
+  function update (dados: any) {
     console.log('dados')
     console.log(dados)
     setIdClientes(dados.id)
@@ -124,7 +128,7 @@ Customers () {
     setComplemento(dados.complemento)
     setIsOpenUpdate(true)
   }
-  async function updateDados() {
+  async function updateDados () {
     setLoading(true)
     const responser = api.put('clientes/' + idClientes, {
       data: {
@@ -132,9 +136,9 @@ Customers () {
         razaoSocial: razaoSocial,
         nomeFantasia: nomeFantasia,
         cep: cep,
-        uf: uf
-      }
-    }
+        uf: uf,
+      },
+    },
     ).then((response) => {
       if (response.statusText === 'OK') {
         loadDados()
@@ -150,7 +154,30 @@ Customers () {
     setLoading(true)
     loadDados()
   }, [])
+  function onSubmitInput (values: any, actions: any) {
+    // console.log(data)
+    // Cadastro(data)
+    console.log('SUBMIT', values)
+  }
 
+  function onBlurCep (ev: any, setFieldValue: any) {
+    const { value } = ev.target
+
+    const cep = value?.replace(/[^0-9]/g, '')
+
+    if (cep?.length !== 8) {
+      return
+    }
+
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+      .then((res) => res.json())
+      .then((data) => {
+        setFieldValue('logradouro', data.logradouro)
+        setFieldValue('bairro', data.bairro)
+        setFieldValue('cidade', data.localidade)
+        setFieldValue('uf', data.uf)
+      })
+  }
   return (
     <>
       <Sidebar />
@@ -221,7 +248,8 @@ Customers () {
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
-              <TextField
+
+              {/* <TextField
                 label='CNPJ'
                 type='number'
                 errorMessage={errors.cnpj?.message}
@@ -323,6 +351,120 @@ Customers () {
                     message: '',
                   },
                 })}
+              /> */}
+
+              <Formik
+                onSubmit={onSubmitInput}
+                validateOnMount
+                initialValues={{
+                  cep: '',
+                  logradouro: '',
+                  numero: '',
+                  complemento: '',
+                  bairro: '',
+                  cidade: '',
+                  uf: '',
+                }}
+                render={({ isValid, setFieldValue }) => (
+                  <Form>
+                    <TextField
+                      label='CNPJ'
+                      errorMessage={errors.cnpj?.message}
+                      {...register('cnpj', {
+                        required: {
+                          value: true,
+                          message: 'Todos os campos são obrigatórios',
+                        },
+                      })}
+                    />
+
+                    <TextField
+                      label='Razão Social'
+                      {...register('razaoSocial', {
+                        required: {
+                          value: true,
+                          message: '',
+                        },
+                      })}
+                    />
+
+                    <TextField
+                      label='Nome Fantasia'
+                      {...register('nomeFantasia', {
+                        required: {
+                          value: true,
+                          message: '',
+                        },
+                      })}
+                    />
+                    <div className='form-control-group'>
+                      <label>Cep</label>
+                      <Field
+                        name='cep' type='text'
+                        onBlur={(ev: any) => onBlurCep(ev, setFieldValue)}
+                      />
+                    </div>
+
+                    <div className='form-control-group'>
+                      <label>Logradouro</label>
+                      <Field name='logradouro' type='text' />
+                    </div>
+
+                    <div className='form-control-group'>
+                      <label>Número</label>
+                      <Field name='numero' type='text' />
+                    </div>
+
+                    <div className='form-control-group'>
+                      <label>Complemento</label>
+                      <Field name='complemento' type='text' />
+                    </div>
+
+                    <div className='form-control-group'>
+                      <label>Bairro</label>
+                      <Field name='bairro' type='text' />
+                    </div>
+
+                    <div className='form-control-group'>
+                      <label>Cidade</label>
+                      <Field name='cidade' type='text' />
+                    </div>
+
+                    <div className='form-control-group'>
+                      <label>Estado</label>
+                      <Field component='select' name='uf'>
+                        <option value=''>Selecione o Estado</option>
+                        <option value='AC'>Acre</option>
+                        <option value='AL'>Alagoas</option>
+                        <option value='AP'>Amapá</option>
+                        <option value='AM'>Amazonas</option>
+                        <option value='BA'>Bahia</option>
+                        <option value='CE'>Ceará</option>
+                        <option value='DF'>Distrito Federal</option>
+                        <option value='ES'>Espírito Santo</option>
+                        <option value='GO'>Goiás</option>
+                        <option value='MA'>Maranhão</option>
+                        <option value='MT'>Mato Grosso</option>
+                        <option value='MS'>Mato Grosso do Sul</option>
+                        <option value='MG'>Minas Gerais</option>
+                        <option value='PA'>Pará</option>
+                        <option value='PB'>Paraíba</option>
+                        <option value='PR'>Paraná</option>
+                        <option value='PE'>Pernambuco</option>
+                        <option value='PI'>Piauí</option>
+                        <option value='RJ'>Rio de Janeiro</option>
+                        <option value='RN'>Rio Grande do Norte</option>
+                        <option value='RS'>Rio Grande do Sul</option>
+                        <option value='RO'>Rondônia</option>
+                        <option value='RR'>Roraima</option>
+                        <option value='SC'>Santa Catarina</option>
+                        <option value='SP'>São Paulo</option>
+                        <option value='SE'>Sergipe</option>
+                        <option value='TO'>Tocantins</option>
+                      </Field>
+                    </div>
+                  </Form>
+                )}
               />
 
               <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
@@ -336,63 +478,63 @@ Customers () {
               <TextField
                 label='CNPJ'
                 type='number'
-                value={cnpj} 
+                value={cnpj}
                 onChange={(text) => setCnpj(text.target.value)}
               />
 
               <TextField
                 label='Razão Social'
-                value={razaoSocial} 
+                value={razaoSocial}
                 onChange={(text) => setRazaoSocial(text.target.value)}
               />
 
               <TextField
                 label='Nome Fantasia'
-                value={nomeFantasia} 
+                value={nomeFantasia}
                 onChange={(text) => setNomeFantasia(text.target.value)}
               />
 
               <TextField
                 label='CEP'
                 type='number'
-                value={cep} 
+                value={cep}
                 onChange={(text) => setCep(text.target.value)}
               />
 
               <TextField
                 label='UF'
-                value={uf} 
+                value={uf}
                 onChange={(text) => setUf(text.target.value)}
               />
 
               <TextField
                 label='Cidade'
-                value={cidade} 
+                value={cidade}
                 onChange={(text) => setCidade(text.target.value)}
               />
 
               <TextField
                 label='Bairro'
-                value={bairro} 
+                value={bairro}
                 onChange={(text) => setBairro(text.target.value)}
               />
 
               <TextField
                 label='Logradouro'
-                value={logradouro} 
+                value={logradouro}
                 onChange={(text) => setLogradouro(text.target.value)}
               />
 
               <TextField
                 label='Número'
                 type='number'
-                value={numero} 
+                value={numero}
                 onChange={(text) => setNumero(text.target.value)}
               />
 
               <TextField
                 label='Complemento'
-                value={complemento} 
+                value={complemento}
                 onChange={(text) => setComplemento(text.target.value)}
               />
 
