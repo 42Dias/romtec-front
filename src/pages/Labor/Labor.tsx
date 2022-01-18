@@ -13,6 +13,7 @@ import * as S from './Labor.styled'
 
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import EditButton from '../../ui/Components/EditButton/EditButton'
+import MaskedInput from '../../ui/Components/InputMask/InputMask'
 
 type FormData = {
   nIdentificacao: string;
@@ -217,6 +218,8 @@ export function Labor () {
                   required: true,
                 })}
               />
+
+              <MaskedInput mask={['(99) 9999-9999']} />
 
               <TextField
                 label='Celular'

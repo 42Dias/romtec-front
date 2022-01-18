@@ -1,23 +1,36 @@
-import InputMask from 'react-input-mask'
+import React from 'react'
+import { Input, InputProps } from 'antd'
+import { masker, unMask } from './Masker'
 
-const InputCpf = () => (
-  <InputMask mask='999.999.999-99' />
-)
+type Props = InputProps & {
+  mask: string[];
+};
 
-const InputCep = () => (
-  <InputMask mask='99999-999' />
-)
+export default function MaskedInput ({
+  mask,
+  onChange,
+  value,
+  ...props
+}: Props) {
+  function handleOnChange (event: React.ChangeEvent<HTMLInputElement>) {
+    if (onChange) {
+      const inputValue = event.target.value
+      const maskLength = Math.max(...mask.map((pattern) => pattern.length))
 
-const InputRg = () => (
-  <InputMask mask='99.999.999-9' />
-)
+      if (inputValue.length > maskLength) return
 
-const InputCnpj = () => (
-  <InputMask mask='99.999.999/9999-99' />
-)
+      onChange({
+        ...event,
+        target: { ...event.target, value: unMask(event.target.value) },
+      })
+    }
+  }
 
-const InputPhone = () => (
-  <InputMask mask='(99) 99999-9999)' />
-)
-
-export { InputCpf, InputCep, InputRg, InputCnpj, InputPhone }
+  return (
+    <Input
+      {...props}
+      onChange={() => handleOnChange}
+      value={value ? masker(value as string, mask) : undefined}
+    />
+  )
+}

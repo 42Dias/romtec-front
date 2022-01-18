@@ -172,8 +172,7 @@ export function DrillingFluid () {
               />
 
               <TextField
-                label='Viscosidade esperada (Segundos Marsh - cP)'
-                value={0}
+                label='Viscosidade esperada (cP)'
                 {...register('viscosidadeEsperada', {
                   required: false,
                 })}
@@ -181,37 +180,44 @@ export function DrillingFluid () {
 
               <TextField
                 label='pH da Água'
-                value={0}
                 {...register('qtdePHPA', {
                   required: false,
                 })}
               />
 
               <TextField
-                label='Quantidade base para formulação (Metros cúbicos - m²)'
-                value={0}
+                label='Quantidade base para formulação (m²)'
                 {...register('qtdeBase', {
                   required: false,
                 })}
               />
 
               <TextField
-                label='Limite de escoamento (Número - N)'
-                value={0}
+                label='Limite de escoamento (N)'
                 {...register('limiteEscoamento', {
                   required: false,
                 })}
               />
 
               <TextField
-                label='Teor de areia (Porcentagem - %)'
-                value={0}
+                label='Teor de areia (%)'
                 {...register('teorAreia', {
                   required: false,
                 })}
               />
 
-              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <button
+                type='submit'
+              >
+                {loading
+                  ? <img
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height='' src='https://contribua.org/mb-static/images/loading.gif'
+                      alt='Loading'
+                    />
+                  : 'Salvar'}
+              </button>
             </S.Form>
           </S.Container>
         </Modal>
