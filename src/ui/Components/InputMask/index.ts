@@ -1,1 +1,2 @@
-export * from './InputMask'
+export * from './Masker'
+
