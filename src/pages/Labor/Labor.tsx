@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import InputMask from 'react-input-mask'
 import { api } from '../../services/api'
 import { FiPlus } from 'react-icons/fi'
 import { toast } from 'react-toastify'
@@ -118,10 +117,6 @@ export function Labor () {
 
       return maoDeObra
     }))
-  }
-
-  const Masked = () => {
-    <InputMask mask='999.999.999-99' />
   }
 
   return (
