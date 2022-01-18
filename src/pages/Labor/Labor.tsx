@@ -32,7 +32,7 @@ type FormData = {
 export function Labor () {
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false)
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
+  const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<FormData>()
   const [maoDeObras, setMaoDeObra] = useState<any[]>([])
 
   function onSubmit (data: FormData) {
@@ -219,11 +219,11 @@ export function Labor () {
                 })}
               />
 
+              <label>Celular</label>
               <MaskedInput
-                mask={['(99) 99999-9999']}
-                {...register('celular', {
-                  required: true,
-                })}
+                onChangeUnMask={(value) => setValue('celular', value)}
+                mask='(99) 99999-9999'
+                {...register('celular')}
               />
 
               <TextField

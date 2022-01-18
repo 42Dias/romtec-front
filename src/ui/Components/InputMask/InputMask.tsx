@@ -1,35 +1,38 @@
-import React, { InputHTMLAttributes } from 'react'
-import { masker, unMask } from './Masker'
+import { InputHTMLAttributes, ChangeEvent, useCallback } from 'react'
+import InputMask from 'react-input-mask'
+import { unMask } from './Masker'
+
+import * as S from './InputMask.styled'
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
-  mask: string[];
-};
+  name: unknown
+  mask: string
+  onChangeUnMask: (value: string) => void
+}
 
 export default function MaskedInput ({
   mask,
   onChange,
-  value,
+  onChangeUnMask,
   ...props
 }: Props) {
-  function handleOnChange (event: React.ChangeEvent<HTMLInputElement>) {
-    if (onChange) {
-      const inputValue = event.target.value
-      const maskLength = Math.max(...mask.map((pattern) => pattern.length))
+  const handleOnChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      onChangeUnMask(unMask(event.target.value))
 
-      if (inputValue.length > maskLength) return
-
-      onChange({
-        ...event,
-        target: { ...event.target, value: unMask(event.target.value) },
-      })
-    }
-  }
+      onChange && onChange(event)
+    },
+    [onChangeUnMask, onChange],
+  )
 
   return (
-    <input
-      {...props}
-      onChange={handleOnChange}
-      value={value ? masker(value as string, mask) : undefined}
-    />
+    <S.Container>
+      <InputMask
+        mask={mask}
+        onChange={handleOnChange}
+        style={{ color: 'black' }}
+        {...props}
+      />
+    </S.Container>
   )
 }
