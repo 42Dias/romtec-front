@@ -1,8 +1,7 @@
-import React from 'react'
-import { Input, InputProps } from 'antd'
+import React, { InputHTMLAttributes } from 'react'
 import { masker, unMask } from './Masker'
 
-type Props = InputProps & {
+type Props = InputHTMLAttributes<HTMLInputElement> & {
   mask: string[];
 };
 
@@ -27,7 +26,7 @@ export default function MaskedInput ({
   }
 
   return (
-    <Input
+    <input
       {...props}
       onChange={handleOnChange}
       value={value ? masker(value as string, mask) : undefined}
