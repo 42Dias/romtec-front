@@ -126,6 +126,10 @@ export const Form = styled.form`
     color: white;
   }
 
+  .form-control-group {
+    display: flex;
+    flex-direction: column;
+  }
     .form-control-group select {
       width: 345px;
       height: 48px;
