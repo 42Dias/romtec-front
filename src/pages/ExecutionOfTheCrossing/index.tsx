@@ -3,7 +3,7 @@ import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 import * as S from './styled'
-
+import { Checkbox } from 'antd'
 import { TextField } from '../../ui/Components/TextField'
 import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
@@ -19,8 +19,10 @@ type FormData = {
   nome: Date;
 }
 
-export default function ExecutionOfTheCrossing () {
+export default function
+ExecutionOfTheCrossing () {
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenPhases, setIsOpenPhases] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   // eslint-disable-next-line
   const [loading, setLoading] = useState(false)
@@ -128,20 +130,115 @@ export default function ExecutionOfTheCrossing () {
     loadDados()
   }, [])
 
+  function onChange (e: any) {
+    console.log(`checked = ${e.target.checked}`)
+  }
+
   return (
     <>
       <Sidebar />
       <Navbar />
       <S.ContainerConfirmation>
-        <h2>Configurações da travessia</h2>
+        <h2>Processos de travessias</h2>
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
 
         <S.GridConfirmation>
-          <span>Nome da configuração</span>
-          <span>Descrição</span>
+          <span>Nome</span>
+          <span>Travessia</span>
+          <span>Trabalhadores</span>
+          <span>Companhia</span>
+          <span>Fluído de perfuração</span>
+          <span>Haste</span>
+          <span>Maquina perfuratriz</span>
         </S.GridConfirmation>
 
         <ul>
+          <li>
+            <S.GridConfirmation>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              {/* <DeleteButton
+                onDelete={() => deleteDados(configurationCrossing.id)}
+              /> */}
+              {/* <EditButton
+                    onEdit={() => handleUpdate(configurationCrossing.id)}
+                  /> */}
+              {/* <button
+                    // onChange={onEdit}
+                onClick={() => update(configurationCrossing)}
+                style={{ background: 'none', color: 'yellow' }}
+                title='Editar?'
+              >
+                <FaEdit size={20} />
+              </button> */}
+              <Link to='/etapas'><span>Executar travessia</span></Link>
+              {/* {<button><span>Executar travessia</span></button>} */}
+            </S.GridConfirmation>
+          </li>
+
+          <li>
+            <S.GridConfirmation>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              {/* <DeleteButton
+                onDelete={() => deleteDados(configurationCrossing.id)}
+              /> */}
+              {/* <EditButton
+                    onEdit={() => handleUpdate(configurationCrossing.id)}
+                  /> */}
+              {/* <button
+                    // onChange={onEdit}
+                onClick={() => update(configurationCrossing)}
+                style={{ background: 'none', color: 'yellow' }}
+                title='Editar?'
+              >
+                <FaEdit size={20} />
+              </button> */}
+              <Link to='/etapas'><span>Executar travessia</span></Link>
+              {/* {<button><span>Executar travessia</span></button>} */}
+            </S.GridConfirmation>
+          </li>
+
+          <li>
+            <S.GridConfirmation>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              {/* <DeleteButton
+                onDelete={() => deleteDados(configurationCrossing.id)}
+              /> */}
+              {/* <EditButton
+                    onEdit={() => handleUpdate(configurationCrossing.id)}
+                  /> */}
+              {/* <button
+                    // onChange={onEdit}
+                onClick={() => update(configurationCrossing)}
+                style={{ background: 'none', color: 'yellow' }}
+                title='Editar?'
+              >
+                <FaEdit size={20} />
+              </button> */}
+              <Link to='/etapas'><span>Executar travessia</span></Link>
+              {/* {<button><span>Executar travessia</span></button>} */}
+            </S.GridConfirmation>
+          </li>
+        </ul>
+
+        {/* <ul>
           {travessia.length > 0
             ? travessia.map((configurationCrossing) =>
               <li key={configurationCrossing.id}>
@@ -153,7 +250,7 @@ export default function ExecutionOfTheCrossing () {
                   />
                   {/* <EditButton
                     onEdit={() => handleUpdate(configurationCrossing.id)}
-                  /> */}
+                  />
                   <button
                     // onChange={onEdit}
                     onClick={() => update(configurationCrossing)}
@@ -163,22 +260,33 @@ export default function ExecutionOfTheCrossing () {
                     <FaEdit size={20} />
                   </button>
                   <Link to={link + configurationCrossing.id}><span>Executar travessia</span></Link>
-                  {/* {<button><span>Executar travessia</span></button>} */}
+                  {/* {<button><span>Executar travessia</span></button>}
                 </S.GridConfirmation>
               </li>,
             )
             : <p>🤔 Nenhuma configuração cadastrada</p>}
         </ul>
+        */}
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField
-                label='Nome da configuração'
+                label='Nome do cliente'
                 {...register('nome', {
                   required: {
                     value: true,
                     message: '',
+                  },
+                })}
+              />
+              <TextField
+                label='Nome da travessia'
+                errorMessage={errors.descricao?.message}
+                {...register('descricao', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
                   },
                 })}
               />
@@ -192,7 +300,33 @@ export default function ExecutionOfTheCrossing () {
                   },
                 })}
               />
+
+              <TextField
+                label='Configuração da travessia'
+                errorMessage={errors.descricao?.message}
+                {...register('descricao', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              />
               <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+            </S.Form>
+          </S.Container>
+        </Modal>
+
+        <Modal isOpen={isOpenPhases} onClose={() => setIsOpenPhases(false)}>
+          <S.Container>
+            <S.Form className='form-check' onSubmit={handleSubmit(onSubmit)}>
+              <div className='form-control-group-check'>
+                <h2>Adicione os campos</h2>
+                <Checkbox className='first' onChange={onChange}>Checkbox</Checkbox>
+                <Checkbox onChange={onChange}>Checkbox</Checkbox>
+                <Checkbox onChange={onChange}>Checkbox</Checkbox>
+                <Checkbox onChange={onChange}>Checkbox</Checkbox>
+              </div>
+              <button type='submit'>Adicionar</button>
             </S.Form>
           </S.Container>
         </Modal>

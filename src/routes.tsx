@@ -11,6 +11,7 @@ import DitchOpening from './pages/DitchOpening'
 import DrillingFluid from './pages/DrillingFluid'
 import DrillingMachine from './pages/DrillingMachine'
 import DrillingPlanning from './pages/DrillingPlanning'
+import ExecutionOfTheCrossing from './pages/ExecutionOfTheCrossing'
 import FluidPreparation from './pages/FluidPreparation'
 import ForgotPassword from './pages/ForgotPassword'
 
@@ -70,9 +71,10 @@ const Routes = (): JSX.Element => {
           <Route path='/alargador' exact component={Reamer} />
           <Route path='/porta-sonda' exact component={ProbeHolder} />
           <Route path='/usuarios' exact component={Users} />
-          <Route path='/etapas/:id' exact component={Phases} />
+          <Route path='/etapas' exact component={Phases} />
           <Route path='/atualizar-senha/:token' exact component={UpdatePassword} />
           <Route path='/etapas-da-configuracao' exact component={ConfigurationSteps} />
+          <Route path='/execucao-da-travessia' exact component={ExecutionOfTheCrossing} />
         </Switch>
       </HashRouter>
     </HashRouter>

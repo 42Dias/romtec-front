@@ -48,7 +48,7 @@ type levantamento = {
   banco: string;
 }
 export default function
-  Phases() {
+Phases () {
   const [modalIsOpenPlanejamento, setIsOpenPlanejamento] = useState(false)
   const [modalIsOpen2, setIsOpen2] = useState(false)
   const [modalIsOpen3, setIsOpen3] = useState(false)
@@ -57,7 +57,7 @@ export default function
   const [modalIsOpen6, setIsOpen6] = useState(false)
   const [modalIsOpen7, setIsOpen7] = useState(false)
   const [modalIsOpen8, setIsOpen8] = useState(false)
-  var idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas/', '');
+  let idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas/', '')
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
   const [loading, setLoading] = useState(false)
   const [dados, setDados] = useState<any>()
@@ -81,16 +81,16 @@ export default function
   const [url, setUrl] = useState('')
   const [isUpdate, setIsUpdate] = useState(false)
 
-  function onSubmit(data: FormData) {
-    data.idConfigTravessia = idConfigTravessia.replace("#/etapas/", '');
+  function onSubmit (data: FormData) {
+    data.idConfigTravessia = idConfigTravessia.replace('#/etapas/', '')
     data.banco = 'planejamentoPerfuracao'
     console.log(data)
     createNewFile(data)
   }
-  function onSubmitLevantamento() {
+  function onSubmitLevantamento () {
     console.log(responsavel)
     const data = {
-      idConfigTravessia: idConfigTravessia.replace("#/etapas/", ''),
+      idConfigTravessia: idConfigTravessia.replace('#/etapas/', ''),
       banco: 'levantametoMapInteferencia',
       responsavel: responsavel,
       latitudeSaida: latitudeSaida,
@@ -100,9 +100,8 @@ export default function
       empresa: empresa,
       sondagemInterferencia: sondagemInterferencia,
       sondagem: sondagem,
-      criacaoplanoFuro: criacaoplanoFuro
+      criacaoplanoFuro: criacaoplanoFuro,
     }
-
 
     console.log(data)
     if (isUpdate) {
@@ -110,9 +109,8 @@ export default function
     } else {
       createNewFile(data)
     }
-
   }
-  async function createNewFile(submit: any) {
+  async function createNewFile (submit: any) {
     setLoading(true)
     console.log('submit')
     console.log(submit)
@@ -125,7 +123,7 @@ export default function
         setLoading(false)
         reset()
         setIsOpenPlanejamento(false)
-        //loadDados()
+        // loadDados()
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')
         setLoading(false)
@@ -139,7 +137,7 @@ export default function
       setLoading(false)
     })
   }
-  async function loadDados(url: string) {
+  async function loadDados (url: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = await api.get(url + `?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/etapas/", '')}`,
@@ -156,13 +154,13 @@ export default function
       setLoading(false)
     })
   }
-  async function deleteDados(id: string) {
+  async function deleteDados (id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('tipo-solo/' + id,
     ).then((response) => {
       if (response.statusText === 'OK') {
-        //loadDados()
+        // loadDados()
         setLoading(false)
       }
     }).catch(res => {
@@ -171,10 +169,10 @@ export default function
       setLoading(false)
     })
   }
-  function update(data: any) {
+  function update (data: any) {
     console.log('data')
     console.log(data)
-    //setDados(data)
+    // setDados(data)
     setId(data[0].id)
     console.log(url)
     if (url === 'planejamentoPerfuracao/') {
@@ -187,8 +185,7 @@ export default function
       setTipoSolo(data[0].tipoSolo)
       settipoTubulacao(data[0].tipoTubulacao)
       setisOpenUpdatePlanejamentoPerfuração(true)
-    }
-    else if (url === 'levantametoMapInteferencia/') {
+    } else if (url === 'levantametoMapInteferencia/') {
       setresponsavel(data[0].responsavel)
       setequipamentos(data[0].equipamentos)
       setdocumentos(data[0].documentos)
@@ -202,20 +199,19 @@ export default function
     }
 
     console.log(idDados)
-
   }
-  async function updateDados() {
+  async function updateDados () {
     setLoading(true)
     console.log('idDados')
     console.log(idDados)
-    //console.log(soilTypesUp)
+    // console.log(soilTypesUp)
     const responser = api.put(url + idDados, {
       data: {
         id: idDados,
         latitudeEntrada: latitudeEntrada,
         longitudeSaida: longitudeSaida,
         tipoTubulacao: tipoTubulacao,
-        idConfigTravessia: idConfigTravessia.replace("#/etapas/", ''),
+        idConfigTravessia: idConfigTravessia.replace('#/etapas/', ''),
         longitudeEntrada: longitudeEntrada,
         latitudeSaida: latitudeSaida,
         responsavel: responsavel,
@@ -226,7 +222,7 @@ export default function
         sondagemInterferencia: sondagemInterferencia,
         sondagem: sondagem,
         criacaoplanoFuro: criacaoplanoFuro,
-        diametroPerfuracao: diametroPerfuracao
+        diametroPerfuracao: diametroPerfuracao,
       },
     },
     ).then((response) => {
@@ -242,16 +238,15 @@ export default function
     })
   }
   useEffect(() => {
-    //console.log(soilTypesUp)
-    idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas/', '');
-    console.log("useEffect")
+    // console.log(soilTypesUp)
+    idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas/', '')
+    console.log('useEffect')
     console.log(idConfigTravessia)
     setLoading(true)
-    //loadDados('planejamentoPerfuracao/')
-
+    // loadDados('planejamentoPerfuracao/')
   }, [])
 
-  function openModal() {
+  function openModal () {
     loadDados('planejamentoPerfuracao/')
     if (dados) {
       if (dados.length == 0) {
@@ -260,7 +255,7 @@ export default function
         update(dados)
       }
     } else {
-      toast.info("Clique mais uma vez!")
+      toast.info('Clique mais uma vez!')
     }
     setIsOpen2(false)
     setIsOpen3(false)
@@ -270,14 +265,14 @@ export default function
     setIsOpen7(false)
     setIsOpen8(false)
   }
-  function afterOpenModal() {
+  function afterOpenModal () {
     // references are now sync'd and can be accessed.
   }
-  function closeModal() {
+  function closeModal () {
     setIsOpenPlanejamento(false)
   }
 
-  function openModal2() {
+  function openModal2 () {
     loadDados('levantametoMapInteferencia/')
     if (dados) {
       if (dados.length == 0) {
@@ -287,7 +282,7 @@ export default function
         update(dados)
       }
     } else {
-      toast.info("Clique mais uma vez!")
+      toast.info('Clique mais uma vez!')
     }
 
     setIsOpenPlanejamento(false)
@@ -300,11 +295,11 @@ export default function
     setIsOpen8(false)
   }
 
-  function closeModal2() {
+  function closeModal2 () {
     setIsOpen2(false)
   }
 
-  function openModal3() {
+  function openModal3 () {
     setIsOpen3(true)
     setIsOpenPlanejamento(false)
     setisOpenUpdatePlanejamentoPerfuração(false)
@@ -316,11 +311,11 @@ export default function
     setIsOpen8(false)
   }
 
-  function closeModal3() {
+  function closeModal3 () {
     setIsOpen3(false)
   }
   //
-  function openModal4() {
+  function openModal4 () {
     setIsOpen4(true)
     setIsOpenPlanejamento(false)
     setisOpenUpdatePlanejamentoPerfuração(false)
@@ -332,11 +327,11 @@ export default function
     setIsOpen8(false)
   }
 
-  function closeModal4() {
+  function closeModal4 () {
     setIsOpen4(false)
   }
 
-  function openModal5() {
+  function openModal5 () {
     setIsOpen5(true)
     setIsOpenPlanejamento(false)
     setisOpenUpdatePlanejamentoPerfuração(false)
@@ -348,11 +343,11 @@ export default function
     setIsOpen8(false)
   }
 
-  function closeModal5() {
+  function closeModal5 () {
     setIsOpen5(false)
   }
 
-  function openModal6() {
+  function openModal6 () {
     setIsOpen6(true)
     setIsOpen5(false)
     setIsOpenPlanejamento(false)
@@ -364,11 +359,11 @@ export default function
     setIsOpen8(false)
   }
 
-  function closeModal6() {
+  function closeModal6 () {
     setIsOpen6(false)
   }
 
-  function openModal7() {
+  function openModal7 () {
     setIsOpen7(true)
     setIsOpen6(false)
     setIsOpen5(false)
@@ -380,11 +375,11 @@ export default function
     setIsOpen8(false)
   }
 
-  function closeModal7() {
+  function closeModal7 () {
     setIsOpen7(false)
   }
 
-  function openModal8() {
+  function openModal8 () {
     setIsOpen8(true)
     setIsOpen7(false)
     setIsOpen6(false)
@@ -396,7 +391,7 @@ export default function
     setIsOpen4(false)
   }
 
-  function closeModal8() {
+  function closeModal8 () {
     setIsOpen8(false)
   }
 
@@ -409,9 +404,6 @@ export default function
         <div className='buttons'>
           <button onClick={openModal6} className='add'>
             <FiPlus />
-          </button>
-          <button onClick={openModal7} className='import'>
-            Importar modelo
           </button>
         </div>
 
@@ -465,7 +457,6 @@ export default function
               </div>
 
               <button className='save'>Salvar</button>
-              <button onClick={openModal8} className='saveModel'>Salvar modelo</button>
             </S.PhasesModal>
 
           </Modal>
@@ -606,71 +597,86 @@ export default function
             <S.GridForm>
               <div>
                 <label htmlFor=''>Ponto de verificação de entrada (lat)</label>
-                <input type='text' placeholder='Latitude'
+                <input
+                  type='text' placeholder='Latitude'
                   {...register('latitudeEntrada', {
                     required: {
                       value: true,
                       message: 'Todos os campos são obrigatórios',
                     },
-                  })} />
+                  })}
+                />
               </div>
 
               <div>
                 <label htmlFor=''>Ponto de verificação de entrada (long)</label>
-                <input type='text' placeholder='Longitude'
+                <input
+                  type='text' placeholder='Longitude'
                   {...register('longitudeEntrada', {
                     required: true,
-                  })} />
+                  })}
+                />
               </div>
 
               <div>
                 <label htmlFor=''>Ponto de verificação de saída (lat)</label>
-                <input type='text' placeholder='Latitude'
+                <input
+                  type='text' placeholder='Latitude'
                   {...register('latitudeSaida', {
                     required: true,
-                  })} />
+                  })}
+                />
               </div>
 
               <div>
                 <label htmlFor=''>Ponto de verificação de saída (long)</label>
-                <input type='text' placeholder='Longitude'
+                <input
+                  type='text' placeholder='Longitude'
                   {...register('longitudeSaida', {
                     required: true,
-                  })} />
+                  })}
+                />
               </div>
 
               <div>
                 <label htmlFor=''>Tipo de tubulação</label>
-                <input type='text' placeholder='Fibra óptica'
+                <input
+                  type='text' placeholder='Fibra óptica'
                   {...register('tipoTubulacao', {
                     required: true,
-                  })} />
+                  })}
+                />
               </div>
 
               <div>
                 <label htmlFor=''>Diâmetro de perfuração</label>
-                <input type='text' placeholder='20 metros'
+                <input
+                  type='text' placeholder='20 metros'
                   {...register('diametroPerfuracao', {
                     required: true,
-                  })} />
+                  })}
+                />
               </div>
 
               <div>
                 <label htmlFor=''>Tipos de solo</label>
-                <input type='text' placeholder='Barro'
+                <input
+                  type='text' placeholder='Barro'
                   {...register('tipoSolo', {
                     required: true,
-                  })} />
+                  })}
+                />
               </div>
             </S.GridForm>
             <button>{loading
               ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height='' src='https://contribua.org/mb-static/images/loading.gif'
-                alt='Loading'
-              />
-              : 'Salvar'}</button>
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height='' src='https://contribua.org/mb-static/images/loading.gif'
+                  alt='Loading'
+                />
+              : 'Salvar'}
+            </button>
           </S.FormContent>
         </Modal>
         <Modal
@@ -701,61 +707,76 @@ export default function
             <S.GridForm>
               <div>
                 <label htmlFor=''>Ponto de verificação de entrada (lat)</label>
-                <input type='text' placeholder='Latitude'
+                <input
+                  type='text' placeholder='Latitude'
                   value={latitudeEntrada}
-                  onChange={(text) => setlatitudeEntrada(text.target.value)} />
+                  onChange={(text) => setlatitudeEntrada(text.target.value)}
+                />
               </div>
 
               <div>
                 <label htmlFor=''>Ponto de verificação de entrada (long)</label>
-                <input type='text' placeholder='Longitude'
+                <input
+                  type='text' placeholder='Longitude'
                   value={longitudeEntrada}
-                  onChange={(text) => setlongitudeEntrada(text.target.value)} />
+                  onChange={(text) => setlongitudeEntrada(text.target.value)}
+                />
               </div>
 
               <div>
                 <label htmlFor=''>Ponto de verificação de saída (lat)</label>
-                <input type='text' placeholder='Latitude'
+                <input
+                  type='text' placeholder='Latitude'
                   value={latitudeSaida}
-                  onChange={(text) => setlatitudeSaida(text.target.value)} />
+                  onChange={(text) => setlatitudeSaida(text.target.value)}
+                />
               </div>
 
               <div>
                 <label htmlFor=''>Ponto de verificação de saída (long)</label>
-                <input type='text' placeholder='Longitude'
+                <input
+                  type='text' placeholder='Longitude'
                   value={longitudeSaida}
-                  onChange={(text) => setlongitudeSaida(text.target.value)} />
+                  onChange={(text) => setlongitudeSaida(text.target.value)}
+                />
               </div>
 
               <div>
                 <label htmlFor=''>Tipo de tubulação</label>
-                <input type='text' placeholder='Fibra óptica'
+                <input
+                  type='text' placeholder='Fibra óptica'
                   value={tipoTubulacao}
-                  onChange={(text) => settipoTubulacao(text.target.value)} />
+                  onChange={(text) => settipoTubulacao(text.target.value)}
+                />
               </div>
 
               <div>
                 <label htmlFor=''>Diâmetro de perfuração</label>
-                <input type='text' placeholder='20 metros'
+                <input
+                  type='text' placeholder='20 metros'
                   value={diametroPerfuracao}
-                  onChange={(text) => setdiametroPerfuracao(text.target.value)} />
+                  onChange={(text) => setdiametroPerfuracao(text.target.value)}
+                />
               </div>
 
               <div>
                 <label htmlFor=''>Tipos de solo</label>
-                <input type='text' placeholder='Barro'
+                <input
+                  type='text' placeholder='Barro'
                   value={tipoSolo}
-                  onChange={(text) => setTipoSolo(text.target.value)} />
+                  onChange={(text) => setTipoSolo(text.target.value)}
+                />
               </div>
             </S.GridForm>
             <button onClick={() => updateDados()}>{loading
               ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height='' src='https://contribua.org/mb-static/images/loading.gif'
-                alt='Loading'
-              />
-              : 'Salvar'}</button>
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height='' src='https://contribua.org/mb-static/images/loading.gif'
+                  alt='Loading'
+                />
+              : 'Salvar'}
+            </button>
           </S.Div>
         </Modal>
 
@@ -787,65 +808,83 @@ export default function
             <S.GridForm>
               <div>
                 <label htmlFor=''>Responsável</label>
-                <input type='text'
+                <input
+                  type='text'
                   value={responsavel}
-                  onChange={(text) => setresponsavel(text.target.value)} />
+                  onChange={(text) => setresponsavel(text.target.value)}
+                />
               </div>
 
               <div>
                 <label htmlFor=''>Equipamentos</label>
-                <input type='text'
+                <input
+                  type='text'
                   value={equipamentos}
-                  onChange={(text) => setequipamentos(text.target.value)} />
+                  onChange={(text) => setequipamentos(text.target.value)}
+                />
               </div>
 
               <div>
                 <label htmlFor=''>Ponto de verificação de saída (lat)</label>
-                <input type='text'
+                <input
+                  type='text'
                   value={latitudeSaida}
-                  onChange={(text) => setlatitudeSaida(text.target.value)} />
+                  onChange={(text) => setlatitudeSaida(text.target.value)}
+                />
               </div>
 
               <div>
                 <label htmlFor=''>Documentos</label>
-                <input type='text'
+                <input
+                  type='text'
                   value={documentos}
-                  onChange={(text) => setdocumentos(text.target.value)} />
+                  onChange={(text) => setdocumentos(text.target.value)}
+                />
               </div>
 
               <div>
                 <label htmlFor=''>Tipo de rede</label>
-                <input type='text'
+                <input
+                  type='text'
                   value={tipoRede}
-                  onChange={(text) => settipoRede(text.target.value)} />
+                  onChange={(text) => settipoRede(text.target.value)}
+                />
               </div>
 
               <div>
                 <label htmlFor=''>Empresa proprietária</label>
-                <input type='text'
+                <input
+                  type='text'
                   value={empresa}
-                  onChange={(text) => setempresa(text.target.value)} />
+                  onChange={(text) => setempresa(text.target.value)}
+                />
               </div>
 
               <div>
                 <label htmlFor=''>Confirmação da sondagem da interferência:</label>
-                <input type='text'
+                <input
+                  type='text'
                   value={sondagemInterferencia}
-                  onChange={(text) => setsondagemInterferencia(text.target.value)} />
+                  onChange={(text) => setsondagemInterferencia(text.target.value)}
+                />
               </div>
 
               <div>
                 <label htmlFor=''>Sondagem</label>
-                <input type='text'
+                <input
+                  type='text'
                   value={sondagem}
-                  onChange={(text) => setsondagem(text.target.value)} />
+                  onChange={(text) => setsondagem(text.target.value)}
+                />
               </div>
 
               <div>
                 <label htmlFor=''>Criação do plano de furo</label>
-                <input type='text'
+                <input
+                  type='text'
                   value={criacaoplanoFuro}
-                  onChange={(text) => setcriacaoplanoFuro(text.target.value)} />
+                  onChange={(text) => setcriacaoplanoFuro(text.target.value)}
+                />
               </div>
 
               {/* <div>
@@ -855,12 +894,13 @@ export default function
             </S.GridForm>
             <button onClick={() => onSubmitLevantamento()}>{loading
               ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height='' src='https://contribua.org/mb-static/images/loading.gif'
-                alt='Loading'
-              />
-              : 'Salvar'}</button>
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height='' src='https://contribua.org/mb-static/images/loading.gif'
+                  alt='Loading'
+                />
+              : 'Salvar'}
+            </button>
           </S.Div>
         </Modal>
 

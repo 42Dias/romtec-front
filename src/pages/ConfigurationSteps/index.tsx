@@ -180,6 +180,62 @@ ConfigurationSteps () {
               {/* {<button><span>Executar travessia</span></button>} */}
             </S.GridConfirmation>
           </li>
+
+          <li>
+            <S.GridConfirmation>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              {/* <DeleteButton
+                onDelete={() => deleteDados(configurationCrossing.id)}
+              /> */}
+              {/* <EditButton
+                    onEdit={() => handleUpdate(configurationCrossing.id)}
+                  /> */}
+              {/* <button
+                    // onChange={onEdit}
+                onClick={() => update(configurationCrossing)}
+                style={{ background: 'none', color: 'yellow' }}
+                title='Editar?'
+              >
+                <FaEdit size={20} />
+              </button> */}
+              <button onClick={() => setIsOpenPhases(true)}>Atribuir campos</button>
+              {/* {<button><span>Executar travessia</span></button>} */}
+            </S.GridConfirmation>
+          </li>
+
+          <li>
+            <S.GridConfirmation>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              {/* <DeleteButton
+                onDelete={() => deleteDados(configurationCrossing.id)}
+              /> */}
+              {/* <EditButton
+                    onEdit={() => handleUpdate(configurationCrossing.id)}
+                  /> */}
+              {/* <button
+                    // onChange={onEdit}
+                onClick={() => update(configurationCrossing)}
+                style={{ background: 'none', color: 'yellow' }}
+                title='Editar?'
+              >
+                <FaEdit size={20} />
+              </button> */}
+              <button onClick={() => setIsOpenPhases(true)}>Atribuir campos</button>
+              {/* {<button><span>Executar travessia</span></button>} */}
+            </S.GridConfirmation>
+          </li>
         </ul>
 
         {/* <ul>
