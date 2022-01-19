@@ -3,6 +3,7 @@ import { Switch, Route, HashRouter } from 'react-router-dom'
 import { UpdatePassword } from './pages'
 import Companies from './pages/Companies'
 import ConfigurationCrossing from './pages/ConfigurationCrossing'
+import ConfigurationSteps from './pages/ConfigurationSteps'
 import Crossings from './pages/Crossings'
 import Customers from './pages/Customers'
 import DitchClosing from './pages/DitchClosing'
@@ -71,6 +72,7 @@ const Routes = (): JSX.Element => {
           <Route path='/usuarios' exact component={Users} />
           <Route path='/etapas/:id' exact component={Phases} />
           <Route path='/atualizar-senha/:token' exact component={UpdatePassword} />
+          <Route path='/etapas-da-configuracao' exact component={ConfigurationSteps} />
         </Switch>
       </HashRouter>
     </HashRouter>
