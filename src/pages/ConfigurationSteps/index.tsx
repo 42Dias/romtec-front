@@ -3,7 +3,7 @@ import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 import * as S from './styled'
-
+import { Checkbox } from 'antd'
 import { TextField } from '../../ui/Components/TextField'
 import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
@@ -20,8 +20,9 @@ type FormData = {
 }
 
 export default function
-ConfigurationCrossing () {
+ConfigurationSteps () {
   const [isOpen, setIsOpen] = useState(false)
+  const [isOpenPhases, setIsOpenPhases] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   // eslint-disable-next-line
   const [loading, setLoading] = useState(false)
@@ -129,24 +130,38 @@ ConfigurationCrossing () {
     loadDados()
   }, [])
 
+  function onChange (e: any) {
+    console.log(`checked = ${e.target.checked}`)
+  }
+
   return (
     <>
       <Sidebar />
       <Navbar />
       <S.ContainerConfirmation>
-        <h2>Configurações da travessia</h2>
+        <h2>Etapas da configuração</h2>
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
 
         <S.GridConfirmation>
-          <span>Nome da configuração</span>
-          <span>Descrição</span>
+          <span>Nome</span>
+          <span>Travessia</span>
+          <span>Trabalhadores</span>
+          <span>Companhia</span>
+          <span>Fluído de perfuração</span>
+          <span>Haste</span>
+          <span>Maquina perfuratriz</span>
         </S.GridConfirmation>
 
         <ul>
           <li>
             <S.GridConfirmation>
-              <span>Nome</span>
-              <span>Descrição</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
+              <span>XXXXXXX</span>
               {/* <DeleteButton
                 onDelete={() => deleteDados(configurationCrossing.id)}
               /> */}
@@ -161,7 +176,7 @@ ConfigurationCrossing () {
               >
                 <FaEdit size={20} />
               </button> */}
-              <Link to='/etapas-da-configuracao'><span>Atribuir etapas</span></Link>
+              <button onClick={() => setIsOpenPhases(true)}>Atribuir campos</button>
               {/* {<button><span>Executar travessia</span></button>} */}
             </S.GridConfirmation>
           </li>
@@ -201,7 +216,7 @@ ConfigurationCrossing () {
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField
-                label='Nome da configuração'
+                label='Nova etapa'
                 {...register('nome', {
                   required: {
                     value: true,
@@ -210,7 +225,7 @@ ConfigurationCrossing () {
                 })}
               />
               <TextField
-                label='Descrição'
+                label='Número da etapa'
                 errorMessage={errors.descricao?.message}
                 {...register('descricao', {
                   required: {
@@ -219,7 +234,33 @@ ConfigurationCrossing () {
                   },
                 })}
               />
+              <div className='form-control-group'>
+                <label htmlFor=''>Perfil</label>
+                <select name='' id=''>
+                  <option value=''>Operador</option>
+                  <option value=''>Equipe civil</option>
+                  <option value=''>Navegação</option>
+                  <option value=''>Engenharia adm</option>
+                  <option value=''>Engenharia user</option>
+                  <option value=''>Mapeamento</option>
+                </select>
+              </div>
               <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+            </S.Form>
+          </S.Container>
+        </Modal>
+
+        <Modal isOpen={isOpenPhases} onClose={() => setIsOpenPhases(false)}>
+          <S.Container>
+            <S.Form className='form-check' onSubmit={handleSubmit(onSubmit)}>
+              <div className='form-control-group-check'>
+                <h2>Adicione os campos</h2>
+                <Checkbox className='first' onChange={onChange}>Checkbox</Checkbox>
+                <Checkbox onChange={onChange}>Checkbox</Checkbox>
+                <Checkbox onChange={onChange}>Checkbox</Checkbox>
+                <Checkbox onChange={onChange}>Checkbox</Checkbox>
+              </div>
+              <button type='submit'>Adicionar</button>
             </S.Form>
           </S.Container>
         </Modal>

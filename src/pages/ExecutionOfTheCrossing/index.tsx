@@ -19,8 +19,7 @@ type FormData = {
   nome: Date;
 }
 
-export default function
-ConfigurationCrossing () {
+export default function ExecutionOfTheCrossing () {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   // eslint-disable-next-line
@@ -143,31 +142,6 @@ ConfigurationCrossing () {
         </S.GridConfirmation>
 
         <ul>
-          <li>
-            <S.GridConfirmation>
-              <span>Nome</span>
-              <span>Descrição</span>
-              {/* <DeleteButton
-                onDelete={() => deleteDados(configurationCrossing.id)}
-              /> */}
-              {/* <EditButton
-                    onEdit={() => handleUpdate(configurationCrossing.id)}
-                  /> */}
-              {/* <button
-                    // onChange={onEdit}
-                onClick={() => update(configurationCrossing)}
-                style={{ background: 'none', color: 'yellow' }}
-                title='Editar?'
-              >
-                <FaEdit size={20} />
-              </button> */}
-              <Link to='/etapas-da-configuracao'><span>Atribuir etapas</span></Link>
-              {/* {<button><span>Executar travessia</span></button>} */}
-            </S.GridConfirmation>
-          </li>
-        </ul>
-
-        {/* <ul>
           {travessia.length > 0
             ? travessia.map((configurationCrossing) =>
               <li key={configurationCrossing.id}>
@@ -179,7 +153,7 @@ ConfigurationCrossing () {
                   />
                   {/* <EditButton
                     onEdit={() => handleUpdate(configurationCrossing.id)}
-                  />
+                  /> */}
                   <button
                     // onChange={onEdit}
                     onClick={() => update(configurationCrossing)}
@@ -189,13 +163,12 @@ ConfigurationCrossing () {
                     <FaEdit size={20} />
                   </button>
                   <Link to={link + configurationCrossing.id}><span>Executar travessia</span></Link>
-                  {/* {<button><span>Executar travessia</span></button>}
+                  {/* {<button><span>Executar travessia</span></button>} */}
                 </S.GridConfirmation>
               </li>,
             )
             : <p>🤔 Nenhuma configuração cadastrada</p>}
         </ul>
-        */}
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
