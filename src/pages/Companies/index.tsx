@@ -30,6 +30,7 @@ type FormData = {
   tel: string;
   email: string;
   numero: string;
+  complemento: string;
   responsavelTecnico: string;
   values: string;
   actions: string;
@@ -299,39 +300,88 @@ Companies () {
                     <div className='form-control-group'>
                       <label>Cep</label>
                       <Field
+                      {...register('cep', {
+                        required: {
+                          value: true,
+                          message: '',
+                        },
+                      })}
                         name='cep' type='text'
                         onBlur={(ev: any) => onBlurCep(ev, setFieldValue)}
+                        
                       />
                     </div>
 
                     <div className='form-control-group'>
                       <label>Logradouro</label>
-                      <Field name='logradouro' type='text' />
+                      <Field 
+                      {...register('logradouro', {
+                        required: {
+                          value: true,
+                          message: '',
+                        },
+                      })}
+                      name='logradouro' type='text' />
                     </div>
 
                     <div className='form-control-group'>
                       <label>Número</label>
-                      <Field name='numero' type='text' />
+                      <Field
+                      {...register('numero', {
+                        required: {
+                          value: true,
+                          message: '',
+                        },
+                      })}
+                      name='numero' type='text' />
                     </div>
 
                     <div className='form-control-group'>
                       <label>Complemento</label>
-                      <Field name='complemento' type='text' />
+                      <Field
+                      {...register('complemento', {
+                        required: {
+                          value: true,
+                          message: '',
+                        },
+                      })}
+                      name='complemento' type='text' />
                     </div>
 
                     <div className='form-control-group'>
                       <label>Bairro</label>
-                      <Field name='bairro' type='text' />
+                      <Field
+                      {...register('bairro', {
+                        required: {
+                          value: true,
+                          message: '',
+                        },
+                      })}
+                      name='bairro' type='text' />
                     </div>
 
                     <div className='form-control-group'>
                       <label>Cidade</label>
-                      <Field name='cidade' type='text' />
+                      <Field
+                      {...register('cidade', {
+                        required: {
+                          value: true,
+                          message: '',
+                        },
+                      })}
+                      name='cidade' type='text' />
                     </div>
 
                     <div className='form-control-group'>
                       <label>Estado</label>
-                      <Field component='select' name='uf'>
+                      <Field
+                      {...register('estado', {
+                        required: {
+                          value: true,
+                          message: '',
+                        },
+                      })}
+                       component='select' name='uf'>
                         <option value=''>Selecione o Estado</option>
                         <option value='AC'>Acre</option>
                         <option value='AL'>Alagoas</option>

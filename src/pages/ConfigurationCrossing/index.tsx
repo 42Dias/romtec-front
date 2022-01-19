@@ -144,9 +144,9 @@ ConfigurationCrossing () {
 
         <ul>
           <li>
-            <S.GridConfirmation>
-              <span>Nome</span>
-              <span>Descrição</span>
+            {/* <S.GridConfirmation> */}
+              {/* <span>Nome</span>
+              <span>Descrição</span> */}
               {/* <DeleteButton
                 onDelete={() => deleteDados(configurationCrossing.id)}
               /> */}
@@ -161,14 +161,7 @@ ConfigurationCrossing () {
               >
                 <FaEdit size={20} />
               </button> */}
-              <Link to='/etapas-da-configuracao'><span>Atribuir etapas</span></Link>
-              {/* {<button><span>Executar travessia</span></button>} */}
-            </S.GridConfirmation>
-          </li>
-        </ul>
-
-        {/* <ul>
-          {travessia.length > 0
+              {travessia.length > 0
             ? travessia.map((configurationCrossing) =>
               <li key={configurationCrossing.id}>
                 <S.GridConfirmation>
@@ -178,8 +171,8 @@ ConfigurationCrossing () {
                     onDelete={() => deleteDados(configurationCrossing.id)}
                   />
                   {/* <EditButton
-                    onEdit={() => handleUpdate(configurationCrossing.id)}
-                  />
+                    onEdit={() => update(configurationCrossing.id)}
+                  /> */}
                   <button
                     // onChange={onEdit}
                     onClick={() => update(configurationCrossing)}
@@ -187,15 +180,19 @@ ConfigurationCrossing () {
                     title='Editar?'
                   >
                     <FaEdit size={20} />
-                  </button>
-                  <Link to={link + configurationCrossing.id}><span>Executar travessia</span></Link>
-                  {/* {<button><span>Executar travessia</span></button>}
+                  </button> 
+                  {/* <Link to={link + configurationCrossing.id}><span>Executar travessia</span></Link>
+                  <button><span>Executar travessia</span></button> */} 
+                  <Link to='/etapas-da-configuracao'><span>Atribuir etapas</span></Link>
                 </S.GridConfirmation>
               </li>,
             )
             : <p>🤔 Nenhuma configuração cadastrada</p>}
+             
+              {/* {<button><span>Executar travessia</span></button>} */}
+            {/* </S.GridConfirmation> */}
+          </li>
         </ul>
-        */}
 
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
