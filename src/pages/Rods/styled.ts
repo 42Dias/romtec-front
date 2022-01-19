@@ -118,6 +118,11 @@ export const Form = styled.form`
     border: 0;
     margin: 5px 1px 5px 14px;
   }
+
+  label {
+    font-size: 14px;
+    color: ${theme.colors.white};
+  }
 `
 
 export const Container = styled.aside`

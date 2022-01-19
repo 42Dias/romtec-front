@@ -12,6 +12,7 @@ import { api } from '../../services/api'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import EditButton from '../../ui/Components/EditButton/EditButton'
 import { FaEdit } from 'react-icons/fa'
+import MaskedInput from '../../ui/Components/InputMask/InputMask'
 
 type FormData = {
   ano: Date,
@@ -31,7 +32,7 @@ Payments () {
   const [mes, setMes] = useState('')
   const [dataPagamento, setDataPagamento] = useState('')
   const [valorPago, setValorPago] = useState('')
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
+  const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
     console.log(data)
@@ -191,7 +192,7 @@ Payments () {
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField
-                label=/* 'Ano de pagamento' */'Data de pagamento'
+                label='Data de pagamento'
                 errorMessage={errors.dataPagamento?.message}
                 type='date'
                 id='dataPagamento'
@@ -203,32 +204,17 @@ Payments () {
                 })}
               />
 
-              {/* <TextField
-                label='Mês de pagamento'
-                type='date'
-                id='mes'
-                {...register('mes', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Dia de pagamento'
-                type='date'
-                id='payday'
-                {...register('payday', {
-                  required: true,
-                })}
-              /> */}
-
-              <TextField
-                label='Valor de pagamento'
-                type='number'
-                id='valorPago'
-                {...register('valorPago', {
-                  required: true,
-                })}
-              />
+              <fieldset>
+                <label htmlFor='valorPago'>Valor de pagamento</label>
+                <MaskedInput
+                  onChangeUnMask={(value) => setValue('valorPago', value)}
+                  mask='R$ 9999999'
+                  id='valorPago'
+                  {...register('valorPago', {
+                    required: true,
+                  })}
+                />
+              </fieldset>
 
               <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
             </S.Form>

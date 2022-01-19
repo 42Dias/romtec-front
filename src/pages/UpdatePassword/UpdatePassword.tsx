@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 import { token, ip, api, id } from '../../services/api'
 import { TextField } from '../../ui/Components/TextField'
 
-import * as S from './UpdatePassword.styled'
+import * as S from './styled'
 
 type FormData = {
   password: string;

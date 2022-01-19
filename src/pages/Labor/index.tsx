@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import InputMask from 'react-input-mask'
 import { api } from '../../services/api'
 import { FiPlus } from 'react-icons/fi'
 import { toast } from 'react-toastify'
@@ -13,6 +12,7 @@ import Modal from '../../ui/Components/Modal/Modal'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import EditButton from '../../ui/Components/EditButton/EditButton'
 import { FaEdit } from 'react-icons/fa'
+import MaskedInput from '../../ui/Components/InputMask/InputMask'
 
 type FormData = {
   nIdentificacao: string;
@@ -33,7 +33,7 @@ Labor () {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
+  const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<FormData>()
   const [maoDeObras, setMaoDeObra] = useState<any[]>([])
   const [id, setId] = useState('')
   const [nIdentificacao, setNIdentificacao] = useState('')
@@ -173,10 +173,6 @@ Labor () {
     }))
   }
 
-  const Masked = () => {
-    <InputMask mask='999.999.999-99' />
-  }
-
   return (
     <>
       <Sidebar />
@@ -275,32 +271,35 @@ Labor () {
                 })}
               />
 
-              <TextField
-                label='CPF'
-                id='cpf'
-                type='number'
-                {...register('cpf', {
-                  required: true,
-                })}
-              />
+              <fieldset>
+                <label htmlFor='cpf'>CPF</label>
+                <MaskedInput
+                  onChangeUnMask={(value) => setValue('cpf', value)}
+                  mask='999.999.999-99'
+                  id='cpf'
+                  {...register('cpf')}
+                />
+              </fieldset>
 
-              <TextField
-                label='Celular'
-                id='celular'
-                type='phone'
-                {...register('celular', {
-                  required: true,
-                })}
-              />
+              <fieldset>
+                <label htmlFor='celular'>Celular</label>
+                <MaskedInput
+                  onChangeUnMask={(value) => setValue('celular', value)}
+                  mask='(99) 99999-9999'
+                  id='celular'
+                  {...register('celular')}
+                />
+              </fieldset>
 
-              {/* <TextField
-                label='CEP'
-                id='cep'
-                type='cep'
-                {...register('cep', {
-                  required: true,
-                })}
-              /> */}
+              <fieldset>
+                <label htmlFor='cep'>CEP</label>
+                <MaskedInput
+                  onChangeUnMask={(value) => setValue('cep', value)}
+                  mask='99999-999'
+                  id='cep'
+                  {...register('cep')}
+                />
+              </fieldset>
 
               {/* <TextField
                 label='Cidade'

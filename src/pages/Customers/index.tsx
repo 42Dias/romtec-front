@@ -44,7 +44,7 @@ Customers () {
   const [logradouro, setLogradouro] = useState('')
   const [numero, setNumero] = useState('')
   const [complemento, setComplemento] = useState('')
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
+  const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
     console.log(data)

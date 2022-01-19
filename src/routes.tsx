@@ -1,6 +1,6 @@
 
 import { Switch, Route, HashRouter } from 'react-router-dom'
-import { UpdatePassword } from './pages'
+
 import Companies from './pages/Companies'
 import ConfigurationCrossing from './pages/ConfigurationCrossing'
 import Crossings from './pages/Crossings'
@@ -32,6 +32,7 @@ import SoilTypes from './pages/Soiltypes'
 import Terms from './pages/Terms'
 import Tools from './pages/Tools'
 import Topography from './pages/Topography'
+import UpdatePassword from './pages/UpdatePassword'
 import Users from './pages/Users'
 
 const Routes = (): JSX.Element => {

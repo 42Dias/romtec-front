@@ -8,6 +8,7 @@ export const idPessoa = localStorage.getItem('idPessoa')?.replace(/"/g, '')
 export const status = localStorage.getItem('status')?.replace(/"/g, '')
 export const Email = localStorage.getItem('email')?.replace(/"/g, '')
 export const nome = localStorage.getItem('nome')?.replace(/"/g, '')
+export const password = localStorage.getItem('password')?.replace(/"/g, '')
 export const ip = 'http://localhost' 
 //export let ip = "https://projetos.42dias.com.br";//servidor 
 

@@ -13,6 +13,7 @@ import { toast } from 'react-toastify'
 import * as S from './styled'
 import EditButton from '../../ui/Components/EditButton/EditButton'
 import { FaEdit } from 'react-icons/fa'
+import MaskedInput from '../../ui/Components/InputMask/InputMask'
 
 type FormData = {
   nome: string,
@@ -30,7 +31,7 @@ Plans () {
   const [nome, setNome] = useState('')
   const [valor, setValor] = useState('')
   const [periodo, setPeriodo] = useState('')
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
+  const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
     console.log(data)
@@ -175,6 +176,7 @@ Plans () {
               <TextField
                 label='Nome'
                 errorMessage={errors.nome?.message}
+                id='nome'
                 {...register('nome', {
                   required: {
                     value: true,
@@ -183,12 +185,17 @@ Plans () {
                 })}
               />
 
-              <TextField
-                label='Valor'
-                {...register('valor', {
-                  required: true,
-                })}
-              />
+              <fieldset>
+                <label htmlFor='valor'>Valor</label>
+                <MaskedInput
+                  onChangeUnMask={(value) => setValue('valor', value)}
+                  mask='R$ 9999999'
+                  id='valor'
+                  {...register('valor', {
+                    required: true,
+                  })}
+                />
+              </fieldset>
 
               <fieldset>
                 <label htmlFor='periodo'>Periodo</label>

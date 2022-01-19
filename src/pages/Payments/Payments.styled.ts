@@ -19,8 +19,7 @@ export const ContainerConfirmation = styled.div`
     background: ${theme.colors.green};
     border: 0;
     transition: 1s;
-    position: relative;
-    top: 0;
+    margin-bottom: 20px;
 
     :hover {
       opacity: 80%;
@@ -42,11 +41,7 @@ export const ContainerConfirmation = styled.div`
 
 export const GridConfirmation = styled.div`
   display: grid;
-<<<<<<< HEAD:src/pages/Plans/styled.ts
-  grid-template-columns: repeat(5, 1fr);
-=======
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
->>>>>>> 2f6f0598b53018fe8ac6902525df315c1037b950:src/pages/Plans/Plans.styled.ts
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   justify-items: center;
   align-items: center;
   background-color: ${theme.colors.black};
@@ -68,60 +63,8 @@ export const GridConfirmation = styled.div`
 export const Form = styled.form`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  @media (max-width: 520px) {
-    grid-template-columns: 1fr;
-  }
   justify-items: center;
   align-items: center;
-
-  select {
-    width: 345px;
-    height: 48px;
-    box-sizing: border-box;
-    border-radius: 4px;
-    margin: 10px 0;
-    padding: 0 7px;
-    border: 1px solid ${theme.colors.black};
-    background: ${theme.colors.darkBlack};
-    color: ${theme.colors.yellow};
-
-    :focus {
-      border: 1px solid ${theme.colors.yellow};
-      background: transparent;
-    }
-
-    @media(max-width: 520px) {
-      width: 280px;  
-      margin: 10px 0;
-      margin-right: 90px;
-      padding: 0;
-    }
-  }
-
-  button {
-    width: 101px;
-    height: 44px;
-    border-radius: 5px;
-    background: ${theme.colors.green};
-    border: 0;
-    transition: 1s;
-    margin-bottom: 20px;
-    margin-right: 250px;
-
-    :hover {
-      opacity: 80%;
-    }
-  }
-
-  span {
-    color: ${theme.colors.red};
-    font-size: 10px;
-  }
-
-  fieldset {
-    border: 0;
-    margin: 5px 1px 5px 22px;
-  }
 
   button {
     width: 101px;
