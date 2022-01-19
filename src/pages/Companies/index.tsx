@@ -3,7 +3,6 @@ import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 
-
 import { TextField } from '../../ui/Components/TextField'
 import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
@@ -300,88 +299,94 @@ Companies () {
                     <div className='form-control-group'>
                       <label>Cep</label>
                       <Field
-                      {...register('cep', {
-                        required: {
-                          value: true,
-                          message: '',
-                        },
-                      })}
+                        {...register('cep', {
+                          required: {
+                            value: true,
+                            message: '',
+                          },
+                        })}
                         name='cep' type='text'
                         onBlur={(ev: any) => onBlurCep(ev, setFieldValue)}
-                        
+
                       />
                     </div>
 
                     <div className='form-control-group'>
                       <label>Logradouro</label>
-                      <Field 
-                      {...register('logradouro', {
-                        required: {
-                          value: true,
-                          message: '',
-                        },
-                      })}
-                      name='logradouro' type='text' />
+                      <Field
+                        {...register('logradouro', {
+                          required: {
+                            value: true,
+                            message: '',
+                          },
+                        })}
+                        name='logradouro' type='text'
+                      />
                     </div>
 
                     <div className='form-control-group'>
                       <label>Número</label>
                       <Field
-                      {...register('numero', {
-                        required: {
-                          value: true,
-                          message: '',
-                        },
-                      })}
-                      name='numero' type='text' />
+                        {...register('numero', {
+                          required: {
+                            value: true,
+                            message: '',
+                          },
+                        })}
+                        name='numero' type='text'
+                      />
                     </div>
 
                     <div className='form-control-group'>
                       <label>Complemento</label>
                       <Field
-                      {...register('complemento', {
-                        required: {
-                          value: true,
-                          message: '',
-                        },
-                      })}
-                      name='complemento' type='text' />
+                        {...register('complemento', {
+                          required: {
+                            value: true,
+                            message: '',
+                          },
+                        })}
+                        name='complemento' type='text'
+                      />
                     </div>
 
                     <div className='form-control-group'>
                       <label>Bairro</label>
                       <Field
-                      {...register('bairro', {
-                        required: {
-                          value: true,
-                          message: '',
-                        },
-                      })}
-                      name='bairro' type='text' />
+                        {...register('bairro', {
+                          required: {
+                            value: true,
+                            message: '',
+                          },
+                        })}
+                        name='bairro' type='text'
+                      />
                     </div>
 
                     <div className='form-control-group'>
                       <label>Cidade</label>
                       <Field
-                      {...register('cidade', {
-                        required: {
-                          value: true,
-                          message: '',
-                        },
-                      })}
-                      name='cidade' type='text' />
+                        {...register('cidade', {
+                          required: {
+                            value: true,
+                            message: '',
+                          },
+                        })}
+                        name='cidade' type='text'
+                      />
                     </div>
 
                     <div className='form-control-group'>
                       <label>Estado</label>
                       <Field
-                      {...register('estado', {
-                        required: {
-                          value: true,
-                          message: '',
-                        },
-                      })}
-                       component='select' name='uf'>
+                        {...register('estado', {
+                          required: {
+                            value: true,
+                            message: '',
+                          },
+                        })}
+                        component='select' name='uf'
+                      >
                         <option value=''>Selecione o Estado</option>
                         <option value='AC'>Acre</option>
                         <option value='AL'>Alagoas</option>

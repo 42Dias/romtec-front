@@ -34,7 +34,7 @@ type FormData = {
 }
 
 export default function
- Tools () {
+Tools () {
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   // eslint-disable-next-line

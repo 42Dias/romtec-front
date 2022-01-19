@@ -1,4 +1,3 @@
-
 import { Switch, Route, HashRouter } from 'react-router-dom'
 
 import Companies from './pages/Companies'
@@ -68,7 +67,7 @@ const Routes = (): JSX.Element => {
           <Route path='/direcionamento-furo-piloto' exact component={PilotHoleTargeting} />
           <Route path='/fechamento-da-vala' exact component={DitchClosing} />
           <Route path='/interferencias' exact component={Interferences} />
-          <Route path='/alargador' exact component={Reamer} />
+          <Route path='/alargador' component={Reamer} />
           <Route path='/porta-sonda' exact component={ProbeHolder} />
           <Route path='/usuarios' exact component={Users} />
           <Route path='/etapas/:id' exact component={Phases} />

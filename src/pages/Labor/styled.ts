@@ -195,4 +195,3 @@ export const ContentForm = styled.div`
     color: ${theme.colors.white};
   }
 `
-

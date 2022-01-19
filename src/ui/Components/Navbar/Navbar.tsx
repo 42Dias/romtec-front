@@ -14,7 +14,7 @@ export default function Navbar () {
         </button>
       </div>
       <S.ContentNav>
-        <h4>Olá, {nome === "null" ? 'Convidado': nome} !</h4> 
+        <h4>Olá, {nome === 'null' ? 'Convidado' : nome} !</h4>
         <Link onClick={() => localStorage.clear()} to='/'><FiIcons.FiLogIn style={{ color: `${theme.colors.red}` }} /></Link>
       </S.ContentNav>
     </S.Nav>

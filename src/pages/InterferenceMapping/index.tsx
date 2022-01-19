@@ -19,7 +19,7 @@ type FormData = {
 }
 
 export default function
- InterferenceMapping () {
+InterferenceMapping () {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit (data: FormData) {

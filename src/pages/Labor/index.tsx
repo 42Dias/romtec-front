@@ -46,11 +46,11 @@ Labor () {
   const [celular, setCelular] = useState('')
   const [numero, setNumero] = useState('')
 
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     console.log(data)
     Cadastro(data)
   }
-  async function Cadastro(submit: any) {
+  async function Cadastro (submit: any) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.post('mao-de-obra', {
@@ -77,7 +77,7 @@ Labor () {
     })
   }
 
-  async function loadDados() {
+  async function loadDados () {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.get('mao-de-obra',
@@ -109,7 +109,7 @@ Labor () {
       setLoading(false)
     })
   }
-  function update(dados: any) {
+  function update (dados: any) {
     console.log('dados')
     console.log(dados)
     setId(dados.id)
@@ -125,7 +125,7 @@ Labor () {
     console.log(nIdentificacao)
     setIsOpenUpdate(true)
   }
-  async function updateDados() {
+  async function updateDados () {
     setLoading(true)
     console.log('nIdentificacao')
     console.log(nIdentificacao)
@@ -140,8 +140,8 @@ Labor () {
         validadeCertificado: validadeCertificado,
         numero: numero,
         certificate: certificate,
-      }
-    }
+      },
+    },
     ).then((response) => {
       if (response.statusText === 'OK') {
         loadDados()
@@ -149,7 +149,7 @@ Labor () {
         setLoading(false)
       }
     })
-  } 
+  }
   useEffect(() => {
     setLoading(true)
     loadDados()
@@ -224,7 +224,7 @@ Labor () {
                     onEdit={() => update(maoDeObra)}
                   /> */}
                   <button
-                    //onChange={onEdit}
+                    // onChange={onEdit}
                     onClick={() => update(maoDeObra)}
                     style={{ background: 'none', color: 'yellow' }}
                     title='Editar?'
@@ -348,12 +348,12 @@ Labor () {
               <button type='submit'>
                 {loading
                   ? <img
-                    width='40px'
-                    style={{ margin: 'auto' }}
-                    height=''
-                    src='https://contribua.org/mb-static/images/loading.gif'
-                    alt='Loading'
-                  />
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height=''
+                      src='https://contribua.org/mb-static/images/loading.gif'
+                      alt='Loading'
+                    />
                   : 'Salvar'}
               </button>
             </S.Form>
@@ -362,7 +362,7 @@ Labor () {
 
         <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
-            <S.Div > 
+            <S.Div>
 
               <TextField
                 label='N° de identificação'
@@ -444,7 +444,7 @@ Labor () {
 
               <fieldset>
                 <label htmlFor='certificate'>Certificado</label>
-                <select id='certificate' value={certificate} onChange={(text) => setCertificate(text.target.value)}> 
+                <select id='certificate' value={certificate} onChange={(text) => setCertificate(text.target.value)}>
                   <option value=''>Select...</option>
                   <option value='Navegador'>Navegador</option>
                   <option value='Operador'>Operador</option>
@@ -455,12 +455,12 @@ Labor () {
               <button onClick={() => updateDados()}>
                 {loading
                   ? <img
-                    width='40px'
-                    style={{ margin: 'auto' }}
-                    height=''
-                    src='https://contribua.org/mb-static/images/loading.gif'
-                    alt='Loading'
-                  />
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height=''
+                      src='https://contribua.org/mb-static/images/loading.gif'
+                      alt='Loading'
+                    />
                   : 'Salvar'}
               </button>
             </S.Div>

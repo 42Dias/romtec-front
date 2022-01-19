@@ -20,7 +20,7 @@ const Menu = ({ children, onClose }: Props) => {
           </li>
           <li>
             <FiUser size={20} />
-            <Link to='/usuarios'>Usuários</Link> 
+            <Link to='/usuarios'>Usuários</Link>
           </li>
           <h4><FiMapPin size={20} />Travessias</h4>
           <li>

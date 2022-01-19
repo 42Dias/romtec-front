@@ -20,22 +20,22 @@ export default function ForgotPassword () {
   function onSubmit (data: FormData) {
     console.log(data)
     senEmail(data.email)
-  } 
-  async function senEmail(email:string) {
+  }
+  async function senEmail (email:string) {
     setLoading(true)
     axios.post(`${ip}:8145/api/trocarSenha`, {
-      email: email
+      email: email,
     }).then((response) => {
-      if (response.statusText == "OK") {
-        toast.success('Email enviado com sucesso!');
+      if (response.statusText == 'OK') {
+        toast.success('Email enviado com sucesso!')
         setLoading(false)
       } else {
-        toast.error('Email não enviado com sucesso!');
+        toast.error('Email não enviado com sucesso!')
       }
     }).catch((error) => {
       setLoading(false)
       toast.error(error.response.data)
-    });
+    })
   }
 
   return (
@@ -43,7 +43,7 @@ export default function ForgotPassword () {
       <S.Content>
         <h1>Esqueceu a senha?</h1>
         <p>Coloque seu e-mail que informaremos o passo a passo para sua recuperação</p>
-        <div >
+        <div>
           <TextField
             label='E-mail'
             placeholder='example@gmail.com'
@@ -54,7 +54,7 @@ export default function ForgotPassword () {
             onChange={(text) => setEmail(text.target.value)}
           />
         </div>
-        <button onClick={() => senEmail(email)}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> :'Enviar'}</button>
+        <button onClick={() => senEmail(email)}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Enviar'}</button>
         <Link to='/'>Voltar para o login</Link>
       </S.Content>
     </S.ContainerLogin>

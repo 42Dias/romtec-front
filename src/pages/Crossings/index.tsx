@@ -25,7 +25,7 @@ type FormData = {
 }
 
 export default function
- Crossings () {
+Crossings () {
   const [isOpen, setIsOpen] = useState(false)
   // eslint-disable-next-line
   const [loading, setLoading] = useState(false)
@@ -35,7 +35,6 @@ export default function
 
   function onSubmit (data: FormData) {
     console.log(data)
-
   }
   // eslint-disable-next-line
   async function Cadastro (submit: any) {
