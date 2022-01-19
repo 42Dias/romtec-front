@@ -183,7 +183,7 @@ ConfigurationCrossing () {
                   </button> 
                   {/* <Link to={link + configurationCrossing.id}><span>Executar travessia</span></Link>
                   <button><span>Executar travessia</span></button> */} 
-                  <Link to='/etapas-da-configuracao'><span>Atribuir etapas</span></Link>
+                  <Link to={'/etapas-da-configuracao/'+configurationCrossing.id}><span>Atribuir etapas</span></Link>
                 </S.GridConfirmation>
               </li>,
             )

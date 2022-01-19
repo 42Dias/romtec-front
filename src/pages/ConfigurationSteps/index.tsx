@@ -9,41 +9,45 @@ import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { api } from '../../services/api'
+import { api, ip } from '../../services/api'
 import EditButton from '../../ui/Components/EditButton/EditButton'
 import { FaEdit } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 
 type FormData = {
-  descricao: string;
-  nome: Date;
+  numeroEtapa: string;
+  novaEtapa: string;
+  perfil: string;
 }
 
 export default function
-ConfigurationSteps () {
+  ConfigurationSteps() {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenPhases, setIsOpenPhases] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   // eslint-disable-next-line
   const [loading, setLoading] = useState(false)
   // eslint-disable-next-line
-  const [travessia, setTravessia] = useState<any[]>([])
-  const [idconfigTravessia, setIdconfigTravessia] = useState('')
-  const [descricao, setdescricao] = useState('')
-  const [nome, setnome] = useState('')
+  const [etapas, setetapas] = useState<any[]>([])
+  const [idEtapa, setidEtapa] = useState('')
+  const [numeroEtapa, setnumeroEtapa] = useState('')
+  const [novaEtapa, setnovaEtapa] = useState('')
+  const [perfil, setperfil] = useState('')
   const [configurationCrossings, setConfigurationCrossings] = useState<any[]>([])
   const link = '/etapas/'
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
+  let idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas-da-configuracao/', '')
 
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
     console.log(data)
     Cadastro(data)
   }
   // eslint-disable-next-line
-  async function Cadastro (submit: any) {
+  async function Cadastro(submit: any) {
     setLoading(true)
+    submit.idConfigTravessia = idConfigTravessia.replace('#/etapas-da-configuracao/', '')
     // eslint-disable-next-line
-    const responser = api.post('configTravessia', {
+    const responser = api.post('etapas', {
       data: submit,
     }).then((response) => {
       console.log(response)
@@ -67,14 +71,14 @@ ConfigurationSteps () {
     })
   }
 
-  async function loadDados () {
+  async function loadDados() {
     setLoading(true)
     // eslint-disable-next-line
-    const responser = api.get('configTravessia',
+    const responser = api.get('etapas',
     ).then((response) => {
       console.log(response.data.rows)
       if (response.statusText === 'OK') {
-        setTravessia(response.data.rows)
+        setetapas(response.data.rows)
         setLoading(false)
       }
     }).catch(res => {
@@ -83,10 +87,10 @@ ConfigurationSteps () {
       setLoading(false)
     })
   }
-  async function deleteDados (id: string) {
+  async function deleteDados(id: string) {
     setLoading(true)
     // eslint-disable-next-line
-    const responser = api.delete('configTravessia/' + id
+    const responser = api.delete('etapas/' + id
     ).then((response) => {
       if (response.statusText === 'OK') {
         loadDados()
@@ -98,20 +102,22 @@ ConfigurationSteps () {
       setLoading(false)
     })
   }
-  function update (dados: any) {
+  function update(dados: any) {
     console.log('dados')
     console.log(dados)
-    setIdconfigTravessia(dados.id)
-    setdescricao(dados.descricao)
-    setnome(dados.nome)
+    setidEtapa(dados.id)
+    setnumeroEtapa(dados.numeroEtapa)
+    setnovaEtapa(dados.novaEtapa)
+    setperfil(dados.perfil)
     setIsOpenUpdate(true)
   }
-  async function updateDados () {
+  async function updateDados() {
     setLoading(true)
-    const responser = api.put('configTravessia/' + idconfigTravessia, {
+    const responser = api.put('etapas/' + idEtapa, {
       data: {
-        descricao: descricao,
-        nome: nome,
+        numeroEtapa: numeroEtapa,
+        novaEtapa: novaEtapa,
+        perfil: perfil
       },
     },
     ).then((response) => {
@@ -128,9 +134,12 @@ ConfigurationSteps () {
   useEffect(() => {
     setLoading(true)
     loadDados()
+    idConfigTravessia = window.location.hash.replace(ip + '/romtec#/etapas-da-configuracao/', '')
+    idConfigTravessia = idConfigTravessia.replace('#/etapas-da-configuracao/', '')
+    console.log(idConfigTravessia)
   }, [])
 
-  function onChange (e: any) {
+  function onChange(e: any) {
     console.log(`checked = ${e.target.checked}`)
   }
 
@@ -143,43 +152,42 @@ ConfigurationSteps () {
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
 
         <S.GridConfirmation>
-          <span>Nome</span>
-          <span>Travessia</span>
-          <span>Trabalhadores</span>
-          <span>Companhia</span>
-          <span>Fluído de perfuração</span>
-          <span>Haste</span>
-          <span>Maquina perfuratriz</span>
+          <span>Nova Etapa</span>
+          <span>Numero da Etapa</span>
+          <span>Perfil</span>
         </S.GridConfirmation>
 
         <ul>
-          <li>
-            <S.GridConfirmation>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              {/* <DeleteButton
-                onDelete={() => deleteDados(configurationCrossing.id)}
-              /> */}
-              {/* <EditButton
-                    onEdit={() => handleUpdate(configurationCrossing.id)}
+          {etapas.length > 0
+            ? etapas.map((etapas) =>
+              <li key={etapas.id}>
+                <S.GridConfirmation>
+                  <span>{etapas.novaEtapa}</span>
+                  <span>{etapas.numeroEtapa}</span>
+                  <span>{etapas.perfil}</span>
+                  <DeleteButton
+                    onDelete={() => deleteDados(etapas.id)}
+                  />
+                  {/* <EditButton
+                    onEdit={() => update(etapas.id)}
                   /> */}
-              {/* <button
+                  <button
                     // onChange={onEdit}
-                onClick={() => update(configurationCrossing)}
-                style={{ background: 'none', color: 'yellow' }}
-                title='Editar?'
-              >
-                <FaEdit size={20} />
-              </button> */}
-              <button onClick={() => setIsOpenPhases(true)}>Atribuir campos</button>
-              {/* {<button><span>Executar travessia</span></button>} */}
-            </S.GridConfirmation>
-          </li>
+                    onClick={() => update(etapas)}
+                    style={{ background: 'none', color: 'yellow' }}
+                    title='Editar?'
+                  >
+                    <FaEdit size={20} />
+                  </button>
+                  {/* <Link to={link + etapas.id}><span>Executar travessia</span></Link>
+                  <button><span>Executar travessia</span></button> */}
+                  <button onClick={() => setIsOpenPhases(true)}>Atribuir campos</button>
+                </S.GridConfirmation>
+              </li>,
+            )
+            : <p>🤔 Nenhuma configuração cadastrada</p>}
+
+          {/* {<button><span>Executar travessia</span></button>} */}
         </ul>
 
         {/* <ul>
@@ -187,8 +195,8 @@ ConfigurationSteps () {
             ? travessia.map((configurationCrossing) =>
               <li key={configurationCrossing.id}>
                 <S.GridConfirmation>
-                  <span>{configurationCrossing.nome}</span>
-                  <span>{configurationCrossing.descricao}</span>
+                  <span>{configurationCrossing.novaEtapa}</span>
+                  <span>{configurationCrossing.numeroEtapa}</span>
                   <DeleteButton
                     onDelete={() => deleteDados(configurationCrossing.id)}
                   />
@@ -217,7 +225,7 @@ ConfigurationSteps () {
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 label='Nova etapa'
-                {...register('nome', {
+                {...register('novaEtapa', {
                   required: {
                     value: true,
                     message: '',
@@ -226,8 +234,8 @@ ConfigurationSteps () {
               />
               <TextField
                 label='Número da etapa'
-                errorMessage={errors.descricao?.message}
-                {...register('descricao', {
+                errorMessage={errors.numeroEtapa?.message}
+                {...register('numeroEtapa', {
                   required: {
                     value: true,
                     message: 'Todos os campos são obrigatórios',
@@ -235,12 +243,12 @@ ConfigurationSteps () {
                 })}
               />
               <div className='form-control-group'>
-                <label htmlFor=''>Perfil</label>
-                <select name='' id=''>
+                <label htmlFor='perfil'>Perfil</label>
+                <select name='perfil' id='perfil'>
                   <option value=''>Operador</option>
                   <option value=''>Equipe civil</option>
                   <option value=''>Navegação</option>
-                  <option value=''>Engenharia adm</option>
+                  <option value='Engenharia adm'>Engenharia adm</option>
                   <option value=''>Engenharia user</option>
                   <option value=''>Mapeamento</option>
                 </select>
@@ -269,14 +277,19 @@ ConfigurationSteps () {
           <S.Container>
             <S.Div>
               <TextField
-                label='Nome'
-                value={nome}
-                onChange={(text) => setnome(text.target.value)}
+                label='novaEtapa'
+                value={novaEtapa}
+                onChange={(text) => setnovaEtapa(text.target.value)}
               />
               <TextField
                 label='Descrição'
-                value={descricao}
-                onChange={(text) => setdescricao(text.target.value)}
+                value={numeroEtapa}
+                onChange={(text) => setnumeroEtapa(text.target.value)}
+              />
+              <TextField
+                label='Perfil'
+                value={perfil}
+                onChange={(text) => setperfil(text.target.value)}
               />
               <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
             </S.Div>

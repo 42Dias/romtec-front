@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { NotEmittedStatement } from 'typescript'
 import { ip, token, api, id } from '../../services/api'
 import { TextField } from '../../ui/Components/TextField'
 import * as S from './styled'
@@ -13,22 +14,34 @@ type FormData = {
   confirmPassword: string;
 }
 
-export default function UpdatePassword () {
-  const { register, handleSubmit } = useForm<FormData>()
+export default function UpdatePassword() {
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
   const [loading, setLoading] = useState(false);
-  
-  function onSubmit (data: FormData) {
+  const [nome, setNome] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setconfirmPassword] = useState('');
+
+  function onSubmit() {
+    const data = {
+      fullName: nome,
+      password: password
+    }
     console.log(data)
-    resetSenha(data)
+    if(password === confirmPassword){
+      resetSenha(data)
+    }else{
+      toast.error("As senhas não são iguais!")
+    }
+    
   }
   useEffect(() => {
 
-    const hash = window.location.hash.replace(ip+'/romtec/#/atualizar-senha/', '');
-    
+    const hash = window.location.hash.replace(ip + '/romtec/#/atualizar-senha/', '');
+
     console.log(hash)
     if (hash) {
 
-      var token = hash.replace('#/atualizar-senha/', ''); 
+      var token = hash.replace('#/atualizar-senha/', '');
       console.log(token)
       if (token) {
         localStorage.setItem("token", JSON.stringify(token.replace('#/atualizar-senha/', '')));
@@ -72,29 +85,46 @@ export default function UpdatePassword () {
     localStorage.setItem("email", JSON.stringify(response.email));
   }
 
-  async function resetSenha(dataU:any) {
-    setLoading(true) 
+  async function resetSenha(dataU: any) {
+    setLoading(true)
     const data = await api.get("user/" + id).then((response) => {
       response.data.fullName = dataU.fullName
-      //update(response.data)
+      update(response.data)
       console.log(response.data)
       return response.data;
+    }).catch(res => {
+      console.log(res)
+      toast.error(res.response.data)
+      setLoading(false)
     });
     console.log(data)
 
     async function update(data: any) {
       if (data) {
         data.password = dataU.senha
-        const response = await axios.put(`${ip}:8145/api/auth/password-reset/`, {
-          token: id,
-          password: dataU.senha
-        }).then((response) => {
-          setLoading(false)
+        await api.put("user/",{
+          data: data
+        }).then((response) => { 
+          console.log(window.location.href = window.location.href + 'home')
+          console.log(response.data)
           return response.data;
-        }).catch(error => {
-          toast.error("Link de redefinição de senha inválido ou expirado")
+        }).catch(res => {
+          console.log(res)
+          toast.error(res.response.data)
           setLoading(false)
-        })
+        });
+        // const response = await axios.put(`${ip}:8145/api/auth/password-reset/`, {
+        //   token: token,
+        //   password: dataU.senha
+        // }).then((response) => {
+        //   setLoading(false)
+        //   toast.success(response.data)
+        //   return response.data;
+        // }).catch(res => {
+        //   console.log(res)
+        //   toast.error(res.response.data)
+        //   setLoading(false)
+        // });
       }
     }
   }
@@ -104,34 +134,30 @@ export default function UpdatePassword () {
       <S.Content>
         <h1>Atualize sua senha</h1>
         <p>Troque sua senha nos campos abaixo</p>
-        <form onSubmit={handleSubmit(onSubmit)}>
-        <TextField
+        <div onSubmit={handleSubmit(onSubmit)}>
+          <TextField
             label='Nome '
             placeholder='Nome'
-            id='fullName'
-            {...register('fullName', {
-              required: true,
-            })}
+            value={nome}
+            onChange={(text) => setNome(text.target.value)}
           />
           <TextField
             label='Senha'
             placeholder='sua melhor senha'
             type='password'
             id='password'
-            {...register('password', {
-              required: true,
-            })}
+            value={password}
+            onChange={(text) => setPassword(text.target.value)}
           />
           <TextField
             label='Digite sua senha novamente'
             placeholder='sua melhor senha novamente'
             id='confirmPassword'
-            {...register('confirmPassword', {
-              required: true,
-            })}
+            value={confirmPassword}
+            onChange={(text) => setconfirmPassword(text.target.value)}
           />
-        </form>
-        <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Enviar'}</button>
+        </div>
+        <button onClick={() => onSubmit()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Enviar'}</button>
         <Link to='/'>Voltar para o login</Link>
       </S.Content>
     </S.ContainerLogin>

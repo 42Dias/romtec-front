@@ -89,7 +89,8 @@ export default function Login() {
     }).then(response => {
       // navigate('/home', { replace: true })
       if (password === 'K4bXm93xexrc3Sd') {
-        console.log(window.location.href = window.location.href + 'atualizar-senha/' + token)
+        //console.log(window.location.href = window.location.href + 'atualizar-senha/' + token)
+        console.log(window.location.href = window.location.href + 'home')
       } else {
         console.log(window.location.href = window.location.href + 'home')
       }
