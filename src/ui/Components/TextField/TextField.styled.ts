@@ -20,7 +20,8 @@ export const Input = styled.input`
   padding: 0 7px;
   border: 1px solid ${theme.colors.black};
   background: ${theme.colors.darkBlack};
-  color: ${theme.colors.white};
+  color: #ccc;
+
 
   :focus {
     border: 1px solid ${theme.colors.yellow};
