@@ -11,6 +11,7 @@ import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import EditButton from '../../ui/Components/EditButton/EditButton'
+import MaskedInput from '../../ui/Components/InputMask/InputMask'
 
 type FormData = {
   cnpj: string;
@@ -29,7 +30,7 @@ export function Customers () {
   const [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [clientes, setClientes] = useState<any[]>([])
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
+  const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
     console.log(data)
@@ -160,6 +161,22 @@ export function Customers () {
                 })}
               />
 
+              <fieldset>
+                <label htmlFor='cnpj'>CNPJ</label>
+                <MaskedInput
+                  onChangeUnMask={(value) => setValue('cnpj', value)}
+                  mask='99.999.999/9999-99'
+                  id='cnpj'
+                  {...register('cnpj', {
+                    required: {
+                      value: true,
+                      message: 'Todos os campos são obrigatórios',
+                    },
+                  })}
+                />
+                <span>{errors.cnpj?.message}</span>
+              </fieldset>
+
               <TextField
                 label='Razão Social'
                 {...register('razaoSocial', {
@@ -180,16 +197,15 @@ export function Customers () {
                 })}
               />
 
-              <TextField
-                label='CEP'
-                type='number'
-                {...register('cep', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
-              />
+              <fieldset>
+                <label htmlFor='cep'>CEP</label>
+                <MaskedInput
+                  onChangeUnMask={(value) => setValue('cep', value)}
+                  mask='99999-999'
+                  id='cep'
+                  {...register('cep')}
+                />
+              </fieldset>
 
               <TextField
                 label='UF'

@@ -210,39 +210,35 @@ export function Labor () {
                 })}
               />
 
-              <TextField
-                label='CPF'
-                id='cpf'
-                type='number'
-                {...register('cpf', {
-                  required: true,
-                })}
-              />
+              <fieldset>
+                <label htmlFor='cpf'>CPF</label>
+                <MaskedInput
+                  onChangeUnMask={(value) => setValue('cpf', value)}
+                  mask='999.999.999-99'
+                  id='cpf'
+                  {...register('cpf')}
+                />
+              </fieldset>
 
-              <label>Celular</label>
-              <MaskedInput
-                onChangeUnMask={(value) => setValue('celular', value)}
-                mask='(99) 99999-9999'
-                {...register('celular')}
-              />
+              <fieldset>
+                <label htmlFor='celular'>Celular</label>
+                <MaskedInput
+                  onChangeUnMask={(value) => setValue('celular', value)}
+                  mask='(99) 99999-9999'
+                  id='celular'
+                  {...register('celular')}
+                />
+              </fieldset>
 
-              <TextField
-                label='Celular'
-                id='celular'
-                type='phone'
-                {...register('celular', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='CEP'
-                id='cep'
-                type='cep'
-                {...register('cep', {
-                  required: true,
-                })}
-              />
+              <fieldset>
+                <label htmlFor='cep'>CEP</label>
+                <MaskedInput
+                  onChangeUnMask={(value) => setValue('cep', value)}
+                  mask='99999-999'
+                  id='cep'
+                  {...register('cep')}
+                />
+              </fieldset>
 
               <TextField
                 label='Cidade'
