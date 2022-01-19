@@ -1,4 +1,4 @@
-import * as S from './Customers.styled'
+import * as S from './styled'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'

@@ -10,7 +10,7 @@ import { api } from '../../services/api'
 import { FiPlus } from 'react-icons/fi'
 import { toast } from 'react-toastify'
 
-import * as S from './DrillingMachine.styled'
+import * as S from './styled'
 import EditButton from '../../ui/Components/EditButton/EditButton'
 
 type FormData = {

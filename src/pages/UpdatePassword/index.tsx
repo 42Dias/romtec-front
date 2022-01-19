@@ -1,35 +1,37 @@
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { token, ip, api, id } from '../../services/api'
+import { ip, token, api, id } from '../../services/api'
 import { TextField } from '../../ui/Components/TextField'
-
 import * as S from './styled'
 
 type FormData = {
+  fullName: string;
   password: string;
   confirmPassword: string;
 }
 
-export function UpdatePassword () {
+export default function UpdatePassword () {
   const { register, handleSubmit } = useForm<FormData>()
   const [loading, setLoading] = useState(false);
   
   function onSubmit (data: FormData) {
     console.log(data)
+    resetSenha(data)
   }
   useEffect(() => {
 
-    const hash = window.location.hash.replace(`${ip}/romtec/#/`, '');
+    const hash = window.location.hash.replace(ip+'/romtec/#/atualizar-senha/', '');
+    
     console.log(hash)
     if (hash) {
 
-      var token = hash.replace('#/resetar-senha/', '');
+      var token = hash.replace('#/atualizar-senha/', ''); 
       console.log(token)
       if (token) {
-        localStorage.setItem("token", JSON.stringify(token));
+        localStorage.setItem("token", JSON.stringify(token.replace('#/atualizar-senha/', '')));
         loadUser()
       }
     }
@@ -43,7 +45,7 @@ export function UpdatePassword () {
     }
     const response = await axios({
       method: "get",
-      url: `${ip}:8157/api/auth/me`,
+      url: `${ip}:8145/api/auth/me`,
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -71,9 +73,11 @@ export function UpdatePassword () {
   }
 
   async function resetSenha(dataU:any) {
-    setLoading(true)
+    setLoading(true) 
     const data = await api.get("user/" + id).then((response) => {
-      update(response.data)
+      response.data.fullName = dataU.fullName
+      //update(response.data)
+      console.log(response.data)
       return response.data;
     });
     console.log(data)
@@ -81,7 +85,7 @@ export function UpdatePassword () {
     async function update(data: any) {
       if (data) {
         data.password = dataU.senha
-        const response = await axios.put(`${ip}:8157/api/auth/password-reset/`, {
+        const response = await axios.put(`${ip}:8145/api/auth/password-reset/`, {
           token: id,
           password: dataU.senha
         }).then((response) => {
@@ -94,15 +98,25 @@ export function UpdatePassword () {
       }
     }
   }
+
   return (
     <S.ContainerLogin>
       <S.Content>
         <h1>Atualize sua senha</h1>
         <p>Troque sua senha nos campos abaixo</p>
         <form onSubmit={handleSubmit(onSubmit)}>
+        <TextField
+            label='Nome '
+            placeholder='Nome'
+            id='fullName'
+            {...register('fullName', {
+              required: true,
+            })}
+          />
           <TextField
             label='Senha'
             placeholder='sua melhor senha'
+            type='password'
             id='password'
             {...register('password', {
               required: true,
@@ -117,7 +131,7 @@ export function UpdatePassword () {
             })}
           />
         </form>
-        <button type='submit'>Enviar</button>
+        <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Enviar'}</button>
         <Link to='/'>Voltar para o login</Link>
       </S.Content>
     </S.ContainerLogin>

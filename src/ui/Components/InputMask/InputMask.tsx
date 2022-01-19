@@ -30,7 +30,7 @@ export default function MaskedInput ({
       <InputMask
         mask={mask}
         onChange={handleOnChange}
-        style={{ color: 'black' }}
+        style={{ color: 'white' }}
         {...props}
       />
     </S.Container>
