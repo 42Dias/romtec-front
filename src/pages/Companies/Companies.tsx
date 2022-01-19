@@ -12,6 +12,7 @@ import * as S from './Companies.styled'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 import EditButton from '../../ui/Components/EditButton/EditButton'
+import MaskedInput from '../../ui/Components/InputMask/InputMask'
 
 type FormData = {
   cnpj: string;
@@ -33,7 +34,7 @@ export function Companies () {
   const [loading, setLoading] = useState(false)
   const [companhias, setCompanhias] = useState<any[]>([])
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
+  const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
     console.log(data)
@@ -163,16 +164,20 @@ export function Companies () {
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
-              <TextField
-                label='CNPJ'
-                errorMessage={errors.cnpj?.message}
-                {...register('cnpj', {
-                  required: {
-                    value: true,
-                    message: 'Todos os campos são obrigatórios',
-                  },
-                })}
-              />
+              <fieldset>
+                <label htmlFor='cnpj'>CNPJ</label>
+                <MaskedInput
+                  onChangeUnMask={(value) => setValue('cnpj', value)}
+                  mask='99.999.999/9999-99'
+                  id='cnpj'
+                  {...register('cnpj', {
+                    required: {
+                      value: true,
+                      message: 'Todos os campos são obrigatórios',
+                    },
+                  })}
+                />
+              </fieldset>
 
               <TextField
                 label='Razão Social'
@@ -194,15 +199,15 @@ export function Companies () {
                 })}
               />
 
-              <TextField
-                label='CEP'
-                {...register('cep', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
-              />
+              <fieldset>
+                <label htmlFor='cep'>CEP</label>
+                <MaskedInput
+                  onChangeUnMask={(value) => setValue('cep', value)}
+                  mask='99999-999'
+                  id='cep'
+                  {...register('cep')}
+                />
+              </fieldset>
 
               <TextField
                 label='Cidade'
@@ -264,15 +269,15 @@ export function Companies () {
                 })}
               />
 
-              <TextField
-                label='Telefone'
-                {...register('tel', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
-              />
+              <fieldset>
+                <label htmlFor='telefone'>Celular</label>
+                <MaskedInput
+                  onChangeUnMask={(value) => setValue('tel', value)}
+                  mask='(99) 99999-9999'
+                  id='telefone'
+                  {...register('tel')}
+                />
+              </fieldset>
 
               <TextField
                 label='Responsável Técnico'
