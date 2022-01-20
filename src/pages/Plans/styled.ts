@@ -42,11 +42,7 @@ export const ContainerConfirmation = styled.div`
 
 export const GridConfirmation = styled.div`
   display: grid;
-<<<<<<< HEAD:src/pages/Plans/styled.ts
   grid-template-columns: repeat(5, 1fr);
-=======
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
->>>>>>> 2f6f0598b53018fe8ac6902525df315c1037b950:src/pages/Plans/Plans.styled.ts
   justify-items: center;
   align-items: center;
   background-color: ${theme.colors.black};
