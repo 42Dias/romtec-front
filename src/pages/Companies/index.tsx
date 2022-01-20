@@ -308,6 +308,7 @@ Companies () {
                           mask='99999-999'
                           id='cep'
                           {...register('cep')}
+                          onBlur={(ev: any) => onBlurCep(ev, setFieldValue)}
                         />
                       </fieldset>
                     </div>
@@ -341,53 +342,49 @@ Companies () {
                     <div className='form-control-group'>
                       <label>Complemento</label>
                       <Field
-                        {...register('complemento', {
-                          required: {
-                            value: true,
-                            message: '',
-                          },
-                        })}
-                        name='complemento' type='text'
-                      />
+                      {...register('complemento', {
+                        required: {
+                          value: true,
+                          message: '',
+                        },
+                      })}
+                      name='complemento' type='text' />
                     </div>
 
                     <div className='form-control-group'>
                       <label>Bairro</label>
                       <Field
-                        {...register('bairro', {
-                          required: {
-                            value: true,
-                            message: '',
-                          },
-                        })}
-                        name='bairro' type='text'
-                      />
+                      {...register('bairro', {
+                        required: {
+                          value: true,
+                          message: '',
+                        },
+                      })}
+                      name='bairro' type='text' />
                     </div>
 
                     <div className='form-control-group'>
                       <label>Cidade</label>
                       <Field
-                        {...register('cidade', {
-                          required: {
-                            value: true,
-                            message: '',
-                          },
-                        })}
-                        name='cidade' type='text'
-                      />
+                      {...register('cidade', {
+                        required: {
+                          value: true,
+                          message: '',
+                        },
+                      })}
+                      name='cidade' type='text' />
                     </div>
 
                     <div className='form-control-group'>
                       <label>Estado</label>
                       <Field
-                        {...register('estado', {
-                          required: {
-                            value: true,
-                            message: '',
-                          },
-                        })}
-                        component='select' name='uf'
-                      >
+                      {...register('estado', {
+                        required: {
+                          value: true,
+                          message: '',
+                        },
+                      })}
+                       component='select' name='uf'>
                         <option value=''>Selecione o Estado</option>
                         <option value='AC'>Acre</option>
                         <option value='AL'>Alagoas</option>

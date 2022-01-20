@@ -7,7 +7,7 @@ import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 
 export default function
-Error () {
+ Error () {
   return (
     <>
       <Sidebar />
@@ -19,6 +19,6 @@ Error () {
           <Link to='/home'>Voltar</Link>
         </S.ContentError>
       </S.ContainerError>
-    </>
+    </> 
   )
 }

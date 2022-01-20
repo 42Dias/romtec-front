@@ -145,6 +145,7 @@ SoilTypes () {
     loadDados()
   }, [])
 
+  
   return (
     <>
       <Sidebar />

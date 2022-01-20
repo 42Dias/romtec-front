@@ -116,11 +116,12 @@ Phases () {
     } else {
       createNewFile(data)
     }
+
   }
-  function onSubmitInterferenciasFisicasMagneticas () {
+  function onSubmitInterferenciasFisicasMagneticas() {
     console.log(responsavel)
     const data = {
-      idConfigTravessia: idConfigTravessia.replace('#/etapas/', ''),
+      idConfigTravessia: idConfigTravessia.replace("#/etapas/", ''),
       banco: 'interferenciasFisicasMagneticas',
       responsavel: responsavel,
       equipamentos: equipamentos,
@@ -128,7 +129,7 @@ Phases () {
       tipoRede: tipoRede,
       empresa: empresa,
       sondagemInterferencia: sondagemInterferencia,
-      diametroInterferencia: diametroInterferencia,
+      diametroInterferencia: diametroInterferencia
     }
 
     console.log(data)
@@ -139,10 +140,10 @@ Phases () {
       createNewFile(data)
     }
   }
-  function onSubmitAberturaVala () {
+  function onSubmitAberturaVala() {
     console.log(responsavel)
     const data = {
-      idConfigTravessia: idConfigTravessia.replace('#/etapas/', ''),
+      idConfigTravessia: idConfigTravessia.replace("#/etapas/", ''),
       banco: 'aberturaVala',
       responsavel: responsavel,
       ferramentas: ferramentas,
@@ -164,9 +165,10 @@ Phases () {
     } else {
       createNewFile(data)
     }
+
   }
 
-  async function createNewFile (submit: any) {
+  async function createNewFile(submit: any) {
     setLoading(true)
     console.log('submit')
     console.log(submit)
@@ -242,7 +244,8 @@ Phases () {
       setTipoSolo(data[0].tipoSolo)
       settipoTubulacao(data[0].tipoTubulacao)
       setisOpenUpdatePlanejamentoPerfuração(true)
-    } else if (url === 'levantametoMapInteferencia') {
+    }
+    else if (url === 'levantametoMapInteferencia') {
       setresponsavel(data[0].responsavel)
       setequipamentos(data[0].equipamentos)
       setdocumentos(data[0].documentos)
@@ -253,7 +256,8 @@ Phases () {
       setsondagem(data[0].sondagem)
       setcriacaoplanoFuro(data[0].criacaoplanoFuro)
       setIsOpen2(true)
-    } else if (url === 'interferenciasFisicasMagneticas') {
+    }
+    else if (url === 'interferenciasFisicasMagneticas') {
       setresponsavel(data[0].responsavel)
       setequipamentos(data[0].equipamentos)
       setdocumentos(data[0].documentos)
@@ -286,7 +290,7 @@ Phases () {
     setLoading(true)
     console.log('idDados')
     console.log(idDados)
-    // console.log(soilTypesUp)
+    //console.log(soilTypesUp)
     const responser = api.put(url + '/' + idDados, {
       data: {
         id: idDados,
@@ -305,7 +309,7 @@ Phases () {
         sondagem: sondagem,
         criacaoplanoFuro: criacaoplanoFuro,
         diametroPerfuracao: diametroPerfuracao,
-        ferramentas: ferramentas,
+        ferramentas: ferramentas
       },
     },
     ).then((response) => {
@@ -333,11 +337,12 @@ Phases () {
     idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas/', '')
     console.log('useEffect')
     console.log(idConfigTravessia)
-    // setLoading(true)
-    // loadDados('planejamentoPerfuracao/')
+    //setLoading(true)
+    //loadDados('planejamentoPerfuracao/')
+
   }, [])
 
-  function openModal () {
+  function openModal() {
     loadDados('planejamentoPerfuracao')
     if (dados) {
       if (dados.length == 0) {
@@ -363,7 +368,7 @@ Phases () {
     setIsOpenPlanejamento(false)
   }
 
-  function openModal2 () {
+  function openModal2() {
     setresponsavel(' ')
     setequipamentos(' ')
     setdocumentos(' ')
@@ -400,7 +405,7 @@ Phases () {
     setIsOpen2(false)
   }
 
-  function openModal3 () {
+  function openModal3() {
     setresponsavel(' ')
     setequipamentos(' ')
     setdocumentos(' ')
@@ -419,7 +424,7 @@ Phases () {
         update(dados)
       }
     } else {
-      toast.info('Clique mais uma vez!')
+      toast.info("Clique mais uma vez!")
     }
 
     setIsOpenPlanejamento(false)
@@ -436,7 +441,7 @@ Phases () {
     setIsOpen3(false)
   }
   //
-  function openModal4 () {
+  function openModal4() {
     setresponsavel(' ')
     setequipamentos(' ')
     setdocumentos(' ')
@@ -459,7 +464,7 @@ Phases () {
         update(dados)
       }
     } else {
-      toast.info('Clique mais uma vez!')
+      toast.info("Clique mais uma vez!")
     }
 
     setIsOpenPlanejamento(false)
@@ -550,9 +555,6 @@ Phases () {
           <button onClick={openModal6} className='add'>
             <FiPlus />
           </button>
-          <button onClick={openModal7} className='import'>
-            Importar modelo
-          </button>
         </div>
 
         <div className='modal-styles'>
@@ -605,7 +607,6 @@ Phases () {
               </div>
 
               <button className='save'>Salvar</button>
-              <button onClick={openModal8} className='saveModel'>Salvar modelo</button>
             </S.PhasesModal>
 
           </Modal>
@@ -1081,77 +1082,62 @@ Phases () {
             <S.GridForm>
               <div>
                 <label htmlFor=''>Responsável</label>
-                <input
-                  type='text'
+                <input type='text'
                   value={responsavel}
-                  onChange={(text) => setresponsavel(text.target.value)}
-                />
+                  onChange={(text) => setresponsavel(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Equipamentos</label>
-                <input
-                  type='text'
+                <input type='text'
                   value={equipamentos}
-                  onChange={(text) => setequipamentos(text.target.value)}
-                />
+                  onChange={(text) => setequipamentos(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Documentos</label>
-                <input
-                  type='text'
+                <input type='text'
                   value={documentos}
-                  onChange={(text) => setdocumentos(text.target.value)}
-                />
+                  onChange={(text) => setdocumentos(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Tipo de rede</label>
-                <input
-                  type='text'
+                <input type='text'
                   value={tipoRede}
-                  onChange={(text) => settipoRede(text.target.value)}
-                />
+                  onChange={(text) => settipoRede(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Diâmetro da interferência</label>
-                <input
-                  type='text'
+                <input type='text'
                   value={diametroInterferencia}
-                  onChange={(text) => setDiametroInterferencia(text.target.value)}
-                />
+                  onChange={(text) => setDiametroInterferencia(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Empresa proprietária</label>
-                <input
-                  type='text'
+                <input type='text'
                   value={empresa}
-                  onChange={(text) => setempresa(text.target.value)}
-                />
+                  onChange={(text) => setempresa(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Azimute</label>
-                <input
-                  type='text'
+                <input type='text'
                   value={azimute}
-                  onChange={(text) => setazimute(text.target.value)}
-                />
+                  onChange={(text) => setazimute(text.target.value)} />
               </div>
 
             </S.GridForm>
             <button onClick={() => onSubmitInterferenciasFisicasMagneticas()}>{loading
               ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height='' src='https://contribua.org/mb-static/images/loading.gif'
-                  alt='Loading'
-                />
-              : 'Salvar'}
-            </button>
+                width='40px'
+                style={{ margin: 'auto' }}
+                height='' src='https://contribua.org/mb-static/images/loading.gif'
+                alt='Loading'
+              />
+              : 'Salvar'}</button>
           </S.Div>
         </Modal>
 
@@ -1183,85 +1169,68 @@ Phases () {
             <S.GridForm>
               <div>
                 <label htmlFor=''>Responsável</label>
-                <input
-                  type='text'
+                <input type='text'
                   value={responsavel}
-                  onChange={(text) => setresponsavel(text.target.value)}
-                />
+                  onChange={(text) => setresponsavel(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Ferramentas</label>
-                <input
-                  type='text'
+                <input type='text'
                   value={ferramentas}
-                  onChange={(text) => setferramentas(text.target.value)}
-                />
+                  onChange={(text) => setferramentas(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Equipamentos</label>
-                <input
-                  type='text'
+                <input type='text'
                   value={equipamentos}
-                  onChange={(text) => setequipamentos(text.target.value)}
-                />
+                  onChange={(text) => setequipamentos(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Documentos</label>
-                <input
-                  type='text'
+                <input type='text'
                   value={documentos}
-                  onChange={(text) => setdocumentos(text.target.value)}
-                />
+                  onChange={(text) => setdocumentos(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Ponto de verificação de entrada (lat)</label>
-                <input
-                  type='text' placeholder='Latitude'
+                <input type='text' placeholder='Latitude'
                   value={latitudeEntrada}
-                  onChange={(text) => setlatitudeEntrada(text.target.value)}
-                />
+                  onChange={(text) => setlatitudeEntrada(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Ponto de verificação de entrada (long)</label>
-                <input
-                  type='text' placeholder='Longitude'
+                <input type='text' placeholder='Longitude'
                   value={longitudeEntrada}
-                  onChange={(text) => setlongitudeEntrada(text.target.value)}
-                />
+                  onChange={(text) => setlongitudeEntrada(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Ponto de verificação de saída (lat)</label>
-                <input
-                  type='text' placeholder='Latitude'
+                <input type='text' placeholder='Latitude'
                   value={latitudeSaida}
-                  onChange={(text) => setlatitudeSaida(text.target.value)}
-                />
+                  onChange={(text) => setlatitudeSaida(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Ponto de verificação de saída (long)</label>
-                <input
-                  type='text' placeholder='Longitude'
+                <input type='text' placeholder='Longitude'
                   value={longitudeSaida}
-                  onChange={(text) => setlongitudeSaida(text.target.value)}
-                />
+                  onChange={(text) => setlongitudeSaida(text.target.value)} />
               </div>
             </S.GridForm>
             <button onClick={() => onSubmitAberturaVala()}>{loading
               ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height='' src='https://contribua.org/mb-static/images/loading.gif'
-                  alt='Loading'
-                />
-              : 'Salvar'}
-            </button>
+                width='40px'
+                style={{ margin: 'auto' }}
+                height='' src='https://contribua.org/mb-static/images/loading.gif'
+                alt='Loading'
+              />
+              : 'Salvar'}</button>
           </S.Div>
         </Modal>
 
@@ -1291,79 +1260,64 @@ Phases () {
 
           <S.Div>
             <S.GridForm>
-              <div>
+            <div>
                 <label htmlFor=''>Responsável</label>
-                <input
-                  type='text'
+                <input type='text'
                   value={responsavel}
-                  onChange={(text) => setresponsavel(text.target.value)}
-                />
+                  onChange={(text) => setresponsavel(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Equipamentos</label>
-                <input
-                  type='text'
+                <input type='text'
                   value={equipamentos}
-                  onChange={(text) => setequipamentos(text.target.value)}
-                />
+                  onChange={(text) => setequipamentos(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Documentos</label>
-                <input
-                  type='text'
+                <input type='text'
                   value={documentos}
-                  onChange={(text) => setdocumentos(text.target.value)}
-                />
+                  onChange={(text) => setdocumentos(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Ferramentas</label>
-                <input
-                  type='text'
+                <input type='text'
                   value={ferramentas}
-                  onChange={(text) => setferramentas(text.target.value)}
-                />
+                  onChange={(text) => setferramentas(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Profundidade</label>
-                <input
-                  type='text'
+                <input type='text'
                   value={profundidade}
-                  onChange={(text) => setprofundidade(text.target.value)}
-                />
+                  onChange={(text) => setprofundidade(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Ângulo de ataque (pitch)</label>
-                <input
-                  type='text'
+                <input type='text'
                   value={anguloAtaque}
-                  onChange={(text) => setanguloAtaque(text.target.value)}
-                />
+                  onChange={(text) => setanguloAtaque(text.target.value)} />
               </div>
 
               <div>
                 <label htmlFor=''>Posição em relação ao relógio</label>
-                <input
-                  type='text'
+                <input type='text'
                   value={posicaoRelogio}
-                  onChange={(text) => setposicaoRelogio(text.target.value)}
-                />
+                  onChange={(text) => setposicaoRelogio(text.target.value)} />
               </div>
 
             </S.GridForm>
             <button onClick={() => onSubmitInterferenciasFisicasMagneticas()}>{loading
               ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height='' src='https://contribua.org/mb-static/images/loading.gif'
-                  alt='Loading'
-                />
-              : 'Salvar'}
-            </button>
+                width='40px'
+                style={{ margin: 'auto' }}
+                height='' src='https://contribua.org/mb-static/images/loading.gif'
+                alt='Loading'
+              />
+              : 'Salvar'}</button>
           </S.Div>
         </Modal>
       </S.ContainerConfirmation>

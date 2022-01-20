@@ -15,7 +15,7 @@ type FormData = {
 }
 
 export default function
-FluidPreparation () {
+ FluidPreparation () {
   const [isOpen, setIsOpen] = useState(false)
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()

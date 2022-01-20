@@ -9,6 +9,8 @@ import { TextField } from '../../ui/Components/TextField'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
+import EditButton from '../../ui/Components/EditButton/EditButton'
+import { backgroundImages } from 'polished'
 import { FaEdit } from 'react-icons/fa'
 import { Field, Formik } from 'formik'
 import MaskedInput from '../../ui/Components/InputMask/InputMask'
@@ -47,7 +49,7 @@ Customers () {
   const [logradouro, setLogradouro] = useState('')
   const [numero, setNumero] = useState('')
   const [complemento, setComplemento] = useState('')
-  const { register, handleSubmit, reset, setValue } = useForm<FormData>()
+  const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
     console.log(data)
@@ -129,7 +131,6 @@ Customers () {
   }
   async function updateDados () {
     setLoading(true)
-    // eslint-disable-next-line
     const responser = api.put('clientes/' + idClientes, {
       data: {
         cnpj: cnpj,
@@ -154,13 +155,11 @@ Customers () {
     setLoading(true)
     loadDados()
   }, [])
-  // eslint-disable-next-line
   function onSubmitInput (values: any, actions: any) {
     // console.log(data)
     // Cadastro(data)
     console.log('SUBMIT', values)
   }
-  // eslint-disable-next-line
   function onBlurCep (ev: any, setFieldValue: any) {
     const { value } = ev.target
 
@@ -199,6 +198,21 @@ Customers () {
           <span>Número</span>
           <span>Complemento</span>
         </S.GridConfirmation>
+        {/* clientes.length > 0 ?
+        clientes.map((cliente) =>
+          <S.GridConfirmation>
+            <span>{cliente.cnpj}</span>
+            <span>{cliente.razaoSocial}</span>
+            <span>{cliente.nomeFantasia}</span>
+            <span>{cliente.cep}</span>
+            <span>{cliente.uf}</span>
+            <span>{cliente.cidade}</span>
+            <span>{cliente.bairro}</span>
+            <span>{cliente.logradouro}</span>
+            <span>{cliente.numero}</span>
+            <span>{cliente.complemento}</span>
+          </S.GridConfirmation>
+        ): 'Nenhum Cliente cadastrado!' */}
 
         <ul>
           {clientes.length > 0
@@ -219,6 +233,7 @@ Customers () {
                     onDelete={() => deleteDados(cliente.id)}
                   />
                   <button
+                    // onChange={onEdit}
                     onClick={() => update(cliente)}
                     style={{ background: 'none', color: 'yellow' }}
                     title='Editar?'
@@ -249,14 +264,20 @@ Customers () {
               <TextField
                 label='Razão Social'
                 {...register('razaoSocial', {
-                  required: true,
+                  required: {
+                    value: true,
+                    message: '',
+                  },
                 })}
               />
 
               <TextField
                 label='Nome Fantasia'
                 {...register('nomeFantasia', {
-                  required: true,
+                  required: {
+                    value: true,
+                    message: '',
+                  },
                 })}
               />
 
@@ -264,35 +285,50 @@ Customers () {
                 label='CEP'
                 type='number'
                 {...register('cep', {
-                  required: true,
+                  required: {
+                    value: true,
+                    message: '',
+                  },
                 })}
               />
 
               <TextField
                 label='UF'
                 {...register('uf', {
-                  required: true,
+                  required: {
+                    value: true,
+                    message: '',
+                  },
                 })}
               />
 
               <TextField
                 label='Cidade'
                 {...register('cidade', {
-                  required: true,
+                  required: {
+                    value: true,
+                    message: '',
+                  },
                 })}
               />
 
               <TextField
                 label='Bairro'
                 {...register('bairro', {
-                  required: true,
+                  required: {
+                    value: true,
+                    message: '',
+                  },
                 })}
               />
 
               <TextField
                 label='Logradouro'
                 {...register('logradouro', {
-                  required: true,
+                  required: {
+                    value: true,
+                    message: '',
+                  },
                 })}
               />
 
@@ -300,14 +336,20 @@ Customers () {
                 label='Número'
                 type='number'
                 {...register('numero', {
-                  required: true,
+                  required: {
+                    value: true,
+                    message: '',
+                  },
                 })}
               />
 
               <TextField
                 label='Complemento'
                 {...register('complemento', {
-                  required: true,
+                  required: {
+                    value: true,
+                    message: '',
+                  },
                 })}
               /> */}
 
@@ -364,6 +406,7 @@ Customers () {
                           mask='99999-999'
                           id='cep'
                           {...register('cep')}
+                          onBlur={(ev: any) => onBlurCep(ev, setFieldValue)}
                         />
                       </fieldset>
                     </div>
@@ -501,17 +544,7 @@ Customers () {
                 onChange={(text) => setComplemento(text.target.value)}
               />
 
-              <button onClick={() => updateDados()}>
-                {loading
-                  ? <img
-                      width='40px'
-                      style={{ margin: 'auto' }}
-                      height=''
-                      src='https://contribua.org/mb-static/images/loading.gif'
-                      alt='Loading'
-                    />
-                  : 'Salvar'}
-              </button>
+              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
             </S.Div>
           </S.Container>
         </Modal>

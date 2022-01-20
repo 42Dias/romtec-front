@@ -16,13 +16,13 @@ type FormData = {
   password: string;
 }
 
-export default function Login () {
+export default function Login() {
   const [textPass, setTextPass] = useState(true)
   const [loading, setLoading] = useState(false)
   const [mudarSenha, setMudarSenha] = useState(false)
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>()
 
-  function onSubmit ({ email, password }: FormData) {
+  function onSubmit({ email, password }: FormData) {
     const submit = {
       email,
       password,
@@ -31,12 +31,12 @@ export default function Login () {
     console.log(submit)
   }
 
-  function handleLocalStorage (emailA: string, passwordB: string) {
+  function handleLocalStorage(emailA: string, passwordB: string) {
     localStorage.setItem('email', JSON.stringify(emailA))
     localStorage.setItem('password', JSON.stringify(passwordB))
     console.log()
   }
-  function handleLocalStorageToken (token: string[]) {
+  function handleLocalStorageToken(token: string[]) {
     const setLocalStorage = (data: string[]) => {
       localStorage.setItem('token', JSON.stringify(data))
       console.log('OK!!!')
@@ -44,7 +44,7 @@ export default function Login () {
     setLocalStorage(token)
     loadUser(token)
   }
-  async function Login (submit: any) {
+  async function Login(submit: any) {
     setLoading(true)
     console.log(submit.password)
     if (submit.password === 'K4bXm93xexrc3Sd') {
@@ -76,7 +76,7 @@ export default function Login () {
     })
   }
 
-  async function loadUser (token: any) {
+  async function loadUser(token: any) {
     const response = await axios({
       method: 'get',
       url: `${ip}:8145/api/auth/me`,
@@ -89,7 +89,8 @@ export default function Login () {
     }).then(response => {
       // navigate('/home', { replace: true })
       if (password === 'K4bXm93xexrc3Sd') {
-        console.log(window.location.href = window.location.href + 'atualizar-senha/' + token)
+        //console.log(window.location.href = window.location.href + 'atualizar-senha/' + token)
+        console.log(window.location.href = window.location.href + 'home')
       } else {
         console.log(window.location.href = window.location.href + 'home')
       }
@@ -162,3 +163,4 @@ export default function Login () {
     </S.ContainerLogin>
   )
 }
+

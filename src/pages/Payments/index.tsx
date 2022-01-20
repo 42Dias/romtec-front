@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
+import EditButton from '../../ui/Components/EditButton/EditButton'
 import { FaEdit } from 'react-icons/fa'
 import MaskedInput from '../../ui/Components/InputMask/InputMask'
 
@@ -94,7 +95,7 @@ Payments () {
       setLoading(false)
     })
   }
-  function update (dados: any) {
+  function update(dados: any) {
     console.log('dados')
     console.log(dados)
     setIdPagamento(dados.id)
@@ -104,17 +105,16 @@ Payments () {
     setValorPago(dados.valorPago)
     setIsOpenUpdate(true)
   }
-  async function updateDados () {
+  async function updateDados() {
     setLoading(true)
-    // eslint-disable-next-line
     const responser = api.put('pagamento/' + idPagamento, {
       data: {
         ano: ano,
         mes: mes,
         dataPagamento: dataPagamento,
         valorPago: valorPago,
-      },
-    },
+      }
+    }
     ).then((response) => {
       if (response.statusText === 'OK') {
         loadDados()
@@ -155,6 +155,7 @@ Payments () {
                     onDelete={() => deleteDados(pagamento.id)}
                   />
                   <button
+                    // onChange={onEdit}
                     onClick={() => update(pagamento)}
                     style={{ background: 'none', color: 'yellow' }}
                     title='Editar?'
@@ -240,6 +241,49 @@ Payments () {
               </button>
             </S.Div>
           </S.Container>
+        </Modal>
+
+        <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
+          <S.Container>
+            <S.Div>
+              <TextField
+                label=/* 'Ano de pagamento' */'Data de pagamento'
+                type='date'
+                id='dataPagamento'
+                value={dataPagamento} 
+                onChange={(text) => setDataPagamento(text.target.value)}
+              />
+
+              {/* <TextField
+                label='Mês de pagamento'
+                type='date'
+                id='mes'
+                {...register('mes', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Dia de pagamento'
+                type='date'
+                id='payday'
+                {...register('payday', {
+                  required: true,
+                })}
+              /> */}
+
+              <TextField
+                label='Valor de pagamento'
+                type='number'
+                id='valorPago'
+                value={valorPago} 
+                onChange={(text) => setValorPago(text.target.value)}
+              />
+
+              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+            </S.Div>
+          </S.Container>
+          {/* eslint-disable-next-line */}
         </Modal>
       </S.ContainerConfirmation>
     </>
