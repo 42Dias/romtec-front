@@ -10,7 +10,6 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
-import EditButton from '../../ui/Components/EditButton/EditButton'
 import { FaEdit } from 'react-icons/fa'
 import MaskedInput from '../../ui/Components/InputMask/InputMask'
 
@@ -60,15 +59,8 @@ Payments () {
       }
     }).catch(res => {
       console.log(res)
-      // toast.error(res.response.data);
       setLoading(false)
     })
-  }
-
-  function handleDelete (id: string) {
-    setPagamentos(pagamentos =>
-      pagamentos.filter(pagamento => pagamento.id !== id),
-    )
   }
 
   async function loadDados () {
@@ -114,6 +106,7 @@ Payments () {
   }
   async function updateDados () {
     setLoading(true)
+    // eslint-disable-next-line
     const responser = api.put('pagamento/' + idPagamento, {
       data: {
         ano: ano,
@@ -138,18 +131,6 @@ Payments () {
     loadDados()
   }, [])
 
-  const handleUpdate = (id: string) => {
-    setPagamentos(pagamentos => pagamentos.map(pagamento => {
-      if (pagamento.id === id) {
-        return {
-          ...pagamento,
-        }
-      }
-
-      return pagamento
-    }))
-  }
-
   return (
     <>
       <Sidebar />
@@ -160,8 +141,6 @@ Payments () {
 
         <S.GridConfirmation>
           <span>Data de pagamento</span>
-          {/* <span>Mês de pagamento</span>
-          <span>Dia de pagamento</span> */}
           <span>Valor de pagamento</span>
         </S.GridConfirmation>
 
@@ -176,7 +155,6 @@ Payments () {
                     onDelete={() => deleteDados(pagamento.id)}
                   />
                   <button
-                    // onChange={onEdit}
                     onClick={() => update(pagamento)}
                     style={{ background: 'none', color: 'yellow' }}
                     title='Editar?'
@@ -216,40 +194,31 @@ Payments () {
                 />
               </fieldset>
 
-              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <button type='submit'>
+                {loading
+                  ? <img
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height=''
+                      src='https://contribua.org/mb-static/images/loading.gif'
+                      alt='Loading'
+                    />
+                  : 'Salvar'}
+              </button>
             </S.Form>
           </S.Container>
-          {/* eslint-disable-next-line */}
         </Modal>
 
         <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
             <S.Div>
               <TextField
-                label=/* 'Ano de pagamento' */'Data de pagamento'
+                label='Data de pagamento'
                 type='date'
                 id='dataPagamento'
                 value={dataPagamento}
                 onChange={(text) => setDataPagamento(text.target.value)}
               />
-
-              {/* <TextField
-                label='Mês de pagamento'
-                type='date'
-                id='mes'
-                {...register('mes', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Dia de pagamento'
-                type='date'
-                id='payday'
-                {...register('payday', {
-                  required: true,
-                })}
-              /> */}
 
               <TextField
                 label='Valor de pagamento'
@@ -259,10 +228,18 @@ Payments () {
                 onChange={(text) => setValorPago(text.target.value)}
               />
 
-              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <button onClick={() => updateDados()}>
+                {loading
+                  ? <img
+                      width='40px' style={{ margin: 'auto' }}
+                      height=''
+                      src='https://contribua.org/mb-static/images/loading.gif'
+                      alt='Loading'
+                    />
+                  : 'Salvar'}
+              </button>
             </S.Div>
           </S.Container>
-          {/* eslint-disable-next-line */}
         </Modal>
       </S.ContainerConfirmation>
     </>
