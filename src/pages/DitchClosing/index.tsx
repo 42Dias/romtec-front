@@ -17,7 +17,7 @@ type FormData = {
 }
 
 export default function
- DitchClosing () {
+DitchClosing () {
   const [isOpen, setIsOpen] = useState(false)
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()

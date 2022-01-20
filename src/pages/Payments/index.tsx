@@ -95,7 +95,7 @@ Payments () {
       setLoading(false)
     })
   }
-  function update(dados: any) {
+  function update (dados: any) {
     console.log('dados')
     console.log(dados)
     setIdPagamento(dados.id)
@@ -105,7 +105,7 @@ Payments () {
     setValorPago(dados.valorPago)
     setIsOpenUpdate(true)
   }
-  async function updateDados() {
+  async function updateDados () {
     setLoading(true)
     const responser = api.put('pagamento/' + idPagamento, {
       data: {
@@ -113,8 +113,8 @@ Payments () {
         mes: mes,
         dataPagamento: dataPagamento,
         valorPago: valorPago,
-      }
-    }
+      },
+    },
     ).then((response) => {
       if (response.statusText === 'OK') {
         loadDados()
@@ -250,7 +250,7 @@ Payments () {
                 label=/* 'Ano de pagamento' */'Data de pagamento'
                 type='date'
                 id='dataPagamento'
-                value={dataPagamento} 
+                value={dataPagamento}
                 onChange={(text) => setDataPagamento(text.target.value)}
               />
 
@@ -276,7 +276,7 @@ Payments () {
                 label='Valor de pagamento'
                 type='number'
                 id='valorPago'
-                value={valorPago} 
+                value={valorPago}
                 onChange={(text) => setValorPago(text.target.value)}
               />
 

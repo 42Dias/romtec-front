@@ -42,7 +42,6 @@ DrillingFluid () {
   function onSubmit (data: FormData) {
     console.log(data)
     Cadastro(data)
-    
   }
   async function Cadastro (submit: any) {
     setLoading(true)
@@ -104,7 +103,7 @@ DrillingFluid () {
       setLoading(false)
     })
   }
-  function update(dados: any) {
+  function update (dados: any) {
     console.log('dados')
     console.log(dados)
     setIdFluidos(dados.id)
@@ -116,7 +115,7 @@ DrillingFluid () {
     setTeorAreia(dados.teorAreia)
     setIsOpenUpdate(true)
   }
-  async function updateDados() {
+  async function updateDados () {
     setLoading(true)
     const responser = api.put('fluido-perfuracao/' + idFluidos, {
       data: {
@@ -125,9 +124,9 @@ DrillingFluid () {
         qtdePHPA: qtdePHPA,
         qtdeBase: qtdeBase,
         limiteEscoamento: limiteEscoamento,
-        teorAreia: teorAreia
-      }
-    }
+        teorAreia: teorAreia,
+      },
+    },
     ).then((response) => {
       if (response.statusText === 'OK') {
         loadDados()
@@ -180,7 +179,7 @@ DrillingFluid () {
                   /> */}
                   <button
                     // onChange={onEdit}
-                    onClick={() => update(fluido)} 
+                    onClick={() => update(fluido)}
                     style={{ background: 'none', color: 'yellow' }}
                     title='Editar?'
                   >
@@ -262,7 +261,7 @@ DrillingFluid () {
             <S.Div>
               <TextField
                 label='Identificação'
-                value={nome} 
+                value={nome}
                 onChange={(text) => setNome(text.target.value)}
               />
 
@@ -296,7 +295,7 @@ DrillingFluid () {
                 onChange={(text) => setTeorAreia(text.target.value)}
               />
 
-              <button  onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
             </S.Div>
           </S.Container>
         </Modal>

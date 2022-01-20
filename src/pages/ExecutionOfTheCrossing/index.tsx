@@ -147,7 +147,7 @@ ExecutionOfTheCrossing () {
           <span>Nome da Travessia</span>
           <span>Descrição</span>
           <span>Configuração da Travessia</span>
-          
+
         </S.GridConfirmation>
 
         <ul>
@@ -174,7 +174,7 @@ ExecutionOfTheCrossing () {
                     <FaEdit size={20} />
                   </button>
                   <Link to={link + configurationCrossing.id}><span>Executar travessia</span></Link>
-                   {/* {<button><span>Executar travessia</span></button>}
+                  {/* {<button><span>Executar travessia</span></button>}
                    <Link to='/etapas'><span>Executar travessia</span></Link> */}
                 </S.GridConfirmation>
               </li>,

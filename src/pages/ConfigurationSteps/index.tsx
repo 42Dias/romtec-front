@@ -21,7 +21,7 @@ type FormData = {
 }
 
 export default function
-  ConfigurationSteps() {
+ConfigurationSteps () {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenPhases, setIsOpenPhases] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
@@ -38,7 +38,7 @@ export default function
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
   let idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas-da-configuracao/', '')
 
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     console.log(data)
     Cadastro(data)
   }
@@ -71,7 +71,7 @@ export default function
     })
   }
 
-  async function loadDados() {
+  async function loadDados () {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.get('etapas',
@@ -87,7 +87,7 @@ export default function
       setLoading(false)
     })
   }
-  async function deleteDados(id: string) {
+  async function deleteDados (id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('etapas/' + id
@@ -102,7 +102,7 @@ export default function
       setLoading(false)
     })
   }
-  function update(dados: any) {
+  function update (dados: any) {
     console.log('dados')
     console.log(dados)
     setidEtapa(dados.id)
@@ -111,13 +111,13 @@ export default function
     setperfil(dados.perfil)
     setIsOpenUpdate(true)
   }
-  async function updateDados() {
+  async function updateDados () {
     setLoading(true)
     const responser = api.put('etapas/' + idEtapa, {
       data: {
         numeroEtapa: numeroEtapa,
         novaEtapa: novaEtapa,
-        perfil: perfil
+        perfil: perfil,
       },
     },
     ).then((response) => {
@@ -139,7 +139,7 @@ export default function
     console.log(idConfigTravessia)
   }, [])
 
-  function onChange(e: any) {
+  function onChange (e: any) {
     console.log(`checked = ${e.target.checked}`)
   }
 
@@ -244,15 +244,18 @@ export default function
               />
               <div className='form-control-group'>
                 <label
-                 htmlFor='perfil'>Perfil</label>
+                  htmlFor='perfil'
+                >Perfil
+                </label>
                 <select
-                 {...register('perfil', {
-                  required: {
-                    value: true,
-                    message: 'Todos os campos são obrigatórios',
-                  },
-                })}
-                 name='perfil' id='perfil'>
+                  {...register('perfil', {
+                    required: {
+                      value: true,
+                      message: 'Todos os campos são obrigatórios',
+                    },
+                  })}
+                  name='perfil' id='perfil'
+                >
                   <option value='operador'>Operador</option>
                   <option value='equipeCivil'>Equipe civil</option>
                   <option value='navegador'>Navegação</option>

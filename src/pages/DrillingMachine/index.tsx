@@ -40,7 +40,7 @@ type FormData = {
 }
 
 export default function
-  DrillingMachine() {
+DrillingMachine () {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -69,13 +69,13 @@ export default function
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
   const [maqPerfuratriz, setMaqPerfuratriz] = useState<any[]>([])
 
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     console.log(data)
     Cadastro(data)
-    //reset()
+    // reset()
   }
 
-  async function Cadastro(submit: any) {
+  async function Cadastro (submit: any) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.post('maquina-perfuratis', {
@@ -102,7 +102,7 @@ export default function
     })
   }
 
-  async function loadDados() {
+  async function loadDados () {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.get('maquina-perfuratis',
@@ -134,7 +134,7 @@ export default function
       setLoading(false)
     })
   }
-  function update(dados: any) {
+  function update (dados: any) {
     console.log('dados')
     console.log(dados)
     setMaquina(dados.id)
@@ -161,7 +161,7 @@ export default function
     setAlergamentoMaximo(dados.alergamentoMaximo)
     setIsOpenUpdate(true)
   }
-  async function updateDados() {
+  async function updateDados () {
     setLoading(true)
     const responser = api.put('maquina-perfuratis/' + idMaquina, {
       data: {
@@ -186,8 +186,8 @@ export default function
         vazao: vazao,
         pressao: pressao,
         alergamentoMaximo: alergamentoMaximo,
-      }
-    }
+      },
+    },
     ).then((response) => {
       if (response.statusText === 'OK') {
         loadDados()
@@ -203,8 +203,6 @@ export default function
     setLoading(true)
     loadDados()
   }, [])
-
-
 
   return (
     <>
@@ -416,12 +414,12 @@ export default function
                 type='submit'
               >{loading
                 ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height=''
-                  src='https://contribua.org/mb-static/images/loading.gif'
-                  alt='Loading'
-                />
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height=''
+                    src='https://contribua.org/mb-static/images/loading.gif'
+                    alt='Loading'
+                  />
                 : 'Salvar'}
               </button>
             </S.Form>
@@ -457,7 +455,7 @@ export default function
 
               <TextField
                 label='Próxima revisão/manutenção'
-               value={nextOverhaul}
+                value={nextOverhaul}
                 onChange={(text) => setNextOverhaul(text.target.value)}
               />
 
@@ -470,8 +468,10 @@ export default function
               <S.ContentForm>
                 <fieldset>
                   <label htmlFor='revisionSubtypes'>Subtipos de revisão</label>
-                  <select id='revisionSubtypes' value={revisionSubtypes}
-                onChange={(text) => setRevisionSubtypes(text.target.value)}>
+                  <select
+                    id='revisionSubtypes' value={revisionSubtypes}
+                    onChange={(text) => setRevisionSubtypes(text.target.value)}
+                  >
                     <option value=''>Select...</option>
                     <option value='Navegador'>Preventiva</option>
                     <option value='Operador'>Preditiva</option>
@@ -568,12 +568,12 @@ export default function
                 onClick={() => updateDados()}
               >{loading
                 ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height=''
-                  src='https://contribua.org/mb-static/images/loading.gif'
-                  alt='Loading'
-                />
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height=''
+                    src='https://contribua.org/mb-static/images/loading.gif'
+                    alt='Loading'
+                  />
                 : 'Salvar'}
               </button>
             </S.Div>

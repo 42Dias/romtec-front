@@ -19,7 +19,7 @@ type FormData = {
 }
 
 export default function
- Interferences () {
+Interferences () {
   const [isOpen, setIsOpen] = useState(false)
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
