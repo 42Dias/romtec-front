@@ -1,4 +1,3 @@
-import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
@@ -10,9 +9,6 @@ import { FiPlus } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
-import EditButton from '../../ui/Components/EditButton/EditButton'
-import { FaEdit } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
 
 type FormData = {
   descricao: string;
@@ -31,8 +27,6 @@ ConfigurationSteps () {
   const [idconfigTravessia, setIdconfigTravessia] = useState('')
   const [descricao, setdescricao] = useState('')
   const [nome, setnome] = useState('')
-  const [configurationCrossings, setConfigurationCrossings] = useState<any[]>([])
-  const link = '/etapas/'
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
@@ -83,6 +77,7 @@ ConfigurationSteps () {
       setLoading(false)
     })
   }
+  // eslint-disable-next-line
   async function deleteDados (id: string) {
     setLoading(true)
     // eslint-disable-next-line
@@ -98,6 +93,7 @@ ConfigurationSteps () {
       setLoading(false)
     })
   }
+  // eslint-disable-next-line
   function update (dados: any) {
     console.log('dados')
     console.log(dados)
@@ -108,6 +104,7 @@ ConfigurationSteps () {
   }
   async function updateDados () {
     setLoading(true)
+    // eslint-disable-next-line
     const responser = api.put('configTravessia/' + idconfigTravessia, {
       data: {
         descricao: descricao,
@@ -278,7 +275,19 @@ ConfigurationSteps () {
                 value={descricao}
                 onChange={(text) => setdescricao(text.target.value)}
               />
-              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <button
+                onClick={() => updateDados()}
+              >
+                {loading
+                  ? <img
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height=''
+                      src='https://contribua.org/mb-static/images/loading.gif'
+                      alt='Loading'
+                    />
+                  : 'Salvar'}
+              </button>
             </S.Div>
           </S.Container>
         </Modal>

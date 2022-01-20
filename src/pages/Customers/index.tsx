@@ -9,9 +9,7 @@ import { TextField } from '../../ui/Components/TextField'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
-import EditButton from '../../ui/Components/EditButton/EditButton'
 import { FaEdit } from 'react-icons/fa'
-import { backgroundImages } from 'polished'
 import { Field, Formik } from 'formik'
 import MaskedInput from '../../ui/Components/InputMask/InputMask'
 
@@ -131,6 +129,7 @@ Customers () {
   }
   async function updateDados () {
     setLoading(true)
+    // eslint-disable-next-line
     const responser = api.put('clientes/' + idClientes, {
       data: {
         cnpj: cnpj,
@@ -155,12 +154,13 @@ Customers () {
     setLoading(true)
     loadDados()
   }, [])
+  // eslint-disable-next-line
   function onSubmitInput (values: any, actions: any) {
     // console.log(data)
     // Cadastro(data)
     console.log('SUBMIT', values)
   }
-
+  // eslint-disable-next-line
   function onBlurCep (ev: any, setFieldValue: any) {
     const { value } = ev.target
 
@@ -199,21 +199,6 @@ Customers () {
           <span>Número</span>
           <span>Complemento</span>
         </S.GridConfirmation>
-        {/* clientes.length > 0 ?
-        clientes.map((cliente) =>
-          <S.GridConfirmation>
-            <span>{cliente.cnpj}</span>
-            <span>{cliente.razaoSocial}</span>
-            <span>{cliente.nomeFantasia}</span>
-            <span>{cliente.cep}</span>
-            <span>{cliente.uf}</span>
-            <span>{cliente.cidade}</span>
-            <span>{cliente.bairro}</span>
-            <span>{cliente.logradouro}</span>
-            <span>{cliente.numero}</span>
-            <span>{cliente.complemento}</span>
-          </S.GridConfirmation>
-        ): 'Nenhum Cliente cadastrado!' */}
 
         <ul>
           {clientes.length > 0
@@ -234,7 +219,6 @@ Customers () {
                     onDelete={() => deleteDados(cliente.id)}
                   />
                   <button
-                    // onChange={onEdit}
                     onClick={() => update(cliente)}
                     style={{ background: 'none', color: 'yellow' }}
                     title='Editar?'
@@ -265,20 +249,14 @@ Customers () {
               <TextField
                 label='Razão Social'
                 {...register('razaoSocial', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Nome Fantasia'
                 {...register('nomeFantasia', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
@@ -286,50 +264,35 @@ Customers () {
                 label='CEP'
                 type='number'
                 {...register('cep', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='UF'
                 {...register('uf', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Cidade'
                 {...register('cidade', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Bairro'
                 {...register('bairro', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Logradouro'
                 {...register('logradouro', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
@@ -337,20 +300,14 @@ Customers () {
                 label='Número'
                 type='number'
                 {...register('numero', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               />
 
               <TextField
                 label='Complemento'
                 {...register('complemento', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
+                  required: true,
                 })}
               /> */}
 
@@ -544,7 +501,17 @@ Customers () {
                 onChange={(text) => setComplemento(text.target.value)}
               />
 
-              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <button onClick={() => updateDados()}>
+                {loading
+                  ? <img
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height=''
+                      src='https://contribua.org/mb-static/images/loading.gif'
+                      alt='Loading'
+                    />
+                  : 'Salvar'}
+              </button>
             </S.Div>
           </S.Container>
         </Modal>
