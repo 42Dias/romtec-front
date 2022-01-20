@@ -143,99 +143,43 @@ ExecutionOfTheCrossing () {
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
 
         <S.GridConfirmation>
-          <span>Nome</span>
-          <span>Travessia</span>
-          <span>Trabalhadores</span>
-          <span>Companhia</span>
-          <span>Fluído de perfuração</span>
-          <span>Haste</span>
-          <span>Maquina perfuratriz</span>
+          <span>Nome do Cliente</span>
+          <span>Nome da Travessia</span>
+          <span>Descrição</span>
+          <span>Configuração da Travessia</span>
+          
         </S.GridConfirmation>
 
         <ul>
-          <li>
-            <S.GridConfirmation>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              {/* <DeleteButton
-                onDelete={() => deleteDados(configurationCrossing.id)}
-              /> */}
-              {/* <EditButton
-                    onEdit={() => handleUpdate(configurationCrossing.id)}
+          {travessia.length > 0
+            ? travessia.map((configurationCrossing) =>
+              <li key={configurationCrossing.id}>
+                <S.GridConfirmation>
+                  <span>{configurationCrossing.nome}</span>
+                  <span>{configurationCrossing.descricao}</span>
+                  <span>{configurationCrossing.nome}</span>
+                  <span>{configurationCrossing.descricao}</span>
+                  <DeleteButton
+                    onDelete={() => deleteDados(configurationCrossing.id)}
+                  />
+                  {/* <EditButton
+                    onEdit={() => update(configurationCrossing.id)}
                   /> */}
-              {/* <button
+                  <button
                     // onChange={onEdit}
-                onClick={() => update(configurationCrossing)}
-                style={{ background: 'none', color: 'yellow' }}
-                title='Editar?'
-              >
-                <FaEdit size={20} />
-              </button> */}
-              <Link to='/etapas'><span>Executar travessia</span></Link>
-              {/* {<button><span>Executar travessia</span></button>} */}
-            </S.GridConfirmation>
-          </li>
-
-          <li>
-            <S.GridConfirmation>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              {/* <DeleteButton
-                onDelete={() => deleteDados(configurationCrossing.id)}
-              /> */}
-              {/* <EditButton
-                    onEdit={() => handleUpdate(configurationCrossing.id)}
-                  /> */}
-              {/* <button
-                    // onChange={onEdit}
-                onClick={() => update(configurationCrossing)}
-                style={{ background: 'none', color: 'yellow' }}
-                title='Editar?'
-              >
-                <FaEdit size={20} />
-              </button> */}
-              <Link to='/etapas'><span>Executar travessia</span></Link>
-              {/* {<button><span>Executar travessia</span></button>} */}
-            </S.GridConfirmation>
-          </li>
-
-          <li>
-            <S.GridConfirmation>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              <span>XXXXXXX</span>
-              {/* <DeleteButton
-                onDelete={() => deleteDados(configurationCrossing.id)}
-              /> */}
-              {/* <EditButton
-                    onEdit={() => handleUpdate(configurationCrossing.id)}
-                  /> */}
-              {/* <button
-                    // onChange={onEdit}
-                onClick={() => update(configurationCrossing)}
-                style={{ background: 'none', color: 'yellow' }}
-                title='Editar?'
-              >
-                <FaEdit size={20} />
-              </button> */}
-              <Link to='/etapas'><span>Executar travessia</span></Link>
-              {/* {<button><span>Executar travessia</span></button>} */}
-            </S.GridConfirmation>
-          </li>
+                    onClick={() => update(configurationCrossing)}
+                    style={{ background: 'none', color: 'yellow' }}
+                    title='Editar?'
+                  >
+                    <FaEdit size={20} />
+                  </button>
+                  <Link to={link + configurationCrossing.id}><span>Executar travessia</span></Link>
+                   {/* {<button><span>Executar travessia</span></button>}
+                   <Link to='/etapas'><span>Executar travessia</span></Link> */}
+                </S.GridConfirmation>
+              </li>,
+            )
+            : <p>🤔 Nenhuma configuração cadastrada</p>}
         </ul>
 
         {/* <ul>

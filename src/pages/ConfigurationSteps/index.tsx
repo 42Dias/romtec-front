@@ -243,14 +243,22 @@ export default function
                 })}
               />
               <div className='form-control-group'>
-                <label htmlFor='perfil'>Perfil</label>
-                <select name='perfil' id='perfil'>
-                  <option value=''>Operador</option>
-                  <option value=''>Equipe civil</option>
-                  <option value=''>Navegação</option>
-                  <option value='Engenharia adm'>Engenharia adm</option>
-                  <option value=''>Engenharia user</option>
-                  <option value=''>Mapeamento</option>
+                <label
+                 htmlFor='perfil'>Perfil</label>
+                <select
+                 {...register('perfil', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+                 name='perfil' id='perfil'>
+                  <option value='operador'>Operador</option>
+                  <option value='equipeCivil'>Equipe civil</option>
+                  <option value='navegador'>Navegação</option>
+                  <option value='engenhariaADM'>Engenharia adm</option>
+                  <option value='engenharia'>Engenharia user</option>
+                  <option value='mapeamento'>Mapeamento</option>
                 </select>
               </div>
               <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
