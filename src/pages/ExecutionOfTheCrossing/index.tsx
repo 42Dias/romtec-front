@@ -20,7 +20,7 @@ type FormData = {
 }
 
 export default function
-ExecutionOfTheCrossing () {
+  ExecutionOfTheCrossing() {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenPhases, setIsOpenPhases] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
@@ -32,15 +32,16 @@ ExecutionOfTheCrossing () {
   const [descricao, setdescricao] = useState('')
   const [nome, setnome] = useState('')
   const [configurationCrossings, setConfigurationCrossings] = useState<any[]>([])
+  const [clientes, setClientes] = useState<any[]>([])
   const link = '/etapas/'
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
     console.log(data)
     Cadastro(data)
   }
   // eslint-disable-next-line
-  async function Cadastro (submit: any) {
+  async function Cadastro(submit: any) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.post('configTravessia', {
@@ -67,7 +68,7 @@ ExecutionOfTheCrossing () {
     })
   }
 
-  async function loadDados () {
+  async function loadDados() {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.get('configTravessia',
@@ -82,8 +83,20 @@ ExecutionOfTheCrossing () {
       toast.error(res.response.data)
       setLoading(false)
     })
+    api.get('clientes',
+    ).then((response) => {
+      console.log(response.data.rows)
+      if (response.statusText === 'OK') {
+        setClientes(response.data.rows)
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
   }
-  async function deleteDados (id: string) {
+  async function deleteDados(id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('configTravessia/' + id
@@ -98,7 +111,7 @@ ExecutionOfTheCrossing () {
       setLoading(false)
     })
   }
-  function update (dados: any) {
+  function update(dados: any) {
     console.log('dados')
     console.log(dados)
     setIdconfigTravessia(dados.id)
@@ -106,7 +119,7 @@ ExecutionOfTheCrossing () {
     setnome(dados.nome)
     setIsOpenUpdate(true)
   }
-  async function updateDados () {
+  async function updateDados() {
     setLoading(true)
     const responser = api.put('configTravessia/' + idconfigTravessia, {
       data: {
@@ -129,8 +142,11 @@ ExecutionOfTheCrossing () {
     setLoading(true)
     loadDados()
   }, [])
-
-  function onChange (e: any) {
+  function close(){
+    reset()
+    setIsOpen(false)
+  }
+  function onChange(e: any) {
     console.log(`checked = ${e.target.checked}`)
   }
 
@@ -147,7 +163,7 @@ ExecutionOfTheCrossing () {
           <span>Nome da Travessia</span>
           <span>Descrição</span>
           <span>Configuração da Travessia</span>
-          
+
         </S.GridConfirmation>
 
         <ul>
@@ -174,7 +190,7 @@ ExecutionOfTheCrossing () {
                     <FaEdit size={20} />
                   </button>
                   <Link to={link + configurationCrossing.id}><span>Executar travessia</span></Link>
-                   {/* {<button><span>Executar travessia</span></button>}
+                  {/* {<button><span>Executar travessia</span></button>}
                    <Link to='/etapas'><span>Executar travessia</span></Link> */}
                 </S.GridConfirmation>
               </li>,
@@ -212,10 +228,10 @@ ExecutionOfTheCrossing () {
         </ul>
         */}
 
-        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <Modal isOpen={isOpen} onClose={() => close()}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
-              <TextField
+              {/* <TextField
                 label='Nome do cliente'
                 {...register('nome', {
                   required: {
@@ -223,7 +239,27 @@ ExecutionOfTheCrossing () {
                     message: '',
                   },
                 })}
-              />
+              /> */}
+              <div className='form-control-group'>
+                <label
+                  htmlFor='nome'>Nome do Cliente</label>
+                <select
+                  {...register('nome', {
+                    required: {
+                      value: true,
+                      message: 'Todos os campos são obrigatórios',
+                    },
+                  })}
+                  name='nome' id='nome'>
+                  <option value=''>Selecione...</option>
+                  {clientes.length > 0
+                    ? clientes.map((cliente) =>
+                      <option value={cliente}>{cliente.nomeFantasia}</option>
+
+                    )
+                    : <option value=''>Nenhum Cliente cadastrado!</option>}
+                </select>
+              </div>
               <TextField
                 label='Nome da travessia'
                 errorMessage={errors.descricao?.message}
@@ -245,7 +281,7 @@ ExecutionOfTheCrossing () {
                 })}
               />
 
-              <TextField
+              {/* <TextField
                 label='Configuração da travessia'
                 errorMessage={errors.descricao?.message}
                 {...register('descricao', {
@@ -254,7 +290,28 @@ ExecutionOfTheCrossing () {
                     message: 'Todos os campos são obrigatórios',
                   },
                 })}
-              />
+              /> */}
+              <div className='form-control-group'>
+                <label
+                  htmlFor='descricao'>Configuração da travessia</label>
+                <select
+                  {...register('descricao', {
+                    required: {
+                      value: true,
+                      message: 'Todos os campos são obrigatórios',
+                    },
+                  })}
+                  name='descricao' id='descricao'>
+                  <option value=''>Selecione...</option>
+                  {travessia.length > 0
+                    ? travessia.map((travessia) =>
+
+                      <option value={travessia}>{travessia.nome}</option>
+
+                    )
+                    : <option value=''>Nenhuma Configuração de Travessia cadastrado!</option>}
+                </select>
+              </div>
               <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
             </S.Form>
           </S.Container>

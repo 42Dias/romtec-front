@@ -252,7 +252,7 @@ export default function
                     message: 'Todos os campos são obrigatórios',
                   },
                 })}
-                 name='perfil' id='perfil'>
+                 name='perfil' id='perfil'> 
                   <option value='operador'>Operador</option>
                   <option value='equipeCivil'>Equipe civil</option>
                   <option value='navegador'>Navegação</option>
