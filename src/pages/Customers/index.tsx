@@ -13,6 +13,7 @@ import EditButton from '../../ui/Components/EditButton/EditButton'
 import { FaEdit } from 'react-icons/fa'
 import { backgroundImages } from 'polished'
 import { Field, Formik } from 'formik'
+import MaskedInput from '../../ui/Components/InputMask/InputMask'
 
 type FormData = {
   cnpj: string;
@@ -48,7 +49,7 @@ Customers () {
   const [logradouro, setLogradouro] = useState('')
   const [numero, setNumero] = useState('')
   const [complemento, setComplemento] = useState('')
-  const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<FormData>()
+  const { register, handleSubmit, reset, setValue } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
     console.log(data)
@@ -367,16 +368,17 @@ Customers () {
                 }}
                 render={({ isValid, setFieldValue }) => (
                   <S.Form>
-                    <TextField
-                      label='CNPJ'
-                      errorMessage={errors.cnpj?.message}
-                      {...register('cnpj', {
-                        required: {
-                          value: true,
-                          message: 'Todos os campos são obrigatórios',
-                        },
-                      })}
-                    />
+                    <fieldset>
+                      <label htmlFor='cnpj'>CNPJ</label>
+                      <MaskedInput
+                        onChangeUnMask={(value) => setValue('cnpj', value)}
+                        mask='99.999.999/9999-99'
+                        id='cnpj'
+                        {...register('cnpj', {
+                          required: true,
+                        })}
+                      />
+                    </fieldset>
 
                     <TextField
                       label='Razão Social'
@@ -398,11 +400,15 @@ Customers () {
                       })}
                     />
                     <div className='form-control-group'>
-                      <label>Cep</label>
-                      <Field
-                        name='cep' type='text'
-                        onBlur={(ev: any) => onBlurCep(ev, setFieldValue)}
-                      />
+                      <fieldset>
+                        <label htmlFor='cep'>CEP</label>
+                        <MaskedInput
+                          onChangeUnMask={(value) => setValue('cep', value)}
+                          mask='99999-999'
+                          id='cep'
+                          {...register('cep')}
+                        />
+                      </fieldset>
                     </div>
 
                     <div className='form-control-group'>
