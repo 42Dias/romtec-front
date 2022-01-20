@@ -255,7 +255,7 @@ Users () {
                   <option value='mapeamento'>Mapeamento</option>
                 </select>
               </div>
-            </S.GridInvite>
+            </S.GridInvite> 
 
             <S.Btns>
               <button onClick={() => Cadastro()}>{loading

@@ -95,7 +95,6 @@ export default function Login() {
         console.log(window.location.href = window.location.href + 'home')
       }
 
-
       return response.data
     })
     console.log(response)

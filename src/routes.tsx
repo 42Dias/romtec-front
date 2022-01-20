@@ -1,4 +1,3 @@
-
 import { Switch, Route, HashRouter } from 'react-router-dom'
 
 import Companies from './pages/Companies'

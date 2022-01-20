@@ -35,7 +35,6 @@ export default function
 
   function onSubmit (data: FormData) {
     console.log(data)
-
   }
   // eslint-disable-next-line
   async function Cadastro (submit: any) {

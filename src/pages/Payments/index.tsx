@@ -60,15 +60,8 @@ Payments () {
       }
     }).catch(res => {
       console.log(res)
-      // toast.error(res.response.data);
       setLoading(false)
     })
-  }
-
-  function handleDelete (id: string) {
-    setPagamentos(pagamentos =>
-      pagamentos.filter(pagamento => pagamento.id !== id),
-    )
   }
 
   async function loadDados () {
@@ -138,18 +131,6 @@ Payments () {
     loadDados()
   }, [])
 
-  const handleUpdate = (id: string) => {
-    setPagamentos(pagamentos => pagamentos.map(pagamento => {
-      if (pagamento.id === id) {
-        return {
-          ...pagamento,
-        }
-      }
-
-      return pagamento
-    }))
-  }
-
   return (
     <>
       <Sidebar />
@@ -160,8 +141,6 @@ Payments () {
 
         <S.GridConfirmation>
           <span>Data de pagamento</span>
-          {/* <span>Mês de pagamento</span>
-          <span>Dia de pagamento</span> */}
           <span>Valor de pagamento</span>
         </S.GridConfirmation>
 
@@ -216,10 +195,52 @@ Payments () {
                 />
               </fieldset>
 
-              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <button type='submit'>
+                {loading
+                  ? <img
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height=''
+                      src='https://contribua.org/mb-static/images/loading.gif'
+                      alt='Loading'
+                    />
+                  : 'Salvar'}
+              </button>
             </S.Form>
           </S.Container>
-          {/* eslint-disable-next-line */}
+        </Modal>
+
+        <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
+          <S.Container>
+            <S.Div>
+              <TextField
+                label='Data de pagamento'
+                type='date'
+                id='dataPagamento'
+                value={dataPagamento}
+                onChange={(text) => setDataPagamento(text.target.value)}
+              />
+
+              <TextField
+                label='Valor de pagamento'
+                type='number'
+                id='valorPago'
+                value={valorPago}
+                onChange={(text) => setValorPago(text.target.value)}
+              />
+
+              <button onClick={() => updateDados()}>
+                {loading
+                  ? <img
+                      width='40px' style={{ margin: 'auto' }}
+                      height=''
+                      src='https://contribua.org/mb-static/images/loading.gif'
+                      alt='Loading'
+                    />
+                  : 'Salvar'}
+              </button>
+            </S.Div>
+          </S.Container>
         </Modal>
 
         <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>

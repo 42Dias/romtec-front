@@ -19,6 +19,6 @@ export default function
           <Link to='/home'>Voltar</Link>
         </S.ContentError>
       </S.ContainerError>
-    </>
+    </> 
   )
 }

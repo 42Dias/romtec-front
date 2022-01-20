@@ -3,7 +3,6 @@ import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 
-
 import { TextField } from '../../ui/Components/TextField'
 import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
@@ -267,16 +266,20 @@ Companies () {
                 }}
                 render={({ isValid, setFieldValue }) => (
                   <S.Form>
-                    <TextField
-                      label='CNPJ'
-                      errorMessage={errors.cnpj?.message}
-                      {...register('cnpj', {
-                        required: {
-                          value: true,
-                          message: 'Todos os campos são obrigatórios',
-                        },
-                      })}
-                    />
+                    <fieldset>
+                      <label htmlFor='cnpj'>CNPJ</label>
+                      <MaskedInput
+                        onChangeUnMask={(value) => setValue('cnpj', value)}
+                        mask='99.999.999/9999-99'
+                        id='cnpj'
+                        {...register('cnpj', {
+                          required: {
+                            value: true,
+                            message: 'Todos os campos são obrigatórios',
+                          },
+                        })}
+                      />
+                    </fieldset>
 
                     <TextField
                       label='Razão Social'
@@ -298,42 +301,42 @@ Companies () {
                       })}
                     />
                     <div className='form-control-group'>
-                      <label>Cep</label>
-                      <Field
-                      {...register('cep', {
-                        required: {
-                          value: true,
-                          message: '',
-                        },
-                      })}
-                        name='cep' type='text'
-                        onBlur={(ev: any) => onBlurCep(ev, setFieldValue)}
-                        
-                      />
+                      <fieldset>
+                        <label htmlFor='cep'>CEP</label>
+                        <MaskedInput
+                          onChangeUnMask={(value) => setValue('cep', value)}
+                          mask='99999-999'
+                          id='cep'
+                          {...register('cep')}
+                          onBlur={(ev: any) => onBlurCep(ev, setFieldValue)}
+                        />
+                      </fieldset>
                     </div>
 
                     <div className='form-control-group'>
                       <label>Logradouro</label>
-                      <Field 
-                      {...register('logradouro', {
-                        required: {
-                          value: true,
-                          message: '',
-                        },
-                      })}
-                      name='logradouro' type='text' />
+                      <Field
+                        {...register('logradouro', {
+                          required: {
+                            value: true,
+                            message: '',
+                          },
+                        })}
+                        name='logradouro' type='text'
+                      />
                     </div>
 
                     <div className='form-control-group'>
                       <label>Número</label>
                       <Field
-                      {...register('numero', {
-                        required: {
-                          value: true,
-                          message: '',
-                        },
-                      })}
-                      name='numero' type='text' />
+                        {...register('numero', {
+                          required: {
+                            value: true,
+                            message: '',
+                          },
+                        })}
+                        name='numero' type='text'
+                      />
                     </div>
 
                     <div className='form-control-group'>
@@ -423,15 +426,15 @@ Companies () {
                       })}
                     />
 
-                    <TextField
-                      label='Telefone'
-                      {...register('tel', {
-                        required: {
-                          value: true,
-                          message: '',
-                        },
-                      })}
-                    />
+                    <fieldset>
+                      <label htmlFor='telefone'>Telefone</label>
+                      <MaskedInput
+                        onChangeUnMask={(value) => setValue('tel', value)}
+                        mask='(99) 99999-9999'
+                        id='telefone'
+                        {...register('tel')}
+                      />
+                    </fieldset>
 
                     <TextField
                       label='Responsável Técnico'

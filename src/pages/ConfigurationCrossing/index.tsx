@@ -145,15 +145,15 @@ ConfigurationCrossing () {
         <ul>
           <li>
             {/* <S.GridConfirmation> */}
-              {/* <span>Nome</span>
+            {/* <span>Nome</span>
               <span>Descrição</span> */}
-              {/* <DeleteButton
+            {/* <DeleteButton
                 onDelete={() => deleteDados(configurationCrossing.id)}
               /> */}
-              {/* <EditButton
+            {/* <EditButton
                     onEdit={() => handleUpdate(configurationCrossing.id)}
                   /> */}
-              {/* <button
+            {/* <button
                     // onChange={onEdit}
                 onClick={() => update(configurationCrossing)}
                 style={{ background: 'none', color: 'yellow' }}

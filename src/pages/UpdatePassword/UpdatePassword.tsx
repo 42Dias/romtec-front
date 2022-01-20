@@ -13,11 +13,11 @@ type FormData = {
   confirmPassword: string;
 }
 
-export function UpdatePassword () {
+export function UpdatePassword() {
   const { register, handleSubmit } = useForm<FormData>()
   const [loading, setLoading] = useState(false);
-  
-  function onSubmit (data: FormData) {
+
+  function onSubmit(data: FormData) {
     console.log(data)
   }
   useEffect(() => {
@@ -70,7 +70,7 @@ export function UpdatePassword () {
     localStorage.setItem("email", JSON.stringify(response.email));
   }
 
-  async function resetSenha(dataU:any) {
+  async function resetSenha(dataU: any) {
     setLoading(true)
     const data = await api.get("user/" + id).then((response) => {
       update(response.data)
