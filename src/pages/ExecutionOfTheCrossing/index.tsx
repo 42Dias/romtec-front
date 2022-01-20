@@ -270,6 +270,16 @@ export default function
                   },
                 })}
               />
+              {/* <TextField
+                label='Nome da travessia'
+                errorMessage={errors.descricao?.message}
+                {...register('descricao', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              /> */}
               <TextField
                 label='Descrição'
                 errorMessage={errors.descricao?.message}

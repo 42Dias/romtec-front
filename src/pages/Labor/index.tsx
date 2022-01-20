@@ -262,14 +262,15 @@ Labor () {
                 })}
               />
 
-              <TextField
-                label='RG'
-                id='rg'
-                type='number'
-                {...register('rg', {
-                  required: true,
-                })}
-              />
+              <fieldset>
+                <label htmlFor='rg'>RG</label>
+                <MaskedInput
+                  onChangeUnMask={(value) => setValue('rg', value)}
+                  mask='99.999.999-9'
+                  id='rg'
+                  {...register('rg')}
+                />
+              </fieldset>
 
               <fieldset>
                 <label htmlFor='cpf'>CPF</label>

@@ -103,7 +103,7 @@ export default function UpdatePassword() {
       if (data) {
         data.password = dataU.senha
         await api.put("user/",{
-          data: data
+          data: data 
         }).then((response) => { 
           console.log(window.location.href = window.location.href + 'home')
           console.log(response.data)

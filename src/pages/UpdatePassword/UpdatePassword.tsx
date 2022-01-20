@@ -20,7 +20,7 @@ export function UpdatePassword() {
   function onSubmit(data: FormData) {
     console.log(data)
   }
-  useEffect(() => {
+  useEffect(() => { 
 
     const hash = window.location.hash.replace(`${ip}/romtec/#/`, '');
     console.log(hash)

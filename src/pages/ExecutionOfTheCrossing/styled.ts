@@ -67,6 +67,7 @@ export const GridConfirmation = styled.div`
   border-radius: 5px;
   margin-bottom: 13px;
 
+<<<<<<< HEAD
   button {
     font-size: 14px;
     color: ${theme.colors.white};
@@ -82,14 +83,14 @@ export const GridConfirmation = styled.div`
     color: ${theme.colors.black};
     font-weight: bold;
 
-
+  span {
+    font-size: 14px;
+    color: ${theme.colors.white};
+    transition: 1s;
     :hover {
       opacity: 80%;
     }
   }
-
-  
-
   @media (max-width: 520px) {
     overflow: auto;
     span {
@@ -101,7 +102,6 @@ export const GridConfirmation = styled.div`
 export const Form = styled.form`
   display: grid;
   grid-template-columns: 1fr 1fr;
-
   &.form-check {
     display: flex;
     flex-direction: column;
@@ -153,7 +153,6 @@ export const Form = styled.form`
         padding: 0;
       }
     }
-
   justify-items: center;
   align-items: center;
 
@@ -181,7 +180,7 @@ export const Div = styled.div`
   justify-items: center;
   align-items: center;
 
-  a {
+  button {
     width: 101px;
     height: 44px;
     border-radius: 5px;

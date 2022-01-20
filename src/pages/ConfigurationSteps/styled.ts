@@ -130,6 +130,7 @@ export const Form = styled.form`
     display: flex;
     flex-direction: column;
   }
+
     .form-control-group select {
       width: 345px;
       height: 48px;
