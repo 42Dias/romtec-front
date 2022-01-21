@@ -401,11 +401,6 @@ Phases () {
       <Navbar />
       <S.ContainerConfirmation>
         <h2>Selecione uma etapa</h2>
-        <div className='buttons'>
-          <button onClick={openModal6} className='add'>
-            <FiPlus />
-          </button>
-        </div>
 
         <div className='modal-styles'>
           <Modal
@@ -531,30 +526,35 @@ Phases () {
           <SwiperSlide>
             <button onClick={openModal}>
               <FiCheck />
+              <h2>1</h2>
               <h1>Planejamento de perfuração</h1>
             </button>
           </SwiperSlide>
           <SwiperSlide>
             <button onClick={openModal2}>
               <FiCheck />
+              <h2>2</h2>
               <h1>Levantamento e Mapeamento de interferências</h1>
             </button>
           </SwiperSlide>
           <SwiperSlide>
             <button onClick={openModal3}>
               <FiCheck />
+              <h2>3</h2>
               <h1>Verificação de Interferências Físicas e Magnéticas</h1>
             </button>
           </SwiperSlide>
           <SwiperSlide>
             <button onClick={openModal4}>
               <FiCheck />
+              <h2>4</h2>
               <h1>Abertura da vala</h1>
             </button>
           </SwiperSlide>
           <SwiperSlide>
             <button onClick={openModal5}>
               <FiPlay />
+              <h2>5</h2>
               <h1>Direcionamento do Furo Piloto</h1>
             </button>
           </SwiperSlide>
@@ -564,6 +564,7 @@ Phases () {
               disabled
             >
               <FiLock />
+              <h2>6</h2>
               <h1>Fechamento da vala</h1>
             </button>
           </SwiperSlide>

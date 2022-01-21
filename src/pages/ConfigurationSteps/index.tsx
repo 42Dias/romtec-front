@@ -3,7 +3,7 @@ import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 import * as S from './styled'
-import { Checkbox } from 'antd'
+import { Checkbox, Switch } from 'antd'
 import { TextField } from '../../ui/Components/TextField'
 import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
@@ -301,20 +301,188 @@ ConfigurationSteps () {
                   <option value=''>Mapeamento</option>
                 </select>
               </div>
+
               <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
             </S.Form>
           </S.Container>
         </Modal>
 
-        <Modal isOpen={isOpenPhases} onClose={() => setIsOpenPhases(false)}>
+        <Modal
+          className='teste'
+          isOpen={isOpenPhases} onClose={() => setIsOpenPhases(false)}
+        >
           <S.Container>
             <S.Form className='form-check' onSubmit={handleSubmit(onSubmit)}>
               <div className='form-control-group-check'>
                 <h2>Adicione os campos</h2>
-                <Checkbox className='first' onChange={onChange}>Checkbox</Checkbox>
-                <Checkbox onChange={onChange}>Checkbox</Checkbox>
-                <Checkbox onChange={onChange}>Checkbox</Checkbox>
-                <Checkbox onChange={onChange}>Checkbox</Checkbox>
+                <Switch
+                  checkedChildren='Ponto de verificação de entrada (lat)'
+                  unCheckedChildren='Ponto de verificação de entrada (lat)'
+                />
+
+                <Switch
+                  checkedChildren='Ponto de verificação de entrada (long)'
+                  unCheckedChildren='Ponto de verificação de entrada (long)'
+                />
+
+                <Switch
+                  checkedChildren='Ponto de verificação de saída (lat)'
+                  unCheckedChildren='Ponto de verificação de saída (lat)'
+                />
+
+                <Switch
+                  checkedChildren='Ponto de verificação de saída (long)'
+                  unCheckedChildren='Ponto de verificação de saída (long)'
+                />
+
+                <Switch
+                  checkedChildren='Tipo de tubulação'
+                  unCheckedChildren='Tipo de tubulação'
+                />
+
+                <Switch
+                  checkedChildren='Diâmetro de perfuração'
+                  unCheckedChildren='Diâmetro de perfuração'
+                />
+
+                <Switch
+                  checkedChildren='Tipos de solo'
+                  unCheckedChildren='Tipos de solo'
+                />
+
+                <Switch
+                  checkedChildren='Responsável'
+                  unCheckedChildren='Responsável'
+                />
+
+                <Switch
+                  checkedChildren='Equipamentos'
+                  unCheckedChildren='Equipamentos'
+                />
+
+                <Switch
+                  checkedChildren='Documentos'
+                  unCheckedChildren='Documentos'
+                />
+
+                <Switch
+                  checkedChildren='Tipo de rede'
+                  unCheckedChildren='Tipo de rede'
+                />
+
+                <Switch
+                  checkedChildren='Empresa proprietária'
+                  unCheckedChildren='Empresa proprietária'
+                />
+
+                <Switch
+                  checkedChildren='Confirmação da sondagem da interferência'
+                  unCheckedChildren='Confirmação da sondagem da interferência'
+                />
+                <Switch
+                  checkedChildren='Sondagem'
+                  unCheckedChildren='Sondagem'
+                />
+
+                <Switch
+                  checkedChildren='Quando acontece'
+                  unCheckedChildren='Quando acontece'
+                />
+
+                <Switch
+                  checkedChildren='Diâmetro da interferência'
+                  unCheckedChildren='Diâmetro da interferência'
+                />
+
+                <Switch
+                  checkedChildren='Criação do plano de furo'
+                  unCheckedChildren='Criação do plano de furo'
+                />
+
+                <Switch
+                  checkedChildren='Tipo de rede'
+                  unCheckedChildren='Tipo de rede'
+                />
+
+                <Switch
+                  checkedChildren='Empresa proprietária'
+                  unCheckedChildren='Empresa proprietária'
+                />
+
+                <Switch
+                  checkedChildren='Confirmação da sondagem da interferência'
+                  unCheckedChildren='Confirmação da sondagem da interferência'
+                />
+
+                <Switch
+                  checkedChildren='Quando acontece'
+                  unCheckedChildren='Quando acontece'
+                />
+
+                <Switch
+                  checkedChildren='Responsável'
+                  unCheckedChildren='Responsável'
+                />
+
+                <Switch
+                  checkedChildren='Ferramentas'
+                  unCheckedChildren='Ferramentas'
+                />
+
+                <Switch
+                  checkedChildren='Informações Envolvidas'
+                  unCheckedChildren='Informações Envolvidas'
+                />
+
+                <Switch
+                  checkedChildren='Responsável'
+                  unCheckedChildren='Responsável'
+                />
+
+                <Switch
+                  checkedChildren='Quando acontece'
+                  unCheckedChildren='Quando acontece'
+                />
+
+                <Switch
+                  checkedChildren='Diamêtro'
+                  unCheckedChildren='Diamêtro'
+                />
+
+                <Switch
+                  checkedChildren='Localização em relação a diretriz do furo'
+                  unCheckedChildren='Localização em relação a diretriz do furo'
+                />
+
+                <Switch
+                  checkedChildren='Tipo de interferência'
+                  unCheckedChildren='Tipo de interferência'
+                />
+
+                <Switch
+                  checkedChildren='Profundidade'
+                  unCheckedChildren='Profundidade'
+                />
+
+                <Switch
+                  checkedChildren='Responsável pela topografia'
+                  unCheckedChildren='Responsável pela topografia'
+                />
+
+                <Switch
+                  checkedChildren='Data da execução da Topografia'
+                  unCheckedChildren='Data da execução da Topografia'
+                />
+
+                <Switch
+                  checkedChildren='Pontos de verificação de planejamento'
+                  unCheckedChildren='Pontos de verificação de planejamento'
+                />
+
+                <Switch
+                  checkedChildren='Pontos de verificação da execução'
+                  unCheckedChildren='Pontos de verificação da execução'
+                />
               </div>
               <button type='submit'>Adicionar</button>
             </S.Form>

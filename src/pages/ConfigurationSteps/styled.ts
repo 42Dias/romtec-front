@@ -99,8 +99,20 @@ export const GridConfirmation = styled.div`
 `
 
 export const Form = styled.form`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .buttons-points {
+    display: flex;
+    align-items: center;
+    button {
+      width: 170px;
+      background-color: ${theme.colors.yellow};
+      color: ${theme.colors.darkBlack};
+      font-weight: bold;
+    }
+  }
 
   &.form-check {
     display: flex;
@@ -114,6 +126,11 @@ export const Form = styled.form`
 
   .first {
     margin-left: 8px !important;
+  }
+
+  .form-control-group {
+    display: flex;
+    flex-direction: column;
   }
 
   .form-control-group-check {
@@ -170,6 +187,39 @@ export const Form = styled.form`
     :hover {
       opacity: 80%;
     }
+  }
+
+  .ant-switch-handle::before {
+    display: none;
+  }
+
+  .ant-switch-handle {
+    width: 32px;
+    height: 32px;
+    top: 4px;
+    border-radius: 4px;
+  }
+
+  .ant-switch {
+    border-radius: 4px;
+  }
+
+  .ant-switch-inner {
+    margin: 0;
+  }
+
+  .ant-switch {
+    -webkit-appearance: button;
+    margin-top: 10px;
+    width: 250px;
+    height: 45px;
+
+    border: 1px solid ${theme.colors.green} !important;
+    background: transparent;
+  }
+
+  .ant-switch-checked {
+    background-color: ${theme.colors.green}
   }
 `
 export const Div = styled.div`
