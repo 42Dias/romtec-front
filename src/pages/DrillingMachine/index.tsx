@@ -313,7 +313,7 @@ DrillingMachine () {
               </S.ContentForm>
 
               <TextField
-                label='Tração (ton)'
+                label='Tração (kN)'
                 {...register('tracao', {
                   required: true,
                 })}
@@ -327,7 +327,7 @@ DrillingMachine () {
               />
 
               <TextField
-                label='Torque'
+                label='Torque (N.m)'
                 {...register('torque', {
                   required: true,
                 })}
