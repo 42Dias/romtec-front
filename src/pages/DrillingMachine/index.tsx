@@ -315,7 +315,7 @@ export default function
               </S.ContentForm>
 
               <TextField
-                label='Tração (ton)'
+                label='Tração (kN)'
                 {...register('tracao', {
                   required: true,
                 })}
@@ -329,7 +329,7 @@ export default function
               />
 
               <TextField
-                label='Torque'
+                label='Torque (N.m)'
                 {...register('torque', {
                   required: true,
                 })}

@@ -227,7 +227,7 @@ export default function
               />
 
               <TextField
-                label='Capacidade do Swivel'
+                label='Capacidade do Swivel(Ton)'
                 {...register('CapacidadeSwivel', {
                   required: true,
                 })}
