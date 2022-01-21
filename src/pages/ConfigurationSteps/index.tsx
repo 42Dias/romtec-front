@@ -29,6 +29,7 @@ export default function
   const [loading, setLoading] = useState(false)
   // eslint-disable-next-line
   const [etapas, setetapas] = useState<any[]>([])
+  const [etapasColunas, setetapasColunas] = useState<any[]>([])
   const [idEtapa, setidEtapa] = useState('')
   const [numeroEtapa, setnumeroEtapa] = useState('')
   const [novaEtapa, setnovaEtapa] = useState('')
@@ -52,11 +53,33 @@ export default function
     }).then((response) => {
       console.log(response)
       if (response.statusText === 'OK') {
-        toast.success('Cadastrada com sucesso!')
-        setLoading(false)
-        setIsOpen(false)
-        reset()
-        loadDados()
+        // toast.success('Cadastrada com sucesso!')
+        // setLoading(false)
+        // setIsOpen(false)
+        // reset()
+        api.post('etapasColunas', {
+          data: submit,
+        }).then((response) => {
+          console.log(response)
+          if (response.statusText === 'OK') {
+            toast.success('Cadastrada com sucesso!')
+            setLoading(false)
+            setIsOpen(false)
+            reset()
+            loadDados()
+          } else if (response.statusText === 'Forbidden') {
+            toast.error('Ops, Não tem permisão!')
+            setLoading(false)
+          } else {
+            toast.error('Ops, Dados Incorretos!')
+            setLoading(false)
+          }
+        }).catch(res => {
+          console.log(res)
+          // toast.error(res.response.data);
+          setLoading(false)
+        })
+        
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')
         setLoading(false)
@@ -73,12 +96,27 @@ export default function
 
   async function loadDados() {
     setLoading(true)
+    console.log('idConfigTravessia')
+    console.log(idConfigTravessia.replace("#/etapas-da-configuracao/", ''))
     // eslint-disable-next-line
-    const responser = api.get('etapas',
+    const responser = api.get(`etapas?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/etapas-da-configuracao/", '')}`,
     ).then((response) => {
       console.log(response.data.rows)
       if (response.statusText === 'OK') {
         setetapas(response.data.rows)
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
+
+    api.get(`etapasColunas?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/etapas-da-configuracao/", '')}`,
+    ).then((response) => {
+      console.log(response.data.rows)
+      if (response.statusText === 'OK') {
+        setetapasColunas(response.data.rows)
         setLoading(false)
       }
     }).catch(res => {
@@ -131,12 +169,15 @@ export default function
       toast.error(error.response.data)
     })
   }
+  function selectCampos(etapa:any){
+    setIsOpenPhases(true)
+  }
   useEffect(() => {
     setLoading(true)
     loadDados()
     idConfigTravessia = window.location.hash.replace(ip + '/romtec#/etapas-da-configuracao/', '')
-    idConfigTravessia = idConfigTravessia.replace('#/etapas-da-configuracao/', '')
-    console.log(idConfigTravessia)
+    // idConfigTravessia = idConfigTravessia.replace('#/etapas-da-configuracao/', '')
+    // console.log(idConfigTravessia)
   }, [])
 
   function onChange(e: any) {
@@ -181,7 +222,7 @@ export default function
                   </button>
                   {/* <Link to={link + etapas.id}><span>Executar travessia</span></Link>
                   <button><span>Executar travessia</span></button> */}
-                  <button onClick={() => setIsOpenPhases(true)}>Atribuir campos</button>
+                  <button onClick={() => selectCampos(etapas)}>Atribuir campos</button>
                 </S.GridConfirmation>
               </li>,
             )
