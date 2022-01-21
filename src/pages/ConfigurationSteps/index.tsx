@@ -223,6 +223,7 @@ export default function
                   {/* <Link to={link + etapas.id}><span>Executar travessia</span></Link>
                   <button><span>Executar travessia</span></button> */}
                   <button onClick={() => selectCampos(etapas)}>Atribuir campos</button>
+                  
                 </S.GridConfirmation>
               </li>,
             )
