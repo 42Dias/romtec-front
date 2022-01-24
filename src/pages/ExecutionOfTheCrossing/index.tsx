@@ -17,8 +17,10 @@ import { Link } from 'react-router-dom'
 type FormData = {
   descricao: string;
   nomeTravessia: string;
-  nomeConfigTravessia: any;
-  nomeCliente: any;
+  idConfigTravessia: string;
+  nomeConfigTravessia: string;
+  nomeCliente: string;
+  idCliente: string;
 }
 
 export default function
@@ -40,8 +42,12 @@ export default function
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
   function onSubmit(data: FormData) {
+    data.idCliente = data.nomeCliente.split("/")[0]
+    data.nomeCliente =  data.nomeCliente.split("/")[1]
+    data.idConfigTravessia = data.nomeConfigTravessia.split("/")[0]
+    data.nomeConfigTravessia =  data.nomeConfigTravessia.split("/")[1]
     console.log(data)
-    //Cadastro(data)
+    Cadastro(data)
   }
   // eslint-disable-next-line
   async function Cadastro(submit: any) {
@@ -186,10 +192,10 @@ export default function
             ? execTtravessia.map((configurationCrossing) =>
               <li key={configurationCrossing.id}>
                 <S.GridConfirmation>
-                  <span>{configurationCrossing.nome}</span>
+                  <span>{configurationCrossing.nomeCliente}</span>
                   <span>{configurationCrossing.nomeTravessia}</span>
-                  <span>{configurationCrossing.nome}</span>
                   <span>{configurationCrossing.descricao}</span>
+                  <span>{configurationCrossing.nomeConfigTravessia}</span>
                   <DeleteButton
                     onDelete={() => deleteDados(configurationCrossing.id)}
                   />
@@ -204,7 +210,7 @@ export default function
                   >
                     <FaEdit size={20} />
                   </button>
-                  <Link to={link + configurationCrossing.id}><span>Executar travessia</span></Link>
+                  <Link to={link + configurationCrossing.idConfigTravessia}><span>Executar travessia</span></Link>
                   {/* {<button><span>Executar travessia</span></button>}
                    <Link to='/etapas'><span>Executar travessia</span></Link> */}
                 </S.GridConfirmation>
@@ -269,7 +275,7 @@ export default function
                   <option value=''>Selecione...</option>
                   {clientes.length > 0
                     ? clientes.map((cliente) =>
-                      <option value={cliente}>{cliente.nomeFantasia}</option>
+                      <option value={cliente.id+"/"+cliente.nomeFantasia}>{cliente.nomeFantasia}</option>
                     )
                     : <option value=''>Nenhum Cliente cadastrado!</option>}
                 </select>
@@ -330,7 +336,7 @@ export default function
                   {travessia.length > 0
                     ? travessia.map((travessia) =>
 
-                      <option value={travessia}>{travessia.nome}</option>
+                      <option value={travessia.id+"/"+travessia.nome}>{travessia.nome}</option>
 
                     )
                     : <option value=''>Nenhuma Configuração de Travessia cadastrado!</option>}
