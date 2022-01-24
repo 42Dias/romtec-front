@@ -102,7 +102,7 @@ export default function UpdatePassword() {
     async function update(data: any) {
       if (data) {
         data.password = dataU.senha
-        await api.put("user/",{
+        await api.put("/auth/password-reset/",{
           data: data 
         }).then((response) => { 
           console.log(window.location.href = window.location.href + 'home')

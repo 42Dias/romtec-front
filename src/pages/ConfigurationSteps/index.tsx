@@ -338,7 +338,7 @@ export default function
 
         <ul>
           {etapas.length > 0
-            ? etapas.map((etapas) =>
+            ? etapas.map((etapas) => 
               <li key={etapas.id}>
                 <S.GridConfirmation>
                   <span>{etapas.novaEtapa}</span>

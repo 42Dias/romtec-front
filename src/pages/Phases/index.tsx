@@ -48,7 +48,7 @@ type levantamento = {
   banco: string;
 }
 export default function
-Phases () {
+  Phases() {
   const [modalIsOpenPlanejamento, setIsOpenPlanejamento] = useState(false)
   const [modalIsOpen2, setIsOpen2] = useState(false)
   const [modalIsOpen3, setIsOpen3] = useState(false)
@@ -60,7 +60,8 @@ Phases () {
   let idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas/', '')
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
   const [loading, setLoading] = useState(false)
-  const [dados, setDados] = useState<any>()
+  const [dados, setDados] = useState<any[]>([])
+
   const [idDados, setId] = useState('')
   const [responsavel, setresponsavel] = useState('')
   const [equipamentos, setequipamentos] = useState('')
@@ -86,14 +87,38 @@ Phases () {
   const [posicaoRelogio, setposicaoRelogio] = useState('')
   const [azimute, setazimute] = useState('')
   const [isUpdate, setIsUpdate] = useState(false)
+  const [campoEntradaLatitude, setcampoEntradaLatitude] = useState(false)
+  const [campoEntradaLongitude, setcampoEntradaLongitude] = useState(false)
+  const [campoSaidaLatitude, setcampoSaidaLatitude] = useState(false)
+  const [campoSaidaLongitude, setcampoSaidaLongitude] = useState(false)
+  const [campoTipoSolo, setcampoTipoSolo] = useState(false)
+  const [campoDiametroPerfuracao, setcampoDiametroPerfuracao] = useState(false)
+  const [campoTipoRede, setcampoTipoRede] = useState(false)
+  const [campoTipoTubulacao, setcampoTipoTubulacao] = useState(false)
+  const [campoResponsel, setcampoResponsel] = useState(false)
+  const [campoEquipamento, setcampoEquipamento] = useState(false)
+  const [campoDocumento, setcampoDocumento] = useState(false)
+  const [campoSondagemInterferencia, setcampoSondagemInterferencia] = useState(false)
+  const [campoSondagem, setcampoSondagem] = useState(false)
+  const [campoDiametroInterferencia, setcampoDiametroInterferencia] = useState(false)
+  const [campoPlanoFuro, setcampoPlanoFuro] = useState(false)
+  const [campoFerramentas, setcampoFerramentas] = useState(false)
+  const [campoInfoEnvolvidas, setcampoInfoEnvolvidas] = useState(false)
+  const [campoDiametro, setcampoDiametro] = useState(false)
+  const [campoLocalizaDiretrizFuro, setcampoLocalizaDiretrizFuro] = useState(false)
+  const [campoTipoInterferencia, setcampoTipoInterferencia] = useState(false)
+  const [campoProfundidade, setcampoProfundidade] = useState(false)
+  const [campoResponselTopografia, setcampoResponselTopografia] = useState(false)
+  const [campoDataTopografia, setcampoDataTopografia] = useState(false)
+  const [campoEmpresa, setcampoEmpresa] = useState(false)
 
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
     data.idConfigTravessia = idConfigTravessia.replace('#/etapas/', '')
     data.banco = 'planejamentoPerfuracao'
     console.log(data)
     createNewFile(data)
   }
-  function onSubmitLevantamento () {
+  function onSubmitLevantamento() {
     console.log(responsavel)
     const data = {
       idConfigTravessia: idConfigTravessia.replace('#/etapas/', ''),
@@ -195,7 +220,7 @@ Phases () {
       setLoading(false)
     })
   }
-  async function loadDados (url: string) {
+  async function loadDados(url: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = await api.get(url + `?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/etapas/", '')}`,
@@ -211,9 +236,10 @@ Phases () {
       toast.error(res.response.data)
       setLoading(false)
     })
+
     setLoading(false)
   }
-  async function deleteDados (id: string) {
+  async function deleteDados(id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('tipo-solo/' + id,
@@ -228,7 +254,7 @@ Phases () {
       setLoading(false)
     })
   }
-  function update (data: any) {
+  function update(data: any) {
     console.log('data')
     console.log(data)
     // setDados(data)
@@ -286,7 +312,7 @@ Phases () {
     }
     console.log(idDados)
   }
-  async function updateDados () {
+  async function updateDados() {
     setLoading(true)
     console.log('idDados')
     console.log(idDados)
@@ -338,21 +364,37 @@ Phases () {
     console.log('useEffect')
     console.log(idConfigTravessia)
     //setLoading(true)
-    //loadDados('planejamentoPerfuracao/')
+    loadDados('etapas')
 
   }, [])
 
-  function openModal() {
-    loadDados('planejamentoPerfuracao')
-    if (dados) {
-      if (dados.length == 0) {
-        setIsOpenPlanejamento(true)
-      } else {
-        update(dados)
-      }
-    } else {
-      toast.info('Clique mais uma vez!')
-    }
+  function openModal(data: any) {
+    console.log(data)
+    setcampoEntradaLatitude(data.campoEntradaLatitude)
+    setcampoEntradaLongitude(data.campoEntradaLongitude)
+    setcampoSaidaLatitude(data.campoSaidaLatitude)
+    setcampoSaidaLongitude(data.campoSaidaLongitude)
+    setcampoTipoSolo(data.campoTipoSolo)
+    setcampoDiametroPerfuracao(data.campoDiametroPerfuracao)
+    setcampoTipoRede(data.campoTipoRede)
+    setcampoTipoTubulacao(data.campoTipoTubulacao)
+    setcampoResponsel(data.campoResponsel)
+    setcampoEquipamento(data.campoEquipamento)
+    setcampoSondagemInterferencia(data.campoSondagemInterferencia)
+    setcampoDocumento(data.campoDocumento)
+    setcampoEmpresa(data.campoEmpresa)
+    setcampoSondagem(data.campoSondagem)
+    setcampoDiametroInterferencia(data.campoDiametroInterferencia)
+    setcampoPlanoFuro(data.campoPlanoFuro)
+    setcampoFerramentas(data.campoFerramentas)
+    setcampoInfoEnvolvidas(data.campoInfoEnvolvidas)
+    setcampoDiametro(data.campoDiametro)
+    setcampoLocalizaDiretrizFuro(data.campoLocalizaDiretrizFuro)
+    setcampoTipoInterferencia(data.campoTipoInterferencia)
+    setcampoProfundidade(data.campoProfundidade)
+    setcampoResponselTopografia(data.campoResponselTopografia)
+    setcampoDataTopografia(data.campoDataTopografia)
+    setisOpenUpdatePlanejamentoPerfuração(true)
     setIsOpen2(false)
     setIsOpen3(false)
     setIsOpen4(false)
@@ -361,10 +403,10 @@ Phases () {
     setIsOpen7(false)
     setIsOpen8(false)
   }
-  function afterOpenModal () {
+  function afterOpenModal() {
     // references are now sync'd and can be accessed.
   }
-  function closeModal () {
+  function closeModal() {
     setIsOpenPlanejamento(false)
   }
 
@@ -401,7 +443,7 @@ Phases () {
     setIsOpen8(false)
   }
 
-  function closeModal2 () {
+  function closeModal2() {
     setIsOpen2(false)
   }
 
@@ -437,7 +479,7 @@ Phases () {
     setIsOpen8(false)
   }
 
-  function closeModal3 () {
+  function closeModal3() {
     setIsOpen3(false)
   }
   //
@@ -477,11 +519,11 @@ Phases () {
     setIsOpen8(false)
   }
 
-  function closeModal4 () {
+  function closeModal4() {
     setIsOpen4(false)
   }
 
-  function openModal5 () {
+  function openModal5() {
     setIsOpen5(true)
     setIsOpenPlanejamento(false)
     setisOpenUpdatePlanejamentoPerfuração(false)
@@ -493,11 +535,11 @@ Phases () {
     setIsOpen8(false)
   }
 
-  function closeModal5 () {
+  function closeModal5() {
     setIsOpen5(false)
   }
 
-  function openModal6 () {
+  function openModal6() {
     setIsOpen6(true)
     setIsOpen5(false)
     setIsOpenPlanejamento(false)
@@ -509,11 +551,11 @@ Phases () {
     setIsOpen8(false)
   }
 
-  function closeModal6 () {
+  function closeModal6() {
     setIsOpen6(false)
   }
 
-  function openModal7 () {
+  function openModal7() {
     setIsOpen7(true)
     setIsOpen6(false)
     setIsOpen5(false)
@@ -525,11 +567,11 @@ Phases () {
     setIsOpen8(false)
   }
 
-  function closeModal7 () {
+  function closeModal7() {
     setIsOpen7(false)
   }
 
-  function openModal8 () {
+  function openModal8() {
     setIsOpen8(true)
     setIsOpen7(false)
     setIsOpen6(false)
@@ -541,7 +583,7 @@ Phases () {
     setIsOpen4(false)
   }
 
-  function closeModal8 () {
+  function closeModal8() {
     setIsOpen8(false)
   }
 
@@ -673,14 +715,22 @@ Phases () {
           }}
           navigation
         >
-          <SwiperSlide>
-            <button onClick={openModal}>
+          {dados.length > 0 ? dados.map(data =>
+            <SwiperSlide>
+              <button onClick={() => openModal(data)}>
+                <FiCheck />
+                <h2>{data.numeroEtapa}</h2>
+                <h1>{data.novaEtapa}</h1>
+              </button>
+            </SwiperSlide>
+          ) : <SwiperSlide>
+            <button onClick={openModal2}>
               <FiCheck />
-              <h2>1</h2>
-              <h1>Planejamento de perfuração</h1>
+              <h2>2</h2>
+              <h1>Levantamento e Mapeamento de interferências</h1>
             </button>
-          </SwiperSlide>
-          <SwiperSlide>
+          </SwiperSlide>}
+          {/* <SwiperSlide>
             <button onClick={openModal2}>
               <FiCheck />
               <h2>2</h2>
@@ -717,7 +767,7 @@ Phases () {
               <h2>6</h2>
               <h1>Fechamento da vala</h1>
             </button>
-          </SwiperSlide>
+          </SwiperSlide> */}
         </Swiper>
 
         <Modal
@@ -821,11 +871,11 @@ Phases () {
             </S.GridForm>
             <button>{loading
               ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height='' src='https://contribua.org/mb-static/images/loading.gif'
-                  alt='Loading'
-                />
+                width='40px'
+                style={{ margin: 'auto' }}
+                height='' src='https://contribua.org/mb-static/images/loading.gif'
+                alt='Loading'
+              />
               : 'Salvar'}
             </button>
           </S.FormContent>
@@ -856,14 +906,14 @@ Phases () {
 
           <S.Div>
             <S.GridForm>
-              <div>
+              {campoEntradaLatitude ? <div>
                 <label htmlFor=''>Ponto de verificação de entrada (lat)</label>
                 <input
                   type='text' placeholder='Latitude'
                   value={latitudeEntrada}
                   onChange={(text) => setlatitudeEntrada(text.target.value)}
                 />
-              </div>
+              </div>: false}
 
               <div>
                 <label htmlFor=''>Ponto de verificação de entrada (long)</label>
@@ -910,22 +960,22 @@ Phases () {
                 />
               </div>
 
-              <div>
+             {campoTipoSolo ? <div>
                 <label htmlFor=''>Tipos de solo</label>
                 <input
                   type='text' placeholder='Barro'
                   value={tipoSolo}
                   onChange={(text) => setTipoSolo(text.target.value)}
                 />
-              </div>
+              </div>: false}
             </S.GridForm>
             <button onClick={() => updateDados()}>{loading
               ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height='' src='https://contribua.org/mb-static/images/loading.gif'
-                  alt='Loading'
-                />
+                width='40px'
+                style={{ margin: 'auto' }}
+                height='' src='https://contribua.org/mb-static/images/loading.gif'
+                alt='Loading'
+              />
               : 'Salvar'}
             </button>
           </S.Div>
@@ -1045,11 +1095,11 @@ Phases () {
             </S.GridForm>
             <button onClick={() => onSubmitLevantamento()}>{loading
               ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height='' src='https://contribua.org/mb-static/images/loading.gif'
-                  alt='Loading'
-                />
+                width='40px'
+                style={{ margin: 'auto' }}
+                height='' src='https://contribua.org/mb-static/images/loading.gif'
+                alt='Loading'
+              />
               : 'Salvar'}
             </button>
           </S.Div>
@@ -1261,7 +1311,7 @@ Phases () {
 
           <S.Div>
             <S.GridForm>
-            <div>
+              <div>
                 <label htmlFor=''>Responsável</label>
                 <input type='text'
                   value={responsavel}
