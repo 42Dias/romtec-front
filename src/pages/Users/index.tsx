@@ -67,6 +67,7 @@ Users () {
         toast.success('Email enviado com sucesso!')
         setLoading(false)
         setIsOpen(false)
+        setIsOpenInvite(false)
         users()
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')

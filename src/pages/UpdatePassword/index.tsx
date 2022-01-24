@@ -9,7 +9,7 @@ import { TextField } from '../../ui/Components/TextField'
 import * as S from './styled'
 
 type FormData = {
-  fullName: string;
+  firstName: string;
   password: string;
   confirmPassword: string;
 }
@@ -23,7 +23,7 @@ export default function UpdatePassword() {
 
   function onSubmit() {
     const data = {
-      fullName: nome,
+      firstName: nome,
       password: password
     }
     console.log(data)
@@ -35,7 +35,7 @@ export default function UpdatePassword() {
 
   }
   useEffect(() => {
-
+    
     const hash = window.location.hash.replace(ip + '/romtec/#/atualizar-senha/', '');
 
     console.log(hash)
@@ -77,9 +77,11 @@ export default function UpdatePassword() {
     localStorage.setItem('status', JSON.stringify(response.data.tenants[0].status))
       return response.data;
     });
-    console.log(response.id);
+    console.log(id);
     //console.log(response.tenants[0].roles[0]);
-    
+    if (!id) {
+      window.location.reload()
+    }
   }
 
   async function resetSenha(dataU: any) {
@@ -102,9 +104,10 @@ export default function UpdatePassword() {
       // data.password = dataU.senha
       await axios.put(ip + ":8145/api/auth/password-reset", {
         token: id,
-        password: dataU.password
+        password: dataU.password,
+        firstName: dataU.firstName
       }).then((response) => {
-        console.log(window.location.href = '/romtec#/home')
+        console.log(window.location.href = '/romtec#/')
         console.log(response.data)
         return response.data;
       }).catch(res => {

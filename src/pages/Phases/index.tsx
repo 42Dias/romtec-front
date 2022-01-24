@@ -529,13 +529,7 @@ export default function
                 <h1>{data.novaEtapa}</h1>
               </button>
             </SwiperSlide>
-          ) : <SwiperSlide>
-            <button onClick={openModal}>
-              <FiCheck />
-              <h2>2</h2>
-              <h1>Levantamento e Mapeamento de interferências</h1>
-            </button>
-          </SwiperSlide>}
+          ) : <p>🤔 Nenhuma Etapa cadastrada!</p>}
           {/* <SwiperSlide>
             <button onClick={openModal2}>
               <FiCheck />
@@ -593,7 +587,7 @@ export default function
               backgroundColor: '#1B1925',
             },
           }}
-          isOpen={modalIsOpenPlanejamento}
+          isOpen={isOpenUpdatePlanejamentoPerfuração}
           onAfterOpen={() => afterOpenModal}
           onRequestClose={() => closeModal}
         >
@@ -864,6 +858,7 @@ export default function
             </button>
           </S.FormContent>
         </Modal>
+        
         <Modal
           style={{
             overlay: {
