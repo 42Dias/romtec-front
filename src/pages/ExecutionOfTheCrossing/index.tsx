@@ -16,7 +16,9 @@ import { Link } from 'react-router-dom'
 
 type FormData = {
   descricao: string;
-  nome: Date;
+  nomeTravessia: string;
+  nomeConfigTravessia: any;
+  nomeCliente: any;
 }
 
 export default function
@@ -28,6 +30,7 @@ export default function
   const [loading, setLoading] = useState(false)
   // eslint-disable-next-line
   const [travessia, setTravessia] = useState<any[]>([])
+  const [execTtravessia, setexecTravessia] = useState<any[]>([])
   const [idconfigTravessia, setIdconfigTravessia] = useState('')
   const [descricao, setdescricao] = useState('')
   const [nome, setnome] = useState('')
@@ -38,13 +41,13 @@ export default function
 
   function onSubmit(data: FormData) {
     console.log(data)
-    Cadastro(data)
+    //Cadastro(data)
   }
   // eslint-disable-next-line
   async function Cadastro(submit: any) {
     setLoading(true)
     // eslint-disable-next-line
-    const responser = api.post('configTravessia', {
+    const responser = api.post('executarTravessia', {
       data: submit,
     }).then((response) => {
       console.log(response)
@@ -71,7 +74,19 @@ export default function
   async function loadDados() {
     setLoading(true)
     // eslint-disable-next-line
-    const responser = api.get('configTravessia',
+    api.get('executarTravessia',
+    ).then((response) => {
+      console.log(response.data.rows)
+      if (response.statusText === 'OK') {
+        setexecTravessia(response.data.rows)
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
+    api.get('configTravessia',
     ).then((response) => {
       console.log(response.data.rows)
       if (response.statusText === 'OK') {
@@ -99,7 +114,7 @@ export default function
   async function deleteDados(id: string) {
     setLoading(true)
     // eslint-disable-next-line
-    const responser = api.delete('configTravessia/' + id
+    const responser = api.delete('executarTravessia/' + id
     ).then((response) => {
       if (response.statusText === 'OK') {
         loadDados()
@@ -121,7 +136,7 @@ export default function
   }
   async function updateDados() {
     setLoading(true)
-    const responser = api.put('configTravessia/' + idconfigTravessia, {
+    const responser = api.put('executarTravessia/' + idconfigTravessia, {
       data: {
         descricao: descricao,
         nome: nome,
@@ -167,12 +182,12 @@ export default function
         </S.GridConfirmation>
 
         <ul>
-          {travessia.length > 0
-            ? travessia.map((configurationCrossing) =>
+          {execTtravessia.length > 0
+            ? execTtravessia.map((configurationCrossing) =>
               <li key={configurationCrossing.id}>
                 <S.GridConfirmation>
                   <span>{configurationCrossing.nome}</span>
-                  <span>{configurationCrossing.descricao}</span>
+                  <span>{configurationCrossing.nomeTravessia}</span>
                   <span>{configurationCrossing.nome}</span>
                   <span>{configurationCrossing.descricao}</span>
                   <DeleteButton
@@ -242,20 +257,19 @@ export default function
               /> */}
               <div className='form-control-group'>
                 <label
-                  htmlFor='nome'>Nome do Cliente</label>
+                  htmlFor='nomeCliente'>Nome do Cliente</label>
                 <select
-                  {...register('nome', {
+                  {...register('nomeCliente', {
                     required: {
                       value: true,
                       message: 'Todos os campos são obrigatórios',
                     },
                   })}
-                  name='nome' id='nome'>
+                  name='nomeCliente' id='nomeCliente'>
                   <option value=''>Selecione...</option>
                   {clientes.length > 0
                     ? clientes.map((cliente) =>
                       <option value={cliente}>{cliente.nomeFantasia}</option>
-
                     )
                     : <option value=''>Nenhum Cliente cadastrado!</option>}
                 </select>
@@ -263,7 +277,7 @@ export default function
               <TextField
                 label='Nome da travessia'
                 errorMessage={errors.descricao?.message}
-                {...register('descricao', {
+                {...register('nomeTravessia', {
                   required: {
                     value: true,
                     message: 'Todos os campos são obrigatórios',
@@ -303,15 +317,15 @@ export default function
               /> */}
               <div className='form-control-group'>
                 <label
-                  htmlFor='descricao'>Configuração da travessia</label>
+                  htmlFor='nomeConfigTravessia'>Configuração da travessia</label>
                 <select
-                  {...register('descricao', {
+                  {...register('nomeConfigTravessia', {
                     required: {
                       value: true,
                       message: 'Todos os campos são obrigatórios',
                     },
                   })}
-                  name='descricao' id='descricao'>
+                  name='nomeConfigTravessia' id='nomeConfigTravessia'>
                   <option value=''>Selecione...</option>
                   {travessia.length > 0
                     ? travessia.map((travessia) =>

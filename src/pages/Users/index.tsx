@@ -247,6 +247,7 @@ Users () {
                 <label htmlFor='select'>Selecione o tipo de permissão</label>
                 <select name='' id='select' onChange={(text) => setRole(text.target.value)}>
                   <option value='operador'>Operador</option>
+                  <option value='clienteADM'>Cliente ADM</option>
                   <option value='equipeCivil'>Equipe civil</option>
                   <option value='navegador'>Navegação</option>
                   {roles === "admin" ? <option value='admin'>Plataforma ADM</option>:false}

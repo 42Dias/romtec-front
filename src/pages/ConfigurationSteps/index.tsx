@@ -38,6 +38,31 @@ export default function
   const link = '/etapas/'
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
   let idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas-da-configuracao/', '')
+  const [tipoEtapa, setTipoEtapa] = useState('')
+  const [campoEntradaLatitude, setcampoEntradaLatitude] = useState(false)
+  const [campoEntradaLongitude, setcampoEntradaLongitude] = useState(false)
+  const [campoSaidaLatitude, setcampoSaidaLatitude] = useState(false)
+  const [campoSaidaLongitude, setcampoSaidaLongitude] = useState(false)
+  const [campoTipoSolo, setcampoTipoSolo] = useState(false)
+  const [campoDiametroPerfuracao, setcampoDiametroPerfuracao] = useState(false)
+  const [campoTipoRede, setcampoTipoRede] = useState(false)
+  const [campoTipoTubulacao, setcampoTipoTubulacao] = useState(false)
+  const [campoResponsel, setcampoResponsel] = useState(false)
+  const [campoEquipamento, setcampoEquipamento] = useState(false)
+  const [campoDocumento, setcampoDocumento] = useState(false)
+  const [campoSondagemInterferencia, setcampoSondagemInterferencia] = useState(false)
+  const [campoSondagem, setcampoSondagem] = useState(false)
+  const [campoDiametroInterferencia, setcampoDiametroInterferencia] = useState(false)
+  const [campoPlanoFuro, setcampoPlanoFuro] = useState(false)
+  const [campoFerramentas, setcampoFerramentas] = useState(false)
+  const [campoInfoEnvolvidas, setcampoInfoEnvolvidas] = useState(false)
+  const [campoDiametro, setcampoDiametro] = useState(false)
+  const [campoLocalizaDiretrizFuro, setcampoLocalizaDiretrizFuro] = useState(false)
+  const [campoTipoInterferencia, setcampoTipoInterferencia] = useState(false)
+  const [campoProfundidade, setcampoProfundidade] = useState(false)
+  const [campoResponselTopografia, setcampoResponselTopografia] = useState(false)
+  const [campoDataTopografia, setcampoDataTopografia] = useState(false)
+  const [campoEmpresa, setcampoEmpresa] = useState(false)
 
   function onSubmit(data: FormData) {
     console.log(data)
@@ -53,33 +78,12 @@ export default function
     }).then((response) => {
       console.log(response)
       if (response.statusText === 'OK') {
-        // toast.success('Cadastrada com sucesso!')
-        // setLoading(false)
-        // setIsOpen(false)
-        // reset()
-        api.post('etapasColunas', {
-          data: submit,
-        }).then((response) => {
-          console.log(response)
-          if (response.statusText === 'OK') {
-            toast.success('Cadastrada com sucesso!')
-            setLoading(false)
-            setIsOpen(false)
-            reset()
-            loadDados()
-          } else if (response.statusText === 'Forbidden') {
-            toast.error('Ops, Não tem permisão!')
-            setLoading(false)
-          } else {
-            toast.error('Ops, Dados Incorretos!')
-            setLoading(false)
-          }
-        }).catch(res => {
-          console.log(res)
-          // toast.error(res.response.data);
-          setLoading(false)
-        })
-        
+        toast.success('Cadastrada com sucesso!')
+        setLoading(false)
+        setIsOpen(false)
+        reset()
+        loadDados()
+
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')
         setLoading(false)
@@ -117,6 +121,91 @@ export default function
       console.log(response.data.rows)
       if (response.statusText === 'OK') {
         setetapasColunas(response.data.rows)
+        console.log(etapasColunas)
+        console.log(response.data.count)
+        if (response.data.count === 0) {
+          const data = {
+            numeroEtapa: numeroEtapa,
+            novaEtapa: novaEtapa,
+            perfil: perfil,
+            idConfigTravessia: idConfigTravessia.replace("#/etapas-da-configuracao/", ''),
+            campoEntradaLatitude: campoEntradaLatitude,
+            campoEntradaLongitude: campoEntradaLongitude,
+            campoSaidaLatitude: campoSaidaLatitude,
+            campoSaidaLongitude: campoSaidaLongitude,
+            campoTipoSolo: campoTipoSolo,
+            campoDiametroPerfuracao: campoDiametroPerfuracao,
+            campoTipoRede: campoTipoRede,
+            campoTipoTubulacao: campoTipoTubulacao,
+            campoResponsel: campoResponsel,
+            campoEquipamento: campoEquipamento,
+            campoDocumento: campoDocumento,
+            campoEmpresa: campoEmpresa,
+            campoSondagemInterferencia: campoSondagemInterferencia,
+            campoSondagem: campoSondagem,
+            campoDiametroInterferencia: campoDiametroInterferencia,
+            campoPlanoFuro: campoPlanoFuro,
+            campoFerramentas: campoFerramentas,
+            campoInfoEnvolvidas: campoInfoEnvolvidas,
+            campoDiametro: campoDiametro,
+            campoLocalizaDiretrizFuro: campoLocalizaDiretrizFuro,
+            campoTipoInterferencia: campoTipoInterferencia,
+            campoProfundidade: campoProfundidade,
+            campoResponselTopografia: campoResponselTopografia,
+            campoDataTopografia: campoDataTopografia
+          }
+          api.post('etapasColunas', {
+            data: data,
+          }).then((response) => {
+            console.log(response)
+            if (response.statusText === 'OK') {
+              toast.success('Cadastrada com sucesso!')
+              setLoading(false)
+              setIsOpen(false)
+              reset()
+              loadDados()
+            } else if (response.statusText === 'Forbidden') {
+              toast.error('Ops, Não tem permisão!')
+              setLoading(false)
+            } else {
+              toast.error('Ops, Dados Incorretos!')
+              setLoading(false)
+            }
+          }).catch(res => {
+            console.log(res)
+            // toast.error(res.response.data);
+            setLoading(false)
+          })
+        } else {
+          // etapasColunas.map((etapasColuna)=>{
+            console.log(response.data.rows[0].campoEntradaLatitude)
+            setcampoEntradaLatitude(response.data.rows[0].campoEntradaLatitude)
+            setcampoEntradaLongitude(response.data.rows[0].campoEntradaLongitude)
+            setcampoSaidaLatitude(response.data.rows[0].campoSaidaLatitude)
+            setcampoSaidaLongitude(response.data.rows[0].campoSaidaLongitude)
+            setcampoTipoSolo(response.data.rows[0].campoTipoSolo)
+            setcampoDiametroPerfuracao(response.data.rows[0].campoDiametroPerfuracao)
+            setcampoTipoRede(response.data.rows[0].campoTipoRede)
+            setcampoTipoTubulacao(response.data.rows[0].campoTipoTubulacao)
+            setcampoResponsel(response.data.rows[0].campoResponsel)
+            setcampoEquipamento(response.data.rows[0].campoEquipamento)
+            setcampoSondagemInterferencia(response.data.rows[0].campoSondagemInterferencia)
+            setcampoDocumento(response.data.rows[0].campoDocumento)
+            setcampoEmpresa(response.data.rows[0].campoEmpresa)
+            setcampoSondagem(response.data.rows[0].campoSondagem)
+            setcampoDiametroInterferencia(response.data.rows[0].campoDiametroInterferencia)
+            setcampoPlanoFuro(response.data.rows[0].campoPlanoFuro)
+            setcampoFerramentas(response.data.rows[0].campoFerramentas)
+            setcampoInfoEnvolvidas(response.data.rows[0].campoInfoEnvolvidas)
+            setcampoDiametro(response.data.rows[0].campoDiametro)
+            setcampoLocalizaDiretrizFuro(response.data.rows[0].campoLocalizaDiretrizFuro)
+            setcampoTipoInterferencia(response.data.rows[0].campoTipoInterferencia)
+            setcampoProfundidade(response.data.rows[0].campoProfundidade)
+            setcampoResponselTopografia(response.data.rows[0].campoResponselTopografia)
+            setcampoDataTopografia(response.data.rows[0].campoDataTopografia)
+          //})
+        }
+        //setTipoEtapa()
         setLoading(false)
       }
     }).catch(res => {
@@ -140,23 +229,54 @@ export default function
       setLoading(false)
     })
   }
-  function update(dados: any) {
+  function update(dados: any, banco: string) {
     console.log('dados')
     console.log(dados)
-    setidEtapa(dados.id)
-    setnumeroEtapa(dados.numeroEtapa)
-    setnovaEtapa(dados.novaEtapa)
-    setperfil(dados.perfil)
-    setIsOpenUpdate(true)
+    if (banco === 'etapas') {
+      setidEtapa(dados.id)
+      setnumeroEtapa(dados.numeroEtapa)
+      setnovaEtapa(dados.novaEtapa)
+      setperfil(dados.perfil)
+      setIsOpenUpdate(true)
+    } else {
+      updateDados()
+    }
   }
   async function updateDados() {
     setLoading(true)
-    const responser = api.put('etapas/' + idEtapa, {
-      data: {
-        numeroEtapa: numeroEtapa,
-        novaEtapa: novaEtapa,
-        perfil: perfil
-      },
+    console.log(etapas)
+    const data = {
+      numeroEtapa: numeroEtapa,
+      novaEtapa: novaEtapa,
+      perfil: perfil,
+      campoEntradaLatitude: campoEntradaLatitude,
+      campoEntradaLongitude: campoEntradaLongitude,
+      campoSaidaLatitude: campoSaidaLatitude,
+      campoSaidaLongitude: campoSaidaLongitude,
+      campoTipoSolo: campoTipoSolo,
+      campoDiametroPerfuracao: campoDiametroPerfuracao,
+      campoTipoRede: campoTipoRede,
+      campoTipoTubulacao: campoTipoTubulacao,
+      campoResponsel: campoResponsel,
+      campoEquipamento: campoEquipamento,
+      campoDocumento: campoDocumento,
+      campoEmpresa: campoEmpresa,
+      campoSondagemInterferencia: campoSondagemInterferencia,
+      campoSondagem: campoSondagem,
+      campoDiametroInterferencia: campoDiametroInterferencia,
+      campoPlanoFuro: campoPlanoFuro,
+      campoFerramentas: campoFerramentas,
+      campoInfoEnvolvidas: campoInfoEnvolvidas,
+      campoDiametro: campoDiametro,
+      campoLocalizaDiretrizFuro: campoLocalizaDiretrizFuro,
+      campoTipoInterferencia: campoTipoInterferencia,
+      campoProfundidade: campoProfundidade,
+      campoResponselTopografia: campoResponselTopografia,
+      campoDataTopografia: campoDataTopografia
+    }
+    console.log(etapasColunas[0].id)
+    api.put('etapas/' + idEtapa, {
+      data: data,
     },
     ).then((response) => {
       if (response.statusText === 'OK') {
@@ -168,8 +288,26 @@ export default function
       setLoading(false)
       toast.error(error.response.data)
     })
+    api.put('etapasColunas/' + etapasColunas[0].id, {
+      data: data,
+    },
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        loadDados()
+        setIsOpenUpdate(false)
+        setLoading(false)
+      }
+    }).catch((error) => {
+      setLoading(false)
+      toast.error(error.response.data)
+    })
+    setIsOpenPhases(false)
   }
-  function selectCampos(etapa:any){
+  function selectCampos(etapa: any) {
+    setidEtapa(etapa.id)
+    setnumeroEtapa(etapa.numeroEtapa)
+    setnovaEtapa(etapa.novaEtapa)
+    setperfil(etapa.perfil)
     setIsOpenPhases(true)
   }
   useEffect(() => {
@@ -214,7 +352,7 @@ export default function
                   /> */}
                   <button
                     // onChange={onEdit}
-                    onClick={() => update(etapas)}
+                    onClick={() => update(etapas, 'etapas')}
                     style={{ background: 'none', color: 'yellow' }}
                     title='Editar?'
                   >
@@ -223,7 +361,7 @@ export default function
                   {/* <Link to={link + etapas.id}><span>Executar travessia</span></Link>
                   <button><span>Executar travessia</span></button> */}
                   <button onClick={() => selectCampos(etapas)}>Atribuir campos</button>
-                  
+
                 </S.GridConfirmation>
               </li>,
             )
@@ -286,15 +424,15 @@ export default function
               />
               <div className='form-control-group'>
                 <label
-                 htmlFor='perfil'>Perfil</label>
+                  htmlFor='perfil'>Perfil</label>
                 <select
-                 {...register('perfil', {
-                  required: {
-                    value: true,
-                    message: 'Todos os campos são obrigatórios',
-                  },
-                })}
-                 name='perfil' id='perfil'> 
+                  {...register('perfil', {
+                    required: {
+                      value: true,
+                      message: 'Todos os campos são obrigatórios',
+                    },
+                  })}
+                  name='perfil' id='perfil'>
                   <option value='operador'>Operador</option>
                   <option value='equipeCivil'>Equipe civil</option>
                   <option value='navegador'>Navegação</option>
@@ -314,180 +452,226 @@ export default function
           isOpen={isOpenPhases} onClose={() => setIsOpenPhases(false)}
         >
           <S.Container>
-            <S.Form className='form-check' onSubmit={handleSubmit(onSubmit)}>
+            <S.Div2 className='form-check' >
               <div className='form-control-group-check'>
-                <h2>Adicione os campos</h2>
-                <Switch
-                  checkedChildren='Ponto de verificação de entrada (lat)'
-                  unCheckedChildren='Ponto de verificação de entrada (lat)'
-                />
-
-                <Switch
-                  checkedChildren='Ponto de verificação de entrada (long)'
-                  unCheckedChildren='Ponto de verificação de entrada (long)'
-                />
-
-                <Switch
-                  checkedChildren='Ponto de verificação de saída (lat)'
-                  unCheckedChildren='Ponto de verificação de saída (lat)'
-                />
-
-                <Switch
-                  checkedChildren='Ponto de verificação de saída (long)'
-                  unCheckedChildren='Ponto de verificação de saída (long)'
-                />
-
-                <Switch
-                  checkedChildren='Tipo de tubulação'
-                  unCheckedChildren='Tipo de tubulação'
-                />
-
-                <Switch
-                  checkedChildren='Diâmetro de perfuração'
-                  unCheckedChildren='Diâmetro de perfuração'
-                />
-
-                <Switch
-                  checkedChildren='Tipos de solo'
-                  unCheckedChildren='Tipos de solo'
-                />
-
-                <Switch
-                  checkedChildren='Responsável'
-                  unCheckedChildren='Responsável'
-                />
-
-                <Switch
-                  checkedChildren='Equipamentos'
-                  unCheckedChildren='Equipamentos'
-                />
-
-                <Switch
-                  checkedChildren='Documentos'
-                  unCheckedChildren='Documentos'
-                />
-
-                <Switch
-                  checkedChildren='Tipo de rede'
-                  unCheckedChildren='Tipo de rede'
-                />
-
-                <Switch
-                  checkedChildren='Empresa proprietária'
-                  unCheckedChildren='Empresa proprietária'
-                />
-
-                <Switch
-                  checkedChildren='Confirmação da sondagem da interferência'
-                  unCheckedChildren='Confirmação da sondagem da interferência'
-                />
-                <Switch
-                  checkedChildren='Sondagem'
-                  unCheckedChildren='Sondagem'
-                />
-
-                <Switch
-                  checkedChildren='Quando acontece'
-                  unCheckedChildren='Quando acontece'
-                />
-
-                <Switch
-                  checkedChildren='Diâmetro da interferência'
-                  unCheckedChildren='Diâmetro da interferência'
-                />
-
-                <Switch
-                  checkedChildren='Criação do plano de furo'
-                  unCheckedChildren='Criação do plano de furo'
-                />
-
-                <Switch
-                  checkedChildren='Tipo de rede'
-                  unCheckedChildren='Tipo de rede'
-                />
-
-                <Switch
-                  checkedChildren='Empresa proprietária'
-                  unCheckedChildren='Empresa proprietária'
-                />
-
-                <Switch
-                  checkedChildren='Confirmação da sondagem da interferência'
-                  unCheckedChildren='Confirmação da sondagem da interferência'
-                />
-
-                <Switch
-                  checkedChildren='Quando acontece'
-                  unCheckedChildren='Quando acontece'
-                />
-
-                <Switch
-                  checkedChildren='Responsável'
-                  unCheckedChildren='Responsável'
-                />
-
-                <Switch
-                  checkedChildren='Ferramentas'
-                  unCheckedChildren='Ferramentas'
-                />
-
-                <Switch
-                  checkedChildren='Informações Envolvidas'
-                  unCheckedChildren='Informações Envolvidas'
-                />
-
-                <Switch
-                  checkedChildren='Responsável'
-                  unCheckedChildren='Responsável'
-                />
-
-                <Switch
-                  checkedChildren='Quando acontece'
-                  unCheckedChildren='Quando acontece'
-                />
-
-                <Switch
-                  checkedChildren='Diamêtro'
-                  unCheckedChildren='Diamêtro'
-                />
-
-                <Switch
-                  checkedChildren='Localização em relação a diretriz do furo'
-                  unCheckedChildren='Localização em relação a diretriz do furo'
-                />
-
-                <Switch
-                  checkedChildren='Tipo de interferência'
-                  unCheckedChildren='Tipo de interferência'
-                />
-
-                <Switch
-                  checkedChildren='Profundidade'
-                  unCheckedChildren='Profundidade'
-                />
-
-                <Switch
-                  checkedChildren='Responsável pela topografia'
-                  unCheckedChildren='Responsável pela topografia'
-                />
-
-                <Switch
-                  checkedChildren='Data da execução da Topografia'
-                  unCheckedChildren='Data da execução da Topografia'
-                />
-
+                <h2>Tipo da Etapa</h2>
                 <Switch
                   checkedChildren='Pontos de verificação de planejamento'
                   unCheckedChildren='Pontos de verificação de planejamento'
+                  onClick={() => setTipoEtapa('planejamento')}
                 />
 
                 <Switch
                   checkedChildren='Pontos de verificação da execução'
                   unCheckedChildren='Pontos de verificação da execução'
+                  onClick={() => setTipoEtapa('execução')}
                 />
+                <h2>Adicione os campos</h2>
+                {!campoEntradaLatitude ?
+                    <Switch
+                      checkedChildren='Ponto de verificação de entrada (lat)'
+                      unCheckedChildren='Ponto de verificação de entrada (lat)'
+                      onClick={() => setcampoEntradaLatitude(true)}
+                    /> : false
+                }
+
+                {!campoEntradaLongitude ? <Switch
+                    checkedChildren='Ponto de verificação de entrada (long)'
+                    unCheckedChildren='Ponto de verificação de entrada (long)'
+                    onClick={() => setcampoEntradaLongitude(true)}
+                  /> : false
+                }
+
+                {!campoSaidaLatitude ? <Switch
+                    checkedChildren='Ponto de verificação de saída (lat)'
+                    unCheckedChildren='Ponto de verificação de saída (lat)'
+                    onClick={() => setcampoSaidaLatitude(true)}
+                  /> : false
+                }              
+
+                {!campoSaidaLongitude ? <Switch
+                    checkedChildren='Ponto de verificação de saída (long)'
+                    unCheckedChildren='Ponto de verificação de saída (long)'
+                    onClick={() => setcampoSaidaLongitude(true)}
+                  /> : false
+                }            
+
+                {!campoTipoTubulacao ? <Switch
+                    checkedChildren='Tipo de tubulação'
+                    unCheckedChildren='Tipo de tubulação'
+                    onClick={() => setcampoTipoTubulacao(true)}
+                  /> : false
+                }                
+
+                {!campoDiametroPerfuracao ? <Switch
+                    checkedChildren='Diâmetro de perfuração'
+                    unCheckedChildren='Diâmetro de perfuração'
+                    onClick={() => setcampoDiametroPerfuracao(true)}
+                  /> : false
+                }                
+
+                {!campoTipoSolo ? <Switch
+                    checkedChildren='Tipos de solo'
+                    unCheckedChildren='Tipos de solo'
+                    onClick={() => setcampoTipoSolo(true)}
+                  /> : false
+                }                
+
+                {!campoResponsel ? <Switch
+                    checkedChildren='Responsável'
+                    unCheckedChildren='Responsável'
+                    onClick={() => setcampoResponsel(true)}
+                  /> : false
+                }
+
+                {!campoEquipamento ? <Switch
+                    checkedChildren='Equipamentos'
+                    unCheckedChildren='Equipamentos'
+                    onClick={() => setcampoEquipamento(true)}
+                  /> : false
+                }
+
+                {!campoDocumento ? <Switch
+                    checkedChildren='Documentos'
+                    unCheckedChildren='Documentos'
+                    onClick={() => setcampoDocumento(true)}
+                  /> : false
+                }
+
+                {!campoTipoRede ? <Switch
+                    checkedChildren='Tipo de rede'
+                    unCheckedChildren='Tipo de rede'
+                    onClick={() => setcampoTipoRede(true)}
+                  /> : false
+                }
+
+                {!campoEmpresa ? <Switch
+                    checkedChildren='Empresa proprietária'
+                    unCheckedChildren='Empresa proprietária'
+                    onClick={() => setcampoEmpresa(true)}
+                  /> : false
+                }
+
+                {!campoSondagemInterferencia ? <Switch
+                    checkedChildren='Confirmação da sondagem da interferência'
+                    unCheckedChildren='Confirmação da sondagem da interferência'
+                    onClick={() => setcampoSondagemInterferencia(true)}
+                  /> : false
+                }
+
+                {!campoSondagem ? <Switch
+                    checkedChildren='Sondagem'
+                    unCheckedChildren='Sondagem'
+                    onClick={() => setcampoSondagem(true)}
+                  /> : false
+                }
+
+                {/* <Switch
+                  checkedChildren='Quando acontece'
+                  unCheckedChildren='Quando acontece'
+                /> */}
+
+                {!campoDiametroInterferencia ? <Switch
+                    checkedChildren='Diâmetro da interferência'
+                    unCheckedChildren='Diâmetro da interferência'
+                    onClick={() => setcampoDiametroInterferencia(true)}
+                  /> : false
+                }
+                
+                {!campoPlanoFuro ? <Switch
+                  checkedChildren='Criação do plano de furo'
+                  unCheckedChildren='Criação do plano de furo'
+                  onClick={() => setcampoPlanoFuro(true)}
+                /> : false
+                }
+               
+                <Switch
+                  checkedChildren='Tipo de rede'
+                  unCheckedChildren='Tipo de rede'
+                  onClick={() => setcampoTipoRede(true)}
+                />
+
+                {/* <Switch
+                  checkedChildren='Empresa proprietária'
+                  unCheckedChildren='Empresa proprietária'
+                /> */}
+
+                {/* <Switch
+                  checkedChildren='Confirmação da sondagem da interferência'
+                  unCheckedChildren='Confirmação da sondagem da interferência'
+                />
+
+                <Switch
+                  checkedChildren='Quando acontece'
+                  unCheckedChildren='Quando acontece'
+                /> */}
+
+                {/* <Switch
+                  checkedChildren='Responsável'
+                  unCheckedChildren='Responsável'
+                /> */}
+
+                <Switch
+                  checkedChildren='Ferramentas'
+                  unCheckedChildren='Ferramentas'
+                  onClick={() => setcampoFerramentas(true)}
+                />
+
+                <Switch
+                  checkedChildren='Informações Envolvidas'
+                  unCheckedChildren='Informações Envolvidas'
+                  onClick={() => setcampoInfoEnvolvidas(true)}
+                />
+
+                {/* <Switch
+                  checkedChildren='Responsável'
+                  unCheckedChildren='Responsável'
+                /> 
+
+                <Switch
+                  checkedChildren='Quando acontece'
+                  unCheckedChildren='Quando acontece'
+                />*/}
+
+                <Switch
+                  checkedChildren='Diamêtro'
+                  unCheckedChildren='Diamêtro'
+                  onClick={() => setcampoDiametro(true)}
+                />
+
+                <Switch
+                  checkedChildren='Localização em relação a diretriz do furo'
+                  unCheckedChildren='Localização em relação a diretriz do furo'
+                  onClick={() => setcampoLocalizaDiretrizFuro(true)}
+                />
+
+                <Switch
+                  checkedChildren='Tipo de interferência'
+                  unCheckedChildren='Tipo de interferência'
+                  onClick={() => setcampoTipoInterferencia(true)}
+                />
+
+                <Switch
+                  checkedChildren='Profundidade'
+                  unCheckedChildren='Profundidade'
+                  onClick={() => setcampoProfundidade(true)}
+                />
+
+                <Switch
+                  checkedChildren='Responsável pela topografia'
+                  unCheckedChildren='Responsável pela topografia'
+                  onClick={() => setcampoResponselTopografia(true)}
+                />
+
+                <Switch
+                  checkedChildren='Data da execução da Topografia'
+                  unCheckedChildren='Data da execução da Topografia'
+                  onClick={() => setcampoDataTopografia(true)}
+                />
+
               </div>
-              <button type='submit'>Adicionar</button>
-            </S.Form>
+              <button onClick={() => update(etapasColunas, 'etpasColunas')}>Adicionar</button>
+            </S.Div2>
           </S.Container>
         </Modal>
 
