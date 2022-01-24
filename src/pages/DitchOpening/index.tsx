@@ -14,6 +14,9 @@ type FormData = {
   equipment: string;
   documents: string;
   information: string;
+  longitude: string;
+  latitude: string;
+  depth: string;
 }
 
 export default function
@@ -50,6 +53,7 @@ DitchOpening () {
               <TextField
                 label='Responsável'
                 errorMessage={errors.responsible?.message}
+                id='responsible'
                 {...register('responsible', {
                   required: {
                     value: true,
@@ -60,6 +64,7 @@ DitchOpening () {
 
               <TextField
                 label='Ferramentas'
+                id='tools'
                 {...register('tools', {
                   required: true,
                 })}
@@ -67,6 +72,7 @@ DitchOpening () {
 
               <TextField
                 label='Equipamentos'
+                id='equipment'
                 {...register('equipment', {
                   required: true,
                 })}
@@ -74,6 +80,7 @@ DitchOpening () {
 
               <TextField
                 label='Documentos'
+                id='documents'
                 {...register('documents', {
                   required: true,
                 })}
@@ -81,7 +88,32 @@ DitchOpening () {
 
               <TextField
                 label='Informações Envolvidas'
+                id='information'
                 {...register('information', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Longitude'
+                id='longitude'
+                {...register('longitude', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Latitude'
+                id='latitude'
+                {...register('latitude', {
+                  required: true,
+                })}
+              />
+
+              <TextField
+                label='Profundidade'
+                id='depth'
+                {...register('depth', {
                   required: true,
                 })}
               />
