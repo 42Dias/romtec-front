@@ -50,13 +50,6 @@ type levantamento = {
 export default function
   Phases() {
   const [modalIsOpenPlanejamento, setIsOpenPlanejamento] = useState(false)
-  const [modalIsOpen2, setIsOpen2] = useState(false)
-  const [modalIsOpen3, setIsOpen3] = useState(false)
-  const [modalIsOpen4, setIsOpen4] = useState(false)
-  const [modalIsOpen5, setIsOpen5] = useState(false)
-  const [modalIsOpen6, setIsOpen6] = useState(false)
-  const [modalIsOpen7, setIsOpen7] = useState(false)
-  const [modalIsOpen8, setIsOpen8] = useState(false)
   let idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas/', '')
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
   const [loading, setLoading] = useState(false)
@@ -64,7 +57,12 @@ export default function
 
   const [idDados, setId] = useState('')
   const [responsavel, setresponsavel] = useState('')
+  const [infoEnvolvidas, setInfoEnvolvidas] = useState('')
+  const [tipoInterferencia, setTipoInterferencia] = useState('')
+  const [localDiretrizFuro, setLocalDiretrizFuro] = useState('')
   const [equipamentos, setequipamentos] = useState('')
+  const [dataTopografia, setDataTopografia] = useState('')
+  const [respTopografia, setRespTopografia] = useState('')
   const [documentos, setdocumentos] = useState('')
   const [longitudeSaida, setlongitudeSaida] = useState('')
   const [tipoTubulacao, settipoTubulacao] = useState('')
@@ -281,7 +279,6 @@ export default function
       setsondagemInterferencia(data[0].sondagemInterferencia)
       setsondagem(data[0].sondagem)
       setcriacaoplanoFuro(data[0].criacaoplanoFuro)
-      setIsOpen2(true)
     }
     else if (url === 'interferenciasFisicasMagneticas') {
       setresponsavel(data[0].responsavel)
@@ -294,7 +291,6 @@ export default function
       setsondagemInterferencia(data[0].sondagemInterferencia)
       setsondagem(data[0].sondagem)
       setcriacaoplanoFuro(data[0].criacaoplanoFuro)
-      setIsOpen3(true)
     }
     if (url === 'aberturaVala') {
       setresponsavel(data[0].responsavel)
@@ -308,7 +304,6 @@ export default function
       setdiametroPerfuracao(data[0].diametroPerfuracao)
       setTipoSolo(data[0].tipoSolo)
       settipoTubulacao(data[0].tipoTubulacao)
-      setIsOpen4(true)
     }
     console.log(idDados)
   }
@@ -343,13 +338,6 @@ export default function
         loadDados('planejamentoPerfuracao')
         setisOpenUpdatePlanejamentoPerfuração(false)
         setLoading(false)
-        setIsOpen2(false)
-        setIsOpen3(false)
-        setIsOpen4(false)
-        setIsOpen5(false)
-        setIsOpen6(false)
-        setIsOpen7(false)
-        setIsOpen8(false)
       }
     }).catch(res => {
       console.log(res.response.data)
@@ -395,13 +383,6 @@ export default function
     setcampoResponselTopografia(data.campoResponselTopografia)
     setcampoDataTopografia(data.campoDataTopografia)
     setisOpenUpdatePlanejamentoPerfuração(true)
-    setIsOpen2(false)
-    setIsOpen3(false)
-    setIsOpen4(false)
-    setIsOpen5(false)
-    setIsOpen6(false)
-    setIsOpen7(false)
-    setIsOpen8(false)
   }
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
@@ -410,182 +391,7 @@ export default function
     setIsOpenPlanejamento(false)
   }
 
-  function openModal2() {
-    setresponsavel(' ')
-    setequipamentos(' ')
-    setdocumentos(' ')
-    setlatitudeSaida(' ')
-    settipoRede(' ')
-    setempresa(' ')
-    setsondagemInterferencia(' ')
-    setsondagem(' ')
-    setcriacaoplanoFuro(' ')
-    loadDados('levantametoMapInteferencia')
-    console.log(dados)
-    if (dados) {
-      if (dados.length == 0) {
-        setIsOpen2(true)
-      } else {
-        setIsUpdate(true)
-        update(dados)
-      }
-    } else {
-      toast.info('Clique mais uma vez!')
-    }
-
-    setIsOpenPlanejamento(false)
-    setisOpenUpdatePlanejamentoPerfuração(false)
-    setIsOpen3(false)
-    setIsOpen4(false)
-    setIsOpen5(false)
-    setIsOpen6(false)
-    setIsOpen7(false)
-    setIsOpen8(false)
-  }
-
-  function closeModal2() {
-    setIsOpen2(false)
-  }
-
-  function openModal3() {
-    setresponsavel(' ')
-    setequipamentos(' ')
-    setdocumentos(' ')
-    setlatitudeSaida(' ')
-    settipoRede(' ')
-    setempresa(' ')
-    setsondagemInterferencia(' ')
-    setsondagem(' ')
-    setcriacaoplanoFuro(' ')
-    loadDados('interferenciasFisicasMagneticas')
-    if (dados) {
-      if (dados.length == 0) {
-        setIsOpen3(true)
-      } else {
-        setIsUpdate(true)
-        update(dados)
-      }
-    } else {
-      toast.info("Clique mais uma vez!")
-    }
-
-    setIsOpenPlanejamento(false)
-    setisOpenUpdatePlanejamentoPerfuração(false)
-    setIsOpen2(false)
-    setIsOpen4(false)
-    setIsOpen5(false)
-    setIsOpen6(false)
-    setIsOpen7(false)
-    setIsOpen8(false)
-  }
-
-  function closeModal3() {
-    setIsOpen3(false)
-  }
-  //
-  function openModal4() {
-    setresponsavel(' ')
-    setequipamentos(' ')
-    setdocumentos(' ')
-    setlatitudeEntrada(' ')
-    setlongitudeSaida(' ')
-    settipoTubulacao(' ')
-    setlongitudeEntrada(' ')
-    setlatitudeSaida(' ')
-    settipoRede(' ')
-    setempresa(' ')
-    setsondagemInterferencia(' ')
-    setsondagem(' ')
-    setcriacaoplanoFuro(' ')
-    loadDados('aberturaVala')
-    if (dados) {
-      if (dados.length == 0) {
-        setIsOpen4(true)
-      } else {
-        setIsUpdate(true)
-        update(dados)
-      }
-    } else {
-      toast.info("Clique mais uma vez!")
-    }
-
-    setIsOpenPlanejamento(false)
-    setisOpenUpdatePlanejamentoPerfuração(false)
-    setIsOpen2(false)
-    setIsOpen3(false)
-    setIsOpen5(false)
-    setIsOpen6(false)
-    setIsOpen7(false)
-    setIsOpen8(false)
-  }
-
-  function closeModal4() {
-    setIsOpen4(false)
-  }
-
-  function openModal5() {
-    setIsOpen5(true)
-    setIsOpenPlanejamento(false)
-    setisOpenUpdatePlanejamentoPerfuração(false)
-    setIsOpen2(false)
-    setIsOpen3(false)
-    setIsOpen4(false)
-    setIsOpen6(false)
-    setIsOpen7(false)
-    setIsOpen8(false)
-  }
-
-  function closeModal5() {
-    setIsOpen5(false)
-  }
-
-  function openModal6() {
-    setIsOpen6(true)
-    setIsOpen5(false)
-    setIsOpenPlanejamento(false)
-    setisOpenUpdatePlanejamentoPerfuração(false)
-    setIsOpen2(false)
-    setIsOpen3(false)
-    setIsOpen4(false)
-    setIsOpen7(false)
-    setIsOpen8(false)
-  }
-
-  function closeModal6() {
-    setIsOpen6(false)
-  }
-
-  function openModal7() {
-    setIsOpen7(true)
-    setIsOpen6(false)
-    setIsOpen5(false)
-    setIsOpenPlanejamento(false)
-    setisOpenUpdatePlanejamentoPerfuração(false)
-    setIsOpen2(false)
-    setIsOpen3(false)
-    setIsOpen4(false)
-    setIsOpen8(false)
-  }
-
-  function closeModal7() {
-    setIsOpen7(false)
-  }
-
-  function openModal8() {
-    setIsOpen8(true)
-    setIsOpen7(false)
-    setIsOpen6(false)
-    setIsOpen5(false)
-    setIsOpenPlanejamento(false)
-    setisOpenUpdatePlanejamentoPerfuração(false)
-    setIsOpen2(false)
-    setIsOpen3(false)
-    setIsOpen4(false)
-  }
-
-  function closeModal8() {
-    setIsOpen8(false)
-  }
+  
 
   return (
     <>
@@ -602,11 +408,11 @@ export default function
                 backgroundColor: 'rgba(0, 0, 0, 0.8)',
               },
             }}
-            isOpen={modalIsOpen6}
+            isOpen={modalIsOpenPlanejamento}
             onAfterOpen={() => afterOpenModal}
-            onRequestClose={() => closeModal6}
+            onRequestClose={() => closeModal}
           >
-            <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModal6}><FiX color='white' /></button>
+            <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModal}><FiX color='white' /></button>
 
             <S.PhasesModal>
               <h2>Nome da etapa</h2>
@@ -656,11 +462,11 @@ export default function
               backgroundColor: 'rgba(0, 0, 0, 0.8)',
             },
           }}
-          isOpen={modalIsOpen7}
+          isOpen={modalIsOpenPlanejamento}
           onAfterOpen={() => afterOpenModal}
-          onRequestClose={() => closeModal7}
+          onRequestClose={() => closeModal}
         >
-          <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModal7}><FiX color='white' /></button>
+          <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModal}><FiX color='white' /></button>
 
           <S.ModelsModal>
             <div>
@@ -682,11 +488,11 @@ export default function
               backgroundColor: 'rgba(0, 0, 0, 0.8)',
             },
           }}
-          isOpen={modalIsOpen8}
+          isOpen={modalIsOpenPlanejamento}
           onAfterOpen={() => afterOpenModal}
-          onRequestClose={() => closeModal8}
+          onRequestClose={() => closeModal}
         >
-          <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModal8}><FiX color='white' /></button>
+          <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModal}><FiX color='white' /></button>
 
           <S.PhasesModal>
             <div className='modelsContent'>
@@ -724,7 +530,7 @@ export default function
               </button>
             </SwiperSlide>
           ) : <SwiperSlide>
-            <button onClick={openModal2}>
+            <button onClick={openModal}>
               <FiCheck />
               <h2>2</h2>
               <h1>Levantamento e Mapeamento de interferências</h1>
@@ -796,6 +602,184 @@ export default function
 
           <S.FormContent onSubmit={handleSubmit(onSubmit)}>
             <S.GridForm>
+            {campoEntradaLatitude ? <div>
+                <label htmlFor=''>Ponto de verificação de entrada (lat)</label>
+                <input
+                  type='text' placeholder='Latitude'
+                  value={latitudeEntrada}
+                  onChange={(text) => setlatitudeEntrada(text.target.value)}
+                />
+              </div>: false}
+
+              {campoEntradaLongitude ? <div>
+                <label htmlFor=''>Ponto de verificação de entrada (long)</label>
+                <input
+                  type='text' placeholder='Longitude'
+                  value={longitudeEntrada}
+                  onChange={(text) => setlongitudeEntrada(text.target.value)}
+                />
+              </div>: false}
+
+              {campoSaidaLatitude ? <div>
+                <label htmlFor=''>Ponto de verificação de saída (lat)</label>
+                <input
+                  type='text' placeholder='Latitude'
+                  value={latitudeSaida}
+                  onChange={(text) => setlatitudeSaida(text.target.value)}
+                />
+              </div>: false}
+
+              {campoSaidaLongitude ? <div>
+                <label htmlFor=''>Ponto de verificação de saída (long)</label>
+                <input
+                  type='text' placeholder='Longitude'
+                  value={longitudeSaida}
+                  onChange={(text) => setlongitudeSaida(text.target.value)}
+                />
+              </div>: false}
+
+              {campoTipoSolo ? <div>
+                <label htmlFor=''>Tipos de solo</label>
+                <input
+                  type='text' placeholder='Barro'
+                  value={tipoSolo}
+                  onChange={(text) => setTipoSolo(text.target.value)}
+                />
+              </div>: false}
+
+              {campoDiametroPerfuracao ? <div>
+                <label htmlFor=''>Diâmetro de perfuração</label>
+                <input
+                  type='text' placeholder='20 metros'
+                  value={diametroPerfuracao}
+                  onChange={(text) => setdiametroPerfuracao(text.target.value)}
+                />
+              </div>: false}
+
+              {campoTipoRede ? <div>
+                <label htmlFor=''>Tipo de Rede</label>
+                <input
+                  type='text' placeholder='Fibra óptica'
+                  value={tipoRede}
+                  onChange={(text) => settipoRede(text.target.value)}
+                />
+              </div>: false}
+
+              {campoTipoTubulacao ? <div>
+                <label htmlFor=''>Tipo de tubulação</label>
+                <input
+                  type='text' placeholder='Fibra óptica'
+                  value={tipoTubulacao}
+                  onChange={(text) => settipoTubulacao(text.target.value)}
+                />
+              </div>: false}
+
+              {campoResponsel ? <div>
+                <label htmlFor=''>Responsável</label>
+                <input type='text'
+                  value={responsavel}
+                  onChange={(text) => setresponsavel(text.target.value)} />
+              </div>: false}
+
+              {campoEquipamento ? <div>
+                <label htmlFor=''>Equipamentos</label>
+                <input type='text'
+                  value={equipamentos}
+                  onChange={(text) => setequipamentos(text.target.value)} />
+              </div>: false}
+
+              {campoDocumento ? <div>
+                <label htmlFor=''>Documentos</label>
+                <input type='text'
+                  value={documentos}
+                  onChange={(text) => setdocumentos(text.target.value)} />
+              </div>: false}
+              {campoSondagemInterferencia ? <div>
+                <label htmlFor=''>Sondagem Interferência</label>
+                <input type='text'
+                  value={sondagemInterferencia}
+                  onChange={(text) => setsondagemInterferencia(text.target.value)} />
+              </div>: false}
+              {campoSondagem ? <div>
+                <label htmlFor=''>Sondagem</label>
+                <input type='text'
+                  value={sondagem}
+                  onChange={(text) => setsondagem(text.target.value)} />
+              </div>: false}
+              {campoDiametroInterferencia ? <div>
+                <label htmlFor=''>Diametro de Interferência</label>
+                <input type='text'
+                  value={diametroInterferencia}
+                  onChange={(text) => setDiametroInterferencia(text.target.value)} />
+              </div>: false}
+              {campoPlanoFuro ? <div>
+                <label htmlFor=''>Plano de Furo</label>
+                <input type='text'
+                  value={criacaoplanoFuro}
+                  onChange={(text) => setcriacaoplanoFuro(text.target.value)} />
+              </div>: false}
+              {campoFerramentas ? <div>
+                <label htmlFor=''>Ferramentas</label>
+                <input type='text'
+                  value={ferramentas}
+                  onChange={(text) => setferramentas(text.target.value)} />
+              </div>: false}
+              {campoInfoEnvolvidas ? <div>
+                <label htmlFor=''>Informações Envolvidas</label>
+                <input type='text'
+                  value={infoEnvolvidas}
+                  onChange={(text) => setInfoEnvolvidas(text.target.value)} />
+              </div>: false}
+
+              {campoDiametro ? <div>
+                <label htmlFor=''>Diâmetro da Perfuração</label>
+                <input type='text'
+                  value={diametroPerfuracao}
+                  onChange={(text) => setdiametroPerfuracao(text.target.value)} />
+              </div>: false}
+
+              {campoLocalizaDiretrizFuro ? <div>
+                <label htmlFor=''>Localização da Diretriz do Furo</label>
+                <input type='text'
+                  value={localDiretrizFuro}
+                  onChange={(text) => setLocalDiretrizFuro(text.target.value)} />
+              </div>: false}
+
+              {campoTipoInterferencia ? <div>
+                <label htmlFor=''>Tipo de Interferência</label>
+                <input type='text'
+                  value={tipoInterferencia}
+                  onChange={(text) => setTipoInterferencia(text.target.value)} />
+              </div>: false}
+
+              {campoProfundidade ? <div>
+                <label htmlFor=''>Profundidade</label>
+                <input type='text'
+                  value={profundidade}
+                  onChange={(text) => setprofundidade(text.target.value)} />
+              </div>: false}
+
+              {campoResponselTopografia ? <div>
+                <label htmlFor=''>Responsável Topografia</label>
+                <input type='text'
+                  value={respTopografia}
+                  onChange={(text) => setRespTopografia(text.target.value)} />
+              </div>: false}
+
+              {campoDataTopografia ? <div>
+                <label htmlFor=''>Data Topografia</label>
+                <input type='text'
+                  value={dataTopografia}
+                  onChange={(text) => setDataTopografia(text.target.value)} />
+              </div>: false}
+
+              {campoEmpresa ? <div>
+                <label htmlFor=''>Empresa</label>
+                <input type='text'
+                  value={empresa}
+                  onChange={(text) => setempresa(text.target.value)} />
+              </div>: false}
+{/*              
               <div>
                 <label htmlFor=''>Ponto de verificação de entrada (lat)</label>
                 <input
@@ -867,7 +851,7 @@ export default function
                     required: true,
                   })}
                 />
-              </div>
+              </div> */}
             </S.GridForm>
             <button>{loading
               ? <img
@@ -901,84 +885,7 @@ export default function
           onAfterOpen={() => afterOpenModal}
           onRequestClose={() => closeModal}
         >
-          <h2>Planejamento de perfuração</h2>
-          {/* <button onClick={closeModal}>close</button> */}
 
-          <S.Div>
-            <S.GridForm>
-              {campoEntradaLatitude ? <div>
-                <label htmlFor=''>Ponto de verificação de entrada (lat)</label>
-                <input
-                  type='text' placeholder='Latitude'
-                  value={latitudeEntrada}
-                  onChange={(text) => setlatitudeEntrada(text.target.value)}
-                />
-              </div>: false}
-
-              <div>
-                <label htmlFor=''>Ponto de verificação de entrada (long)</label>
-                <input
-                  type='text' placeholder='Longitude'
-                  value={longitudeEntrada}
-                  onChange={(text) => setlongitudeEntrada(text.target.value)}
-                />
-              </div>
-
-              <div>
-                <label htmlFor=''>Ponto de verificação de saída (lat)</label>
-                <input
-                  type='text' placeholder='Latitude'
-                  value={latitudeSaida}
-                  onChange={(text) => setlatitudeSaida(text.target.value)}
-                />
-              </div>
-
-              <div>
-                <label htmlFor=''>Ponto de verificação de saída (long)</label>
-                <input
-                  type='text' placeholder='Longitude'
-                  value={longitudeSaida}
-                  onChange={(text) => setlongitudeSaida(text.target.value)}
-                />
-              </div>
-
-              <div>
-                <label htmlFor=''>Tipo de tubulação</label>
-                <input
-                  type='text' placeholder='Fibra óptica'
-                  value={tipoTubulacao}
-                  onChange={(text) => settipoTubulacao(text.target.value)}
-                />
-              </div>
-
-              <div>
-                <label htmlFor=''>Diâmetro de perfuração</label>
-                <input
-                  type='text' placeholder='20 metros'
-                  value={diametroPerfuracao}
-                  onChange={(text) => setdiametroPerfuracao(text.target.value)}
-                />
-              </div>
-
-             {campoTipoSolo ? <div>
-                <label htmlFor=''>Tipos de solo</label>
-                <input
-                  type='text' placeholder='Barro'
-                  value={tipoSolo}
-                  onChange={(text) => setTipoSolo(text.target.value)}
-                />
-              </div>: false}
-            </S.GridForm>
-            <button onClick={() => updateDados()}>{loading
-              ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height='' src='https://contribua.org/mb-static/images/loading.gif'
-                alt='Loading'
-              />
-              : 'Salvar'}
-            </button>
-          </S.Div>
         </Modal>
 
         <Modal
@@ -998,111 +905,11 @@ export default function
               backgroundColor: '#1B1925',
             },
           }}
-          isOpen={modalIsOpen2}
+          isOpen={modalIsOpenPlanejamento}
           onAfterOpen={() => afterOpenModal}
-          onRequestClose={() => closeModal2}
+          onRequestClose={() => closeModal}
         >
-          <h2>Levantamento e Mapeamento de interferências</h2>
-          {/* <button onClick={closeModal}>close</button> */}
-
-          <S.Div>
-            <S.GridForm>
-              <div>
-                <label htmlFor=''>Responsável</label>
-                <input
-                  type='text'
-                  value={responsavel}
-                  onChange={(text) => setresponsavel(text.target.value)}
-                />
-              </div>
-
-              <div>
-                <label htmlFor=''>Equipamentos</label>
-                <input
-                  type='text'
-                  value={equipamentos}
-                  onChange={(text) => setequipamentos(text.target.value)}
-                />
-              </div>
-
-              <div>
-                <label htmlFor=''>Ponto de verificação de saída (lat)</label>
-                <input
-                  type='text'
-                  value={latitudeSaida}
-                  onChange={(text) => setlatitudeSaida(text.target.value)}
-                />
-              </div>
-
-              <div>
-                <label htmlFor=''>Documentos</label>
-                <input
-                  type='text'
-                  value={documentos}
-                  onChange={(text) => setdocumentos(text.target.value)}
-                />
-              </div>
-
-              <div>
-                <label htmlFor=''>Tipo de rede</label>
-                <input
-                  type='text'
-                  value={tipoRede}
-                  onChange={(text) => settipoRede(text.target.value)}
-                />
-              </div>
-
-              <div>
-                <label htmlFor=''>Empresa proprietária</label>
-                <input
-                  type='text'
-                  value={empresa}
-                  onChange={(text) => setempresa(text.target.value)}
-                />
-              </div>
-
-              <div>
-                <label htmlFor=''>Confirmação da sondagem da interferência:</label>
-                <input
-                  type='text'
-                  value={sondagemInterferencia}
-                  onChange={(text) => setsondagemInterferencia(text.target.value)}
-                />
-              </div>
-
-              <div>
-                <label htmlFor=''>Sondagem</label>
-                <input
-                  type='text'
-                  value={sondagem}
-                  onChange={(text) => setsondagem(text.target.value)}
-                />
-              </div>
-
-              <div>
-                <label htmlFor=''>Criação do plano de furo</label>
-                <input
-                  type='text'
-                  value={criacaoplanoFuro}
-                  onChange={(text) => setcriacaoplanoFuro(text.target.value)}
-                />
-              </div>
-
-              {/* <div>
-                <label htmlFor=''>Quando acontece</label>
-                <input type='text' />
-              </div> */}
-            </S.GridForm>
-            <button onClick={() => onSubmitLevantamento()}>{loading
-              ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height='' src='https://contribua.org/mb-static/images/loading.gif'
-                alt='Loading'
-              />
-              : 'Salvar'}
-            </button>
-          </S.Div>
+      
         </Modal>
 
         <Modal
@@ -1122,74 +929,11 @@ export default function
               backgroundColor: '#1B1925',
             },
           }}
-          isOpen={modalIsOpen3}
+          isOpen={modalIsOpenPlanejamento}
           onAfterOpen={() => afterOpenModal}
-          onRequestClose={() => closeModal3}
+          onRequestClose={() => closeModal}
         >
-          <h2>Verificação de Interferências Físicas e Magnéticas</h2>
-          {/* <button onClick={closeModal}>close</button> */}
-
-          <S.Div>
-            <S.GridForm>
-              <div>
-                <label htmlFor=''>Responsável</label>
-                <input type='text'
-                  value={responsavel}
-                  onChange={(text) => setresponsavel(text.target.value)} />
-              </div>
-
-              <div>
-                <label htmlFor=''>Equipamentos</label>
-                <input type='text'
-                  value={equipamentos}
-                  onChange={(text) => setequipamentos(text.target.value)} />
-              </div>
-
-              <div>
-                <label htmlFor=''>Documentos</label>
-                <input type='text'
-                  value={documentos}
-                  onChange={(text) => setdocumentos(text.target.value)} />
-              </div>
-
-              <div>
-                <label htmlFor=''>Tipo de rede</label>
-                <input type='text'
-                  value={tipoRede}
-                  onChange={(text) => settipoRede(text.target.value)} />
-              </div>
-
-              <div>
-                <label htmlFor=''>Diâmetro da interferência</label>
-                <input type='text'
-                  value={diametroInterferencia}
-                  onChange={(text) => setDiametroInterferencia(text.target.value)} />
-              </div>
-
-              <div>
-                <label htmlFor=''>Empresa proprietária</label>
-                <input type='text'
-                  value={empresa}
-                  onChange={(text) => setempresa(text.target.value)} />
-              </div>
-
-              <div>
-                <label htmlFor=''>Azimute</label>
-                <input type='text'
-                  value={azimute}
-                  onChange={(text) => setazimute(text.target.value)} />
-              </div>
-
-            </S.GridForm>
-            <button onClick={() => onSubmitInterferenciasFisicasMagneticas()}>{loading
-              ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height='' src='https://contribua.org/mb-static/images/loading.gif'
-                alt='Loading'
-              />
-              : 'Salvar'}</button>
-          </S.Div>
+     
         </Modal>
 
         <Modal
@@ -1209,80 +953,11 @@ export default function
               backgroundColor: '#1B1925',
             },
           }}
-          isOpen={modalIsOpen4}
+          isOpen={modalIsOpenPlanejamento}
           onAfterOpen={() => afterOpenModal}
-          onRequestClose={() => closeModal4}
+          onRequestClose={() => closeModal}
         >
-          <h2>Abertura da vala</h2>
-          {/* <button onClick={closeModal}>close</button> */}
-
-          <S.Div>
-            <S.GridForm>
-              <div>
-                <label htmlFor=''>Responsável</label>
-                <input type='text'
-                  value={responsavel}
-                  onChange={(text) => setresponsavel(text.target.value)} />
-              </div>
-
-              <div>
-                <label htmlFor=''>Ferramentas</label>
-                <input type='text'
-                  value={ferramentas}
-                  onChange={(text) => setferramentas(text.target.value)} />
-              </div>
-
-              <div>
-                <label htmlFor=''>Equipamentos</label>
-                <input type='text'
-                  value={equipamentos}
-                  onChange={(text) => setequipamentos(text.target.value)} />
-              </div>
-
-              <div>
-                <label htmlFor=''>Documentos</label>
-                <input type='text'
-                  value={documentos}
-                  onChange={(text) => setdocumentos(text.target.value)} />
-              </div>
-
-              <div>
-                <label htmlFor=''>Ponto de verificação de entrada (lat)</label>
-                <input type='text' placeholder='Latitude'
-                  value={latitudeEntrada}
-                  onChange={(text) => setlatitudeEntrada(text.target.value)} />
-              </div>
-
-              <div>
-                <label htmlFor=''>Ponto de verificação de entrada (long)</label>
-                <input type='text' placeholder='Longitude'
-                  value={longitudeEntrada}
-                  onChange={(text) => setlongitudeEntrada(text.target.value)} />
-              </div>
-
-              <div>
-                <label htmlFor=''>Ponto de verificação de saída (lat)</label>
-                <input type='text' placeholder='Latitude'
-                  value={latitudeSaida}
-                  onChange={(text) => setlatitudeSaida(text.target.value)} />
-              </div>
-
-              <div>
-                <label htmlFor=''>Ponto de verificação de saída (long)</label>
-                <input type='text' placeholder='Longitude'
-                  value={longitudeSaida}
-                  onChange={(text) => setlongitudeSaida(text.target.value)} />
-              </div>
-            </S.GridForm>
-            <button onClick={() => onSubmitAberturaVala()}>{loading
-              ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height='' src='https://contribua.org/mb-static/images/loading.gif'
-                alt='Loading'
-              />
-              : 'Salvar'}</button>
-          </S.Div>
+          
         </Modal>
 
         <Modal
@@ -1302,9 +977,9 @@ export default function
               backgroundColor: '#1B1925',
             },
           }}
-          isOpen={modalIsOpen5}
+          isOpen={modalIsOpenPlanejamento}
           onAfterOpen={() => afterOpenModal}
-          onRequestClose={() => closeModal5}
+          onRequestClose={() => closeModal}
         >
           <h2>Direcionamento do furo furo piloto</h2>
           {/* <button onClick={closeModal}>close</button> */}
