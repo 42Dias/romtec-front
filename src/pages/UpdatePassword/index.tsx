@@ -27,12 +27,12 @@ export default function UpdatePassword() {
       password: password
     }
     console.log(data)
-    if(password === confirmPassword){
+    if (password === confirmPassword) {
       resetSenha(data)
-    }else{
+    } else {
       toast.error("As senhas não são iguais!")
     }
-    
+
   }
   useEffect(() => {
 
@@ -54,7 +54,7 @@ export default function UpdatePassword() {
   )
   async function loadUser() {
     if (!token) {
-      //window.location.reload()
+      window.location.reload()
     }
     const response = await axios({
       method: "get",
@@ -66,66 +66,65 @@ export default function UpdatePassword() {
       },
       timeout: 50000,
     }).then((response) => {
+      console.log(response.data);
+      localStorage.setItem('roles', JSON.stringify(response.data.tenants[0].roles[0]))
+    // saves client's data into localStorage
+    localStorage.setItem('tenantId', JSON.stringify(response.data.tenants[0].tenant.id))
+    // saves client's data into localStorage
+    localStorage.setItem('id', JSON.stringify(response.data.id))
+    localStorage.setItem('nome', JSON.stringify(response.data.firstName))
+    // saves client's data into localStorage
+    localStorage.setItem('status', JSON.stringify(response.data.tenants[0].status))
       return response.data;
     });
-    //console.log(response);
+    console.log(response.id);
     //console.log(response.tenants[0].roles[0]);
-    let setRole = response.tenants[0].roles
-    const roleHelper = JSON.parse(setRole)
-    console.log(roleHelper[0])
-    localStorage.setItem("roles", JSON.stringify(roleHelper[0])); //saves client's data into localStorage:
-
-    //response.tenants[0].tenant.id);
-    localStorage.setItem(
-      "tenantId",
-      JSON.stringify(response.tenants[0].tenant.id)
-    ); //saves client's data into localStorage:
-    localStorage.setItem("id", JSON.stringify(response.id)); //saves client's data into localStorage:
-    localStorage.setItem("status", JSON.stringify(response.tenants[0].status)); //saves client's data into localStorage:
-    localStorage.setItem("email", JSON.stringify(response.email));
+    
   }
 
   async function resetSenha(dataU: any) {
     setLoading(true)
-    const data = await api.get("user/" + id).then((response) => {
-      response.data.fullName = dataU.fullName
-      update(response.data)
-      console.log(response.data)
-      return response.data;
-    }).catch(res => {
-      console.log(res)
-      toast.error(res.response.data)
-      setLoading(false)
-    });
-    console.log(data)
+    // const data = await api.get("user/" + id).then((response) => {
+    //   response.data.fullName = dataU.fullName
+    //   response.data.password = dataU.password
+    //   update(response.data)
+    //   console.log(response.data)
+    //   return response.data;
+    // }).catch(res => {
+    //   console.log(res)
+    //   toast.error(res.response.data)
+    //   setLoading(false)
+    // });
+    // console.log(data)
 
-    async function update(data: any) {
-      if (data) {
-        data.password = dataU.senha
-        await api.put("/auth/password-reset/",{
-          data: data 
-        }).then((response) => { 
-          console.log(window.location.href = window.location.href + 'home')
-          console.log(response.data)
-          return response.data;
-        }).catch(res => {
-          console.log(res)
-          toast.error(res.response.data)
-          setLoading(false)
-        });
-        // const response = await axios.put(`${ip}:8145/api/auth/password-reset/`, {
-        //   token: token,
-        //   password: dataU.senha
-        // }).then((response) => {
-        //   setLoading(false)
-        //   toast.success(response.data)
-        //   return response.data;
-        // }).catch(res => {
-        //   console.log(res)
-        //   toast.error(res.response.data)
-        //   setLoading(false)
-        // });
-      }
+    // async function update(data: any) {
+    if (dataU) {
+      // data.password = dataU.senha
+      await axios.put(ip + ":8145/api/auth/password-reset", {
+        token: id,
+        password: dataU.password
+      }).then((response) => {
+        console.log(window.location.href = '/romtec#/home')
+        console.log(response.data)
+        return response.data;
+      }).catch(res => {
+        console.log(res)
+        toast.error(res.response.data)
+        setLoading(false)
+      });
+      // const response = await axios.put(`${ip}:8145/api/auth/password-reset/`, {
+      //   token: token,
+      //   password: dataU.senha
+      // }).then((response) => {
+      //   setLoading(false)
+      //   toast.success(response.data)
+      //   return response.data;
+      // }).catch(res => {
+      //   console.log(res)
+      //   toast.error(res.response.data)
+      //   setLoading(false)
+      // });
+      //}
     }
   }
 
