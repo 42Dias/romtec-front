@@ -33,7 +33,7 @@ type FormData = {
 }
 
 export default function
-Customers () {
+  Customers() {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -51,11 +51,15 @@ Customers () {
   const [complemento, setComplemento] = useState('')
   const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<FormData>()
 
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
+    data.logradouro = logradouro
+    data.bairro = bairro
+    data.cidade = cidade
+    data.uf = uf
     console.log(data)
     Cadastro(data)
   }
-  async function Cadastro (submit: any) {
+  async function Cadastro(submit: any) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.post('clientes', {
@@ -82,7 +86,7 @@ Customers () {
     })
   }
 
-  async function loadDados () {
+  async function loadDados() {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.get('clientes',
@@ -98,7 +102,7 @@ Customers () {
       setLoading(false)
     })
   }
-  async function deleteDados (id: string) {
+  async function deleteDados(id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('clientes/' + id,
@@ -113,7 +117,7 @@ Customers () {
       setLoading(false)
     })
   }
-  function update (dados: any) {
+  function update(dados: any) {
     console.log('dados')
     console.log(dados)
     setIdClientes(dados.id)
@@ -129,7 +133,7 @@ Customers () {
     setComplemento(dados.complemento)
     setIsOpenUpdate(true)
   }
-  async function updateDados () {
+  async function updateDados() {
     setLoading(true)
     const responser = api.put('clientes/' + idClientes, {
       data: {
@@ -155,12 +159,12 @@ Customers () {
     setLoading(true)
     loadDados()
   }, [])
-  function onSubmitInput (values: any, actions: any) {
+  function onSubmitInput(values: any, actions: any) {
     // console.log(data)
     // Cadastro(data)
     console.log('SUBMIT', values)
   }
-  function onBlurCep (ev: any, setFieldValue: any) {
+  function onBlurCep(ev: any, setFieldValue: any) {
     const { value } = ev.target
 
     const cep = value?.replace(/[^0-9]/g, '')
@@ -176,6 +180,10 @@ Customers () {
         setFieldValue('bairro', data.bairro)
         setFieldValue('cidade', data.localidade)
         setFieldValue('uf', data.uf)
+        setLogradouro(data.logradouro)
+        setBairro(data.bairro)
+        setCidade(data.localidade)
+        setUf(data.uf)
       })
   }
   return (
@@ -416,15 +424,25 @@ Customers () {
                       <Field name='logradouro' type='text' />
                     </div>
 
-                    <div className='form-control-group'>
-                      <label>Número</label>
-                      <Field name='numero' type='text' />
-                    </div>
+                    <TextField
+                      label='Numero'
+                      {...register('numero', {
+                        required: {
+                          value: true,
+                          message: '',
+                        },
+                      })}
+                    />
 
-                    <div className='form-control-group'>
-                      <label>Complemento</label>
-                      <Field name='complemento' type='text' />
-                    </div>
+                    <TextField
+                      label='Complemento'
+                      {...register('complemento', {
+                        required: {
+                          value: true,
+                          message: '',
+                        },
+                      })}
+                    />
 
                     <div className='form-control-group'>
                       <label>Bairro</label>

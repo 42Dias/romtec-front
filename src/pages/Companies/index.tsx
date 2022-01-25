@@ -60,6 +60,10 @@ Companies () {
   const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
+    data.logradouro = logradouro
+    data.bairro = bairro
+    data.cidade = cidade
+    data.estado = estado
     console.log(data)
     Cadastro(data)
   }
@@ -199,6 +203,10 @@ Companies () {
         setFieldValue('bairro', data.bairro)
         setFieldValue('cidade', data.localidade)
         setFieldValue('uf', data.uf)
+        setLogradouro(data.logradouro)
+        setBairro(data.bairro)
+        setCidade(data.localidade)
+        setEstado(data.uf)
       })
   }
 
@@ -315,76 +323,42 @@ Companies () {
 
                     <div className='form-control-group'>
                       <label>Logradouro</label>
-                      <Field
-                        {...register('logradouro', {
-                          required: {
-                            value: true,
-                            message: '',
-                          },
-                        })}
-                        name='logradouro' type='text'
-                      />
+                      <Field name='logradouro' type='text' />
                     </div>
 
-                    <div className='form-control-group'>
-                      <label>Número</label>
-                      <Field
-                        {...register('numero', {
-                          required: {
-                            value: true,
-                            message: '',
-                          },
-                        })}
-                        name='numero' type='text'
-                      />
-                    </div>
+                    <TextField
+                      label='Numero'
+                      {...register('numero', {
+                        required: {
+                          value: true,
+                          message: '',
+                        },
+                      })}
+                    />
 
-                    <div className='form-control-group'>
-                      <label>Complemento</label>
-                      <Field
+                    <TextField
+                      label='Complemento'
                       {...register('complemento', {
                         required: {
                           value: true,
                           message: '',
                         },
                       })}
-                      name='complemento' type='text' />
-                    </div>
+                    />
 
                     <div className='form-control-group'>
                       <label>Bairro</label>
-                      <Field
-                      {...register('bairro', {
-                        required: {
-                          value: true,
-                          message: '',
-                        },
-                      })}
-                      name='bairro' type='text' />
+                      <Field name='bairro' type='text' />
                     </div>
 
                     <div className='form-control-group'>
                       <label>Cidade</label>
-                      <Field
-                      {...register('cidade', {
-                        required: {
-                          value: true,
-                          message: '',
-                        },
-                      })}
-                      name='cidade' type='text' />
+                      <Field name='cidade' type='text' />
                     </div>
 
                     <div className='form-control-group'>
                       <label>Estado</label>
-                      <Field
-                      {...register('estado', {
-                        required: {
-                          value: true,
-                          message: '',
-                        },
-                      })}
-                       component='select' name='uf'>
+                      <Field component='select' name='uf'>
                         <option value=''>Selecione o Estado</option>
                         <option value='AC'>Acre</option>
                         <option value='AL'>Alagoas</option>
