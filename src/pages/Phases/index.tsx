@@ -54,7 +54,7 @@ export default function
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
   const [loading, setLoading] = useState(false)
   const [dados, setDados] = useState<any[]>([])
-
+    const [variavelTitulo, setVariavelTitulo] = useState('')
   const [idDados, setId] = useState('')
   const [responsavel, setresponsavel] = useState('')
   const [infoEnvolvidas, setInfoEnvolvidas] = useState('')
@@ -373,6 +373,7 @@ export default function
 
   function openModal(data: any) {
     console.log(data)
+    setVariavelTitulo(data.novaEtapa)
     setcampoEntradaLatitude(data.campoEntradaLatitude)
     setcampoEntradaLongitude(data.campoEntradaLongitude)
     setcampoSaidaLatitude(data.campoSaidaLatitude)
@@ -606,7 +607,8 @@ export default function
           onAfterOpen={() => afterOpenModal}
           onRequestClose={() => closeModal}
         >
-          <h2>Planejamento de perfuração</h2>
+          {/* <h2>Planejamento de perfuração</h2> */}
+          <h2>{variavelTitulo}</h2>
           {/* <button onClick={closeModal}>close</button> */}
 
           <S.Div>
