@@ -17,7 +17,7 @@ import { FiPlus, FiCheck, FiPlay, FiLock, FiX } from 'react-icons/fi'
 import { api, ip } from '../../services/api'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { type } from 'os'
+import { platform, type } from 'os'
 
 SwiperCore.use([Pagination, Navigation])
 
@@ -112,24 +112,39 @@ export default function
 
   function onSubmit(data: FormData) {
     data.idConfigTravessia = idConfigTravessia.replace('#/etapas/', '')
-    data.banco = 'planejamentoPerfuracao'
+    data.banco = 'todos-campos'
     console.log(data)
     createNewFile(data)
   }
   function onSubmitLevantamento() {
     console.log(responsavel)
     const data = {
-      idConfigTravessia: idConfigTravessia.replace('#/etapas/', ''),
-      banco: 'levantametoMapInteferencia',
-      responsavel: responsavel,
-      latitudeSaida: latitudeSaida,
-      equipamentos: equipamentos,
-      documentos: documentos,
-      tipoRede: tipoRede,
-      empresa: empresa,
-      sondagemInterferencia: sondagemInterferencia,
-      sondagem: sondagem,
-      criacaoplanoFuro: criacaoplanoFuro,
+      banco: 'todos-campos',
+      idConfigTravessia: idConfigTravessia.replace("#/etapas/", ''),
+      PontoVerEntradaLat: latitudeEntrada,
+      PontoVerEntradaLong: longitudeEntrada,
+      PontoVerSaidaLat: latitudeSaida,
+      PontoVerSaidaLong: longitudeSaida,
+      TipoSolo: tipoSolo,
+      DiametroPerf: diametroPerfuracao,
+      TipoRede: tipoRede,
+      TipoTub: tipoTubulacao,
+      Responsavel: responsavel,
+      Equipamentos: equipamentos,
+      Documentos: documentos,
+      EmpresaProp: empresa,
+      ConfSondagemInterferencia: sondagemInterferencia,
+      Sondagem: sondagem,
+      DiametroInterferencia: diametroPerfuracao,
+      CriacaoPlanoFuro: criacaoplanoFuro,
+      Ferramentas: ferramentas,
+      InformacoesEnvolvidas: infoEnvolvidas,
+      Diametro: diametroPerfuracao,
+      LocalRelDiretrizFuro: localDiretrizFuro,
+      TipoInterferencia: tipoInterferencia,
+      Profundidade: profundidade,
+      ResponsavelTopografia: respTopografia,
+      DataExecTopografia: dataTopografia
     }
 
     console.log(data)
@@ -391,7 +406,7 @@ export default function
     setIsOpenPlanejamento(false)
   }
 
-  
+
 
   return (
     <>
@@ -594,16 +609,16 @@ export default function
           <h2>Planejamento de perfuração</h2>
           {/* <button onClick={closeModal}>close</button> */}
 
-          <S.FormContent onSubmit={handleSubmit(onSubmit)}>
+          <S.Div>
             <S.GridForm>
-            {campoEntradaLatitude ? <div>
+              {campoEntradaLatitude ? <div>
                 <label htmlFor=''>Ponto de verificação de entrada (lat)</label>
                 <input
                   type='text' placeholder='Latitude'
                   value={latitudeEntrada}
                   onChange={(text) => setlatitudeEntrada(text.target.value)}
                 />
-              </div>: false}
+              </div> : false}
 
               {campoEntradaLongitude ? <div>
                 <label htmlFor=''>Ponto de verificação de entrada (long)</label>
@@ -612,7 +627,7 @@ export default function
                   value={longitudeEntrada}
                   onChange={(text) => setlongitudeEntrada(text.target.value)}
                 />
-              </div>: false}
+              </div> : false}
 
               {campoSaidaLatitude ? <div>
                 <label htmlFor=''>Ponto de verificação de saída (lat)</label>
@@ -621,7 +636,7 @@ export default function
                   value={latitudeSaida}
                   onChange={(text) => setlatitudeSaida(text.target.value)}
                 />
-              </div>: false}
+              </div> : false}
 
               {campoSaidaLongitude ? <div>
                 <label htmlFor=''>Ponto de verificação de saída (long)</label>
@@ -630,7 +645,7 @@ export default function
                   value={longitudeSaida}
                   onChange={(text) => setlongitudeSaida(text.target.value)}
                 />
-              </div>: false}
+              </div> : false}
 
               {campoTipoSolo ? <div>
                 <label htmlFor=''>Tipos de solo</label>
@@ -639,7 +654,7 @@ export default function
                   value={tipoSolo}
                   onChange={(text) => setTipoSolo(text.target.value)}
                 />
-              </div>: false}
+              </div> : false}
 
               {campoDiametroPerfuracao ? <div>
                 <label htmlFor=''>Diâmetro de perfuração</label>
@@ -648,7 +663,7 @@ export default function
                   value={diametroPerfuracao}
                   onChange={(text) => setdiametroPerfuracao(text.target.value)}
                 />
-              </div>: false}
+              </div> : false}
 
               {campoTipoRede ? <div>
                 <label htmlFor=''>Tipo de Rede</label>
@@ -657,7 +672,7 @@ export default function
                   value={tipoRede}
                   onChange={(text) => settipoRede(text.target.value)}
                 />
-              </div>: false}
+              </div> : false}
 
               {campoTipoTubulacao ? <div>
                 <label htmlFor=''>Tipo de tubulação</label>
@@ -666,114 +681,114 @@ export default function
                   value={tipoTubulacao}
                   onChange={(text) => settipoTubulacao(text.target.value)}
                 />
-              </div>: false}
+              </div> : false}
 
               {campoResponsel ? <div>
                 <label htmlFor=''>Responsável</label>
                 <input type='text'
                   value={responsavel}
                   onChange={(text) => setresponsavel(text.target.value)} />
-              </div>: false}
+              </div> : false}
 
               {campoEquipamento ? <div>
                 <label htmlFor=''>Equipamentos</label>
                 <input type='text'
                   value={equipamentos}
                   onChange={(text) => setequipamentos(text.target.value)} />
-              </div>: false}
+              </div> : false}
 
               {campoDocumento ? <div>
                 <label htmlFor=''>Documentos</label>
                 <input type='text'
                   value={documentos}
                   onChange={(text) => setdocumentos(text.target.value)} />
-              </div>: false}
+              </div> : false}
               {campoSondagemInterferencia ? <div>
                 <label htmlFor=''>Sondagem Interferência</label>
                 <input type='text'
                   value={sondagemInterferencia}
                   onChange={(text) => setsondagemInterferencia(text.target.value)} />
-              </div>: false}
+              </div> : false}
               {campoSondagem ? <div>
                 <label htmlFor=''>Sondagem</label>
                 <input type='text'
                   value={sondagem}
                   onChange={(text) => setsondagem(text.target.value)} />
-              </div>: false}
+              </div> : false}
               {campoDiametroInterferencia ? <div>
                 <label htmlFor=''>Diametro de Interferência</label>
                 <input type='text'
                   value={diametroInterferencia}
                   onChange={(text) => setDiametroInterferencia(text.target.value)} />
-              </div>: false}
+              </div> : false}
               {campoPlanoFuro ? <div>
                 <label htmlFor=''>Plano de Furo</label>
                 <input type='text'
                   value={criacaoplanoFuro}
                   onChange={(text) => setcriacaoplanoFuro(text.target.value)} />
-              </div>: false}
+              </div> : false}
               {campoFerramentas ? <div>
                 <label htmlFor=''>Ferramentas</label>
                 <input type='text'
                   value={ferramentas}
                   onChange={(text) => setferramentas(text.target.value)} />
-              </div>: false}
+              </div> : false}
               {campoInfoEnvolvidas ? <div>
                 <label htmlFor=''>Informações Envolvidas</label>
                 <input type='text'
                   value={infoEnvolvidas}
                   onChange={(text) => setInfoEnvolvidas(text.target.value)} />
-              </div>: false}
+              </div> : false}
 
               {campoDiametro ? <div>
                 <label htmlFor=''>Diâmetro da Perfuração</label>
                 <input type='text'
                   value={diametroPerfuracao}
                   onChange={(text) => setdiametroPerfuracao(text.target.value)} />
-              </div>: false}
+              </div> : false}
 
               {campoLocalizaDiretrizFuro ? <div>
                 <label htmlFor=''>Localização da Diretriz do Furo</label>
                 <input type='text'
                   value={localDiretrizFuro}
                   onChange={(text) => setLocalDiretrizFuro(text.target.value)} />
-              </div>: false}
+              </div> : false}
 
               {campoTipoInterferencia ? <div>
                 <label htmlFor=''>Tipo de Interferência</label>
                 <input type='text'
                   value={tipoInterferencia}
                   onChange={(text) => setTipoInterferencia(text.target.value)} />
-              </div>: false}
+              </div> : false}
 
               {campoProfundidade ? <div>
                 <label htmlFor=''>Profundidade</label>
                 <input type='text'
                   value={profundidade}
                   onChange={(text) => setprofundidade(text.target.value)} />
-              </div>: false}
+              </div> : false}
 
               {campoResponselTopografia ? <div>
                 <label htmlFor=''>Responsável Topografia</label>
                 <input type='text'
                   value={respTopografia}
                   onChange={(text) => setRespTopografia(text.target.value)} />
-              </div>: false}
+              </div> : false}
 
               {campoDataTopografia ? <div>
                 <label htmlFor=''>Data Topografia</label>
                 <input type='text'
                   value={dataTopografia}
                   onChange={(text) => setDataTopografia(text.target.value)} />
-              </div>: false}
+              </div> : false}
 
               {campoEmpresa ? <div>
                 <label htmlFor=''>Empresa</label>
                 <input type='text'
                   value={empresa}
                   onChange={(text) => setempresa(text.target.value)} />
-              </div>: false}
-{/*              
+              </div> : false}
+              {/*              
               <div>
                 <label htmlFor=''>Ponto de verificação de entrada (lat)</label>
                 <input
@@ -847,7 +862,7 @@ export default function
                 />
               </div> */}
             </S.GridForm>
-            <button>{loading
+            <button onClick={() => { onSubmitLevantamento() }}>{loading
               ? <img
                 width='40px'
                 style={{ margin: 'auto' }}
@@ -856,9 +871,9 @@ export default function
               />
               : 'Salvar'}
             </button>
-          </S.FormContent>
+          </S.Div>
         </Modal>
-        
+
         <Modal
           style={{
             overlay: {
@@ -904,7 +919,7 @@ export default function
           onAfterOpen={() => afterOpenModal}
           onRequestClose={() => closeModal}
         >
-      
+
         </Modal>
 
         <Modal
@@ -928,7 +943,7 @@ export default function
           onAfterOpen={() => afterOpenModal}
           onRequestClose={() => closeModal}
         >
-     
+
         </Modal>
 
         <Modal
@@ -952,7 +967,7 @@ export default function
           onAfterOpen={() => afterOpenModal}
           onRequestClose={() => closeModal}
         >
-          
+
         </Modal>
 
         <Modal
