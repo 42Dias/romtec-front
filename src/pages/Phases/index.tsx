@@ -83,6 +83,7 @@ export default function
   const [profundidade, setprofundidade] = useState('')
   const [anguloAtaque, setanguloAtaque] = useState('')
   const [posicaoRelogio, setposicaoRelogio] = useState('')
+  const [idEtapa, setsetIdEtapa] = useState('')
   const [azimute, setazimute] = useState('')
   const [isUpdate, setIsUpdate] = useState(false)
   const [campoEntradaLatitude, setcampoEntradaLatitude] = useState(false)
@@ -121,6 +122,7 @@ export default function
     const data = {
       banco: 'todos-campos',
       idConfigTravessia: idConfigTravessia.replace("#/etapas/", ''),
+      etapaId: idEtapa,
       PontoVerEntradaLat: latitudeEntrada,
       PontoVerEntradaLong: longitudeEntrada,
       PontoVerSaidaLat: latitudeSaida,
@@ -373,7 +375,45 @@ export default function
 
   function openModal(data: any) {
     console.log(data)
+    api.get(`todos-campos?filter%5BetapaId%5D=${data.id}`,
+    ).then((response) => {
+      console.log(response.data.rows)
+      if (response.statusText === 'OK') {
+        if (response.data.count > 0) {
+          setlatitudeEntrada(data.campoEntradaLatitude)
+          setcampoEntradaLongitude(data.campoEntradaLongitude)
+          setcampoSaidaLatitude(data.campoSaidaLatitude)
+          setcampoSaidaLongitude(data.campoSaidaLongitude)
+          setcampoTipoSolo(data.campoTipoSolo)
+          setcampoDiametroPerfuracao(data.campoDiametroPerfuracao)
+          setcampoTipoRede(data.campoTipoRede)
+          setcampoTipoTubulacao(data.campoTipoTubulacao)
+          setcampoResponsel(data.campoResponsel)
+          setcampoEquipamento(data.campoEquipamento)
+          setcampoSondagemInterferencia(data.campoSondagemInterferencia)
+          setcampoDocumento(data.campoDocumento)
+          setcampoEmpresa(data.campoEmpresa)
+          setcampoSondagem(data.campoSondagem)
+          setcampoDiametroInterferencia(data.campoDiametroInterferencia)
+          setcampoPlanoFuro(data.campoPlanoFuro)
+          setcampoFerramentas(data.campoFerramentas)
+          setcampoInfoEnvolvidas(data.campoInfoEnvolvidas)
+          setcampoDiametro(data.campoDiametro)
+          setcampoLocalizaDiretrizFuro(data.campoLocalizaDiretrizFuro)
+          setcampoTipoInterferencia(data.campoTipoInterferencia)
+          setcampoProfundidade(data.campoProfundidade)
+          setcampoResponselTopografia(data.campoResponselTopografia)
+          setcampoDataTopografia(data.campoDataTopografia)
+        }
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
     setVariavelTitulo(data.novaEtapa)
+    setsetIdEtapa(data.id)
     setcampoEntradaLatitude(data.campoEntradaLatitude)
     setcampoEntradaLongitude(data.campoEntradaLongitude)
     setcampoSaidaLatitude(data.campoSaidaLatitude)
