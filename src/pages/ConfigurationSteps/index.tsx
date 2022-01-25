@@ -237,6 +237,7 @@ export default function
       toast.error(res.response.data)
       setLoading(false)
     })
+    
   }
   async function deleteDados(id: string) {
     setLoading(true)
@@ -273,30 +274,30 @@ export default function
       numeroEtapa: numeroEtapa,
       novaEtapa: novaEtapa,
       perfil: perfil,
-      campoEntradaLatitude: campoEntradaLatitude2,
-      campoEntradaLongitude: campoEntradaLongitude2,
-      campoSaidaLatitude: campoSaidaLatitude2,
-      campoSaidaLongitude: campoSaidaLongitude2,
-      campoTipoSolo: campoTipoSolo2,
-      campoDiametroPerfuracao: campoDiametroPerfuracao2,
-      campoTipoRede: campoTipoRede2,
-      campoTipoTubulacao: campoTipoTubulacao2,
-      campoResponsel: campoResponsel2,
-      campoEquipamento: campoEquipamento2,
-      campoDocumento: campoDocumento2,
-      campoEmpresa: campoEmpresa2,
-      campoSondagemInterferencia: campoSondagemInterferencia2,
-      campoSondagem: campoSondagem2,
-      campoDiametroInterferencia: campoDiametroInterferencia2,
-      campoPlanoFuro: campoPlanoFuro2,
-      campoFerramentas: campoFerramentas2,
-      campoInfoEnvolvidas: campoInfoEnvolvidas2,
-      campoDiametro: campoDiametro2,
-      campoLocalizaDiretrizFuro: campoLocalizaDiretrizFuro2,
-      campoTipoInterferencia: campoTipoInterferencia2,
-      campoProfundidade: campoProfundidade2,
-      campoResponselTopografia: campoResponselTopografia2,
-      campoDataTopografia: campoDataTopografia2
+      campoEntradaLatitude: campoEntradaLatitude,
+      campoEntradaLongitude: campoEntradaLongitude,
+      campoSaidaLatitude: campoSaidaLatitude,
+      campoSaidaLongitude: campoSaidaLongitude,
+      campoTipoSolo: campoTipoSolo,
+      campoDiametroPerfuracao: campoDiametroPerfuracao,
+      campoTipoRede: campoTipoRede,
+      campoTipoTubulacao: campoTipoTubulacao,
+      campoResponsel: campoResponsel,
+      campoEquipamento: campoEquipamento,
+      campoDocumento: campoDocumento,
+      campoEmpresa: campoEmpresa,
+      campoSondagemInterferencia: campoSondagemInterferencia,
+      campoSondagem: campoSondagem,
+      campoDiametroInterferencia: campoDiametroInterferencia,
+      campoPlanoFuro: campoPlanoFuro,
+      campoFerramentas: campoFerramentas,
+      campoInfoEnvolvidas: campoInfoEnvolvidas,
+      campoDiametro: campoDiametro,
+      campoLocalizaDiretrizFuro: campoLocalizaDiretrizFuro,
+      campoTipoInterferencia: campoTipoInterferencia,
+      campoProfundidade: campoProfundidade,
+      campoResponselTopografia: campoResponselTopografia,
+      campoDataTopografia: campoDataTopografia
     }
     console.log(data)
     api.put('etapas/' + idEtapa, {
@@ -326,6 +327,7 @@ export default function
       toast.error(error.response.data)
     })
     setIsOpenPhases(false)
+    window.location.href
   }
   function selectCampos(etapa: any) {
     setidEtapa(etapa.id)
@@ -495,98 +497,98 @@ export default function
                     <Switch
                       checkedChildren='Ponto de verificação de entrada (lat)'
                       unCheckedChildren='Ponto de verificação de entrada (lat)'
-                      onClick={() => setcampoEntradaLatitude2(true)}
-                    /> : setcampoEntradaLatitude2(false)
+                      onClick={() => setcampoEntradaLatitude(true)}
+                    /> : false
                 }
 
                 {!campoEntradaLongitude ? <Switch
                     checkedChildren='Ponto de verificação de entrada (long)'
                     unCheckedChildren='Ponto de verificação de entrada (long)'
-                    onClick={() => setcampoEntradaLongitude2(true)}
-                  /> : setcampoEntradaLongitude2(false)
+                    onClick={() => setcampoEntradaLongitude(true)}
+                  /> : false
                 }
 
                 {!campoSaidaLatitude ? <Switch
                     checkedChildren='Ponto de verificação de saída (lat)'
                     unCheckedChildren='Ponto de verificação de saída (lat)'
-                    onClick={() => setcampoSaidaLatitude2(true)}
-                  /> : setcampoSaidaLatitude2(false)
+                    onClick={() => setcampoSaidaLatitude(true)}
+                  /> : false
                 }              
 
                 {!campoSaidaLongitude ? <Switch
                     checkedChildren='Ponto de verificação de saída (long)'
                     unCheckedChildren='Ponto de verificação de saída (long)'
-                    onClick={() => setcampoSaidaLongitude2(true)}
-                  /> : setcampoSaidaLongitude2(false)
+                    onClick={() => setcampoSaidaLongitude(true)}
+                  /> : false
                 }            
 
                 {!campoTipoTubulacao ? <Switch
                     checkedChildren='Tipo de tubulação'
                     unCheckedChildren='Tipo de tubulação'
-                    onClick={() => setcampoTipoTubulacao2(true)}
+                    onClick={() => setcampoTipoTubulacao(true)}
                   /> : false
                 }                
 
                 {!campoDiametroPerfuracao ? <Switch
                     checkedChildren='Diâmetro de perfuração'
                     unCheckedChildren='Diâmetro de perfuração'
-                    onClick={() => setcampoDiametroPerfuracao2(true)}
+                    onClick={() => setcampoDiametroPerfuracao(true)}
                   /> : false
                 }                
 
                 {!campoTipoSolo ? <Switch
                     checkedChildren='Tipos de solo'
                     unCheckedChildren='Tipos de solo'
-                    onClick={() => setcampoTipoSolo2(true)}
+                    onClick={() => setcampoTipoSolo(true)}
                   /> : false
                 }                
 
                 {!campoResponsel ? <Switch
                     checkedChildren='Responsável'
                     unCheckedChildren='Responsável'
-                    onClick={() => setcampoResponsel2(true)}
+                    onClick={() => setcampoResponsel(true)}
                   /> : false
                 }
 
                 {!campoEquipamento ? <Switch
                     checkedChildren='Equipamentos'
                     unCheckedChildren='Equipamentos'
-                    onClick={() => setcampoEquipamento2(true)}
+                    onClick={() => setcampoEquipamento(true)}
                   /> : false
                 }
 
                 {!campoDocumento ? <Switch
                     checkedChildren='Documentos'
                     unCheckedChildren='Documentos'
-                    onClick={() => setcampoDocumento2(true)}
+                    onClick={() => setcampoDocumento(true)}
                   /> : false
                 }
 
                 {!campoTipoRede ? <Switch
                     checkedChildren='Tipo de rede'
                     unCheckedChildren='Tipo de rede'
-                    onClick={() => setcampoTipoRede2(true)}
+                    onClick={() => setcampoTipoRede(true)}
                   /> : false
                 }
 
                 {!campoEmpresa ? <Switch
                     checkedChildren='Empresa proprietária'
                     unCheckedChildren='Empresa proprietária'
-                    onClick={() => setcampoEmpresa2(true)}
+                    onClick={() => setcampoEmpresa(true)}
                   /> : false
                 }
 
                 {!campoSondagemInterferencia ? <Switch
                     checkedChildren='Confirmação da sondagem da interferência'
                     unCheckedChildren='Confirmação da sondagem da interferência'
-                    onClick={() => setcampoSondagemInterferencia2(true)}
+                    onClick={() => setcampoSondagemInterferencia(true)}
                   /> : false
                 }
 
                 {!campoSondagem ? <Switch
                     checkedChildren='Sondagem'
                     unCheckedChildren='Sondagem'
-                    onClick={() => setcampoSondagem2(true)}
+                    onClick={() => setcampoSondagem(true)}
                   /> : false
                 }
 
@@ -598,21 +600,21 @@ export default function
                 {!campoDiametroInterferencia ? <Switch
                     checkedChildren='Diâmetro da interferência'
                     unCheckedChildren='Diâmetro da interferência'
-                    onClick={() => setcampoDiametroInterferencia2(true)}
+                    onClick={() => setcampoDiametroInterferencia(true)}
                   /> : false
                 }
                 
                 {!campoPlanoFuro ? <Switch
                   checkedChildren='Criação do plano de furo'
                   unCheckedChildren='Criação do plano de furo'
-                  onClick={() => setcampoPlanoFuro2(true)}
+                  onClick={() => setcampoPlanoFuro(true)}
                 /> : false
                 }
                
                 <Switch
                   checkedChildren='Tipo de rede'
                   unCheckedChildren='Tipo de rede'
-                  onClick={() => setcampoTipoRede2(true)}
+                  onClick={() => setcampoTipoRede(true)}
                 />
 
                 {/* <Switch
@@ -638,13 +640,13 @@ export default function
                 <Switch
                   checkedChildren='Ferramentas'
                   unCheckedChildren='Ferramentas'
-                  onClick={() => setcampoFerramentas2(true)}
+                  onClick={() => setcampoFerramentas(true)}
                 />
 
                 <Switch
                   checkedChildren='Informações Envolvidas'
                   unCheckedChildren='Informações Envolvidas'
-                  onClick={() => setcampoInfoEnvolvidas2(true)}
+                  onClick={() => setcampoInfoEnvolvidas(true)}
                 />
 
                 {/* <Switch
@@ -660,37 +662,37 @@ export default function
                 <Switch
                   checkedChildren='Diamêtro'
                   unCheckedChildren='Diamêtro'
-                  onClick={() => setcampoDiametro2(true)}
+                  onClick={() => setcampoDiametro(true)}
                 />
 
                 <Switch
                   checkedChildren='Localização em relação a diretriz do furo'
                   unCheckedChildren='Localização em relação a diretriz do furo'
-                  onClick={() => setcampoLocalizaDiretrizFuro2(true)}
+                  onClick={() => setcampoLocalizaDiretrizFuro(true)}
                 />
 
                 <Switch
                   checkedChildren='Tipo de interferência'
                   unCheckedChildren='Tipo de interferência'
-                  onClick={() => setcampoTipoInterferencia2(true)}
+                  onClick={() => setcampoTipoInterferencia(true)}
                 />
 
                 <Switch
                   checkedChildren='Profundidade'
                   unCheckedChildren='Profundidade'
-                  onClick={() => setcampoProfundidade2(true)}
+                  onClick={() => setcampoProfundidade(true)}
                 />
 
                 <Switch
                   checkedChildren='Responsável pela topografia'
                   unCheckedChildren='Responsável pela topografia'
-                  onClick={() => setcampoResponselTopografia2(true)}
+                  onClick={() => setcampoResponselTopografia(true)}
                 />
 
                 <Switch
                   checkedChildren='Data da execução da Topografia'
                   unCheckedChildren='Data da execução da Topografia'
-                  onClick={() => setcampoDataTopografia2(true)}
+                  onClick={() => setcampoDataTopografia(true)}
                 />
 
               </div>
