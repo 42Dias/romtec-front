@@ -67,8 +67,20 @@ export const Form = styled.form`
   @media (max-width: 520px) {
     grid-template-columns: 1fr;
   }
+
   justify-items: center;
   align-items: center;
+
+  @media (max-width: 768px) {
+    .valorPago {
+      input {
+        width: 290px !important;
+      }
+      width: 290px !important;
+      position: relative;
+      right: 35px;
+    }
+  }
 
   select {
     width: 345px;
@@ -87,9 +99,9 @@ export const Form = styled.form`
     }
 
     @media(max-width: 520px) {
-      width: 280px;  
+      width: 290px;  
       margin: 10px 0;
-      margin-right: 90px;
+      margin-right: 70px;
       padding: 0;
     }
   }

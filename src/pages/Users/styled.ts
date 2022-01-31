@@ -243,6 +243,10 @@ export const GridInvite = styled.form`
     margin-top: 7px;
     padding: 7px;
     background: #252332;
+
+    @media (max-width: 768px) {
+      width: 300px !important;
+    }
   }
 
   select {

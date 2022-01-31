@@ -136,7 +136,6 @@ export const Form = styled.form`
   .form-control-group-check {
     display: flex;
     flex-direction: column;
-    margin: 20px auto 20px -7px;
   }
 
   .form-control-group-check span {
@@ -228,6 +227,7 @@ export const Form = styled.form`
   }
 `
 export const Div2 = styled.div`
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -247,15 +247,25 @@ export const Div2 = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    padding: 12px;
+    @media (max-width: 768px) {
+      width: 345px !important;
+    }
+  }
+
+  .form-control-group-switch {
+    height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    @media (max-width: 768px) {
+      width: 345px !important;
+    }
   }
 
   @media (max-width: 520px) {
     grid-template-columns: 1fr;
   }
 
-  .first {
-    margin-left: 8px !important;
-  }
 
   .form-control-group {
     display: flex;
@@ -265,7 +275,6 @@ export const Div2 = styled.div`
   .form-control-group-check {
     display: flex;
     flex-direction: column;
-    margin: 20px auto 20px -7px;
   }
 
   .form-control-group-check span {
@@ -317,7 +326,7 @@ export const Div2 = styled.div`
     transition: 1s;
     margin-bottom: 20px;
     margin-right: 250px;
-
+    margin-top: 10px;
     :hover {
       opacity: 80%;
     }

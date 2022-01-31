@@ -21,7 +21,7 @@ type FormData = {
 }
 
 export default function
-  ConfigurationSteps() {
+ConfigurationSteps () {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenPhases, setIsOpenPhases] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
@@ -88,7 +88,7 @@ export default function
   const [campoDataTopografia2, setcampoDataTopografia2] = useState(false)
   const [campoEmpresa2, setcampoEmpresa2] = useState(false)
 
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     console.log(data)
     Cadastro(data)
   }
@@ -107,7 +107,6 @@ export default function
         setIsOpen(false)
         reset()
         loadDados()
-
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')
         setLoading(false)
@@ -122,10 +121,10 @@ export default function
     })
   }
 
-  async function loadDados() {
+  async function loadDados () {
     setLoading(true)
     console.log('idConfigTravessia')
-    console.log(idConfigTravessia.replace("#/etapas-da-configuracao/", ''))
+    console.log(idConfigTravessia.replace('#/etapas-da-configuracao/', ''))
     // eslint-disable-next-line
    api.get(`etapas?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/etapas-da-configuracao/", '')}`,
     ).then((response) => {
@@ -140,7 +139,7 @@ export default function
       setLoading(false)
     })
 
-    api.get(`etapasColunas?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/etapas-da-configuracao/", '')}`,
+    api.get(`etapasColunas?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace('#/etapas-da-configuracao/', '')}`,
     ).then((response) => {
       console.log(response.data.rows)
       if (response.statusText === 'OK') {
@@ -152,7 +151,7 @@ export default function
             numeroEtapa: numeroEtapa,
             novaEtapa: novaEtapa,
             perfil: perfil,
-            idConfigTravessia: idConfigTravessia.replace("#/etapas-da-configuracao/", ''),
+            idConfigTravessia: idConfigTravessia.replace('#/etapas-da-configuracao/', ''),
             campoEntradaLatitude: campoEntradaLatitude,
             campoEntradaLongitude: campoEntradaLongitude,
             campoSaidaLatitude: campoSaidaLatitude,
@@ -176,7 +175,7 @@ export default function
             campoTipoInterferencia: campoTipoInterferencia,
             campoProfundidade: campoProfundidade,
             campoResponselTopografia: campoResponselTopografia,
-            campoDataTopografia: campoDataTopografia
+            campoDataTopografia: campoDataTopografia,
           }
           api.post('etapasColunas', {
             data: data,
@@ -202,37 +201,35 @@ export default function
           })
         } else {
           // etapasColunas.map((etapasColuna)=>{
-            console.log(response.data.rows[0].campoEntradaLatitude)
-            setcampoEntradaLatitude(response.data.rows[0].campoEntradaLatitude)
-            setcampoEntradaLongitude(response.data.rows[0].campoEntradaLongitude)
-            setcampoSaidaLatitude(response.data.rows[0].campoSaidaLatitude)
-            setcampoSaidaLongitude(response.data.rows[0].campoSaidaLongitude)
-            setcampoTipoSolo(response.data.rows[0].campoTipoSolo)
-            setcampoDiametroPerfuracao(response.data.rows[0].campoDiametroPerfuracao)
-            setcampoTipoRede(response.data.rows[0].campoTipoRede)
-            setcampoTipoTubulacao(response.data.rows[0].campoTipoTubulacao)
-            setcampoResponsel(response.data.rows[0].campoResponsel)
-            setcampoEquipamento(response.data.rows[0].campoEquipamento)
-            setcampoSondagemInterferencia(response.data.rows[0].campoSondagemInterferencia)
-            setcampoDocumento(response.data.rows[0].campoDocumento)
-            setcampoEmpresa(response.data.rows[0].campoEmpresa)
-            setcampoSondagem(response.data.rows[0].campoSondagem)
-            setcampoDiametroInterferencia(response.data.rows[0].campoDiametroInterferencia)
-            setcampoPlanoFuro(response.data.rows[0].campoPlanoFuro)
-            setcampoFerramentas(response.data.rows[0].campoFerramentas)
-            setcampoInfoEnvolvidas(response.data.rows[0].campoInfoEnvolvidas)
-            setcampoDiametro(response.data.rows[0].campoDiametro)
-            setcampoLocalizaDiretrizFuro(response.data.rows[0].campoLocalizaDiretrizFuro)
-            setcampoTipoInterferencia(response.data.rows[0].campoTipoInterferencia)
-            setcampoProfundidade(response.data.rows[0].campoProfundidade)
-            setcampoResponselTopografia(response.data.rows[0].campoResponselTopografia)
-            setcampoDataTopografia(response.data.rows[0].campoDataTopografia)
+          console.log(response.data.rows[0].campoEntradaLatitude)
+          setcampoEntradaLatitude(response.data.rows[0].campoEntradaLatitude)
+          setcampoEntradaLongitude(response.data.rows[0].campoEntradaLongitude)
+          setcampoSaidaLatitude(response.data.rows[0].campoSaidaLatitude)
+          setcampoSaidaLongitude(response.data.rows[0].campoSaidaLongitude)
+          setcampoTipoSolo(response.data.rows[0].campoTipoSolo)
+          setcampoDiametroPerfuracao(response.data.rows[0].campoDiametroPerfuracao)
+          setcampoTipoRede(response.data.rows[0].campoTipoRede)
+          setcampoTipoTubulacao(response.data.rows[0].campoTipoTubulacao)
+          setcampoResponsel(response.data.rows[0].campoResponsel)
+          setcampoEquipamento(response.data.rows[0].campoEquipamento)
+          setcampoSondagemInterferencia(response.data.rows[0].campoSondagemInterferencia)
+          setcampoDocumento(response.data.rows[0].campoDocumento)
+          setcampoEmpresa(response.data.rows[0].campoEmpresa)
+          setcampoSondagem(response.data.rows[0].campoSondagem)
+          setcampoDiametroInterferencia(response.data.rows[0].campoDiametroInterferencia)
+          setcampoPlanoFuro(response.data.rows[0].campoPlanoFuro)
+          setcampoFerramentas(response.data.rows[0].campoFerramentas)
+          setcampoInfoEnvolvidas(response.data.rows[0].campoInfoEnvolvidas)
+          setcampoDiametro(response.data.rows[0].campoDiametro)
+          setcampoLocalizaDiretrizFuro(response.data.rows[0].campoLocalizaDiretrizFuro)
+          setcampoTipoInterferencia(response.data.rows[0].campoTipoInterferencia)
+          setcampoProfundidade(response.data.rows[0].campoProfundidade)
+          setcampoResponselTopografia(response.data.rows[0].campoResponselTopografia)
+          setcampoDataTopografia(response.data.rows[0].campoDataTopografia)
 
-
-
-          //})
+          // })
         }
-        //setTipoEtapa()
+        // setTipoEtapa()
         setLoading(false)
       }
     }).catch(res => {
@@ -240,9 +237,8 @@ export default function
       toast.error(res.response.data)
       setLoading(false)
     })
-    
   }
-  async function deleteDados(id: string) {
+  async function deleteDados (id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('etapas/' + id
@@ -257,7 +253,7 @@ export default function
       setLoading(false)
     })
   }
-  function update(dados: any, banco: string) {
+  function update (dados: any, banco: string) {
     console.log('dados')
     console.log(dados)
     if (banco === 'etapas') {
@@ -270,7 +266,7 @@ export default function
       updateDados()
     }
   }
-  async function updateDados() {
+  async function updateDados () {
     setLoading(true)
     console.log(etapas)
     const data = {
@@ -300,7 +296,7 @@ export default function
       campoTipoInterferencia: campoTipoInterferencia,
       campoProfundidade: campoProfundidade,
       campoResponselTopografia: campoResponselTopografia,
-      campoDataTopografia: campoDataTopografia
+      campoDataTopografia: campoDataTopografia,
     }
 
     const data2 = {
@@ -330,7 +326,7 @@ export default function
       campoTipoInterferencia: campoTipoInterferencia2,
       campoProfundidade: campoProfundidade2,
       campoResponselTopografia: campoResponselTopografia2,
-      campoDataTopografia: campoDataTopografia2
+      campoDataTopografia: campoDataTopografia2,
     }
     console.log(data)
     api.put('etapas/' + idEtapa, {
@@ -385,9 +381,8 @@ export default function
     setcampoProfundidade2(false)
     setcampoResponselTopografia2(false)
     setcampoDataTopografia2(false)
-
   }
-  function selectCampos(etapa: any) {
+  function selectCampos (etapa: any) {
     setidEtapa(etapa.id)
     setnumeroEtapa(etapa.numeroEtapa)
     setnovaEtapa(etapa.novaEtapa)
@@ -402,199 +397,193 @@ export default function
     // console.log(idConfigTravessia)
   }, [])
 
-  function onChange(e: any) {
+  function onChange (e: any) {
     console.log(`checked = ${e.target.checked}`)
   }
 
-  function fEntradaLatitude() {
-    if(campoEntradaLatitude){
+  function fEntradaLatitude () {
+    if (campoEntradaLatitude) {
       console.log('campo latitude')
-      setcampoEntradaLatitude2(false);
-    }else{
-      setcampoEntradaLatitude(true);
-      setcampoEntradaLatitude2(true);
+      setcampoEntradaLatitude2(false)
+    } else {
+      setcampoEntradaLatitude(true)
+      setcampoEntradaLatitude2(true)
     }
-    
-    
   }
-  function fEntradaLongitude() {
-    if(campoEntradaLongitude){
+  function fEntradaLongitude () {
+    if (campoEntradaLongitude) {
       console.log('campo longitude')
       setcampoEntradaLongitude2(false)
-    }else{
+    } else {
       setcampoEntradaLongitude(true)
       setcampoEntradaLongitude2(true)
     }
-    
   }
-  function fSaidaLatitude() {
-    if(campoSaidaLatitude){
+  function fSaidaLatitude () {
+    if (campoSaidaLatitude) {
       setcampoSaidaLatitude2(false)
-    }else{
+    } else {
       setcampoSaidaLatitude(true)
       setcampoSaidaLatitude2(true)
     }
   }
-  function fSaidaLongitude() {
-    if(campoSaidaLongitude){
+  function fSaidaLongitude () {
+    if (campoSaidaLongitude) {
       setcampoSaidaLongitude2(false)
-    }else{
+    } else {
       setcampoSaidaLongitude(true)
       setcampoSaidaLongitude2(true)
-    } 
+    }
   }
-  function fTipoTubulacao() {
-    if(campoTipoTubulacao){
+  function fTipoTubulacao () {
+    if (campoTipoTubulacao) {
       setcampoTipoTubulacao2(false)
-    }else{
-      setcampoTipoTubulacao(true)   
+    } else {
+      setcampoTipoTubulacao(true)
       setcampoTipoTubulacao2(true)
     }
   }
-  function fDiametroPerf() {
-    if(campoDiametro){
+  function fDiametroPerf () {
+    if (campoDiametro) {
       setcampoDiametro2(false)
-    }else{
-      setcampoDiametro(true)
-    setcampoDiametro2(true)
-    }
-  }
-  function fTipoSolo() {
-    if(campoTipoSolo){
-      setcampoTipoSolo2(false)
-    }else{
-    setcampoTipoSolo(true)
-    setcampoTipoSolo2(true)
-    }
-  }
-  function fEquipamento() {
-    if(campoEquipamento){
-      setcampoEquipamento2(false)
-    }else{
-    setcampoEquipamento(true)
-    setcampoEquipamento2(true) 
-    }
-    
-  }
-  function fDocumento() {
-    if(campoDocumento){
-      setcampoDocumento2(false)
-    }else{
-      setcampoDocumento(true)
-      setcampoDocumento2(true)
-    }
-  }
-  function fTipoRede() {
-    if(campoTipoRede){
-      setcampoTipoRede2(false)
-    }else{
-      setcampoTipoRede(true)
-      setcampoTipoRede2(true)
-    }
-  }
-  function fSondagemInter() {
-    if(campoSondagemInterferencia){
-      setcampoSondagemInterferencia2(false)
-    }else{
-      setcampoSondagemInterferencia(true)
-      setcampoSondagemInterferencia2(true)
-    }
-  }
-  function fSondagem() {
-    if(campoSondagem){
-      setcampoSondagem2(false)
-    }else{
-      setcampoSondagem(true)
-      setcampoSondagem2(true)
-    }
-  }
-  function fDiametroInter() {
-    if(campoDiametroInterferencia){
-      setcampoDiametroInterferencia2(false)
-    }else{
-      setcampoDiametroInterferencia(true)
-      setcampoDiametroInterferencia2(true)
-    }
-  }
-  function fPlanoFuro() {
-    if(campoPlanoFuro){
-      setcampoPlanoFuro2(false)
-    }else{
-      setcampoPlanoFuro(true)
-    setcampoPlanoFuro2(true)
-    }
-    
-  }
-  function fFerramentas() {
-    if(campoFerramentas){
-      setcampoFerramentas2(false)
-    }else{
-      setcampoFerramentas(true)
-      setcampoFerramentas2(true)
-    }
-  }
-  function fInfoEnvolvidas() {
-    if(campoInfoEnvolvidas){
-      setcampoInfoEnvolvidas2(false)
-    }else{
-      setcampoInfoEnvolvidas(true)
-      setcampoInfoEnvolvidas2(true)
-    }
-  }
-  function fDiametro() {
-    if(campoDiametro){
-      setcampoDiametro2(false)
-    }else{
+    } else {
       setcampoDiametro(true)
       setcampoDiametro2(true)
     }
   }
-  function fLocalDiretriz() {
-    if(campoLocalizaDiretrizFuro){
+  function fTipoSolo () {
+    if (campoTipoSolo) {
+      setcampoTipoSolo2(false)
+    } else {
+      setcampoTipoSolo(true)
+      setcampoTipoSolo2(true)
+    }
+  }
+  function fEquipamento () {
+    if (campoEquipamento) {
+      setcampoEquipamento2(false)
+    } else {
+      setcampoEquipamento(true)
+      setcampoEquipamento2(true)
+    }
+  }
+  function fDocumento () {
+    if (campoDocumento) {
+      setcampoDocumento2(false)
+    } else {
+      setcampoDocumento(true)
+      setcampoDocumento2(true)
+    }
+  }
+  function fTipoRede () {
+    if (campoTipoRede) {
+      setcampoTipoRede2(false)
+    } else {
+      setcampoTipoRede(true)
+      setcampoTipoRede2(true)
+    }
+  }
+  function fSondagemInter () {
+    if (campoSondagemInterferencia) {
+      setcampoSondagemInterferencia2(false)
+    } else {
+      setcampoSondagemInterferencia(true)
+      setcampoSondagemInterferencia2(true)
+    }
+  }
+  function fSondagem () {
+    if (campoSondagem) {
+      setcampoSondagem2(false)
+    } else {
+      setcampoSondagem(true)
+      setcampoSondagem2(true)
+    }
+  }
+  function fDiametroInter () {
+    if (campoDiametroInterferencia) {
+      setcampoDiametroInterferencia2(false)
+    } else {
+      setcampoDiametroInterferencia(true)
+      setcampoDiametroInterferencia2(true)
+    }
+  }
+  function fPlanoFuro () {
+    if (campoPlanoFuro) {
+      setcampoPlanoFuro2(false)
+    } else {
+      setcampoPlanoFuro(true)
+      setcampoPlanoFuro2(true)
+    }
+  }
+  function fFerramentas () {
+    if (campoFerramentas) {
+      setcampoFerramentas2(false)
+    } else {
+      setcampoFerramentas(true)
+      setcampoFerramentas2(true)
+    }
+  }
+  function fInfoEnvolvidas () {
+    if (campoInfoEnvolvidas) {
+      setcampoInfoEnvolvidas2(false)
+    } else {
+      setcampoInfoEnvolvidas(true)
+      setcampoInfoEnvolvidas2(true)
+    }
+  }
+  function fDiametro () {
+    if (campoDiametro) {
+      setcampoDiametro2(false)
+    } else {
+      setcampoDiametro(true)
+      setcampoDiametro2(true)
+    }
+  }
+  function fLocalDiretriz () {
+    if (campoLocalizaDiretrizFuro) {
       setcampoLocalizaDiretrizFuro2(false)
-    }else{
+    } else {
       setcampoLocalizaDiretrizFuro(true)
       setcampoLocalizaDiretrizFuro2(true)
-    } 
+    }
   }
-  function fTipoInter() {
-    if(campoTipoInterferencia){
+  function fTipoInter () {
+    if (campoTipoInterferencia) {
       setcampoTipoInterferencia2(false)
-    }else{
+    } else {
       setcampoTipoInterferencia(true)
       setcampoTipoInterferencia2(true)
     }
   }
 
-  function fProfundidade() {
-    if(campoProfundidade){
+  function fProfundidade () {
+    if (campoProfundidade) {
       setcampoProfundidade2(false)
-    }else{
+    } else {
       setcampoProfundidade(true)
       setcampoProfundidade2(true)
     }
-    
   }
-  function fRespTopografia() {
-    if(campoResponselTopografia){
+  function fRespTopografia () {
+    if (campoResponselTopografia) {
       setcampoResponselTopografia2(false)
-    }else{
+    } else {
       setcampoResponselTopografia(true)
       setcampoResponselTopografia2(true)
     }
   }
-  function fDataTopografia() {
-    if(campoDataTopografia){
+  function fDataTopografia () {
+    if (campoDataTopografia) {
       setcampoDataTopografia2(false)
-    }else{
+    } else {
       setcampoDataTopografia(true)
       setcampoDataTopografia2(true)
     }
   }
-  function fEmpresa() {
-    if(campoEmpresa){
+  function fEmpresa () {
+    if (campoEmpresa) {
       setcampoEmpresa2(false)
-    }else{
+    } else {
       setcampoDataTopografia(true)
       setcampoDataTopografia2(false)
     }
@@ -616,7 +605,7 @@ export default function
 
         <ul>
           {etapas.length > 0
-            ? etapas.map((etapas) => 
+            ? etapas.map((etapas) =>
               <li key={etapas.id}>
                 <S.GridConfirmation>
                   <span>{etapas.novaEtapa}</span>
@@ -702,7 +691,9 @@ export default function
               />
               <div className='form-control-group'>
                 <label
-                  htmlFor='perfil'>Perfil</label>
+                  htmlFor='perfil'
+                >Perfil
+                </label>
                 <select
                   {...register('perfil', {
                     required: {
@@ -710,7 +701,8 @@ export default function
                       message: 'Todos os campos são obrigatórios',
                     },
                   })}
-                  name='perfil' id='perfil'>
+                  name='perfil' id='perfil'
+                >
                   <option value='operador'>Operador</option>
                   <option value='equipeCivil'>Equipe civil</option>
                   <option value='navegador'>Navegação</option>
@@ -726,11 +718,10 @@ export default function
         </Modal>
 
         <Modal
-          className='teste'
           isOpen={isOpenPhases} onClose={() => setIsOpenPhases(false)}
         >
           <S.Container>
-            <S.Div2 className='form-check' >
+            <S.Div2 className='form-check'>
               <div className='form-control-group-check'>
                 <h2>Tipo da Etapa</h2>
                 <Switch
@@ -744,124 +735,141 @@ export default function
                   unCheckedChildren='Pontos de verificação da execução'
                   onClick={() => setTipoEtapa('execução')}
                 />
+              </div>
+              <div className='form-control-group-switch'>
                 <h2>Adicione os campos</h2>
-                {!campoEntradaLatitude ?
-                    <Switch
+                {!campoEntradaLatitude
+                  ? <Switch
                       checkedChildren='Ponto de verificação de entrada (lat)'
                       unCheckedChildren='Ponto de verificação de entrada (lat)'
                       onClick={() => fEntradaLatitude()}
-                    /> : false
-                }
+                    />
+                  : false}
 
-                {!campoEntradaLongitude ? <Switch
-                    checkedChildren='Ponto de verificação de entrada (long)'
-                    unCheckedChildren='Ponto de verificação de entrada (long)'
-                    onClick={() => fEntradaLongitude()}
-                  /> : false
-                }
+                {!campoEntradaLongitude
+                  ? <Switch
+                      checkedChildren='Ponto de verificação de entrada (long)'
+                      unCheckedChildren='Ponto de verificação de entrada (long)'
+                      onClick={() => fEntradaLongitude()}
+                    />
+                  : false}
 
-                {!campoSaidaLatitude ? <Switch
-                    checkedChildren='Ponto de verificação de saída (lat)'
-                    unCheckedChildren='Ponto de verificação de saída (lat)'
-                    onClick={() => fSaidaLatitude()}
-                  /> : false
-                }              
+                {!campoSaidaLatitude
+                  ? <Switch
+                      checkedChildren='Ponto de verificação de saída (lat)'
+                      unCheckedChildren='Ponto de verificação de saída (lat)'
+                      onClick={() => fSaidaLatitude()}
+                    />
+                  : false}
 
-                {!campoSaidaLongitude ? <Switch
-                    checkedChildren='Ponto de verificação de saída (long)'
-                    unCheckedChildren='Ponto de verificação de saída (long)'
-                    onClick={() => fSaidaLongitude()}
-                  /> : false
-                }            
+                {!campoSaidaLongitude
+                  ? <Switch
+                      checkedChildren='Ponto de verificação de saída (long)'
+                      unCheckedChildren='Ponto de verificação de saída (long)'
+                      onClick={() => fSaidaLongitude()}
+                    />
+                  : false}
 
-                {!campoTipoTubulacao ? <Switch
-                    checkedChildren='Tipo de tubulação'
-                    unCheckedChildren='Tipo de tubulação'
-                    onClick={() => fTipoTubulacao()}
-                  /> : false
-                }                
+                {!campoTipoTubulacao
+                  ? <Switch
+                      checkedChildren='Tipo de tubulação'
+                      unCheckedChildren='Tipo de tubulação'
+                      onClick={() => fTipoTubulacao()}
+                    />
+                  : false}
 
-                {!campoDiametroPerfuracao ? <Switch
-                    checkedChildren='Diâmetro de perfuração'
-                    unCheckedChildren='Diâmetro de perfuração'
-                    onClick={() => fDiametroPerf()}
-                  /> : false
-                }                
+                {!campoDiametroPerfuracao
+                  ? <Switch
+                      checkedChildren='Diâmetro de perfuração'
+                      unCheckedChildren='Diâmetro de perfuração'
+                      onClick={() => fDiametroPerf()}
+                    />
+                  : false}
 
-                {!campoTipoSolo ? <Switch
-                    checkedChildren='Tipos de solo'
-                    unCheckedChildren='Tipos de solo'
-                    onClick={() => fTipoSolo()}
-                  /> : false
-                }                
+                {!campoTipoSolo
+                  ? <Switch
+                      checkedChildren='Tipos de solo'
+                      unCheckedChildren='Tipos de solo'
+                      onClick={() => fTipoSolo()}
+                    />
+                  : false}
 
-                {!campoResponsel ? <Switch
-                    checkedChildren='Responsável'
-                    unCheckedChildren='Responsável'
-                    onClick={() => fRespTopografia()}
-                  /> : false
-                }
+                {!campoResponsel
+                  ? <Switch
+                      checkedChildren='Responsável'
+                      unCheckedChildren='Responsável'
+                      onClick={() => fRespTopografia()}
+                    />
+                  : false}
 
-                {!campoEquipamento ? <Switch
-                    checkedChildren='Equipamentos'
-                    unCheckedChildren='Equipamentos'
-                    onClick={() => fEquipamento()}
-                  /> : false
-                }
+                {!campoEquipamento
+                  ? <Switch
+                      checkedChildren='Equipamentos'
+                      unCheckedChildren='Equipamentos'
+                      onClick={() => fEquipamento()}
+                    />
+                  : false}
 
-                {!campoDocumento ? <Switch
-                    checkedChildren='Documentos'
-                    unCheckedChildren='Documentos'
-                    onClick={() => fDocumento()}
-                  /> : false
-                }
+                {!campoDocumento
+                  ? <Switch
+                      checkedChildren='Documentos'
+                      unCheckedChildren='Documentos'
+                      onClick={() => fDocumento()}
+                    />
+                  : false}
 
-                {!campoTipoRede ? <Switch
-                    checkedChildren='Tipo de rede'
-                    unCheckedChildren='Tipo de rede'
-                    onClick={() => fTipoRede()}
-                  /> : false
-                }
+                {!campoTipoRede
+                  ? <Switch
+                      checkedChildren='Tipo de rede'
+                      unCheckedChildren='Tipo de rede'
+                      onClick={() => fTipoRede()}
+                    />
+                  : false}
 
-                {!campoEmpresa ? <Switch
-                    checkedChildren='Empresa proprietária'
-                    unCheckedChildren='Empresa proprietária'
-                    onClick={() => fEmpresa()}
-                  /> : false
-                }
+                {!campoEmpresa
+                  ? <Switch
+                      checkedChildren='Empresa proprietária'
+                      unCheckedChildren='Empresa proprietária'
+                      onClick={() => fEmpresa()}
+                    />
+                  : false}
 
-                {!campoSondagemInterferencia ? <Switch
-                    checkedChildren='Confirmação da sondagem da interferência'
-                    unCheckedChildren='Confirmação da sondagem da interferência'
-                    onClick={() => fSondagemInter()}
-                  /> : false
-                }
+                {!campoSondagemInterferencia
+                  ? <Switch
+                      checkedChildren='Confirmação da sondagem da interferência'
+                      unCheckedChildren='Confirmação da sondagem da interferência'
+                      onClick={() => fSondagemInter()}
+                    />
+                  : false}
 
-                {!campoSondagem ? <Switch
-                    checkedChildren='Sondagem'
-                    unCheckedChildren='Sondagem'
-                    onClick={() => fSondagem()}
-                  /> : false
-                }
+                {!campoSondagem
+                  ? <Switch
+                      checkedChildren='Sondagem'
+                      unCheckedChildren='Sondagem'
+                      onClick={() => fSondagem()}
+                    />
+                  : false}
 
                 {/* <Switch
                   checkedChildren='Quando acontece'
                   unCheckedChildren='Quando acontece'
                 /> */}
 
-                {!campoDiametroInterferencia ? <Switch
-                    checkedChildren='Diâmetro da interferência'
-                    unCheckedChildren='Diâmetro da interferência'
-                    onClick={() => fDiametroInter()}
-                  /> : false
-                }
-                
-                {!campoPlanoFuro ? <Switch
-                  checkedChildren='Criação do plano de furo'
-                  unCheckedChildren='Criação do plano de furo'
-                  onClick={() => fPlanoFuro()}
-                /> : false
-                }
+                {!campoDiametroInterferencia
+                  ? <Switch
+                      checkedChildren='Diâmetro da interferência'
+                      unCheckedChildren='Diâmetro da interferência'
+                      onClick={() => fDiametroInter()}
+                    />
+                  : false}
+
+                {!campoPlanoFuro
+                  ? <Switch
+                      checkedChildren='Criação do plano de furo'
+                      unCheckedChildren='Criação do plano de furo'
+                      onClick={() => fPlanoFuro()}
+                    />
+                  : false}
 
                 {/* <Switch
                   checkedChildren='Empresa proprietária'
@@ -898,12 +906,12 @@ export default function
                 {/* <Switch
                   checkedChildren='Responsável'
                   unCheckedChildren='Responsável'
-                /> 
+                />
 
                 <Switch
                   checkedChildren='Quando acontece'
                   unCheckedChildren='Quando acontece'
-                />*/}
+                /> */}
 
                 <Switch
                   checkedChildren='Diamêtro'

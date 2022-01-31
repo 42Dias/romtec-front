@@ -33,7 +33,7 @@ type FormData = {
 }
 
 export default function
-  Customers() {
+Customers () {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -51,7 +51,7 @@ export default function
   const [complemento, setComplemento] = useState('')
   const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<FormData>()
 
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     data.logradouro = logradouro
     data.bairro = bairro
     data.cidade = cidade
@@ -59,7 +59,7 @@ export default function
     console.log(data)
     Cadastro(data)
   }
-  async function Cadastro(submit: any) {
+  async function Cadastro (submit: any) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.post('clientes', {
@@ -86,7 +86,7 @@ export default function
     })
   }
 
-  async function loadDados() {
+  async function loadDados () {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.get('clientes',
@@ -102,7 +102,7 @@ export default function
       setLoading(false)
     })
   }
-  async function deleteDados(id: string) {
+  async function deleteDados (id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('clientes/' + id,
@@ -117,7 +117,7 @@ export default function
       setLoading(false)
     })
   }
-  function update(dados: any) {
+  function update (dados: any) {
     console.log('dados')
     console.log(dados)
     setIdClientes(dados.id)
@@ -133,7 +133,7 @@ export default function
     setComplemento(dados.complemento)
     setIsOpenUpdate(true)
   }
-  async function updateDados() {
+  async function updateDados () {
     setLoading(true)
     const responser = api.put('clientes/' + idClientes, {
       data: {
@@ -159,12 +159,12 @@ export default function
     setLoading(true)
     loadDados()
   }, [])
-  function onSubmitInput(values: any, actions: any) {
+  function onSubmitInput (values: any, actions: any) {
     // console.log(data)
     // Cadastro(data)
     console.log('SUBMIT', values)
   }
-  function onBlurCep(ev: any, setFieldValue: any) {
+  function onBlurCep (ev: any, setFieldValue: any) {
     const { value } = ev.target
 
     const cep = value?.replace(/[^0-9]/g, '')

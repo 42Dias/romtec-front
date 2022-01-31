@@ -82,7 +82,7 @@ Plans () {
   }
   async function deleteDados (id: string) {
     setLoading(true)
-    toast.info("Deletando...")
+    toast.info('Deletando...')
     // eslint-disable-next-line
     const responser = api.delete('plano/' + id,
     ).then((response) => {
@@ -96,7 +96,7 @@ Plans () {
       setLoading(false)
     })
   }
-  function update(dados: any) {
+  function update (dados: any) {
     console.log('dados')
     console.log(dados)
     setIdPlanos(dados.id)
@@ -106,15 +106,15 @@ Plans () {
     setPeriodo(dados.periodo)
     setIsOpenUpdate(true)
   }
-  async function updateDados() {
+  async function updateDados () {
     setLoading(true)
     const responser = api.put('plano/' + idPlanos, {
       data: {
         nome: nome,
         valor: valor,
         periodo: periodo,
-      }
-    }
+      },
+    },
     ).then((response) => {
       if (response.statusText === 'OK') {
         loadDados()
@@ -185,7 +185,7 @@ Plans () {
                 })}
               />
 
-              <fieldset>
+              <fieldset className='valorPago'>
                 <label htmlFor='valor'>Valor</label>
                 <MaskedInput
                   onChangeUnMask={(value) => setValue('valor', value)}
@@ -224,23 +224,25 @@ Plans () {
 
         <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
-            <S.Form >
+            <S.Form>
               <TextField
                 label='Nome'
-                value={nome} 
+                value={nome}
                 onChange={(text) => setNome(text.target.value)}
               />
 
               <TextField
                 label='Valor'
-                value={valor} 
+                value={valor}
                 onChange={(text) => setValor(text.target.value)}
               />
 
               <fieldset>
                 <label htmlFor='periodo'>Periodo</label>
-                <select id='periodo'  value={periodo} 
-                onChange={(text) => setPeriodo(text.target.value)}>
+                <select
+                  id='periodo' value={periodo}
+                  onChange={(text) => setPeriodo(text.target.value)}
+                >
                   <option value=''>Select...</option>
                   <option value='Mensal'>Mensal</option>
                   <option value='Semestral'>Semestral</option>

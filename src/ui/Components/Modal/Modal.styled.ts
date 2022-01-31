@@ -3,10 +3,6 @@ import { theme } from '../../styles/theme'
 
 export const Modal = styled.div`
 
-  &.teste {
-    height: 420vh;
-  }
-
   width: 100%;
   height: 200vh;
   position: absolute;

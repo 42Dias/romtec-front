@@ -24,7 +24,7 @@ type FormData = {
 }
 
 export default function
-  ExecutionOfTheCrossing() {
+ExecutionOfTheCrossing () {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenPhases, setIsOpenPhases] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
@@ -41,11 +41,11 @@ export default function
   const link = '/etapas/'
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit(data: FormData) {
-    data.idCliente = data.nomeCliente.split("/")[0]
-    data.nomeCliente =  data.nomeCliente.split("/")[1]
-    data.idConfigTravessia = data.nomeConfigTravessia.split("/")[0]
-    data.nomeConfigTravessia =  data.nomeConfigTravessia.split("/")[1]
+  function onSubmit (data: FormData) {
+    data.idCliente = data.nomeCliente.split('/')[0]
+    data.nomeCliente = data.nomeCliente.split('/')[1]
+    data.idConfigTravessia = data.nomeConfigTravessia.split('/')[0]
+    data.nomeConfigTravessia = data.nomeConfigTravessia.split('/')[1]
     console.log(data)
     Cadastro(data)
   }
@@ -77,7 +77,7 @@ export default function
     })
   }
 
-  async function loadDados() {
+  async function loadDados () {
     setLoading(true)
     // eslint-disable-next-line
     api.get('executarTravessia',
@@ -117,7 +117,7 @@ export default function
       setLoading(false)
     })
   }
-  async function deleteDados(id: string) {
+  async function deleteDados (id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('executarTravessia/' + id
@@ -132,7 +132,7 @@ export default function
       setLoading(false)
     })
   }
-  function update(dados: any) {
+  function update (dados: any) {
     console.log('dados')
     console.log(dados)
     setIdconfigTravessia(dados.id)
@@ -140,7 +140,7 @@ export default function
     setnome(dados.nome)
     setIsOpenUpdate(true)
   }
-  async function updateDados() {
+  async function updateDados () {
     setLoading(true)
     const responser = api.put('executarTravessia/' + idconfigTravessia, {
       data: {
@@ -163,11 +163,11 @@ export default function
     setLoading(true)
     loadDados()
   }, [])
-  function close(){
+  function close () {
     reset()
     setIsOpen(false)
   }
-  function onChange(e: any) {
+  function onChange (e: any) {
     console.log(`checked = ${e.target.checked}`)
   }
 
@@ -263,7 +263,9 @@ export default function
               /> */}
               <div className='form-control-group'>
                 <label
-                  htmlFor='nomeCliente'>Nome do Cliente</label>
+                  htmlFor='nomeCliente'
+                >Nome do Cliente
+                </label>
                 <select
                   {...register('nomeCliente', {
                     required: {
@@ -271,11 +273,12 @@ export default function
                       message: 'Todos os campos são obrigatórios',
                     },
                   })}
-                  name='nomeCliente' id='nomeCliente'>
+                  name='nomeCliente' id='nomeCliente'
+                >
                   <option value=''>Selecione...</option>
                   {clientes.length > 0
                     ? clientes.map((cliente) =>
-                      <option value={cliente.id+"/"+cliente.nomeFantasia}>{cliente.nomeFantasia}</option>
+                      <option value={cliente.id + '/' + cliente.nomeFantasia}>{cliente.nomeFantasia}</option>,
                     )
                     : <option value=''>Nenhum Cliente cadastrado!</option>}
                 </select>
@@ -323,7 +326,9 @@ export default function
               /> */}
               <div className='form-control-group'>
                 <label
-                  htmlFor='nomeConfigTravessia'>Configuração da travessia</label>
+                  htmlFor='nomeConfigTravessia'
+                >Configuração da travessia
+                </label>
                 <select
                   {...register('nomeConfigTravessia', {
                     required: {
@@ -331,12 +336,13 @@ export default function
                       message: 'Todos os campos são obrigatórios',
                     },
                   })}
-                  name='nomeConfigTravessia' id='nomeConfigTravessia'>
+                  name='nomeConfigTravessia' id='nomeConfigTravessia'
+                >
                   <option value=''>Selecione...</option>
                   {travessia.length > 0
                     ? travessia.map((travessia) =>
 
-                      <option value={travessia.id+"/"+travessia.nome}>{travessia.nome}</option>
+                      <option value={travessia.id + '/' + travessia.nome}>{travessia.nome}</option>,
 
                     )
                     : <option value=''>Nenhuma Configuração de Travessia cadastrado!</option>}

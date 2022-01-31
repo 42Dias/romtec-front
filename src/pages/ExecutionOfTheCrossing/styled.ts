@@ -67,7 +67,6 @@ export const GridConfirmation = styled.div`
   border-radius: 5px;
   margin-bottom: 13px;
 
-<<<<<<< HEAD
   button {
     font-size: 14px;
     color: ${theme.colors.white};
@@ -82,7 +81,7 @@ export const GridConfirmation = styled.div`
     margin-bottom: 20px;
     color: ${theme.colors.black};
     font-weight: bold;
-
+  }
   span {
     font-size: 14px;
     color: ${theme.colors.white};

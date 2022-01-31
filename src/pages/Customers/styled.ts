@@ -142,6 +142,14 @@ export const Form = styled.form`
       opacity: 80%;
     }
   }
+
+  @media (max-width: 768px) {
+    input {
+      max-width: 290px;
+    }
+
+    margin-left: 10px;
+  }
 `
 export const Div = styled.div`
   display: grid;
