@@ -432,7 +432,7 @@ export const InterferenciasForm = styled.form`
       background: transparent;
       padding: 0 7px;
       border-radius: 6px;
-      margin-top: 10px;
+      margin-top: 11px;
     }
 
     select {
@@ -442,7 +442,7 @@ export const InterferenciasForm = styled.form`
       background: transparent;
       padding: 0 7px;
       border-radius: 6px;
-      margin-top: 10px;
+      margin-top: 11px;
       option {
         background: ${theme.colors.darkBlack};
       }
