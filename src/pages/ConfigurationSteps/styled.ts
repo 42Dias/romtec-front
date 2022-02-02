@@ -227,10 +227,23 @@ export const Form = styled.form`
   }
 `
 export const Div2 = styled.div`
-  overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: center;
+
+  p {
+    cursor: pointer;
+    display: flex;
+    justify-items: space-between;
+    margin-top: 10px;
+    width: 237px;
+    height: 35px; 
+
+    border: 1px solid #00E1AF;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-size: 12px;
+  }
 
   .buttons-points {
     display: flex;
@@ -253,20 +266,6 @@ export const Div2 = styled.div`
     }
   }
 
-  .form-control-group-switch {
-    height: 200px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    @media (max-width: 768px) {
-      width: 345px !important;
-    }
-  }
-
-  @media (max-width: 520px) {
-    grid-template-columns: 1fr;
-  }
-
-
   .form-control-group {
     display: flex;
     flex-direction: column;
@@ -286,36 +285,33 @@ export const Div2 = styled.div`
     flex-direction: column;
   }
 
-    .form-control-group select {
-      width: 345px;
-      height: 48px;
-      box-sizing: border-box;
-      border-radius: 4px;
-      margin: 10px 0;
-      padding: 0 7px;
-      border: 1px solid ${theme.colors.black};
-      background: ${theme.colors.darkBlack};
-      color: #ccc;
+  .form-control-group select {
+    width: 345px;
+    height: 48px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    margin: 10px 0;
+    padding: 0 7px;
+    border: 1px solid ${theme.colors.black};
+    background: ${theme.colors.darkBlack};
+    color: #ccc;
 
-      option {
-        color: black;
-      }
-
-      :focus {
-        border: 1px solid ${theme.colors.yellow};
-        background: transparent;
-      } 
-
-      @media(max-width: 520px) {
-        width: 290px;  
-        margin: 10px 0;
-        margin-right: 50px;
-        padding: 0;
-      }
+    option {
+      color: black;
     }
 
-  justify-items: center;
-  align-items: center;
+    :focus {
+      border: 1px solid ${theme.colors.yellow};
+      background: transparent;
+    } 
+
+    @media(max-width: 520px) {
+      width: 290px;  
+      margin: 10px 0;
+      margin-right: 50px;
+      padding: 0;
+    }
+  }
 
   button {
     width: 101px;

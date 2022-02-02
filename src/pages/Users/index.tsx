@@ -53,14 +53,15 @@ Users () {
       setLoading(false)
     })
   }
+
   async function Cadastro () {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.post('user', {
       data: {
         emails: email,
-        roles: role
-      }
+        roles: role,
+      },
     }).then((response) => {
       console.log(response)
       if (response.statusText === 'OK') {
@@ -239,15 +240,15 @@ Users () {
 
             <h1>Convidar usuário</h1>
 
-            <S.GridInvite> 
+            <S.GridInvite>
               <div>
                 <label htmlFor='email'>Email</label>
-                <input type='email' id='email' placeholder='Email do convidado' onChange={(text) => setEmail(text.target.value)}/>
+                <input type='email' id='email' placeholder='Email do convidado' onChange={(text) => setEmail(text.target.value)} />
               </div>
               <div>
                 <label htmlFor='select'>Selecione o tipo de permissão</label>
                 <select name='' id='select' onChange={(text) => setRole(text.target.value)}>
-                  
+
                   <option value='clienteADM'>Cliente ADM</option>
                   <option value='equipeCivil'>Equipe civil</option>
                   <option value='engenharia'>Engenharia</option>
@@ -255,22 +256,23 @@ Users () {
                   <option value='mapeamento'>Mapeamento</option>
                   <option value='navegador'>Navegação</option>
                   <option value='operador'>Operador</option>
-                  {roles === "admin" ? <option value='admin'>Plataforma ADM</option>:false}
-                 
+                  {roles === 'admin' ? <option value='admin'>Plataforma ADM</option> : false}
+
                 </select>
               </div>
-            </S.GridInvite> 
+            </S.GridInvite>
 
             <S.Btns>
               <button onClick={() => Cadastro()}>{loading
-                  ? <img
-                      width='40px'
-                      style={{ margin: 'auto' }}
-                      height=''
-                      src='https://contribua.org/mb-static/images/loading.gif'
-                      alt='Loading'
-                    />
-                  : 'Salvar'}</button>
+                ? <img
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height=''
+                    src='https://contribua.org/mb-static/images/loading.gif'
+                    alt='Loading'
+                  />
+                : 'Salvar'}
+              </button>
               <button>Cancelar</button>
             </S.Btns>
 

@@ -6,6 +6,11 @@ export const ContainerConfirmation = styled.div`
     height: 100%;
     padding: 50px 15px;
 
+    .interferenciasForm {
+      display: flex;
+      flex-direction: column;
+    }
+
     .swiper-container {
       margin: 0 auto;
       text-align: center;
@@ -37,6 +42,18 @@ export const ContainerConfirmation = styled.div`
           font-size: 32px;
           color: ${theme.colors.green};
         }
+      }
+    }
+
+    .containerForm {
+      button {
+        background: #FECE51 !important;
+      }
+    }
+
+    .containerDisabled {
+      button {
+        cursor: not-allowed !important;
       }
     }
 
@@ -197,11 +214,32 @@ export const Div = styled.div`
     color: white;
     border: 0;
   }
+
+  .finishPhase {
+    width: 161px;
+    height: 44px;
+
+    background: #FECE51;
+    color: black;
+    border-radius: 5px;
+
+    margin-left: 10px;
+  }
 `
 
 export const GridForm = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+
+  padding: 40px 0;
+
+  .addInterferencia {
+    width: 208px;
+    margin-top: 39px;
+    height: 48px;
+    color: black;
+  }
 
   div {
     display: flex;
@@ -378,6 +416,35 @@ export const ModelsModal = styled.div`
 
     @media (max-width: 520px) {
       margin-left: 0;
+    }
+  }
+`
+
+export const InterferenciasForm = styled.form`
+  div {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      width: 420px;
+      height: 48px;
+      border: 1px solid #252332;
+      background: transparent;
+      padding: 0 7px;
+      border-radius: 6px;
+    }
+
+    select {
+      width: 420px;
+      height: 48px;
+      border: 1px solid #252332;
+      background: transparent;
+      padding: 0 7px;
+      border-radius: 6px;
+
+      option {
+        background: ${theme.colors.darkBlack};
+      }
     }
   }
 `
