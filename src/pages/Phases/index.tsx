@@ -1048,18 +1048,23 @@ Phases () {
                 <option value=''>Paralelo</option>
               </select>
             </div>
+
             <div>
               <label htmlFor=''>Diâmetro</label>
               <input type='text' />
             </div>
+
             <div>
               <label htmlFor=''>Tipo de interferência</label>
               <input type='text' />
             </div>
+
             <div>
               <label htmlFor=''>Profundidade</label>
               <input type='text' />
             </div>
+
+            <button>Salvar</button>
           </S.InterferenciasForm>
         </Modal>
 
