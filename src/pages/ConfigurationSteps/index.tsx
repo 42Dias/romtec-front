@@ -21,7 +21,7 @@ type FormData = {
   perfil: string
 }
 
-export default function ConfigurationSteps() {
+export default function ConfigurationSteps () {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenPhases, setIsOpenPhases] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
@@ -71,7 +71,7 @@ export default function ConfigurationSteps() {
   const [campoFerramentas, setcampoFerramentas] = useState(false)
   const [campoInfoEnvolvidas, setcampoInfoEnvolvidas] = useState(false)
   const [campoDiametro, setcampoDiametro] = useState(false)
-  const [campoLocalizaDiretrizFuro, setcampoLocalizaDiretrizFuro] =  useState(false)
+  const [campoLocalizaDiretrizFuro, setcampoLocalizaDiretrizFuro] = useState(false)
   const [campoTipoInterferencia, setcampoTipoInterferencia] = useState(false)
   const [campoProfundidade, setcampoProfundidade] = useState(false)
   const [campoResponselTopografia, setcampoResponselTopografia] = useState(false)
@@ -121,7 +121,7 @@ export default function ConfigurationSteps() {
   const [campoDocumento2, setcampoDocumento2] = useState(false)
   const [campoSondagemInterferencia2, setcampoSondagemInterferencia2] = useState(false)
   const [campoSondagem2, setcampoSondagem2] = useState(false)
-  const [campoDiametroInterferencia2, setcampoDiametroInterferencia2] =  useState(false)
+  const [campoDiametroInterferencia2, setcampoDiametroInterferencia2] = useState(false)
   const [campoPlanoFuro2, setcampoPlanoFuro2] = useState(false)
   const [campoFerramentas2, setcampoFerramentas2] = useState(false)
   const [campoInfoEnvolvidas2, setcampoInfoEnvolvidas2] = useState(false)
@@ -133,8 +133,7 @@ export default function ConfigurationSteps() {
   const [campoDataTopografia2, setcampoDataTopografia2] = useState(false)
   const [campoEmpresa2, setcampoEmpresa2] = useState(false)
 
-
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     console.log(data)
     Cadastro(data)
   }
@@ -173,7 +172,7 @@ export default function ConfigurationSteps() {
       })
   }
 
-  async function loadDados() {
+  async function loadDados () {
     setLoading(true)
     console.log('idConfigTravessia')
     console.log(idConfigTravessia.replace('#/etapas-da-configuracao/', ''))
@@ -324,7 +323,7 @@ export default function ConfigurationSteps() {
         setLoading(false)
       })
   }
-  async function deleteDados(id: string) {
+  async function deleteDados (id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api
@@ -341,7 +340,7 @@ export default function ConfigurationSteps() {
         setLoading(false)
       })
   }
-  function update(dados: any, banco: string) {
+  function update (dados: any, banco: string) {
     console.log('dados')
     console.log(dados)
     if (banco === 'etapas') {
@@ -354,7 +353,7 @@ export default function ConfigurationSteps() {
       updateDados()
     }
   }
-  async function updateDados() {
+  async function updateDados () {
     setLoading(true)
     console.log(etapas)
     const data = {
@@ -474,7 +473,7 @@ export default function ConfigurationSteps() {
     setcampoResponselTopografia2(false)
     setcampoDataTopografia2(false)
   }
-  function selectCampos(etapa: any) {
+  function selectCampos (etapa: any) {
     setidEtapa(etapa.id)
     setnumeroEtapa(etapa.numeroEtapa)
     setnovaEtapa(etapa.novaEtapa)
@@ -492,11 +491,11 @@ export default function ConfigurationSteps() {
     // console.log(idConfigTravessia)
   }, [])
 
-  function onChange(e: any) {
+  function onChange (e: any) {
     console.log(`checked = ${e.target.checked}`)
   }
 
-  function fEntradaLatitude() {
+  function fEntradaLatitude () {
     if (campoEntradaLatitude) {
       console.log('campo latitude')
       setcampoEntradaLatitude2(false)
@@ -505,7 +504,7 @@ export default function ConfigurationSteps() {
       setcampoEntradaLatitude2(true)
     }
   }
-  function fEntradaLongitude() {
+  function fEntradaLongitude () {
     if (campoEntradaLongitude) {
       console.log('campo longitude')
       setcampoEntradaLongitude2(false)
@@ -514,7 +513,7 @@ export default function ConfigurationSteps() {
       setcampoEntradaLongitude2(true)
     }
   }
-  function fSaidaLatitude() {
+  function fSaidaLatitude () {
     if (campoSaidaLatitude) {
       setcampoSaidaLatitude2(false)
     } else {
@@ -522,7 +521,7 @@ export default function ConfigurationSteps() {
       setcampoSaidaLatitude2(true)
     }
   }
-  function fSaidaLongitude() {
+  function fSaidaLongitude () {
     if (campoSaidaLongitude) {
       setcampoSaidaLongitude2(false)
     } else {
@@ -530,7 +529,7 @@ export default function ConfigurationSteps() {
       setcampoSaidaLongitude2(true)
     }
   }
-  function fTipoTubulacao() {
+  function fTipoTubulacao () {
     if (campoTipoTubulacao) {
       setcampoTipoTubulacao2(false)
     } else {
@@ -538,7 +537,7 @@ export default function ConfigurationSteps() {
       setcampoTipoTubulacao2(true)
     }
   }
-  function fDiametroPerf() {
+  function fDiametroPerf () {
     if (campoDiametro) {
       setcampoDiametro2(false)
     } else {
@@ -546,7 +545,7 @@ export default function ConfigurationSteps() {
       setcampoDiametro2(true)
     }
   }
-  function fTipoSolo() {
+  function fTipoSolo () {
     if (campoTipoSolo) {
       setcampoTipoSolo2(false)
     } else {
@@ -554,7 +553,7 @@ export default function ConfigurationSteps() {
       setcampoTipoSolo2(true)
     }
   }
-  function fEquipamento() {
+  function fEquipamento () {
     if (campoEquipamento) {
       setcampoEquipamento2(false)
     } else {
@@ -562,7 +561,7 @@ export default function ConfigurationSteps() {
       setcampoEquipamento2(true)
     }
   }
-  function fDocumento() {
+  function fDocumento () {
     if (campoDocumento) {
       setcampoDocumento2(false)
     } else {
@@ -570,7 +569,7 @@ export default function ConfigurationSteps() {
       setcampoDocumento2(true)
     }
   }
-  function fTipoRede() {
+  function fTipoRede () {
     if (campoTipoRede) {
       setcampoTipoRede2(false)
     } else {
@@ -578,7 +577,7 @@ export default function ConfigurationSteps() {
       setcampoTipoRede2(true)
     }
   }
-  function fSondagemInter() {
+  function fSondagemInter () {
     if (campoSondagemInterferencia) {
       setcampoSondagemInterferencia2(false)
     } else {
@@ -586,7 +585,7 @@ export default function ConfigurationSteps() {
       setcampoSondagemInterferencia2(true)
     }
   }
-  function fSondagem() {
+  function fSondagem () {
     if (campoSondagem) {
       setcampoSondagem2(false)
     } else {
@@ -594,7 +593,7 @@ export default function ConfigurationSteps() {
       setcampoSondagem2(true)
     }
   }
-  function fDiametroInter() {
+  function fDiametroInter () {
     if (campoDiametroInterferencia) {
       setcampoDiametroInterferencia2(false)
     } else {
@@ -602,7 +601,7 @@ export default function ConfigurationSteps() {
       setcampoDiametroInterferencia2(true)
     }
   }
-  function fPlanoFuro() {
+  function fPlanoFuro () {
     if (campoPlanoFuro) {
       setcampoPlanoFuro2(false)
     } else {
@@ -610,7 +609,7 @@ export default function ConfigurationSteps() {
       setcampoPlanoFuro2(true)
     }
   }
-  function fFerramentas() {
+  function fFerramentas () {
     if (campoFerramentas) {
       setcampoFerramentas2(false)
     } else {
@@ -618,7 +617,7 @@ export default function ConfigurationSteps() {
       setcampoFerramentas2(true)
     }
   }
-  function fInfoEnvolvidas() {
+  function fInfoEnvolvidas () {
     if (campoInfoEnvolvidas) {
       setcampoInfoEnvolvidas2(false)
     } else {
@@ -626,7 +625,7 @@ export default function ConfigurationSteps() {
       setcampoInfoEnvolvidas2(true)
     }
   }
-  function fDiametro() {
+  function fDiametro () {
     if (campoDiametro) {
       setcampoDiametro2(false)
     } else {
@@ -634,7 +633,7 @@ export default function ConfigurationSteps() {
       setcampoDiametro2(true)
     }
   }
-  function fLocalDiretriz() {
+  function fLocalDiretriz () {
     if (campoLocalizaDiretrizFuro) {
       setcampoLocalizaDiretrizFuro2(false)
     } else {
@@ -642,7 +641,7 @@ export default function ConfigurationSteps() {
       setcampoLocalizaDiretrizFuro2(true)
     }
   }
-  function fTipoInter() {
+  function fTipoInter () {
     if (campoTipoInterferencia) {
       setcampoTipoInterferencia2(false)
     } else {
@@ -651,7 +650,7 @@ export default function ConfigurationSteps() {
     }
   }
 
-  function fProfundidade() {
+  function fProfundidade () {
     if (campoProfundidade) {
       setcampoProfundidade2(false)
     } else {
@@ -659,7 +658,7 @@ export default function ConfigurationSteps() {
       setcampoProfundidade2(true)
     }
   }
-  function fRespTopografia() {
+  function fRespTopografia () {
     if (campoResponselTopografia) {
       setcampoResponselTopografia2(false)
     } else {
@@ -667,7 +666,7 @@ export default function ConfigurationSteps() {
       setcampoResponselTopografia2(true)
     }
   }
-  function fDataTopografia() {
+  function fDataTopografia () {
     if (campoDataTopografia) {
       setcampoDataTopografia2(false)
     } else {
@@ -675,7 +674,7 @@ export default function ConfigurationSteps() {
       setcampoDataTopografia2(true)
     }
   }
-  function fEmpresa() {
+  function fEmpresa () {
     if (campoEmpresa) {
       setcampoEmpresa2(false)
     } else {
@@ -818,10 +817,10 @@ export default function ConfigurationSteps() {
                       src='https://contribua.org/mb-static/images/loading.gif'
                       alt='Loading'
                     />
-                  )
+                    )
                   : (
-                    'Salvar'
-                  )}
+                      'Salvar'
+                    )}
               </button>
             </S.Form>
           </S.Container>
@@ -1075,11 +1074,11 @@ export default function ConfigurationSteps() {
           <S.Container>
             <S.Div2>
               <h2>Adicione os campos da etapa</h2>
-              <Switch 
+              <Switch
                 checkedChildren='Nome do usuário do perfil de acesso'
                 unCheckedChildren='Nome do usuário do perfil de acesso'
               />
-              
+
               <Switch
                 checkedChildren='Data da execução '
                 unCheckedChildren='Data da execução '
@@ -1092,7 +1091,46 @@ export default function ConfigurationSteps() {
                 checkedChildren='Hora da execução'
                 unCheckedChildren='Hora da execução'
               />
-
+              <Switch
+                checkedChildren='Ponto de verificação de entrada (lat)'
+                unCheckedChildren='Ponto de verificação de entrada (lat)'
+              />
+              <Switch
+                checkedChildren='Ponto de verificação de entrada (long)'
+                unCheckedChildren='Ponto de verificação de entrada (long)'
+              />
+              <Switch
+                checkedChildren='Ponto de verificação de saída(lat)'
+                unCheckedChildren='Ponto de verificação de saída(lat)'
+              />
+              <Switch
+                checkedChildren='Ponto de verificação de saída (long)'
+                unCheckedChildren='Ponto de verificação de saída (long)'
+              />
+              <Switch
+                checkedChildren='Diâmetro de perfuração (mm)'
+                unCheckedChildren='Diâmetro de perfuração (mm)'
+              />
+              <Switch
+                checkedChildren='Tipo de Solo'
+                unCheckedChildren='Tipo de Solo'
+              />
+              <Switch
+                checkedChildren='Documento (upload)'
+                unCheckedChildren='Documento (upload)'
+              />
+              <Switch
+                checkedChildren='Confirmação do procedimento'
+                unCheckedChildren='Confirmação do procedimento'
+              />
+              <Switch
+                checkedChildren='Volume preparado'
+                unCheckedChildren='Volume preparado'
+              />
+              <Switch
+                checkedChildren='Teste de viscosidade'
+                unCheckedChildren='Teste de viscosidade'
+              />
               <button onClick={() => updateDados()}>
                 {loading
                   ? (
@@ -1103,10 +1141,10 @@ export default function ConfigurationSteps() {
                       src='https://contribua.org/mb-static/images/loading.gif'
                       alt='Loading'
                     />
-                  )
+                    )
                   : (
-                    'Salvar'
-                  )}
+                      'Salvar'
+                    )}
               </button>
             </S.Div2>
           </S.Container>
@@ -1144,12 +1182,28 @@ export default function ConfigurationSteps() {
                 unCheckedChildren='Tipo de interferência'
               />
               <Switch
+                checkedChildren='Empresa proprietária'
+                unCheckedChildren='Empresa proprietária'
+              />
+              <Switch
                 checkedChildren='Dimensões da vala de entrada e saída'
                 unCheckedChildren='Dimensões da vala de entrada e saída'
               />
               <Switch
                 checkedChildren='Estaca de referência'
                 unCheckedChildren='Estaca de referência'
+              />
+              <Switch
+                checkedChildren='Confirmação de sondagem da interferência'
+                unCheckedChildren='Confirmação de sondagem da interferência'
+              />
+              <Switch
+                checkedChildren='Fluido'
+                unCheckedChildren='Fluido'
+              />
+              <Switch
+                checkedChildren='Receita do fluido'
+                unCheckedChildren='Receita do fluido'
               />
 
               <button onClick={() => updateDados()}>
@@ -1162,10 +1216,10 @@ export default function ConfigurationSteps() {
                       src='https://contribua.org/mb-static/images/loading.gif'
                       alt='Loading'
                     />
-                  )
+                    )
                   : (
-                    'Salvar'
-                  )}
+                      'Salvar'
+                    )}
               </button>
             </S.Div2>
           </S.Container>
@@ -1241,10 +1295,10 @@ export default function ConfigurationSteps() {
                       src='https://contribua.org/mb-static/images/loading.gif'
                       alt='Loading'
                     />
-                  )
+                    )
                   : (
-                    'Salvar'
-                  )}
+                      'Salvar'
+                    )}
               </button>
             </S.Div2>
           </S.Container>
@@ -1271,8 +1325,36 @@ export default function ConfigurationSteps() {
                 unCheckedChildren='Pá de perfuração'
               />
               <Switch
+                checkedChildren='Pulling head'
+                unCheckedChildren='Pulling head'
+              />
+              <Switch
                 checkedChildren='Localizador'
                 unCheckedChildren='Localizador'
+              />
+              <Switch
+                checkedChildren='Luva'
+                unCheckedChildren='Luva'
+              />
+              <Switch
+                checkedChildren='Haste inicial'
+                unCheckedChildren='Haste inicial'
+              />
+              <Switch
+                checkedChildren='Flexobarra'
+                unCheckedChildren='Flexobarra'
+              />
+              <Switch
+                checkedChildren='Rádio'
+                unCheckedChildren='Rádio'
+              />
+              <Switch
+                checkedChildren='Parafuso'
+                unCheckedChildren='Parafuso'
+              />
+              <Switch
+                checkedChildren='Parafuso'
+                unCheckedChildren='Parafuso'
               />
               <Switch
                 checkedChildren='Modelo de alargador'
@@ -1286,6 +1368,14 @@ export default function ConfigurationSteps() {
                 checkedChildren='Capacidade do swivel'
                 unCheckedChildren='Capacidade do swivel'
               />
+              <Switch
+                checkedChildren='Diâmetro de ferramenta'
+                unCheckedChildren='Diâmetro de ferramenta'
+              />
+              <Switch
+                checkedChildren='Condição do ferramental'
+                unCheckedChildren='Condição do ferramental'
+              />
               <button onClick={() => updateDados()}>
                 {loading
                   ? (
@@ -1296,10 +1386,10 @@ export default function ConfigurationSteps() {
                       src='https://contribua.org/mb-static/images/loading.gif'
                       alt='Loading'
                     />
-                  )
+                    )
                   : (
-                    'Salvar'
-                  )}
+                      'Salvar'
+                    )}
               </button>
             </S.Div2>
           </S.Container>
@@ -1333,10 +1423,10 @@ export default function ConfigurationSteps() {
                       src='https://contribua.org/mb-static/images/loading.gif'
                       alt='Loading'
                     />
-                  )
+                    )
                   : (
-                    'Salvar'
-                  )}
+                      'Salvar'
+                    )}
               </button>
             </S.Div>
           </S.Container>

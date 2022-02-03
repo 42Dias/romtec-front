@@ -47,18 +47,18 @@ type levantamento = {
   banco: string;
 }
 export default function
-  Phases() {
+Phases () {
   const [modalIsOpenPhase, setIsOpenPhase] = useState(false)
 
-  function openModalPhases() {
+  function openModalPhases () {
     setIsOpenPhase(true)
   }
 
-  function afterOpenModalPhases() {
+  function afterOpenModalPhases () {
 
   }
 
-  function closeModalPhases() {
+  function closeModalPhases () {
     setIsOpenPhase(false)
   }
 
@@ -190,13 +190,13 @@ export default function
   const [capacidadePortaFusilink, setcapacidadePortaFusilink] = useState('')
   const [capacidadeSwivel, setcapacidadeSwivel] = useState('')
 
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     data.idConfigTravessia = idConfigTravessia.replace('#/etapas/', '')
     data.banco = 'todos-campos'
     console.log(data)
     createNewFile(data)
   }
-  function onSubmitLevantamento() {
+  function onSubmitLevantamento () {
     console.log(responsavel)
     const data = {
       banco: 'todos-campos',
@@ -271,7 +271,7 @@ export default function
     }
   }
 
-  function onSubmitInterferenciasFisicasMagneticas() {
+  function onSubmitInterferenciasFisicasMagneticas () {
     console.log(responsavel)
     const data = {
       idConfigTravessia: idConfigTravessia.replace('#/etapas/', ''),
@@ -293,7 +293,7 @@ export default function
       createNewFile(data)
     }
   }
-  function onSubmitAberturaVala() {
+  function onSubmitAberturaVala () {
     console.log(responsavel)
     const data = {
       idConfigTravessia: idConfigTravessia.replace('#/etapas/', ''),
@@ -320,7 +320,7 @@ export default function
     }
   }
 
-  async function createNewFile(submit: any) {
+  async function createNewFile (submit: any) {
     setLoading(true)
     console.log('submit')
     console.log(submit)
@@ -347,7 +347,7 @@ export default function
       setLoading(false)
     })
   }
-  async function loadDados(url: string) {
+  async function loadDados (url: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = await api.get(url + `?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/etapas/", '')}`,
@@ -366,7 +366,7 @@ export default function
 
     setLoading(false)
   }
-  async function deleteDados(id: string) {
+  async function deleteDados (id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('tipo-solo/' + id,
@@ -381,7 +381,7 @@ export default function
       setLoading(false)
     })
   }
-  function update(data: any) {
+  function update (data: any) {
     console.log('data')
     console.log(data)
     // setDados(data)
@@ -434,7 +434,7 @@ export default function
     }
     console.log(idDados)
   }
-  async function updateDados() {
+  async function updateDados () {
     setLoading(true)
     console.log('idDados')
     console.log(idDados)
@@ -482,7 +482,7 @@ export default function
     loadDados('etapas')
   }, [])
 
-  function openModal(data: any) {
+  function openModal (data: any) {
     console.log(data)
     api.get(`todos-campos?filter%5BetapaId%5D=${data.id}`,
     ).then((response) => {
@@ -549,10 +549,10 @@ export default function
     setcampoDataTopografia(data.campoDataTopografia)
     setisOpenUpdatePlanejamentoPerfuração(true)
   }
-  function afterOpenModal() {
+  function afterOpenModal () {
     // references are now sync'd and can be accessed.
   }
-  function closeModal() {
+  function closeModal () {
     setIsOpenPlanejamento(false)
   }
 
@@ -770,7 +770,7 @@ export default function
                     value={latitudeEntrada}
                     onChange={(text) => setlatitudeEntrada(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoEntradaLongitude
@@ -781,7 +781,7 @@ export default function
                     value={longitudeEntrada}
                     onChange={(text) => setlongitudeEntrada(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoSaidaLatitude
@@ -792,7 +792,7 @@ export default function
                     value={latitudeSaida}
                     onChange={(text) => setlatitudeSaida(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoSaidaLongitude
@@ -803,7 +803,7 @@ export default function
                     value={longitudeSaida}
                     onChange={(text) => setlongitudeSaida(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoTipoSolo
@@ -814,7 +814,7 @@ export default function
                     value={tipoSolo}
                     onChange={(text) => setTipoSolo(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoDiametroPerfuracao
@@ -825,7 +825,7 @@ export default function
                     value={diametroPerfuracao}
                     onChange={(text) => setdiametroPerfuracao(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoTipoRede
@@ -836,7 +836,7 @@ export default function
                     value={tipoRede}
                     onChange={(text) => settipoRede(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoTipoTubulacao
@@ -847,7 +847,7 @@ export default function
                     value={tipoTubulacao}
                     onChange={(text) => settipoTubulacao(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoResponsel
@@ -858,7 +858,7 @@ export default function
                     value={responsavel}
                     onChange={(text) => setresponsavel(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoEquipamento
@@ -869,7 +869,7 @@ export default function
                     value={equipamentos}
                     onChange={(text) => setequipamentos(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoDocumento
@@ -880,7 +880,7 @@ export default function
                     value={documentos}
                     onChange={(text) => setdocumentos(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoSondagemInterferencia
                 ? <div>
@@ -890,7 +890,7 @@ export default function
                     value={sondagemInterferencia}
                     onChange={(text) => setsondagemInterferencia(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoSondagem
                 ? <div>
@@ -900,7 +900,7 @@ export default function
                     value={sondagem}
                     onChange={(text) => setsondagem(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoPlanoFuro
@@ -911,7 +911,7 @@ export default function
                     value={criacaoplanoFuro}
                     onChange={(text) => setcriacaoplanoFuro(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoFerramentas
                 ? <div>
@@ -921,7 +921,7 @@ export default function
                     value={ferramentas}
                     onChange={(text) => setferramentas(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoInfoEnvolvidas
                 ? <div>
@@ -931,7 +931,7 @@ export default function
                     value={infoEnvolvidas}
                     onChange={(text) => setInfoEnvolvidas(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoDiametro
@@ -942,7 +942,7 @@ export default function
                     value={diametroPerfuracao}
                     onChange={(text) => setdiametroPerfuracao(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoLocalizaDiretrizFuro
@@ -953,7 +953,7 @@ export default function
                     value={localDiretrizFuro}
                     onChange={(text) => setLocalDiretrizFuro(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoResponselTopografia
@@ -964,7 +964,7 @@ export default function
                     value={respTopografia}
                     onChange={(text) => setRespTopografia(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoDataTopografia
@@ -975,7 +975,7 @@ export default function
                     value={dataTopografia}
                     onChange={(text) => setDataTopografia(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoEmpresa
@@ -986,7 +986,7 @@ export default function
                     value={empresa}
                     onChange={(text) => setempresa(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {camponomePerfilAcesso
@@ -997,7 +997,7 @@ export default function
                     value={nomePerfilAcesso}
                     onChange={(text) => setnomePerfilAcesso(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campodataExecucao
@@ -1008,7 +1008,7 @@ export default function
                     value={dataExecucao}
                     onChange={(text) => setdataExecucao(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {camporesponsavelExecucao
@@ -1019,7 +1019,7 @@ export default function
                     value={responsavelExecucao}
                     onChange={(text) => setresponsavelExecucao(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campohoraExecucao
@@ -1030,7 +1030,7 @@ export default function
                     value={horaExecucao}
                     onChange={(text) => sethoraExecucao(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campocroquiMapeamento
@@ -1041,7 +1041,7 @@ export default function
                     value={croquiMapeamento}
                     onChange={(text) => setcroquiMapeamento(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoequipamentoUtilizado
@@ -1052,7 +1052,7 @@ export default function
                     value={equipamentoUtilizado}
                     onChange={(text) => setequipamentoUtilizado(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campomaterializacaoCampo
@@ -1063,7 +1063,7 @@ export default function
                     value={materializacaoCampo}
                     onChange={(text) => setmaterializacaoCampo(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoquantidadeInterferencias
@@ -1074,7 +1074,7 @@ export default function
                     value={quantidadeInterferencias}
                     onChange={(text) => setquantidadeInterferencias(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoparaleloEsquerda
@@ -1086,7 +1086,7 @@ export default function
                     value={paraleloEsquerda}
                     onChange={(text) => setparaleloEsquerda(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoparaleloDireita
                 ? <div>
@@ -1096,7 +1096,7 @@ export default function
                     value={paraleloDireita}
                     onChange={(text) => setparaleloDireita(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoperpendicular
                 ? <div>
@@ -1106,7 +1106,7 @@ export default function
                     value={perpendicular}
                     onChange={(text) => setperpendicular(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoProfundidade
                 ? <div>
@@ -1116,7 +1116,7 @@ export default function
                     value={profundidade}
                     onChange={(text) => setprofundidade(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoDiametroInterferencia
                 ? <div>
@@ -1126,7 +1126,7 @@ export default function
                     value={diametroInterferencia}
                     onChange={(text) => setDiametroInterferencia(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoTipoInterferencia
@@ -1137,7 +1137,7 @@ export default function
                     value={tipoInterferencia}
                     onChange={(text) => setTipoInterferencia(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campolargura
                 ? <div>
@@ -1148,7 +1148,7 @@ export default function
                     value={largura}
                     onChange={(text) => setlargura(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campocomprimento
                 ? <div>
@@ -1158,7 +1158,7 @@ export default function
                     value={comprimento}
                     onChange={(text) => setcomprimento(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoprofundidadeVala
                 ? <div>
@@ -1168,7 +1168,7 @@ export default function
                     value={profundidadeVala}
                     onChange={(text) => setprofundidadeVala(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoestacaReferencia
@@ -1179,7 +1179,7 @@ export default function
                     value={estacaReferencia}
                     onChange={(text) => setestacaReferencia(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {camponumeroHastes
@@ -1191,7 +1191,7 @@ export default function
                     value={numeroHastes}
                     onChange={(text) => setnumeroHastes(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoprofundidadePlanejada
                 ? <div>
@@ -1201,7 +1201,7 @@ export default function
                     value={profundidadePlanejada}
                     onChange={(text) => setprofundidadePlanejada(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoavancoPlanejado
                 ? <div>
@@ -1211,7 +1211,7 @@ export default function
                     value={avancoPlanejado}
                     onChange={(text) => setavancoPlanejado(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoprofundidadeExecutada
                 ? <div>
@@ -1221,7 +1221,7 @@ export default function
                     value={profundidadeExecutada}
                     onChange={(text) => setprofundidadeExecutada(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoavancoExecutado
                 ? <div>
@@ -1231,7 +1231,7 @@ export default function
                     value={avancoExecutado}
                     onChange={(text) => setavancoExecutado(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoamarracao
                 ? <div>
@@ -1241,7 +1241,7 @@ export default function
                     value={amarracao}
                     onChange={(text) => setamarracao(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campomaquinaPerfuratriz
                 ? <div>
@@ -1251,7 +1251,7 @@ export default function
                     value={maquinaPerfuratriz}
                     onChange={(text) => setmaquinaPerfuratriz(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campodiametroAlargamento
                 ? <div>
@@ -1261,7 +1261,7 @@ export default function
                     value={diametroAlargamento}
                     onChange={(text) => setdiametroAlargamento(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campotempoHaste
                 ? <div>
@@ -1271,7 +1271,7 @@ export default function
                     value={tempoHaste}
                     onChange={(text) => settempoHaste(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campovazaoBomba
                 ? <div>
@@ -1281,7 +1281,7 @@ export default function
                     value={vazaoBomba}
                     onChange={(text) => setvazaoBomba(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campotipoRedeTubula
                 ? <div>
@@ -1291,7 +1291,7 @@ export default function
                     value={tipoRedeTubula}
                     onChange={(text) => settipoRedeTubula(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campodiametroRede
                 ? <div>
@@ -1301,21 +1301,21 @@ export default function
                     value={diametroRede}
                     onChange={(text) => setdiametroRede(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
-              {campoferramentasUtilizadas
+              {!campoferramentasUtilizadas
                 ? <div>
-                  <label htmlFor=''>Ferramentas:</label>
+                  <h3>Ferramentas:</h3>
                   <label htmlFor=''>Ferramentas Utilizadas</label>
                   <input
                     type='text'
                     value={ferramentasUtilizadas}
                     onChange={(text) => setferramentasUtilizadas(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
-              {campomodeloAlargador
+              {!campomodeloAlargador
                 ? <div>
                   <label htmlFor=''>Modelo de Alargador</label>
                   <input
@@ -1323,7 +1323,7 @@ export default function
                     value={modeloAlargador}
                     onChange={(text) => setmodeloAlargador(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campocapacidadePortaFusilink
                 ? <div>
@@ -1333,7 +1333,7 @@ export default function
                     value={capacidadePortaFusilink}
                     onChange={(text) => setcapacidadePortaFusilink(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campocapacidadeSwivel
                 ? <div>
@@ -1343,7 +1343,7 @@ export default function
                     value={capacidadeSwivel}
                     onChange={(text) => setcapacidadeSwivel(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {/*
               <div>
@@ -1422,11 +1422,11 @@ export default function
             </S.GridForm>
             <button onClick={() => { onSubmitLevantamento() }}>{loading
               ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height='' src='https://contribua.org/mb-static/images/loading.gif'
-                alt='Loading'
-              />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height='' src='https://contribua.org/mb-static/images/loading.gif'
+                  alt='Loading'
+                />
               : 'Salvar'}
             </button>
             <button className='finishPhase'>Finalizar Etapa</button>
@@ -1670,11 +1670,11 @@ export default function
             </S.GridForm>
             <button onClick={() => onSubmitInterferenciasFisicasMagneticas()}>{loading
               ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height='' src='https://contribua.org/mb-static/images/loading.gif'
-                alt='Loading'
-              />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height='' src='https://contribua.org/mb-static/images/loading.gif'
+                  alt='Loading'
+                />
               : 'Salvar'}
             </button>
           </S.Div>
