@@ -17,6 +17,7 @@ import { api, ip } from '../../services/api'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { platform, type } from 'os'
+import axios from 'axios'
 
 SwiperCore.use([Pagination, Navigation])
 
@@ -113,7 +114,7 @@ export default function
   const [campoTipoTubulacao, setcampoTipoTubulacao] = useState(false)
   const [campoResponsel, setcampoResponsel] = useState(false)
   const [campoEquipamento, setcampoEquipamento] = useState(false)
-  const [campoDocumento, setcampoDocumento] = useState(false)
+  const [campoDocumento, setcampoDocumento] = useState(true)
   const [campoSondagemInterferencia, setcampoSondagemInterferencia] = useState(false)
   const [campoSondagem, setcampoSondagem] = useState(false)
   const [campoDiametroInterferencia, setcampoDiametroInterferencia] = useState(false)
@@ -189,13 +190,13 @@ export default function
   const [modeloAlargador, setmodeloAlargador] = useState('')
   const [capacidadePortaFusilink, setcapacidadePortaFusilink] = useState('')
   const [capacidadeSwivel, setcapacidadeSwivel] = useState('')
-
-  function onSubmit(data: FormData) {
-    data.idConfigTravessia = idConfigTravessia.replace('#/etapas/', '')
-    data.banco = 'todos-campos'
-    console.log(data)
-    createNewFile(data)
-  }
+  const [name, setName] = useState<any>("");
+  // function onSubmit(data: FormData) {
+  //   data.idConfigTravessia = idConfigTravessia.replace('#/etapas/', '')
+  //   data.banco = 'todos-campos'
+  //   console.log(data)
+  //   createNewFile(data)
+  // }
   function onSubmitLevantamento() {
     console.log(responsavel)
     const data = {
@@ -293,32 +294,32 @@ export default function
       createNewFile(data)
     }
   }
-  function onSubmitAberturaVala() {
-    console.log(responsavel)
-    const data = {
-      idConfigTravessia: idConfigTravessia.replace('#/etapas/', ''),
-      banco: 'aberturaVala',
-      responsavel: responsavel,
-      ferramentas: ferramentas,
-      latitudeEntrada: latitudeEntrada,
-      longitudeSaida: longitudeSaida,
-      longitudeEntrada: longitudeEntrada,
-      latitudeSaida: latitudeSaida,
-      equipamentos: equipamentos,
-      documentos: documentos,
-      empresa: empresa,
-      sondagemInterferencia: sondagemInterferencia,
-      sondagem: sondagem,
-    }
+  // function onSubmitAberturaVala() {
+  //   console.log(responsavel)
+  //   const data = {
+  //     idConfigTravessia: idConfigTravessia.replace('#/etapas/', ''),
+  //     banco: 'aberturaVala',
+  //     responsavel: responsavel,
+  //     ferramentas: ferramentas,
+  //     latitudeEntrada: latitudeEntrada,
+  //     longitudeSaida: longitudeSaida,
+  //     longitudeEntrada: longitudeEntrada,
+  //     latitudeSaida: latitudeSaida,
+  //     equipamentos: equipamentos,
+  //     documentos: documentos,
+  //     empresa: empresa,
+  //     sondagemInterferencia: sondagemInterferencia,
+  //     sondagem: sondagem,
+  //   }
 
-    console.log(data)
-    if (isUpdate) {
-      updateDados()
-      setIsUpdate(false)
-    } else {
-      createNewFile(data)
-    }
-  }
+  //   console.log(data)
+  //   if (isUpdate) {
+  //     updateDados()
+  //     setIsUpdate(false)
+  //   } else {
+  //     createNewFile(data)
+  //   }
+  // }
 
   async function createNewFile(submit: any) {
     setLoading(true)
@@ -513,6 +514,38 @@ export default function
           setprofundidade(response.data.rows[0].Profundidade)
           setRespTopografia(response.data.rows[0].ResponsavelTopografia)
           setDataTopografia(response.data.rows[0].DataExecTopografia)
+
+          setnomePerfilAcesso(response.data.rows[0].nomePerfilAcesso)
+          setdataExecucao(response.data.rows[0].dataExecucao)
+          setresponsavelExecucao(response.data.rows[0].responsavelExecucao)
+          sethoraExecucao(response.data.rows[0].horaExecucao)
+          setcroquiMapeamento(response.data.rows[0].croquiMapeamento)
+          setequipamentoUtilizado(response.data.rows[0].equipamentoUtilizado)
+          setmaterializacaoCampo(response.data.rows[0].materializacaoCampo)
+          setquantidadeInterferencias(response.data.rows[0].quantidadeInterferencias)
+          setparaleloEsquerda(response.data.rows[0].paraleloEsquerda)
+          setparaleloDireita(response.data.rows[0].paraleloDireita)
+          setperpendicular(response.data.rows[0].perpendicular)
+          setlargura(response.data.rows[0].largura)
+          setcomprimento(response.data.rows[0].comprimento)
+          setprofundidadeVala(response.data.rows[0].profundidadeVala)
+          setestacaReferencia(response.data.rows[0].estacaReferencia)
+          setnumeroHastes(response.data.rows[0].numeroHastes)
+          setprofundidadePlanejada(response.data.rows[0].profundidadePlanejada)
+          setavancoPlanejado(response.data.rows[0].avancoPlanejado)
+          setprofundidadeExecutada(response.data.rows[0].profundidadeExecutada)
+          setavancoExecutado(response.data.rows[0].avancoExecutado)
+          setamarracao(response.data.rows[0].amarracao)
+          setmaquinaPerfuratriz(response.data.rows[0].maquinaPerfuratriz)
+          setdiametroAlargamento(response.data.rows[0].diametroAlargamento)
+          settempoHaste(response.data.rows[0].tempoHaste)
+          setvazaoBomba(response.data.rows[0].vazaoBomba)
+          settipoRedeTubula(response.data.rows[0].tipoRedeTubula)
+          setdiametroRede(response.data.rows[0].diametroRede)
+          setferramentasUtilizadas(response.data.rows[0].ferramentasUtilizadas)
+          setmodeloAlargador(response.data.rows[0].modeloAlargador)
+          setcapacidadePortaFusilink(response.data.rows[0].capacidadePortaFusilink)
+          setcapacidadeSwivel(response.data.rows[0].capacidadeSwivel)
         }
         setLoading(false)
       }
@@ -534,7 +567,7 @@ export default function
     setcampoResponsel(data.campoResponsel)
     setcampoEquipamento(data.campoEquipamento)
     setcampoSondagemInterferencia(data.campoSondagemInterferencia)
-    setcampoDocumento(data.campoDocumento)
+    //setcampoDocumento(data.campoDocumento)
     setcampoEmpresa(data.campoEmpresa)
     setcampoSondagem(data.campoSondagem)
     setcampoDiametroInterferencia(data.campoDiametroInterferencia)
@@ -547,6 +580,38 @@ export default function
     setcampoProfundidade(data.campoProfundidade)
     setcampoResponselTopografia(data.campoResponselTopografia)
     setcampoDataTopografia(data.campoDataTopografia)
+
+    setcamponomePerfilAcesso(data.camponomePerfilAcesso)
+    setcampodataExecucao(data.campodataExecucao)
+    setcamporesponsavelExecucao(data.camporesponsavelExecucao)
+    setcampohoraExecucao(data.campohoraExecucao)
+    setcampocroquiMapeamento(data.campocroquiMapeamento)
+    setcampoequipamentoUtilizado(data.campoequipamentoUtilizado)
+    setcampomaterializacaoCampo(data.campomaterializacaoCampo)
+    setcampoquantidadeInterferencias(data.campoquantidadeInterferencias)
+    setcampoparaleloEsquerda(data.campoparaleloEsquerda)
+    setcampoparaleloDireita(data.campoparaleloDireita)
+    setcampoperpendicular(data.campoperpendicular)
+    setcampolargura(data.campolargura)
+    setcampocomprimento(data.campocomprimento)
+    setcampoprofundidadeVala(data.campoprofundidadeVala)
+    setcampoestacaReferencia(data.campoestacaReferencia)
+    setcamponumeroHastes(data.camponumeroHastes)
+    setcampoprofundidadePlanejada(data.campoprofundidadePlanejada)
+    setcampoavancoPlanejado(data.campoavancoPlanejado)
+    setcampoprofundidadeExecutada(data.campoprofundidadeExecutada)
+    setcampoavancoExecutado(data.campoavancoExecutado)
+    setcampoamarracao(data.campoamarracao)
+    setcampomaquinaPerfuratriz(data.campomaquinaPerfuratriz)
+    setcampodiametroAlargamento(data.campodiametroAlargamento)
+    setcampotempoHaste(data.campotempoHaste)
+    setcampovazaoBomba(data.campovazaoBomba)
+    setcampotipoRedeTubula(data.campotipoRedeTubula)
+    setcampodiametroRede(data.campodiametroRede)
+    setcampoferramentasUtilizadas(data.campoferramentasUtilizadas)
+    setcampomodeloAlargador(data.campomodeloAlargador)
+    setcampocapacidadePortaFusilink(data.campocapacidadePortaFusilink)
+    setcampocapacidadeSwivel(data.campocapacidadeSwivel)
     setisOpenUpdatePlanejamentoPerfuração(true)
   }
   function afterOpenModal() {
@@ -555,7 +620,63 @@ export default function
   function closeModal() {
     setIsOpenPlanejamento(false)
   }
+  async function makeRequisition(e: any) {
+    e.preventDefault()
+    e.target.reset();
 
+    toast.info("Carregando...")
+    let body = {
+      data: {
+        imagemUrl: campoDocumento,
+        status: 'ativo',
+        nome: name
+      }
+    }
+  }
+  const uploadImage = async (imagemNova: string | Blob) => {
+    
+    const formData = new FormData();
+
+    formData.append('image', imagemNova);
+    
+    //console.log(...formData)
+
+    const headers = {
+      'headers': {
+        // 'Content-Type': 'application/json'
+        'Content-Type': 'multipart/form-data'
+        
+      }
+    }
+
+    await axios.post(`${ip}:8080/upload-image`, formData, headers)
+    .then((response) => {
+      console.log(response)
+      if(response.status == 200){
+        const pathHelper = response.data.mensagem
+        console.log(ip+pathHelper)
+        toast.info("Imagem Válida!")
+      }
+      else{
+        toast.info("Imagem inválida, ou problemas com o servidor :(")
+      }
+
+    }).catch((err) => {
+      if(err.response){
+        console.log(err)
+        toast.error("Erro: Tente mais tarde :(")
+
+      }
+      else{
+        // setStatus({
+        //   type: 'error',
+        //   mensagem: "Erro: Tente mais tarde :("
+        // });
+      }
+      toast.error("Erro: Tente mais tarde :(")
+    });
+  }
+  
   return (
     <>
       <Sidebar />
@@ -875,11 +996,46 @@ export default function
               {campoDocumento
                 ? <div>
                   <label htmlFor=''>Documentos</label>
-                  <input
-                    type='text'
-                    value={documentos}
-                    onChange={(text) => setdocumentos(text.target.value)}
-                  />
+                  <form className="file"
+                    encType='multipart/form-data'
+
+                    onSubmit={makeRequisition}
+                  >
+                    <h2>Faça upload</h2>
+
+
+                    <input type="file"
+                      name="image"
+                      onChange={e => {
+                        console.log(e)
+
+                        //@ts-ignore
+                        console.log(e.target.files[0].name)
+                        //@ts-ignore
+                        setName(e.target.files[0].name)
+                        //@ts-ignore
+                        setImage(e.target.files[0])
+
+                        //@ts-ignore
+                        if (e.target.files[0].type.includes('image')) {
+                          //@ts-ignore
+                          uploadImage(e.target.files[0])
+                        }
+                        else {
+                          toast.error("Arquivo não suportado")
+                        }
+
+
+
+                      }
+                      }
+                    /><br /><br />
+
+
+
+                    <input type="submit" value="Enviar"
+                    />
+                  </form>
                 </div>
                 : false}
               {campoSondagemInterferencia
