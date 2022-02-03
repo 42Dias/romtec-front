@@ -236,8 +236,8 @@ export const Div2 = styled.div`
     display: flex;
     justify-items: space-between;
     margin-top: 10px;
-    width: 237px;
-    height: 35px; 
+    width: 250px;
+    height: 45px; 
 
     border: 1px solid #00E1AF;
     box-sizing: border-box;
@@ -314,8 +314,8 @@ export const Div2 = styled.div`
   }
 
   button {
-    width: 101px;
-    height: 44px;
+    width: 250px;
+    height: 45px;
     border-radius: 5px;
     background: ${theme.colors.green};
     border: 0;

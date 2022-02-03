@@ -24,8 +24,10 @@ export const Container = styled.div`
   width: 70%;
   color: ${theme.colors.white};
   min-height: 35%;
+  max-height: 80%;
   padding: 10px;
   border-radius: 5px;
+  overflow-y: scroll;
 
   @media (max-width: 520px) {
     width: 90%;
