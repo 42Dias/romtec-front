@@ -71,7 +71,7 @@ export default function ConfigurationSteps() {
   const [campoFerramentas, setcampoFerramentas] = useState(false)
   const [campoInfoEnvolvidas, setcampoInfoEnvolvidas] = useState(false)
   const [campoDiametro, setcampoDiametro] = useState(false)
-  const [campoLocalizaDiretrizFuro, setcampoLocalizaDiretrizFuro] =  useState(false)
+  const [campoLocalizaDiretrizFuro, setcampoLocalizaDiretrizFuro] = useState(false)
   const [campoTipoInterferencia, setcampoTipoInterferencia] = useState(false)
   const [campoProfundidade, setcampoProfundidade] = useState(false)
   const [campoResponselTopografia, setcampoResponselTopografia] = useState(false)
@@ -108,6 +108,10 @@ export default function ConfigurationSteps() {
   const [campomodeloAlargador, setcampomodeloAlargador] = useState(false)
   const [campocapacidadePortaFusilink, setcampocapacidadePortaFusilink] = useState(false)
   const [campocapacidadeSwivel, setcampocapacidadeSwivel] = useState(false)
+  const [campodiametroInterferencia, setcampodiametroInterferencia] = useState(false)
+  const [campotipoInterferencia, setcampotipoInterferencia] = useState(false)
+  const [campoFluido, setcampoFluido] = useState(false)
+  const [campoReceitaFluido, setcampoReceitaFluido] = useState(false)
   const [campoEntradaLatitude2, setcampoEntradaLatitude2] = useState(false)
   const [campoEntradaLongitude2, setcampoEntradaLongitude2] = useState(false)
   const [campoSaidaLatitude2, setcampoSaidaLatitude2] = useState(false)
@@ -121,7 +125,7 @@ export default function ConfigurationSteps() {
   const [campoDocumento2, setcampoDocumento2] = useState(false)
   const [campoSondagemInterferencia2, setcampoSondagemInterferencia2] = useState(false)
   const [campoSondagem2, setcampoSondagem2] = useState(false)
-  const [campoDiametroInterferencia2, setcampoDiametroInterferencia2] =  useState(false)
+  const [campoDiametroInterferencia2, setcampoDiametroInterferencia2] = useState(false)
   const [campoPlanoFuro2, setcampoPlanoFuro2] = useState(false)
   const [campoFerramentas2, setcampoFerramentas2] = useState(false)
   const [campoInfoEnvolvidas2, setcampoInfoEnvolvidas2] = useState(false)
@@ -132,6 +136,42 @@ export default function ConfigurationSteps() {
   const [campoResponselTopografia2, setcampoResponselTopografia2] = useState(false)
   const [campoDataTopografia2, setcampoDataTopografia2] = useState(false)
   const [campoEmpresa2, setcampoEmpresa2] = useState(false)
+  const [camponomePerfilAcesso2, setcamponomePerfilAcesso2] = useState(false)
+  const [campodataExecucao2, setcampodataExecucao2] = useState(false)
+  const [camporesponsavelExecucao2, setcamporesponsavelExecucao2] = useState(false)
+  const [campohoraExecucao2, setcampohoraExecucao2] = useState(false)
+  const [campocroquiMapeamento2, setcampocroquiMapeamento2] = useState(false)
+  const [campoequipamentoUtilizado2, setcampoequipamentoUtilizado2] = useState(false)
+  const [campomaterializacaoCampo2, setcampomaterializacaoCampo2] = useState(false)
+  const [campoquantidadeInterferencias2, setcampoquantidadeInterferencias2] = useState(false)
+  const [campoparaleloEsquerda2, setcampoparaleloEsquerda2] = useState(false)
+  const [campoparaleloDireita2, setcampoparaleloDireita2] = useState(false)
+  const [campoperpendicular2, setcampoperpendicular2] = useState(false)
+  const [campolargura2, setcampolargura2] = useState(false)
+  const [campocomprimento2, setcampocomprimento2] = useState(false)
+  const [campoprofundidadeVala2, setcampoprofundidadeVala2] = useState(false)
+  const [campoestacaReferencia2, setcampoestacaReferencia2] = useState(false)
+  const [camponumeroHastes2, setcamponumeroHastes2] = useState(false)
+  const [campoprofundidadePlanejada2, setcampoprofundidadePlanejada2] = useState(false)
+  const [campoavancoPlanejado2, setcampoavancoPlanejado2] = useState(false)
+  const [campoprofundidadeExecutada2, setcampoprofundidadeExecutada2] = useState(false)
+  const [campoavancoExecutado2, setcampoavancoExecutado2] = useState(false)
+  const [campoamarracao2, setcampoamarracao2] = useState(false)
+  const [campomaquinaPerfuratriz2, setcampomaquinaPerfuratriz2] = useState(false)
+  const [campodiametroAlargamento2, setcampodiametroAlargamento2] = useState(false)
+  const [campotempoHaste2, setcampotempoHaste2] = useState(false)
+  const [campovazaoBomba2, setcampovazaoBomba2] = useState(false)
+  const [campotipoRedeTubula2, setcampotipoRedeTubula2] = useState(false)
+  const [campodiametroRede2, setcampodiametroRede2] = useState(false)
+  const [campoferramentasUtilizadas2, setcampoferramentasUtilizadas2] = useState(false)
+  const [campomodeloAlargador2, setcampomodeloAlargador2] = useState(false)
+  const [campocapacidadePortaFusilink2, setcampocapacidadePortaFusilink2] = useState(false)
+  const [campoprofundidade, setcampoprofundidade] = useState(false)
+  const [campocapacidadeSwivel2, setcampocapacidadeSwivel2] = useState(false)
+  const [campodiametroInterferencia2, setcampodiametroInterferencia2] = useState(false)
+  const [campotipoInterferencia2, setcampotipoInterferencia2] = useState(false)
+  const [campoFluido2, setcampoFluido2] = useState(false)
+  const [campoReceitaFluido2, setcampoReceitaFluido2] = useState(false)
 
 
   function onSubmit(data: FormData) {
@@ -244,6 +284,43 @@ export default function ConfigurationSteps() {
               campoProfundidade: campoProfundidade,
               campoResponselTopografia: campoResponselTopografia,
               campoDataTopografia: campoDataTopografia,
+              nomePerfilAcesso: camponomePerfilAcesso,
+              dataExecucao: campodataExecucao,
+              responsavelExecucao: camporesponsavelExecucao,
+              horaExecucao: campohoraExecucao,
+              croquiMapeamento: campocroquiMapeamento,
+              equipamentoUtilizado: campoequipamentoUtilizado,
+              materializacaoCampo: campomaterializacaoCampo,
+              quantidadeInterferencias: campoquantidadeInterferencias,
+              paraleloEsquerda: campoparaleloEsquerda,
+              paraleloDireita: campoparaleloDireita,
+              perpendicular: campoperpendicular,
+              profundidade: campoprofundidade,
+              diametroInterferencia: campodiametroInterferencia,
+              tipoInterferencia: campotipoInterferencia,
+              largura: campolargura,
+              comprimento: campocomprimento,
+              profundidadeVala: campoprofundidadeVala,
+              estacaReferencia: campoestacaReferencia,
+              numeroHastes: camponumeroHastes,
+              profundidadePlanejada: campoprofundidadePlanejada,
+              avancoPlanejado: campoavancoPlanejado,
+              profundidadeExecutada: campoprofundidadeExecutada,
+              avancoExecutado: campoavancoExecutado,
+              amarracao: campoamarracao,
+              maquinaPerfuratriz: campomaquinaPerfuratriz,
+              diametroAlargamento: campodiametroAlargamento,
+              tempoHaste: campotempoHaste,
+              vazaoBomba: campovazaoBomba,
+              tipoRedeTubula: campotipoRedeTubula,
+              diametroRede: campodiametroRede,
+              ferramentasUtilizadas: campoferramentasUtilizadas,
+              modeloAlargador: campomodeloAlargador,
+              capacidadePortaFusilink: campocapacidadePortaFusilink,
+              capacidadeSwivel: campocapacidadeSwivel,
+              fluido: campoFluido,
+              receitaFluido: campoReceitaFluido,
+
             }
             api
               .post('etapasColunas', {
@@ -274,44 +351,62 @@ export default function ConfigurationSteps() {
             // etapasColunas.map((etapasColuna)=>{
             console.log(response.data.rows[0].campoEntradaLatitude)
             setcampoEntradaLatitude(response.data.rows[0].campoEntradaLatitude)
-            setcampoEntradaLongitude(
-              response.data.rows[0].campoEntradaLongitude,
-            )
+            setcampoEntradaLongitude(response.data.rows[0].campoEntradaLongitude)
             setcampoSaidaLatitude(response.data.rows[0].campoSaidaLatitude)
             setcampoSaidaLongitude(response.data.rows[0].campoSaidaLongitude)
             setcampoTipoSolo(response.data.rows[0].campoTipoSolo)
-            setcampoDiametroPerfuracao(
-              response.data.rows[0].campoDiametroPerfuracao,
-            )
+            setcampoDiametroPerfuracao(response.data.rows[0].campoDiametroPerfuracao)
             setcampoTipoRede(response.data.rows[0].campoTipoRede)
             setcampoTipoTubulacao(response.data.rows[0].campoTipoTubulacao)
             setcampoResponsel(response.data.rows[0].campoResponsel)
             setcampoEquipamento(response.data.rows[0].campoEquipamento)
-            setcampoSondagemInterferencia(
-              response.data.rows[0].campoSondagemInterferencia,
-            )
+            setcampoSondagemInterferencia(response.data.rows[0].campoSondagemInterferencia)
             setcampoDocumento(response.data.rows[0].campoDocumento)
             setcampoEmpresa(response.data.rows[0].campoEmpresa)
             setcampoSondagem(response.data.rows[0].campoSondagem)
-            setcampoDiametroInterferencia(
-              response.data.rows[0].campoDiametroInterferencia,
-            )
+            setcampoDiametroInterferencia(response.data.rows[0].campoDiametroInterferencia)
             setcampoPlanoFuro(response.data.rows[0].campoPlanoFuro)
             setcampoFerramentas(response.data.rows[0].campoFerramentas)
             setcampoInfoEnvolvidas(response.data.rows[0].campoInfoEnvolvidas)
             setcampoDiametro(response.data.rows[0].campoDiametro)
-            setcampoLocalizaDiretrizFuro(
-              response.data.rows[0].campoLocalizaDiretrizFuro,
-            )
-            setcampoTipoInterferencia(
-              response.data.rows[0].campoTipoInterferencia,
-            )
+            setcampoLocalizaDiretrizFuro(response.data.rows[0].campoLocalizaDiretrizFuro)
+            setcampoTipoInterferencia(response.data.rows[0].campoTipoInterferencia)
             setcampoProfundidade(response.data.rows[0].campoProfundidade)
-            setcampoResponselTopografia(
-              response.data.rows[0].campoResponselTopografia,
-            )
+            setcampoResponselTopografia(response.data.rows[0].campoResponselTopografia)
             setcampoDataTopografia(response.data.rows[0].campoDataTopografia)
-
+            setcamponomePerfilAcesso(response.data.rows[0].camponomePerfilAcesso)
+            setcampodataExecucao(response.data.rows[0].campodataExecucao)
+            setcamporesponsavelExecucao(response.data.rows[0].camporesponsavelExecucao)
+            setcampohoraExecucao(response.data.rows[0].campohoraExecucao)
+            setcampocroquiMapeamento(response.data.rows[0].campocroquiMapeamento)
+            setcampoequipamentoUtilizado(response.data.rows[0].campoequipamentoUtilizado)
+            setcampomaterializacaoCampo(response.data.rows[0].campomaterializacaoCampo)
+            setcampoquantidadeInterferencias(response.data.rows[0].campoquantidadeInterferencias)
+            setcampoparaleloEsquerda(response.data.rows[0].campoparaleloEsquerda)
+            setcampoparaleloDireita(response.data.rows[0].campoparaleloDireita)
+            setcampoperpendicular(response.data.rows[0].campoperpendicular)
+            setcampolargura(response.data.rows[0].campolargura)
+            setcampocomprimento(response.data.rows[0].campocomprimento)
+            setcampoprofundidadeVala(response.data.rows[0].campoprofundidadeVala)
+            setcampoestacaReferencia(response.data.rows[0].campoestacaReferencia)
+            setcamponumeroHastes(response.data.rows[0].camponumeroHastes)
+            setcampoprofundidadePlanejada(response.data.rows[0].campoprofundidadePlanejada)
+            setcampoavancoPlanejado(response.data.rows[0].campoavancoPlanejado)
+            setcampoprofundidadeExecutada(response.data.rows[0].campoprofundidadeExecutada)
+            setcampoavancoExecutado(response.data.rows[0].campoavancoExecutado)
+            setcampoamarracao(response.data.rows[0].campoamarracao)
+            setcampomaquinaPerfuratriz(response.data.rows[0].campomaquinaPerfuratriz)
+            setcampodiametroAlargamento(response.data.rows[0].campodiametroAlargamento)
+            setcampotempoHaste(response.data.rows[0].campotempoHaste)
+            setcampovazaoBomba(response.data.rows[0].campovazaoBomba)
+            setcampotipoRedeTubula(response.data.rows[0].campotipoRedeTubula)
+            setcampodiametroRede(response.data.rows[0].campodiametroRede)
+            setcampoferramentasUtilizadas(response.data.rows[0].campoferramentasUtilizadas)
+            setcampomodeloAlargador(response.data.rows[0].campomodeloAlargador)
+            setcampocapacidadePortaFusilink(response.data.rows[0].campocapacidadePortaFusilink)
+            setcampocapacidadeSwivel(response.data.rows[0].campocapacidadeSwivel)
+            setcampoFluido(response.data.rows[0].fluido)
+            setcampoReceitaFluido(response.data.rows[0].receitaFluido)
             // })
           }
           // setTipoEtapa()
@@ -385,6 +480,42 @@ export default function ConfigurationSteps() {
       campoProfundidade: campoProfundidade,
       campoResponselTopografia: campoResponselTopografia,
       campoDataTopografia: campoDataTopografia,
+      nomePerfilAcesso: camponomePerfilAcesso,
+      dataExecucao: campodataExecucao,
+      responsavelExecucao: camporesponsavelExecucao,
+      horaExecucao: campohoraExecucao,
+      croquiMapeamento: campocroquiMapeamento,
+      equipamentoUtilizado: campoequipamentoUtilizado,
+      materializacaoCampo: campomaterializacaoCampo,
+      quantidadeInterferencias: campoquantidadeInterferencias,
+      paraleloEsquerda: campoparaleloEsquerda,
+      paraleloDireita: campoparaleloDireita,
+      perpendicular: campoperpendicular,
+      profundidade: campoprofundidade,
+      diametroInterferencia: campodiametroInterferencia,
+      tipoInterferencia: campotipoInterferencia,
+      largura: campolargura,
+      comprimento: campocomprimento,
+      profundidadeVala: campoprofundidadeVala,
+      estacaReferencia: campoestacaReferencia,
+      numeroHastes: camponumeroHastes,
+      profundidadePlanejada: campoprofundidadePlanejada,
+      avancoPlanejado: campoavancoPlanejado,
+      profundidadeExecutada: campoprofundidadeExecutada,
+      avancoExecutado: campoavancoExecutado,
+      amarracao: campoamarracao,
+      maquinaPerfuratriz: campomaquinaPerfuratriz,
+      diametroAlargamento: campodiametroAlargamento,
+      tempoHaste: campotempoHaste,
+      vazaoBomba: campovazaoBomba,
+      tipoRedeTubula: campotipoRedeTubula,
+      diametroRede: campodiametroRede,
+      ferramentasUtilizadas: campoferramentasUtilizadas,
+      modeloAlargador: campomodeloAlargador,
+      capacidadePortaFusilink: campocapacidadePortaFusilink,
+      capacidadeSwivel: campocapacidadeSwivel,
+      fluido: campoFluido,
+      receitaFluido: campoReceitaFluido,
     }
 
     const data2 = {
@@ -415,6 +546,41 @@ export default function ConfigurationSteps() {
       campoProfundidade: campoProfundidade2,
       campoResponselTopografia: campoResponselTopografia2,
       campoDataTopografia: campoDataTopografia2,
+      nomePerfilAcesso: camponomePerfilAcesso2,
+      dataExecucao: campodataExecucao2,
+      responsavelExecucao: camporesponsavelExecucao2,
+      horaExecucao: campohoraExecucao2,
+      croquiMapeamento: campocroquiMapeamento2,
+      equipamentoUtilizado: campoequipamentoUtilizado2,
+      materializacaoCampo: campomaterializacaoCampo2,
+      quantidadeInterferencias: campoquantidadeInterferencias2,
+      paraleloEsquerda: campoparaleloEsquerda2,
+      paraleloDireita: campoparaleloDireita2,
+      perpendicular: campoperpendicular2,
+      diametroInterferencia: campodiametroInterferencia2,
+      tipoInterferencia: campotipoInterferencia2,
+      largura: campolargura2,
+      comprimento: campocomprimento2,
+      profundidadeVala: campoprofundidadeVala2,
+      estacaReferencia: campoestacaReferencia2,
+      numeroHastes: camponumeroHastes2,
+      profundidadePlanejada: campoprofundidadePlanejada2,
+      avancoPlanejado: campoavancoPlanejado2,
+      profundidadeExecutada: campoprofundidadeExecutada2,
+      avancoExecutado: campoavancoExecutado2,
+      amarracao: campoamarracao2,
+      maquinaPerfuratriz: campomaquinaPerfuratriz2,
+      diametroAlargamento: campodiametroAlargamento2,
+      tempoHaste: campotempoHaste2,
+      vazaoBomba: campovazaoBomba2,
+      tipoRedeTubula: campotipoRedeTubula2,
+      diametroRede: campodiametroRede2,
+      ferramentasUtilizadas: campoferramentasUtilizadas2,
+      modeloAlargador: campomodeloAlargador2,
+      capacidadePortaFusilink: campocapacidadePortaFusilink2,
+      capacidadeSwivel: campocapacidadeSwivel2,
+      fluido: campoFluido2,
+      receitaFluido: campoReceitaFluido2,
     }
     console.log(data)
     api
@@ -473,6 +639,39 @@ export default function ConfigurationSteps() {
     setcampoProfundidade2(false)
     setcampoResponselTopografia2(false)
     setcampoDataTopografia2(false)
+    setcamponomePerfilAcesso2(false)
+    setcampodataExecucao2(false)
+    setcamporesponsavelExecucao2(false)
+    setcampohoraExecucao2(false)
+    setcampocroquiMapeamento2(false)
+    setcampoequipamentoUtilizado2(false)
+    setcampomaterializacaoCampo2(false)
+    setcampoquantidadeInterferencias2(false)
+    setcampoparaleloEsquerda2(false)
+    setcampoparaleloDireita2(false)
+    setcampoperpendicular2(false)
+    setcampolargura2(false)
+    setcampocomprimento2(false)
+    setcampoprofundidadeVala2(false)
+    setcampoestacaReferencia2(false)
+    setcamponumeroHastes2(false)
+    setcampoprofundidadePlanejada2(false)
+    setcampoavancoPlanejado2(false)
+    setcampoprofundidadeExecutada2(false)
+    setcampoavancoExecutado2(false)
+    setcampoamarracao2(false)
+    setcampomaquinaPerfuratriz2(false)
+    setcampodiametroAlargamento2(false)
+    setcampotempoHaste2(false)
+    setcampovazaoBomba2(false)
+    setcampotipoRedeTubula2(false)
+    setcampodiametroRede2(false)
+    setcampoferramentasUtilizadas2(false)
+    setcampomodeloAlargador2(false)
+    setcampocapacidadePortaFusilink2(false)
+    setcampocapacidadeSwivel2(false)
+    setcampoFluido2(false)
+    setcampoReceitaFluido2(false)
   }
   function selectCampos(etapa: any) {
     setidEtapa(etapa.id)
@@ -495,7 +694,211 @@ export default function ConfigurationSteps() {
   function onChange(e: any) {
     console.log(`checked = ${e.target.checked}`)
   }
-
+  function fnomePerfilAcesso() {
+    if (camponomePerfilAcesso) {
+      setcamponomePerfilAcesso2(false)
+    } else {
+      setcamponomePerfilAcesso(true)
+      setcamponomePerfilAcesso2(true)
+    }
+  }
+  function fDataExecucao() {
+    if (campodataExecucao) {
+      setcampodataExecucao2(false)
+    } else {
+      setcampodataExecucao(true)
+      setcampodataExecucao2(true)
+    }
+  }
+  function fresponsavelExecucao() {
+    if (camporesponsavelExecucao) {
+      setcamporesponsavelExecucao2(false)
+    } else {
+      setcamporesponsavelExecucao(true)
+      setcamporesponsavelExecucao2(true)
+    }
+  }
+  function fhoraExecucao() {
+    if (campohoraExecucao) {
+      setcampohoraExecucao2(false)
+    } else {
+      setcampohoraExecucao(true)
+      setcampohoraExecucao2(true)
+    }
+  }
+  function fcroquiMapeamento() {
+    if (campocroquiMapeamento) {
+      setcampocroquiMapeamento2(false)
+    } else {
+      setcampocroquiMapeamento(true)
+      setcampocroquiMapeamento2(true)
+    }
+  }
+  function fequipamentoUtilizado() {
+    if (campoequipamentoUtilizado) {
+      setcampoequipamentoUtilizado2(false)
+    } else {
+      setcampoequipamentoUtilizado(true)
+      setcampoequipamentoUtilizado2(true)
+    }
+  }
+  function fmaterialCampo() {
+    if (campomaterializacaoCampo) {
+      setcampomaterializacaoCampo2(false)
+    } else {
+      setcampomaterializacaoCampo(true)
+      setcampomaterializacaoCampo2(true)
+    }
+  }
+  function fquantidadeInterferencias() {
+    if (campoquantidadeInterferencias) {
+      setcampoquantidadeInterferencias2(false)
+    } else {
+      setcampoquantidadeInterferencias(true)
+      setcampoquantidadeInterferencias2(true)
+    }
+  }
+  function flocalizacaoDiretrizFuro() {
+    if (campoLocalizaDiretrizFuro) {
+      setcampoLocalizaDiretrizFuro2(false)
+      setcampoparaleloEsquerda2(false)
+      setcampoparaleloDireita2(false)
+      setcampoperpendicular2(false)
+      setcampoProfundidade2(false)
+      setcampodiametroInterferencia2(false)
+    } else {
+      setcampoLocalizaDiretrizFuro(true)
+      setcampoparaleloEsquerda(true)
+      setcampoparaleloDireita(true)
+      setcampoperpendicular(true)
+      setcampoProfundidade(true)
+      setcampodiametroInterferencia(true)
+      setcampoLocalizaDiretrizFuro2(true)
+      setcampoparaleloEsquerda2(true)
+      setcampoparaleloDireita2(true)
+      setcampoperpendicular2(true)
+      setcampoProfundidade2(true)
+      setcampodiametroInterferencia2(true)
+    }
+  }
+  function ftipoInterferencia() {
+    if (campotipoInterferencia) {
+      setcampotipoInterferencia2(false)
+    } else {
+      setcampotipoInterferencia(true)
+      setcampotipoInterferencia2(true)
+    }
+  }
+  function fempresaProprietaria() {
+    if (campoEmpresa) {
+      setcampoEmpresa2(false)
+    } else {
+      setcampoEmpresa(true)
+      setcampoEmpresa2(true)
+    }
+  }
+  function fdimensaoVala() {
+    if (campolargura) {
+      setcampolargura2(false)
+      setcampocomprimento2(false)
+      setcampoprofundidadeVala2(false)
+    } else {
+      setcampolargura(true)
+      setcampocomprimento(true)
+      setcampoprofundidadeVala(true)
+      setcampolargura2(true)
+      setcampocomprimento2(true)
+      setcampoprofundidadeVala2(true)
+    }
+  }
+  function festacaReferencia() {
+    if (campoestacaReferencia) {
+      setcampoestacaReferencia2(false)
+    } else {
+      setcampoestacaReferencia(true)
+      setcampoestacaReferencia2(true)
+    }
+  }
+  function fsondagemInterferencia() {
+    if (campoSondagemInterferencia) {
+      setcampoSondagemInterferencia2(false)
+    } else {
+      setcampoSondagemInterferencia(true)
+      setcampoSondagemInterferencia2(true)
+    }
+  }
+  function ffluido() {
+    if (campoFluido) {
+      setcampoFluido2(false)
+    } else {
+      setcampoFluido(true)
+      setcampoFluido2(true)
+    }
+  }
+  function freceitafluido() {
+    if (campoReceitaFluido) {
+      setcampoReceitaFluido2(false)
+    } else {
+      setcampoReceitaFluido(true)
+      setcampoReceitaFluido2(true)
+    }
+  }
+  function fnumeroHastes() {
+    if (camponumeroHastes) {
+      setcamponumeroHastes2(false)
+    } else {
+      setcamponumeroHastes(true)
+      setcamponumeroHastes2(true)
+    }
+  }
+  function favancoPlanejado() {
+    if (campoavancoPlanejado) {
+      setcampoavancoPlanejado2(false)
+    } else {
+      setcampoavancoPlanejado(true)
+      setcampoavancoPlanejado2(true)
+    }
+  }
+  function fprofundidadeExecutada() {
+    if (campoprofundidadeExecutada) {
+      setcampoprofundidadeExecutada2(false)
+    } else {
+      setcampoprofundidadeExecutada(true)
+      setcampoprofundidadePlanejada2(true)
+    }
+  }
+  function famarracao() {
+    if (campoamarracao) {
+      setcampoamarracao2(false)
+    } else {
+      setcampoamarracao(true)
+      setcampoamarracao2(true)
+    }
+  }
+  function fmaquinaPerfuratriz() {
+    if (campomaquinaPerfuratriz) {
+      setcampomaquinaPerfuratriz2(false)
+    } else {
+      setcampomaquinaPerfuratriz(true)
+      setcampomaquinaPerfuratriz2(true)
+    }
+  }
+  function fdiametroAlargamento() {
+    if (campodiametroAlargamento) {
+      setcampodiametroAlargamento2(false)
+    } else {
+      setcampodiametroAlargamento(true)
+      setcampodiametroAlargamento2(true)
+    }
+  }
+  function ftempoHaste() {
+    if (campodiametroAlargamento) {
+      setcampodiametroAlargamento2(false)
+    } else {
+      setcampodiametroAlargamento(true)
+      setcampodiametroAlargamento2(true)
+    }
+  }
   function fEntradaLatitude() {
     if (campoEntradaLatitude) {
       console.log('campo latitude')
@@ -505,6 +908,7 @@ export default function ConfigurationSteps() {
       setcampoEntradaLatitude2(true)
     }
   }
+
   function fEntradaLongitude() {
     if (campoEntradaLongitude) {
       console.log('campo longitude')
@@ -847,37 +1251,13 @@ export default function ConfigurationSteps() {
               <div className='form-control-group-switch'>
                 <h2>Adicione os campos</h2>
                 {/*
-                {!campoEntradaLatitude
-                  ? <Switch
-                      checkedChildren='Ponto de verificação de entrada (lat)'
-                      unCheckedChildren='Ponto de verificação de entrada (lat)'
-                      onClick={() => fEntradaLatitude()}
-                    />
-                  : false}
+                 false}
 
-                {!campoEntradaLongitude
-                  ? <Switch
-                      checkedChildren='Ponto de verificação de entrada (long)'
-                      unCheckedChildren='Ponto de verificação de entrada (long)'
-                      onClick={() => fEntradaLongitude()}
-                    />
-                  : false}
+                 false}
 
-                {!campoSaidaLatitude
-                  ? <Switch
-                      checkedChildren='Ponto de verificação de saída (lat)'
-                      unCheckedChildren='Ponto de verificação de saída (lat)'
-                      onClick={() => fSaidaLatitude()}
-                    />
-                  : false}
+                 false}
 
-                {!campoSaidaLongitude
-                  ? <Switch
-                      checkedChildren='Ponto de verificação de saída (long)'
-                      unCheckedChildren='Ponto de verificação de saída (long)'
-                      onClick={() => fSaidaLongitude()}
-                    />
-                  : false}
+                false}
 
                 {!campoTipoTubulacao
                   ? <Switch
@@ -887,21 +1267,9 @@ export default function ConfigurationSteps() {
                     />
                   : false}
 
-                {!campoDiametroPerfuracao
-                  ? <Switch
-                      checkedChildren='Diâmetro de perfuração'
-                      unCheckedChildren='Diâmetro de perfuração'
-                      onClick={() => fDiametroPerf()}
-                    />
-                  : false}
+                 false}
 
-                {!campoTipoSolo
-                  ? <Switch
-                      checkedChildren='Tipos de solo'
-                      unCheckedChildren='Tipos de solo'
-                      onClick={() => fTipoSolo()}
-                    />
-                  : false}
+                false}
 
                 {!campoResponsel
                   ? <Switch
@@ -1075,24 +1443,155 @@ export default function ConfigurationSteps() {
           <S.Container>
             <S.Div2>
               <h2>Adicione os campos da etapa</h2>
-              <Switch 
-                checkedChildren='Nome do usuário do perfil de acesso'
-                unCheckedChildren='Nome do usuário do perfil de acesso'
-              />
-              
-              <Switch
-                checkedChildren='Data da execução '
-                unCheckedChildren='Data da execução '
-              />
-              <Switch
-                checkedChildren='Responsável pela execução'
-                unCheckedChildren='Responsável pela execução'
-              />
-              <Switch
-                checkedChildren='Hora da execução'
-                unCheckedChildren='Hora da execução'
-              />
+              {!camponomePerfilAcesso
+                ? <Switch
+                  checkedChildren='Nome do usuário do perfil de acesso'
+                  unCheckedChildren='Nome do usuário do perfil de acesso'
+                  onClick={() => fnomePerfilAcesso()}
+                />
+                :
+                <Switch
+                  checkedChildren='Nome do usuário do perfil de acesso'
+                  unCheckedChildren='Nome do usuário do perfil de acesso'
+                  defaultChecked
+                />}
+              {!campodataExecucao
+                ? <Switch
+                  checkedChildren='Data da execução'
+                  unCheckedChildren='Data da execução'
+                  onClick={() => fDataExecucao()}
+                />
+                :
+                <Switch
+                  checkedChildren='Data da execução '
+                  unCheckedChildren='Data da execução '
+                  defaultChecked
+                />}
+              {!camporesponsavelExecucao
+                ? <Switch
+                  checkedChildren='Responsável pela execução'
+                  unCheckedChildren='Responsável pela execução'
+                  onClick={() => fresponsavelExecucao()}
+                />
+                :
+                <Switch
+                  checkedChildren='Responsável pela execução'
+                  unCheckedChildren='Responsável pela execução'
+                  defaultChecked
+                />}
+              {!campohoraExecucao
+                ? <Switch
+                  checkedChildren='Hora da execução'
+                  unCheckedChildren='Hora da execução'
+                  onClick={() => fhoraExecucao()}
+                />
+                :
+                <Switch
+                  checkedChildren='Hora da execução'
+                  unCheckedChildren='Hora da execução'
+                  defaultChecked
+                />}
+              {!campoEntradaLatitude
+                ? <Switch
+                  checkedChildren='Ponto de verificação de entrada (lat)'
+                  unCheckedChildren='Ponto de verificação de entrada (lat)'
+                  onClick={() => fEntradaLatitude()}
+                />
+                :
+                <Switch
+                  checkedChildren='Ponto de verificação de entrada (lat)'
+                  unCheckedChildren='Ponto de verificação de entrada (lat)'
+                  defaultChecked
+                />}
+              {!campoEntradaLongitude
+                ? <Switch
+                  checkedChildren='Ponto de verificação de entrada (long)'
+                  unCheckedChildren='Ponto de verificação de entrada (long)'
+                  onClick={() => fEntradaLongitude()}
+                />
+                :
+                <Switch
+                  checkedChildren='Ponto de verificação de entrada (long)'
+                  unCheckedChildren='Ponto de verificação de entrada (long)'
+                  defaultChecked
+                />}
+              {!campoSaidaLatitude
+                ? <Switch
+                  checkedChildren='Ponto de verificação de saída (lat)'
+                  unCheckedChildren='Ponto de verificação de saída (lat)'
+                  onClick={() => fSaidaLatitude()}
+                />
+                :
+                <Switch
+                  checkedChildren='Ponto de verificação de saída(lat)'
+                  unCheckedChildren='Ponto de verificação de saída(lat)'
+                  defaultChecked
+                />}
 
+              {!campoSaidaLongitude
+                ? <Switch
+                  checkedChildren='Ponto de verificação de saída (long)'
+                  unCheckedChildren='Ponto de verificação de saída (long)'
+                  onClick={() => fSaidaLongitude()}
+                />
+                :
+                <Switch
+                  checkedChildren='Ponto de verificação de saída (long)'
+                  unCheckedChildren='Ponto de verificação de saída (long)'
+                  defaultChecked
+                />}
+              {!campoDiametroPerfuracao
+                ? <Switch
+                  checkedChildren='Diâmetro de perfuração'
+                  unCheckedChildren='Diâmetro de perfuração'
+                  onClick={() => fDiametroPerf()}
+                />
+                :
+                <Switch
+                  checkedChildren='Diâmetro de perfuração (mm)'
+                  unCheckedChildren='Diâmetro de perfuração (mm)'
+                  defaultChecked
+                />}
+              {!campoTipoSolo
+                ? <Switch
+                  checkedChildren='Tipos de solo'
+                  unCheckedChildren='Tipos de solo'
+                  onClick={() => fTipoSolo()}
+                />
+                :
+                <Switch
+                  checkedChildren='Tipo de Solo'
+                  unCheckedChildren='Tipo de Solo'
+                  defaultChecked
+                />}
+              {!campoDocumento
+                ? <Switch
+                  checkedChildren='Documento (upload)'
+                  unCheckedChildren='Documento (upload)'
+                  onClick={() => fDocumento()}
+                />
+                :
+                <Switch
+                  checkedChildren='Documento (upload)'
+                  unCheckedChildren='Documento (upload)'
+                  defaultChecked
+                />}
+
+              <Switch
+                checkedChildren='Confirmação do procedimento'
+                unCheckedChildren='Confirmação do procedimento'
+                defaultChecked
+              />
+              <Switch
+                checkedChildren='Volume preparado'
+                unCheckedChildren='Volume preparado'
+                defaultChecked
+              />
+              <Switch
+                checkedChildren='Teste de viscosidade'
+                unCheckedChildren='Teste de viscosidade'
+                defaultChecked
+              />
               <button onClick={() => updateDados()}>
                 {loading
                   ? (
@@ -1119,38 +1618,152 @@ export default function ConfigurationSteps() {
           <S.Container>
             <S.Div2>
               <h2>Adicione os campos da etapa</h2>
+              {!campocroquiMapeamento
+                ? <Switch
+                  checkedChildren='Enviar croqui de mapeamento (Upload)'
+                  unCheckedChildren='Enviar croqui de mapeamento (Upload)'
+                  onClick={() => fcroquiMapeamento()}
+                />
+                :
+                <Switch
+                  checkedChildren='Enviar croqui de mapeamento (Upload)'
+                  unCheckedChildren='Enviar croqui de mapeamento (Upload)'
+                  defaultChecked
+                />}
+
+              {!campoequipamentoUtilizado
+                ? <Switch
+                  checkedChildren='Equipamento utilizado'
+                  unCheckedChildren='Equipamento utilizado'
+                  onClick={() => fequipamentoUtilizado()}
+                />
+                :
+                <Switch
+                  checkedChildren='Equipamento utilizado'
+                  unCheckedChildren='Equipamento utilizado'
+                  defaultChecked
+                />}
+
+              {!campomaterializacaoCampo
+                ? <Switch
+                  checkedChildren='Materialização em campo'
+                  unCheckedChildren='Materialização em campo'
+                  onClick={() => fmaterialCampo()}
+                />
+                :
+                <Switch
+                  checkedChildren='Materialização em campo'
+                  unCheckedChildren='Materialização em campo'
+                  defaultChecked
+                />}
+              {!campoquantidadeInterferencias
+                ? <Switch
+                  checkedChildren='Quantidade de interferências'
+                  unCheckedChildren='Quantidade de interferências'
+                  onClick={() => fquantidadeInterferencias()}
+                />
+                :
+                <Switch
+                  checkedChildren='Quantidade de interferências'
+                  unCheckedChildren='Quantidade de interferências'
+                  defaultChecked
+                />}
+              {!campoLocalizaDiretrizFuro
+                ? <Switch
+                  checkedChildren='Localização em relação a diretriz do furo'
+                  unCheckedChildren='Localização em relação a diretriz do furo'
+                  onClick={() => flocalizacaoDiretrizFuro()}
+                />
+                :
+                <Switch
+                  checkedChildren='Localização em relação a diretriz do furo'
+                  unCheckedChildren='Localização em relação a diretriz do furo'
+                  defaultChecked
+                />}
+              {!campotipoInterferencia
+                ? <Switch
+                  checkedChildren='Tipo de interferência'
+                  unCheckedChildren='Tipo de interferência'
+                  onClick={() => ftipoInterferencia()}
+                />
+                :
+                <Switch
+                  checkedChildren='Tipo de interferência'
+                  unCheckedChildren='Tipo de interferência'
+                  defaultChecked
+                />}
+              {!campoEmpresa
+                ? <Switch
+                  checkedChildren='Empresa proprietária'
+                  unCheckedChildren='Empresa proprietária'
+                  onClick={() => fempresaProprietaria()}
+                />
+                :
+                <Switch
+                  checkedChildren='Empresa proprietária'
+                  unCheckedChildren='Empresa proprietária'
+                  defaultChecked
+                />}
+              {!campolargura
+                ? <Switch
+                  checkedChildren='Dimensões da vala de entrada e saída'
+                  unCheckedChildren='Dimensões da vala de entrada e saída'
+                  onClick={() => fdimensaoVala()}
+                />
+                :
+                <Switch
+                  checkedChildren='Dimensões da vala de entrada e saída'
+                  unCheckedChildren='Dimensões da vala de entrada e saída'
+                  defaultChecked
+                />}
+              {!campoestacaReferencia
+                ? <Switch
+                  checkedChildren='Estaca de referência'
+                  unCheckedChildren='Estaca de referência'
+                  onClick={() => festacaReferencia()}
+                />
+                :
+                <Switch
+                  checkedChildren='Estaca de referência'
+                  unCheckedChildren='Estaca de referência'
+                  defaultChecked
+                />}
+              {!campoSondagemInterferencia
+                ? <Switch
+                  checkedChildren='Confirmação de sondagem da interferência'
+                  unCheckedChildren='Confirmação de sondagem da interferência'
+                  onClick={() => fsondagemInterferencia()}
+                />
+                :
+                <Switch
+                  checkedChildren='Confirmação de sondagem da interferência'
+                  unCheckedChildren='Confirmação de sondagem da interferência'
+                  defaultChecked
+                />}
+              {!campoFluido
+                ? <Switch
+                  checkedChildren='Fluido'
+                  unCheckedChildren='Fluido'
+                  onClick={() => ffluido()}
+                />
+                :
+                <Switch
+                  checkedChildren='Fluido'
+                  unCheckedChildren='Fluido'
+                  defaultChecked
+                />}
+                {!campoReceitaFluido
+                ? <Switch
+                  checkedChildren='Receita do fluido'
+                  unCheckedChildren='Receita do fluido'
+                  onClick={() => freceitafluido()}
+                />
+                :
               <Switch
-                checkedChildren='Enviar croqui de mapeamento (Upload)'
-                unCheckedChildren='Enviar croqui de mapeamento (Upload)'
-              />
-              <Switch
-                checkedChildren='Equipamento utilizado'
-                unCheckedChildren='Equipamento utilizado'
-              />
-              <Switch
-                checkedChildren='Materialização em campo'
-                unCheckedChildren='Materialização em campo'
-              />
-              <Switch
-                checkedChildren='Quantidade de interferências'
-                unCheckedChildren='Quantidade de interferências'
-              />
-              <Switch
-                checkedChildren='Localização em relação a diretriz do furo'
-                unCheckedChildren='Localização em relação a diretriz do furo'
-              />
-              <Switch
-                checkedChildren='Tipo de interferência'
-                unCheckedChildren='Tipo de interferência'
-              />
-              <Switch
-                checkedChildren='Dimensões da vala de entrada e saída'
-                unCheckedChildren='Dimensões da vala de entrada e saída'
-              />
-              <Switch
-                checkedChildren='Estaca de referência'
-                unCheckedChildren='Estaca de referência'
-              />
+                checkedChildren='Receita do fluido'
+                unCheckedChildren='Receita do fluido'
+                defaultChecked
+              />}
 
               <button onClick={() => updateDados()}>
                 {loading
@@ -1178,57 +1791,140 @@ export default function ConfigurationSteps() {
           <S.Container>
             <S.Div2>
               <h2>Adicione os campos da etapa</h2>
+              {!camponumeroHastes
+                ? <Switch
+                  checkedChildren='Número de hastes'
+                  unCheckedChildren='Número de hastes'
+                  onClick={() => fnumeroHastes()}
+                />
+                :
               <Switch
                 checkedChildren='Número de hastes'
                 unCheckedChildren='Número de hastes'
-              />
+                defaultChecked
+              />}
+              {!camponumeroHastes
+                ? <Switch
+                  checkedChildren='Número de hastes'
+                  unCheckedChildren='Número de hastes'
+                  onClick={() => fnumeroHastes()}
+                />
+                :
               <Switch
                 checkedChildren='Profundidade planejada'
                 unCheckedChildren='Profundidade planejada'
-              />
+                defaultChecked
+              />}
+              {!camponumeroHastes
+                ? <Switch
+                  checkedChildren='Avanço planejado'
+                  unCheckedChildren='Avanço planejado'
+                  onClick={() => favancoPlanejado()}
+                />
+                :
               <Switch
                 checkedChildren='Avanço planejado'
                 unCheckedChildren='Avanço planejado'
-              />
+                defaultChecked
+              />}
+              {!campoprofundidadeExecutada
+                ? <Switch
+                  checkedChildren='Profundidade executada'
+                  unCheckedChildren='Profundidade executada'
+                  onClick={() => fprofundidadeExecutada()}
+                />
+                :
               <Switch
                 checkedChildren='Profundidade executada'
                 unCheckedChildren='Profundidade executada'
-              />
+                defaultChecked
+              />}
+               {!campoavancoExecutado
+                ? <Switch
+                  checkedChildren='Avanço executado'
+                  unCheckedChildren='Avanço executado'
+                  onClick={() => fprofundidadeExecutada()}
+                />
+                :
               <Switch
                 checkedChildren='Avanço executado'
                 unCheckedChildren='Avanço executado'
-              />
+                defaultChecked
+              />}
+              {!campotipoInterferencia
+                ? <Switch
+                  checkedChildren='Tipo de interferência'
+                  unCheckedChildren='Tipo de interferência'
+                  onClick={() => ftipoInterferencia()}
+                />
+                :
               <Switch
                 checkedChildren='Tipo de interferência'
                 unCheckedChildren='Tipo de interferência'
-              />
+                defaultChecked
+              />}
+              {!campoamarracao
+                ? <Switch
+                  checkedChildren='Amarração'
+                  unCheckedChildren='Amarração'
+                  onClick={() => famarracao()}
+                />
+                :
               <Switch
                 checkedChildren='Amarração'
                 unCheckedChildren='Amarração'
-              />
+                defaultChecked
+              />}
+              {!campomaquinaPerfuratriz
+                ? <Switch
+                  checkedChildren='Máquina perfuratriz'
+                  unCheckedChildren='Máquina perfuratriz'
+                  onClick={() => fmaquinaPerfuratriz()}
+                />
+                :
               <Switch
                 checkedChildren='Máquina perfuratriz'
                 unCheckedChildren='Máquina perfuratriz'
-              />
+                defaultChecked
+              />}
+              {!campodiametroAlargamento
+                ? <Switch
+                  checkedChildren='Diâmetro de alargamento'
+                  unCheckedChildren='Diâmetro de alargamento'
+                  onClick={() => fdiametroAlargamento()}
+                />
+                :
               <Switch
                 checkedChildren='Diâmetro de alargamento'
                 unCheckedChildren='Diâmetro de alargamento'
-              />
+                defaultChecked
+              />}
+              {!campotempoHaste
+                ? <Switch
+                  checkedChildren='Tempo por haste'
+                  unCheckedChildren='Tempo por haste'
+                  onClick={() => ftempoHaste()}
+                />
+                :
               <Switch
                 checkedChildren='Tempo por haste'
                 unCheckedChildren='Tempo por haste'
-              />
+                defaultChecked
+              />}
               <Switch
                 checkedChildren='Vazão de bomba'
                 unCheckedChildren='Vazão de bomba'
+                defaultChecked
               />
               <Switch
                 checkedChildren='Tipo de rede/tubulação'
                 unCheckedChildren='Tipo de rede/tubulação'
+                defaultChecked
               />
               <Switch
                 checkedChildren='Diâmetro da rede'
                 unCheckedChildren='Diâmetro da rede'
+                defaultChecked
               />
 
               <button onClick={() => updateDados()}>
@@ -1257,34 +1953,87 @@ export default function ConfigurationSteps() {
               <Switch
                 checkedChildren='Porta sonda'
                 unCheckedChildren='Porta sonda'
+                defaultChecked
               />
               <Switch
                 checkedChildren='Hastes'
                 unCheckedChildren='Hastes'
+                defaultChecked
               />
               <Switch
                 checkedChildren='Sonda'
                 unCheckedChildren='Sonda'
+                defaultChecked
               />
               <Switch
                 checkedChildren='Pá de perfuração'
                 unCheckedChildren='Pá de perfuração'
+                defaultChecked
+              />
+              <Switch
+                checkedChildren='Pulling head'
+                unCheckedChildren='Pulling head'
+                defaultChecked
               />
               <Switch
                 checkedChildren='Localizador'
                 unCheckedChildren='Localizador'
+                defaultChecked
+              />
+              <Switch
+                checkedChildren='Luva'
+                unCheckedChildren='Luva'
+                defaultChecked
+              />
+              <Switch
+                checkedChildren='Haste inicial'
+                unCheckedChildren='Haste inicial'
+                defaultChecked
+              />
+              <Switch
+                checkedChildren='Flexobarra'
+                unCheckedChildren='Flexobarra'
+                defaultChecked
+              />
+              <Switch
+                checkedChildren='Rádio'
+                unCheckedChildren='Rádio'
+                defaultChecked
+              />
+              <Switch
+                checkedChildren='Parafuso'
+                unCheckedChildren='Parafuso'
+                defaultChecked
+              />
+              <Switch
+                checkedChildren='Parafuso'
+                unCheckedChildren='Parafuso'
+                defaultChecked
               />
               <Switch
                 checkedChildren='Modelo de alargador'
                 unCheckedChildren='Modelo de alargador'
+                defaultChecked
               />
               <Switch
                 checkedChildren='Capacidade do porta fusilink'
                 unCheckedChildren='Capacidade do porta fusilink'
-              />
+                defaultChecked
+             />
               <Switch
                 checkedChildren='Capacidade do swivel'
                 unCheckedChildren='Capacidade do swivel'
+                defaultChecked
+              />
+              <Switch
+                checkedChildren='Diâmetro de ferramenta'
+                unCheckedChildren='Diâmetro de ferramenta'
+                defaultChecked
+              />
+              <Switch
+                checkedChildren='Condição do ferramental'
+                unCheckedChildren='Condição do ferramental'
+                defaultChecked
               />
               <button onClick={() => updateDados()}>
                 {loading
