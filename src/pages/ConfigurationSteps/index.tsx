@@ -21,7 +21,7 @@ type FormData = {
   perfil: string
 }
 
-export default function ConfigurationSteps () {
+export default function ConfigurationSteps() {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenPhases, setIsOpenPhases] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
@@ -64,54 +64,77 @@ export default function ConfigurationSteps () {
   const [campoResponsel, setcampoResponsel] = useState(false)
   const [campoEquipamento, setcampoEquipamento] = useState(false)
   const [campoDocumento, setcampoDocumento] = useState(false)
-  const [campoSondagemInterferencia, setcampoSondagemInterferencia] =
-    useState(false)
+  const [campoSondagemInterferencia, setcampoSondagemInterferencia] = useState(false)
   const [campoSondagem, setcampoSondagem] = useState(false)
-  const [campoDiametroInterferencia, setcampoDiametroInterferencia] =
-    useState(false)
+  const [campoDiametroInterferencia, setcampoDiametroInterferencia] = useState(false)
   const [campoPlanoFuro, setcampoPlanoFuro] = useState(false)
   const [campoFerramentas, setcampoFerramentas] = useState(false)
   const [campoInfoEnvolvidas, setcampoInfoEnvolvidas] = useState(false)
   const [campoDiametro, setcampoDiametro] = useState(false)
-  const [campoLocalizaDiretrizFuro, setcampoLocalizaDiretrizFuro] =
-    useState(false)
+  const [campoLocalizaDiretrizFuro, setcampoLocalizaDiretrizFuro] =  useState(false)
   const [campoTipoInterferencia, setcampoTipoInterferencia] = useState(false)
   const [campoProfundidade, setcampoProfundidade] = useState(false)
-  const [campoResponselTopografia, setcampoResponselTopografia] =
-    useState(false)
+  const [campoResponselTopografia, setcampoResponselTopografia] = useState(false)
   const [campoDataTopografia, setcampoDataTopografia] = useState(false)
   const [campoEmpresa, setcampoEmpresa] = useState(false)
+  const [camponomePerfilAcesso, setcamponomePerfilAcesso] = useState(false)
+  const [campodataExecucao, setcampodataExecucao] = useState(false)
+  const [camporesponsavelExecucao, setcamporesponsavelExecucao] = useState(false)
+  const [campohoraExecucao, setcampohoraExecucao] = useState(false)
+  const [campocroquiMapeamento, setcampocroquiMapeamento] = useState(false)
+  const [campoequipamentoUtilizado, setcampoequipamentoUtilizado] = useState(false)
+  const [campomaterializacaoCampo, setcampomaterializacaoCampo] = useState(false)
+  const [campoquantidadeInterferencias, setcampoquantidadeInterferencias] = useState(false)
+  const [campoparaleloEsquerda, setcampoparaleloEsquerda] = useState(false)
+  const [campoparaleloDireita, setcampoparaleloDireita] = useState(false)
+  const [campoperpendicular, setcampoperpendicular] = useState(false)
+  const [campolargura, setcampolargura] = useState(false)
+  const [campocomprimento, setcampocomprimento] = useState(false)
+  const [campoprofundidadeVala, setcampoprofundidadeVala] = useState(false)
+  const [campoestacaReferencia, setcampoestacaReferencia] = useState(false)
+  const [camponumeroHastes, setcamponumeroHastes] = useState(false)
+  const [campoprofundidadePlanejada, setcampoprofundidadePlanejada] = useState(false)
+  const [campoavancoPlanejado, setcampoavancoPlanejado] = useState(false)
+  const [campoprofundidadeExecutada, setcampoprofundidadeExecutada] = useState(false)
+  const [campoavancoExecutado, setcampoavancoExecutado] = useState(false)
+  const [campoamarracao, setcampoamarracao] = useState(false)
+  const [campomaquinaPerfuratriz, setcampomaquinaPerfuratriz] = useState(false)
+  const [campodiametroAlargamento, setcampodiametroAlargamento] = useState(false)
+  const [campotempoHaste, setcampotempoHaste] = useState(false)
+  const [campovazaoBomba, setcampovazaoBomba] = useState(false)
+  const [campotipoRedeTubula, setcampotipoRedeTubula] = useState(false)
+  const [campodiametroRede, setcampodiametroRede] = useState(false)
+  const [campoferramentasUtilizadas, setcampoferramentasUtilizadas] = useState(false)
+  const [campomodeloAlargador, setcampomodeloAlargador] = useState(false)
+  const [campocapacidadePortaFusilink, setcampocapacidadePortaFusilink] = useState(false)
+  const [campocapacidadeSwivel, setcampocapacidadeSwivel] = useState(false)
   const [campoEntradaLatitude2, setcampoEntradaLatitude2] = useState(false)
   const [campoEntradaLongitude2, setcampoEntradaLongitude2] = useState(false)
   const [campoSaidaLatitude2, setcampoSaidaLatitude2] = useState(false)
   const [campoSaidaLongitude2, setcampoSaidaLongitude2] = useState(false)
   const [campoTipoSolo2, setcampoTipoSolo2] = useState(false)
-  const [campoDiametroPerfuracao2, setcampoDiametroPerfuracao2] =
-    useState(false)
+  const [campoDiametroPerfuracao2, setcampoDiametroPerfuracao2] = useState(false)
   const [campoTipoRede2, setcampoTipoRede2] = useState(false)
   const [campoTipoTubulacao2, setcampoTipoTubulacao2] = useState(false)
   const [campoResponsel2, setcampoResponsel2] = useState(false)
   const [campoEquipamento2, setcampoEquipamento2] = useState(false)
   const [campoDocumento2, setcampoDocumento2] = useState(false)
-  const [campoSondagemInterferencia2, setcampoSondagemInterferencia2] =
-    useState(false)
+  const [campoSondagemInterferencia2, setcampoSondagemInterferencia2] = useState(false)
   const [campoSondagem2, setcampoSondagem2] = useState(false)
-  const [campoDiametroInterferencia2, setcampoDiametroInterferencia2] =
-    useState(false)
+  const [campoDiametroInterferencia2, setcampoDiametroInterferencia2] =  useState(false)
   const [campoPlanoFuro2, setcampoPlanoFuro2] = useState(false)
   const [campoFerramentas2, setcampoFerramentas2] = useState(false)
   const [campoInfoEnvolvidas2, setcampoInfoEnvolvidas2] = useState(false)
   const [campoDiametro2, setcampoDiametro2] = useState(false)
-  const [campoLocalizaDiretrizFuro2, setcampoLocalizaDiretrizFuro2] =
-    useState(false)
+  const [campoLocalizaDiretrizFuro2, setcampoLocalizaDiretrizFuro2] = useState(false)
   const [campoTipoInterferencia2, setcampoTipoInterferencia2] = useState(false)
   const [campoProfundidade2, setcampoProfundidade2] = useState(false)
-  const [campoResponselTopografia2, setcampoResponselTopografia2] =
-    useState(false)
+  const [campoResponselTopografia2, setcampoResponselTopografia2] = useState(false)
   const [campoDataTopografia2, setcampoDataTopografia2] = useState(false)
   const [campoEmpresa2, setcampoEmpresa2] = useState(false)
 
-  function onSubmit (data: FormData) {
+
+  function onSubmit(data: FormData) {
     console.log(data)
     Cadastro(data)
   }
@@ -150,7 +173,7 @@ export default function ConfigurationSteps () {
       })
   }
 
-  async function loadDados () {
+  async function loadDados() {
     setLoading(true)
     console.log('idConfigTravessia')
     console.log(idConfigTravessia.replace('#/etapas-da-configuracao/', ''))
@@ -301,7 +324,7 @@ export default function ConfigurationSteps () {
         setLoading(false)
       })
   }
-  async function deleteDados (id: string) {
+  async function deleteDados(id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api
@@ -318,7 +341,7 @@ export default function ConfigurationSteps () {
         setLoading(false)
       })
   }
-  function update (dados: any, banco: string) {
+  function update(dados: any, banco: string) {
     console.log('dados')
     console.log(dados)
     if (banco === 'etapas') {
@@ -331,7 +354,7 @@ export default function ConfigurationSteps () {
       updateDados()
     }
   }
-  async function updateDados () {
+  async function updateDados() {
     setLoading(true)
     console.log(etapas)
     const data = {
@@ -451,7 +474,7 @@ export default function ConfigurationSteps () {
     setcampoResponselTopografia2(false)
     setcampoDataTopografia2(false)
   }
-  function selectCampos (etapa: any) {
+  function selectCampos(etapa: any) {
     setidEtapa(etapa.id)
     setnumeroEtapa(etapa.numeroEtapa)
     setnovaEtapa(etapa.novaEtapa)
@@ -469,11 +492,11 @@ export default function ConfigurationSteps () {
     // console.log(idConfigTravessia)
   }, [])
 
-  function onChange (e: any) {
+  function onChange(e: any) {
     console.log(`checked = ${e.target.checked}`)
   }
 
-  function fEntradaLatitude () {
+  function fEntradaLatitude() {
     if (campoEntradaLatitude) {
       console.log('campo latitude')
       setcampoEntradaLatitude2(false)
@@ -482,7 +505,7 @@ export default function ConfigurationSteps () {
       setcampoEntradaLatitude2(true)
     }
   }
-  function fEntradaLongitude () {
+  function fEntradaLongitude() {
     if (campoEntradaLongitude) {
       console.log('campo longitude')
       setcampoEntradaLongitude2(false)
@@ -491,7 +514,7 @@ export default function ConfigurationSteps () {
       setcampoEntradaLongitude2(true)
     }
   }
-  function fSaidaLatitude () {
+  function fSaidaLatitude() {
     if (campoSaidaLatitude) {
       setcampoSaidaLatitude2(false)
     } else {
@@ -499,7 +522,7 @@ export default function ConfigurationSteps () {
       setcampoSaidaLatitude2(true)
     }
   }
-  function fSaidaLongitude () {
+  function fSaidaLongitude() {
     if (campoSaidaLongitude) {
       setcampoSaidaLongitude2(false)
     } else {
@@ -507,7 +530,7 @@ export default function ConfigurationSteps () {
       setcampoSaidaLongitude2(true)
     }
   }
-  function fTipoTubulacao () {
+  function fTipoTubulacao() {
     if (campoTipoTubulacao) {
       setcampoTipoTubulacao2(false)
     } else {
@@ -515,7 +538,7 @@ export default function ConfigurationSteps () {
       setcampoTipoTubulacao2(true)
     }
   }
-  function fDiametroPerf () {
+  function fDiametroPerf() {
     if (campoDiametro) {
       setcampoDiametro2(false)
     } else {
@@ -523,7 +546,7 @@ export default function ConfigurationSteps () {
       setcampoDiametro2(true)
     }
   }
-  function fTipoSolo () {
+  function fTipoSolo() {
     if (campoTipoSolo) {
       setcampoTipoSolo2(false)
     } else {
@@ -531,7 +554,7 @@ export default function ConfigurationSteps () {
       setcampoTipoSolo2(true)
     }
   }
-  function fEquipamento () {
+  function fEquipamento() {
     if (campoEquipamento) {
       setcampoEquipamento2(false)
     } else {
@@ -539,7 +562,7 @@ export default function ConfigurationSteps () {
       setcampoEquipamento2(true)
     }
   }
-  function fDocumento () {
+  function fDocumento() {
     if (campoDocumento) {
       setcampoDocumento2(false)
     } else {
@@ -547,7 +570,7 @@ export default function ConfigurationSteps () {
       setcampoDocumento2(true)
     }
   }
-  function fTipoRede () {
+  function fTipoRede() {
     if (campoTipoRede) {
       setcampoTipoRede2(false)
     } else {
@@ -555,7 +578,7 @@ export default function ConfigurationSteps () {
       setcampoTipoRede2(true)
     }
   }
-  function fSondagemInter () {
+  function fSondagemInter() {
     if (campoSondagemInterferencia) {
       setcampoSondagemInterferencia2(false)
     } else {
@@ -563,7 +586,7 @@ export default function ConfigurationSteps () {
       setcampoSondagemInterferencia2(true)
     }
   }
-  function fSondagem () {
+  function fSondagem() {
     if (campoSondagem) {
       setcampoSondagem2(false)
     } else {
@@ -571,7 +594,7 @@ export default function ConfigurationSteps () {
       setcampoSondagem2(true)
     }
   }
-  function fDiametroInter () {
+  function fDiametroInter() {
     if (campoDiametroInterferencia) {
       setcampoDiametroInterferencia2(false)
     } else {
@@ -579,7 +602,7 @@ export default function ConfigurationSteps () {
       setcampoDiametroInterferencia2(true)
     }
   }
-  function fPlanoFuro () {
+  function fPlanoFuro() {
     if (campoPlanoFuro) {
       setcampoPlanoFuro2(false)
     } else {
@@ -587,7 +610,7 @@ export default function ConfigurationSteps () {
       setcampoPlanoFuro2(true)
     }
   }
-  function fFerramentas () {
+  function fFerramentas() {
     if (campoFerramentas) {
       setcampoFerramentas2(false)
     } else {
@@ -595,7 +618,7 @@ export default function ConfigurationSteps () {
       setcampoFerramentas2(true)
     }
   }
-  function fInfoEnvolvidas () {
+  function fInfoEnvolvidas() {
     if (campoInfoEnvolvidas) {
       setcampoInfoEnvolvidas2(false)
     } else {
@@ -603,7 +626,7 @@ export default function ConfigurationSteps () {
       setcampoInfoEnvolvidas2(true)
     }
   }
-  function fDiametro () {
+  function fDiametro() {
     if (campoDiametro) {
       setcampoDiametro2(false)
     } else {
@@ -611,7 +634,7 @@ export default function ConfigurationSteps () {
       setcampoDiametro2(true)
     }
   }
-  function fLocalDiretriz () {
+  function fLocalDiretriz() {
     if (campoLocalizaDiretrizFuro) {
       setcampoLocalizaDiretrizFuro2(false)
     } else {
@@ -619,7 +642,7 @@ export default function ConfigurationSteps () {
       setcampoLocalizaDiretrizFuro2(true)
     }
   }
-  function fTipoInter () {
+  function fTipoInter() {
     if (campoTipoInterferencia) {
       setcampoTipoInterferencia2(false)
     } else {
@@ -628,7 +651,7 @@ export default function ConfigurationSteps () {
     }
   }
 
-  function fProfundidade () {
+  function fProfundidade() {
     if (campoProfundidade) {
       setcampoProfundidade2(false)
     } else {
@@ -636,7 +659,7 @@ export default function ConfigurationSteps () {
       setcampoProfundidade2(true)
     }
   }
-  function fRespTopografia () {
+  function fRespTopografia() {
     if (campoResponselTopografia) {
       setcampoResponselTopografia2(false)
     } else {
@@ -644,7 +667,7 @@ export default function ConfigurationSteps () {
       setcampoResponselTopografia2(true)
     }
   }
-  function fDataTopografia () {
+  function fDataTopografia() {
     if (campoDataTopografia) {
       setcampoDataTopografia2(false)
     } else {
@@ -652,7 +675,7 @@ export default function ConfigurationSteps () {
       setcampoDataTopografia2(true)
     }
   }
-  function fEmpresa () {
+  function fEmpresa() {
     if (campoEmpresa) {
       setcampoEmpresa2(false)
     } else {
@@ -795,10 +818,10 @@ export default function ConfigurationSteps () {
                       src='https://contribua.org/mb-static/images/loading.gif'
                       alt='Loading'
                     />
-                    )
+                  )
                   : (
-                      'Salvar'
-                    )}
+                    'Salvar'
+                  )}
               </button>
             </S.Form>
           </S.Container>
@@ -1052,10 +1075,11 @@ export default function ConfigurationSteps () {
           <S.Container>
             <S.Div2>
               <h2>Adicione os campos da etapa</h2>
-              <Switch
+              <Switch 
                 checkedChildren='Nome do usuário do perfil de acesso'
                 unCheckedChildren='Nome do usuário do perfil de acesso'
               />
+              
               <Switch
                 checkedChildren='Data da execução '
                 unCheckedChildren='Data da execução '
@@ -1079,10 +1103,10 @@ export default function ConfigurationSteps () {
                       src='https://contribua.org/mb-static/images/loading.gif'
                       alt='Loading'
                     />
-                    )
+                  )
                   : (
-                      'Salvar'
-                    )}
+                    'Salvar'
+                  )}
               </button>
             </S.Div2>
           </S.Container>
@@ -1138,10 +1162,10 @@ export default function ConfigurationSteps () {
                       src='https://contribua.org/mb-static/images/loading.gif'
                       alt='Loading'
                     />
-                    )
+                  )
                   : (
-                      'Salvar'
-                    )}
+                    'Salvar'
+                  )}
               </button>
             </S.Div2>
           </S.Container>
@@ -1217,10 +1241,10 @@ export default function ConfigurationSteps () {
                       src='https://contribua.org/mb-static/images/loading.gif'
                       alt='Loading'
                     />
-                    )
+                  )
                   : (
-                      'Salvar'
-                    )}
+                    'Salvar'
+                  )}
               </button>
             </S.Div2>
           </S.Container>
@@ -1272,10 +1296,10 @@ export default function ConfigurationSteps () {
                       src='https://contribua.org/mb-static/images/loading.gif'
                       alt='Loading'
                     />
-                    )
+                  )
                   : (
-                      'Salvar'
-                    )}
+                    'Salvar'
+                  )}
               </button>
             </S.Div2>
           </S.Container>
@@ -1309,10 +1333,10 @@ export default function ConfigurationSteps () {
                       src='https://contribua.org/mb-static/images/loading.gif'
                       alt='Loading'
                     />
-                    )
+                  )
                   : (
-                      'Salvar'
-                    )}
+                    'Salvar'
+                  )}
               </button>
             </S.Div>
           </S.Container>
