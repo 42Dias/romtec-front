@@ -21,7 +21,7 @@ type FormData = {
   perfil: string
 }
 
-export default function ConfigurationSteps () {
+export default function ConfigurationSteps() {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenPhases, setIsOpenPhases] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
@@ -112,6 +112,23 @@ export default function ConfigurationSteps () {
   const [campotipoInterferencia, setcampotipoInterferencia] = useState(false)
   const [campoFluido, setcampoFluido] = useState(false)
   const [campoReceitaFluido, setcampoReceitaFluido] = useState(false)
+  const [campoPortaSonda, setcampoPortaSonda] = useState(false)
+  const [campoVolumePreparado, setcampoVolumePreparado] = useState(false)
+  const [campoTesteVicosidade, setcampoTesteVicosidade] = useState(false)
+  const [campoConfirmacaoProcedimento, setcampoConfirmacaoProcedimento] = useState(false)
+  const [campoHastes, setcampoHastes] = useState(false)
+  const [campoSonda, setcampoSonda] = useState(false)
+  const [campopaPerfuracao, setcampopaPerfuracao] = useState(false)
+  const [campoPullingHead, setcampoPullingHead] = useState(false)
+  const [campoLocalizador, setcampoLocalizador] = useState(false)
+  const [campoLuva, setcampoLuva] = useState(false)
+  const [campoHasteInicial, setcampoHasteInicial] = useState(false)
+  const [campoFlexobarra, setcampoFlexobarra] = useState(false)
+  const [campoRadio, setcampoRadio] = useState(false)
+  const [campoParafuso, setcampoParafuso] = useState(false)
+  const [campoDiametroFerramenta, setcampoDiametroFerramenta] = useState(false)
+  const [campoCondicaoFerramenta, setcampoCondicaoFerramenta] = useState(false)
+  const [campoEmpresaProprietaria, setcampoEmpresaProprietaria] = useState(false)
   const [campoEntradaLatitude2, setcampoEntradaLatitude2] = useState(false)
   const [campoEntradaLongitude2, setcampoEntradaLongitude2] = useState(false)
   const [campoSaidaLatitude2, setcampoSaidaLatitude2] = useState(false)
@@ -176,8 +193,25 @@ export default function ConfigurationSteps () {
   const [camposPreparacao, setCamposPreparacao] = useState(false)
   const [camposPerfuracao, setCamposPerfuracao] = useState(false)
   const [camposFerramental, setCamposFerramental] = useState(false)
+  const [campoPortaSonda2, setcampoPortaSonda2] = useState(false)
+  const [campoVolumePreparado2, setcampoVolumePreparado2] = useState(false)
+  const [campoTesteVicosidade2, setcampoTesteVicosidade2] = useState(false)
+  const [campoConfirmacaoProcedimento2, setcampoConfirmacaoProcedimento2] = useState(false)
+  const [campoHastes2, setcampoHastes2] = useState(false)
+  const [campoSonda2, setcampoSonda2] = useState(false)
+  const [campopaPerfuracao2, setcampopaPerfuracao2] = useState(false)
+  const [campoPullingHead2, setcampoPullingHead2] = useState(false)
+  const [campoLocalizador2, setcampoLocalizador2] = useState(false)
+  const [campoLuva2, setcampoLuva2] = useState(false)
+  const [campoHasteInicial2, setcampoHasteInicial2] = useState(false)
+  const [campoFlexobarra2, setcampoFlexobarra2] = useState(false)
+  const [campoRadio2, setcampoRadio2] = useState(false)
+  const [campoParafuso2, setcampoParafuso2] = useState(false)
+  const [campoCondicaoFerramenta2, setcampoCondicaoFerramenta2] = useState(false)
+  const [campoEmpresaProprietaria2, setcampoEmpresaProprietaria2] = useState(false)
+  const [campoDiametroFerramenta2, setcampoDiametroFerramenta2] = useState(false)
 
-  function handleCampos () {
+  function handleCampos() {
     if (campos) {
       setCampos(false)
     } else {
@@ -185,7 +219,7 @@ export default function ConfigurationSteps () {
     }
   }
 
-  function handleCamposPreparacao () {
+  function handleCamposPreparacao() {
     if (camposPreparacao) {
       setCamposPreparacao(false)
     } else {
@@ -193,7 +227,7 @@ export default function ConfigurationSteps () {
     }
   }
 
-  function handleCamposPerfuracao () {
+  function handleCamposPerfuracao() {
     if (camposPerfuracao) {
       setCamposPerfuracao(false)
     } else {
@@ -201,7 +235,7 @@ export default function ConfigurationSteps () {
     }
   }
 
-  function handleCamposFerramental () {
+  function handleCamposFerramental() {
     if (camposFerramental) {
       setCamposFerramental(false)
     } else {
@@ -209,7 +243,7 @@ export default function ConfigurationSteps () {
     }
   }
 
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
     console.log(data)
     Cadastro(data)
   }
@@ -248,7 +282,7 @@ export default function ConfigurationSteps () {
       })
   }
 
-  async function loadDados () {
+  async function loadDados() {
     setLoading(true)
     console.log('idConfigTravessia')
     console.log(idConfigTravessia.replace('#/etapas-da-configuracao/', ''))
@@ -355,7 +389,24 @@ export default function ConfigurationSteps () {
               capacidadeSwivel: campocapacidadeSwivel,
               fluido: campoFluido,
               receitaFluido: campoReceitaFluido,
-
+              portaSonda: campoPortaSonda,
+              confirmacaoProcedimento: campoConfirmacaoProcedimento,
+              volumePrepardo: campoVolumePreparado,
+              testeVicosidade: campoTesteVicosidade,
+              hastes: campoHastes,
+              sonda: campoSonda,
+              paPerfuracao: campopaPerfuracao,
+              pullingHead: campoPullingHead,
+              localizador: campoLocalizador,
+              luva: campoLuva,
+              hasteInicial: campoHasteInicial,
+              flexoBarra: campoFlexobarra,
+              radio: campoRadio,
+              parafuso: campoParafuso,
+              diametroFerramenta: campoDiametroFerramenta,
+              condicaoFerramenta: campoCondicaoFerramenta,
+              EmpresaProp: campoEmpresaProprietaria,
+              empresaProprietaria: campoEmpresaProprietaria,
             }
             api
               .post('etapasColunas', {
@@ -442,6 +493,24 @@ export default function ConfigurationSteps () {
             setcampocapacidadeSwivel(response.data.rows[0].campocapacidadeSwivel)
             setcampoFluido(response.data.rows[0].fluido)
             setcampoReceitaFluido(response.data.rows[0].receitaFluido)
+
+            setcampoPortaSonda(response.data.rows[0].portaSonda)
+            setcampoVolumePreparado(response.data.rows[0].volumePrepardo)
+            setcampoTesteVicosidade(response.data.rows[0].testeVicosidade)
+            setcampoConfirmacaoProcedimento(response.data.rows[0].confirmacaoProcedimento)
+            setcampoHastes(response.data.rows[0].hastes)
+            setcampoSonda(response.data.rows[0].sonda)
+            setcampopaPerfuracao(response.data.rows[0].paPerfuracao)
+            setcampoPullingHead(response.data.rows[0].pullingHead)
+            setcampoLocalizador(response.data.rows[0].localizador)
+            setcampoLuva(response.data.rows[0].luva)
+            setcampoHasteInicial(response.data.rows[0].hasteInicial)
+            setcampoFlexobarra(response.data.rows[0].flexoBarra)
+            setcampoRadio(response.data.rows[0].radio)
+            setcampoParafuso(response.data.rows[0].parafuso)
+            setcampoCondicaoFerramenta(response.data.rows[0].condicaoFerramenta)
+            setcampoEmpresaProprietaria(response.data.rows[0].empresaProp)
+            setcampoDiametroFerramenta(response.data.rows[0].diametroFerramenta)
             // })
           }
           // setTipoEtapa()
@@ -454,7 +523,7 @@ export default function ConfigurationSteps () {
         setLoading(false)
       })
   }
-  async function deleteDados (id: string) {
+  async function deleteDados(id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api
@@ -471,7 +540,7 @@ export default function ConfigurationSteps () {
         setLoading(false)
       })
   }
-  function update (dados: any, banco: string) {
+  function update(dados: any, banco: string) {
     console.log('dados')
     console.log(dados)
     if (banco === 'etapas') {
@@ -484,7 +553,7 @@ export default function ConfigurationSteps () {
       updateDados()
     }
   }
-  async function updateDados () {
+  async function updateDados() {
     setLoading(true)
     console.log(etapas)
     const data = {
@@ -551,6 +620,24 @@ export default function ConfigurationSteps () {
       capacidadeSwivel: campocapacidadeSwivel,
       fluido: campoFluido,
       receitaFluido: campoReceitaFluido,
+      portaSonda: campoPortaSonda,
+      confirmacaoProcedimento: campoConfirmacaoProcedimento,
+      volumePrepardo: campoVolumePreparado,
+      testeVicosidade: campoTesteVicosidade,
+      hastes: campoHastes,
+      sonda: campoSonda,
+      paPerfuracao: campopaPerfuracao,
+      pullingHead: campoPullingHead,
+      localizador: campoLocalizador,
+      luva: campoLuva,
+      hasteInicial: campoHasteInicial,
+      flexoBarra: campoFlexobarra,
+      radio: campoRadio,
+      parafuso: campoParafuso,
+      diametroFerramenta: campoDiametroFerramenta,
+      condicaoFerramenta: campoCondicaoFerramenta,
+      EmpresaProp: campoEmpresaProprietaria,
+      empresaProprietaria: campoEmpresaProprietaria,
     }
 
     const data2 = {
@@ -616,6 +703,24 @@ export default function ConfigurationSteps () {
       capacidadeSwivel: campocapacidadeSwivel2,
       fluido: campoFluido2,
       receitaFluido: campoReceitaFluido2,
+      portaSonda: campoPortaSonda2,
+      confirmacaoProcedimento: campoConfirmacaoProcedimento2,
+      volumePrepardo: campoVolumePreparado2,
+      testeVicosidade: campoTesteVicosidade2,
+      hastes: campoHastes2,
+      sonda: campoSonda2,
+      paPerfuracao: campopaPerfuracao2,
+      pullingHead: campoPullingHead2,
+      localizador: campoLocalizador2,
+      luva: campoLuva2,
+      hasteInicial: campoHasteInicial2,
+      flexoBarra: campoFlexobarra2,
+      radio: campoRadio2,
+      parafuso: campoParafuso2,
+      diametroFerramenta: campoDiametroFerramenta2,
+      condicaoFerramenta: campoCondicaoFerramenta2,
+      EmpresaProp: campoEmpresaProprietaria2,
+      empresaProprietaria: campoEmpresaProprietaria2,
     }
     console.log(data)
     api
@@ -707,8 +812,26 @@ export default function ConfigurationSteps () {
     setcampocapacidadeSwivel2(false)
     setcampoFluido2(false)
     setcampoReceitaFluido2(false)
+
+    setcampoPortaSonda2(false)
+    setcampoVolumePreparado2(false)
+    setcampoTesteVicosidade2(false)
+    setcampoConfirmacaoProcedimento2(false)
+    setcampoHastes2(false)
+    setcampoSonda2(false)
+    setcampopaPerfuracao2(false)
+    setcampoPullingHead2(false)
+    setcampoLocalizador2(false)
+    setcampoLuva2(false)
+    setcampoHasteInicial2(false)
+    setcampoFlexobarra2(false)
+    setcampoRadio2(false)
+    setcampoParafuso2(false)
+    setcampoCondicaoFerramenta2(false)
+    setcampoEmpresaProprietaria2(false)
+    setcampoDiametroFerramenta2(false)
   }
-  function selectCampos (etapa: any) {
+  function selectCampos(etapa: any) {
     setidEtapa(etapa.id)
     setnumeroEtapa(etapa.numeroEtapa)
     setnovaEtapa(etapa.novaEtapa)
@@ -726,10 +849,10 @@ export default function ConfigurationSteps () {
     // console.log(idConfigTravessia)
   }, [])
 
-  function onChange (e: any) {
+  function onChange(e: any) {
     console.log(`checked = ${e.target.checked}`)
   }
-  function fnomePerfilAcesso () {
+  function fnomePerfilAcesso() {
     if (camponomePerfilAcesso) {
       setcamponomePerfilAcesso2(false)
     } else {
@@ -737,7 +860,7 @@ export default function ConfigurationSteps () {
       setcamponomePerfilAcesso2(true)
     }
   }
-  function fDataExecucao () {
+  function fDataExecucao() {
     if (campodataExecucao) {
       setcampodataExecucao2(false)
     } else {
@@ -745,7 +868,7 @@ export default function ConfigurationSteps () {
       setcampodataExecucao2(true)
     }
   }
-  function fresponsavelExecucao () {
+  function fresponsavelExecucao() {
     if (camporesponsavelExecucao) {
       setcamporesponsavelExecucao2(false)
     } else {
@@ -753,7 +876,7 @@ export default function ConfigurationSteps () {
       setcamporesponsavelExecucao2(true)
     }
   }
-  function fhoraExecucao () {
+  function fhoraExecucao() {
     if (campohoraExecucao) {
       setcampohoraExecucao2(false)
     } else {
@@ -761,7 +884,7 @@ export default function ConfigurationSteps () {
       setcampohoraExecucao2(true)
     }
   }
-  function fcroquiMapeamento () {
+  function fcroquiMapeamento() {
     if (campocroquiMapeamento) {
       setcampocroquiMapeamento2(false)
     } else {
@@ -769,7 +892,7 @@ export default function ConfigurationSteps () {
       setcampocroquiMapeamento2(true)
     }
   }
-  function fequipamentoUtilizado () {
+  function fequipamentoUtilizado() {
     if (campoequipamentoUtilizado) {
       setcampoequipamentoUtilizado2(false)
     } else {
@@ -777,7 +900,7 @@ export default function ConfigurationSteps () {
       setcampoequipamentoUtilizado2(true)
     }
   }
-  function fmaterialCampo () {
+  function fmaterialCampo() {
     if (campomaterializacaoCampo) {
       setcampomaterializacaoCampo2(false)
     } else {
@@ -785,7 +908,7 @@ export default function ConfigurationSteps () {
       setcampomaterializacaoCampo2(true)
     }
   }
-  function fquantidadeInterferencias () {
+  function fquantidadeInterferencias() {
     if (campoquantidadeInterferencias) {
       setcampoquantidadeInterferencias2(false)
     } else {
@@ -793,7 +916,7 @@ export default function ConfigurationSteps () {
       setcampoquantidadeInterferencias2(true)
     }
   }
-  function flocalizacaoDiretrizFuro () {
+  function flocalizacaoDiretrizFuro() {
     if (campoLocalizaDiretrizFuro) {
       setcampoLocalizaDiretrizFuro2(false)
       setcampoparaleloEsquerda2(false)
@@ -816,7 +939,7 @@ export default function ConfigurationSteps () {
       setcampodiametroInterferencia2(true)
     }
   }
-  function ftipoInterferencia () {
+  function ftipoInterferencia() {
     if (campotipoInterferencia) {
       setcampotipoInterferencia2(false)
     } else {
@@ -824,15 +947,15 @@ export default function ConfigurationSteps () {
       setcampotipoInterferencia2(true)
     }
   }
-  function fempresaProprietaria () {
-    if (campoEmpresa) {
-      setcampoEmpresa2(false)
+  function fempresaProprietaria() {
+    if (campoEmpresaProprietaria) {
+      setcampoEmpresaProprietaria2(false)
     } else {
-      setcampoEmpresa(true)
-      setcampoEmpresa2(true)
+      setcampoEmpresaProprietaria(true)
+      setcampoEmpresaProprietaria2(true)
     }
   }
-  function fdimensaoVala () {
+  function fdimensaoVala() {
     if (campolargura) {
       setcampolargura2(false)
       setcampocomprimento2(false)
@@ -846,7 +969,7 @@ export default function ConfigurationSteps () {
       setcampoprofundidadeVala2(true)
     }
   }
-  function festacaReferencia () {
+  function festacaReferencia() {
     if (campoestacaReferencia) {
       setcampoestacaReferencia2(false)
     } else {
@@ -854,7 +977,7 @@ export default function ConfigurationSteps () {
       setcampoestacaReferencia2(true)
     }
   }
-  function fsondagemInterferencia () {
+  function fsondagemInterferencia() {
     if (campoSondagemInterferencia) {
       setcampoSondagemInterferencia2(false)
     } else {
@@ -862,7 +985,7 @@ export default function ConfigurationSteps () {
       setcampoSondagemInterferencia2(true)
     }
   }
-  function ffluido () {
+  function ffluido() {
     if (campoFluido) {
       setcampoFluido2(false)
     } else {
@@ -870,7 +993,7 @@ export default function ConfigurationSteps () {
       setcampoFluido2(true)
     }
   }
-  function freceitafluido () {
+  function freceitafluido() {
     if (campoReceitaFluido) {
       setcampoReceitaFluido2(false)
     } else {
@@ -878,7 +1001,7 @@ export default function ConfigurationSteps () {
       setcampoReceitaFluido2(true)
     }
   }
-  function fnumeroHastes () {
+  function fnumeroHastes() {
     if (camponumeroHastes) {
       setcamponumeroHastes2(false)
     } else {
@@ -886,7 +1009,7 @@ export default function ConfigurationSteps () {
       setcamponumeroHastes2(true)
     }
   }
-  function favancoPlanejado () {
+  function favancoPlanejado() {
     if (campoavancoPlanejado) {
       setcampoavancoPlanejado2(false)
     } else {
@@ -894,7 +1017,7 @@ export default function ConfigurationSteps () {
       setcampoavancoPlanejado2(true)
     }
   }
-  function fprofundidadeExecutada () {
+  function fprofundidadeExecutada() {
     if (campoprofundidadeExecutada) {
       setcampoprofundidadeExecutada2(false)
     } else {
@@ -902,7 +1025,7 @@ export default function ConfigurationSteps () {
       setcampoprofundidadePlanejada2(true)
     }
   }
-  function famarracao () {
+  function famarracao() {
     if (campoamarracao) {
       setcampoamarracao2(false)
     } else {
@@ -910,7 +1033,7 @@ export default function ConfigurationSteps () {
       setcampoamarracao2(true)
     }
   }
-  function fmaquinaPerfuratriz () {
+  function fmaquinaPerfuratriz() {
     if (campomaquinaPerfuratriz) {
       setcampomaquinaPerfuratriz2(false)
     } else {
@@ -918,7 +1041,7 @@ export default function ConfigurationSteps () {
       setcampomaquinaPerfuratriz2(true)
     }
   }
-  function fdiametroAlargamento () {
+  function fdiametroAlargamento() {
     if (campodiametroAlargamento) {
       setcampodiametroAlargamento2(false)
     } else {
@@ -926,7 +1049,7 @@ export default function ConfigurationSteps () {
       setcampodiametroAlargamento2(true)
     }
   }
-  function ftempoHaste () {
+  function ftempoHaste() {
     if (campodiametroAlargamento) {
       setcampodiametroAlargamento2(false)
     } else {
@@ -934,7 +1057,183 @@ export default function ConfigurationSteps () {
       setcampodiametroAlargamento2(true)
     }
   }
-  function fEntradaLatitude () {
+  function fvazaoBomba() {
+    if (campovazaoBomba) {
+      setcampovazaoBomba2(false)
+    } else {
+      setcampovazaoBomba(true)
+      setcampovazaoBomba2(true)
+    }
+  }
+  function ftipoRedeTubulacao() {
+    if (campovazaoBomba) {
+      setcampovazaoBomba2(false)
+    } else {
+      setcampovazaoBomba(true)
+      setcampovazaoBomba2(true)
+    }
+  }
+  function fdiametroRede() {
+    if (campovazaoBomba) {
+      setcampovazaoBomba2(false)
+    } else {
+      setcampovazaoBomba(true)
+      setcampovazaoBomba2(true)
+    }
+  }
+  function fportaSonda() {
+    if (campoPortaSonda) {
+      setcampoPortaSonda2(false)
+    } else {
+      setcampoPortaSonda(true)
+      setcampoPortaSonda2(true)
+    }
+  }
+  function fconfirmacaoProcedimento() {
+    if (campoConfirmacaoProcedimento) {
+      setcampoConfirmacaoProcedimento2(false)
+    } else {
+      setcampoConfirmacaoProcedimento(true)
+      setcampoConfirmacaoProcedimento2(true)
+    }
+  }
+  function fvolumePreparado() {
+    if (campoVolumePreparado) {
+      setcampoVolumePreparado2(false)
+    } else {
+      setcampoVolumePreparado(true)
+      setcampoVolumePreparado2(true)
+    }
+  }
+  function ftesteViscosidade() {
+    if (campoTesteVicosidade) {
+      setcampoTesteVicosidade2(false)
+    } else {
+      setcampoTesteVicosidade(true)
+      setcampoTesteVicosidade2(true)
+    }
+  }
+  function fHastes() {
+    if (campoHastes) {
+      setcampoHastes2(false)
+    } else {
+      setcampoHastes(true)
+      setcampoHastes2(true)
+    }
+  }
+  function fSonda() {
+    if (campoSonda) {
+      setcampoSonda2(false)
+    } else {
+      setcampoSonda(true)
+      setcampoSonda2(true)
+    }
+  }
+  function fPaPerfuracao() {
+    if (campopaPerfuracao) {
+      setcampopaPerfuracao2(false)
+    } else {
+      setcampopaPerfuracao(true)
+      setcampopaPerfuracao2(true)
+    }
+  }
+  function fpullingHead() {
+    if (campoPullingHead) {
+      setcampoPullingHead2(false)
+    } else {
+      setcampoPullingHead(true)
+      setcampoPullingHead2(true)
+    }
+  }
+  function fLocalizador() {
+    if (campoLocalizador) {
+      setcampoLocalizador2(false)
+    } else {
+      setcampoLocalizador(true)
+      setcampoLocalizador2(true)
+    }
+  }
+  function fLuva() {
+    if (campoLuva) {
+      setcampoLuva2(false)
+    } else {
+      setcampoLuva(true)
+      setcampoLuva2(true)
+    }
+  }
+  function fHasteInicial() {
+    if (campoHasteInicial) {
+      setcampoHasteInicial2(false)
+    } else {
+      setcampoHasteInicial(true)
+      setcampoHasteInicial2(true)
+    }
+  }
+  function fFlexobarra() {
+    if (campoFlexobarra) {
+      setcampoFlexobarra2(false)
+    } else {
+      setcampoFlexobarra(true)
+      setcampoFlexobarra2(true)
+    }
+  }
+  function fRadio() {
+    if (campoRadio) {
+      setcampoRadio2(false)
+    } else {
+      setcampoRadio(true)
+      setcampoRadio2(true)
+    }
+  }
+  function fParafuso() {
+    if (campoParafuso) {
+      setcampoParafuso2(false)
+    } else {
+      setcampoParafuso(true)
+      setcampoParafuso2(true)
+    }
+  }
+  function fModeloAlargador() {
+    if (campomodeloAlargador) {
+      setcampomodeloAlargador2(false)
+    } else {
+      setcampomodeloAlargador(true)
+      setcampomodeloAlargador2(true)
+    }
+  }
+  function fCapacidadePortaFusilink() {
+    if (campocapacidadePortaFusilink) {
+      setcampocapacidadePortaFusilink2(false)
+    } else {
+      setcampocapacidadePortaFusilink(true)
+      setcampocapacidadePortaFusilink2(true)
+    }
+  }
+  function fCapacidadeSwivel() {
+    if (campocapacidadeSwivel) {
+      setcampocapacidadeSwivel2(false)
+    } else {
+      setcampocapacidadeSwivel(true)
+      setcampocapacidadeSwivel2(true)
+    }
+  }
+  function fDiametroFerramenta() {
+    if (campoDiametroFerramenta) {
+      setcampoDiametroFerramenta2(false)
+    } else {
+      setcampoDiametroFerramenta(true)
+      setcampoDiametroFerramenta2(true)
+    }
+  }
+  function fCondicaoFerramenta() {
+    if (campoCondicaoFerramenta) {
+      setcampoCondicaoFerramenta2(false)
+    } else {
+      setcampoCondicaoFerramenta(true)
+      setcampoCondicaoFerramenta2(true)
+    }
+  }
+  function fEntradaLatitude() {
     if (campoEntradaLatitude) {
       console.log('campo latitude')
       setcampoEntradaLatitude2(false)
@@ -944,7 +1243,7 @@ export default function ConfigurationSteps () {
     }
   }
 
-  function fEntradaLongitude () {
+  function fEntradaLongitude() {
     if (campoEntradaLongitude) {
       console.log('campo longitude')
       setcampoEntradaLongitude2(false)
@@ -953,7 +1252,7 @@ export default function ConfigurationSteps () {
       setcampoEntradaLongitude2(true)
     }
   }
-  function fSaidaLatitude () {
+  function fSaidaLatitude() {
     if (campoSaidaLatitude) {
       setcampoSaidaLatitude2(false)
     } else {
@@ -961,7 +1260,7 @@ export default function ConfigurationSteps () {
       setcampoSaidaLatitude2(true)
     }
   }
-  function fSaidaLongitude () {
+  function fSaidaLongitude() {
     if (campoSaidaLongitude) {
       setcampoSaidaLongitude2(false)
     } else {
@@ -969,7 +1268,7 @@ export default function ConfigurationSteps () {
       setcampoSaidaLongitude2(true)
     }
   }
-  function fTipoTubulacao () {
+  function fTipoTubulacao() {
     if (campoTipoTubulacao) {
       setcampoTipoTubulacao2(false)
     } else {
@@ -977,7 +1276,7 @@ export default function ConfigurationSteps () {
       setcampoTipoTubulacao2(true)
     }
   }
-  function fDiametroPerf () {
+  function fDiametroPerf() {
     if (campoDiametro) {
       setcampoDiametro2(false)
     } else {
@@ -985,7 +1284,7 @@ export default function ConfigurationSteps () {
       setcampoDiametro2(true)
     }
   }
-  function fTipoSolo () {
+  function fTipoSolo() {
     if (campoTipoSolo) {
       setcampoTipoSolo2(false)
     } else {
@@ -993,7 +1292,7 @@ export default function ConfigurationSteps () {
       setcampoTipoSolo2(true)
     }
   }
-  function fEquipamento () {
+  function fEquipamento() {
     if (campoEquipamento) {
       setcampoEquipamento2(false)
     } else {
@@ -1001,7 +1300,7 @@ export default function ConfigurationSteps () {
       setcampoEquipamento2(true)
     }
   }
-  function fDocumento () {
+  function fDocumento() {
     if (campoDocumento) {
       setcampoDocumento2(false)
     } else {
@@ -1009,7 +1308,7 @@ export default function ConfigurationSteps () {
       setcampoDocumento2(true)
     }
   }
-  function fTipoRede () {
+  function fTipoRede() {
     if (campoTipoRede) {
       setcampoTipoRede2(false)
     } else {
@@ -1017,7 +1316,7 @@ export default function ConfigurationSteps () {
       setcampoTipoRede2(true)
     }
   }
-  function fSondagemInter () {
+  function fSondagemInter() {
     if (campoSondagemInterferencia) {
       setcampoSondagemInterferencia2(false)
     } else {
@@ -1025,7 +1324,7 @@ export default function ConfigurationSteps () {
       setcampoSondagemInterferencia2(true)
     }
   }
-  function fSondagem () {
+  function fSondagem() {
     if (campoSondagem) {
       setcampoSondagem2(false)
     } else {
@@ -1033,7 +1332,7 @@ export default function ConfigurationSteps () {
       setcampoSondagem2(true)
     }
   }
-  function fDiametroInter () {
+  function fDiametroInter() {
     if (campoDiametroInterferencia) {
       setcampoDiametroInterferencia2(false)
     } else {
@@ -1041,7 +1340,7 @@ export default function ConfigurationSteps () {
       setcampoDiametroInterferencia2(true)
     }
   }
-  function fPlanoFuro () {
+  function fPlanoFuro() {
     if (campoPlanoFuro) {
       setcampoPlanoFuro2(false)
     } else {
@@ -1049,7 +1348,7 @@ export default function ConfigurationSteps () {
       setcampoPlanoFuro2(true)
     }
   }
-  function fFerramentas () {
+  function fFerramentas() {
     if (campoFerramentas) {
       setcampoFerramentas2(false)
     } else {
@@ -1057,7 +1356,7 @@ export default function ConfigurationSteps () {
       setcampoFerramentas2(true)
     }
   }
-  function fInfoEnvolvidas () {
+  function fInfoEnvolvidas() {
     if (campoInfoEnvolvidas) {
       setcampoInfoEnvolvidas2(false)
     } else {
@@ -1065,7 +1364,7 @@ export default function ConfigurationSteps () {
       setcampoInfoEnvolvidas2(true)
     }
   }
-  function fDiametro () {
+  function fDiametro() {
     if (campoDiametro) {
       setcampoDiametro2(false)
     } else {
@@ -1073,7 +1372,7 @@ export default function ConfigurationSteps () {
       setcampoDiametro2(true)
     }
   }
-  function fLocalDiretriz () {
+  function fLocalDiretriz() {
     if (campoLocalizaDiretrizFuro) {
       setcampoLocalizaDiretrizFuro2(false)
     } else {
@@ -1081,7 +1380,7 @@ export default function ConfigurationSteps () {
       setcampoLocalizaDiretrizFuro2(true)
     }
   }
-  function fTipoInter () {
+  function fTipoInter() {
     if (campoTipoInterferencia) {
       setcampoTipoInterferencia2(false)
     } else {
@@ -1090,7 +1389,7 @@ export default function ConfigurationSteps () {
     }
   }
 
-  function fProfundidade () {
+  function fProfundidade() {
     if (campoProfundidade) {
       setcampoProfundidade2(false)
     } else {
@@ -1098,7 +1397,7 @@ export default function ConfigurationSteps () {
       setcampoProfundidade2(true)
     }
   }
-  function fRespTopografia () {
+  function fRespTopografia() {
     if (campoResponselTopografia) {
       setcampoResponselTopografia2(false)
     } else {
@@ -1106,7 +1405,7 @@ export default function ConfigurationSteps () {
       setcampoResponselTopografia2(true)
     }
   }
-  function fDataTopografia () {
+  function fDataTopografia() {
     if (campoDataTopografia) {
       setcampoDataTopografia2(false)
     } else {
@@ -1114,7 +1413,7 @@ export default function ConfigurationSteps () {
       setcampoDataTopografia2(true)
     }
   }
-  function fEmpresa () {
+  function fEmpresa() {
     if (campoEmpresa) {
       setcampoEmpresa2(false)
     } else {
@@ -1257,10 +1556,10 @@ export default function ConfigurationSteps () {
                       src='https://contribua.org/mb-static/images/loading.gif'
                       alt='Loading'
                     />
-                    )
+                  )
                   : (
-                      'Salvar'
-                    )}
+                    'Salvar'
+                  )}
               </button>
             </S.Form>
           </S.Container>
@@ -1469,106 +1768,187 @@ export default function ConfigurationSteps () {
                   : false}
 
                 {campos
-                  ? <Switch
+                  ? !camponomePerfilAcesso
+                    ? <Switch
                       checkedChildren='Nome do usuário do perfil de acesso'
                       unCheckedChildren='Nome do usuário do perfil de acesso'
                       onClick={() => fnomePerfilAcesso()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Nome do usuário do perfil de acesso'
+                      unCheckedChildren='Nome do usuário do perfil de acesso'
+                      defaultChecked
+                    /> : false}
 
                 {campos
-                  ? <Switch
+                  ? !campodataExecucao
+                    ? <Switch
                       checkedChildren='Data da execução'
                       unCheckedChildren='Data da execução'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fDataExecucao()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Data da execução '
+                      unCheckedChildren='Data da execução '
+                      defaultChecked
+                    /> : false}
 
                 {campos
-                  ? <Switch
+                  ? !camporesponsavelExecucao
+                    ? <Switch
                       checkedChildren='Responsável pela execução'
                       unCheckedChildren='Responsável pela execução'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fresponsavelExecucao()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Responsável pela execução'
+                      unCheckedChildren='Responsável pela execução'
+                      defaultChecked
+                    /> : false}
 
                 {campos
-                  ? <Switch
+                  ? !campohoraExecucao
+                    ? <Switch
                       checkedChildren='Hora da execução'
                       unCheckedChildren='Hora da execução'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fhoraExecucao()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Hora da execução'
+                      unCheckedChildren='Hora da execução'
+                      defaultChecked
+                    /> : false}
 
                 {campos
-                  ? <Switch
+                  ? !campoEntradaLatitude
+                    ? <Switch
                       checkedChildren='Ponto de verificação de entrada (lat)'
                       unCheckedChildren='Ponto de verificação de entrada (lat)'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fEntradaLatitude()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Ponto de verificação de entrada (lat)'
+                      unCheckedChildren='Ponto de verificação de entrada (lat)'
+                      defaultChecked
+                    /> : false}
 
                 {campos
-                  ? <Switch
+                  ? !campoEntradaLongitude
+                    ? <Switch
+                      checkedChildren='Ponto de verificação de entrada (long)'
+                      unCheckedChildren='Ponto de verificação de entrada (long)'
+                      onClick={() => fEntradaLongitude()}
+                    />
+                    : <Switch
+                      checkedChildren='Ponto de verificação de entrada (long)'
+                      unCheckedChildren='Ponto de verificação de entrada (long)'
+                      defaultChecked
+                    /> : false}
+
+                {campos
+                  ? !campoSaidaLatitude
+                    ? <Switch
+                      checkedChildren='Ponto de verificação de saída (lat)'
+                      unCheckedChildren='Ponto de verificação de saída (lat)'
+                      onClick={() => fSaidaLatitude()}
+                    />
+                    : <Switch
                       checkedChildren='Ponto de verificação de saída(lat)'
                       unCheckedChildren='Ponto de verificação de saída(lat)'
-                      onClick={() => fnomePerfilAcesso()}
-                    />
-                  : false}
+                      defaultChecked
+                    /> : false}
 
                 {campos
-                  ? <Switch
+                  ? !campoSaidaLongitude
+                    ? <Switch
                       checkedChildren='Ponto de verificação de saída (long)'
                       unCheckedChildren='Ponto de verificação de saída (long)'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fSaidaLongitude()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Ponto de verificação de saída (long)'
+                      unCheckedChildren='Ponto de verificação de saída (long)'
+                      defaultChecked
+                    /> : false}
 
                 {campos
-                  ? <Switch
+                  ? !campoDiametroPerfuracao
+                    ? <Switch
+                      checkedChildren='Diâmetro de perfuração'
+                      unCheckedChildren='Diâmetro de perfuração'
+                      onClick={() => fDiametroPerf()}
+                    />
+                    : <Switch
                       checkedChildren='Diâmetro de perfuração (mm)'
                       unCheckedChildren='Diâmetro de perfuração (mm)'
-                      onClick={() => fnomePerfilAcesso()}
-                    />
-                  : false}
+                      defaultChecked
+                    /> : false}
 
                 {campos
-                  ? <Switch
+                  ? !campoTipoSolo
+                    ? <Switch
+                      checkedChildren='Tipos de solo'
+                      unCheckedChildren='Tipos de solo'
+                      onClick={() => fTipoSolo()}
+                    />
+                    : <Switch
                       checkedChildren='Tipo de Solo'
                       unCheckedChildren='Tipo de Solo'
-                      onClick={() => fnomePerfilAcesso()}
-                    />
-                  : false}
+                      defaultChecked
+                    /> : false}
 
                 {campos
-                  ? <Switch
+                  ? !campoDocumento
+                    ? <Switch
                       checkedChildren='Documento (upload)'
                       unCheckedChildren='Documento (upload)'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fDocumento()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Documento (upload)'
+                      unCheckedChildren='Documento (upload)'
+                      defaultChecked
+                    /> : false}
 
                 {campos
-                  ? <Switch
+                  ? !campoConfirmacaoProcedimento
+                    ? <Switch
                       checkedChildren='Confirmação do procedimento'
                       unCheckedChildren='Confirmação do procedimento'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fconfirmacaoProcedimento()}
+                    />
+                    : <Switch
+                      checkedChildren='Confirmação do procedimento'
+                      unCheckedChildren='Confirmação do procedimento'
+                      defaultChecked
                     />
                   : false}
 
                 {campos
-                  ? <Switch
+                  ? !campoVolumePreparado
+                    ? <Switch
                       checkedChildren='Volume preparado'
                       unCheckedChildren='Volume preparado'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fvolumePreparado()}
+                    />
+                    : <Switch
+                      checkedChildren='Volume preparado'
+                      unCheckedChildren='Volume preparado'
+                      defaultChecked
                     />
                   : false}
 
                 {campos
-                  ? <Switch
+                  ? !campoTesteVicosidade
+                    ? <Switch
                       checkedChildren='Teste de viscosidade'
                       unCheckedChildren='Teste de viscosidade'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => ftesteViscosidade()}
+                    />
+                    : <Switch
+                      checkedChildren='Teste de viscosidade'
+                      unCheckedChildren='Teste de viscosidade'
+                      defaultChecked
                     />
                   : false}
 
@@ -1579,100 +1959,161 @@ export default function ConfigurationSteps () {
                   : false}
 
                 {camposPreparacao
-                  ? <Switch
+                  ? !campocroquiMapeamento
+                    ? <Switch
                       checkedChildren='Enviar croqui de mapeamento (Upload)'
                       unCheckedChildren='Enviar croqui de mapeamento (Upload)'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fcroquiMapeamento()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Enviar croqui de mapeamento (Upload)'
+                      unCheckedChildren='Enviar croqui de mapeamento (Upload)'
+                      defaultChecked
+                    /> : false}
 
                 {camposPreparacao
-                  ? <Switch
+                  ? !campoequipamentoUtilizado
+                    ? <Switch
                       checkedChildren='Equipamento utilizado'
                       unCheckedChildren='Equipamento utilizado'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fequipamentoUtilizado()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Equipamento utilizado'
+                      unCheckedChildren='Equipamento utilizado'
+                      defaultChecked
+                    /> : false}
 
                 {camposPreparacao
-                  ? <Switch
+                  ? !campomaterializacaoCampo
+                    ? <Switch
                       checkedChildren='Materialização em campo'
                       unCheckedChildren='Materialização em campo'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fmaterialCampo()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Materialização em campo'
+                      unCheckedChildren='Materialização em campo'
+                      defaultChecked
+                    /> : false}
 
                 {camposPreparacao
-                  ? <Switch
+                  ? !campoquantidadeInterferencias
+                    ? <Switch
                       checkedChildren='Quantidade de interferências'
                       unCheckedChildren='Quantidade de interferências'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fquantidadeInterferencias()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Quantidade de interferências'
+                      unCheckedChildren='Quantidade de interferências'
+                      defaultChecked
+                    /> : false}
 
                 {camposPreparacao
-                  ? <Switch
+                  ? !campoLocalizaDiretrizFuro
+                    ? <Switch
                       checkedChildren='Localização em relação a diretriz do furo'
                       unCheckedChildren='Localização em relação a diretriz do furo'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => flocalizacaoDiretrizFuro()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Localização em relação a diretriz do furo'
+                      unCheckedChildren='Localização em relação a diretriz do furo'
+                      defaultChecked
+                    /> : false}
 
                 {camposPreparacao
-                  ? <Switch
+                  ? !campotipoInterferencia
+                    ? <Switch
                       checkedChildren='Tipo de interferência'
                       unCheckedChildren='Tipo de interferência'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => ftipoInterferencia()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Tipo de interferência'
+                      unCheckedChildren='Tipo de interferência'
+                      defaultChecked
+                    /> : false}
 
                 {camposPreparacao
-                  ? <Switch
+                  ? !campoEmpresaProprietaria
+                    ? <Switch
                       checkedChildren='Empresa proprietária'
                       unCheckedChildren='Empresa proprietária'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fempresaProprietaria()}
+                    />
+                    : <Switch
+                      checkedChildren='Empresa proprietária'
+                      unCheckedChildren='Empresa proprietária'
+                      defaultChecked
                     />
                   : false}
 
                 {camposPreparacao
-                  ? <Switch
+                  ? !campolargura
+                    ? <Switch
                       checkedChildren='Dimensões da vala de entrada e saída'
                       unCheckedChildren='Dimensões da vala de entrada e saída'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fdimensaoVala()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Dimensões da vala de entrada e saída'
+                      unCheckedChildren='Dimensões da vala de entrada e saída'
+                      defaultChecked
+                    /> : false}
 
                 {camposPreparacao
-                  ? <Switch
+                  ? !campoestacaReferencia
+                    ? <Switch
                       checkedChildren='Estaca de referência'
                       unCheckedChildren='Estaca de referência'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => festacaReferencia()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Estaca de referência'
+                      unCheckedChildren='Estaca de referência'
+                      defaultChecked
+                    /> : false}
 
                 {camposPreparacao
-                  ? <Switch
+                  ? !campoSondagemInterferencia
+                    ? <Switch
                       checkedChildren='Confirmação de sondagem da interferência'
                       unCheckedChildren='Confirmação de sondagem da interferência'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fsondagemInterferencia()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Confirmação de sondagem da interferência'
+                      unCheckedChildren='Confirmação de sondagem da interferência'
+                      defaultChecked
+                    /> : false}
 
                 {camposPreparacao
-                  ? <Switch
+                  ? !campoFluido
+                    ? <Switch
                       checkedChildren='Fluido'
                       unCheckedChildren='Fluido'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => ffluido()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Fluido'
+                      unCheckedChildren='Fluido'
+                      defaultChecked
+                    /> : false}
 
                 {camposPreparacao
-                  ? <Switch
+                  ? !campoReceitaFluido
+                    ? <Switch
                       checkedChildren='Receita do fluido'
                       unCheckedChildren='Receita do fluido'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => freceitafluido()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Receita do fluido'
+                      unCheckedChildren='Receita do fluido'
+                      defaultChecked
+                    /> : false}
 
                 <p onClick={() => handleCamposPerfuracao()}>Perfuração</p>
 
@@ -1681,97 +2122,161 @@ export default function ConfigurationSteps () {
                   : false}
 
                 {camposPerfuracao
-                  ? <Switch
+                  ? !camponumeroHastes
+                    ? <Switch
                       checkedChildren='Número de hastes'
                       unCheckedChildren='Número de hastes'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fnumeroHastes()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Número de hastes'
+                      unCheckedChildren='Número de hastes'
+                      defaultChecked
+                    /> : false}
 
                 {camposPerfuracao
-                  ? <Switch
+                  ? !campoprofundidadePlanejada
+                    ? <Switch
                       checkedChildren='Profundidade planejada'
                       unCheckedChildren='Profundidade planejada'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fnumeroHastes()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Profundidade planejada'
+                      unCheckedChildren='Profundidade planejada'
+                      defaultChecked
+                    /> : false}
 
                 {camposPerfuracao
-                  ? <Switch
+                  ? !campoavancoPlanejado
+                    ? <Switch
                       checkedChildren='Avanço planejado'
                       unCheckedChildren='Avanço planejado'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => favancoPlanejado()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Avanço planejado'
+                      unCheckedChildren='Avanço planejado'
+                      defaultChecked
+                    /> : false}
 
                 {camposPerfuracao
-                  ? <Switch
+                  ? !campoprofundidadeExecutada
+                    ? <Switch
                       checkedChildren='Profundidade executada'
                       unCheckedChildren='Profundidade executada'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fprofundidadeExecutada()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Profundidade executada'
+                      unCheckedChildren='Profundidade executada'
+                      defaultChecked
+                    /> : false}
 
                 {camposPerfuracao
-                  ? <Switch
+                  ? !campoavancoExecutado
+                    ? <Switch
                       checkedChildren='Avanço executado'
                       unCheckedChildren='Avanço executado'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fprofundidadeExecutada()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Avanço executado'
+                      unCheckedChildren='Avanço executado'
+                      defaultChecked
+                    /> : false}
 
                 {camposPerfuracao
-                  ? <Switch
+                  ? !campoamarracao
+                    ? <Switch
                       checkedChildren='Amarração'
                       unCheckedChildren='Amarração'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => famarracao()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Amarração'
+                      unCheckedChildren='Amarração'
+                      defaultChecked
+                    /> : false}
+
                 {camposPerfuracao
-                  ? <Switch
+                  ? !campomaquinaPerfuratriz
+                    ? <Switch
                       checkedChildren='Máquina perfuratriz'
                       unCheckedChildren='Máquina perfuratriz'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fmaquinaPerfuratriz()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Máquina perfuratriz'
+                      unCheckedChildren='Máquina perfuratriz'
+                      defaultChecked
+                    /> : false}
 
                 {camposPerfuracao
-                  ? <Switch
+                  ? !campodiametroAlargamento
+                    ? <Switch
                       checkedChildren='Diâmetro de alargamento'
                       unCheckedChildren='Diâmetro de alargamento'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fdiametroAlargamento()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Diâmetro de alargamento'
+                      unCheckedChildren='Diâmetro de alargamento'
+                      defaultChecked
+                    /> : false}
 
                 {camposPerfuracao
-                  ? <Switch
+                  ? !campotempoHaste
+                    ? <Switch
                       checkedChildren='Tempo por haste'
                       unCheckedChildren='Tempo por haste'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => ftempoHaste()}
                     />
-                  : false}
+                    : <Switch
+                      checkedChildren='Tempo por haste'
+                      unCheckedChildren='Tempo por haste'
+                      defaultChecked
+                    /> : false}
 
                 {camposPerfuracao
-                  ? <Switch
+                  ? !campovazaoBomba
+                    ? <Switch
                       checkedChildren='Vazão de bomba'
                       unCheckedChildren='Vazão de bomba'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fvazaoBomba()}
+                    />
+                    : <Switch
+                      checkedChildren='Vazão de bomba'
+                      unCheckedChildren='Vazão de bomba'
+                      defaultChecked
                     />
                   : false}
 
                 {camposPerfuracao
-                  ? <Switch
+                  ? !campotipoRedeTubula
+                    ? <Switch
                       checkedChildren='Tipo de rede/tubulação'
                       unCheckedChildren='Tipo de rede/tubulação'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => ftipoRedeTubulacao()}
+                    />
+                    : <Switch
+                      checkedChildren='Tipo de rede/tubulação'
+                      unCheckedChildren='Tipo de rede/tubulação'
+                      defaultChecked
                     />
                   : false}
 
                 {camposPerfuracao
-                  ? <Switch
+                  ? !campodiametroRede
+                    ? <Switch
                       checkedChildren='Diâmetro da rede'
                       unCheckedChildren='Diâmetro da rede'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fdiametroRede()}
+                    />
+                    : <Switch
+                      checkedChildren='Diâmetro da rede'
+                      unCheckedChildren='Diâmetro da rede'
+                      defaultChecked
                     />
                   : false}
 
@@ -1780,130 +2285,226 @@ export default function ConfigurationSteps () {
                   ? <h6 style={{ fontSize: '16px' }}>Campos de Ferramental:</h6>
                   : false}
                 {camposFerramental
-                  ? <Switch
+                  ? !campoPortaSonda
+                    ? <Switch
                       checkedChildren='Porta sonda'
                       unCheckedChildren='Porta sonda'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fportaSonda()}
+                    />
+                    : <Switch
+                      checkedChildren='Porta sonda'
+                      unCheckedChildren='Porta sonda'
+                      defaultChecked
                     />
                   : false}
 
                 {camposFerramental
-                  ? <Switch
+                  ? !campoHastes
+                    ? <Switch
                       checkedChildren='Hastes'
                       unCheckedChildren='Hastes'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fHastes()}
+                    />
+                    : <Switch
+                      checkedChildren='Hastes'
+                      unCheckedChildren='Hastes'
+                      defaultChecked
                     />
                   : false}
 
                 {camposFerramental
-                  ? <Switch
+                  ? !campoSonda
+                    ? <Switch
                       checkedChildren='Sonda'
                       unCheckedChildren='Sonda'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fSonda()}
+                    />
+                    : <Switch
+                      checkedChildren='Sonda'
+                      unCheckedChildren='Sonda'
+                      defaultChecked
                     />
                   : false}
 
                 {camposFerramental
-                  ? <Switch
+                  ? !campopaPerfuracao
+                    ? <Switch
                       checkedChildren='Pá de perfuração'
                       unCheckedChildren='Pá de perfuração'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fPaPerfuracao()}
+                    />
+                    : <Switch
+                      checkedChildren='Pá de perfuração'
+                      unCheckedChildren='Pá de perfuração'
+                      defaultChecked
                     />
                   : false}
 
                 {camposFerramental
-                  ? <Switch
+                  ? !campoPullingHead
+                    ? <Switch
                       checkedChildren='Pulling head'
                       unCheckedChildren='Pulling head'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fpullingHead()}
+                    />
+                    : <Switch
+                      checkedChildren='Pulling head'
+                      unCheckedChildren='Pulling head'
+                      defaultChecked
                     />
                   : false}
 
                 {camposFerramental
-                  ? <Switch
+                  ? !campoLocalizador
+                    ? <Switch
                       checkedChildren='Localizador'
                       unCheckedChildren='Localizador'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fLocalizador()}
+                    />
+                    : <Switch
+                      checkedChildren='Localizador'
+                      unCheckedChildren='Localizador'
+                      defaultChecked
                     />
                   : false}
 
                 {camposFerramental
-                  ? <Switch
+                  ? !campoLuva
+                    ? <Switch
                       checkedChildren='Luva'
                       unCheckedChildren='Luva'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fLuva()}
+                    />
+                    : <Switch
+                      checkedChildren='Luva'
+                      unCheckedChildren='Luva'
+                      defaultChecked
                     />
                   : false}
 
                 {camposFerramental
-                  ? <Switch
+                  ? !campoHasteInicial
+                    ? <Switch
                       checkedChildren='Haste inicial'
                       unCheckedChildren='Haste inicial'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fHasteInicial()}
+                    />
+                    : <Switch
+                      checkedChildren='Haste inicial'
+                      unCheckedChildren='Haste inicial'
+                      defaultChecked
                     />
                   : false}
 
                 {camposFerramental
-                  ? <Switch
+                  ? !campoFlexobarra
+                    ? <Switch
                       checkedChildren='Flexobarra'
                       unCheckedChildren='Flexobarra'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fFlexobarra()}
+                    />
+                    : <Switch
+                      checkedChildren='Flexobarra'
+                      unCheckedChildren='Flexobarra'
+                      defaultChecked
                     />
                   : false}
 
                 {camposFerramental
-                  ? <Switch
+                  ? !campoRadio
+                    ? <Switch
                       checkedChildren='Rádio'
                       unCheckedChildren='Rádio'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fRadio()}
+                    />
+                    : <Switch
+                      checkedChildren='Rádio'
+                      unCheckedChildren='Rádio'
+                      defaultChecked
                     />
                   : false}
 
                 {camposFerramental
-                  ? <Switch
+                  ? !campoParafuso
+                    ? <Switch
                       checkedChildren='Parafuso'
                       unCheckedChildren='Parafuso'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fParafuso()}
+                    />
+                    : <Switch
+                      checkedChildren='Parafuso'
+                      unCheckedChildren='Parafuso'
+                      defaultChecked
                     />
                   : false}
 
                 {camposFerramental
-                  ? <Switch
+                  ? !campomodeloAlargador
+                    ? <Switch
                       checkedChildren='Modelo de alargador'
                       unCheckedChildren='Modelo de alargador'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fModeloAlargador()}
+                    />
+                    : <Switch
+                      checkedChildren='Modelo de alargador'
+                      unCheckedChildren='Modelo de alargador'
+                      defaultChecked
                     />
                   : false}
 
                 {camposFerramental
-                  ? <Switch
+                  ? !campocapacidadePortaFusilink
+                    ? <Switch
                       checkedChildren='Capacidade do porta fusilink'
                       unCheckedChildren='Capacidade do porta fusilink'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fCapacidadePortaFusilink()}
+                    />
+                    : <Switch
+                      checkedChildren='Capacidade do porta fusilink'
+                      unCheckedChildren='Capacidade do porta fusilink'
+                      defaultChecked
                     />
                   : false}
 
                 {camposFerramental
-                  ? <Switch
+                  ? !campocapacidadeSwivel
+                    ? <Switch
                       checkedChildren='Capacidade do swivel'
                       unCheckedChildren='Capacidade do swivel'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fCapacidadeSwivel()}
+                    />
+                    : <Switch
+                      checkedChildren='Capacidade do swivel'
+                      unCheckedChildren='Capacidade do swivel'
+                      defaultChecked
                     />
                   : false}
 
                 {camposFerramental
-                  ? <Switch
+                  ? !campoDiametroFerramenta
+                    ? <Switch
                       checkedChildren='Diâmetro de ferramenta'
                       unCheckedChildren='Diâmetro de ferramenta'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fDiametroFerramenta()}
+                    />
+                    : <Switch
+                      checkedChildren='Diâmetro de ferramenta'
+                      unCheckedChildren='Diâmetro de ferramenta'
+                      defaultChecked
                     />
                   : false}
 
                 {camposFerramental
-                  ? <Switch
+                  ? !campoCondicaoFerramenta
+                    ? <Switch
                       checkedChildren='Condição do ferramental'
                       unCheckedChildren='Condição do ferramental'
-                      onClick={() => fnomePerfilAcesso()}
+                      onClick={() => fCondicaoFerramenta()}
+                    />
+                    : <Switch
+                      checkedChildren='Condição do ferramental'
+                      unCheckedChildren='Condição do ferramental'
+                      defaultChecked
                     />
                   : false}
 
@@ -1921,126 +2522,126 @@ export default function ConfigurationSteps () {
               <h2>Adicione os campos da etapa</h2>
               {!camponomePerfilAcesso
                 ? <Switch
-                    checkedChildren='Nome do usuário do perfil de acesso'
-                    unCheckedChildren='Nome do usuário do perfil de acesso'
-                    onClick={() => fnomePerfilAcesso()}
-                  />
+                  checkedChildren='Nome do usuário do perfil de acesso'
+                  unCheckedChildren='Nome do usuário do perfil de acesso'
+                  onClick={() => fnomePerfilAcesso()}
+                />
                 : <Switch
-                    checkedChildren='Nome do usuário do perfil de acesso'
-                    unCheckedChildren='Nome do usuário do perfil de acesso'
-                    defaultChecked
-                  />}
+                  checkedChildren='Nome do usuário do perfil de acesso'
+                  unCheckedChildren='Nome do usuário do perfil de acesso'
+                  defaultChecked
+                />}
               {!campodataExecucao
                 ? <Switch
-                    checkedChildren='Data da execução'
-                    unCheckedChildren='Data da execução'
-                    onClick={() => fDataExecucao()}
-                  />
+                  checkedChildren='Data da execução'
+                  unCheckedChildren='Data da execução'
+                  onClick={() => fDataExecucao()}
+                />
                 : <Switch
-                    checkedChildren='Data da execução '
-                    unCheckedChildren='Data da execução '
-                    defaultChecked
-                  />}
+                  checkedChildren='Data da execução '
+                  unCheckedChildren='Data da execução '
+                  defaultChecked
+                />}
               {!camporesponsavelExecucao
                 ? <Switch
-                    checkedChildren='Responsável pela execução'
-                    unCheckedChildren='Responsável pela execução'
-                    onClick={() => fresponsavelExecucao()}
-                  />
+                  checkedChildren='Responsável pela execução'
+                  unCheckedChildren='Responsável pela execução'
+                  onClick={() => fresponsavelExecucao()}
+                />
                 : <Switch
-                    checkedChildren='Responsável pela execução'
-                    unCheckedChildren='Responsável pela execução'
-                    defaultChecked
-                  />}
+                  checkedChildren='Responsável pela execução'
+                  unCheckedChildren='Responsável pela execução'
+                  defaultChecked
+                />}
               {!campohoraExecucao
                 ? <Switch
-                    checkedChildren='Hora da execução'
-                    unCheckedChildren='Hora da execução'
-                    onClick={() => fhoraExecucao()}
-                  />
+                  checkedChildren='Hora da execução'
+                  unCheckedChildren='Hora da execução'
+                  onClick={() => fhoraExecucao()}
+                />
                 : <Switch
-                    checkedChildren='Hora da execução'
-                    unCheckedChildren='Hora da execução'
-                    defaultChecked
-                  />}
+                  checkedChildren='Hora da execução'
+                  unCheckedChildren='Hora da execução'
+                  defaultChecked
+                />}
               {!campoEntradaLatitude
                 ? <Switch
-                    checkedChildren='Ponto de verificação de entrada (lat)'
-                    unCheckedChildren='Ponto de verificação de entrada (lat)'
-                    onClick={() => fEntradaLatitude()}
-                  />
+                  checkedChildren='Ponto de verificação de entrada (lat)'
+                  unCheckedChildren='Ponto de verificação de entrada (lat)'
+                  onClick={() => fEntradaLatitude()}
+                />
                 : <Switch
-                    checkedChildren='Ponto de verificação de entrada (lat)'
-                    unCheckedChildren='Ponto de verificação de entrada (lat)'
-                    defaultChecked
-                  />}
+                  checkedChildren='Ponto de verificação de entrada (lat)'
+                  unCheckedChildren='Ponto de verificação de entrada (lat)'
+                  defaultChecked
+                />}
               {!campoEntradaLongitude
                 ? <Switch
-                    checkedChildren='Ponto de verificação de entrada (long)'
-                    unCheckedChildren='Ponto de verificação de entrada (long)'
-                    onClick={() => fEntradaLongitude()}
-                  />
+                  checkedChildren='Ponto de verificação de entrada (long)'
+                  unCheckedChildren='Ponto de verificação de entrada (long)'
+                  onClick={() => fEntradaLongitude()}
+                />
                 : <Switch
-                    checkedChildren='Ponto de verificação de entrada (long)'
-                    unCheckedChildren='Ponto de verificação de entrada (long)'
-                    defaultChecked
-                  />}
+                  checkedChildren='Ponto de verificação de entrada (long)'
+                  unCheckedChildren='Ponto de verificação de entrada (long)'
+                  defaultChecked
+                />}
               {!campoSaidaLatitude
                 ? <Switch
-                    checkedChildren='Ponto de verificação de saída (lat)'
-                    unCheckedChildren='Ponto de verificação de saída (lat)'
-                    onClick={() => fSaidaLatitude()}
-                  />
+                  checkedChildren='Ponto de verificação de saída (lat)'
+                  unCheckedChildren='Ponto de verificação de saída (lat)'
+                  onClick={() => fSaidaLatitude()}
+                />
                 : <Switch
-                    checkedChildren='Ponto de verificação de saída(lat)'
-                    unCheckedChildren='Ponto de verificação de saída(lat)'
-                    defaultChecked
-                  />}
+                  checkedChildren='Ponto de verificação de saída(lat)'
+                  unCheckedChildren='Ponto de verificação de saída(lat)'
+                  defaultChecked
+                />}
 
               {!campoSaidaLongitude
                 ? <Switch
-                    checkedChildren='Ponto de verificação de saída (long)'
-                    unCheckedChildren='Ponto de verificação de saída (long)'
-                    onClick={() => fSaidaLongitude()}
-                  />
+                  checkedChildren='Ponto de verificação de saída (long)'
+                  unCheckedChildren='Ponto de verificação de saída (long)'
+                  onClick={() => fSaidaLongitude()}
+                />
                 : <Switch
-                    checkedChildren='Ponto de verificação de saída (long)'
-                    unCheckedChildren='Ponto de verificação de saída (long)'
-                    defaultChecked
-                  />}
+                  checkedChildren='Ponto de verificação de saída (long)'
+                  unCheckedChildren='Ponto de verificação de saída (long)'
+                  defaultChecked
+                />}
               {!campoDiametroPerfuracao
                 ? <Switch
-                    checkedChildren='Diâmetro de perfuração'
-                    unCheckedChildren='Diâmetro de perfuração'
-                    onClick={() => fDiametroPerf()}
-                  />
+                  checkedChildren='Diâmetro de perfuração'
+                  unCheckedChildren='Diâmetro de perfuração'
+                  onClick={() => fDiametroPerf()}
+                />
                 : <Switch
-                    checkedChildren='Diâmetro de perfuração (mm)'
-                    unCheckedChildren='Diâmetro de perfuração (mm)'
-                    defaultChecked
-                  />}
+                  checkedChildren='Diâmetro de perfuração (mm)'
+                  unCheckedChildren='Diâmetro de perfuração (mm)'
+                  defaultChecked
+                />}
               {!campoTipoSolo
                 ? <Switch
-                    checkedChildren='Tipos de solo'
-                    unCheckedChildren='Tipos de solo'
-                    onClick={() => fTipoSolo()}
-                  />
+                  checkedChildren='Tipos de solo'
+                  unCheckedChildren='Tipos de solo'
+                  onClick={() => fTipoSolo()}
+                />
                 : <Switch
-                    checkedChildren='Tipo de Solo'
-                    unCheckedChildren='Tipo de Solo'
-                    defaultChecked
-                  />}
+                  checkedChildren='Tipo de Solo'
+                  unCheckedChildren='Tipo de Solo'
+                  defaultChecked
+                />}
               {!campoDocumento
                 ? <Switch
-                    checkedChildren='Documento (upload)'
-                    unCheckedChildren='Documento (upload)'
-                    onClick={() => fDocumento()}
-                  />
+                  checkedChildren='Documento (upload)'
+                  unCheckedChildren='Documento (upload)'
+                  onClick={() => fDocumento()}
+                />
                 : <Switch
-                    checkedChildren='Documento (upload)'
-                    unCheckedChildren='Documento (upload)'
-                    defaultChecked
-                  />}
+                  checkedChildren='Documento (upload)'
+                  unCheckedChildren='Documento (upload)'
+                  defaultChecked
+                />}
 
               <Switch
                 checkedChildren='Confirmação do procedimento'
@@ -2067,10 +2668,10 @@ export default function ConfigurationSteps () {
                       src='https://contribua.org/mb-static/images/loading.gif'
                       alt='Loading'
                     />
-                    )
+                  )
                   : (
-                      'Salvar'
-                    )}
+                    'Salvar'
+                  )}
               </button>
             </S.Div2>
           </S.Container>
@@ -2085,138 +2686,138 @@ export default function ConfigurationSteps () {
               <h2>Adicione os campos da etapa</h2>
               {!campocroquiMapeamento
                 ? <Switch
-                    checkedChildren='Enviar croqui de mapeamento (Upload)'
-                    unCheckedChildren='Enviar croqui de mapeamento (Upload)'
-                    onClick={() => fcroquiMapeamento()}
-                  />
+                  checkedChildren='Enviar croqui de mapeamento (Upload)'
+                  unCheckedChildren='Enviar croqui de mapeamento (Upload)'
+                  onClick={() => fcroquiMapeamento()}
+                />
                 : <Switch
-                    checkedChildren='Enviar croqui de mapeamento (Upload)'
-                    unCheckedChildren='Enviar croqui de mapeamento (Upload)'
-                    defaultChecked
-                  />}
+                  checkedChildren='Enviar croqui de mapeamento (Upload)'
+                  unCheckedChildren='Enviar croqui de mapeamento (Upload)'
+                  defaultChecked
+                />}
 
               {!campoequipamentoUtilizado
                 ? <Switch
-                    checkedChildren='Equipamento utilizado'
-                    unCheckedChildren='Equipamento utilizado'
-                    onClick={() => fequipamentoUtilizado()}
-                  />
+                  checkedChildren='Equipamento utilizado'
+                  unCheckedChildren='Equipamento utilizado'
+                  onClick={() => fequipamentoUtilizado()}
+                />
                 : <Switch
-                    checkedChildren='Equipamento utilizado'
-                    unCheckedChildren='Equipamento utilizado'
-                    defaultChecked
-                  />}
+                  checkedChildren='Equipamento utilizado'
+                  unCheckedChildren='Equipamento utilizado'
+                  defaultChecked
+                />}
 
               {!campomaterializacaoCampo
                 ? <Switch
-                    checkedChildren='Materialização em campo'
-                    unCheckedChildren='Materialização em campo'
-                    onClick={() => fmaterialCampo()}
-                  />
+                  checkedChildren='Materialização em campo'
+                  unCheckedChildren='Materialização em campo'
+                  onClick={() => fmaterialCampo()}
+                />
                 : <Switch
-                    checkedChildren='Materialização em campo'
-                    unCheckedChildren='Materialização em campo'
-                    defaultChecked
-                  />}
+                  checkedChildren='Materialização em campo'
+                  unCheckedChildren='Materialização em campo'
+                  defaultChecked
+                />}
               {!campoquantidadeInterferencias
                 ? <Switch
-                    checkedChildren='Quantidade de interferências'
-                    unCheckedChildren='Quantidade de interferências'
-                    onClick={() => fquantidadeInterferencias()}
-                  />
+                  checkedChildren='Quantidade de interferências'
+                  unCheckedChildren='Quantidade de interferências'
+                  onClick={() => fquantidadeInterferencias()}
+                />
                 : <Switch
-                    checkedChildren='Quantidade de interferências'
-                    unCheckedChildren='Quantidade de interferências'
-                    defaultChecked
-                  />}
+                  checkedChildren='Quantidade de interferências'
+                  unCheckedChildren='Quantidade de interferências'
+                  defaultChecked
+                />}
               {!campoLocalizaDiretrizFuro
                 ? <Switch
-                    checkedChildren='Localização em relação a diretriz do furo'
-                    unCheckedChildren='Localização em relação a diretriz do furo'
-                    onClick={() => flocalizacaoDiretrizFuro()}
-                  />
+                  checkedChildren='Localização em relação a diretriz do furo'
+                  unCheckedChildren='Localização em relação a diretriz do furo'
+                  onClick={() => flocalizacaoDiretrizFuro()}
+                />
                 : <Switch
-                    checkedChildren='Localização em relação a diretriz do furo'
-                    unCheckedChildren='Localização em relação a diretriz do furo'
-                    defaultChecked
-                  />}
+                  checkedChildren='Localização em relação a diretriz do furo'
+                  unCheckedChildren='Localização em relação a diretriz do furo'
+                  defaultChecked
+                />}
               {!campotipoInterferencia
                 ? <Switch
-                    checkedChildren='Tipo de interferência'
-                    unCheckedChildren='Tipo de interferência'
-                    onClick={() => ftipoInterferencia()}
-                  />
+                  checkedChildren='Tipo de interferência'
+                  unCheckedChildren='Tipo de interferência'
+                  onClick={() => ftipoInterferencia()}
+                />
                 : <Switch
-                    checkedChildren='Tipo de interferência'
-                    unCheckedChildren='Tipo de interferência'
-                    defaultChecked
-                  />}
+                  checkedChildren='Tipo de interferência'
+                  unCheckedChildren='Tipo de interferência'
+                  defaultChecked
+                />}
               {!campoEmpresa
                 ? <Switch
-                    checkedChildren='Empresa proprietária'
-                    unCheckedChildren='Empresa proprietária'
-                    onClick={() => fempresaProprietaria()}
-                  />
+                  checkedChildren='Empresa proprietária'
+                  unCheckedChildren='Empresa proprietária'
+                  onClick={() => fempresaProprietaria()}
+                />
                 : <Switch
-                    checkedChildren='Empresa proprietária'
-                    unCheckedChildren='Empresa proprietária'
-                    defaultChecked
-                  />}
+                  checkedChildren='Empresa proprietária'
+                  unCheckedChildren='Empresa proprietária'
+                  defaultChecked
+                />}
               {!campolargura
                 ? <Switch
-                    checkedChildren='Dimensões da vala de entrada e saída'
-                    unCheckedChildren='Dimensões da vala de entrada e saída'
-                    onClick={() => fdimensaoVala()}
-                  />
+                  checkedChildren='Dimensões da vala de entrada e saída'
+                  unCheckedChildren='Dimensões da vala de entrada e saída'
+                  onClick={() => fdimensaoVala()}
+                />
                 : <Switch
-                    checkedChildren='Dimensões da vala de entrada e saída'
-                    unCheckedChildren='Dimensões da vala de entrada e saída'
-                    defaultChecked
-                  />}
+                  checkedChildren='Dimensões da vala de entrada e saída'
+                  unCheckedChildren='Dimensões da vala de entrada e saída'
+                  defaultChecked
+                />}
               {!campoestacaReferencia
                 ? <Switch
-                    checkedChildren='Estaca de referência'
-                    unCheckedChildren='Estaca de referência'
-                    onClick={() => festacaReferencia()}
-                  />
+                  checkedChildren='Estaca de referência'
+                  unCheckedChildren='Estaca de referência'
+                  onClick={() => festacaReferencia()}
+                />
                 : <Switch
-                    checkedChildren='Estaca de referência'
-                    unCheckedChildren='Estaca de referência'
-                    defaultChecked
-                  />}
+                  checkedChildren='Estaca de referência'
+                  unCheckedChildren='Estaca de referência'
+                  defaultChecked
+                />}
               {!campoSondagemInterferencia
                 ? <Switch
-                    checkedChildren='Confirmação de sondagem da interferência'
-                    unCheckedChildren='Confirmação de sondagem da interferência'
-                    onClick={() => fsondagemInterferencia()}
-                  />
+                  checkedChildren='Confirmação de sondagem da interferência'
+                  unCheckedChildren='Confirmação de sondagem da interferência'
+                  onClick={() => fsondagemInterferencia()}
+                />
                 : <Switch
-                    checkedChildren='Confirmação de sondagem da interferência'
-                    unCheckedChildren='Confirmação de sondagem da interferência'
-                    defaultChecked
-                  />}
+                  checkedChildren='Confirmação de sondagem da interferência'
+                  unCheckedChildren='Confirmação de sondagem da interferência'
+                  defaultChecked
+                />}
               {!campoFluido
                 ? <Switch
-                    checkedChildren='Fluido'
-                    unCheckedChildren='Fluido'
-                    onClick={() => ffluido()}
-                  />
+                  checkedChildren='Fluido'
+                  unCheckedChildren='Fluido'
+                  onClick={() => ffluido()}
+                />
                 : <Switch
-                    checkedChildren='Fluido'
-                    unCheckedChildren='Fluido'
-                    defaultChecked
-                  />}
+                  checkedChildren='Fluido'
+                  unCheckedChildren='Fluido'
+                  defaultChecked
+                />}
               {!campoReceitaFluido
                 ? <Switch
-                    checkedChildren='Receita do fluido'
-                    unCheckedChildren='Receita do fluido'
-                    onClick={() => freceitafluido()}
-                  />
+                  checkedChildren='Receita do fluido'
+                  unCheckedChildren='Receita do fluido'
+                  onClick={() => freceitafluido()}
+                />
                 : <Switch
-                    checkedChildren='Receita do fluido'
-                    unCheckedChildren='Receita do fluido'
-                    defaultChecked
-                  />}
+                  checkedChildren='Receita do fluido'
+                  unCheckedChildren='Receita do fluido'
+                  defaultChecked
+                />}
 
               <button onClick={() => updateDados()}>
                 {loading
@@ -2228,10 +2829,10 @@ export default function ConfigurationSteps () {
                       src='https://contribua.org/mb-static/images/loading.gif'
                       alt='Loading'
                     />
-                    )
+                  )
                   : (
-                      'Salvar'
-                    )}
+                    'Salvar'
+                  )}
               </button>
             </S.Div2>
           </S.Container>
@@ -2246,114 +2847,114 @@ export default function ConfigurationSteps () {
               <h2>Adicione os campos da etapa</h2>
               {!camponumeroHastes
                 ? <Switch
-                    checkedChildren='Número de hastes'
-                    unCheckedChildren='Número de hastes'
-                    onClick={() => fnumeroHastes()}
-                  />
+                  checkedChildren='Número de hastes'
+                  unCheckedChildren='Número de hastes'
+                  onClick={() => fnumeroHastes()}
+                />
                 : <Switch
-                    checkedChildren='Número de hastes'
-                    unCheckedChildren='Número de hastes'
-                    defaultChecked
-                  />}
-              {!camponumeroHastes
+                  checkedChildren='Número de hastes'
+                  unCheckedChildren='Número de hastes'
+                  defaultChecked
+                />}
+              {!campoprofundidadePlanejada
                 ? <Switch
-                    checkedChildren='Número de hastes'
-                    unCheckedChildren='Número de hastes'
-                    onClick={() => fnumeroHastes()}
-                  />
+                  checkedChildren='Profundidade planejada'
+                  unCheckedChildren='Profundidade planejada'
+                  onClick={() => fnumeroHastes()}
+                />
                 : <Switch
-                    checkedChildren='Profundidade planejada'
-                    unCheckedChildren='Profundidade planejada'
-                    defaultChecked
-                  />}
-              {!camponumeroHastes
+                  checkedChildren='Profundidade planejada'
+                  unCheckedChildren='Profundidade planejada'
+                  defaultChecked
+                />}
+              {!campoavancoPlanejado
                 ? <Switch
-                    checkedChildren='Avanço planejado'
-                    unCheckedChildren='Avanço planejado'
-                    onClick={() => favancoPlanejado()}
-                  />
+                  checkedChildren='Avanço planejado'
+                  unCheckedChildren='Avanço planejado'
+                  onClick={() => favancoPlanejado()}
+                />
                 : <Switch
-                    checkedChildren='Avanço planejado'
-                    unCheckedChildren='Avanço planejado'
-                    defaultChecked
-                  />}
+                  checkedChildren='Avanço planejado'
+                  unCheckedChildren='Avanço planejado'
+                  defaultChecked
+                />}
               {!campoprofundidadeExecutada
                 ? <Switch
-                    checkedChildren='Profundidade executada'
-                    unCheckedChildren='Profundidade executada'
-                    onClick={() => fprofundidadeExecutada()}
-                  />
+                  checkedChildren='Profundidade executada'
+                  unCheckedChildren='Profundidade executada'
+                  onClick={() => fprofundidadeExecutada()}
+                />
                 : <Switch
-                    checkedChildren='Profundidade executada'
-                    unCheckedChildren='Profundidade executada'
-                    defaultChecked
-                  />}
+                  checkedChildren='Profundidade executada'
+                  unCheckedChildren='Profundidade executada'
+                  defaultChecked
+                />}
               {!campoavancoExecutado
                 ? <Switch
-                    checkedChildren='Avanço executado'
-                    unCheckedChildren='Avanço executado'
-                    onClick={() => fprofundidadeExecutada()}
-                  />
+                  checkedChildren='Avanço executado'
+                  unCheckedChildren='Avanço executado'
+                  onClick={() => fprofundidadeExecutada()}
+                />
                 : <Switch
-                    checkedChildren='Avanço executado'
-                    unCheckedChildren='Avanço executado'
-                    defaultChecked
-                  />}
+                  checkedChildren='Avanço executado'
+                  unCheckedChildren='Avanço executado'
+                  defaultChecked
+                />}
               {!campotipoInterferencia
                 ? <Switch
-                    checkedChildren='Tipo de interferência'
-                    unCheckedChildren='Tipo de interferência'
-                    onClick={() => ftipoInterferencia()}
-                  />
+                  checkedChildren='Tipo de interferência'
+                  unCheckedChildren='Tipo de interferência'
+                  onClick={() => ftipoInterferencia()}
+                />
                 : <Switch
-                    checkedChildren='Tipo de interferência'
-                    unCheckedChildren='Tipo de interferência'
-                    defaultChecked
-                  />}
+                  checkedChildren='Tipo de interferência'
+                  unCheckedChildren='Tipo de interferência'
+                  defaultChecked
+                />}
               {!campoamarracao
                 ? <Switch
-                    checkedChildren='Amarração'
-                    unCheckedChildren='Amarração'
-                    onClick={() => famarracao()}
-                  />
+                  checkedChildren='Amarração'
+                  unCheckedChildren='Amarração'
+                  onClick={() => famarracao()}
+                />
                 : <Switch
-                    checkedChildren='Amarração'
-                    unCheckedChildren='Amarração'
-                    defaultChecked
-                  />}
+                  checkedChildren='Amarração'
+                  unCheckedChildren='Amarração'
+                  defaultChecked
+                />}
               {!campomaquinaPerfuratriz
                 ? <Switch
-                    checkedChildren='Máquina perfuratriz'
-                    unCheckedChildren='Máquina perfuratriz'
-                    onClick={() => fmaquinaPerfuratriz()}
-                  />
+                  checkedChildren='Máquina perfuratriz'
+                  unCheckedChildren='Máquina perfuratriz'
+                  onClick={() => fmaquinaPerfuratriz()}
+                />
                 : <Switch
-                    checkedChildren='Máquina perfuratriz'
-                    unCheckedChildren='Máquina perfuratriz'
-                    defaultChecked
-                  />}
+                  checkedChildren='Máquina perfuratriz'
+                  unCheckedChildren='Máquina perfuratriz'
+                  defaultChecked
+                />}
               {!campodiametroAlargamento
                 ? <Switch
-                    checkedChildren='Diâmetro de alargamento'
-                    unCheckedChildren='Diâmetro de alargamento'
-                    onClick={() => fdiametroAlargamento()}
-                  />
+                  checkedChildren='Diâmetro de alargamento'
+                  unCheckedChildren='Diâmetro de alargamento'
+                  onClick={() => fdiametroAlargamento()}
+                />
                 : <Switch
-                    checkedChildren='Diâmetro de alargamento'
-                    unCheckedChildren='Diâmetro de alargamento'
-                    defaultChecked
-                  />}
+                  checkedChildren='Diâmetro de alargamento'
+                  unCheckedChildren='Diâmetro de alargamento'
+                  defaultChecked
+                />}
               {!campotempoHaste
                 ? <Switch
-                    checkedChildren='Tempo por haste'
-                    unCheckedChildren='Tempo por haste'
-                    onClick={() => ftempoHaste()}
-                  />
+                  checkedChildren='Tempo por haste'
+                  unCheckedChildren='Tempo por haste'
+                  onClick={() => ftempoHaste()}
+                />
                 : <Switch
-                    checkedChildren='Tempo por haste'
-                    unCheckedChildren='Tempo por haste'
-                    defaultChecked
-                  />}
+                  checkedChildren='Tempo por haste'
+                  unCheckedChildren='Tempo por haste'
+                  defaultChecked
+                />}
               <Switch
                 checkedChildren='Vazão de bomba'
                 unCheckedChildren='Vazão de bomba'
@@ -2380,10 +2981,10 @@ export default function ConfigurationSteps () {
                       src='https://contribua.org/mb-static/images/loading.gif'
                       alt='Loading'
                     />
-                    )
+                  )
                   : (
-                      'Salvar'
-                    )}
+                    'Salvar'
+                  )}
               </button>
             </S.Div2>
           </S.Container>
@@ -2488,10 +3089,10 @@ export default function ConfigurationSteps () {
                       src='https://contribua.org/mb-static/images/loading.gif'
                       alt='Loading'
                     />
-                    )
+                  )
                   : (
-                      'Salvar'
-                    )}
+                    'Salvar'
+                  )}
               </button>
             </S.Div2>
           </S.Container>
@@ -2525,10 +3126,10 @@ export default function ConfigurationSteps () {
                       src='https://contribua.org/mb-static/images/loading.gif'
                       alt='Loading'
                     />
-                    )
+                  )
                   : (
-                      'Salvar'
-                    )}
+                    'Salvar'
+                  )}
               </button>
             </S.Div>
           </S.Container>
