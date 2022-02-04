@@ -267,6 +267,34 @@ export const GridForm = styled.div`
         border: 1px solid ${theme.colors.yellow};
       }
     }
+
+    select {
+      width: 480px;
+      height: 48px;
+      box-sizing: border-box;
+      border-radius: 4px;
+      margin: 10px 0;
+      padding: 0 7px;
+      border: 1px solid ${theme.colors.black};
+      background: ${theme.colors.darkBlack};
+      color: #ccc;
+
+      option {
+        color: black;
+      }
+
+      :focus {
+        border: 1px solid ${theme.colors.yellow};
+        background: transparent;
+      } 
+
+      @media(max-width: 520px) {
+        width: 290px;  
+        margin: 10px 0;
+        margin-right: 50px;
+        padding: 0;
+      }
+    }
   }
 `
 
