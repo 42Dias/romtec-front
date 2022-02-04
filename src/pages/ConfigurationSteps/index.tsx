@@ -457,40 +457,41 @@ export default function ConfigurationSteps() {
             setcampoDiametro(response.data.rows[0].campoDiametro)
             setcampoLocalizaDiretrizFuro(response.data.rows[0].campoLocalizaDiretrizFuro)
             setcampoTipoInterferencia(response.data.rows[0].campoTipoInterferencia)
+            setcampotipoInterferencia(response.data.rows[0].tipoInterferencia)
             setcampoProfundidade(response.data.rows[0].campoProfundidade)
             setcampoResponselTopografia(response.data.rows[0].campoResponselTopografia)
             setcampoDataTopografia(response.data.rows[0].campoDataTopografia)
-            setcamponomePerfilAcesso(response.data.rows[0].camponomePerfilAcesso)
-            setcampodataExecucao(response.data.rows[0].campodataExecucao)
-            setcamporesponsavelExecucao(response.data.rows[0].camporesponsavelExecucao)
-            setcampohoraExecucao(response.data.rows[0].campohoraExecucao)
-            setcampocroquiMapeamento(response.data.rows[0].campocroquiMapeamento)
-            setcampoequipamentoUtilizado(response.data.rows[0].campoequipamentoUtilizado)
-            setcampomaterializacaoCampo(response.data.rows[0].campomaterializacaoCampo)
-            setcampoquantidadeInterferencias(response.data.rows[0].campoquantidadeInterferencias)
-            setcampoparaleloEsquerda(response.data.rows[0].campoparaleloEsquerda)
-            setcampoparaleloDireita(response.data.rows[0].campoparaleloDireita)
-            setcampoperpendicular(response.data.rows[0].campoperpendicular)
-            setcampolargura(response.data.rows[0].campolargura)
-            setcampocomprimento(response.data.rows[0].campocomprimento)
-            setcampoprofundidadeVala(response.data.rows[0].campoprofundidadeVala)
-            setcampoestacaReferencia(response.data.rows[0].campoestacaReferencia)
-            setcamponumeroHastes(response.data.rows[0].camponumeroHastes)
-            setcampoprofundidadePlanejada(response.data.rows[0].campoprofundidadePlanejada)
-            setcampoavancoPlanejado(response.data.rows[0].campoavancoPlanejado)
-            setcampoprofundidadeExecutada(response.data.rows[0].campoprofundidadeExecutada)
-            setcampoavancoExecutado(response.data.rows[0].campoavancoExecutado)
-            setcampoamarracao(response.data.rows[0].campoamarracao)
-            setcampomaquinaPerfuratriz(response.data.rows[0].campomaquinaPerfuratriz)
-            setcampodiametroAlargamento(response.data.rows[0].campodiametroAlargamento)
-            setcampotempoHaste(response.data.rows[0].campotempoHaste)
-            setcampovazaoBomba(response.data.rows[0].campovazaoBomba)
-            setcampotipoRedeTubula(response.data.rows[0].campotipoRedeTubula)
-            setcampodiametroRede(response.data.rows[0].campodiametroRede)
-            setcampoferramentasUtilizadas(response.data.rows[0].campoferramentasUtilizadas)
-            setcampomodeloAlargador(response.data.rows[0].campomodeloAlargador)
-            setcampocapacidadePortaFusilink(response.data.rows[0].campocapacidadePortaFusilink)
-            setcampocapacidadeSwivel(response.data.rows[0].campocapacidadeSwivel)
+            setcamponomePerfilAcesso(response.data.rows[0].nomePerfilAcesso)
+            setcampodataExecucao(response.data.rows[0].dataExecucao)
+            setcamporesponsavelExecucao(response.data.rows[0].responsavelExecucao)
+            setcampohoraExecucao(response.data.rows[0].horaExecucao)
+            setcampocroquiMapeamento(response.data.rows[0].croquiMapeamento)
+            setcampoequipamentoUtilizado(response.data.rows[0].equipamentoUtilizado)
+            setcampomaterializacaoCampo(response.data.rows[0].materializacaoCampo)
+            setcampoquantidadeInterferencias(response.data.rows[0].quantidadeInterferencias)
+            setcampoparaleloEsquerda(response.data.rows[0].paraleloEsquerda)
+            setcampoparaleloDireita(response.data.rows[0].paraleloDireita)
+            setcampoperpendicular(response.data.rows[0].perpendicular)
+            setcampolargura(response.data.rows[0].largura)
+            setcampocomprimento(response.data.rows[0].comprimento)
+            setcampoprofundidadeVala(response.data.rows[0].profundidadeVala)
+            setcampoestacaReferencia(response.data.rows[0].estacaReferencia)
+            setcamponumeroHastes(response.data.rows[0].numeroHastes)
+            setcampoprofundidadePlanejada(response.data.rows[0].profundidadePlanejada)
+            setcampoavancoPlanejado(response.data.rows[0].avancoPlanejado)
+            setcampoprofundidadeExecutada(response.data.rows[0].profundidadeExecutada)
+            setcampoavancoExecutado(response.data.rows[0].avancoExecutado)
+            setcampoamarracao(response.data.rows[0].amarracao)
+            setcampomaquinaPerfuratriz(response.data.rows[0].maquinaPerfuratriz)
+            setcampodiametroAlargamento(response.data.rows[0].diametroAlargamento)
+            setcampotempoHaste(response.data.rows[0].tempoHaste)
+            setcampovazaoBomba(response.data.rows[0].vazaoBomba)
+            setcampotipoRedeTubula(response.data.rows[0].tipoRedeTubula)
+            setcampodiametroRede(response.data.rows[0].diametroRede)
+            setcampoferramentasUtilizadas(response.data.rows[0].ferramentasUtilizadas)
+            setcampomodeloAlargador(response.data.rows[0].modeloAlargador)
+            setcampocapacidadePortaFusilink(response.data.rows[0].capacidadePortaFusilink)
+            setcampocapacidadeSwivel(response.data.rows[0].capacidadeSwivel)
             setcampoFluido(response.data.rows[0].fluido)
             setcampoReceitaFluido(response.data.rows[0].receitaFluido)
 
@@ -510,6 +511,7 @@ export default function ConfigurationSteps() {
             setcampoParafuso(response.data.rows[0].parafuso)
             setcampoCondicaoFerramenta(response.data.rows[0].condicaoFerramenta)
             setcampoEmpresaProprietaria(response.data.rows[0].empresaProp)
+            setcampoEmpresaProprietaria(response.data.rows[0].empresaProprietaria)
             setcampoDiametroFerramenta(response.data.rows[0].diametroFerramenta)
             // })
           }
@@ -1009,6 +1011,14 @@ export default function ConfigurationSteps() {
       setcamponumeroHastes2(true)
     }
   }
+  function fProfundidadePlanejada() {
+    if (campoprofundidadePlanejada) {
+      setcampoprofundidadePlanejada2(false)
+    } else {
+      setcampoprofundidadePlanejada(true)
+      setcampoprofundidadePlanejada2(true)
+    }
+  }
   function favancoPlanejado() {
     if (campoavancoPlanejado) {
       setcampoavancoPlanejado2(false)
@@ -1023,6 +1033,14 @@ export default function ConfigurationSteps() {
     } else {
       setcampoprofundidadeExecutada(true)
       setcampoprofundidadePlanejada2(true)
+    }
+  }
+  function fAvancoExecutado() {
+    if (campoavancoExecutado) {
+      setcampoavancoExecutado2(false)
+    } else {
+      setcampoavancoExecutado(true)
+      setcampoavancoExecutado2(true)
     }
   }
   function famarracao() {
@@ -1050,11 +1068,11 @@ export default function ConfigurationSteps() {
     }
   }
   function ftempoHaste() {
-    if (campodiametroAlargamento) {
-      setcampodiametroAlargamento2(false)
+    if (campotempoHaste) {
+      setcampotempoHaste2(false)
     } else {
-      setcampodiametroAlargamento(true)
-      setcampodiametroAlargamento2(true)
+      setcampotempoHaste(true)
+      setcampotempoHaste2(true)
     }
   }
   function fvazaoBomba() {
@@ -1066,19 +1084,19 @@ export default function ConfigurationSteps() {
     }
   }
   function ftipoRedeTubulacao() {
-    if (campovazaoBomba) {
-      setcampovazaoBomba2(false)
+    if (campotipoRedeTubula) {
+      setcampotipoRedeTubula2(false)
     } else {
-      setcampovazaoBomba(true)
-      setcampovazaoBomba2(true)
+      setcampotipoRedeTubula(true)
+      setcampotipoRedeTubula2(true)
     }
   }
   function fdiametroRede() {
-    if (campovazaoBomba) {
-      setcampovazaoBomba2(false)
+    if (campodiametroRede) {
+      setcampodiametroRede2(false)
     } else {
-      setcampovazaoBomba(true)
-      setcampovazaoBomba2(true)
+      setcampodiametroRede(true)
+      setcampodiametroRede2(true)
     }
   }
   function fportaSonda() {
@@ -1278,10 +1296,10 @@ export default function ConfigurationSteps() {
   }
   function fDiametroPerf() {
     if (campoDiametro) {
-      setcampoDiametro2(false)
+      setcampoDiametroPerfuracao2(false)
     } else {
-      setcampoDiametro(true)
-      setcampoDiametro2(true)
+      setcampoDiametroPerfuracao(true)
+      setcampoDiametroPerfuracao2(true) 
     }
   }
   function fTipoSolo() {
@@ -1517,6 +1535,7 @@ export default function ConfigurationSteps() {
               />
               <TextField
                 label='Número da etapa'
+                type='number'
                 errorMessage={errors.numeroEtapa?.message}
                 {...register('numeroEtapa', {
                   required: {
@@ -2139,7 +2158,7 @@ export default function ConfigurationSteps() {
                     ? <Switch
                       checkedChildren='Profundidade planejada'
                       unCheckedChildren='Profundidade planejada'
-                      onClick={() => fnumeroHastes()}
+                      onClick={() => fProfundidadePlanejada()}
                     />
                     : <Switch
                       checkedChildren='Profundidade planejada'
@@ -2178,7 +2197,7 @@ export default function ConfigurationSteps() {
                     ? <Switch
                       checkedChildren='Avanço executado'
                       unCheckedChildren='Avanço executado'
-                      onClick={() => fprofundidadeExecutada()}
+                      onClick={() => fAvancoExecutado()}
                     />
                     : <Switch
                       checkedChildren='Avanço executado'
@@ -2752,7 +2771,7 @@ export default function ConfigurationSteps() {
                   unCheckedChildren='Tipo de interferência'
                   defaultChecked
                 />}
-              {!campoEmpresa
+              {!campoEmpresaProprietaria
                 ? <Switch
                   checkedChildren='Empresa proprietária'
                   unCheckedChildren='Empresa proprietária'

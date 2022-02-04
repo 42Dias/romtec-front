@@ -48,18 +48,18 @@ type levantamento = {
   banco: string;
 }
 export default function
-Phases () {
+  Phases() {
   const [modalIsOpenPhase, setIsOpenPhase] = useState(false)
 
-  function openModalPhases () {
+  function openModalPhases() {
     setIsOpenPhase(true)
   }
 
-  function afterOpenModalPhases () {
+  function afterOpenModalPhases() {
 
   }
 
-  function closeModalPhases () {
+  function closeModalPhases() {
     setIsOpenPhase(false)
   }
 
@@ -159,6 +159,27 @@ Phases () {
   const [campomodeloAlargador, setcampomodeloAlargador] = useState(false)
   const [campocapacidadePortaFusilink, setcampocapacidadePortaFusilink] = useState(false)
   const [campocapacidadeSwivel, setcampocapacidadeSwivel] = useState(false)
+  const [campodiametroInterferencia, setcampodiametroInterferencia] = useState(false)
+  const [campotipoInterferencia, setcampotipoInterferencia] = useState(false)
+  const [campoFluido, setcampoFluido] = useState(false)
+  const [campoReceitaFluido, setcampoReceitaFluido] = useState(false)
+  const [campoPortaSonda, setcampoPortaSonda] = useState(false)
+  const [campoVolumePreparado, setcampoVolumePreparado] = useState(false)
+  const [campoTesteVicosidade, setcampoTesteVicosidade] = useState(false)
+  const [campoConfirmacaoProcedimento, setcampoConfirmacaoProcedimento] = useState(false)
+  const [campoHastes, setcampoHastes] = useState(false)
+  const [campoSonda, setcampoSonda] = useState(false)
+  const [campopaPerfuracao, setcampopaPerfuracao] = useState(false)
+  const [campoPullingHead, setcampoPullingHead] = useState(false)
+  const [campoLocalizador, setcampoLocalizador] = useState(false)
+  const [campoLuva, setcampoLuva] = useState(false)
+  const [campoHasteInicial, setcampoHasteInicial] = useState(false)
+  const [campoFlexobarra, setcampoFlexobarra] = useState(false)
+  const [campoRadio, setcampoRadio] = useState(false)
+  const [campoParafuso, setcampoParafuso] = useState(false)
+  const [campoDiametroFerramenta, setcampoDiametroFerramenta] = useState(false)
+  const [campoCondicaoFerramenta, setcampoCondicaoFerramenta] = useState(false)
+  const [campoEmpresaProprietaria, setcampoEmpresaProprietaria] = useState(false)
   const [nomePerfilAcesso, setnomePerfilAcesso] = useState('')
   const [dataExecucao, setdataExecucao] = useState('')
   const [responsavelExecucao, setresponsavelExecucao] = useState('')
@@ -190,6 +211,27 @@ Phases () {
   const [modeloAlargador, setmodeloAlargador] = useState('')
   const [capacidadePortaFusilink, setcapacidadePortaFusilink] = useState('')
   const [capacidadeSwivel, setcapacidadeSwivel] = useState('')
+  const [Fluido, setFluido] = useState('')
+  const [ReceitaFluido, setReceitaFluido] = useState('')
+  const [PortaSonda, setPortaSonda] = useState('')
+  const [VolumePreparado, setVolumePreparado] = useState('')
+  const [TesteVicosidade, setTesteVicosidade] = useState('')
+  const [ConfirmacaoProcedimento, setConfirmacaoProcedimento] = useState('')
+  const [Hastes, setHastes] = useState('')
+  const [Sonda, setSonda] = useState('')
+  const [paPerfuracao, setpaPerfuracao] = useState('')
+  const [PullingHead, setPullingHead] = useState('')
+  const [Localizador, setLocalizador] = useState('')
+  const [Luva, setLuva] = useState('')
+  const [HasteInicial, setHasteInicial] = useState('')
+  const [Flexobarra, setFlexobarra] = useState('')
+  const [Radio, setRadio] = useState('')
+  const [Parafuso, setParafuso] = useState('')
+  const [DiametroFerramenta, setDiametroFerramenta] = useState('')
+  const [CondicaoFerramenta, setCondicaoFerramenta] = useState('')
+  const [EmpresaProprietaria, setEmpresaProprietaria] = useState('')
+  const [idTodosCampos, setidTodosCampos] = useState('')
+  const [finalizarEtapa, setFinalizarEtapa] = useState(false)
   const [name, setName] = useState<any>('')
   // function onSubmit(data: FormData) {
   //   data.idConfigTravessia = idConfigTravessia.replace('#/etapas/', '')
@@ -199,7 +241,7 @@ Phases () {
   // }
   const [camposInterferencia, setCamposInterferencia] = useState(false)
 
-  function handleCampos () {
+  function handleCampos() {
     if (camposInterferencia) {
       setCamposInterferencia(false)
     } else {
@@ -207,7 +249,7 @@ Phases () {
     }
   }
 
-  function onSubmitLevantamento () {
+  function onSubmitLevantamento() {
     console.log(responsavel)
     const data = {
       banco: 'todos-campos',
@@ -271,18 +313,39 @@ Phases () {
       modeloAlargador: modeloAlargador,
       capacidadePortaFusilink: capacidadePortaFusilink,
       capacidadeSwivel: capacidadeSwivel,
+      fluido: Fluido,
+      receitaFluido: ReceitaFluido,
+      portaSonda: PortaSonda,
+      confirmacaoProcedimento: ConfirmacaoProcedimento,
+      volumePrepardo: VolumePreparado,
+      testeVicosidade: TesteVicosidade,
+      hastes: Hastes,
+      sonda: Sonda,
+      paPerfuracao: paPerfuracao,
+      pullingHead: PullingHead,
+      localizador: Localizador,
+      luva: Luva,
+      hasteInicial: HasteInicial,
+      flexoBarra: Flexobarra,
+      radio: Radio,
+      parafuso: Parafuso,
+      diametroFerramenta: DiametroFerramenta,
+      condicaoFerramenta: CondicaoFerramenta,
+      //EmpresaProp: EmpresaProprietaria,
+      empresaProprietaria: EmpresaProprietaria,
+      finalizarEtapa: false,
     }
 
     console.log(data)
-    if (isUpdate) {
-      updateDados()
-      setIsUpdate(false)
-    } else {
+    // if (isUpdate) {
+    //   updateDados()
+    //   setIsUpdate(false)
+    // } else {
       createNewFile(data)
-    }
+    //}
   }
 
-  function onSubmitInterferenciasFisicasMagneticas () {
+  function onSubmitInterferenciasFisicasMagneticas() {
     console.log(responsavel)
     const data = {
       idConfigTravessia: idConfigTravessia.replace('#/etapas/', ''),
@@ -296,13 +359,13 @@ Phases () {
       diametroInterferencia: diametroInterferencia,
     }
 
-    console.log(data)
-    if (isUpdate) {
-      updateDados()
-      setIsUpdate(false)
-    } else {
-      createNewFile(data)
-    }
+    // console.log(data)
+    // if (isUpdate) {
+    //   updateDados()
+    //   setIsUpdate(false)
+    // } else {
+    //   createNewFile(data)
+    // }
   }
   // function onSubmitAberturaVala() {
   //   console.log(responsavel)
@@ -331,7 +394,7 @@ Phases () {
   //   }
   // }
 
-  async function createNewFile (submit: any) {
+  async function createNewFile(submit: any) {
     setLoading(true)
     console.log('submit')
     console.log(submit)
@@ -358,7 +421,7 @@ Phases () {
       setLoading(false)
     })
   }
-  async function loadDados (url: string) {
+  async function loadDados(url: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = await api.get(url + `?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/etapas/", '')}`,
@@ -377,7 +440,7 @@ Phases () {
 
     setLoading(false)
   }
-  async function deleteDados (id: string) {
+  async function deleteDados(id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('tipo-solo/' + id,
@@ -392,7 +455,7 @@ Phases () {
       setLoading(false)
     })
   }
-  function update (data: any) {
+  function update(data: any) {
     console.log('data')
     console.log(data)
     // setDados(data)
@@ -445,36 +508,20 @@ Phases () {
     }
     console.log(idDados)
   }
-  async function updateDados () {
+  async function updateDados() {
     setLoading(true)
     console.log('idDados')
     console.log(idDados)
     // console.log(soilTypesUp)
-    const responser = api.put(url + '/' + idDados, {
+    const responser = api.put('todos-campos/' + idTodosCampos, {
       data: {
-        id: idDados,
-        latitudeEntrada: latitudeEntrada,
-        longitudeSaida: longitudeSaida,
-        tipoTubulacao: tipoTubulacao,
-        idConfigTravessia: idConfigTravessia.replace('#/etapas/', ''),
-        longitudeEntrada: longitudeEntrada,
-        latitudeSaida: latitudeSaida,
-        responsavel: responsavel,
-        equipamentos: equipamentos,
-        documentos: documentos,
-        tipoRede: tipoRede,
-        empresa: empresa,
-        sondagemInterferencia: sondagemInterferencia,
-        sondagem: sondagem,
-        criacaoplanoFuro: criacaoplanoFuro,
-        diametroPerfuracao: diametroPerfuracao,
-        ferramentas: ferramentas,
+        finalizarEtapa: true
       },
     },
     ).then((response) => {
       if (response.statusText === 'OK') {
-        loadDados('planejamentoPerfuracao')
-        setisOpenUpdatePlanejamentoPerfuração(false)
+        // loadDados('planejamentoPerfuracao')
+        // setisOpenUpdatePlanejamentoPerfuração(false)
         setLoading(false)
       }
     }).catch(res => {
@@ -493,7 +540,7 @@ Phases () {
     loadDados('etapas')
   }, [])
 
-  function openModal (data: any) {
+  function openModal(data: any) {
     console.log(data)
     api.get(`todos-campos?filter%5BetapaId%5D=${data.id}`,
     ).then((response) => {
@@ -501,6 +548,7 @@ Phases () {
       if (response.statusText === 'OK') {
         if (response.data.count > 0) {
           setIdEtapa(data.etapaId)
+          setidTodosCampos(response.data.rows[0].id) 
           setlatitudeEntrada(response.data.rows[0].PontoVerEntradaLat)
           setlongitudeEntrada(response.data.rows[0].PontoVerEntradaLong)
           setlatitudeSaida(response.data.rows[0].PontoVerSaidaLat)
@@ -556,6 +604,28 @@ Phases () {
           setmodeloAlargador(response.data.rows[0].modeloAlargador)
           setcapacidadePortaFusilink(response.data.rows[0].capacidadePortaFusilink)
           setcapacidadeSwivel(response.data.rows[0].capacidadeSwivel)
+          setcampoFluido(response.data.rows[0].fluido)
+          setcampoReceitaFluido(response.data.rows[0].receitaFluido)
+
+          setPortaSonda(response.data.rows[0].portaSonda)
+          setVolumePreparado(response.data.rows[0].volumePrepardo)
+          setTesteVicosidade(response.data.rows[0].testeVicosidade)
+          setConfirmacaoProcedimento(response.data.rows[0].confirmacaoProcedimento)
+          setHastes(response.data.rows[0].hastes)
+          setSonda(response.data.rows[0].sonda)
+          setpaPerfuracao(response.data.rows[0].paPerfuracao)
+          setPullingHead(response.data.rows[0].pullingHead)
+          setLocalizador(response.data.rows[0].localizador)
+          setLuva(response.data.rows[0].luva)
+          setHasteInicial(response.data.rows[0].hasteInicial)
+          setFlexobarra(response.data.rows[0].flexoBarra)
+          setRadio(response.data.rows[0].radio)
+          setParafuso(response.data.rows[0].parafuso)
+          setCondicaoFerramenta(response.data.rows[0].condicaoFerramenta)
+          setEmpresaProprietaria(response.data.rows[0].empresaProp)
+          setEmpresaProprietaria(response.data.rows[0].empresaProprietaria)
+          setDiametroFerramenta(response.data.rows[0].diametroFerramenta)
+          setFinalizarEtapa(response.data.rows[0].finalizarEtapa)
         }
         setLoading(false)
       }
@@ -591,46 +661,67 @@ Phases () {
     setcampoResponselTopografia(data.campoResponselTopografia)
     setcampoDataTopografia(data.campoDataTopografia)
 
-    setcamponomePerfilAcesso(data.camponomePerfilAcesso)
-    setcampodataExecucao(data.campodataExecucao)
-    setcamporesponsavelExecucao(data.camporesponsavelExecucao)
-    setcampohoraExecucao(data.campohoraExecucao)
-    setcampocroquiMapeamento(data.campocroquiMapeamento)
-    setcampoequipamentoUtilizado(data.campoequipamentoUtilizado)
-    setcampomaterializacaoCampo(data.campomaterializacaoCampo)
-    setcampoquantidadeInterferencias(data.campoquantidadeInterferencias)
-    setcampoparaleloEsquerda(data.campoparaleloEsquerda)
-    setcampoparaleloDireita(data.campoparaleloDireita)
-    setcampoperpendicular(data.campoperpendicular)
-    setcampolargura(data.campolargura)
-    setcampocomprimento(data.campocomprimento)
-    setcampoprofundidadeVala(data.campoprofundidadeVala)
-    setcampoestacaReferencia(data.campoestacaReferencia)
-    setcamponumeroHastes(data.camponumeroHastes)
-    setcampoprofundidadePlanejada(data.campoprofundidadePlanejada)
-    setcampoavancoPlanejado(data.campoavancoPlanejado)
-    setcampoprofundidadeExecutada(data.campoprofundidadeExecutada)
-    setcampoavancoExecutado(data.campoavancoExecutado)
-    setcampoamarracao(data.campoamarracao)
-    setcampomaquinaPerfuratriz(data.campomaquinaPerfuratriz)
-    setcampodiametroAlargamento(data.campodiametroAlargamento)
-    setcampotempoHaste(data.campotempoHaste)
-    setcampovazaoBomba(data.campovazaoBomba)
-    setcampotipoRedeTubula(data.campotipoRedeTubula)
-    setcampodiametroRede(data.campodiametroRede)
-    setcampoferramentasUtilizadas(data.campoferramentasUtilizadas)
-    setcampomodeloAlargador(data.campomodeloAlargador)
-    setcampocapacidadePortaFusilink(data.campocapacidadePortaFusilink)
-    setcampocapacidadeSwivel(data.campocapacidadeSwivel)
+    setcamponomePerfilAcesso(data.nomePerfilAcesso)
+    setcampodataExecucao(data.dataExecucao)
+    setcamporesponsavelExecucao(data.responsavelExecucao)
+    setcampohoraExecucao(data.horaExecucao)
+    setcampocroquiMapeamento(data.croquiMapeamento)
+    setcampoequipamentoUtilizado(data.equipamentoUtilizado)
+    setcampomaterializacaoCampo(data.materializacaoCampo)
+    setcampoquantidadeInterferencias(data.quantidadeInterferencias)
+    setcampoparaleloEsquerda(data.paraleloEsquerda)
+    setcampoparaleloDireita(data.paraleloDireita)
+    setcampoperpendicular(data.perpendicular)
+    setcampolargura(data.largura)
+    setcampocomprimento(data.comprimento)
+    setcampoprofundidadeVala(data.profundidadeVala)
+    setcampoestacaReferencia(data.estacaReferencia)
+    setcamponumeroHastes(data.numeroHastes)
+    setcampoprofundidadePlanejada(data.profundidadePlanejada)
+    setcampoavancoPlanejado(data.avancoPlanejado)
+    setcampoprofundidadeExecutada(data.profundidadeExecutada)
+    setcampoavancoExecutado(data.avancoExecutado)
+    setcampoamarracao(data.amarracao)
+    setcampomaquinaPerfuratriz(data.maquinaPerfuratriz)
+    setcampodiametroAlargamento(data.diametroAlargamento)
+    setcampotempoHaste(data.tempoHaste)
+    setcampovazaoBomba(data.vazaoBomba)
+    setcampotipoRedeTubula(data.tipoRedeTubula)
+    setcampodiametroRede(data.diametroRede)
+    setcampoferramentasUtilizadas(data.ferramentasUtilizadas)
+    setcampomodeloAlargador(data.modeloAlargador)
+    setcampocapacidadePortaFusilink(data.capacidadePortaFusilink)
+    setcampocapacidadeSwivel(data.capacidadeSwivel)
+    setcampoFluido(data.fluido)
+    setcampoReceitaFluido(data.receitaFluido)
+
+    setcampoPortaSonda(data.portaSonda)
+    setcampoVolumePreparado(data.volumePrepardo)
+    setcampoTesteVicosidade(data.testeVicosidade)
+    setcampoConfirmacaoProcedimento(data.confirmacaoProcedimento)
+    setcampoHastes(data.hastes)
+    setcampoSonda(data.sonda)
+    setcampopaPerfuracao(data.paPerfuracao)
+    setcampoPullingHead(data.pullingHead)
+    setcampoLocalizador(data.localizador)
+    setcampoLuva(data.luva)
+    setcampoHasteInicial(data.hasteInicial)
+    setcampoFlexobarra(data.flexoBarra)
+    setcampoRadio(data.radio)
+    setcampoParafuso(data.parafuso)
+    setcampoCondicaoFerramenta(data.condicaoFerramenta)
+    setcampoEmpresaProprietaria(data.empresaProp)
+    setcampoEmpresaProprietaria(data.empresaProprietaria)
+    setcampoDiametroFerramenta(data.diametroFerramenta)
     setisOpenUpdatePlanejamentoPerfuração(true)
   }
-  function afterOpenModal () {
+  function afterOpenModal() {
     // references are now sync'd and can be accessed.
   }
-  function closeModal () {
+  function closeModal() {
     setIsOpenPlanejamento(false)
   }
-  async function makeRequisition (e: any) {
+  async function makeRequisition(e: any) {
     e.preventDefault()
     e.target.reset()
 
@@ -673,10 +764,10 @@ Phases () {
           console.log(err)
           toast.error('Erro: Tente mais tarde :(')
         } else {
-        // setStatus({
-        //   type: 'error',
-        //   mensagem: "Erro: Tente mais tarde :("
-        // });
+          // setStatus({
+          //   type: 'error',
+          //   mensagem: "Erro: Tente mais tarde :("
+          // });
         }
         toast.error('Erro: Tente mais tarde :(')
       })
@@ -888,6 +979,46 @@ Phases () {
 
           <S.Div>
             <S.GridForm>
+              {camponomePerfilAcesso
+                ? <div>
+                  <label htmlFor=''>Nome do usuario do perfil de acesso</label>
+                  <input
+                    type='text' placeholder='nome'
+                    value={nomePerfilAcesso}
+                    onChange={(text) => setnomePerfilAcesso(text.target.value)}
+                  />
+                </div>
+                : false}
+              {campodataExecucao
+                ? <div>
+                  <label htmlFor=''>Data execução</label>
+                  <input
+                    type='text' placeholder='00/00/0000'
+                    value={dataExecucao}
+                    onChange={(text) => setdataExecucao(text.target.value)}
+                  />
+                </div>
+                : false}
+              {camporesponsavelExecucao
+                ? <div>
+                  <label htmlFor=''>Responsavel pela execução</label>
+                  <input
+                    type='text' placeholder='nome'
+                    value={responsavelExecucao}
+                    onChange={(text) => setresponsavelExecucao(text.target.value)}
+                  />
+                </div>
+                : false}
+              {campohoraExecucao
+                ? <div>
+                  <label htmlFor=''>Hora de execução</label>
+                  <input
+                    type='text' placeholder='00:00'
+                    value={horaExecucao}
+                    onChange={(text) => sethoraExecucao(text.target.value)}
+                  />
+                </div>
+                : false}
               {campoEntradaLatitude
                 ? <div>
                   <label htmlFor=''>Ponto de verificação de entrada (lat)</label>
@@ -1032,11 +1163,38 @@ Phases () {
                       }}
                     /><br /><br />
 
-                    <input
-                      type='submit' value='Enviar'
-                    />
                   </form>
-                  </div>
+                </div>
+                : false}
+              {campoConfirmacaoProcedimento
+                ? <div>
+                  <label htmlFor=''>Confirmação do procedimento</label>
+                  <input
+                    type='text'
+                    value={ConfirmacaoProcedimento}
+                    onChange={(text) => setConfirmacaoProcedimento(text.target.value)}
+                  />
+                </div>
+                : false}
+              {campoVolumePreparado
+                ? <div>
+                  <label htmlFor=''>Volume preparado</label>
+                  <input
+                    type='text'
+                    value={VolumePreparado}
+                    onChange={(text) => setVolumePreparado(text.target.value)}
+                  />
+                </div>
+                : false}
+              {campoTesteVicosidade
+                ? <div>
+                  <label htmlFor=''>Teste  de viscosidade</label>
+                  <input
+                    type='text'
+                    value={TesteVicosidade}
+                    onChange={(text) => setTesteVicosidade(text.target.value)}
+                  />
+                </div>
                 : false}
               {campoSondagemInterferencia
                 ? <div>
@@ -1145,7 +1303,7 @@ Phases () {
                 </div>
                 : false}
 
-              {camponomePerfilAcesso
+              {/* {camponomePerfilAcesso
                 ? <div>
                   <label htmlFor=''>Nome do usuario do perfil de acesso</label>
                   <input
@@ -1165,9 +1323,9 @@ Phases () {
                     onChange={(text) => setdataExecucao(text.target.value)}
                   />
                 </div>
-                : false}
+                : false} */}
 
-              {camporesponsavelExecucao
+              {/* {camporesponsavelExecucao
                 ? <div>
                   <label htmlFor=''>Responsavel pela execução</label>
                   <input
@@ -1187,16 +1345,43 @@ Phases () {
                     onChange={(text) => sethoraExecucao(text.target.value)}
                   />
                 </div>
-                : false}
+                : false} */}
 
               {campocroquiMapeamento
                 ? <div>
-                  <label htmlFor=''>Enviar croqui de mapeamento</label>
-                  <input
-                    type='text'
-                    value={croquiMapeamento}
-                    onChange={(text) => setcroquiMapeamento(text.target.value)}
-                  />
+                  <label htmlFor=''>Croqui de Mapeamento</label>
+                  <form
+                    className='file'
+                    encType='multipart/form-data'
+
+                    onSubmit={makeRequisition}
+                  >
+                    <h2>Faça upload</h2>
+
+                    <input
+                      type='file'
+                      name='image'
+                      onChange={e => {
+                        console.log(e)
+
+                        // @ts-ignore
+                        console.log(e.target.files[0].name)
+                        // @ts-ignore
+                        setName(e.target.files[0].name)
+                        // @ts-ignore
+                        setImage(e.target.files[0])
+
+                        // @ts-ignore
+                        if (e.target.files[0].type.includes('image')) {
+                          // @ts-ignore
+                          uploadImage(e.target.files[0])
+                        } else {
+                          toast.error('Arquivo não suportado')
+                        }
+                      }}
+                    /><br /><br />
+
+                  </form>
                 </div>
                 : false}
 
@@ -1295,9 +1480,19 @@ Phases () {
                   />
                 </div>
                 : false}
+              {campoEmpresaProprietaria
+                ? <div>
+                  <label htmlFor=''>Empresa proprietaria</label>
+                  <input
+                    type='text'
+                    value={EmpresaProprietaria}
+                    onChange={(text) => setEmpresaProprietaria(text.target.value)}
+                  />
+                </div>
+                : false}
               {campolargura
                 ? <div>
-                  <label htmlFor=''>Dimensões da vala de entrada e saida:</label>
+                  <h3>Dimensões da vala de entrada e saida:</h3>
                   <label htmlFor=''>Largura(m)</label>
                   <input
                     type='text'
@@ -1337,7 +1532,36 @@ Phases () {
                   />
                 </div>
                 : false}
-
+              {campoSondagemInterferencia
+                ? <div>
+                  <label htmlFor=''>Confirmação de sondagem da interferencia</label>
+                  <input
+                    type='text'
+                    value={sondagemInterferencia}
+                    onChange={(text) => setestacaReferencia(text.target.value)}
+                  />
+                </div>
+                : false}
+              {campoFluido
+                ? <div>
+                  <label htmlFor=''>Fluido</label>
+                  <input
+                    type='text'
+                    value={Fluido}
+                    onChange={(text) => setFluido(text.target.value)}
+                  />
+                </div>
+                : false}
+                {campoReceitaFluido
+                ? <div>
+                  <label htmlFor=''>Receita do Fluido</label>
+                  <input
+                    type='text'
+                    value={ReceitaFluido}
+                    onChange={(text) => setReceitaFluido(text.target.value)}
+                  />
+                </div>
+                : false}
               {camponumeroHastes
                 ? <div>
                   <label htmlFor=''>Perfuração:</label>
@@ -1381,7 +1605,7 @@ Phases () {
                 : false}
               {campoavancoExecutado
                 ? <div>
-                  <label htmlFor=''>Profundidade Executada</label>
+                  <label htmlFor=''>Avanço Executada</label>
                   <input
                     type='text'
                     value={avancoExecutado}
@@ -1389,6 +1613,7 @@ Phases () {
                   />
                 </div>
                 : false}
+                
               {campoamarracao
                 ? <div>
                   <label htmlFor=''>Amarração</label>
@@ -1460,18 +1685,118 @@ Phases () {
                 </div>
                 : false}
 
-              {!campoferramentasUtilizadas
+              {campoPortaSonda
                 ? <div>
-                  <h3>Ferramentas:</h3>
-                  <label htmlFor=''>Ferramentas Utilizadas</label>
+                  <h3>Ferramentas Utilizadas:</h3>
+                  <label htmlFor=''>Porta Sonda</label>
                   <input
                     type='text'
-                    value={ferramentasUtilizadas}
-                    onChange={(text) => setferramentasUtilizadas(text.target.value)}
+                    value={PortaSonda}
+                    onChange={(text) => setPortaSonda(text.target.value)}
                   />
                 </div>
                 : false}
-              {!campomodeloAlargador
+                {campoHastes
+                ? <div>
+                  <label htmlFor=''>Hastes</label>
+                  <input
+                    type='text'
+                    value={Hastes}
+                    onChange={(text) => setHastes(text.target.value)}
+                  />
+                </div>
+                : false}
+                {campoSonda
+                ? <div>
+                  <label htmlFor=''>Sonda</label>
+                  <input
+                    type='text'
+                    value={Sonda}
+                    onChange={(text) => setSonda(text.target.value)}
+                  />
+                </div>
+                : false}
+                {campopaPerfuracao
+                ? <div>
+                  <label htmlFor=''>Pá de perfuração</label>
+                  <input
+                    type='text'
+                    value={paPerfuracao}
+                    onChange={(text) => setpaPerfuracao(text.target.value)}
+                  />
+                </div>
+                : false}
+                {campoPullingHead
+                ? <div>
+                  <label htmlFor=''>Pulling Head</label>
+                  <input
+                    type='text'
+                    value={PullingHead}
+                    onChange={(text) => setPullingHead(text.target.value)}
+                  />
+                </div>
+                : false}
+                {campoLocalizador
+                ? <div>
+                  <label htmlFor=''>Localizador</label>
+                  <input
+                    type='text'
+                    value={Localizador}
+                    onChange={(text) => setLocalizador(text.target.value)}
+                  />
+                </div>
+                : false}
+                {campoLuva
+                ? <div>
+                  <label htmlFor=''>Luva</label>
+                  <input
+                    type='text'
+                    value={Luva}
+                    onChange={(text) => setLuva(text.target.value)}
+                  />
+                </div>
+                : false}
+                {campoHasteInicial
+                ? <div>
+                  <label htmlFor=''>Haste inicial</label>
+                  <input
+                    type='text'
+                    value={HasteInicial}
+                    onChange={(text) => setHasteInicial(text.target.value)}
+                  />
+                </div>
+                : false}
+                {campoFlexobarra
+                ? <div>
+                  <label htmlFor=''>Flexobarra</label>
+                  <input
+                    type='text'
+                    value={Flexobarra}
+                    onChange={(text) => setFlexobarra(text.target.value)}
+                  />
+                </div>
+                : false}
+                {campoRadio
+                ? <div>
+                  <label htmlFor=''>Rádio</label>
+                  <input
+                    type='text'
+                    value={Radio}
+                    onChange={(text) => setRadio(text.target.value)}
+                  />
+                </div>
+                : false}
+                {campoParafuso
+                ? <div>
+                  <label htmlFor=''>Parafuso</label>
+                  <input
+                    type='text'
+                    value={Parafuso}
+                    onChange={(text) => setParafuso(text.target.value)}
+                  />
+                </div>
+                : false}
+              {campomodeloAlargador
                 ? <div>
                   <label htmlFor=''>Modelo de Alargador</label>
                   <input
@@ -1498,6 +1823,26 @@ Phases () {
                     type='text'
                     value={capacidadeSwivel}
                     onChange={(text) => setcapacidadeSwivel(text.target.value)}
+                  />
+                </div>
+                : false}
+                {campoDiametroFerramenta
+                ? <div>
+                  <label htmlFor=''>Diametro da ferramenta</label>
+                  <input
+                    type='text'
+                    value={DiametroFerramenta}
+                    onChange={(text) => setDiametroFerramenta(text.target.value)}
+                  />
+                </div>
+                : false}
+                {campoCondicaoFerramenta
+                ? <div>
+                  <label htmlFor=''>Condição do ferramental</label>
+                  <input
+                    type='text'
+                    value={CondicaoFerramenta}
+                    onChange={(text) => setCondicaoFerramenta(text.target.value)}
                   />
                 </div>
                 : false}
@@ -1580,46 +1925,59 @@ Phases () {
               {camposInterferencia
                 ? <div>
                   <label htmlFor=''>Localização em relação a diretriz do furo</label>
-                  <select name='' id=''>
-                    <option value=''>Perpendicular</option>
-                    <option value=''>Esquerda</option>
-                    <option value=''>Direita</option>
-                    <option value=''>Paralelo</option>
+                  <select name='' id='' onChange={(text) => setperpendicular(text.target.value)}>
+                    <option value='Perpendicular'>Perpendicular</option>
+                    <option value='Esquerda'>Esquerda</option>
+                    <option value='Direita'>Direita</option>
+                    <option value='Paralelo'>Paralelo</option>
                   </select>
-                  </div>
+                </div>
                 : false}
 
               {camposInterferencia
                 ? <div>
                   <label htmlFor=''>Diâmetro</label>
-                  <input type='text' />
+                  <input type='text' 
+                  value={diametroInterferencia}
+                  onChange={(text) => setDiametroInterferencia(text.target.value)}/>
                 </div>
                 : false}
 
               {camposInterferencia
                 ? <div>
                   <label htmlFor=''>Tipo de interferência</label>
-                  <input type='text' />
+                  <input type='text' 
+                  value={tipoInterferencia}
+                  onChange={(text) => setTipoInterferencia(text.target.value)}/>
                 </div>
                 : false}
 
               {camposInterferencia
                 ? <div>
                   <label htmlFor=''>Profundidade</label>
-                  <input type='text' />
+                  <input type='text' 
+                  value={profundidade}
+                  onChange={(text) => setprofundidade(text.target.value)}/>
                 </div>
                 : false}
             </S.GridForm>
-            <button onClick={() => { onSubmitLevantamento() }}>{loading
+            {!finalizarEtapa ? <button onClick={() => { onSubmitLevantamento() }}>{loading
               ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height='' src='https://contribua.org/mb-static/images/loading.gif'
-                  alt='Loading'
-                />
+                width='40px'
+                style={{ margin: 'auto' }}
+                height='' src='https://contribua.org/mb-static/images/loading.gif'
+                alt='Loading'
+              />
               : 'Salvar'}
-            </button>
-            <button className='finishPhase'>Finalizar Etapa</button>
+            </button> : false}
+            {!finalizarEtapa ?<button  onClick={() => { updateDados() }} className='finishPhase'>{loading
+              ? <img
+                width='40px'
+                style={{ margin: 'auto' }}
+                height='' src='https://contribua.org/mb-static/images/loading.gif'
+                alt='Loading'
+              />
+              : 'Finalizar Etapa'}</button>: 'Etapa Finalizada!'}
           </S.Div>
         </Modal>
 
@@ -1860,11 +2218,11 @@ Phases () {
             </S.GridForm>
             <button onClick={() => onSubmitInterferenciasFisicasMagneticas()}>{loading
               ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height='' src='https://contribua.org/mb-static/images/loading.gif'
-                  alt='Loading'
-                />
+                width='40px'
+                style={{ margin: 'auto' }}
+                height='' src='https://contribua.org/mb-static/images/loading.gif'
+                alt='Loading'
+              />
               : 'Salvar'}
             </button>
           </S.Div>
