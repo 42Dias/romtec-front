@@ -522,6 +522,7 @@ export default function
       if (response.statusText === 'OK') {
         // loadDados('planejamentoPerfuracao')
         // setisOpenUpdatePlanejamentoPerfuração(false)
+        setFinalizarEtapa(true)
         setLoading(false)
       }
     }).catch(res => {
