@@ -38,20 +38,10 @@ export default function ConfigurationSteps() {
   const [numeroEtapa, setnumeroEtapa] = useState('')
   const [novaEtapa, setnovaEtapa] = useState('')
   const [perfil, setperfil] = useState('')
-  const [configurationCrossings, setConfigurationCrossings] = useState<any[]>(
-    [],
-  )
+  const [configurationCrossings, setConfigurationCrossings] = useState<any[]>([],)
   const link = '/etapas/'
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<FormData>()
-  let idConfigTravessia = window.location.hash.replace(
-    ip + '/romtec/#/etapas-da-configuracao/',
-    '',
-  )
+  const { register, handleSubmit, formState: { errors }, reset, } = useForm<FormData>()
+  let idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas-da-configuracao/', '',)
   const [tipoEtapa, setTipoEtapa] = useState('')
   const [campoEntradaLatitude, setcampoEntradaLatitude] = useState(false)
   const [campoEntradaLongitude, setcampoEntradaLongitude] = useState(false)
@@ -250,10 +240,7 @@ export default function ConfigurationSteps() {
   // eslint-disable-next-line
   async function Cadastro(submit: any) {
     setLoading(true)
-    submit.idConfigTravessia = idConfigTravessia.replace(
-      '#/etapas-da-configuracao/',
-      '',
-    )
+    submit.idConfigTravessia = idConfigTravessia.replace('#/etapas-da-configuracao/', '',)
     // eslint-disable-next-line
     const responser = api
       .post('etapas', {
@@ -287,13 +274,7 @@ export default function ConfigurationSteps() {
     console.log('idConfigTravessia')
     console.log(idConfigTravessia.replace('#/etapas-da-configuracao/', ''))
     // eslint-disable-next-line
-    api
-      .get(
-        `etapas?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace(
-          '#/etapas-da-configuracao/',
-          '',
-        )}`,
-      )
+    api.get(`etapas?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace('#/etapas-da-configuracao/', '',)}`,)
       .then((response) => {
         console.log(response.data.rows)
         if (response.statusText === 'OK') {
@@ -307,231 +288,704 @@ export default function ConfigurationSteps() {
         setLoading(false)
       })
 
-    api
-      .get(
-        `etapasColunas?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace(
-          '#/etapas-da-configuracao/',
-          '',
-        )}`,
-      )
-      .then((response) => {
-        console.log(response.data.rows)
-        if (response.statusText === 'OK') {
-          setetapasColunas(response.data.rows)
-          console.log(etapasColunas)
-          console.log(response.data.count)
-          if (response.data.count === 0) {
-            const data = {
-              numeroEtapa: numeroEtapa,
-              novaEtapa: novaEtapa,
-              perfil: perfil,
-              idConfigTravessia: idConfigTravessia.replace(
-                '#/etapas-da-configuracao/',
-                '',
-              ),
-              campoEntradaLatitude: campoEntradaLatitude,
-              campoEntradaLongitude: campoEntradaLongitude,
-              campoSaidaLatitude: campoSaidaLatitude,
-              campoSaidaLongitude: campoSaidaLongitude,
-              campoTipoSolo: campoTipoSolo,
-              campoDiametroPerfuracao: campoDiametroPerfuracao,
-              campoTipoRede: campoTipoRede,
-              campoTipoTubulacao: campoTipoTubulacao,
-              campoResponsel: campoResponsel,
-              campoEquipamento: campoEquipamento,
-              campoDocumento: campoDocumento,
-              campoEmpresa: campoEmpresa,
-              campoSondagemInterferencia: campoSondagemInterferencia,
-              campoSondagem: campoSondagem,
-              campoDiametroInterferencia: campoDiametroInterferencia,
-              campoPlanoFuro: campoPlanoFuro,
-              campoFerramentas: campoFerramentas,
-              campoInfoEnvolvidas: campoInfoEnvolvidas,
-              campoDiametro: campoDiametro,
-              campoLocalizaDiretrizFuro: campoLocalizaDiretrizFuro,
-              campoTipoInterferencia: campoTipoInterferencia,
-              campoProfundidade: campoProfundidade,
-              campoResponselTopografia: campoResponselTopografia,
-              campoDataTopografia: campoDataTopografia,
-              nomePerfilAcesso: camponomePerfilAcesso,
-              dataExecucao: campodataExecucao,
-              responsavelExecucao: camporesponsavelExecucao,
-              horaExecucao: campohoraExecucao,
-              croquiMapeamento: campocroquiMapeamento,
-              equipamentoUtilizado: campoequipamentoUtilizado,
-              materializacaoCampo: campomaterializacaoCampo,
-              quantidadeInterferencias: campoquantidadeInterferencias,
-              paraleloEsquerda: campoparaleloEsquerda,
-              paraleloDireita: campoparaleloDireita,
-              perpendicular: campoperpendicular,
-              profundidade: campoprofundidade,
-              diametroInterferencia: campodiametroInterferencia,
-              tipoInterferencia: campotipoInterferencia,
-              largura: campolargura,
-              comprimento: campocomprimento,
-              profundidadeVala: campoprofundidadeVala,
-              estacaReferencia: campoestacaReferencia,
-              numeroHastes: camponumeroHastes,
-              profundidadePlanejada: campoprofundidadePlanejada,
-              avancoPlanejado: campoavancoPlanejado,
-              profundidadeExecutada: campoprofundidadeExecutada,
-              avancoExecutado: campoavancoExecutado,
-              amarracao: campoamarracao,
-              maquinaPerfuratriz: campomaquinaPerfuratriz,
-              diametroAlargamento: campodiametroAlargamento,
-              tempoHaste: campotempoHaste,
-              vazaoBomba: campovazaoBomba,
-              tipoRedeTubula: campotipoRedeTubula,
-              diametroRede: campodiametroRede,
-              ferramentasUtilizadas: campoferramentasUtilizadas,
-              modeloAlargador: campomodeloAlargador,
-              capacidadePortaFusilink: campocapacidadePortaFusilink,
-              capacidadeSwivel: campocapacidadeSwivel,
-              fluido: campoFluido,
-              receitaFluido: campoReceitaFluido,
-              portaSonda: campoPortaSonda,
-              confirmacaoProcedimento: campoConfirmacaoProcedimento,
-              volumePrepardo: campoVolumePreparado,
-              testeVicosidade: campoTesteVicosidade,
-              hastes: campoHastes,
-              sonda: campoSonda,
-              paPerfuracao: campopaPerfuracao,
-              pullingHead: campoPullingHead,
-              localizador: campoLocalizador,
-              luva: campoLuva,
-              hasteInicial: campoHasteInicial,
-              flexoBarra: campoFlexobarra,
-              radio: campoRadio,
-              parafuso: campoParafuso,
-              diametroFerramenta: campoDiametroFerramenta,
-              condicaoFerramenta: campoCondicaoFerramenta,
-              EmpresaProp: campoEmpresaProprietaria,
-              empresaProprietaria: campoEmpresaProprietaria,
-            }
-            api
-              .post('etapasColunas', {
-                data: data,
-              })
-              .then((response) => {
-                console.log(response)
-                if (response.statusText === 'OK') {
-                  toast.success('Cadastrada com sucesso!')
-                  setLoading(false)
-                  setIsOpen(false)
-                  reset()
-                  loadDados()
-                } else if (response.statusText === 'Forbidden') {
-                  toast.error('Ops, Não tem permisão!')
-                  setLoading(false)
-                } else {
-                  toast.error('Ops, Dados Incorretos!')
-                  setLoading(false)
-                }
-              })
-              .catch((res) => {
-                console.log(res)
-                // toast.error(res.response.data);
-                setLoading(false)
-              })
-          } else {
-            // etapasColunas.map((etapasColuna)=>{
-            console.log(response.data.rows[0].campoEntradaLatitude)
-            setcampoEntradaLatitude(response.data.rows[0].campoEntradaLatitude)
-            setcampoEntradaLongitude(response.data.rows[0].campoEntradaLongitude)
-            setcampoSaidaLatitude(response.data.rows[0].campoSaidaLatitude)
-            setcampoSaidaLongitude(response.data.rows[0].campoSaidaLongitude)
-            setcampoTipoSolo(response.data.rows[0].campoTipoSolo)
-            setcampoDiametroPerfuracao(response.data.rows[0].campoDiametroPerfuracao)
-            setcampoTipoRede(response.data.rows[0].campoTipoRede)
-            setcampoTipoTubulacao(response.data.rows[0].campoTipoTubulacao)
-            setcampoResponsel(response.data.rows[0].campoResponsel)
-            setcampoEquipamento(response.data.rows[0].campoEquipamento)
-            setcampoSondagemInterferencia(response.data.rows[0].campoSondagemInterferencia)
-            setcampoDocumento(response.data.rows[0].campoDocumento)
-            setcampoEmpresa(response.data.rows[0].campoEmpresa)
-            setcampoSondagem(response.data.rows[0].campoSondagem)
-            setcampoDiametroInterferencia(response.data.rows[0].campoDiametroInterferencia)
-            setcampoPlanoFuro(response.data.rows[0].campoPlanoFuro)
-            setcampoFerramentas(response.data.rows[0].campoFerramentas)
-            setcampoInfoEnvolvidas(response.data.rows[0].campoInfoEnvolvidas)
-            setcampoDiametro(response.data.rows[0].campoDiametro)
-            setcampoLocalizaDiretrizFuro(response.data.rows[0].campoLocalizaDiretrizFuro)
-            setcampoTipoInterferencia(response.data.rows[0].campoTipoInterferencia)
-            setcampotipoInterferencia(response.data.rows[0].tipoInterferencia)
-            setcampoProfundidade(response.data.rows[0].campoProfundidade)
-            setcampoResponselTopografia(response.data.rows[0].campoResponselTopografia)
-            setcampoDataTopografia(response.data.rows[0].campoDataTopografia)
-            setcamponomePerfilAcesso(response.data.rows[0].nomePerfilAcesso)
-            setcampodataExecucao(response.data.rows[0].dataExecucao)
-            setcamporesponsavelExecucao(response.data.rows[0].responsavelExecucao)
-            setcampohoraExecucao(response.data.rows[0].horaExecucao)
-            setcampocroquiMapeamento(response.data.rows[0].croquiMapeamento)
-            setcampoequipamentoUtilizado(response.data.rows[0].equipamentoUtilizado)
-            setcampomaterializacaoCampo(response.data.rows[0].materializacaoCampo)
-            setcampoquantidadeInterferencias(response.data.rows[0].quantidadeInterferencias)
-            setcampoparaleloEsquerda(response.data.rows[0].paraleloEsquerda)
-            setcampoparaleloDireita(response.data.rows[0].paraleloDireita)
-            setcampoperpendicular(response.data.rows[0].perpendicular)
-            setcampolargura(response.data.rows[0].largura)
-            setcampocomprimento(response.data.rows[0].comprimento)
-            setcampoprofundidadeVala(response.data.rows[0].profundidadeVala)
-            setcampoestacaReferencia(response.data.rows[0].estacaReferencia)
-            setcamponumeroHastes(response.data.rows[0].numeroHastes)
-            setcampoprofundidadePlanejada(response.data.rows[0].profundidadePlanejada)
-            setcampoavancoPlanejado(response.data.rows[0].avancoPlanejado)
-            setcampoprofundidadeExecutada(response.data.rows[0].profundidadeExecutada)
-            setcampoavancoExecutado(response.data.rows[0].avancoExecutado)
-            setcampoamarracao(response.data.rows[0].amarracao)
-            setcampomaquinaPerfuratriz(response.data.rows[0].maquinaPerfuratriz)
-            setcampodiametroAlargamento(response.data.rows[0].diametroAlargamento)
-            setcampotempoHaste(response.data.rows[0].tempoHaste)
-            setcampovazaoBomba(response.data.rows[0].vazaoBomba)
-            setcampotipoRedeTubula(response.data.rows[0].tipoRedeTubula)
-            setcampodiametroRede(response.data.rows[0].diametroRede)
-            setcampoferramentasUtilizadas(response.data.rows[0].ferramentasUtilizadas)
-            setcampomodeloAlargador(response.data.rows[0].modeloAlargador)
-            setcampocapacidadePortaFusilink(response.data.rows[0].capacidadePortaFusilink)
-            setcampocapacidadeSwivel(response.data.rows[0].capacidadeSwivel)
-            setcampoFluido(response.data.rows[0].fluido)
-            setcampoReceitaFluido(response.data.rows[0].receitaFluido)
-
-            setcampoPortaSonda(response.data.rows[0].portaSonda)
-            setcampoVolumePreparado(response.data.rows[0].volumePrepardo)
-            setcampoTesteVicosidade(response.data.rows[0].testeVicosidade)
-            setcampoConfirmacaoProcedimento(response.data.rows[0].confirmacaoProcedimento)
-            setcampoHastes(response.data.rows[0].hastes)
-            setcampoSonda(response.data.rows[0].sonda)
-            setcampopaPerfuracao(response.data.rows[0].paPerfuracao)
-            setcampoPullingHead(response.data.rows[0].pullingHead)
-            setcampoLocalizador(response.data.rows[0].localizador)
-            setcampoLuva(response.data.rows[0].luva)
-            setcampoHasteInicial(response.data.rows[0].hasteInicial)
-            setcampoFlexobarra(response.data.rows[0].flexoBarra)
-            setcampoRadio(response.data.rows[0].radio)
-            setcampoParafuso(response.data.rows[0].parafuso)
-            setcampoCondicaoFerramenta(response.data.rows[0].condicaoFerramenta)
-            setcampoEmpresaProprietaria(response.data.rows[0].empresaProp)
-            setcampoEmpresaProprietaria(response.data.rows[0].empresaProprietaria)
-            setcampoDiametroFerramenta(response.data.rows[0].diametroFerramenta)
-            // })
+    api.get(`etapasColunas?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace('#/etapas-da-configuracao/', '',)}`,
+    ).then((response) => {
+      console.log(response.data.rows)
+      if (response.statusText === 'OK') {
+        setetapasColunas(response.data.rows)
+        console.log(etapasColunas)
+        console.log(response.data.count)
+        if (response.data.count === 0) {
+          const data = {
+            numeroEtapa: numeroEtapa,
+            novaEtapa: novaEtapa,
+            perfil: perfil,
+            tipoEtapa: tipoEtapa,
+            idConfigTravessia: idConfigTravessia.replace('#/etapas-da-configuracao/', '',),
+            campoEntradaLatitude: campoEntradaLatitude,
+            campoEntradaLongitude: campoEntradaLongitude,
+            campoSaidaLatitude: campoSaidaLatitude,
+            campoSaidaLongitude: campoSaidaLongitude,
+            campoTipoSolo: campoTipoSolo,
+            campoDiametroPerfuracao: campoDiametroPerfuracao,
+            campoTipoRede: campoTipoRede,
+            campoTipoTubulacao: campoTipoTubulacao,
+            campoResponsel: campoResponsel,
+            campoEquipamento: campoEquipamento,
+            campoDocumento: campoDocumento,
+            campoEmpresa: campoEmpresa,
+            campoSondagemInterferencia: campoSondagemInterferencia,
+            campoSondagem: campoSondagem,
+            campoDiametroInterferencia: campoDiametroInterferencia,
+            campoPlanoFuro: campoPlanoFuro,
+            campoFerramentas: campoFerramentas,
+            campoInfoEnvolvidas: campoInfoEnvolvidas,
+            campoDiametro: campoDiametro,
+            campoLocalizaDiretrizFuro: campoLocalizaDiretrizFuro,
+            campoTipoInterferencia: campoTipoInterferencia,
+            campoProfundidade: campoProfundidade,
+            campoResponselTopografia: campoResponselTopografia,
+            campoDataTopografia: campoDataTopografia,
+            nomePerfilAcesso: camponomePerfilAcesso,
+            dataExecucao: campodataExecucao,
+            responsavelExecucao: camporesponsavelExecucao,
+            horaExecucao: campohoraExecucao,
+            croquiMapeamento: campocroquiMapeamento,
+            equipamentoUtilizado: campoequipamentoUtilizado,
+            materializacaoCampo: campomaterializacaoCampo,
+            quantidadeInterferencias: campoquantidadeInterferencias,
+            paraleloEsquerda: campoparaleloEsquerda,
+            paraleloDireita: campoparaleloDireita,
+            perpendicular: campoperpendicular,
+            profundidade: campoprofundidade,
+            diametroInterferencia: campodiametroInterferencia,
+            tipoInterferencia: campotipoInterferencia,
+            largura: campolargura,
+            comprimento: campocomprimento,
+            profundidadeVala: campoprofundidadeVala,
+            estacaReferencia: campoestacaReferencia,
+            numeroHastes: camponumeroHastes,
+            profundidadePlanejada: campoprofundidadePlanejada,
+            avancoPlanejado: campoavancoPlanejado,
+            profundidadeExecutada: campoprofundidadeExecutada,
+            avancoExecutado: campoavancoExecutado,
+            amarracao: campoamarracao,
+            maquinaPerfuratriz: campomaquinaPerfuratriz,
+            diametroAlargamento: campodiametroAlargamento,
+            tempoHaste: campotempoHaste,
+            vazaoBomba: campovazaoBomba,
+            tipoRedeTubula: campotipoRedeTubula,
+            diametroRede: campodiametroRede,
+            ferramentasUtilizadas: campoferramentasUtilizadas,
+            modeloAlargador: campomodeloAlargador,
+            capacidadePortaFusilink: campocapacidadePortaFusilink,
+            capacidadeSwivel: campocapacidadeSwivel,
+            fluido: campoFluido,
+            receitaFluido: campoReceitaFluido,
+            portaSonda: campoPortaSonda,
+            confirmacaoProcedimento: campoConfirmacaoProcedimento,
+            volumePrepardo: campoVolumePreparado,
+            testeVicosidade: campoTesteVicosidade,
+            hastes: campoHastes,
+            sonda: campoSonda,
+            paPerfuracao: campopaPerfuracao,
+            pullingHead: campoPullingHead,
+            localizador: campoLocalizador,
+            luva: campoLuva,
+            hasteInicial: campoHasteInicial,
+            flexoBarra: campoFlexobarra,
+            radio: campoRadio,
+            parafuso: campoParafuso,
+            diametroFerramenta: campoDiametroFerramenta,
+            condicaoFerramenta: campoCondicaoFerramenta,
+            EmpresaProp: campoEmpresaProprietaria,
+            empresaProprietaria: campoEmpresaProprietaria,
           }
-          // setTipoEtapa()
-          setLoading(false)
+          api
+            .post('etapasColunas', {
+              data: data,
+            })
+            .then((response) => {
+              console.log(response)
+              if (response.statusText === 'OK') {
+                toast.success('Cadastrada com sucesso!')
+                setLoading(false)
+                setIsOpen(false)
+                reset()
+                loadDados()
+              } else if (response.statusText === 'Forbidden') {
+                toast.error('Ops, Não tem permisão!')
+                setLoading(false)
+              } else {
+                toast.error('Ops, Dados Incorretos!')
+                setLoading(false)
+              }
+            })
+            .catch((res) => {
+              console.log(res)
+              // toast.error(res.response.data);
+              setLoading(false)
+            })
+        } else {
+          // etapasColunas.map((etapasColuna)=>{
+          console.log(response.data.rows[0].campoEntradaLatitude)
+          setcampoEntradaLatitude(response.data.rows[0].campoEntradaLatitude)
+          setcampoEntradaLongitude(response.data.rows[0].campoEntradaLongitude)
+          setcampoSaidaLatitude(response.data.rows[0].campoSaidaLatitude)
+          setcampoSaidaLongitude(response.data.rows[0].campoSaidaLongitude)
+          setcampoTipoSolo(response.data.rows[0].campoTipoSolo)
+          setcampoDiametroPerfuracao(response.data.rows[0].campoDiametroPerfuracao)
+          setcampoTipoRede(response.data.rows[0].campoTipoRede)
+          setcampoTipoTubulacao(response.data.rows[0].campoTipoTubulacao)
+          setcampoResponsel(response.data.rows[0].campoResponsel)
+          setcampoEquipamento(response.data.rows[0].campoEquipamento)
+          setcampoSondagemInterferencia(response.data.rows[0].campoSondagemInterferencia)
+          setcampoDocumento(response.data.rows[0].campoDocumento)
+          setcampoEmpresa(response.data.rows[0].campoEmpresa)
+          setcampoSondagem(response.data.rows[0].campoSondagem)
+          setcampoDiametroInterferencia(response.data.rows[0].campoDiametroInterferencia)
+          setcampoPlanoFuro(response.data.rows[0].campoPlanoFuro)
+          setcampoFerramentas(response.data.rows[0].campoFerramentas)
+          setcampoInfoEnvolvidas(response.data.rows[0].campoInfoEnvolvidas)
+          setcampoDiametro(response.data.rows[0].campoDiametro)
+          setcampoLocalizaDiretrizFuro(response.data.rows[0].campoLocalizaDiretrizFuro)
+          setcampoTipoInterferencia(response.data.rows[0].campoTipoInterferencia)
+          setcampotipoInterferencia(response.data.rows[0].tipoInterferencia)
+          setcampoProfundidade(response.data.rows[0].campoProfundidade)
+          setcampoResponselTopografia(response.data.rows[0].campoResponselTopografia)
+          setcampoDataTopografia(response.data.rows[0].campoDataTopografia)
+          setcamponomePerfilAcesso(response.data.rows[0].nomePerfilAcesso)
+          setcampodataExecucao(response.data.rows[0].dataExecucao)
+          setcamporesponsavelExecucao(response.data.rows[0].responsavelExecucao)
+          setcampohoraExecucao(response.data.rows[0].horaExecucao)
+          setcampocroquiMapeamento(response.data.rows[0].croquiMapeamento)
+          setcampoequipamentoUtilizado(response.data.rows[0].equipamentoUtilizado)
+          setcampomaterializacaoCampo(response.data.rows[0].materializacaoCampo)
+          setcampoquantidadeInterferencias(response.data.rows[0].quantidadeInterferencias)
+          setcampoparaleloEsquerda(response.data.rows[0].paraleloEsquerda)
+          setcampoparaleloDireita(response.data.rows[0].paraleloDireita)
+          setcampoperpendicular(response.data.rows[0].perpendicular)
+          setcampolargura(response.data.rows[0].largura)
+          setcampocomprimento(response.data.rows[0].comprimento)
+          setcampoprofundidadeVala(response.data.rows[0].profundidadeVala)
+          setcampoestacaReferencia(response.data.rows[0].estacaReferencia)
+          setcamponumeroHastes(response.data.rows[0].numeroHastes)
+          setcampoprofundidadePlanejada(response.data.rows[0].profundidadePlanejada)
+          setcampoavancoPlanejado(response.data.rows[0].avancoPlanejado)
+          setcampoprofundidadeExecutada(response.data.rows[0].profundidadeExecutada)
+          setcampoavancoExecutado(response.data.rows[0].avancoExecutado)
+          setcampoamarracao(response.data.rows[0].amarracao)
+          setcampomaquinaPerfuratriz(response.data.rows[0].maquinaPerfuratriz)
+          setcampodiametroAlargamento(response.data.rows[0].diametroAlargamento)
+          setcampotempoHaste(response.data.rows[0].tempoHaste)
+          setcampovazaoBomba(response.data.rows[0].vazaoBomba)
+          setcampotipoRedeTubula(response.data.rows[0].tipoRedeTubula)
+          setcampodiametroRede(response.data.rows[0].diametroRede)
+          setcampoferramentasUtilizadas(response.data.rows[0].ferramentasUtilizadas)
+          setcampomodeloAlargador(response.data.rows[0].modeloAlargador)
+          setcampocapacidadePortaFusilink(response.data.rows[0].capacidadePortaFusilink)
+          setcampocapacidadeSwivel(response.data.rows[0].capacidadeSwivel)
+          setcampoFluido(response.data.rows[0].fluido)
+          setcampoReceitaFluido(response.data.rows[0].receitaFluido)
+
+          setcampoPortaSonda(response.data.rows[0].portaSonda)
+          setcampoVolumePreparado(response.data.rows[0].volumePrepardo)
+          setcampoTesteVicosidade(response.data.rows[0].testeVicosidade)
+          setcampoConfirmacaoProcedimento(response.data.rows[0].confirmacaoProcedimento)
+          setcampoHastes(response.data.rows[0].hastes)
+          setcampoSonda(response.data.rows[0].sonda)
+          setcampopaPerfuracao(response.data.rows[0].paPerfuracao)
+          setcampoPullingHead(response.data.rows[0].pullingHead)
+          setcampoLocalizador(response.data.rows[0].localizador)
+          setcampoLuva(response.data.rows[0].luva)
+          setcampoHasteInicial(response.data.rows[0].hasteInicial)
+          setcampoFlexobarra(response.data.rows[0].flexoBarra)
+          setcampoRadio(response.data.rows[0].radio)
+          setcampoParafuso(response.data.rows[0].parafuso)
+          setcampoCondicaoFerramenta(response.data.rows[0].condicaoFerramenta)
+          setcampoEmpresaProprietaria(response.data.rows[0].empresaProp)
+          setcampoEmpresaProprietaria(response.data.rows[0].empresaProprietaria)
+          setcampoDiametroFerramenta(response.data.rows[0].diametroFerramenta)
+          // })
         }
-      })
+        // setTipoEtapa()
+        setLoading(false)
+      }
+    })
       .catch((res) => {
         console.log(res.response.data)
         toast.error(res.response.data)
         setLoading(false)
       })
   }
-  async function deleteDados(id: string) {
+  async function deleteDados(etapa: any) {
     setLoading(true)
     // eslint-disable-next-line
-    const responser = api
-      .delete('etapas/' + id)
+    if (etapa.campoEntradaLatitude) {
+      etapa.campoEntradaLatitude = false
+    } else {
+      etapa.campoEntradaLatitude = etapasColunas[0].campoEntradaLatitude
+    }
+
+    if (etapa.campoEntradaLongitude) {
+      etapa.campoEntradaLongitude = false
+    } else {
+      etapa.campoEntradaLongitude = etapasColunas[0].campoEntradaLongitude
+    }
+
+    if (etapa.campoSaidaLatitude) {
+      etapa.campoSaidaLatitude = false
+    } else {
+      etapa.campoSaidaLatitude = etapasColunas[0].campoSaidaLatitude
+    }
+
+    if (etapa.campoSaidaLongitude) {
+      etapa.campoSaidaLongitude = false
+    } else {
+      etapa.campoSaidaLongitude = etapasColunas[0].campoSaidaLongitude
+    }
+
+    if (etapa.campoTipoSolo) {
+      etapa.campoTipoSolo = false
+    } else {
+      etapa.campoTipoSolo = etapasColunas[0].campoTipoSolo
+    }
+
+    if (etapa.campoDiametroPerfuracao) {
+      etapa.campoDiametroPerfuracao = false
+    } else {
+      etapa.campoDiametroPerfuracao = etapasColunas[0].campoDiametroPerfuracao
+    }
+
+    if (etapa.campoTipoRede) {
+      etapa.campoTipoRede = false
+    } else {
+      etapa.campoTipoRede = etapasColunas[0].campoTipoRede
+    }
+
+    if (etapa.campoTipoTubulacao) {
+      etapa.campoTipoTubulacao = false
+    } else {
+      etapa.campoTipoTubulacao = etapasColunas[0].campoTipoTubulacao
+    }
+
+    if (etapa.campoResponsel) {
+      etapa.campoResponsel = false
+    } else {
+      etapa.campoResponsel = etapasColunas[0].campoResponsel
+    }
+
+    if (etapa.campoEquipamento) {
+      etapa.campoEquipamento = false
+    } else {
+      etapa.campoEquipamento = etapasColunas[0].campoEquipamento
+    }
+
+    if (etapa.campoDocumento) {
+      etapa.campoDocumento = false
+    } else {
+      etapa.campoDocumento = etapasColunas[0].campoDocumento
+    }
+
+    if (etapa.campoEmpresa) {
+      etapa.campoEmpresa = false
+    } else {
+      etapa.campoEmpresa = etapasColunas[0].campoEmpresa
+    }
+
+    if (etapa.campoSondagemInterferencia) {
+      etapa.campoSondagemInterferencia = false
+    } else {
+      etapa.campoSondagemInterferencia = etapasColunas[0].campoSondagemInterferencia
+    }
+
+    if (etapa.campoSondagem) {
+      etapa.campoSondagem = false
+    } else {
+      etapa.campoSondagem = etapasColunas[0].campoSondagem
+    }
+
+    if (etapa.campoDiametroInterferencia) {
+      etapa.campoDiametroInterferencia = false
+    } else {
+      etapa.campoDiametroInterferencia = etapasColunas[0].campoDiametroInterferencia
+    }
+
+    if (etapa.campoPlanoFuro) {
+      etapa.campoPlanoFuro = false
+    } else {
+      etapa.campoPlanoFuro = etapasColunas[0].campoPlanoFuro
+    }
+
+    if (etapa.campoFerramentas) {
+      etapa.campoFerramentas = false
+    } else {
+      etapa.campoFerramentas = etapasColunas[0].campoFerramentas
+    }
+
+    if (etapa.campoInfoEnvolvidas) {
+      etapa.campoInfoEnvolvidas = false
+    } else {
+      etapa.campoInfoEnvolvidas = etapasColunas[0].campoInfoEnvolvidas
+    }
+
+    if (etapa.campoDiametro) {
+      etapa.campoDiametro = false
+    } else {
+      etapa.campoDiametro = etapasColunas[0].campoDiametro
+    }
+
+    if (etapa.campoLocalizaDiretrizFuro) {
+      etapa.campoLocalizaDiretrizFuro = false
+    } else {
+      etapa.campoLocalizaDiretrizFuro = etapasColunas[0].campoLocalizaDiretrizFuro
+    }
+
+    if (etapa.campoTipoInterferencia) {
+      etapa.campoTipoInterferencia = false
+    } else {
+      etapa.campoTipoInterferencia = etapasColunas[0].campoTipoInterferencia
+    }
+
+    if (etapa.campoProfundidade) {
+      etapa.campoProfundidade = false
+    } else {
+      etapa.campoProfundidade = etapasColunas[0].campoProfundidade
+    }
+
+    if (etapa.campoResponselTopografia) {
+      etapa.campoResponselTopografia = false
+    } else {
+      etapa.campoResponselTopografia = etapasColunas[0].campoResponselTopografia
+    }
+
+    if (etapa.campoDataTopografia) {
+      etapa.campoDataTopografia = false
+    } else {
+      etapa.campoDataTopografia = etapasColunas[0].campoDataTopografia
+    }
+
+    if (etapa.nomePerfilAcesso) {
+      etapa.nomePerfilAcesso = false
+    } else {
+      etapa.nomePerfilAcesso = etapasColunas[0].nomePerfilAcesso
+    }
+
+    if (etapa.dataExecucao) {
+      etapa.dataExecucao = false
+    } else {
+      etapa.dataExecucao = etapasColunas[0].dataExecucao
+    }
+
+    if (etapa.responsavelExecucao) {
+      etapa.responsavelExecucao = false
+    } else {
+      etapa.responsavelExecucao = etapasColunas[0].responsavelExecucao
+    }
+
+    if (etapa.horaExecucao) {
+      etapa.horaExecucao = false
+    } else {
+      etapa.horaExecucao = etapasColunas[0].horaExecucao
+    }
+
+    if (etapa.croquiMapeamento) {
+      etapa.croquiMapeamento = false
+    } else {
+      etapa.croquiMapeamento = etapasColunas[0].croquiMapeamento
+    }
+
+    if (etapa.equipamentoUtilizado) {
+      etapa.equipamentoUtilizado = false
+    } else {
+      etapa.equipamentoUtilizado = etapasColunas[0].equipamentoUtilizado
+    }
+
+    if (etapa.materializacaoCampo) {
+      etapa.materializacaoCampo = false
+    } else {
+      etapa.materializacaoCampo = etapasColunas[0].materializacaoCampo
+    }
+
+    if (etapa.quantidadeInterferencias) {
+      etapa.quantidadeInterferencias = false
+    } else {
+      etapa.quantidadeInterferencias = etapasColunas[0].quantidadeInterferencias
+    }
+
+    if (etapa.paraleloEsquerda) {
+      etapa.paraleloEsquerda = false
+    } else {
+      etapa.paraleloEsquerda = etapasColunas[0].paraleloEsquerda
+    }
+
+    if (etapa.paraleloDireita) {
+      etapa.paraleloDireita = false
+    } else {
+      etapa.paraleloDireita = etapasColunas[0].paraleloDireita
+    }
+
+    if (etapa.perpendicular) {
+      etapa.perpendicular = false
+    } else {
+      etapa.perpendicular = etapasColunas[0].perpendicular
+    }
+
+    if (etapa.profundidade) {
+      etapa.profundidade = false
+    } else {
+      etapa.profundidade = etapasColunas[0].profundidade
+    }
+
+    if (etapa.diametroInterferencia) {
+      etapa.diametroInterferencia = false
+    } else {
+      etapa.diametroInterferencia = etapasColunas[0].diametroInterferencia
+    }
+
+    if (etapa.tipoInterferencia) {
+      etapa.tipoInterferencia = false
+    } else {
+      etapa.tipoInterferencia = etapasColunas[0].tipoInterferencia
+    }
+
+    if (etapa.largura) {
+      etapa.largura = false
+    } else {
+      etapa.largura = etapasColunas[0].largura
+    }
+
+    if (etapa.comprimento) {
+      etapa.comprimento = false
+    } else {
+      etapa.comprimento = etapasColunas[0].comprimento
+    }
+
+    if (etapa.profundidadeVala) {
+      etapa.profundidadeVala = false
+    } else {
+      etapa.profundidadeVala = etapasColunas[0].profundidadeVala
+    }
+
+    if (etapa.estacaReferencia) {
+      etapa.estacaReferencia = false
+    } else {
+      etapa.estacaReferencia = etapasColunas[0].estacaReferencia
+    }
+
+    if (etapa.numeroHastes) {
+      etapa.numeroHastes = false
+    } else {
+      etapa.numeroHastes = etapasColunas[0].numeroHastes
+    }
+
+    if (etapa.profundidadePlanejada) {
+      etapa.profundidadePlanejada = false
+    } else {
+      etapa.profundidadePlanejada = etapasColunas[0].profundidadePlanejada
+    }
+
+    if (etapa.avancoPlanejado) {
+      etapa.avancoPlanejado = false
+    } else {
+      etapa.avancoPlanejado = etapasColunas[0].avancoPlanejado
+    }
+
+    if (etapa.profundidadeExecutada) {
+      etapa.profundidadeExecutada = false
+    } else {
+      etapa.profundidadeExecutada = etapasColunas[0].profundidadeExecutada
+    }
+
+    if (etapa.avancoExecutado) {
+      etapa.avancoExecutado = false
+    } else {
+      etapa.avancoExecutado = etapasColunas[0].avancoExecutado
+    }
+
+    if (etapa.amarracao) {
+      etapa.amarracao = false
+    } else {
+      etapa.amarracao = etapasColunas[0].amarracao
+    }
+
+    if (etapa.maquinaPerfuratriz) {
+      etapa.maquinaPerfuratriz = false
+    } else {
+      etapa.maquinaPerfuratriz = etapasColunas[0].maquinaPerfuratriz
+    }
+
+    if (etapa.diametroAlargamento) {
+      etapa.diametroAlargamento = false
+    } else {
+      etapa.diametroAlargamento = etapasColunas[0].diametroAlargamento
+    }
+
+    if (etapa.tempoHaste) {
+      etapa.tempoHaste = false
+    } else {
+      etapa.tempoHaste = etapasColunas[0].tempoHaste
+    }
+
+    if (etapa.vazaoBomba) {
+      etapa.vazaoBomba = false
+    } else {
+      etapa.vazaoBomba = etapasColunas[0].vazaoBomba
+    }
+
+    if (etapa.tipoRedeTubula) {
+      etapa.tipoRedeTubula = false
+    } else {
+      etapa.tipoRedeTubula = etapasColunas[0].tipoRedeTubula
+    }
+
+    if (etapa.diametroRede) {
+      etapa.diametroRede = false
+    } else {
+      etapa.diametroRede = etapasColunas[0].diametroRede
+    }
+
+    if (etapa.ferramentasUtilizadas) {
+      etapa.ferramentasUtilizadas = false
+    } else {
+      etapa.ferramentasUtilizadas = etapasColunas[0].ferramentasUtilizadas
+    }
+
+    if (etapa.modeloAlargador) {
+      etapa.modeloAlargador = false
+    } else {
+      etapa.modeloAlargador = etapasColunas[0].modeloAlargador
+    }
+
+    if (etapa.capacidadePortaFusilink) {
+      etapa.capacidadePortaFusilink = false
+    } else {
+      etapa.capacidadePortaFusilink = etapasColunas[0].capacidadePortaFusilink
+    }
+
+    if (etapa.capacidadeSwivel) {
+      etapa.capacidadeSwivel = false
+    } else {
+      etapa.capacidadeSwivel = etapasColunas[0].capacidadeSwivel
+    }
+
+    if (etapa.fluido) {
+      etapa.fluido = false
+    } else {
+      etapa.fluido = etapasColunas[0].fluido
+    }
+
+    if (etapa.receitaFluido) {
+      etapa.receitaFluido = false
+    } else {
+      etapa.receitaFluido = etapasColunas[0].receitaFluido
+    }
+
+    if (etapa.portaSonda) {
+      etapa.portaSonda = false
+    } else {
+      etapa.portaSonda = etapasColunas[0].portaSonda
+    }
+
+    if (etapa.confirmacaoProcedimento) {
+      etapa.confirmacaoProcedimento = false
+    } else {
+      etapa.confirmacaoProcedimento = etapasColunas[0].confirmacaoProcedimento
+    }
+
+    if (etapa.volumePrepardo) {
+      etapa.volumePrepardo = false
+    } else {
+      etapa.volumePrepardo = etapasColunas[0].volumePrepardo
+    }
+
+    if (etapa.testeVicosidade) {
+      etapa.testeVicosidade = false
+    } else {
+      etapa.testeVicosidade = etapasColunas[0].testeVicosidade
+    }
+
+    if (etapa.hastes) {
+      etapa.hastes = false
+    } else {
+      etapa.hastes = etapasColunas[0].hastes
+    }
+
+    if (etapa.sonda) {
+      etapa.sonda = false
+    } else {
+      etapa.sonda = etapasColunas[0].sonda
+    }
+
+    if (etapa.paPerfuracao) {
+      etapa.paPerfuracao = false
+    } else {
+      etapa.paPerfuracao = etapasColunas[0].paPerfuracao
+    }
+
+    if (etapa.pullingHead) {
+      etapa.pullingHead = false
+    } else {
+      etapa.pullingHead = etapasColunas[0].pullingHead
+    }
+
+    if (etapa.localizador) {
+      etapa.localizador = false
+    } else {
+      etapa.localizador = etapasColunas[0].localizador
+    }
+
+    if (etapa.luva) {
+      etapa.luva = false
+    } else {
+      etapa.luva = etapasColunas[0].luva
+    }
+
+    if (etapa.hasteInicial) {
+      etapa.hasteInicial = false
+    } else {
+      etapa.hasteInicial = etapasColunas[0].hasteInicial
+    }
+
+    if (etapa.flexoBarra) {
+      etapa.flexoBarra = false
+    } else {
+      etapa.flexoBarra = etapasColunas[0].flexoBarra
+    }
+
+    if (etapa.radio) {
+      etapa.radio = false
+    } else {
+      etapa.radio = etapasColunas[0].radio
+    }
+
+    if (etapa.parafuso) {
+      etapa.parafuso = false
+    } else {
+      etapa.parafuso = etapasColunas[0].parafuso
+    }
+
+    if (etapa.diametroFerramenta) {
+      etapa.diametroFerramenta = false
+    } else {
+      etapa.diametroFerramenta = etapasColunas[0].diametroFerramenta
+    }
+
+    if (etapa.condicaoFerramenta) {
+      etapa.condicaoFerramenta = false
+    } else {
+      etapa.condicaoFerramenta = etapasColunas[0].condicaoFerramenta
+    }
+
+    if (etapa.EmpresaProp) {
+      etapa.EmpresaProp = false
+    } else {
+      etapa.EmpresaProp = etapasColunas[0].EmpresaProp
+    }
+
+    if (etapa.empresaProprietaria) {
+      etapa.empresaProprietaria = false
+    } else {
+      etapa.empresaProprietaria = etapasColunas[0].empresaProprietaria
+    }
+    api.delete('etapas/' + etapa.id)
       .then((response) => {
         if (response.statusText === 'OK') {
+
+          api.put('etapasColunas/' + etapasColunas[0].id, {
+            data: etapa,
+          })
+            .then((response) => {
+              if (response.statusText === 'OK') {
+                loadDados()
+                setIsOpenUpdate(false)
+                setLoading(false)
+              }
+            })
+            .catch((error) => {
+              setLoading(false)
+              toast.error(error.response.data)
+            })
           loadDados()
           setLoading(false)
         }
@@ -550,6 +1004,86 @@ export default function ConfigurationSteps() {
       setnumeroEtapa(dados.numeroEtapa)
       setnovaEtapa(dados.novaEtapa)
       setperfil(dados.perfil)
+      setcampoEntradaLatitude2(dados.campoEntradaLatitude)
+      setcampoEntradaLongitude2(dados.campoEntradaLongitude)
+      setcampoSaidaLatitude2(dados.campoSaidaLatitude)
+      setcampoSaidaLongitude2(dados.campoSaidaLongitude)
+      setcampoTipoSolo2(dados.campoTipoSolo)
+      setcampoDiametroPerfuracao2(dados.campoDiametroPerfuracao)
+      setcampoTipoRede2(dados.campoTipoRede)
+      setcampoTipoTubulacao2(dados.campoTipoTubulacao)
+      setcampoResponsel2(dados.campoResponsel)
+      setcampoEquipamento2(dados.campoEquipamento)
+      setcampoSondagemInterferencia2(dados.campoSondagemInterferencia)
+      setcampoDocumento2(dados.campoDocumento)
+      setcampoEmpresa2(dados.campoEmpresa)
+      setcampoSondagem2(dados.campoSondagem)
+      setcampoDiametroInterferencia2(dados.campoDiametroInterferencia)
+      setcampoPlanoFuro2(dados.campoPlanoFuro)
+      setcampoFerramentas2(dados.campoFerramentas)
+      setcampoInfoEnvolvidas2(dados.campoInfoEnvolvidas)
+      setcampoDiametro2(dados.campoDiametro)
+      setcampoLocalizaDiretrizFuro2(dados.campoLocalizaDiretrizFuro)
+      setcampoTipoInterferencia2(dados.campoTipoInterferencia)
+      setcampoProfundidade2(dados.campoProfundidade)
+      setcampoResponselTopografia2(dados.campoResponselTopografia)
+      setcampoDataTopografia2(dados.campoDataTopografia)
+      setcamponomePerfilAcesso2(dados.nomePerfilAcesso)
+      setcampodataExecucao2(dados.dataExecucao)
+      setcamporesponsavelExecucao2(dados.responsavelExecucao)
+      setcampohoraExecucao2(dados.horaExecucao)
+      setcampocroquiMapeamento2(dados.croquiMapeamento)
+      setcampoequipamentoUtilizado2(dados.equipamentoUtilizado)
+      setcampomaterializacaoCampo2(dados.materializacaoCampo)
+      setcampoquantidadeInterferencias2(dados.quantidadeInterferencias)
+      setcampoparaleloEsquerda2(dados.paraleloEsquerda)
+      setcampoparaleloDireita2(dados.paraleloDireita)
+      setcampoperpendicular2(dados.perpendicular)
+      setcampolargura2(dados.largura)
+      setcampocomprimento2(dados.comprimento)
+      setcampoprofundidadeVala2(dados.profundidadeVala)
+      setcampoestacaReferencia2(dados.estacaReferencia)
+      setcamponumeroHastes2(dados.numeroHastes)
+      setcampoprofundidadePlanejada2(dados.profundidadePlanejada)
+      setcampoavancoPlanejado2(dados.avancoPlanejado)
+      setcampoprofundidadeExecutada2(dados.profundidadeExecutada)
+      setcampoavancoExecutado2(dados.avancoExecutado)
+      setcampoamarracao2(dados.amarracao)
+      setcampomaquinaPerfuratriz2(dados.maquinaPerfuratriz)
+      setcampodiametroAlargamento2(dados.diametroAlargamento)
+      setcampotempoHaste2(dados.tempoHaste)
+      setcampovazaoBomba2(dados.vazaoBomba)
+      setcampotipoRedeTubula2(dados.tipoRedeTubula)
+      setcampodiametroRede2(dados.diametroRede)
+      setcampoferramentasUtilizadas2(dados.ferramentasUtilizadas)
+      setcampomodeloAlargador2(dados.modeloAlargador)
+      setcampocapacidadePortaFusilink2(dados.capacidadePortaFusilink)
+      setcampocapacidadeSwivel2(dados.capacidadeSwivel)
+      setcampoFluido2(dados.fluido)
+      setcampoReceitaFluido2(dados.receitaFluido)
+
+      setcampoPortaSonda2(dados.portaSonda)
+      setcampoVolumePreparado2(dados.volumePrepardo)
+      setcampoTesteVicosidade2(dados.testeVicosidade)
+      setcampoConfirmacaoProcedimento2(dados.confirmacaoProcedimento)
+      setcampoHastes2(dados.hastes)
+      setcampoSonda2(dados.sonda)
+      setcampopaPerfuracao2(dados.paPerfuracao)
+      setcampoPullingHead2(dados.pullingHead)
+      setcampoLocalizador2(dados.localizador)
+      setcampoLuva2(dados.luva)
+      setcampoHasteInicial2(dados.hasteInicial)
+      setcampoFlexobarra2(dados.flexoBarra)
+      setcampoRadio2(dados.radio)
+      setcampoParafuso2(dados.parafuso)
+      setcampoCondicaoFerramenta2(dados.condicaoFerramenta)
+      setcampoEmpresaProprietaria2(dados.empresaProprietaria)
+      setcampoDiametroFerramenta2(dados.diametroFerramenta)
+      setidEtapa(dados.id)
+      setnumeroEtapa(dados.numeroEtapa)
+      setnovaEtapa(dados.novaEtapa)
+      setperfil(dados.perfil)
+      setTipoEtapa(dados.tipoEtapa)
       setIsOpenUpdate(true)
     } else {
       updateDados()
@@ -562,6 +1096,7 @@ export default function ConfigurationSteps() {
       numeroEtapa: numeroEtapa,
       novaEtapa: novaEtapa,
       perfil: perfil,
+      tipoEtapa: tipoEtapa,
       campoEntradaLatitude: campoEntradaLatitude,
       campoEntradaLongitude: campoEntradaLongitude,
       campoSaidaLatitude: campoSaidaLatitude,
@@ -646,6 +1181,7 @@ export default function ConfigurationSteps() {
       numeroEtapa: numeroEtapa,
       novaEtapa: novaEtapa,
       perfil: perfil,
+      tipoEtapa: tipoEtapa,
       campoEntradaLatitude: campoEntradaLatitude2,
       campoEntradaLongitude: campoEntradaLongitude2,
       campoSaidaLatitude: campoSaidaLatitude2,
@@ -834,10 +1370,86 @@ export default function ConfigurationSteps() {
     setcampoDiametroFerramenta2(false)
   }
   function selectCampos(etapa: any) {
+    setcampoEntradaLatitude2(etapa.campoEntradaLatitude)
+    setcampoEntradaLongitude2(etapa.campoEntradaLongitude)
+    setcampoSaidaLatitude2(etapa.campoSaidaLatitude)
+    setcampoSaidaLongitude2(etapa.campoSaidaLongitude)
+    setcampoTipoSolo2(etapa.campoTipoSolo)
+    setcampoDiametroPerfuracao2(etapa.campoDiametroPerfuracao)
+    setcampoTipoRede2(etapa.campoTipoRede)
+    setcampoTipoTubulacao2(etapa.campoTipoTubulacao)
+    setcampoResponsel2(etapa.campoResponsel)
+    setcampoEquipamento2(etapa.campoEquipamento)
+    setcampoSondagemInterferencia2(etapa.campoSondagemInterferencia)
+    setcampoDocumento2(etapa.campoDocumento)
+    setcampoEmpresa2(etapa.campoEmpresa)
+    setcampoSondagem2(etapa.campoSondagem)
+    setcampoDiametroInterferencia2(etapa.campoDiametroInterferencia)
+    setcampoPlanoFuro2(etapa.campoPlanoFuro)
+    setcampoFerramentas2(etapa.campoFerramentas)
+    setcampoInfoEnvolvidas2(etapa.campoInfoEnvolvidas)
+    setcampoDiametro2(etapa.campoDiametro)
+    setcampoLocalizaDiretrizFuro2(etapa.campoLocalizaDiretrizFuro)
+    setcampoTipoInterferencia2(etapa.campoTipoInterferencia)
+    setcampoProfundidade2(etapa.campoProfundidade)
+    setcampoResponselTopografia2(etapa.campoResponselTopografia)
+    setcampoDataTopografia2(etapa.campoDataTopografia)
+    setcamponomePerfilAcesso2(etapa.nomePerfilAcesso)
+    setcampodataExecucao2(etapa.dataExecucao)
+    setcamporesponsavelExecucao2(etapa.responsavelExecucao)
+    setcampohoraExecucao2(etapa.horaExecucao)
+    setcampocroquiMapeamento2(etapa.croquiMapeamento)
+    setcampoequipamentoUtilizado2(etapa.equipamentoUtilizado)
+    setcampomaterializacaoCampo2(etapa.materializacaoCampo)
+    setcampoquantidadeInterferencias2(etapa.quantidadeInterferencias)
+    setcampoparaleloEsquerda2(etapa.paraleloEsquerda)
+    setcampoparaleloDireita2(etapa.paraleloDireita)
+    setcampoperpendicular2(etapa.perpendicular)
+    setcampolargura2(etapa.largura)
+    setcampocomprimento2(etapa.comprimento)
+    setcampoprofundidadeVala2(etapa.profundidadeVala)
+    setcampoestacaReferencia2(etapa.estacaReferencia)
+    setcamponumeroHastes2(etapa.numeroHastes)
+    setcampoprofundidadePlanejada2(etapa.profundidadePlanejada)
+    setcampoavancoPlanejado2(etapa.avancoPlanejado)
+    setcampoprofundidadeExecutada2(etapa.profundidadeExecutada)
+    setcampoavancoExecutado2(etapa.avancoExecutado)
+    setcampoamarracao2(etapa.amarracao)
+    setcampomaquinaPerfuratriz2(etapa.maquinaPerfuratriz)
+    setcampodiametroAlargamento2(etapa.diametroAlargamento)
+    setcampotempoHaste2(etapa.tempoHaste)
+    setcampovazaoBomba2(etapa.vazaoBomba)
+    setcampotipoRedeTubula2(etapa.tipoRedeTubula)
+    setcampodiametroRede2(etapa.diametroRede)
+    setcampoferramentasUtilizadas2(etapa.ferramentasUtilizadas)
+    setcampomodeloAlargador2(etapa.modeloAlargador)
+    setcampocapacidadePortaFusilink2(etapa.capacidadePortaFusilink)
+    setcampocapacidadeSwivel2(etapa.capacidadeSwivel)
+    setcampoFluido2(etapa.fluido)
+    setcampoReceitaFluido2(etapa.receitaFluido)
+
+    setcampoPortaSonda2(etapa.portaSonda)
+    setcampoVolumePreparado2(etapa.volumePrepardo)
+    setcampoTesteVicosidade2(etapa.testeVicosidade)
+    setcampoConfirmacaoProcedimento2(etapa.confirmacaoProcedimento)
+    setcampoHastes2(etapa.hastes)
+    setcampoSonda2(etapa.sonda)
+    setcampopaPerfuracao2(etapa.paPerfuracao)
+    setcampoPullingHead2(etapa.pullingHead)
+    setcampoLocalizador2(etapa.localizador)
+    setcampoLuva2(etapa.luva)
+    setcampoHasteInicial2(etapa.hasteInicial)
+    setcampoFlexobarra2(etapa.flexoBarra)
+    setcampoRadio2(etapa.radio)
+    setcampoParafuso2(etapa.parafuso)
+    setcampoCondicaoFerramenta2(etapa.condicaoFerramenta)
+    setcampoEmpresaProprietaria2(etapa.empresaProprietaria)
+    setcampoDiametroFerramenta2(etapa.diametroFerramenta)
     setidEtapa(etapa.id)
     setnumeroEtapa(etapa.numeroEtapa)
     setnovaEtapa(etapa.novaEtapa)
     setperfil(etapa.perfil)
+    setTipoEtapa(etapa.tipoEtapa)
     setIsOpenPhases(true)
   }
   useEffect(() => {
@@ -1299,7 +1911,7 @@ export default function ConfigurationSteps() {
       setcampoDiametroPerfuracao2(false)
     } else {
       setcampoDiametroPerfuracao(true)
-      setcampoDiametroPerfuracao2(true) 
+      setcampoDiametroPerfuracao2(true)
     }
   }
   function fTipoSolo() {
@@ -1464,7 +2076,7 @@ export default function ConfigurationSteps() {
                   <span>{etapas.novaEtapa}</span>
                   <span>{etapas.numeroEtapa}</span>
                   <span>{etapas.perfil}</span>
-                  <DeleteButton onDelete={() => deleteDados(etapas.id)} />
+                  <DeleteButton onDelete={() => deleteDados(etapas)} />
                   {/* <EditButton
                     onEdit={() => update(etapas.id)}
                   /> */}
@@ -1589,17 +2201,29 @@ export default function ConfigurationSteps() {
             <S.Div2 className='form-check'>
               <div className='form-control-group-check'>
                 <h2>Tipo da Etapa</h2>
-                <Switch
-                  checkedChildren='Pontos de verificação de planejamento'
-                  unCheckedChildren='Pontos de verificação de planejamento'
-                  onClick={() => setTipoEtapa('planejamento')}
-                />
+                {tipoEtapa === 'planejamento' ?
+                  <Switch
+                    checkedChildren='Pontos de verificação de planejamento'
+                    unCheckedChildren='Pontos de verificação de planejamento'
+                    defaultChecked
+                  /> :
+                  <Switch
+                    checkedChildren='Pontos de verificação de planejamento'
+                    unCheckedChildren='Pontos de verificação de planejamento'
+                    onClick={() => setTipoEtapa('planejamento')} />
+                }
 
-                <Switch
-                  checkedChildren='Pontos de verificação da execução'
-                  unCheckedChildren='Pontos de verificação da execução'
-                  onClick={() => setTipoEtapa('execução')}
-                />
+                {tipoEtapa === 'execução' ?
+                  <Switch
+                    checkedChildren='Pontos de verificação da execução'
+                    unCheckedChildren='Pontos de verificação da execução'
+                    defaultChecked
+                  /> :
+                  <Switch
+                    checkedChildren='Pontos de verificação da execução'
+                    unCheckedChildren='Pontos de verificação da execução'
+                    onClick={() => setTipoEtapa('execução')}
+                  />}
               </div>
               <div className='form-control-group-switch'>
                 <h2>Adicione os campos</h2>
