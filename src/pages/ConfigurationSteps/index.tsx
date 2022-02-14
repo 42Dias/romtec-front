@@ -274,7 +274,7 @@ export default function ConfigurationSteps() {
     console.log('idConfigTravessia')
     console.log(idConfigTravessia.replace('#/etapas-da-configuracao/', ''))
     // eslint-disable-next-line
-    api.get(`etapas?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace('#/etapas-da-configuracao/', '',)}`,)
+    await api.get(`etapas?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace('#/etapas-da-configuracao/', '',)}`,)
       .then((response) => {
         console.log(response.data.rows)
         if (response.statusText === 'OK') {
@@ -288,7 +288,7 @@ export default function ConfigurationSteps() {
         setLoading(false)
       })
 
-    api.get(`etapasColunas?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace('#/etapas-da-configuracao/', '',)}`,
+    await api.get(`etapasColunas?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace('#/etapas-da-configuracao/', '',)}`,
     ).then((response) => {
       console.log(response.data.rows)
       if (response.statusText === 'OK') {

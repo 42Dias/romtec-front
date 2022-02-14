@@ -457,7 +457,7 @@ export default function
 
               <TextField
                 label='Próxima revisão/manutenção'
-               value={nextOverhaul}
+                value={nextOverhaul}
                 onChange={(text) => setNextOverhaul(text.target.value)}
               />
 
@@ -471,7 +471,7 @@ export default function
                 <fieldset>
                   <label htmlFor='revisionSubtypes'>Subtipos de revisão</label>
                   <select id='revisionSubtypes' value={revisionSubtypes}
-                onChange={(text) => setRevisionSubtypes(text.target.value)}>
+                    onChange={(text) => setRevisionSubtypes(text.target.value)}>
                     <option value=''>Select...</option>
                     <option value='Navegador'>Preventiva</option>
                     <option value='Operador'>Preditiva</option>

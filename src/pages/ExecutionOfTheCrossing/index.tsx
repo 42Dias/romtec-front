@@ -24,7 +24,7 @@ type FormData = {
 }
 
 export default function
-ExecutionOfTheCrossing () {
+  ExecutionOfTheCrossing() {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenPhases, setIsOpenPhases] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
@@ -36,12 +36,16 @@ ExecutionOfTheCrossing () {
   const [idconfigTravessia, setIdconfigTravessia] = useState('')
   const [descricao, setdescricao] = useState('')
   const [nome, setnome] = useState('')
+  const [nomeCliente, setnomeCliente] = useState('')
+  const [idCliente, setIdCliente] = useState('')
+  const [idConfigTravessia, setidConfigTravessia] = useState('')
+  const [nomeConfigTravessia, setnomeConfigTravessia] = useState('')
   const [configurationCrossings, setConfigurationCrossings] = useState<any[]>([])
   const [clientes, setClientes] = useState<any[]>([])
   const link = '/etapas/'
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
     data.idCliente = data.nomeCliente.split('/')[0]
     data.nomeCliente = data.nomeCliente.split('/')[1]
     data.idConfigTravessia = data.nomeConfigTravessia.split('/')[0]
@@ -77,7 +81,7 @@ ExecutionOfTheCrossing () {
     })
   }
 
-  async function loadDados () {
+  async function loadDados() {
     setLoading(true)
     // eslint-disable-next-line
     api.get('executarTravessia',
@@ -117,7 +121,7 @@ ExecutionOfTheCrossing () {
       setLoading(false)
     })
   }
-  async function deleteDados (id: string) {
+  async function deleteDados(id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('executarTravessia/' + id
@@ -132,20 +136,29 @@ ExecutionOfTheCrossing () {
       setLoading(false)
     })
   }
-  function update (dados: any) {
+  function update(dados: any) {
     console.log('dados')
     console.log(dados)
     setIdconfigTravessia(dados.id)
     setdescricao(dados.descricao)
-    setnome(dados.nome)
+    setidConfigTravessia(dados.idConfigTravessia)
+    setnome(dados.nomeTravessia)
+    setIdCliente(dados.idCliente)
+    setnomeCliente(dados.idCliente + '/' + dados.nomeCliente)
+    setnomeConfigTravessia(dados.idConfigTravessia + '/' + dados.nomeConfigTravessia)
     setIsOpenUpdate(true)
   }
-  async function updateDados () {
+  async function updateDados() {
     setLoading(true)
     const responser = api.put('executarTravessia/' + idconfigTravessia, {
       data: {
         descricao: descricao,
         nome: nome,
+        nomeCliente: nomeCliente.split('/')[1],
+        idCliente: nomeCliente.split('/')[0],
+        idConfigTravessia: nomeConfigTravessia.split('/')[0],
+        nomeConfigTravessia: nomeConfigTravessia.split('/')[1],
+        nomeTravessia: nome
       },
     },
     ).then((response) => {
@@ -163,11 +176,11 @@ ExecutionOfTheCrossing () {
     setLoading(true)
     loadDados()
   }, [])
-  function close () {
+  function close() {
     reset()
     setIsOpen(false)
   }
-  function onChange (e: any) {
+  function onChange(e: any) {
     console.log(`checked = ${e.target.checked}`)
   }
 
@@ -371,16 +384,75 @@ ExecutionOfTheCrossing () {
         <Modal isOpen={isOpenUpdate} onClose={() => setIsOpenUpdate(false)}>
           <S.Container>
             <S.Div>
+              <div className='form-control-group'>
+                <label
+                >Nome do Cliente
+                </label>
+                <select
+                  name='nomeCliente' id='nomeCliente'
+                  value={nomeCliente}
+                  onChange={(text) => setnomeCliente(text.target.value)}
+                >
+                  <option value={nomeCliente}>{nomeCliente.split('/')[1]}</option>
+                  {clientes.length > 0
+                    ? clientes.map((cliente) =>
+                      nomeCliente.split('/')[1] === cliente.nomeFantasia ? false :
+                        <option value={cliente.id + '/' + cliente.nomeFantasia}>{cliente.nomeFantasia}</option>,
+                    )
+                    : <option value=''>Nenhum Cliente cadastrado!</option>}
+                </select>
+              </div>
               <TextField
-                label='Nome'
+                label='Nome da travessia'
                 value={nome}
                 onChange={(text) => setnome(text.target.value)}
               />
+              {/* <TextField
+                label='Nome da travessia'
+                errorMessage={errors.descricao?.message}
+                {...register('descricao', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              /> */}
               <TextField
                 label='Descrição'
                 value={descricao}
                 onChange={(text) => setdescricao(text.target.value)}
               />
+
+              {/* <TextField
+                label='Configuração da travessia'
+                errorMessage={errors.descricao?.message}
+                {...register('descricao', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+              /> */}
+              <div className='form-control-group'>
+                <label
+                  htmlFor='nomeConfigTravessia'
+                >Configuração da travessia
+                </label>
+                <select
+                  value={nomeConfigTravessia}
+                  onChange={(text) => setnomeConfigTravessia(text.target.value)}
+                  name='nomeConfigTravessia' id='nomeConfigTravessia'
+                >
+                  <option value={nomeConfigTravessia}>{nomeConfigTravessia.split('/')[1]}</option>
+                  {travessia.length > 0
+                    ? travessia.map((travessia) =>
+                      nomeConfigTravessia.split('/')[1] === travessia.nome ? false :
+                        <option value={travessia.id + '/' + travessia.nome}>{travessia.nome}</option>,
+
+                    )
+                    : <option value=''>Nenhuma Configuração de Travessia cadastrado!</option>}
+                </select>
+              </div>
               <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
             </S.Div>
           </S.Container>
