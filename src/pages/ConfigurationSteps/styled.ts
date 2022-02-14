@@ -239,7 +239,7 @@ export const Div2 = styled.div`
     width: 250px;
     height: 45px; 
 
-    border: 1px solid #00E1AF;
+    border: 1px solid ${theme.colors.yellow};
     box-sizing: border-box;
     border-radius: 5px;
     font-size: 12px;
@@ -353,12 +353,12 @@ export const Div2 = styled.div`
     width: 250px;
     height: 45px;
 
-    border: 1px solid ${theme.colors.green} !important;
+    border: 1px solid ${theme.colors.yellow} !important;
     background: transparent;
   }
 
   .ant-switch-checked {
-    background-color: ${theme.colors.green}
+    background-color: ${theme.colors.yellow}
   }
 `
 export const Div = styled.div`
