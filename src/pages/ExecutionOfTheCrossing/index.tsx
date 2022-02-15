@@ -420,7 +420,7 @@ export default function
               <TextField
                 label='Descrição'
                 value={descricao}
-                onChange={(text) => setdescricao(text.target.value)}
+                onChange={(text) => setdescricao(text.target.value)} 
               />
 
               {/* <TextField
