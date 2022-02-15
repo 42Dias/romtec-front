@@ -253,7 +253,7 @@ export default function
     console.log(responsavel)
     const data = {
       banco: 'todos-campos',
-      idConfigTravessia: idConfigTravessia.replace('#/etapas/', ''),
+      idConfigTravessia: idConfigTravessia.replace('#/etapas/', '').split('/')[0],
       etapaId: idEtapa,
       PontoVerEntradaLat: latitudeEntrada,
       PontoVerEntradaLong: longitudeEntrada,
@@ -334,6 +334,7 @@ export default function
       //EmpresaProp: EmpresaProprietaria,
       empresaProprietaria: EmpresaProprietaria,
       finalizarEtapa: false,
+      travessiaId: idConfigTravessia.replace("#/etapas/", '').split('/')[1]
     }
 
     console.log(data)
@@ -424,7 +425,7 @@ export default function
   async function loadDados(url: string) {
     setLoading(true)
     // eslint-disable-next-line
-    const responser = await api.get(url + `?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/etapas/", '')}`,
+    const responser = await api.get(url + `?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/etapas/", '').split('/')[0]}`,
     ).then((response) => {
       if (response.statusText === 'OK') {
         setDados(response.data.rows)
@@ -543,7 +544,7 @@ export default function
 
   function openModal(data: any) {
     console.log(data)
-    api.get(`todos-campos?filter%5BetapaId%5D=${data.id}`,
+    api.get(`todos-campos?filter%5BetapaId%5D=${data.id}&filter%5BidTravessia%5D=${idConfigTravessia.replace("#/etapas/", '').split('/')[1]}`,
     ).then((response) => {
       console.log(response.data.rows)
       if (response.statusText === 'OK') {
@@ -627,6 +628,8 @@ export default function
           setEmpresaProprietaria(response.data.rows[0].empresaProprietaria)
           setDiametroFerramenta(response.data.rows[0].diametroFerramenta)
           setFinalizarEtapa(response.data.rows[0].finalizarEtapa)
+        }else{
+          setFinalizarEtapa(false)
         }
         setLoading(false)
       }
@@ -714,6 +717,7 @@ export default function
     setcampoEmpresaProprietaria(data.empresaProp)
     setcampoEmpresaProprietaria(data.empresaProprietaria)
     setcampoDiametroFerramenta(data.diametroFerramenta)
+
     setisOpenUpdatePlanejamentoPerfuração(true)
   }
   function afterOpenModal() {

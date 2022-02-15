@@ -223,7 +223,7 @@ export default function
                   >
                     <FaEdit size={20} />
                   </button>
-                  <Link to={link + configurationCrossing.idConfigTravessia}><span>Executar travessia</span></Link>
+                  <Link to={link + configurationCrossing.idConfigTravessia+'/'+configurationCrossing.id}><span>Executar travessia</span></Link>
                   {/* {<button><span>Executar travessia</span></button>}
                    <Link to='/etapas'><span>Executar travessia</span></Link> */}
                 </S.GridConfirmation>
