@@ -2223,6 +2223,16 @@ export default function ConfigurationSteps () {
                       unCheckedChildren='Pontos de verificação da execução'
                       onClick={() => setTipoEtapa('execução')}
                     />}
+
+                <Switch
+                  checkedChildren='Pontos de verificação de planejamento'
+                  unCheckedChildren='Pontos de verificação de planejamento'
+                />
+
+                <Switch
+                  checkedChildren='Pontos de verificação da execução'
+                  unCheckedChildren='Pontos de verificação da execução'
+                />
               </div>
               <div className='form-control-group-switch'>
                 <h2>Adicione os campos</h2>
