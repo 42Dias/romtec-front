@@ -250,7 +250,7 @@ export default function
   }
 
   function onSubmitLevantamento() {
-    console.log(responsavel)
+    console.log(idEtapa)
     const data = {
       banco: 'todos-campos',
       idConfigTravessia: idConfigTravessia.replace('#/etapas/', '').split('/')[0],
@@ -544,12 +544,13 @@ export default function
 
   function openModal(data: any) {
     console.log(data)
+    setIdEtapa(data.id)
     api.get(`todos-campos?filter%5BetapaId%5D=${data.id}&filter%5BidTravessia%5D=${idConfigTravessia.replace("#/etapas/", '').split('/')[1]}`,
     ).then((response) => {
       console.log(response.data.rows)
       if (response.statusText === 'OK') {
         if (response.data.count > 0) {
-          setIdEtapa(data.etapaId)
+          //setIdEtapa(data.etapaId)
           setidTodosCampos(response.data.rows[0].id) 
           setlatitudeEntrada(response.data.rows[0].PontoVerEntradaLat)
           setlongitudeEntrada(response.data.rows[0].PontoVerEntradaLong)
@@ -741,7 +742,7 @@ export default function
   }
   const uploadImage = async (imagemNova: string | Blob) => {
     const formData = new FormData()
-
+    console.log("upload")
     formData.append('image', imagemNova)
 
     // console.log(...formData)
@@ -1156,6 +1157,8 @@ export default function
                         // @ts-ignore
                         setName(e.target.files[0].name)
                         // @ts-ignore
+                        console.log(e.target.files[0]) 
+                        // @ts-ignore
                         setImage(e.target.files[0])
 
                         // @ts-ignore
@@ -1373,6 +1376,8 @@ export default function
                         console.log(e.target.files[0].name)
                         // @ts-ignore
                         setName(e.target.files[0].name)
+                        // @ts-ignore
+                        console.log(e.target.files[0]) 
                         // @ts-ignore
                         setImage(e.target.files[0])
 
