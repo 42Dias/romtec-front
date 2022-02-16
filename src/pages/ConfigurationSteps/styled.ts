@@ -238,11 +238,15 @@ export const Div2 = styled.div`
     margin-top: 10px;
     width: 250px;
     height: 45px; 
-
     border: 1px solid ${theme.colors.yellow};
     box-sizing: border-box;
     border-radius: 5px;
     font-size: 12px;
+  }
+
+  hr {
+    width: 250px;
+    margin: 20px 0 40px 0;
   }
 
   .buttons-points {
