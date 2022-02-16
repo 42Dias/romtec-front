@@ -250,7 +250,7 @@ export default function
   }
 
   function onSubmitLevantamento() {
-    console.log(idEtapa)
+    //console.log(idEtapa)
     const data = {
       banco: 'todos-campos',
       idConfigTravessia: idConfigTravessia.replace('#/etapas/', '').split('/')[0],
@@ -337,7 +337,7 @@ export default function
       travessiaId: idConfigTravessia.replace("#/etapas/", '').split('/')[1]
     }
 
-    console.log(data)
+    //console.log(data)
     // if (isUpdate) {
     //   updateDados()
     //   setIsUpdate(false)
@@ -347,7 +347,7 @@ export default function
   }
 
   function onSubmitInterferenciasFisicasMagneticas() {
-    console.log(responsavel)
+    //console.log(responsavel)
     const data = {
       idConfigTravessia: idConfigTravessia.replace('#/etapas/', ''),
       banco: 'interferenciasFisicasMagneticas',
@@ -397,13 +397,15 @@ export default function
 
   async function createNewFile(submit: any) {
     setLoading(true)
-    console.log('submit')
-    console.log(submit)
+    //console.log('submit')
+    //console.log(submit)
     // eslint-disable-next-line
     const responser = await api.post(submit.banco, {
       data: submit,
     }).then((response) => {
+      //console.log(response)
       if (response.statusText === 'OK') {
+        setidTodosCampos(response.data.id)
         toast.success('Cadastrado realizado com sucesso!')
         setLoading(false)
         reset()
@@ -417,7 +419,7 @@ export default function
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res)
+      //console.log(res)
       toast.error(res.response.data)
       setLoading(false)
     })
@@ -430,11 +432,11 @@ export default function
       if (response.statusText === 'OK') {
         setDados(response.data.rows)
         setUrl(url)
-        console.log(dados)
+        //console.log(dados)
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res.response.data)
+      //console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
@@ -451,17 +453,17 @@ export default function
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res.response.data)
+      //console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
   }
   function update(data: any) {
-    console.log('data')
-    console.log(data)
+    //console.log('data')
+    //console.log(data)
     // setDados(data)
     setId(data[0].id)
-    console.log(url)
+    //console.log(url)
     if (url === 'planejamentoPerfuracao') {
       setlatitudeEntrada(data[0].latitudeEntrada)
       setlongitudeSaida(data[0].longitudeSaida)
@@ -507,16 +509,97 @@ export default function
       setTipoSolo(data[0].tipoSolo)
       settipoTubulacao(data[0].tipoTubulacao)
     }
-    console.log(idDados)
+    //console.log(idDados)
   }
   async function updateDados() {
     setLoading(true)
-    console.log('idDados')
-    console.log(idDados)
+    //console.log('idTodosCampos')
+    //console.log(idTodosCampos)
     // console.log(soilTypesUp)
     const responser = api.put('todos-campos/' + idTodosCampos, {
       data: {
-        finalizarEtapa: true
+        idConfigTravessia: idConfigTravessia.replace('#/etapas/', '').split('/')[0],
+      etapaId: idEtapa,
+      PontoVerEntradaLat: latitudeEntrada,
+      PontoVerEntradaLong: longitudeEntrada,
+      PontoVerSaidaLat: latitudeSaida,
+      PontoVerSaidaLong: longitudeSaida,
+      TipoSolo: tipoSolo,
+      DiametroPerf: diametroPerfuracao,
+      TipoRede: tipoRede,
+      TipoTub: tipoTubulacao,
+      Responsavel: responsavel,
+      Equipamentos: equipamentos,
+      Documentos: documentos,
+      EmpresaProp: empresa,
+      ConfSondagemInterferencia: sondagemInterferencia,
+      Sondagem: sondagem,
+      DiametroInterferencia: diametroPerfuracao,
+      CriacaoPlanoFuro: criacaoplanoFuro,
+      Ferramentas: ferramentas,
+      InformacoesEnvolvidas: infoEnvolvidas,
+      Diametro: diametroPerfuracao,
+      LocalRelDiretrizFuro: localDiretrizFuro,
+      TipoInterferencia: tipoInterferencia,
+      Profundidade: profundidade,
+      ResponsavelTopografia: respTopografia,
+      DataExecTopografia: '2022-01-01',
+      nomePerfilAcesso: nomePerfilAcesso,
+      dataExecucao: dataExecucao,
+      responsavelExecucao: responsavelExecucao,
+      horaExecucao: horaExecucao,
+      croquiMapeamento: croquiMapeamento,
+      equipamentoUtilizado: equipamentoUtilizado,
+      materializacaoCampo: materializacaoCampo,
+      quantidadeInterferencias: quantidadeInterferencias,
+      paraleloEsquerda: paraleloEsquerda,
+      paraleloDireita: paraleloDireita,
+      perpendicular: perpendicular,
+      profundidade: profundidade,
+      diametroInterferencia: diametroInterferencia,
+      tipoInterferencia: tipoInterferencia,
+      largura: largura,
+      comprimento: comprimento,
+      profundidadeVala: profundidade,
+      estacaReferencia: estacaReferencia,
+      numeroHastes: numeroHastes,
+      profundidadePlanejada: profundidadePlanejada,
+      avancoPlanejado: avancoPlanejado,
+      profundidadeExecutada: profundidadeExecutada,
+      avancoExecutado: avancoExecutado,
+      amarracao: amarracao,
+      maquinaPerfuratriz: maquinaPerfuratriz,
+      diametroAlargamento: diametroAlargamento,
+      tempoHaste: tempoHaste,
+      vazaoBomba: vazaoBomba,
+      tipoRedeTubula: tipoRedeTubula,
+      diametroRede: diametroRede,
+      ferramentasUtilizadas: ferramentasUtilizadas,
+      modeloAlargador: modeloAlargador,
+      capacidadePortaFusilink: capacidadePortaFusilink,
+      capacidadeSwivel: capacidadeSwivel,
+      fluido: Fluido,
+      receitaFluido: ReceitaFluido,
+      portaSonda: PortaSonda,
+      confirmacaoProcedimento: ConfirmacaoProcedimento,
+      volumePrepardo: VolumePreparado,
+      testeVicosidade: TesteVicosidade,
+      hastes: Hastes,
+      sonda: Sonda,
+      paPerfuracao: paPerfuracao,
+      pullingHead: PullingHead,
+      localizador: Localizador,
+      luva: Luva,
+      hasteInicial: HasteInicial,
+      flexoBarra: Flexobarra,
+      radio: Radio,
+      parafuso: Parafuso,
+      diametroFerramenta: DiametroFerramenta,
+      condicaoFerramenta: CondicaoFerramenta,
+      //EmpresaProp: EmpresaProprietaria,
+      empresaProprietaria: EmpresaProprietaria,
+      travessiaId: idConfigTravessia.replace("#/etapas/", '').split('/')[1],
+      finalizarEtapa: true
       },
     },
     ).then((response) => {
@@ -525,9 +608,10 @@ export default function
         // setisOpenUpdatePlanejamentoPerfuração(false)
         setFinalizarEtapa(true)
         setLoading(false)
+        toast.success("Etapa finalizada!")
       }
     }).catch(res => {
-      console.log(res.response.data)
+      //console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
@@ -536,21 +620,22 @@ export default function
   useEffect(() => {
     // console.log(soilTypesUp)
     idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas/', '')
-    console.log('useEffect')
-    console.log(idConfigTravessia)
+    //console.log('useEffect')
+    //console.log(idConfigTravessia)
     // setLoading(true)
     loadDados('etapas')
   }, [])
 
   function openModal(data: any) {
-    console.log(data)
-    setIdEtapa(data.id)
+    //console.log(data)
+    setIdEtapa(data.etapaId)
     api.get(`todos-campos?filter%5BetapaId%5D=${data.id}&filter%5BidTravessia%5D=${idConfigTravessia.replace("#/etapas/", '').split('/')[1]}`,
     ).then((response) => {
-      console.log(response.data.rows)
+      //console.log(response.data.rows)
       if (response.statusText === 'OK') {
         if (response.data.count > 0) {
-          //setIdEtapa(data.etapaId)
+          //console.log(response.data.rows[0].id)
+          setIdEtapa(data.etapaId)
           setidTodosCampos(response.data.rows[0].id) 
           setlatitudeEntrada(response.data.rows[0].PontoVerEntradaLat)
           setlongitudeEntrada(response.data.rows[0].PontoVerEntradaLong)
@@ -631,11 +716,12 @@ export default function
           setFinalizarEtapa(response.data.rows[0].finalizarEtapa)
         }else{
           setFinalizarEtapa(false)
+          setidTodosCampos('')
         }
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res.response.data)
+      ////console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
@@ -742,7 +828,7 @@ export default function
   }
   const uploadImage = async (imagemNova: string | Blob) => {
     const formData = new FormData()
-    console.log("upload")
+    //console.log("upload")
     formData.append('image', imagemNova)
 
     // console.log(...formData)
@@ -757,17 +843,17 @@ export default function
 
     await axios.post(`${ip}:8080/upload-image`, formData, headers)
       .then((response) => {
-        console.log(response)
+        //console.log(response)
         if (response.status == 200) {
           const pathHelper = response.data.mensagem
-          console.log(ip + pathHelper)
+          //console.log(ip + pathHelper)
           toast.info('Imagem Válida!')
         } else {
           toast.info('Imagem inválida, ou problemas com o servidor :(')
         }
       }).catch((err) => {
         if (err.response) {
-          console.log(err)
+          //console.log(err)
           toast.error('Erro: Tente mais tarde :(')
         } else {
           // setStatus({
@@ -1150,14 +1236,14 @@ export default function
                       type='file'
                       name='image'
                       onChange={e => {
-                        console.log(e)
+                        //console.log(e)
 
                         // @ts-ignore
-                        console.log(e.target.files[0].name)
+                        //console.log(e.target.files[0].name)
                         // @ts-ignore
                         setName(e.target.files[0].name)
                         // @ts-ignore
-                        console.log(e.target.files[0]) 
+                        //console.log(e.target.files[0]) 
                         // @ts-ignore
                         setImage(e.target.files[0])
 
@@ -1370,14 +1456,14 @@ export default function
                       type='file'
                       name='image'
                       onChange={e => {
-                        console.log(e)
+                        //console.log(e)
 
                         // @ts-ignore
-                        console.log(e.target.files[0].name)
+                        //console.log(e.target.files[0].name)
                         // @ts-ignore
                         setName(e.target.files[0].name)
                         // @ts-ignore
-                        console.log(e.target.files[0]) 
+                        //console.log(e.target.files[0]) 
                         // @ts-ignore
                         setImage(e.target.files[0])
 
@@ -1980,7 +2066,7 @@ export default function
               />
               : 'Salvar'}
             </button> : false}
-            {!finalizarEtapa ?<button  onClick={() => { updateDados() }} className='finishPhase'>{loading
+            {!finalizarEtapa ? idTodosCampos === '' ? <button  onClick={() => {toast.info("É preciso salvar a etapa!")}} className='finishPhase'>Finalizar Etapa</button>:<button  onClick={() => { updateDados() }} className='finishPhase'>{loading
               ? <img
                 width='40px'
                 style={{ margin: 'auto' }}

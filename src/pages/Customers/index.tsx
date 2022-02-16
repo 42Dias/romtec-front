@@ -3,7 +3,7 @@ import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 import { FiPlus } from 'react-icons/fi'
-import { useEffect, useState } from 'react'
+import { SetStateAction, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { TextField } from '../../ui/Components/TextField'
 import { toast } from 'react-toastify'
@@ -33,7 +33,7 @@ type FormData = {
 }
 
 export default function
-Customers () {
+  Customers() {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -51,7 +51,7 @@ Customers () {
   const [complemento, setComplemento] = useState('')
   const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<FormData>()
 
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
     data.logradouro = logradouro
     data.bairro = bairro
     data.cidade = cidade
@@ -59,7 +59,7 @@ Customers () {
     console.log(data)
     Cadastro(data)
   }
-  async function Cadastro (submit: any) {
+  async function Cadastro(submit: any) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.post('clientes', {
@@ -86,7 +86,7 @@ Customers () {
     })
   }
 
-  async function loadDados () {
+  async function loadDados() {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.get('clientes',
@@ -102,7 +102,7 @@ Customers () {
       setLoading(false)
     })
   }
-  async function deleteDados (id: string) {
+  async function deleteDados(id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('clientes/' + id,
@@ -117,7 +117,7 @@ Customers () {
       setLoading(false)
     })
   }
-  function update (dados: any) {
+  function update(dados: any) {
     console.log('dados')
     console.log(dados)
     setIdClientes(dados.id)
@@ -133,7 +133,7 @@ Customers () {
     setComplemento(dados.complemento)
     setIsOpenUpdate(true)
   }
-  async function updateDados () {
+  async function updateDados() {
     setLoading(true)
     const responser = api.put('clientes/' + idClientes, {
       data: {
@@ -159,12 +159,12 @@ Customers () {
     setLoading(true)
     loadDados()
   }, [])
-  function onSubmitInput (values: any, actions: any) {
+  function onSubmitInput(values: any, actions: any) {
     // console.log(data)
     // Cadastro(data)
     console.log('SUBMIT', values)
   }
-  function onBlurCep (ev: any, setFieldValue: any) {
+  function onBlurCep(ev: any, setFieldValue: any) {
     const { value } = ev.target
 
     const cep = value?.replace(/[^0-9]/g, '')
@@ -176,14 +176,19 @@ Customers () {
     fetch(`https://viacep.com.br/ws/${cep}/json/`)
       .then((res) => res.json())
       .then((data) => {
-        setFieldValue('logradouro', data.logradouro)
-        setFieldValue('bairro', data.bairro)
-        setFieldValue('cidade', data.localidade)
-        setFieldValue('uf', data.uf)
-        setLogradouro(data.logradouro)
-        setBairro(data.bairro)
-        setCidade(data.localidade)
-        setUf(data.uf)
+        console.log(data)
+        if (data.erro === true) {
+          toast.error('CEP não encontrado!')
+        } else {
+          setFieldValue('logradouro', data.logradouro)
+          setFieldValue('bairro', data.bairro)
+          setFieldValue('cidade', data.localidade)
+          setFieldValue('uf', data.uf)
+          setLogradouro(data.logradouro)
+          setBairro(data.bairro)
+          setCidade(data.localidade)
+          setUf(data.uf)
+        }
       })
   }
   return (
@@ -420,8 +425,10 @@ Customers () {
                     </div>
 
                     <div className='form-control-group'>
-                      <label>Logradouro</label>
-                      <Field name='logradouro' type='text' />
+                      <label >Logradouro</label>
+                      <Field name='logradouro' type='text'
+                        value={logradouro}
+                        onChange={(text: { target: { value: SetStateAction<string> } }) => setLogradouro(text.target.value)} />
                     </div>
 
                     <TextField
@@ -446,17 +453,23 @@ Customers () {
 
                     <div className='form-control-group'>
                       <label>Bairro</label>
-                      <Field name='bairro' type='text' />
+                      <Field name='bairro' type='text'
+                        value={bairro}
+                        onChange={(text: { target: { value: SetStateAction<string> } }) => setBairro(text.target.value)} />
                     </div>
 
                     <div className='form-control-group'>
                       <label>Cidade</label>
-                      <Field name='cidade' type='text' />
+                      <Field name='cidade' type='text'
+                        value={cidade}
+                        onChange={(text: { target: { value: SetStateAction<string> } }) => setCidade(text.target.value)} />
                     </div>
 
                     <div className='form-control-group'>
                       <label>Estado</label>
-                      <Field component='select' name='uf'>
+                      <Field component='select' name='uf'
+                        value={uf}
+                        onChange={(text: { target: { value: SetStateAction<string> } }) => setUf(text.target.value)}>
                         <option value=''>Selecione o Estado</option>
                         <option value='AC'>Acre</option>
                         <option value='AL'>Alagoas</option>
@@ -526,24 +539,6 @@ Customers () {
               />
 
               <TextField
-                label='UF'
-                value={uf}
-                onChange={(text) => setUf(text.target.value)}
-              />
-
-              <TextField
-                label='Cidade'
-                value={cidade}
-                onChange={(text) => setCidade(text.target.value)}
-              />
-
-              <TextField
-                label='Bairro'
-                value={bairro}
-                onChange={(text) => setBairro(text.target.value)}
-              />
-
-              <TextField
                 label='Logradouro'
                 value={logradouro}
                 onChange={(text) => setLogradouro(text.target.value)}
@@ -560,6 +555,24 @@ Customers () {
                 label='Complemento'
                 value={complemento}
                 onChange={(text) => setComplemento(text.target.value)}
+              />
+
+              <TextField
+                label='Bairro'
+                value={bairro}
+                onChange={(text) => setBairro(text.target.value)}
+              />
+
+              <TextField
+                label='Cidade'
+                value={cidade}
+                onChange={(text) => setCidade(text.target.value)}
+              />
+
+              <TextField
+                label='UF'
+                value={uf}
+                onChange={(text) => setUf(text.target.value)}
               />
 
               <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
