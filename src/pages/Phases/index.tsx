@@ -13,7 +13,7 @@ import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 
 import { FiPlus, FiCheck, FiPlay, FiLock, FiX } from 'react-icons/fi'
-import { api, ip } from '../../services/api'
+import { api, ip, token } from '../../services/api'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { platform, type } from 'os'
@@ -233,6 +233,11 @@ export default function
   const [idTodosCampos, setidTodosCampos] = useState('')
   const [finalizarEtapa, setFinalizarEtapa] = useState(false)
   const [name, setName] = useState<any>('')
+  const [image, setImage] = useState<any>('')
+  let credencial = ''
+  var nameImage = ''
+  var Image: any
+  const formData = new FormData() 
   // function onSubmit(data: FormData) {
   //   data.idConfigTravessia = idConfigTravessia.replace('#/etapas/', '')
   //   data.banco = 'todos-campos'
@@ -342,7 +347,7 @@ export default function
     //   updateDados()
     //   setIsUpdate(false)
     // } else {
-      createNewFile(data)
+    createNewFile(data)
     //}
   }
 
@@ -400,17 +405,19 @@ export default function
     //console.log('submit')
     //console.log(submit)
     // eslint-disable-next-line
-    const responser = await api.post(submit.banco, {
+    console.log(credencial)
+    await api.post(submit.banco, {
       data: submit,
-    }).then((response) => {
+    }).then(async (response) => {
       //console.log(response)
       if (response.statusText === 'OK') {
         setidTodosCampos(response.data.id)
-        toast.success('Cadastrado realizado com sucesso!')
+        
         setLoading(false)
         reset()
         setIsOpenPlanejamento(false)
         // loadDados()
+        
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')
         setLoading(false)
@@ -519,87 +526,87 @@ export default function
     const responser = api.put('todos-campos/' + idTodosCampos, {
       data: {
         idConfigTravessia: idConfigTravessia.replace('#/etapas/', '').split('/')[0],
-      etapaId: idEtapa,
-      PontoVerEntradaLat: latitudeEntrada,
-      PontoVerEntradaLong: longitudeEntrada,
-      PontoVerSaidaLat: latitudeSaida,
-      PontoVerSaidaLong: longitudeSaida,
-      TipoSolo: tipoSolo,
-      DiametroPerf: diametroPerfuracao,
-      TipoRede: tipoRede,
-      TipoTub: tipoTubulacao,
-      Responsavel: responsavel,
-      Equipamentos: equipamentos,
-      Documentos: documentos,
-      EmpresaProp: empresa,
-      ConfSondagemInterferencia: sondagemInterferencia,
-      Sondagem: sondagem,
-      DiametroInterferencia: diametroPerfuracao,
-      CriacaoPlanoFuro: criacaoplanoFuro,
-      Ferramentas: ferramentas,
-      InformacoesEnvolvidas: infoEnvolvidas,
-      Diametro: diametroPerfuracao,
-      LocalRelDiretrizFuro: localDiretrizFuro,
-      TipoInterferencia: tipoInterferencia,
-      Profundidade: profundidade,
-      ResponsavelTopografia: respTopografia,
-      DataExecTopografia: '2022-01-01',
-      nomePerfilAcesso: nomePerfilAcesso,
-      dataExecucao: dataExecucao,
-      responsavelExecucao: responsavelExecucao,
-      horaExecucao: horaExecucao,
-      croquiMapeamento: croquiMapeamento,
-      equipamentoUtilizado: equipamentoUtilizado,
-      materializacaoCampo: materializacaoCampo,
-      quantidadeInterferencias: quantidadeInterferencias,
-      paraleloEsquerda: paraleloEsquerda,
-      paraleloDireita: paraleloDireita,
-      perpendicular: perpendicular,
-      profundidade: profundidade,
-      diametroInterferencia: diametroInterferencia,
-      tipoInterferencia: tipoInterferencia,
-      largura: largura,
-      comprimento: comprimento,
-      profundidadeVala: profundidade,
-      estacaReferencia: estacaReferencia,
-      numeroHastes: numeroHastes,
-      profundidadePlanejada: profundidadePlanejada,
-      avancoPlanejado: avancoPlanejado,
-      profundidadeExecutada: profundidadeExecutada,
-      avancoExecutado: avancoExecutado,
-      amarracao: amarracao,
-      maquinaPerfuratriz: maquinaPerfuratriz,
-      diametroAlargamento: diametroAlargamento,
-      tempoHaste: tempoHaste,
-      vazaoBomba: vazaoBomba,
-      tipoRedeTubula: tipoRedeTubula,
-      diametroRede: diametroRede,
-      ferramentasUtilizadas: ferramentasUtilizadas,
-      modeloAlargador: modeloAlargador,
-      capacidadePortaFusilink: capacidadePortaFusilink,
-      capacidadeSwivel: capacidadeSwivel,
-      fluido: Fluido,
-      receitaFluido: ReceitaFluido,
-      portaSonda: PortaSonda,
-      confirmacaoProcedimento: ConfirmacaoProcedimento,
-      volumePrepardo: VolumePreparado,
-      testeVicosidade: TesteVicosidade,
-      hastes: Hastes,
-      sonda: Sonda,
-      paPerfuracao: paPerfuracao,
-      pullingHead: PullingHead,
-      localizador: Localizador,
-      luva: Luva,
-      hasteInicial: HasteInicial,
-      flexoBarra: Flexobarra,
-      radio: Radio,
-      parafuso: Parafuso,
-      diametroFerramenta: DiametroFerramenta,
-      condicaoFerramenta: CondicaoFerramenta,
-      //EmpresaProp: EmpresaProprietaria,
-      empresaProprietaria: EmpresaProprietaria,
-      travessiaId: idConfigTravessia.replace("#/etapas/", '').split('/')[1],
-      finalizarEtapa: true
+        etapaId: idEtapa,
+        PontoVerEntradaLat: latitudeEntrada,
+        PontoVerEntradaLong: longitudeEntrada,
+        PontoVerSaidaLat: latitudeSaida,
+        PontoVerSaidaLong: longitudeSaida,
+        TipoSolo: tipoSolo,
+        DiametroPerf: diametroPerfuracao,
+        TipoRede: tipoRede,
+        TipoTub: tipoTubulacao,
+        Responsavel: responsavel,
+        Equipamentos: equipamentos,
+        Documentos: documentos,
+        EmpresaProp: empresa,
+        ConfSondagemInterferencia: sondagemInterferencia,
+        Sondagem: sondagem,
+        DiametroInterferencia: diametroPerfuracao,
+        CriacaoPlanoFuro: criacaoplanoFuro,
+        Ferramentas: ferramentas,
+        InformacoesEnvolvidas: infoEnvolvidas,
+        Diametro: diametroPerfuracao,
+        LocalRelDiretrizFuro: localDiretrizFuro,
+        TipoInterferencia: tipoInterferencia,
+        Profundidade: profundidade,
+        ResponsavelTopografia: respTopografia,
+        DataExecTopografia: '2022-01-01',
+        nomePerfilAcesso: nomePerfilAcesso,
+        dataExecucao: dataExecucao,
+        responsavelExecucao: responsavelExecucao,
+        horaExecucao: horaExecucao,
+        croquiMapeamento: croquiMapeamento,
+        equipamentoUtilizado: equipamentoUtilizado,
+        materializacaoCampo: materializacaoCampo,
+        quantidadeInterferencias: quantidadeInterferencias,
+        paraleloEsquerda: paraleloEsquerda,
+        paraleloDireita: paraleloDireita,
+        perpendicular: perpendicular,
+        profundidade: profundidade,
+        diametroInterferencia: diametroInterferencia,
+        tipoInterferencia: tipoInterferencia,
+        largura: largura,
+        comprimento: comprimento,
+        profundidadeVala: profundidade,
+        estacaReferencia: estacaReferencia,
+        numeroHastes: numeroHastes,
+        profundidadePlanejada: profundidadePlanejada,
+        avancoPlanejado: avancoPlanejado,
+        profundidadeExecutada: profundidadeExecutada,
+        avancoExecutado: avancoExecutado,
+        amarracao: amarracao,
+        maquinaPerfuratriz: maquinaPerfuratriz,
+        diametroAlargamento: diametroAlargamento,
+        tempoHaste: tempoHaste,
+        vazaoBomba: vazaoBomba,
+        tipoRedeTubula: tipoRedeTubula,
+        diametroRede: diametroRede,
+        ferramentasUtilizadas: ferramentasUtilizadas,
+        modeloAlargador: modeloAlargador,
+        capacidadePortaFusilink: capacidadePortaFusilink,
+        capacidadeSwivel: capacidadeSwivel,
+        fluido: Fluido,
+        receitaFluido: ReceitaFluido,
+        portaSonda: PortaSonda,
+        confirmacaoProcedimento: ConfirmacaoProcedimento,
+        volumePrepardo: VolumePreparado,
+        testeVicosidade: TesteVicosidade,
+        hastes: Hastes,
+        sonda: Sonda,
+        paPerfuracao: paPerfuracao,
+        pullingHead: PullingHead,
+        localizador: Localizador,
+        luva: Luva,
+        hasteInicial: HasteInicial,
+        flexoBarra: Flexobarra,
+        radio: Radio,
+        parafuso: Parafuso,
+        diametroFerramenta: DiametroFerramenta,
+        condicaoFerramenta: CondicaoFerramenta,
+        //EmpresaProp: EmpresaProprietaria,
+        empresaProprietaria: EmpresaProprietaria,
+        travessiaId: idConfigTravessia.replace("#/etapas/", '').split('/')[1],
+        finalizarEtapa: true
       },
     },
     ).then((response) => {
@@ -636,7 +643,7 @@ export default function
         if (response.data.count > 0) {
           //console.log(response.data.rows[0].id)
           setIdEtapa(data.etapaId)
-          setidTodosCampos(response.data.rows[0].id) 
+          setidTodosCampos(response.data.rows[0].id)
           setlatitudeEntrada(response.data.rows[0].PontoVerEntradaLat)
           setlongitudeEntrada(response.data.rows[0].PontoVerEntradaLong)
           setlatitudeSaida(response.data.rows[0].PontoVerSaidaLat)
@@ -714,7 +721,7 @@ export default function
           setEmpresaProprietaria(response.data.rows[0].empresaProprietaria)
           setDiametroFerramenta(response.data.rows[0].diametroFerramenta)
           setFinalizarEtapa(response.data.rows[0].finalizarEtapa)
-        }else{
+        } else {
           setFinalizarEtapa(false)
           setidTodosCampos('')
         }
@@ -827,9 +834,9 @@ export default function
     }
   }
   const uploadImage = async (imagemNova: string | Blob) => {
-    const formData = new FormData()
+    
     //console.log("upload")
-    formData.append('image', imagemNova)
+    formData.append('file', imagemNova)
 
     // console.log(...formData)
 
@@ -840,14 +847,36 @@ export default function
 
       },
     }
-
-    await axios.post(`${ip}:8080/upload-image`, formData, headers)
+    console.log(nameImage)
+    await api.get(`file/credentials`, {
+      params: {
+        filename: nameImage,
+        storageId: 'execucaoTravessia',
+      },
+    })
       .then((response) => {
-        //console.log(response)
+        console.log(response)
         if (response.status == 200) {
           const pathHelper = response.data.mensagem
-          //console.log(ip + pathHelper)
-          toast.info('Imagem Válida!')
+          credencial = response.data.uploadCredentials.url
+          setdocumentos(response.data.downloadUrl)
+          console.log(credencial)
+          console.log(imagemNova)
+          axios.post(credencial, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          }).then((response) => {
+            console.log(response)
+            if (response.statusText === 'OK') {
+              toast.success('Cadastrado realizado com sucesso!')
+            }
+          }).catch(res => {
+            //console.log(res)
+            toast.error(res.response)
+            setLoading(false)
+          })
+          toast.success('Imagem Válida!')
         } else {
           toast.info('Imagem inválida, ou problemas com o servidor :(')
         }
@@ -1237,23 +1266,26 @@ export default function
                       name='image'
                       onChange={e => {
                         //console.log(e)
-
                         // @ts-ignore
-                        //console.log(e.target.files[0].name)
+                        nameImage = e.target.files[0].name
                         // @ts-ignore
-                        setName(e.target.files[0].name)
+                        Image = e.target.files[0]
                         // @ts-ignore
-                        //console.log(e.target.files[0]) 
+                        console.log(e.target.files[0].name)
+                        // @ts-ignore
+                        setName(name)
+                        // @ts-ignore
+                        console.log(e.target.files[0])
                         // @ts-ignore
                         setImage(e.target.files[0])
 
                         // @ts-ignore
-                        if (e.target.files[0].type.includes('image')) {
+                        //if (e.target.files[0].type.includes('image') || e.target.files[0].type.includes('file')) {
                           // @ts-ignore
                           uploadImage(e.target.files[0])
-                        } else {
-                          toast.error('Arquivo não suportado')
-                        }
+                        //} else {
+                         // toast.error('Arquivo não suportado')
+                       // }
                       }}
                     /><br /><br />
 
@@ -1457,23 +1489,26 @@ export default function
                       name='image'
                       onChange={e => {
                         //console.log(e)
-
                         // @ts-ignore
-                        //console.log(e.target.files[0].name)
+                        nameImage = e.target.files[0].name
                         // @ts-ignore
-                        setName(e.target.files[0].name)
+                        Image = e.target.files[0]
                         // @ts-ignore
-                        //console.log(e.target.files[0]) 
+                        console.log(e.target.files[0].name)
+                        // @ts-ignore
+                        setName(name)
+                        // @ts-ignore
+                        console.log(e.target.files[0])
                         // @ts-ignore
                         setImage(e.target.files[0])
 
                         // @ts-ignore
-                        if (e.target.files[0].type.includes('image')) {
+                        //if (e.target.files[0].type.includes('image') || e.target.files[0].type.includes('file')) {
                           // @ts-ignore
                           uploadImage(e.target.files[0])
-                        } else {
-                          toast.error('Arquivo não suportado')
-                        }
+                        //} else {
+                         // toast.error('Arquivo não suportado')
+                       // }
                       }}
                     /><br /><br />
 
@@ -1648,7 +1683,7 @@ export default function
                   />
                 </div>
                 : false}
-                {campoReceitaFluido
+              {campoReceitaFluido
                 ? <div>
                   <label htmlFor=''>Receita do Fluido</label>
                   <input
@@ -1709,7 +1744,7 @@ export default function
                   />
                 </div>
                 : false}
-                
+
               {campoamarracao
                 ? <div>
                   <label htmlFor=''>Amarração</label>
@@ -1792,7 +1827,7 @@ export default function
                   />
                 </div>
                 : false}
-                {campoHastes
+              {campoHastes
                 ? <div>
                   <label htmlFor=''>Hastes</label>
                   <input
@@ -1802,7 +1837,7 @@ export default function
                   />
                 </div>
                 : false}
-                {campoSonda
+              {campoSonda
                 ? <div>
                   <label htmlFor=''>Sonda</label>
                   <input
@@ -1812,7 +1847,7 @@ export default function
                   />
                 </div>
                 : false}
-                {campopaPerfuracao
+              {campopaPerfuracao
                 ? <div>
                   <label htmlFor=''>Pá de perfuração</label>
                   <input
@@ -1822,7 +1857,7 @@ export default function
                   />
                 </div>
                 : false}
-                {campoPullingHead
+              {campoPullingHead
                 ? <div>
                   <label htmlFor=''>Pulling Head</label>
                   <input
@@ -1832,7 +1867,7 @@ export default function
                   />
                 </div>
                 : false}
-                {campoLocalizador
+              {campoLocalizador
                 ? <div>
                   <label htmlFor=''>Localizador</label>
                   <input
@@ -1842,7 +1877,7 @@ export default function
                   />
                 </div>
                 : false}
-                {campoLuva
+              {campoLuva
                 ? <div>
                   <label htmlFor=''>Luva</label>
                   <input
@@ -1852,7 +1887,7 @@ export default function
                   />
                 </div>
                 : false}
-                {campoHasteInicial
+              {campoHasteInicial
                 ? <div>
                   <label htmlFor=''>Haste inicial</label>
                   <input
@@ -1862,7 +1897,7 @@ export default function
                   />
                 </div>
                 : false}
-                {campoFlexobarra
+              {campoFlexobarra
                 ? <div>
                   <label htmlFor=''>Flexobarra</label>
                   <input
@@ -1872,7 +1907,7 @@ export default function
                   />
                 </div>
                 : false}
-                {campoRadio
+              {campoRadio
                 ? <div>
                   <label htmlFor=''>Rádio</label>
                   <input
@@ -1882,7 +1917,7 @@ export default function
                   />
                 </div>
                 : false}
-                {campoParafuso
+              {campoParafuso
                 ? <div>
                   <label htmlFor=''>Parafuso</label>
                   <input
@@ -1922,7 +1957,7 @@ export default function
                   />
                 </div>
                 : false}
-                {campoDiametroFerramenta
+              {campoDiametroFerramenta
                 ? <div>
                   <label htmlFor=''>Diametro da ferramenta</label>
                   <input
@@ -1932,7 +1967,7 @@ export default function
                   />
                 </div>
                 : false}
-                {campoCondicaoFerramenta
+              {campoCondicaoFerramenta
                 ? <div>
                   <label htmlFor=''>Condição do ferramental</label>
                   <input
@@ -2033,27 +2068,27 @@ export default function
               {camposInterferencia
                 ? <div>
                   <label htmlFor=''>Diâmetro</label>
-                  <input type='text' 
-                  value={diametroInterferencia}
-                  onChange={(text) => setDiametroInterferencia(text.target.value)}/>
+                  <input type='text'
+                    value={diametroInterferencia}
+                    onChange={(text) => setDiametroInterferencia(text.target.value)} />
                 </div>
                 : false}
 
               {camposInterferencia
                 ? <div>
                   <label htmlFor=''>Tipo de interferência</label>
-                  <input type='text' 
-                  value={tipoInterferencia}
-                  onChange={(text) => setTipoInterferencia(text.target.value)}/>
+                  <input type='text'
+                    value={tipoInterferencia}
+                    onChange={(text) => setTipoInterferencia(text.target.value)} />
                 </div>
                 : false}
 
               {camposInterferencia
                 ? <div>
                   <label htmlFor=''>Profundidade</label>
-                  <input type='text' 
-                  value={profundidade}
-                  onChange={(text) => setprofundidade(text.target.value)}/>
+                  <input type='text'
+                    value={profundidade}
+                    onChange={(text) => setprofundidade(text.target.value)} />
                 </div>
                 : false}
             </S.GridForm>
@@ -2066,14 +2101,14 @@ export default function
               />
               : 'Salvar'}
             </button> : false}
-            {!finalizarEtapa ? idTodosCampos === '' ? <button  onClick={() => {toast.info("É preciso salvar a etapa!")}} className='finishPhase'>Finalizar Etapa</button>:<button  onClick={() => { updateDados() }} className='finishPhase'>{loading
+            {!finalizarEtapa ? idTodosCampos === '' ? <button onClick={() => { toast.info("É preciso salvar a etapa!") }} className='finishPhase'>Finalizar Etapa</button> : <button onClick={() => { updateDados() }} className='finishPhase'>{loading
               ? <img
                 width='40px'
                 style={{ margin: 'auto' }}
                 height='' src='https://contribua.org/mb-static/images/loading.gif'
                 alt='Loading'
               />
-              : 'Finalizar Etapa'}</button>: 'Etapa Finalizada!'}
+              : 'Finalizar Etapa'}</button> : 'Etapa Finalizada!'}
           </S.Div>
         </Modal>
 
