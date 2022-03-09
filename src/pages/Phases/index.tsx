@@ -9,7 +9,7 @@ import 'swiper/swiper.min.css'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 
-import { FiPlus, FiCheck, FiPlay, FiLock, FiX } from 'react-icons/fi'
+import { FiPlus, FiCheck, FiPlay, FiLock, FiX, FiTrash, FiEye } from 'react-icons/fi'
 import { api, ip, token } from '../../services/api'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
@@ -47,7 +47,33 @@ type levantamento = {
 export default function
 Phases () {
   const [modalIsOpenPhase, setIsOpenPhase] = useState(false)
+  const [modalIsOpenInterferencia, setIsOpenInterferencia] = useState(false)
+  const [modalIsOpenInterferenciaEdit, setIsOpenInterferenciaEdit] = useState(false)
   const [modalIsOpenPhaseSelect, setIsOpenPhaseSelect] = useState(false)
+
+  function openModalInterferencia () {
+    setIsOpenInterferencia(true)
+  }
+
+  function afterOpenModalInterferencia () {
+
+  }
+
+  function closeModalInterferencia () {
+    setIsOpenInterferencia(false)
+  }
+
+  function openModalInterferenciaEdit () {
+    setIsOpenInterferenciaEdit(true)
+  }
+
+  function afterOpenModalInterferenciaEdit () {
+
+  }
+
+  function closeModalInterferenciaEdit () {
+    setIsOpenInterferenciaEdit(false)
+  }
 
   function openModalPhases () {
     setIsOpenPhase(true)
@@ -75,7 +101,6 @@ Phases () {
 
   const [isOpen, setIsOpen] = useState(false)
   const [disabled, setDisabled] = useState(false)
-  const [isOpenInterferencia, setIsOpenInterferencia] = useState(false)
   const [modalIsOpenPlanejamento, setIsOpenPlanejamento] = useState(false)
   const [modalIsOpenAddInterferencia, setIsOpenAddInterferencia] = useState(false)
   let idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas/', '')
@@ -2009,7 +2034,7 @@ Phases () {
                 />
               </div> */}
 
-              <button onClick={() => handleCampos()} className='addInterferencia'><FiPlus /> Adicionar interferencia</button>
+              {/* <button onClick={() => handleCampos()} className='addInterferencia'><FiPlus /> Adicionar interferencia</button> */}
 
               {camposInterferencia
                 ? <div>
@@ -2056,6 +2081,35 @@ Phases () {
                 </div>
                 : false}
             </S.GridForm>
+
+            <h4>Registro de interferencias</h4>
+            <button onClick={openModalInterferencia} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button>
+            <table>
+              <tr>
+                <th>Nome</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Profundidade</th>
+                <th>Diâmetro</th>
+              </tr>
+              <tr>
+                <td>Cano de gás</td>
+                <td>-22.113590</td>
+                <td>-43.186420</td>
+                <td>15 Metros</td>
+                <td>5 Metros</td>
+                <td>
+                  <button>
+                    <FiTrash color='#EA1C24' size={18} />
+                  </button>
+                </td>
+                <td>
+                  <button onClick={openModalInterferenciaEdit}>
+                    <FiEye color='#FECE51' size={18} />
+                  </button>
+                </td>
+              </tr>
+            </table>
             {!finalizarEtapa
               ? <button onClick={() => { onSubmitLevantamento() }}>{loading
                 ? <img
@@ -2080,7 +2134,63 @@ Phases () {
                   : 'Finalizar Etapa'}
                 </button>
               : 'Etapa Finalizada!'}
+
           </S.Div>
+
+        </Modal>
+
+        <Modal
+          className='phaes-modal'
+          style={{
+            overlay: {
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            },
+          }}
+          isOpen={modalIsOpenInterferencia}
+          onAfterOpen={() => afterOpenModalInterferencia}
+          onRequestClose={() => closeModalInterferencia}
+        >
+          <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModalInterferencia}><FiX color='white' /></button>
+
+          <S.ModelsModal>
+            <h2>Adicione uma interferência</h2>
+            <div>
+              <input type='text' placeholder='Nome' />
+              <input type='text' placeholder='Latitude' />
+              <input type='text' placeholder='Longitude' />
+              <input type='text' placeholder='Profundidade' />
+              <input type='text' placeholder='Diâmetro' />
+            </div>
+            <button className='save'>Salvar</button>
+          </S.ModelsModal>
+
+        </Modal>
+
+        <Modal
+          className='phaes-modal'
+          style={{
+            overlay: {
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            },
+          }}
+          isOpen={modalIsOpenInterferenciaEdit}
+          onAfterOpen={() => afterOpenModalInterferenciaEdit}
+          onRequestClose={() => closeModalInterferenciaEdit}
+        >
+          <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModalInterferenciaEdit}><FiX color='white' /></button>
+
+          <S.ModelsModal>
+            <h2>Edite uma interferência</h2>
+            <div>
+              <input type='text' value='Cano de gás' />
+              <input type='text' value='-22.113590' />
+              <input type='text' value='-43.186420' />
+              <input type='text' value='15 Metros' />
+              <input type='text' value='5 Metros' />
+            </div>
+            <button className='save'>Salvar</button>
+          </S.ModelsModal>
+
         </Modal>
 
         <Modal
