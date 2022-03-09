@@ -3,10 +3,8 @@ import Modal from 'react-modal'
 import * as S from './styled'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Pagination, Navigation } from 'swiper'
-import 'antd/dist/antd.css'
 import 'swiper/swiper-bundle.min.css'
 import 'swiper/swiper.min.css'
-import { Switch, Select } from 'antd'
 
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
@@ -17,8 +15,6 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { platform, type } from 'os'
 import axios from 'axios'
-
-const { Option } = Select
 
 SwiperCore.use([Pagination, Navigation])
 
@@ -912,62 +908,6 @@ Phases () {
       <Navbar />
       <S.ContainerConfirmation>
         <h2>Selecione uma etapa</h2>
-
-        <div className='modal-styles'>
-          <Modal
-            className='phaes-modal'
-            style={{
-              overlay: {
-                backgroundColor: 'rgba(0, 0, 0, 0.8)',
-              },
-            }}
-            isOpen={modalIsOpenAddInterferencia}
-            onAfterOpen={() => afterOpenModal}
-            onRequestClose={() => closeModal}
-          >
-            <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModal}><FiX color='white' /></button>
-
-            <S.PhasesModal>
-              <h2>Nome da etapa</h2>
-              <input type='text' placeholder='Nome da etapa' />
-
-              <h3>Adicione os campos da etapa</h3>
-              <input type='text' placeholder='Adicione os campos da etapa' />
-
-              <div>
-                <h4>Selecione alguns campos pré selecionados para a sua etapa</h4>
-                <Switch
-                  checkedChildren='Documentos'
-                  unCheckedChildren='Documentos'
-                />
-
-                <Switch
-                  checkedChildren='Responsavel'
-                  unCheckedChildren='Responsavel'
-                />
-
-                <Switch
-                  checkedChildren='Criação do plano de furo'
-                  unCheckedChildren='Criação do plano de furo'
-                />
-
-                <Switch
-                  checkedChildren='Confirmação da sondagem da interferência'
-                  unCheckedChildren='Confirmação da sondagem da interferência'
-                />
-
-                <Switch
-                  checkedChildren='Sondagem'
-                  unCheckedChildren='Sondagem'
-                />
-              </div>
-
-              <button className='save'>Salvar</button>
-            </S.PhasesModal>
-
-          </Modal>
-        </div>
-
         <Modal
           className='phaes-modal'
           style={{
@@ -2469,22 +2409,21 @@ Phases () {
           <h3>Descrição</h3>
           <input type='text' placeholder='Descrição' />
 
-          <Select
-            showSearch
-            style={{ width: 400 }}
-            placeholder='Selecione'
-            optionFilterProp='children'
-          >
-            <Option value='1'>Levantamento e Mapeamento de Interferências</Option>
-            <Option value='2'>Planejamento da Travessia</Option>
-            <Option value='3'>Sondagem das Interferências</Option>
-            <Option value='4'>Abertura de Valas de Entrada e Saída</Option>
-            <Option value='5'>Preparação de Fluído</Option>
-            <Option value='6'>Execução da Travessia - Furo Piloto</Option>
-            <Option value='7'>Alargamento</Option>
-            <Option value='8'>Limpeza</Option>
-            <Option value='9'>Puxamento de Rede</Option>
-          </Select>
+          <form>
+            <h3>Escolha o tipo de etapa</h3>
+            <select>
+              <option selected disabled>Selecione</option>
+              <option>Levantamento e Mapeamento de Interferências</option>
+              <option>Planejamento da Travessia</option>
+              <option>Sondagem das Interferências</option>
+              <option>Abertura de Valas de Entrada e Saída</option>
+              <option>Preparação de Fluído</option>
+              <option>Execução da Travessia - Furo Piloto</option>
+              <option>Alargamento</option>
+              <option>Limpeza</option>
+              <option>Puxamento de Rede</option>
+            </select>
+          </form>
 
           <button className='save'>Salvar</button>
         </S.PhasesModal>
