@@ -3,10 +3,8 @@ import Modal from 'react-modal'
 import * as S from './styled'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Pagination, Navigation } from 'swiper'
-import 'antd/dist/antd.css'
 import 'swiper/swiper-bundle.min.css'
 import 'swiper/swiper.min.css'
-import { Switch, Select } from 'antd'
 
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
@@ -17,8 +15,6 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { platform, type } from 'os'
 import axios from 'axios'
-
-const { Option } = Select
 
 SwiperCore.use([Pagination, Navigation])
 
@@ -49,31 +45,31 @@ type levantamento = {
   banco: string;
 }
 export default function
-Phases () {
+  Phases() {
   const [modalIsOpenPhase, setIsOpenPhase] = useState(false)
   const [modalIsOpenPhaseSelect, setIsOpenPhaseSelect] = useState(false)
 
-  function openModalPhases () {
+  function openModalPhases() {
     setIsOpenPhase(true)
   }
 
-  function afterOpenModalPhases () {
+  function afterOpenModalPhases() {
 
   }
 
-  function closeModalPhases () {
+  function closeModalPhases() {
     setIsOpenPhase(false)
   }
 
-  function openModalPhasesSelect () {
+  function openModalPhasesSelect() {
     setIsOpenPhaseSelect(true)
   }
 
-  function afterOpenModalPhasesSelect () {
+  function afterOpenModalPhasesSelect() {
 
   }
 
-  function closeModalPhasesSelect () {
+  function closeModalPhasesSelect() {
     setIsOpenPhaseSelect(false)
   }
 
@@ -117,6 +113,8 @@ Phases () {
   const [posicaoRelogio, setposicaoRelogio] = useState('')
   const [idEtapa, setIdEtapa] = useState('')
   const [azimute, setazimute] = useState('')
+  const [profundidadeEntrada, setprofundidadeEntrada] = useState('')
+  const [campoprofundidadeEntrada, setcampoprofundidadeEntrada] = useState(false)
   const [isUpdate, setIsUpdate] = useState(false)
   const [campoEntradaLatitude, setcampoEntradaLatitude] = useState(false)
   const [campoEntradaLongitude, setcampoEntradaLongitude] = useState(false)
@@ -245,7 +243,7 @@ Phases () {
   const [CondicaoFerramenta, setCondicaoFerramenta] = useState('')
   const [EmpresaProprietaria, setEmpresaProprietaria] = useState('')
   const [idTodosCampos, setidTodosCampos] = useState('')
-  const [etapa, setEtapa] = useState('')
+  const [etapa, setEtapa] = useState('1')
   const [descricao, setDescricao] = useState('')
   const [finalizarEtapa, setFinalizarEtapa] = useState(false)
   const [name, setName] = useState<any>('')
@@ -262,7 +260,7 @@ Phases () {
   // }
   const [camposInterferencia, setCamposInterferencia] = useState(false)
 
-  function handleCampos () {
+  function handleCampos() {
     if (camposInterferencia) {
       setCamposInterferencia(false)
     } else {
@@ -270,7 +268,7 @@ Phases () {
     }
   }
 
-  function onSubmitLevantamento () {
+  function onSubmitLevantamento() {
     // console.log(idEtapa)
     const data = {
       banco: 'todos-campos',
@@ -367,7 +365,7 @@ Phases () {
     // }
   }
 
-  function onSubmitInterferenciasFisicasMagneticas () {
+  function onSubmitInterferenciasFisicasMagneticas() {
     // console.log(responsavel)
     const data = {
       idConfigTravessia: idConfigTravessia.replace('#/etapas/', ''),
@@ -416,7 +414,7 @@ Phases () {
   //   }
   // }
 
-  async function createNewFile (submit: any) {
+  async function createNewFile(submit: any) {
     setLoading(true)
     // console.log('submit')
     // console.log(submit)
@@ -446,7 +444,7 @@ Phases () {
       setLoading(false)
     })
   }
-  async function loadDados (url: string) {
+  async function loadDados(url: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = await api.get(url + `?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/etapas/", '').split('/')[0]}`,
@@ -465,7 +463,7 @@ Phases () {
 
     setLoading(false)
   }
-  async function deleteDados (id: string) {
+  async function deleteDados(id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('tipo-solo/' + id,
@@ -480,7 +478,7 @@ Phases () {
       setLoading(false)
     })
   }
-  function update (data: any) {
+  function update(data: any) {
     // console.log('data')
     // console.log(data)
     // setDados(data)
@@ -533,7 +531,7 @@ Phases () {
     }
     // console.log(idDados)
   }
-  async function updateDados () {
+  async function updateDados() {
     setLoading(true)
     // console.log('idTodosCampos')
     // console.log(idTodosCampos)
@@ -648,7 +646,7 @@ Phases () {
     loadDados('etapas')
   }, [])
 
-  function openModal (data: any) {
+  function openModal(data: any) {
     // console.log(data)
     setIdEtapa(data.etapaId)
     api.get(`todos-campos?filter%5BetapaId%5D=${data.id}&filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
@@ -736,6 +734,7 @@ Phases () {
           setEmpresaProprietaria(response.data.rows[0].empresaProprietaria)
           setDiametroFerramenta(response.data.rows[0].diametroFerramenta)
           setFinalizarEtapa(response.data.rows[0].finalizarEtapa)
+          setprofundidadeEntrada(response.data.rows[0].profundidadeEntrada)
         } else {
           setFinalizarEtapa(false)
           setidTodosCampos('')
@@ -747,7 +746,7 @@ Phases () {
       toast.error(res.response.data)
       setLoading(false)
     })
-    setVariavelTitulo(data.novaEtapa)
+    setVariavelTitulo(data.tipoEtapa)
     setIdEtapa(data.id)
     setcampoEntradaLatitude(data.campoEntradaLatitude)
     setcampoEntradaLongitude(data.campoEntradaLongitude)
@@ -826,16 +825,17 @@ Phases () {
     setcampoEmpresaProprietaria(data.empresaProp)
     setcampoEmpresaProprietaria(data.empresaProprietaria)
     setcampoDiametroFerramenta(data.diametroFerramenta)
+    setcampoprofundidadeEntrada(data.profundidadeEntrada)
 
     setisOpenUpdatePlanejamentoPerfuração(true)
   }
-  function afterOpenModal () {
+  function afterOpenModal() {
     // references are now sync'd and can be accessed.
   }
-  function closeModal () {
+  function closeModal() {
     setIsOpenPlanejamento(false)
   }
-  async function makeRequisition (e: any) {
+  async function makeRequisition(e: any) {
     e.preventDefault()
     e.target.reset()
 
@@ -907,11 +907,187 @@ Phases () {
         toast.error('Erro: Tente mais tarde :(')
       })
   }
-  function salvarEtapa(){
-    let tipoEtapa = etapa == '1' ? 'Levantamento e Mapeamento de Interferências' : 
-                    etapa == '2' ?  'Planejamento da Travessia' : false
+  function salvarEtapa() {
+    let campoTipoSolo = false
+    let campoDiametroPerfuracao = false
+    let campoTipoRede = false
+    let campoTipoTubulacao = false
+    //Levantamento e Mapeamento de Interferências
+    let nomePerfilAcesso = false
+    let croquiMapeamento = false
+    let equipamentoUtilizado = false
+    let tipoInterferencia = false
+    //lanejamento da Travessia
+    let campoEntradaLatitude = false
+    let campoEntradaLongitude = false
+    let profundidadeEntrada = false
+    let campoSaidaLatitude = false
+    let campoSaidaLongitude = false
+    let profundidadeSaida = false
+    //Abertura de Valas de Entrada e Saída
+    let responsavelExecucao = false
+    let dataExecucao = false
+    let valaEntradaLatitude = false
+    let valaEntradaLongitude = false
+    let valaEntradaAltura = false
+    let valaEntradaComprimento = false
+    let valaEntradaProfundidade = false
+    let valaSaidaLatitude = false
+    let valaSaidaLongitude = false
+    let valaSaidaComprimento = false
+    let valaSaidaProfundidade = false
+    let fluido = false
+    let campoResponsel = false
+    let horaExecucao = false
+    let profundidadeMax = false
+    let profundidadeMin = false
+    let campoEquipamento = false
+    let vazaoBomba = false
+    let capacidadeSwivel = false
+    let diametroFerramenta = false
+    let tipoRedeTubula = false
+    let campoDiametro = false
+    let MaterialRedeTubula = false
+    let tempoHaste = false
+    let capacidadePortaFusilink = false
+    idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas/', '')
+    let novaEtapa = ''
+    if (etapa == '1') {
+      novaEtapa = 'Levantamento e Mapeamento de Interferências'
+      nomePerfilAcesso = true
+      croquiMapeamento = true
+      equipamentoUtilizado = true
+      tipoInterferencia = true
+    } else if (etapa == '2') {
+      novaEtapa = 'Planejamento da Travessia'
+      nomePerfilAcesso = true
+      campoEntradaLatitude = true
+      campoEntradaLongitude = true
+      profundidadeEntrada = true
+      campoSaidaLatitude = true
+      campoSaidaLongitude = true
+      profundidadeSaida = true
+    }else if (etapa == '3') {
+      novaEtapa = 'Sondagem das Interferências'
+      nomePerfilAcesso = true
+      tipoInterferencia = true
+    }else if (etapa == '4') {
+      novaEtapa = 'Abertura de Valas de Entrada e Saída'
+      nomePerfilAcesso = true
+      tipoInterferencia = true
+      responsavelExecucao = true
+      dataExecucao = true
+      valaEntradaLatitude = true
+      valaEntradaLongitude = true
+      valaEntradaAltura = true
+      valaEntradaComprimento = true
+      valaEntradaProfundidade = true
+      valaSaidaLatitude = true
+      valaSaidaLongitude = true
+      valaSaidaComprimento = true
+      valaSaidaProfundidade = true
+    }else if (etapa == '5') {
+      novaEtapa = 'Preparação de Fluído'
+      nomePerfilAcesso = true
+      fluido = true
+      campoResponsel = true
+      dataExecucao = true
+      horaExecucao = true
+    }else if (etapa == '6') {
+      novaEtapa = 'Execução da Travessia - Furo Piloto'
+      nomePerfilAcesso = true
+      profundidadeMax = true
+      profundidadeMin = true
+      campoEquipamento = true
+    }else if (etapa == '7') {
+      novaEtapa = 'Alargamento'
+      nomePerfilAcesso = true
+      campoEquipamento = true
+    }else if (etapa == '8') {
+      novaEtapa = 'Limpeza'
+      nomePerfilAcesso = true
+      campoEquipamento = true
+      vazaoBomba = true
+      capacidadeSwivel = true
+      diametroFerramenta = true
+    }else if (etapa == '9') {
+      novaEtapa = 'Puxamento de Rede'
+      nomePerfilAcesso = true
+      tipoRedeTubula = true
+      campoDiametro = true
+      MaterialRedeTubula = true
+      tempoHaste = true
+      capacidadeSwivel = true
+      capacidadePortaFusilink = true
+    }
 
-    console.log(tipoEtapa)
+    let data = {
+      novaEtapa: descricao,
+      tipoEtapa: novaEtapa,
+      idConfigTravessia: idConfigTravessia.replace('#/etapas/', '').split('/')[0],
+      numeroEtapa: dados.length+1,
+      nomePerfilAcesso: nomePerfilAcesso,
+      croquiMapeamento: croquiMapeamento,
+      equipamentoUtilizado: equipamentoUtilizado,
+      tipoInterferencia: tipoInterferencia,
+      campoEntradaLatitude: campoEntradaLatitude,
+      campoEntradaLongitude: campoEntradaLongitude,
+      profundidadeEntrada: profundidadeEntrada,
+      campoSaidaLatitude: campoSaidaLatitude,
+      campoSaidaLongitude: campoSaidaLongitude,
+      profundidadeSaida: profundidadeSaida,
+      responsavelExecucao: responsavelExecucao,
+      dataExecucao: dataExecucao,
+      valaEntradaLatitude: valaEntradaLatitude,
+      valaEntradaLongitude: valaEntradaLongitude,
+      valaEntradaAltura: valaEntradaAltura,
+      valaEntradaComprimento: valaEntradaComprimento,
+      valaEntradaProfundidade: valaEntradaProfundidade,
+      valaSaidaLatitude: valaSaidaLatitude,
+      valaSaidaLongitude: valaSaidaLongitude,
+      valaSaidaComprimento: valaSaidaComprimento,
+      valaSaidaProfundidade: valaSaidaProfundidade,
+      fluido: fluido,
+      campoResponsel: campoResponsel,
+      horaExecucao: horaExecucao,
+      profundidadeMax: profundidadeMax,
+      profundidadeMin: profundidadeMin,
+      campoEquipamento: campoEquipamento,
+      vazaoBomba: vazaoBomba,
+      capacidadeSwivel: capacidadeSwivel,
+      diametroFerramenta: diametroFerramenta,
+      tipoRedeTubula: tipoRedeTubula,
+      campoDiametro: campoDiametro,
+      MaterialRedeTubula: MaterialRedeTubula,
+      tempoHaste: tempoHaste,
+      capacidadePortaFusilink: capacidadePortaFusilink,
+    }
+
+    api.post('etapas', {
+      data: data,
+    })
+    .then((response) => {
+      console.log(response)
+      if (response.statusText === 'OK') {
+        toast.success('Cadastrada com sucesso!')
+        setLoading(false)
+        setIsOpenPhaseSelect(false)
+        reset()
+        loadDados('etapas')
+      } else if (response.statusText === 'Forbidden') {
+        toast.error('Ops, Não tem permisão!')
+        setLoading(false)
+      } else {
+        toast.error('Ops, Dados Incorretos!')
+        setLoading(false)
+      }
+    })
+    .catch((res) => {
+      console.log(res)
+      // toast.error(res.response.data);
+      setLoading(false)
+    })
+    console.log(data)
     console.log(etapa)
   }
   return (
@@ -920,62 +1096,6 @@ Phases () {
       <Navbar />
       <S.ContainerConfirmation>
         <h2>Selecione uma etapa</h2>
-
-        <div className='modal-styles'>
-          <Modal
-            className='phaes-modal'
-            style={{
-              overlay: {
-                backgroundColor: 'rgba(0, 0, 0, 0.8)',
-              },
-            }}
-            isOpen={modalIsOpenAddInterferencia}
-            onAfterOpen={() => afterOpenModal}
-            onRequestClose={() => closeModal}
-          >
-            <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModal}><FiX color='white' /></button>
-
-            <S.PhasesModal>
-              <h2>Nome da etapa</h2>
-              <input type='text' placeholder='Nome da etapa' />
-
-              <h3>Adicione os campos da etapa</h3>
-              <input type='text' placeholder='Adicione os campos da etapa' />
-
-              <div>
-                <h4>Selecione alguns campos pré selecionados para a sua etapa</h4>
-                <Switch
-                  checkedChildren='Documentos'
-                  unCheckedChildren='Documentos'
-                />
-
-                <Switch
-                  checkedChildren='Responsavel'
-                  unCheckedChildren='Responsavel'
-                />
-
-                <Switch
-                  checkedChildren='Criação do plano de furo'
-                  unCheckedChildren='Criação do plano de furo'
-                />
-
-                <Switch
-                  checkedChildren='Confirmação da sondagem da interferência'
-                  unCheckedChildren='Confirmação da sondagem da interferência'
-                />
-
-                <Switch
-                  checkedChildren='Sondagem'
-                  unCheckedChildren='Sondagem'
-                />
-              </div>
-
-              <button className='save'>Salvar</button>
-            </S.PhasesModal>
-
-          </Modal>
-        </div>
-
         <Modal
           className='phaes-modal'
           style={{
@@ -1048,6 +1168,7 @@ Phases () {
                 <div onClick={() => openModal(data)}>
                   <FiCheck />
                   <h2>{data.numeroEtapa}</h2>
+                  {/* <h2>{data.tipoEtapa}</h2> */}
                   <h1>{data.novaEtapa}</h1>
                 </div>
               </SwiperSlide>
@@ -2127,11 +2248,11 @@ Phases () {
             {!finalizarEtapa
               ? <button onClick={() => { onSubmitLevantamento() }}>{loading
                 ? <img
-                    width='40px'
-                    style={{ margin: 'auto' }}
-                    height='' src='https://contribua.org/mb-static/images/loading.gif'
-                    alt='Loading'
-                  />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height='' src='https://contribua.org/mb-static/images/loading.gif'
+                  alt='Loading'
+                />
                 : 'Salvar'}
               </button>
               : false}
@@ -2140,11 +2261,11 @@ Phases () {
                 ? <button onClick={() => { toast.info('É preciso salvar a etapa!') }} className='finishPhase'>Finalizar Etapa</button>
                 : <button onClick={() => { updateDados() }} className='finishPhase'>{loading
                   ? <img
-                      width='40px'
-                      style={{ margin: 'auto' }}
-                      height='' src='https://contribua.org/mb-static/images/loading.gif'
-                      alt='Loading'
-                    />
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height='' src='https://contribua.org/mb-static/images/loading.gif'
+                    alt='Loading'
+                  />
                   : 'Finalizar Etapa'}
                 </button>
               : 'Etapa Finalizada!'}
@@ -2388,11 +2509,11 @@ Phases () {
             </S.GridForm>
             <button onClick={() => onSubmitInterferenciasFisicasMagneticas()}>{loading
               ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height='' src='https://contribua.org/mb-static/images/loading.gif'
-                  alt='Loading'
-                />
+                width='40px'
+                style={{ margin: 'auto' }}
+                height='' src='https://contribua.org/mb-static/images/loading.gif'
+                alt='Loading'
+              />
               : 'Salvar'}
             </button>
           </S.Div>
@@ -2475,36 +2596,41 @@ Phases () {
 
         <S.PhasesModal>
           <h3>Descrição</h3>
-          <input type='text' placeholder='Descrição' 
-          value={descricao}
-          onChange={(text) => setDescricao(text.target.value)}/>
+          <input type='text' placeholder='Descrição'
+            value={descricao}
+            onChange={(text) => setDescricao(text.target.value)} />
 
-          {/* <Select
-            showSearch
-            style={{ width: 400 }}
-            placeholder='Selecione'
-            optionFilterProp='children'
-            filterOption={(input, option) =>
-              
-              option.children.toLowerCase().indexOf(input?.toLowerCase()) >= 0
-            }
-            filterSort={(optionA, optionB) =>
-              
-              optionA.children.toLowerCase().localeCompare(optionB?.children.toLowerCase())
-            }
-          >
-            <Option value='1'>Levantamento e Mapeamento de Interferências</Option>
-            <Option value='2'>Planejamento da Travessia</Option>
-            <Option value='3'>Sondagem das Interferências</Option>
-            <Option value='4'>Abertura de Valas de Entrada e Saída</Option>
-            <Option value='5'>Preparação de Fluído</Option>
-            <Option value='6'>Execução da Travessia - Furo Piloto</Option>
-            <Option value='7'>Alargamento</Option>
-            <Option value='8'>Limpeza</Option>
-            <Option value='9'>Puxamento de Rede</Option>
-          </Select> */}
+          <form>
+            <h3>Escolha o tipo de etapa</h3>
+            <select
+              value={etapa}
+              onChange={(text) => setEtapa(text.target.value)}>
+              <option selected disabled>Selecione</option>
+              <option value='1'>Levantamento e Mapeamento de Interferências</option>
+              <option value='2'>Planejamento da Travessia</option>
+              <option value='3'>Sondagem das Interferências</option>
+              <option value='4'>Abertura de Valas de Entrada e Saída</option>
+              <option value='5'>Preparação de Fluído</option>
+              <option value='6'>Execução da Travessia - Furo Piloto</option>
+              <option value='7'>Alargamento</option>
+              <option value='8'>Limpeza</option>
+              <option value='9'>Puxamento de Rede</option>
+            </select>
+          </form>
 
-          <button className='save' onClick={() => salvarEtapa()}>Salvar</button>
+          <button className='save' onClick={() => salvarEtapa()}>{loading
+                  ? (
+                    <img
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height=''
+                      src='https://contribua.org/mb-static/images/loading.gif'
+                      alt='Loading'
+                    />
+                    )
+                  : (
+                      'Salvar'
+                    )}</button>
         </S.PhasesModal>
 
       </Modal>

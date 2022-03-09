@@ -335,6 +335,24 @@ export const PhasesModal = styled.div`
     font-size: 22px;
   }
 
+  select {
+    width: 420px;
+    height: 48px;
+    border: 1px solid #252332;
+    border-radius: 6px;
+    padding: 7px;
+    background-color: transparent;
+
+    transition: .5s;
+    margin-top: 10px;
+
+    color: #878787;
+    option {
+      background-color: #252332;
+      color: #878787;
+    }
+  }
+
   h3 {
     font-size: 18px;
     margin-top: 20px;

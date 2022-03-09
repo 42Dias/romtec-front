@@ -3,7 +3,10 @@ import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 import * as S from './styled'
-
+import { Select } from 'antd'
+import 'antd/dist/antd.css'
+import 'swiper/swiper-bundle.min.css'
+import 'swiper/swiper.min.css'
 import { TextField } from '../../ui/Components/TextField'
 import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
@@ -13,6 +16,7 @@ import { api } from '../../services/api'
 import EditButton from '../../ui/Components/EditButton/EditButton'
 import { FaEdit } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+const { Option } = Select
 
 type FormData = {
   descricao: string;
@@ -136,7 +140,27 @@ ConfigurationCrossing () {
       <S.ContainerConfirmation>
         <h2>Configurações da travessia</h2>
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
-
+        <Select
+          showSearch
+          style={{ width: 200 }}
+          placeholder='Search to Select'
+          optionFilterProp='children'
+          // @ts-ignore
+          filterOption={(input, option) =>
+            // @ts-ignore
+            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+            // @ts-ignore
+          filterSort={(optionA, optionB) =>
+            // @ts-ignore
+            optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())}
+        >
+          <Option value='1'>Not Identified</Option>
+          <Option value='2'>Closed</Option>
+          <Option value='3'>Communicated</Option>
+          <Option value='4'>Identified</Option>
+          <Option value='5'>Resolved</Option>
+          <Option value='6'>Cancelled</Option>
+        </Select>
         <S.GridConfirmation>
           <span>Nome da configuração</span>
           <span>Descrição</span>
@@ -161,35 +185,35 @@ ConfigurationCrossing () {
               >
                 <FaEdit size={20} />
               </button> */}
-              {travessia.length > 0
-            ? travessia.map((configurationCrossing) =>
-              <li key={configurationCrossing.id}>
-                <S.GridConfirmation>
-                  <span>{configurationCrossing.nome}</span>
-                  <span>{configurationCrossing.descricao}</span>
-                  <DeleteButton
-                    onDelete={() => deleteDados(configurationCrossing.id)}
-                  />
-                  {/* <EditButton
+            {travessia.length > 0
+              ? travessia.map((configurationCrossing) =>
+                <li key={configurationCrossing.id}>
+                  <S.GridConfirmation>
+                    <span>{configurationCrossing.nome}</span>
+                    <span>{configurationCrossing.descricao}</span>
+                    <DeleteButton
+                      onDelete={() => deleteDados(configurationCrossing.id)}
+                    />
+                    {/* <EditButton
                     onEdit={() => update(configurationCrossing.id)}
                   /> */}
-                  <button
+                    <button
                     // onChange={onEdit}
-                    onClick={() => update(configurationCrossing)}
-                    style={{ background: 'none', color: 'yellow' }}
-                    title='Editar?'
-                  >
-                    <FaEdit size={20} />
-                  </button> 
-                  {/* <Link to={link + configurationCrossing.id}><span>Executar travessia</span></Link>
-                  <button><span>Executar travessia</span></button> */} 
-                  <Link to={'/etapas-da-configuracao/'+configurationCrossing.id}><span>Atribuir etapas</span></Link>
-                </S.GridConfirmation>
-              </li>,
-            )
-            : <p>🤔 Nenhuma configuração cadastrada</p>}
-             
-              {/* {<button><span>Executar travessia</span></button>} */}
+                      onClick={() => update(configurationCrossing)}
+                      style={{ background: 'none', color: 'yellow' }}
+                      title='Editar?'
+                    >
+                      <FaEdit size={20} />
+                    </button>
+                    {/* <Link to={link + configurationCrossing.id}><span>Executar travessia</span></Link>
+                  <button><span>Executar travessia</span></button> */}
+                    <Link to={'/etapas-da-configuracao/' + configurationCrossing.id}><span>Atribuir etapas</span></Link>
+                  </S.GridConfirmation>
+                </li>,
+              )
+              : <p>🤔 Nenhuma configuração cadastrada</p>}
+
+            {/* {<button><span>Executar travessia</span></button>} */}
             {/* </S.GridConfirmation> */}
           </li>
         </ul>
