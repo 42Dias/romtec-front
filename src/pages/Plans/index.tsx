@@ -185,7 +185,7 @@ Plans () {
                 })}
               />
 
-              <fieldset>
+              <fieldset className='valorPago'>
                 <label htmlFor='valor'>Valor</label>
                 <MaskedInput
                   onChangeUnMask={(value) => setValue('valor', value)}

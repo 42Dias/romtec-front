@@ -53,6 +53,7 @@ Users () {
       setLoading(false)
     })
   }
+
   async function Cadastro () {
     setLoading(true)
     // eslint-disable-next-line
@@ -67,6 +68,7 @@ Users () {
         toast.success('Email enviado com sucesso!')
         setLoading(false)
         setIsOpen(false)
+        setIsOpenInvite(false)
         users()
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')
@@ -246,13 +248,16 @@ Users () {
               <div>
                 <label htmlFor='select'>Selecione o tipo de permissão</label>
                 <select name='' id='select' onChange={(text) => setRole(text.target.value)}>
-                  <option value='operador'>Operador</option>
+
+                  <option value='clienteADM'>Cliente ADM</option>
                   <option value='equipeCivil'>Equipe civil</option>
-                  <option value='navegador'>Navegação</option>
-                  {roles === 'admin' ? <option value='admin'>Plataforma ADM</option> : false}
-                  <option value='engenhariaADM'>Engenharia ADM</option>
                   <option value='engenharia'>Engenharia</option>
+                  <option value='engenhariaADM'>Engenharia ADM</option>
                   <option value='mapeamento'>Mapeamento</option>
+                  <option value='navegador'>Navegação</option>
+                  <option value='operador'>Operador</option>
+                  {roles === 'admin' ? <option value='admin'>Plataforma ADM</option> : false}
+
                 </select>
               </div>
             </S.GridInvite>

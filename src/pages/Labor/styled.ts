@@ -138,6 +138,10 @@ export const Div = styled.div`
   justify-items: center;
   align-items: center;
 
+  @media (max-width: 520px) {
+    grid-template-columns: 1fr;
+  }
+
   select {
     width: 345px;
     height: 48px;
@@ -152,6 +156,13 @@ export const Div = styled.div`
     :focus {
       border: 1px solid ${theme.colors.yellow};
       background: transparent;
+    }
+
+    @media(max-width: 520px) {
+      width: 290px;  
+      margin: 10px 0;
+      margin-right: 65px;
+      padding: 0;
     }
   }
 

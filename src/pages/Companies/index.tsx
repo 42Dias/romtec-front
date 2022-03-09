@@ -6,7 +6,7 @@ import Modal from '../../ui/Components/Modal/Modal'
 import { TextField } from '../../ui/Components/TextField'
 import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
-import { useEffect, useState } from 'react'
+import { SetStateAction, useEffect, useState } from 'react'
 
 import * as S from './styles'
 import { toast } from 'react-toastify'
@@ -60,6 +60,10 @@ Companies () {
   const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<FormData>()
 
   function onSubmit (data: FormData) {
+    data.logradouro = logradouro
+    data.bairro = bairro
+    data.cidade = cidade
+    data.estado = estado
     console.log(data)
     Cadastro(data)
   }
@@ -195,10 +199,18 @@ Companies () {
     fetch(`https://viacep.com.br/ws/${cep}/json/`)
       .then((res) => res.json())
       .then((data) => {
-        setFieldValue('logradouro', data.logradouro)
-        setFieldValue('bairro', data.bairro)
-        setFieldValue('cidade', data.localidade)
-        setFieldValue('uf', data.uf)
+        if (data.erro === true) {
+          toast.error('CEP não encontrado!')
+        } else {
+          setFieldValue('logradouro', data.logradouro)
+          setFieldValue('bairro', data.bairro)
+          setFieldValue('cidade', data.localidade)
+          setFieldValue('uf', data.uf)
+          setLogradouro(data.logradouro)
+          setBairro(data.bairro)
+          setCidade(data.localidade)
+          setEstado(data.uf)
+        }
       })
   }
 
@@ -314,81 +326,51 @@ Companies () {
                     </div>
 
                     <div className='form-control-group'>
-                      <label>Logradouro</label>
-                      <Field
-                        {...register('logradouro', {
-                          required: {
-                            value: true,
-                            message: '',
-                          },
-                        })}
-                        name='logradouro' type='text'
-                      />
+                      <label >Logradouro</label>
+                      <Field name='logradouro' type='text'
+                        value={logradouro}
+                        onChange={(text: { target: { value: SetStateAction<string> } }) => setLogradouro(text.target.value)} />
                     </div>
 
-                    <div className='form-control-group'>
-                      <label>Número</label>
-                      <Field
-                        {...register('numero', {
-                          required: {
-                            value: true,
-                            message: '',
-                          },
-                        })}
-                        name='numero' type='text'
-                      />
-                    </div>
+                    <TextField
+                      label='Numero'
+                      {...register('numero', {
+                        required: {
+                          value: true,
+                          message: '',
+                        },
+                      })}
+                    />
 
-                    <div className='form-control-group'>
-                      <label>Complemento</label>
-                      <Field
-                        {...register('complemento', {
-                          required: {
-                            value: true,
-                            message: '',
-                          },
-                        })}
-                        name='complemento' type='text'
-                      />
-                    </div>
+                    <TextField
+                      label='Complemento'
+                      {...register('complemento', {
+                        required: {
+                          value: true,
+                          message: '',
+                        },
+                      })}
+                    />
 
                     <div className='form-control-group'>
                       <label>Bairro</label>
-                      <Field
-                        {...register('bairro', {
-                          required: {
-                            value: true,
-                            message: '',
-                          },
-                        })}
-                        name='bairro' type='text'
-                      />
+                      <Field name='bairro' type='text'
+                        value={bairro}
+                        onChange={(text: { target: { value: SetStateAction<string> } }) => setBairro(text.target.value)} />
                     </div>
 
                     <div className='form-control-group'>
                       <label>Cidade</label>
-                      <Field
-                        {...register('cidade', {
-                          required: {
-                            value: true,
-                            message: '',
-                          },
-                        })}
-                        name='cidade' type='text'
-                      />
+                      <Field name='cidade' type='text'
+                        value={cidade}
+                        onChange={(text: { target: { value: SetStateAction<string> } }) => setCidade(text.target.value)} />
                     </div>
 
                     <div className='form-control-group'>
                       <label>Estado</label>
-                      <Field
-                        {...register('estado', {
-                          required: {
-                            value: true,
-                            message: '',
-                          },
-                        })}
-                        component='select' name='uf'
-                      >
+                      <Field component='select' name='uf'
+                        value={estado}
+                        onChange={(text: { target: { value: SetStateAction<string> } }) => setEstado(text.target.value)}>
                         <option value=''>Selecione o Estado</option>
                         <option value='AC'>Acre</option>
                         <option value='AL'>Alagoas</option>

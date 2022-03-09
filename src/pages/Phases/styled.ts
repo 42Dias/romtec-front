@@ -6,6 +6,11 @@ export const ContainerConfirmation = styled.div`
     height: 100%;
     padding: 50px 15px;
 
+    .interferenciasForm {
+      display: flex;
+      flex-direction: column;
+    }
+
     .swiper-container {
       margin: 0 auto;
       text-align: center;
@@ -18,7 +23,28 @@ export const ContainerConfirmation = styled.div`
       height: 194px;
       border-radius: 20px;
       z-index: 1 !important;
-      button {
+
+      :last-child {
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        button {
+          background: #00E1AF;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 5px;
+
+          width: 80px;
+          height: 50px;
+          svg {
+            color: white;
+          }
+        }
+      }
+
+      div {
         background: #252332;
         width: 100%;
         height: 194px;
@@ -37,6 +63,18 @@ export const ContainerConfirmation = styled.div`
           font-size: 32px;
           color: ${theme.colors.green};
         }
+      }
+    }
+
+    .containerForm {
+      button {
+        background: #FECE51 !important;
+      }
+    }
+
+    .containerDisabled {
+      button {
+        cursor: not-allowed !important;
       }
     }
 
@@ -94,6 +132,17 @@ export const ContainerConfirmation = styled.div`
 
     .btn-close {
       width: 120px;
+    }
+
+    .buttonOpenPhases {
+      width: 40px;
+      height: 40px;
+      background: black;
+
+      svg {
+        width: 40px;
+        height: 40px;
+      }
     }
   `
 
@@ -197,11 +246,32 @@ export const Div = styled.div`
     color: white;
     border: 0;
   }
+
+  .finishPhase {
+    width: 161px;
+    height: 44px;
+
+    background: #FECE51;
+    color: black;
+    border-radius: 5px;
+
+    margin-left: 10px;
+  }
 `
 
 export const GridForm = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+
+  padding: 40px 0;
+
+  .addInterferencia {
+    width: 208px;
+    margin-top: 39px;
+    height: 48px;
+    color: black;
+  }
 
   div {
     display: flex;
@@ -227,6 +297,34 @@ export const GridForm = styled.div`
 
       &:focus {
         border: 1px solid ${theme.colors.yellow};
+      }
+    }
+
+    select {
+      width: 480px;
+      height: 48px;
+      box-sizing: border-box;
+      border-radius: 4px;
+      margin: 10px 0;
+      padding: 0 7px;
+      border: 1px solid ${theme.colors.black};
+      background: ${theme.colors.darkBlack};
+      color: #ccc;
+
+      option {
+        color: black;
+      }
+
+      :focus {
+        border: 1px solid ${theme.colors.yellow};
+        background: transparent;
+      } 
+
+      @media(max-width: 520px) {
+        width: 290px;  
+        margin: 10px 0;
+        margin-right: 50px;
+        padding: 0;
       }
     }
   }
@@ -378,6 +476,61 @@ export const ModelsModal = styled.div`
 
     @media (max-width: 520px) {
       margin-left: 0;
+    }
+  }
+`
+
+export const InterferenciasForm = styled.form`
+  div {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      width: 420px;
+      height: 48px;
+      border: 1px solid #252332;
+      background: transparent;
+      padding: 0 7px;
+      border-radius: 6px;
+      margin-top: 11px;
+    }
+
+    select {
+      width: 420px;
+      height: 48px;
+      border: 1px solid #252332;
+      background: transparent;
+      padding: 0 7px;
+      border-radius: 6px;
+      margin-top: 11px;
+      option {
+        background: ${theme.colors.darkBlack};
+      }
+    }
+  }
+
+  button {
+    background: ${theme.colors.green};
+    width: 120px;
+    height: 39px;
+    border: 0;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+`
+
+export const ButtonOpenPhases = styled.div`
+  button {
+    width: 20%;
+    height: 40px;
+    background-color: #1B1925;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    cursor: pointer;
+    svg {
     }
   }
 `

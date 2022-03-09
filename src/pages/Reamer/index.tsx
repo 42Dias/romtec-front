@@ -26,7 +26,7 @@ type FormData = {
 }
 
 export default function
-Reamer () {
+  Reamer() {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -41,20 +41,21 @@ Reamer () {
   const [diametro, setDiametro] = useState('')
   const [rosca, setRosca] = useState('')
 
+
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
     console.log(data)
     Cadastro(data)
   }
 
-  function handleDelete (id: string) {
+  function handleDelete(id: string) {
     setReamers(reamers =>
       reamers.filter(reamer => reamer.id !== id),
     )
   }
 
-  async function Cadastro (submit: any) {
+  async function Cadastro(submit: any) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.post('alargadores', {
@@ -81,7 +82,7 @@ Reamer () {
     })
   }
 
-  async function loadDados () {
+  async function loadDados() {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.get('alargadores',
@@ -113,7 +114,7 @@ Reamer () {
       setLoading(false)
     })
   }
-  function update (dados: any) {
+  function update(dados: any) {
     console.log('dados')
     console.log(dados)
     setId(dados.id)
@@ -128,7 +129,7 @@ Reamer () {
     console.log(idAlargador)
     setIsOpenUpdate(true)
   }
-  async function updateDados () {
+  async function updateDados() {
     setLoading(true)
     const responser = api.put('alargadores/' + idAlargador, {
       data: {
@@ -140,8 +141,8 @@ Reamer () {
         numeroJatos: numeroJatos,
         diametro: diametro,
         rosca: rosca,
-      },
-    },
+      }
+    }
     ).then((response) => {
       if (response.statusText === 'OK') {
         loadDados()
@@ -275,14 +276,13 @@ Reamer () {
               />
               <button type='submit'> {loading
                 ? <img
-                    width='40px'
-                    style={{ margin: 'auto' }}
-                    height=''
-                    src='https://contribua.org/mb-static/images/loading.gif'
-                    alt='Loading'
-                  />
-                : 'Salvar'}
-              </button>
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height=''
+                  src='https://contribua.org/mb-static/images/loading.gif'
+                  alt='Loading'
+                />
+                : 'Salvar'}</button>
             </S.Form>
           </S.Container>
         </Modal>
@@ -340,12 +340,12 @@ Reamer () {
               <button onClick={() => updateDados()}>
                 {loading
                   ? <img
-                      width='40px'
-                      style={{ margin: 'auto' }}
-                      height=''
-                      src='https://contribua.org/mb-static/images/loading.gif'
-                      alt='Loading'
-                    />
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height=''
+                    src='https://contribua.org/mb-static/images/loading.gif'
+                    alt='Loading'
+                  />
                   : 'Salvar'}
               </button>
             </S.Div>

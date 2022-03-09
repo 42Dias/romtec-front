@@ -3,125 +3,131 @@ import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { NotEmittedStatement } from 'typescript'
 import { ip, token, api, id } from '../../services/api'
 import { TextField } from '../../ui/Components/TextField'
 import * as S from './styled'
 
 type FormData = {
-  fullName: string;
+  firstName: string;
   password: string;
   confirmPassword: string;
 }
 
-export default function UpdatePassword () {
+export default function UpdatePassword() {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
-  const [loading, setLoading] = useState(false)
-  const [nome, setNome] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setconfirmPassword] = useState('')
+  const [loading, setLoading] = useState(false);
+  const [nome, setNome] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setconfirmPassword] = useState('');
 
-  function onSubmit () {
+  function onSubmit() {
     const data = {
-      fullName: nome,
-      password: password,
+      firstName: nome,
+      password: password
     }
     console.log(data)
     if (password === confirmPassword) {
       resetSenha(data)
     } else {
-      toast.error('As senhas não são iguais!')
+      toast.error("As senhas não são iguais!")
     }
+
   }
   useEffect(() => {
-    const hash = window.location.hash.replace(ip + '/romtec/#/atualizar-senha/', '')
+    
+    const hash = window.location.hash.replace(ip + '/romtec/#/atualizar-senha/', '');
 
     console.log(hash)
     if (hash) {
-      const token = hash.replace('#/atualizar-senha/', '')
+
+      var token = hash.replace('#/atualizar-senha/', '');
       console.log(token)
       if (token) {
-        localStorage.setItem('token', JSON.stringify(token.replace('#/atualizar-senha/', '')))
+        localStorage.setItem("token", JSON.stringify(token.replace('#/atualizar-senha/', '')));
         loadUser()
       }
     }
   }
 
-  , [],
+    , []
   )
-  async function loadUser () {
+  async function loadUser() {
     if (!token) {
-      // window.location.reload()
+      window.location.reload()
     }
     const response = await axios({
-      method: 'get',
+      method: "get",
       url: `${ip}:8145/api/auth/me`,
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
       },
       timeout: 50000,
     }).then((response) => {
-      return response.data
-    })
-    // console.log(response);
-    // console.log(response.tenants[0].roles[0]);
-    const setRole = response.tenants[0].roles
-    const roleHelper = JSON.parse(setRole)
-    console.log(roleHelper[0])
-    localStorage.setItem('roles', JSON.stringify(roleHelper[0])) // saves client's data into localStorage:
-
-    // response.tenants[0].tenant.id);
-    localStorage.setItem(
-      'tenantId',
-      JSON.stringify(response.tenants[0].tenant.id),
-    ) // saves client's data into localStorage:
-    localStorage.setItem('id', JSON.stringify(response.id)) // saves client's data into localStorage:
-    localStorage.setItem('status', JSON.stringify(response.tenants[0].status)) // saves client's data into localStorage:
-    localStorage.setItem('email', JSON.stringify(response.email))
+      console.log(response.data);
+      localStorage.setItem('roles', JSON.stringify(response.data.tenants[0].roles[0]))
+    // saves client's data into localStorage
+    localStorage.setItem('tenantId', JSON.stringify(response.data.tenants[0].tenant.id))
+    // saves client's data into localStorage
+    localStorage.setItem('id', JSON.stringify(response.data.id))
+    localStorage.setItem('nome', JSON.stringify(response.data.firstName))
+    // saves client's data into localStorage
+    localStorage.setItem('status', JSON.stringify(response.data.tenants[0].status))
+      return response.data;
+    });
+    console.log(id);
+    //console.log(response.tenants[0].roles[0]);
+    if (!id) {
+      window.location.reload()
+    }
   }
 
-  async function resetSenha (dataU: any) {
+  async function resetSenha(dataU: any) {
     setLoading(true)
-    const data = await api.get('user/' + id).then((response) => {
-      response.data.fullName = dataU.fullName
-      update(response.data)
-      console.log(response.data)
-      return response.data
-    }).catch(res => {
-      console.log(res)
-      toast.error(res.response.data)
-      setLoading(false)
-    })
-    console.log(data)
+    // const data = await api.get("user/" + id).then((response) => {
+    //   response.data.fullName = dataU.fullName
+    //   response.data.password = dataU.password
+    //   update(response.data)
+    //   console.log(response.data)
+    //   return response.data;
+    // }).catch(res => {
+    //   console.log(res)
+    //   toast.error(res.response.data)
+    //   setLoading(false)
+    // });
+    // console.log(data)
 
-    async function update (data: any) {
-      if (data) {
-        data.password = dataU.senha
-        await api.put('user/', {
-          data: data,
-        }).then((response) => {
-          console.log(window.location.href = window.location.href + 'home')
-          console.log(response.data)
-          return response.data
-        }).catch(res => {
-          console.log(res)
-          toast.error(res.response.data)
-          setLoading(false)
-        })
-        // const response = await axios.put(`${ip}:8145/api/auth/password-reset/`, {
-        //   token: token,
-        //   password: dataU.senha
-        // }).then((response) => {
-        //   setLoading(false)
-        //   toast.success(response.data)
-        //   return response.data;
-        // }).catch(res => {
-        //   console.log(res)
-        //   toast.error(res.response.data)
-        //   setLoading(false)
-        // });
-      }
+    // async function update(data: any) {
+    if (dataU) {
+      // data.password = dataU.senha
+      await axios.put(ip + ":8145/api/auth/password-reset", {
+        token: id,
+        password: dataU.password,
+        firstName: dataU.firstName
+      }).then((response) => {
+        console.log(window.location.href = '/romtec#/')
+        console.log(response.data)
+        return response.data;
+      }).catch(res => {
+        console.log(res)
+        toast.error(res.response.data)
+        setLoading(false)
+      });
+      // const response = await axios.put(`${ip}:8145/api/auth/password-reset/`, {
+      //   token: token,
+      //   password: dataU.senha
+      // }).then((response) => {
+      //   setLoading(false)
+      //   toast.success(response.data)
+      //   return response.data;
+      // }).catch(res => {
+      //   console.log(res)
+      //   toast.error(res.response.data)
+      //   setLoading(false)
+      // });
+      //}
     }
   }
 

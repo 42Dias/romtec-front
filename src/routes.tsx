@@ -57,7 +57,7 @@ const Routes = (): JSX.Element => {
           <Route path='/configuracao-da-travessia' exact component={ConfigurationCrossing} />
           <Route path='/clientes' exact component={Customers} />
           <Route path='/pagamentos' exact component={Payments} />
-          <Route path='/planos' exact component={Plans} />
+          <Route path='/planos' exact component={Plans} /> 
           <Route path='/relatorios' exact component={Reports} />
           <Route path='/perfuracoes' exact component={Crossings} />
           <Route path='/mapeamento-interferencias' exact component={InterferenceMapping} />
@@ -71,7 +71,7 @@ const Routes = (): JSX.Element => {
           <Route path='/alargador' exact component={Reamer} />
           <Route path='/porta-sonda' exact component={ProbeHolder} />
           <Route path='/usuarios' exact component={Users} />
-          <Route path='/etapas/:id' exact component={Phases} />
+          <Route path='/etapas/:idEtapa/:id' exact component={Phases} />
           <Route path='/atualizar-senha/:token' exact component={UpdatePassword} />
           <Route path='/etapas-da-configuracao/:id' exact component={ConfigurationSteps} />
           <Route path='/execucao-da-travessia' exact component={ExecutionOfTheCrossing} />

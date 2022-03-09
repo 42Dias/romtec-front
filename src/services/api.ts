@@ -10,7 +10,7 @@ export const Email = localStorage.getItem('email')?.replace(/"/g, '')
 export const nome = localStorage.getItem('nome')?.replace(/"/g, '')
 export const password = localStorage.getItem('password')?.replace(/"/g, '')
 export const ip = 'http://localhost'
-// export let ip = "https://projetos.42dias.com.br";//servidor
+// export const ip = 'https://projetos.42dias.com.br'
 
 export const api = axios.create({
   baseURL: ip + ':8145/api/tenant/' + tenantId + '/',

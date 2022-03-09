@@ -71,11 +71,24 @@ export const GridConfirmation = styled.div`
 export const Form = styled.form`
   display: grid;
   grid-template-columns: 1fr 1fr;
+
   @media (max-width: 520px) {
     grid-template-columns: 1fr;
   }
+
   justify-items: center;
   align-items: center;
+
+  @media (max-width: 768px) {
+    .valorPago {
+      input {
+        width: 290px !important;
+      }
+      width: 290px !important;
+      position: relative;
+      right: 26px;
+    }
+  }
 
   button {
     width: 101px;

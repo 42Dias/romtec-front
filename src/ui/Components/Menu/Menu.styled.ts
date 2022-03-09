@@ -31,6 +31,12 @@ export const List = styled.ul`
   transition: width 2s;
   overflow-y: scroll;
 
+  @media (max-width: 768px) {
+    .noneClass {
+      display: none;
+    }
+  }
+
   &::-webkit-scrollbar {
     width: 7px;
     border-radius: 1px;

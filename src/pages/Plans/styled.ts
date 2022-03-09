@@ -42,11 +42,7 @@ export const ContainerConfirmation = styled.div`
 
 export const GridConfirmation = styled.div`
   display: grid;
-<<<<<<< HEAD:src/pages/Plans/styled.ts
   grid-template-columns: repeat(5, 1fr);
-=======
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
->>>>>>> 2f6f0598b53018fe8ac6902525df315c1037b950:src/pages/Plans/Plans.styled.ts
   justify-items: center;
   align-items: center;
   background-color: ${theme.colors.black};
@@ -71,8 +67,20 @@ export const Form = styled.form`
   @media (max-width: 520px) {
     grid-template-columns: 1fr;
   }
+
   justify-items: center;
   align-items: center;
+
+  @media (max-width: 768px) {
+    .valorPago {
+      input {
+        width: 290px !important;
+      }
+      width: 290px !important;
+      position: relative;
+      right: 35px;
+    }
+  }
 
   select {
     width: 345px;
@@ -91,9 +99,9 @@ export const Form = styled.form`
     }
 
     @media(max-width: 520px) {
-      width: 280px;  
+      width: 290px;  
       margin: 10px 0;
-      margin-right: 90px;
+      margin-right: 70px;
       padding: 0;
     }
   }

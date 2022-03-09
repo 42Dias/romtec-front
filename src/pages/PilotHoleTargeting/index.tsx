@@ -19,7 +19,7 @@ type FormData = {
 }
 
 export default function
-PilotHoleTargeting () {
+ PilotHoleTargeting () {
   const [isOpen, setIsOpen] = useState(false)
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()

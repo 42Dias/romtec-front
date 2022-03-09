@@ -2,6 +2,7 @@ import styled from 'styled-components/macro'
 import { theme } from '../../styles/theme'
 
 export const Modal = styled.div`
+
   width: 100%;
   height: 200vh;
   position: absolute;
@@ -23,8 +24,10 @@ export const Container = styled.div`
   width: 70%;
   color: ${theme.colors.white};
   min-height: 35%;
+  max-height: 80%;
   padding: 10px;
   border-radius: 5px;
+  overflow-y: scroll;
 
   @media (max-width: 520px) {
     width: 90%;

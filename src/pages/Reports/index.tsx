@@ -3,7 +3,7 @@ import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 
 export default function
-Reports () {
+ Reports () {
   return (
     <>
       <Sidebar />

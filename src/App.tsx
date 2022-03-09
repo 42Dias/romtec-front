@@ -125,11 +125,11 @@
 //     </BrowserRouter>
 //   )
 // }
-import React from 'react'
-import { BrowserRouter } from 'react-router-dom'
-import { ToastContainer } from 'react-toastify'
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import { GlobalStyle } from './ui'
-import Routes from './routes'
+import Routes from "./routes";
 
 const App = (): JSX.Element => {
   return (
@@ -137,7 +137,7 @@ const App = (): JSX.Element => {
       <Routes />
       <GlobalStyle />
       <ToastContainer
-        position='top-right'
+        position="top-right"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -148,7 +148,7 @@ const App = (): JSX.Element => {
         pauseOnHover
       />
     </BrowserRouter>
-  )
-}
+  );
+};
 
-export default App
+export default App;

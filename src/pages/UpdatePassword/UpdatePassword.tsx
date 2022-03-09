@@ -13,80 +13,82 @@ type FormData = {
   confirmPassword: string;
 }
 
-export function UpdatePassword () {
+export function UpdatePassword() {
   const { register, handleSubmit } = useForm<FormData>()
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
     console.log(data)
   }
-  useEffect(() => {
-    const hash = window.location.hash.replace(`${ip}/romtec/#/`, '')
+  useEffect(() => { 
+
+    const hash = window.location.hash.replace(`${ip}/romtec/#/`, '');
     console.log(hash)
     if (hash) {
-      const token = hash.replace('#/resetar-senha/', '')
+
+      var token = hash.replace('#/resetar-senha/', '');
       console.log(token)
       if (token) {
-        localStorage.setItem('token', JSON.stringify(token))
+        localStorage.setItem("token", JSON.stringify(token));
         loadUser()
       }
     }
   }
 
-  , [],
+    , []
   )
-  async function loadUser () {
+  async function loadUser() {
     if (!token) {
-      // window.location.reload()
+      //window.location.reload()
     }
     const response = await axios({
-      method: 'get',
+      method: "get",
       url: `${ip}:8157/api/auth/me`,
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
       },
       timeout: 50000,
     }).then((response) => {
-      return response.data
-    })
-    // console.log(response);
-    // console.log(response.tenants[0].roles[0]);
-    const setRole = response.tenants[0].roles
+      return response.data;
+    });
+    //console.log(response);
+    //console.log(response.tenants[0].roles[0]);
+    let setRole = response.tenants[0].roles
     const roleHelper = JSON.parse(setRole)
     console.log(roleHelper[0])
-    localStorage.setItem('roles', JSON.stringify(roleHelper[0])) // saves client's data into localStorage:
+    localStorage.setItem("roles", JSON.stringify(roleHelper[0])); //saves client's data into localStorage:
 
-    // response.tenants[0].tenant.id);
+    //response.tenants[0].tenant.id);
     localStorage.setItem(
-      'tenantId',
-      JSON.stringify(response.tenants[0].tenant.id),
-    ) // saves client's data into localStorage:
-    localStorage.setItem('id', JSON.stringify(response.id)) // saves client's data into localStorage:
-    localStorage.setItem('status', JSON.stringify(response.tenants[0].status)) // saves client's data into localStorage:
-    localStorage.setItem('email', JSON.stringify(response.email))
+      "tenantId",
+      JSON.stringify(response.tenants[0].tenant.id)
+    ); //saves client's data into localStorage:
+    localStorage.setItem("id", JSON.stringify(response.id)); //saves client's data into localStorage:
+    localStorage.setItem("status", JSON.stringify(response.tenants[0].status)); //saves client's data into localStorage:
+    localStorage.setItem("email", JSON.stringify(response.email));
   }
 
-  async function resetSenha (dataU: any) {
+  async function resetSenha(dataU: any) {
     setLoading(true)
-    const data = await api.get('user/' + id).then((response) => {
+    const data = await api.get("user/" + id).then((response) => {
       update(response.data)
-      return response.data
-    })
+      return response.data;
+    });
     console.log(data)
 
-    async function update (data: any) {
+    async function update(data: any) {
       if (data) {
         data.password = dataU.senha
         const response = await axios.put(`${ip}:8157/api/auth/password-reset/`, {
           token: id,
-          password: dataU.senha,
+          password: dataU.senha
         }).then((response) => {
           setLoading(false)
-          return response.data
+          return response.data;
         }).catch(error => {
-          toast.error('Link de redefinição de senha inválido ou expirado')
+          toast.error("Link de redefinição de senha inválido ou expirado")
           setLoading(false)
         })
       }

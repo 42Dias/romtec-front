@@ -99,8 +99,20 @@ export const GridConfirmation = styled.div`
 `
 
 export const Form = styled.form`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .buttons-points {
+    display: flex;
+    align-items: center;
+    button {
+      width: 170px;
+      background-color: ${theme.colors.yellow};
+      color: ${theme.colors.darkBlack};
+      font-weight: bold;
+    }
+  }
 
   &.form-check {
     display: flex;
@@ -116,23 +128,25 @@ export const Form = styled.form`
     margin-left: 8px !important;
   }
 
+  .form-control-group {
+    display: flex;
+    flex-direction: column;
+  }
+
   .form-control-group-check {
     display: flex;
     flex-direction: column;
-    margin: 20px auto 20px -7px;
   }
 
   .form-control-group-check span {
     color: white;
   }
 
-<<<<<<< HEAD
   .form-control-group {
     display: flex;
     flex-direction: column;
   }
-=======
->>>>>>> 1dcc2ff748b3e6dd8694f45a6956fd4979788019
+
     .form-control-group select {
       width: 345px;
       height: 48px;
@@ -177,6 +191,178 @@ export const Form = styled.form`
     :hover {
       opacity: 80%;
     }
+  }
+
+  .ant-switch-handle::before {
+    display: none;
+  }
+
+  .ant-switch-handle {
+    width: 32px;
+    height: 32px;
+    top: 4px;
+    border-radius: 4px;
+  }
+
+  .ant-switch {
+    border-radius: 4px;
+  }
+
+  .ant-switch-inner {
+    margin: 0;
+  }
+
+  .ant-switch {
+    -webkit-appearance: button;
+    margin-top: 10px;
+    width: 250px;
+    height: 45px;
+
+    border: 1px solid ${theme.colors.green} !important;
+    background: transparent;
+  }
+
+  .ant-switch-checked {
+    background-color: ${theme.colors.green}
+  }
+`
+export const Div2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  p {
+    cursor: pointer;
+    display: flex;
+    justify-items: space-between;
+    margin-top: 10px;
+    width: 250px;
+    height: 45px; 
+    border: 1px solid ${theme.colors.yellow};
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-size: 12px;
+  }
+
+  hr {
+    width: 250px;
+    margin: 20px 0 40px 0;
+  }
+
+  .buttons-points {
+    display: flex;
+    align-items: center;
+    button {
+      width: 170px;
+      background-color: ${theme.colors.yellow};
+      color: ${theme.colors.darkBlack};
+      font-weight: bold;
+    }
+  }
+
+  &.form-check {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px;
+    @media (max-width: 768px) {
+      width: 345px !important;
+    }
+  }
+
+  .form-control-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-control-group-check {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-control-group-check span {
+    color: white;
+  }
+
+  .form-control-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-control-group select {
+    width: 345px;
+    height: 48px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    margin: 10px 0;
+    padding: 0 7px;
+    border: 1px solid ${theme.colors.black};
+    background: ${theme.colors.darkBlack};
+    color: #ccc;
+
+    option {
+      color: black;
+    }
+
+    :focus {
+      border: 1px solid ${theme.colors.yellow};
+      background: transparent;
+    } 
+
+    @media(max-width: 520px) {
+      width: 290px;  
+      margin: 10px 0;
+      margin-right: 50px;
+      padding: 0;
+    }
+  }
+
+  button {
+    width: 250px;
+    height: 45px;
+    border-radius: 5px;
+    background: ${theme.colors.green};
+    border: 0;
+    transition: 1s;
+    margin-bottom: 20px;
+    margin-right: 250px;
+    margin-top: 10px;
+    :hover {
+      opacity: 80%;
+    }
+  }
+
+  .ant-switch-handle::before {
+    display: none;
+  }
+
+  .ant-switch-handle {
+    width: 32px;
+    height: 32px;
+    top: 4px;
+    border-radius: 4px;
+  }
+
+  .ant-switch {
+    border-radius: 4px;
+  }
+
+  .ant-switch-inner {
+    margin: 0;
+  }
+
+  .ant-switch {
+    -webkit-appearance: button;
+    margin-top: 10px;
+    width: 250px;
+    height: 45px;
+
+    border: 1px solid ${theme.colors.yellow} !important;
+    background: transparent;
+  }
+
+  .ant-switch-checked {
+    background-color: ${theme.colors.yellow}
   }
 `
 export const Div = styled.div`

@@ -90,7 +90,7 @@ Rods () {
       setLoading(false)
     })
   }
-  async function deleteDados (id: string) {
+  async function deleteDados(id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('hastes/' + id
@@ -105,7 +105,7 @@ Rods () {
       setLoading(false)
     })
   }
-  function update (dados: any) {
+  function update(dados: any) {
     console.log('dados')
     console.log(dados)
     setIdHastes(dados.id)
@@ -120,7 +120,7 @@ Rods () {
     setQuantidade(dados.quantidade)
     setIsOpenUpdate(true)
   }
-  async function updateDados () {
+  async function updateDados() {
     setLoading(true)
     const responser = api.put('hastes/' + idHastes, {
       data: {
@@ -133,8 +133,8 @@ Rods () {
         comprimentoTotal: comprimentoTotal,
         modeloRosca: modeloRosca,
         quantidade: quantidade,
-      },
-    },
+      }
+    }
     ).then((response) => {
       if (response.statusText === 'OK') {
         loadDados()

@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 import { ip, token } from '../../services/api'
 
 export default function
-Home () {
+ Home () {
   async function loadUser (token:any) {
     const response = await axios({
       method: 'get',
