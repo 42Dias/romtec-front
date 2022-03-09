@@ -245,6 +245,8 @@ Phases () {
   const [CondicaoFerramenta, setCondicaoFerramenta] = useState('')
   const [EmpresaProprietaria, setEmpresaProprietaria] = useState('')
   const [idTodosCampos, setidTodosCampos] = useState('')
+  const [etapa, setEtapa] = useState('')
+  const [descricao, setDescricao] = useState('')
   const [finalizarEtapa, setFinalizarEtapa] = useState(false)
   const [name, setName] = useState<any>('')
   const [image, setImage] = useState<any>('')
@@ -905,7 +907,13 @@ Phases () {
         toast.error('Erro: Tente mais tarde :(')
       })
   }
+  function salvarEtapa(){
+    let tipoEtapa = etapa == '1' ? 'Levantamento e Mapeamento de Interferências' : 
+                    etapa == '2' ?  'Planejamento da Travessia' : false
 
+    console.log(tipoEtapa)
+    console.log(etapa)
+  }
   return (
     <>
       <Sidebar />
@@ -2467,13 +2475,23 @@ Phases () {
 
         <S.PhasesModal>
           <h3>Descrição</h3>
-          <input type='text' placeholder='Descrição' />
+          <input type='text' placeholder='Descrição' 
+          value={descricao}
+          onChange={(text) => setDescricao(text.target.value)}/>
 
-          <Select
+          {/* <Select
             showSearch
             style={{ width: 400 }}
             placeholder='Selecione'
             optionFilterProp='children'
+            filterOption={(input, option) =>
+              
+              option.children.toLowerCase().indexOf(input?.toLowerCase()) >= 0
+            }
+            filterSort={(optionA, optionB) =>
+              
+              optionA.children.toLowerCase().localeCompare(optionB?.children.toLowerCase())
+            }
           >
             <Option value='1'>Levantamento e Mapeamento de Interferências</Option>
             <Option value='2'>Planejamento da Travessia</Option>
@@ -2484,9 +2502,9 @@ Phases () {
             <Option value='7'>Alargamento</Option>
             <Option value='8'>Limpeza</Option>
             <Option value='9'>Puxamento de Rede</Option>
-          </Select>
+          </Select> */}
 
-          <button className='save'>Salvar</button>
+          <button className='save' onClick={() => salvarEtapa()}>Salvar</button>
         </S.PhasesModal>
 
       </Modal>
