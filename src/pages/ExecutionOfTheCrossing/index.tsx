@@ -24,7 +24,7 @@ type FormData = {
 }
 
 export default function
-  ExecutionOfTheCrossing() {
+ExecutionOfTheCrossing () {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenPhases, setIsOpenPhases] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
@@ -45,7 +45,7 @@ export default function
   const link = '/etapas/'
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     data.idCliente = data.nomeCliente.split('/')[0]
     data.nomeCliente = data.nomeCliente.split('/')[1]
     data.idConfigTravessia = data.nomeConfigTravessia.split('/')[0]
@@ -81,7 +81,7 @@ export default function
     })
   }
 
-  async function loadDados() {
+  async function loadDados () {
     setLoading(true)
     // eslint-disable-next-line
     api.get('executarTravessia',
@@ -121,7 +121,7 @@ export default function
       setLoading(false)
     })
   }
-  async function deleteDados(id: string) {
+  async function deleteDados (id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('executarTravessia/' + id
@@ -136,7 +136,7 @@ export default function
       setLoading(false)
     })
   }
-  function update(dados: any) {
+  function update (dados: any) {
     console.log('dados')
     console.log(dados)
     setIdconfigTravessia(dados.id)
@@ -148,7 +148,7 @@ export default function
     setnomeConfigTravessia(dados.idConfigTravessia + '/' + dados.nomeConfigTravessia)
     setIsOpenUpdate(true)
   }
-  async function updateDados() {
+  async function updateDados () {
     setLoading(true)
     const responser = api.put('executarTravessia/' + idconfigTravessia, {
       data: {
@@ -158,7 +158,7 @@ export default function
         idCliente: nomeCliente.split('/')[0],
         idConfigTravessia: nomeConfigTravessia.split('/')[0],
         nomeConfigTravessia: nomeConfigTravessia.split('/')[1],
-        nomeTravessia: nome
+        nomeTravessia: nome,
       },
     },
     ).then((response) => {
@@ -176,11 +176,11 @@ export default function
     setLoading(true)
     loadDados()
   }, [])
-  function close() {
+  function close () {
     reset()
     setIsOpen(false)
   }
-  function onChange(e: any) {
+  function onChange (e: any) {
     console.log(`checked = ${e.target.checked}`)
   }
 
@@ -191,6 +191,7 @@ export default function
       <S.ContainerConfirmation>
         <h2>Processos de travessias</h2>
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
+        {/* <button onClick={() => setIsOpen(true)}>Nova<FiPlus /></button> */}
 
         <S.GridConfirmation>
           <span>Nome do Cliente</span>
@@ -223,7 +224,7 @@ export default function
                   >
                     <FaEdit size={20} />
                   </button>
-                  <Link to={link + configurationCrossing.idConfigTravessia+'/'+configurationCrossing.id}><span>Executar travessia</span></Link>
+                  <Link to={link + configurationCrossing.idConfigTravessia + '/' + configurationCrossing.id}><span>Executar travessia</span></Link>
                   {/* {<button><span>Executar travessia</span></button>}
                    <Link to='/etapas'><span>Executar travessia</span></Link> */}
                 </S.GridConfirmation>
@@ -385,8 +386,7 @@ export default function
           <S.Container>
             <S.Div>
               <div className='form-control-group'>
-                <label
-                >Nome do Cliente
+                <label>Nome do Cliente
                 </label>
                 <select
                   name='nomeCliente' id='nomeCliente'
@@ -396,8 +396,9 @@ export default function
                   <option value={nomeCliente}>{nomeCliente.split('/')[1]}</option>
                   {clientes.length > 0
                     ? clientes.map((cliente) =>
-                      nomeCliente.split('/')[1] === cliente.nomeFantasia ? false :
-                        <option value={cliente.id + '/' + cliente.nomeFantasia}>{cliente.nomeFantasia}</option>,
+                      nomeCliente.split('/')[1] === cliente.nomeFantasia
+                        ? false
+                        : <option value={cliente.id + '/' + cliente.nomeFantasia}>{cliente.nomeFantasia}</option>,
                     )
                     : <option value=''>Nenhum Cliente cadastrado!</option>}
                 </select>
@@ -420,7 +421,7 @@ export default function
               <TextField
                 label='Descrição'
                 value={descricao}
-                onChange={(text) => setdescricao(text.target.value)} 
+                onChange={(text) => setdescricao(text.target.value)}
               />
 
               {/* <TextField
@@ -446,8 +447,9 @@ export default function
                   <option value={nomeConfigTravessia}>{nomeConfigTravessia.split('/')[1]}</option>
                   {travessia.length > 0
                     ? travessia.map((travessia) =>
-                      nomeConfigTravessia.split('/')[1] === travessia.nome ? false :
-                        <option value={travessia.id + '/' + travessia.nome}>{travessia.nome}</option>,
+                      nomeConfigTravessia.split('/')[1] === travessia.nome
+                        ? false
+                        : <option value={travessia.id + '/' + travessia.nome}>{travessia.nome}</option>,
 
                     )
                     : <option value=''>Nenhuma Configuração de Travessia cadastrado!</option>}

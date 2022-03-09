@@ -23,7 +23,28 @@ export const ContainerConfirmation = styled.div`
       height: 194px;
       border-radius: 20px;
       z-index: 1 !important;
-      button {
+
+      :last-child {
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        button {
+          background: #00E1AF;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 5px;
+
+          width: 80px;
+          height: 50px;
+          svg {
+            color: white;
+          }
+        }
+      }
+
+      div {
         background: #252332;
         width: 100%;
         height: 194px;
@@ -111,6 +132,17 @@ export const ContainerConfirmation = styled.div`
 
     .btn-close {
       width: 120px;
+    }
+
+    .buttonOpenPhases {
+      width: 40px;
+      height: 40px;
+      background: black;
+
+      svg {
+        width: 40px;
+        height: 40px;
+      }
     }
   `
 
@@ -484,5 +516,21 @@ export const InterferenciasForm = styled.form`
     border: 0;
     border-radius: 5px;
     margin-top: 10px;
+  }
+`
+
+export const ButtonOpenPhases = styled.div`
+  button {
+    width: 20%;
+    height: 40px;
+    background-color: #1B1925;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    cursor: pointer;
+    svg {
+    }
   }
 `

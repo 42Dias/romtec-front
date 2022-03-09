@@ -3,11 +3,10 @@ import Modal from 'react-modal'
 import * as S from './styled'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Pagination, Navigation } from 'swiper'
-import { Switch } from 'antd'
 import 'antd/dist/antd.css'
-// Import Swiper styles
 import 'swiper/swiper-bundle.min.css'
 import 'swiper/swiper.min.css'
+import { Switch, Select } from 'antd'
 
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
@@ -18,6 +17,8 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { platform, type } from 'os'
 import axios from 'axios'
+
+const { Option } = Select
 
 SwiperCore.use([Pagination, Navigation])
 
@@ -48,19 +49,32 @@ type levantamento = {
   banco: string;
 }
 export default function
-  Phases() {
+Phases () {
   const [modalIsOpenPhase, setIsOpenPhase] = useState(false)
+  const [modalIsOpenPhaseSelect, setIsOpenPhaseSelect] = useState(false)
 
-  function openModalPhases() {
+  function openModalPhases () {
     setIsOpenPhase(true)
   }
 
-  function afterOpenModalPhases() {
+  function afterOpenModalPhases () {
 
   }
 
-  function closeModalPhases() {
+  function closeModalPhases () {
     setIsOpenPhase(false)
+  }
+
+  function openModalPhasesSelect () {
+    setIsOpenPhaseSelect(true)
+  }
+
+  function afterOpenModalPhasesSelect () {
+
+  }
+
+  function closeModalPhasesSelect () {
+    setIsOpenPhaseSelect(false)
   }
 
   const [isOpen, setIsOpen] = useState(false)
@@ -235,9 +249,9 @@ export default function
   const [name, setName] = useState<any>('')
   const [image, setImage] = useState<any>('')
   let credencial = ''
-  var nameImage = ''
-  var Image: any
-  const formData = new FormData() 
+  let nameImage = ''
+  let Image: any
+  const formData = new FormData()
   // function onSubmit(data: FormData) {
   //   data.idConfigTravessia = idConfigTravessia.replace('#/etapas/', '')
   //   data.banco = 'todos-campos'
@@ -246,7 +260,7 @@ export default function
   // }
   const [camposInterferencia, setCamposInterferencia] = useState(false)
 
-  function handleCampos() {
+  function handleCampos () {
     if (camposInterferencia) {
       setCamposInterferencia(false)
     } else {
@@ -254,8 +268,8 @@ export default function
     }
   }
 
-  function onSubmitLevantamento() {
-    //console.log(idEtapa)
+  function onSubmitLevantamento () {
+    // console.log(idEtapa)
     const data = {
       banco: 'todos-campos',
       idConfigTravessia: idConfigTravessia.replace('#/etapas/', '').split('/')[0],
@@ -336,23 +350,23 @@ export default function
       parafuso: Parafuso,
       diametroFerramenta: DiametroFerramenta,
       condicaoFerramenta: CondicaoFerramenta,
-      //EmpresaProp: EmpresaProprietaria,
+      // EmpresaProp: EmpresaProprietaria,
       empresaProprietaria: EmpresaProprietaria,
       finalizarEtapa: false,
-      travessiaId: idConfigTravessia.replace("#/etapas/", '').split('/')[1]
+      travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1],
     }
 
-    //console.log(data)
+    // console.log(data)
     // if (isUpdate) {
     //   updateDados()
     //   setIsUpdate(false)
     // } else {
     createNewFile(data)
-    //}
+    // }
   }
 
-  function onSubmitInterferenciasFisicasMagneticas() {
-    //console.log(responsavel)
+  function onSubmitInterferenciasFisicasMagneticas () {
+    // console.log(responsavel)
     const data = {
       idConfigTravessia: idConfigTravessia.replace('#/etapas/', ''),
       banco: 'interferenciasFisicasMagneticas',
@@ -400,24 +414,23 @@ export default function
   //   }
   // }
 
-  async function createNewFile(submit: any) {
+  async function createNewFile (submit: any) {
     setLoading(true)
-    //console.log('submit')
-    //console.log(submit)
+    // console.log('submit')
+    // console.log(submit)
     // eslint-disable-next-line
     console.log(credencial)
     await api.post(submit.banco, {
       data: submit,
     }).then(async (response) => {
-      //console.log(response)
+      // console.log(response)
       if (response.statusText === 'OK') {
         setidTodosCampos(response.data.id)
-        
+
         setLoading(false)
         reset()
         setIsOpenPlanejamento(false)
         // loadDados()
-        
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')
         setLoading(false)
@@ -426,12 +439,12 @@ export default function
         setLoading(false)
       }
     }).catch(res => {
-      //console.log(res)
+      // console.log(res)
       toast.error(res.response.data)
       setLoading(false)
     })
   }
-  async function loadDados(url: string) {
+  async function loadDados (url: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = await api.get(url + `?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/etapas/", '').split('/')[0]}`,
@@ -439,18 +452,18 @@ export default function
       if (response.statusText === 'OK') {
         setDados(response.data.rows)
         setUrl(url)
-        //console.log(dados)
+        // console.log(dados)
         setLoading(false)
       }
     }).catch(res => {
-      //console.log(res.response.data)
+      // console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
 
     setLoading(false)
   }
-  async function deleteDados(id: string) {
+  async function deleteDados (id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('tipo-solo/' + id,
@@ -460,17 +473,17 @@ export default function
         setLoading(false)
       }
     }).catch(res => {
-      //console.log(res.response.data)
+      // console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
   }
-  function update(data: any) {
-    //console.log('data')
-    //console.log(data)
+  function update (data: any) {
+    // console.log('data')
+    // console.log(data)
     // setDados(data)
     setId(data[0].id)
-    //console.log(url)
+    // console.log(url)
     if (url === 'planejamentoPerfuracao') {
       setlatitudeEntrada(data[0].latitudeEntrada)
       setlongitudeSaida(data[0].longitudeSaida)
@@ -516,12 +529,12 @@ export default function
       setTipoSolo(data[0].tipoSolo)
       settipoTubulacao(data[0].tipoTubulacao)
     }
-    //console.log(idDados)
+    // console.log(idDados)
   }
-  async function updateDados() {
+  async function updateDados () {
     setLoading(true)
-    //console.log('idTodosCampos')
-    //console.log(idTodosCampos)
+    // console.log('idTodosCampos')
+    // console.log(idTodosCampos)
     // console.log(soilTypesUp)
     const responser = api.put('todos-campos/' + idTodosCampos, {
       data: {
@@ -603,10 +616,10 @@ export default function
         parafuso: Parafuso,
         diametroFerramenta: DiametroFerramenta,
         condicaoFerramenta: CondicaoFerramenta,
-        //EmpresaProp: EmpresaProprietaria,
+        // EmpresaProp: EmpresaProprietaria,
         empresaProprietaria: EmpresaProprietaria,
-        travessiaId: idConfigTravessia.replace("#/etapas/", '').split('/')[1],
-        finalizarEtapa: true
+        travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1],
+        finalizarEtapa: true,
       },
     },
     ).then((response) => {
@@ -615,10 +628,10 @@ export default function
         // setisOpenUpdatePlanejamentoPerfuração(false)
         setFinalizarEtapa(true)
         setLoading(false)
-        toast.success("Etapa finalizada!")
+        toast.success('Etapa finalizada!')
       }
     }).catch(res => {
-      //console.log(res.response.data)
+      // console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
@@ -627,21 +640,21 @@ export default function
   useEffect(() => {
     // console.log(soilTypesUp)
     idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas/', '')
-    //console.log('useEffect')
-    //console.log(idConfigTravessia)
+    // console.log('useEffect')
+    // console.log(idConfigTravessia)
     // setLoading(true)
     loadDados('etapas')
   }, [])
 
-  function openModal(data: any) {
-    //console.log(data)
+  function openModal (data: any) {
+    // console.log(data)
     setIdEtapa(data.etapaId)
-    api.get(`todos-campos?filter%5BetapaId%5D=${data.id}&filter%5BidTravessia%5D=${idConfigTravessia.replace("#/etapas/", '').split('/')[1]}`,
+    api.get(`todos-campos?filter%5BetapaId%5D=${data.id}&filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
     ).then((response) => {
-      //console.log(response.data.rows)
+      // console.log(response.data.rows)
       if (response.statusText === 'OK') {
         if (response.data.count > 0) {
-          //console.log(response.data.rows[0].id)
+          // console.log(response.data.rows[0].id)
           setIdEtapa(data.etapaId)
           setidTodosCampos(response.data.rows[0].id)
           setlatitudeEntrada(response.data.rows[0].PontoVerEntradaLat)
@@ -728,7 +741,7 @@ export default function
         setLoading(false)
       }
     }).catch(res => {
-      ////console.log(res.response.data)
+      /// /console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
@@ -814,13 +827,13 @@ export default function
 
     setisOpenUpdatePlanejamentoPerfuração(true)
   }
-  function afterOpenModal() {
+  function afterOpenModal () {
     // references are now sync'd and can be accessed.
   }
-  function closeModal() {
+  function closeModal () {
     setIsOpenPlanejamento(false)
   }
-  async function makeRequisition(e: any) {
+  async function makeRequisition (e: any) {
     e.preventDefault()
     e.target.reset()
 
@@ -834,8 +847,7 @@ export default function
     }
   }
   const uploadImage = async (imagemNova: string | Blob) => {
-    
-    //console.log("upload")
+    // console.log("upload")
     formData.append('file', imagemNova)
 
     // console.log(...formData)
@@ -848,7 +860,7 @@ export default function
       },
     }
     console.log(nameImage)
-    await api.get(`file/credentials`, {
+    await api.get('file/credentials', {
       params: {
         filename: nameImage,
         storageId: 'execucaoTravessia',
@@ -872,7 +884,7 @@ export default function
               toast.success('Cadastrado realizado com sucesso!')
             }
           }).catch(res => {
-            //console.log(res)
+            // console.log(res)
             toast.error(res.response)
             setLoading(false)
           })
@@ -882,7 +894,7 @@ export default function
         }
       }).catch((err) => {
         if (err.response) {
-          //console.log(err)
+          // console.log(err)
           toast.error('Erro: Tente mais tarde :(')
         } else {
           // setStatus({
@@ -1025,12 +1037,13 @@ export default function
           {dados.length > 0
             ? dados.map(data =>
               <SwiperSlide>
-                <button onClick={() => openModal(data)}>
+                <div onClick={() => openModal(data)}>
                   <FiCheck />
                   <h2>{data.numeroEtapa}</h2>
                   <h1>{data.novaEtapa}</h1>
-                </button>
-              </SwiperSlide>,
+                </div>
+              </SwiperSlide>
+              ,
             )
             : <p>🤔 Nenhuma Etapa cadastrada!</p>}
           {/* <SwiperSlide>
@@ -1071,6 +1084,11 @@ export default function
               <h1>Fechamento da vala</h1>
             </button>
           </SwiperSlide> */}
+          <SwiperSlide>
+            <button onClick={() => openModalPhasesSelect()}>
+              <FiPlus size={26} />
+            </button>
+          </SwiperSlide>
         </Swiper>
 
         <Modal
@@ -1265,7 +1283,7 @@ export default function
                       type='file'
                       name='image'
                       onChange={e => {
-                        //console.log(e)
+                        // console.log(e)
                         // @ts-ignore
                         nameImage = e.target.files[0].name
                         // @ts-ignore
@@ -1280,12 +1298,12 @@ export default function
                         setImage(e.target.files[0])
 
                         // @ts-ignore
-                        //if (e.target.files[0].type.includes('image') || e.target.files[0].type.includes('file')) {
-                          // @ts-ignore
-                          uploadImage(e.target.files[0])
-                        //} else {
-                         // toast.error('Arquivo não suportado')
-                       // }
+                        // if (e.target.files[0].type.includes('image') || e.target.files[0].type.includes('file')) {
+                        // @ts-ignore
+                        uploadImage(e.target.files[0])
+                        // } else {
+                        // toast.error('Arquivo não suportado')
+                        // }
                       }}
                     /><br /><br />
 
@@ -1488,7 +1506,7 @@ export default function
                       type='file'
                       name='image'
                       onChange={e => {
-                        //console.log(e)
+                        // console.log(e)
                         // @ts-ignore
                         nameImage = e.target.files[0].name
                         // @ts-ignore
@@ -1503,12 +1521,12 @@ export default function
                         setImage(e.target.files[0])
 
                         // @ts-ignore
-                        //if (e.target.files[0].type.includes('image') || e.target.files[0].type.includes('file')) {
-                          // @ts-ignore
-                          uploadImage(e.target.files[0])
-                        //} else {
-                         // toast.error('Arquivo não suportado')
-                       // }
+                        // if (e.target.files[0].type.includes('image') || e.target.files[0].type.includes('file')) {
+                        // @ts-ignore
+                        uploadImage(e.target.files[0])
+                        // } else {
+                        // toast.error('Arquivo não suportado')
+                        // }
                       }}
                     /><br /><br />
 
@@ -2068,47 +2086,60 @@ export default function
               {camposInterferencia
                 ? <div>
                   <label htmlFor=''>Diâmetro</label>
-                  <input type='text'
+                  <input
+                    type='text'
                     value={diametroInterferencia}
-                    onChange={(text) => setDiametroInterferencia(text.target.value)} />
+                    onChange={(text) => setDiametroInterferencia(text.target.value)}
+                  />
                 </div>
                 : false}
 
               {camposInterferencia
                 ? <div>
                   <label htmlFor=''>Tipo de interferência</label>
-                  <input type='text'
+                  <input
+                    type='text'
                     value={tipoInterferencia}
-                    onChange={(text) => setTipoInterferencia(text.target.value)} />
+                    onChange={(text) => setTipoInterferencia(text.target.value)}
+                  />
                 </div>
                 : false}
 
               {camposInterferencia
                 ? <div>
                   <label htmlFor=''>Profundidade</label>
-                  <input type='text'
+                  <input
+                    type='text'
                     value={profundidade}
-                    onChange={(text) => setprofundidade(text.target.value)} />
+                    onChange={(text) => setprofundidade(text.target.value)}
+                  />
                 </div>
                 : false}
             </S.GridForm>
-            {!finalizarEtapa ? <button onClick={() => { onSubmitLevantamento() }}>{loading
-              ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height='' src='https://contribua.org/mb-static/images/loading.gif'
-                alt='Loading'
-              />
-              : 'Salvar'}
-            </button> : false}
-            {!finalizarEtapa ? idTodosCampos === '' ? <button onClick={() => { toast.info("É preciso salvar a etapa!") }} className='finishPhase'>Finalizar Etapa</button> : <button onClick={() => { updateDados() }} className='finishPhase'>{loading
-              ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height='' src='https://contribua.org/mb-static/images/loading.gif'
-                alt='Loading'
-              />
-              : 'Finalizar Etapa'}</button> : 'Etapa Finalizada!'}
+            {!finalizarEtapa
+              ? <button onClick={() => { onSubmitLevantamento() }}>{loading
+                ? <img
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height='' src='https://contribua.org/mb-static/images/loading.gif'
+                    alt='Loading'
+                  />
+                : 'Salvar'}
+              </button>
+              : false}
+            {!finalizarEtapa
+              ? idTodosCampos === ''
+                ? <button onClick={() => { toast.info('É preciso salvar a etapa!') }} className='finishPhase'>Finalizar Etapa</button>
+                : <button onClick={() => { updateDados() }} className='finishPhase'>{loading
+                  ? <img
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height='' src='https://contribua.org/mb-static/images/loading.gif'
+                      alt='Loading'
+                    />
+                  : 'Finalizar Etapa'}
+                </button>
+              : 'Etapa Finalizada!'}
           </S.Div>
         </Modal>
 
@@ -2349,11 +2380,11 @@ export default function
             </S.GridForm>
             <button onClick={() => onSubmitInterferenciasFisicasMagneticas()}>{loading
               ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height='' src='https://contribua.org/mb-static/images/loading.gif'
-                alt='Loading'
-              />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height='' src='https://contribua.org/mb-static/images/loading.gif'
+                  alt='Loading'
+                />
               : 'Salvar'}
             </button>
           </S.Div>
@@ -2419,6 +2450,46 @@ export default function
         </Swiper>
       */}
       </S.ContainerConfirmation>
+
+      <Modal
+        className='phaes-modal'
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          },
+        }}
+
+        isOpen={modalIsOpenPhaseSelect}
+        onAfterOpen={() => afterOpenModalPhasesSelect}
+        onRequestClose={() => closeModalPhasesSelect}
+      >
+        <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModalPhasesSelect}><FiX color='white' /></button>
+
+        <S.PhasesModal>
+          <h3>Descrição</h3>
+          <input type='text' placeholder='Descrição' />
+
+          <Select
+            showSearch
+            style={{ width: 400 }}
+            placeholder='Selecione'
+            optionFilterProp='children'
+          >
+            <Option value='1'>Levantamento e Mapeamento de Interferências</Option>
+            <Option value='2'>Planejamento da Travessia</Option>
+            <Option value='3'>Sondagem das Interferências</Option>
+            <Option value='4'>Abertura de Valas de Entrada e Saída</Option>
+            <Option value='5'>Preparação de Fluído</Option>
+            <Option value='6'>Execução da Travessia - Furo Piloto</Option>
+            <Option value='7'>Alargamento</Option>
+            <Option value='8'>Limpeza</Option>
+            <Option value='9'>Puxamento de Rede</Option>
+          </Select>
+
+          <button className='save'>Salvar</button>
+        </S.PhasesModal>
+
+      </Modal>
     </>
   )
 }
