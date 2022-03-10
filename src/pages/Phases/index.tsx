@@ -9,7 +9,7 @@ import 'swiper/swiper.min.css'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 
-import { FiPlus, FiCheck, FiPlay, FiLock, FiX } from 'react-icons/fi'
+import { FiPlus, FiCheck, FiPlay, FiLock, FiX, FiTrash, FiEye } from 'react-icons/fi'
 import { api, ip, token } from '../../services/api'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
@@ -47,7 +47,33 @@ type levantamento = {
 export default function
   Phases() {
   const [modalIsOpenPhase, setIsOpenPhase] = useState(false)
+  const [modalIsOpenInterferencia, setIsOpenInterferencia] = useState(false)
+  const [modalIsOpenInterferenciaEdit, setIsOpenInterferenciaEdit] = useState(false)
   const [modalIsOpenPhaseSelect, setIsOpenPhaseSelect] = useState(false)
+
+  function openModalInterferencia() {
+    setIsOpenInterferencia(true)
+  }
+
+  function afterOpenModalInterferencia() {
+
+  }
+
+  function closeModalInterferencia() {
+    setIsOpenInterferencia(false)
+  }
+
+  function openModalInterferenciaEdit() {
+    setIsOpenInterferenciaEdit(true)
+  }
+
+  function afterOpenModalInterferenciaEdit() {
+
+  }
+
+  function closeModalInterferenciaEdit() {
+    setIsOpenInterferenciaEdit(false)
+  }
 
   function openModalPhases() {
     setIsOpenPhase(true)
@@ -75,13 +101,13 @@ export default function
 
   const [isOpen, setIsOpen] = useState(false)
   const [disabled, setDisabled] = useState(false)
-  const [isOpenInterferencia, setIsOpenInterferencia] = useState(false)
   const [modalIsOpenPlanejamento, setIsOpenPlanejamento] = useState(false)
   const [modalIsOpenAddInterferencia, setIsOpenAddInterferencia] = useState(false)
   let idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas/', '')
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
   const [loading, setLoading] = useState(false)
   const [dados, setDados] = useState<any[]>([])
+  const [interferencias, setinterferencias] = useState<any[]>([])
   const [variavelTitulo, setVariavelTitulo] = useState('')
   const [idDados, setId] = useState('')
   const [responsavel, setresponsavel] = useState('')
@@ -113,8 +139,17 @@ export default function
   const [posicaoRelogio, setposicaoRelogio] = useState('')
   const [idEtapa, setIdEtapa] = useState('')
   const [azimute, setazimute] = useState('')
+  const [latitude, setLatitude] = useState('')
+  const [longitude, setLongitude] = useState('')
+  const [diametro, setDiametro] = useState('')
+  // const [profundidade2, setProfundidade] = useState('')
+  // const [tipoRede, setTipoRede] = useState('')
+  const [localizacao, setLocalizacao] = useState('')
+  const [angulacao, setAngulacao] = useState('')
   const [profundidadeEntrada, setprofundidadeEntrada] = useState('')
+  const [profundidadeSaida, setprofundidadeSaida] = useState('')
   const [campoprofundidadeEntrada, setcampoprofundidadeEntrada] = useState(false)
+  const [campoprofundidadeSaida, setcampoprofundidadeSaida] = useState(false)
   const [isUpdate, setIsUpdate] = useState(false)
   const [campoEntradaLatitude, setcampoEntradaLatitude] = useState(false)
   const [campoEntradaLongitude, setcampoEntradaLongitude] = useState(false)
@@ -192,6 +227,33 @@ export default function
   const [campoDiametroFerramenta, setcampoDiametroFerramenta] = useState(false)
   const [campoCondicaoFerramenta, setcampoCondicaoFerramenta] = useState(false)
   const [campoEmpresaProprietaria, setcampoEmpresaProprietaria] = useState(false)
+  const [campovalaEntradaLatitude, setcampovalaEntradaLatitude] = useState(false)
+  const [campovalaEntradaLongitude, setcampovalaEntradaLongitude] = useState(false)
+  const [campovalaEntradaAltura, setcampovalaEntradaAltura] = useState(false)
+  const [campovalaEntradaComprimento, setcampovalaEntradaComprimento] = useState(false)
+  const [campovalaEntradaProfundidade, setcampovalaEntradaProfundidade] = useState(false)
+  const [campovalaSaidaLatitude, setcampovalaSaidaLatitude] = useState(false)
+  const [campovalaSaidaLongitude, setcampovalaSaidaLongitude] = useState(false)
+  const [campovalaSaidaAltura, setcampovalaSaidaAltura] = useState(false)
+  const [campovalaSaidaComprimento, setcampovalaSaidaComprimento] = useState(false)
+  const [campovalaSaidaProfundidade, setcampovalaSaidaProfundidade] = useState(false)
+  const [campoprofundidadeMax, setcampoprofundidadeMax] = useState(false)
+  const [campoprofundidadeMin, setcampoprofundidadeMin] = useState(false)
+  const [campoMaterialRedeTubula, setcampoMaterialRedeTubula] = useState(false)
+
+  const [MaterialRedeTubula, setMaterialRedeTubula] = useState('')
+  const [profundidadeMin, setprofundidadeMin] = useState('')
+  const [profundidadeMax, setprofundidadeMax] = useState('')
+  const [valaSaidaProfundidade, setvalaSaidaProfundidade] = useState('')
+  const [valaSaidaComprimento, setvalaSaidaComprimento] = useState('')
+  const [valaSaidaAltura, setvalaSaidaAltura] = useState('')
+  const [valaSaidaLongitude, setvalaSaidaLongitude] = useState('')
+  const [valaSaidaLatitude, setvalaSaidaLatitude] = useState('')
+  const [valaEntradaProfundidade, setvalaEntradaProfundidade] = useState('')
+  const [valaEntradaComprimento, setvalaEntradaComprimento] = useState('')
+  const [valaEntradaAltura, setvalaEntradaAltura] = useState('')
+  const [valaEntradaLongitude, setvalaEntradaLongitude] = useState('')
+  const [valaEntradaLatitude, setvalaEntradaLatitude] = useState('')
   const [nomePerfilAcesso, setnomePerfilAcesso] = useState('')
   const [dataExecucao, setdataExecucao] = useState('')
   const [responsavelExecucao, setresponsavelExecucao] = useState('')
@@ -354,6 +416,21 @@ export default function
       empresaProprietaria: EmpresaProprietaria,
       finalizarEtapa: false,
       travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1],
+      profundidadeEntrada: profundidadeEntrada,
+      profundidadeSaida: profundidadeSaida,
+      valaEntradaLatitude: valaEntradaLatitude,
+      valaEntradaLongitude: valaEntradaLongitude,
+      valaEntradaAltura: valaEntradaAltura,
+      valaEntradaComprimento: valaEntradaComprimento,
+      valaEntradaProfundidade: valaEntradaProfundidade,
+      valaSaidaLatitude: valaSaidaLatitude,
+      valaSaidaLongitude: valaSaidaLongitude,
+      valaSaidaAltura: valaSaidaAltura,
+      valaSaidaComprimento: valaSaidaComprimento,
+      valaSaidaProfundidade: valaSaidaProfundidade,
+      profundidadeMax: profundidadeMax,
+      profundidadeMin: profundidadeMin,
+      MaterialRedeTubula: MaterialRedeTubula,
     }
 
     // console.log(data)
@@ -460,7 +537,17 @@ export default function
       toast.error(res.response.data)
       setLoading(false)
     })
-
+    api.get(`interferencia?filter%5BetapaId%5D=${idEtapa}&filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        console.log(response.data.rows)
+        setinterferencias(response.data.rows)
+      }
+    }).catch((res) => {
+      console.log(res)
+      // toast.error(res.response.data);
+      setLoading(false)
+    })
     setLoading(false)
   }
   async function deleteDados(id: string) {
@@ -620,6 +707,21 @@ export default function
         empresaProprietaria: EmpresaProprietaria,
         travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1],
         finalizarEtapa: true,
+        profundidadeEntrada: profundidadeEntrada,
+        profundidadeSaida: profundidadeSaida,
+        valaEntradaLatitude: valaEntradaLatitude,
+        valaEntradaLongitude: valaEntradaLongitude,
+        valaEntradaAltura: valaEntradaAltura,
+        valaEntradaComprimento: valaEntradaComprimento,
+        valaEntradaProfundidade: valaEntradaProfundidade,
+        valaSaidaLatitude: valaSaidaLatitude,
+        valaSaidaLongitude: valaSaidaLongitude,
+        valaSaidaAltura: valaSaidaAltura,
+        valaSaidaComprimento: valaSaidaComprimento,
+        valaSaidaProfundidade: valaSaidaProfundidade,
+        profundidadeMax: profundidadeMax,
+        profundidadeMin: profundidadeMin,
+        MaterialRedeTubula: MaterialRedeTubula,
       },
     },
     ).then((response) => {
@@ -712,7 +814,7 @@ export default function
           setmodeloAlargador(response.data.rows[0].modeloAlargador)
           setcapacidadePortaFusilink(response.data.rows[0].capacidadePortaFusilink)
           setcapacidadeSwivel(response.data.rows[0].capacidadeSwivel)
-          setcampoFluido(response.data.rows[0].fluido)
+          setFluido(response.data.rows[0].fluido)
           setcampoReceitaFluido(response.data.rows[0].receitaFluido)
 
           setPortaSonda(response.data.rows[0].portaSonda)
@@ -735,12 +837,36 @@ export default function
           setDiametroFerramenta(response.data.rows[0].diametroFerramenta)
           setFinalizarEtapa(response.data.rows[0].finalizarEtapa)
           setprofundidadeEntrada(response.data.rows[0].profundidadeEntrada)
+          setprofundidadeSaida(response.data.rows[0].profundidadeSaida)
+          setvalaEntradaLatitude(response.data.rows[0].valaEntradaLatitude)
+          setvalaEntradaLongitude(response.data.rows[0].valaEntradaLongitude)
+          setvalaEntradaAltura(response.data.rows[0].valaEntradaAltura)
+          setvalaEntradaComprimento(response.data.rows[0].valaEntradaComprimento)
+          setvalaEntradaProfundidade(response.data.rows[0].valaEntradaProfundidade)
+          setvalaSaidaLatitude(response.data.rows[0].valaSaidaLatitude)
+          setvalaSaidaLongitude(response.data.rows[0].valaSaidaLongitude)
+          setvalaSaidaAltura(response.data.rows[0].valaSaidaAltura)
+          setvalaSaidaComprimento(response.data.rows[0].valaSaidaComprimento)
+          setvalaSaidaProfundidade(response.data.rows[0].valaSaidaProfundidade)
+          setprofundidadeMax(response.data.rows[0].profundidadeMax)
+          setprofundidadeMin(response.data.rows[0].profundidadeMin)
+          setMaterialRedeTubula(response.data.rows[0].MaterialRedeTubula)
         } else {
           setFinalizarEtapa(false)
           setidTodosCampos('')
         }
         setLoading(false)
       }
+      api.get(`interferencia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
+      ).then((response) => {
+        if (response.statusText === 'OK') {
+          setinterferencias(response.data.rows)
+        }
+      }).catch((res) => {
+        console.log(res)
+        // toast.error(res.response.data);
+        setLoading(false)
+      })
     }).catch(res => {
       /// /console.log(res.response.data)
       toast.error(res.response.data)
@@ -768,7 +894,7 @@ export default function
     setcampoInfoEnvolvidas(data.campoInfoEnvolvidas)
     setcampoDiametro(data.campoDiametro)
     setcampoLocalizaDiretrizFuro(data.campoLocalizaDiretrizFuro)
-    setcampoTipoInterferencia(data.campoTipoInterferencia)
+    setcampotipoInterferencia(data.tipoInterferencia)
     setcampoProfundidade(data.campoProfundidade)
     setcampoResponselTopografia(data.campoResponselTopografia)
     setcampoDataTopografia(data.campoDataTopografia)
@@ -806,7 +932,6 @@ export default function
     setcampocapacidadeSwivel(data.capacidadeSwivel)
     setcampoFluido(data.fluido)
     setcampoReceitaFluido(data.receitaFluido)
-
     setcampoPortaSonda(data.portaSonda)
     setcampoVolumePreparado(data.volumePrepardo)
     setcampoTesteVicosidade(data.testeVicosidade)
@@ -826,6 +951,20 @@ export default function
     setcampoEmpresaProprietaria(data.empresaProprietaria)
     setcampoDiametroFerramenta(data.diametroFerramenta)
     setcampoprofundidadeEntrada(data.profundidadeEntrada)
+    setcampoprofundidadeSaida(data.profundidadeSaida)
+    setcampovalaEntradaLatitude(data.valaEntradaLatitude)
+    setcampovalaEntradaLongitude(data.valaEntradaLongitude)
+    setcampovalaEntradaAltura(data.valaEntradaAltura)
+    setcampovalaEntradaComprimento(data.valaEntradaComprimento)
+    setcampovalaEntradaProfundidade(data.valaEntradaProfundidade)
+    setcampovalaSaidaLatitude(data.valaSaidaLatitude)
+    setcampovalaSaidaLongitude(data.valaSaidaLongitude)
+    setcampovalaSaidaAltura(data.valaSaidaAltura)
+    setcampovalaSaidaComprimento(data.valaSaidaComprimento)
+    setcampovalaSaidaProfundidade(data.valaSaidaProfundidade)
+    setcampoprofundidadeMax(data.profundidadeMax)
+    setcampoprofundidadeMin(data.profundidadeMin)
+    setcampoMaterialRedeTubula(data.MaterialRedeTubula)
 
     setisOpenUpdatePlanejamentoPerfuração(true)
   }
@@ -934,6 +1073,7 @@ export default function
     let valaEntradaProfundidade = false
     let valaSaidaLatitude = false
     let valaSaidaLongitude = false
+    let valaSaidaAltura = false
     let valaSaidaComprimento = false
     let valaSaidaProfundidade = false
     let fluido = false
@@ -967,14 +1107,13 @@ export default function
       campoSaidaLatitude = true
       campoSaidaLongitude = true
       profundidadeSaida = true
-    }else if (etapa == '3') {
+    } else if (etapa == '3') {
       novaEtapa = 'Sondagem das Interferências'
       nomePerfilAcesso = true
       tipoInterferencia = true
-    }else if (etapa == '4') {
+    } else if (etapa == '4') {
       novaEtapa = 'Abertura de Valas de Entrada e Saída'
       nomePerfilAcesso = true
-      tipoInterferencia = true
       responsavelExecucao = true
       dataExecucao = true
       valaEntradaLatitude = true
@@ -984,33 +1123,34 @@ export default function
       valaEntradaProfundidade = true
       valaSaidaLatitude = true
       valaSaidaLongitude = true
+      valaSaidaAltura = true
       valaSaidaComprimento = true
       valaSaidaProfundidade = true
-    }else if (etapa == '5') {
+    } else if (etapa == '5') {
       novaEtapa = 'Preparação de Fluído'
       nomePerfilAcesso = true
       fluido = true
       campoResponsel = true
       dataExecucao = true
       horaExecucao = true
-    }else if (etapa == '6') {
+    } else if (etapa == '6') {
       novaEtapa = 'Execução da Travessia - Furo Piloto'
       nomePerfilAcesso = true
       profundidadeMax = true
       profundidadeMin = true
       campoEquipamento = true
-    }else if (etapa == '7') {
+    } else if (etapa == '7') {
       novaEtapa = 'Alargamento'
       nomePerfilAcesso = true
       campoEquipamento = true
-    }else if (etapa == '8') {
+    } else if (etapa == '8') {
       novaEtapa = 'Limpeza'
       nomePerfilAcesso = true
       campoEquipamento = true
       vazaoBomba = true
       capacidadeSwivel = true
       diametroFerramenta = true
-    }else if (etapa == '9') {
+    } else if (etapa == '9') {
       novaEtapa = 'Puxamento de Rede'
       nomePerfilAcesso = true
       tipoRedeTubula = true
@@ -1025,7 +1165,7 @@ export default function
       novaEtapa: descricao,
       tipoEtapa: novaEtapa,
       idConfigTravessia: idConfigTravessia.replace('#/etapas/', '').split('/')[0],
-      numeroEtapa: dados.length+1,
+      numeroEtapa: dados.length + 1,
       nomePerfilAcesso: nomePerfilAcesso,
       croquiMapeamento: croquiMapeamento,
       equipamentoUtilizado: equipamentoUtilizado,
@@ -1045,6 +1185,7 @@ export default function
       valaEntradaProfundidade: valaEntradaProfundidade,
       valaSaidaLatitude: valaSaidaLatitude,
       valaSaidaLongitude: valaSaidaLongitude,
+      valaSaidaAltura: valaSaidaAltura,
       valaSaidaComprimento: valaSaidaComprimento,
       valaSaidaProfundidade: valaSaidaProfundidade,
       fluido: fluido,
@@ -1066,29 +1207,69 @@ export default function
     api.post('etapas', {
       data: data,
     })
-    .then((response) => {
-      console.log(response)
-      if (response.statusText === 'OK') {
-        toast.success('Cadastrada com sucesso!')
+      .then((response) => {
+        console.log(response)
+        if (response.statusText === 'OK') {
+          toast.success('Cadastrada com sucesso!')
+          setLoading(false)
+          setIsOpenPhaseSelect(false)
+          reset()
+          loadDados('etapas')
+        } else if (response.statusText === 'Forbidden') {
+          toast.error('Ops, Não tem permisão!')
+          setLoading(false)
+        } else {
+          toast.error('Ops, Dados Incorretos!')
+          setLoading(false)
+        }
+      })
+      .catch((res) => {
+        console.log(res)
+        // toast.error(res.response.data);
         setLoading(false)
-        setIsOpenPhaseSelect(false)
-        reset()
-        loadDados('etapas')
-      } else if (response.statusText === 'Forbidden') {
-        toast.error('Ops, Não tem permisão!')
-        setLoading(false)
-      } else {
-        toast.error('Ops, Dados Incorretos!')
-        setLoading(false)
-      }
-    })
-    .catch((res) => {
-      console.log(res)
-      // toast.error(res.response.data);
-      setLoading(false)
-    })
+      })
     console.log(data)
     console.log(etapa)
+  }
+  function salvarInterferencia() {
+    let data = {
+      tipo: variavelTitulo,
+      latitude: latitude,
+      longitude: longitude,
+      diametro: diametro,
+      profundidade: profundidade,
+      tipoRede: tipoRede,
+      tipoInterferencia: tipoInterferencia,
+      localizacao: localizacao,
+      angulacao: angulacao,
+      idTravessia: idConfigTravessia.replace('#/etapas/', '').split('/')[1],
+      idTodosCampos: idTodosCampos,
+      idEtapa: idEtapa,
+    }
+    api.post('interferencia', {
+      data: data,
+    })
+      .then((response) => {
+        console.log(response)
+        if (response.statusText === 'OK') {
+          toast.success('Cadastrada com sucesso!')
+          setLoading(false)
+          setIsOpenPhaseSelect(false)
+          reset()
+          loadDados('etapas')
+        } else if (response.statusText === 'Forbidden') {
+          toast.error('Ops, Não tem permisão!')
+          setLoading(false)
+        } else {
+          toast.error('Ops, Dados Incorretos!')
+          setLoading(false)
+        }
+      })
+      .catch((res) => {
+        console.log(res)
+        // toast.error(res.response.data);
+        setLoading(false)
+      })
   }
   return (
     <>
@@ -1308,7 +1489,16 @@ export default function
                   />
                 </div>
                 : false}
-
+              {campoprofundidadeEntrada
+                ? <div>
+                  <label htmlFor=''>Profundidade Entrada</label>
+                  <input
+                    type='text' placeholder='Profundidade'
+                    value={profundidadeEntrada}
+                    onChange={(text) => setprofundidadeEntrada(text.target.value)}
+                  />
+                </div>
+                : false}
               {campoSaidaLatitude
                 ? <div>
                   <label htmlFor=''>Ponto de verificação de saída (lat)</label>
@@ -1330,7 +1520,16 @@ export default function
                   />
                 </div>
                 : false}
-
+              {campoprofundidadeSaida
+                ? <div>
+                  <label htmlFor=''>Profundidade Saida</label>
+                  <input
+                    type='text' placeholder='Profundidade'
+                    value={profundidadeSaida}
+                    onChange={(text) => setprofundidadeSaida(text.target.value)}
+                  />
+                </div>
+                : false}
               {campoTipoSolo
                 ? <div>
                   <label htmlFor=''>Tipos de solo</label>
@@ -1748,7 +1947,7 @@ export default function
                 </div>
                 : false}
 
-              {campoTipoInterferencia
+              {/* {campoTipoInterferencia
                 ? <div>
                   <label htmlFor=''>Tipo de Interferência</label>
                   <input
@@ -1757,7 +1956,7 @@ export default function
                     onChange={(text) => setTipoInterferencia(text.target.value)}
                   />
                 </div>
-                : false}
+                : false} */}
               {campoEmpresaProprietaria
                 ? <div>
                   <label htmlFor=''>Empresa proprietaria</label>
@@ -2086,7 +2285,7 @@ export default function
                 : false}
               {campocapacidadePortaFusilink
                 ? <div>
-                  <label htmlFor=''>Capacidade do Porta Fusilink</label>
+                  <label htmlFor=''>Capacidade do Porta Fusilink, Pulling Head ou Cabeça de Puxamento</label>
                   <input
                     type='text'
                     value={capacidadePortaFusilink}
@@ -2198,7 +2397,7 @@ export default function
                 />
               </div> */}
 
-              <button onClick={() => handleCampos()} className='addInterferencia'><FiPlus /> Adicionar interferencia</button>
+              {/* <button onClick={() => handleCampos()} className='addInterferencia'><FiPlus /> Adicionar interferencia</button> */}
 
               {camposInterferencia
                 ? <div>
@@ -2244,7 +2443,170 @@ export default function
                   />
                 </div>
                 : false}
+              {campovalaEntradaLatitude
+                ? <div>
+                  <label htmlFor=''>Vala de entrada latitude</label>
+                  <input
+                    type='text'
+                    value={valaEntradaLatitude}
+                    onChange={(text) => setvalaEntradaLatitude(text.target.value)}
+                  />
+                </div>
+                : false}
+              {campovalaEntradaLongitude
+                ? <div>
+                  <label htmlFor=''>Vala de entrada longitude</label>
+                  <input
+                    type='text'
+                    value={valaEntradaLongitude}
+                    onChange={(text) => setvalaEntradaLongitude(text.target.value)}
+                  />
+                </div>
+                : false}
+              {campovalaEntradaAltura
+                ? <div>
+                  <label htmlFor=''>Vala de entrada altura</label>
+                  <input
+                    type='text'
+                    value={valaEntradaAltura}
+                    onChange={(text) => setvalaEntradaAltura(text.target.value)}
+                  />
+                </div>
+                : false}
+              {campovalaEntradaComprimento
+                ? <div>
+                  <label htmlFor=''>Vala de entrada comprimento</label>
+                  <input
+                    type='text'
+                    value={valaEntradaComprimento}
+                    onChange={(text) => setvalaEntradaComprimento(text.target.value)}
+                  />
+                </div>
+                : false}
+              {campovalaEntradaProfundidade
+                ? <div>
+                  <label htmlFor=''>Vala de entrada profundidade</label>
+                  <input
+                    type='text'
+                    value={valaEntradaProfundidade}
+                    onChange={(text) => setvalaEntradaProfundidade(text.target.value)}
+                  />
+                </div>
+                : false}
+              {campovalaSaidaLatitude
+                ? <div>
+                  <label htmlFor=''>Vala de saida latitude</label>
+                  <input
+                    type='text'
+                    value={valaSaidaLatitude}
+                    onChange={(text) => setvalaSaidaLatitude(text.target.value)}
+                  />
+                </div>
+                : false}
+              {campovalaSaidaLongitude
+                ? <div>
+                  <label htmlFor=''>Vala de saida longitude</label>
+                  <input
+                    type='text'
+                    value={valaSaidaLongitude}
+                    onChange={(text) => setvalaSaidaLongitude(text.target.value)}
+                  />
+                </div>
+                : false}
+              {campovalaSaidaAltura
+                ? <div>
+                  <label htmlFor=''>Vala de saida altura</label>
+                  <input
+                    type='text'
+                    value={valaSaidaAltura}
+                    onChange={(text) => setvalaSaidaAltura(text.target.value)}
+                  />
+                </div>
+                : false}
+              {campovalaSaidaComprimento
+                ? <div>
+                  <label htmlFor=''>Vala de saida comprimento</label>
+                  <input
+                    type='text'
+                    value={valaSaidaComprimento}
+                    onChange={(text) => setvalaSaidaComprimento(text.target.value)}
+                  />
+                </div>
+                : false}
+              {campovalaSaidaProfundidade
+                ? <div>
+                  <label htmlFor=''>Vala de saida profundidade</label>
+                  <input
+                    type='text'
+                    value={valaSaidaProfundidade}
+                    onChange={(text) => setvalaSaidaProfundidade(text.target.value)}
+                  />
+                </div>
+                : false}
+              {campoprofundidadeMax
+                ? <div>
+                  <label htmlFor=''>Profundidade maxima</label>
+                  <input
+                    type='text'
+                    value={profundidadeMax}
+                    onChange={(text) => setprofundidadeMax(text.target.value)}
+                  />
+                </div>
+                : false}
+              {campoprofundidadeMin
+                ? <div>
+                  <label htmlFor=''>Profundidade minima</label>
+                  <input
+                    type='text'
+                    value={profundidadeMin}
+                    onChange={(text) => setprofundidadeMin(text.target.value)}
+                  />
+                </div>
+                : false}
+              {campoMaterialRedeTubula
+                ? <div>
+                  <label htmlFor=''>Material de rede/tubulação</label>
+                  <input
+                    type='text'
+                    value={MaterialRedeTubula}
+                    onChange={(text) => setMaterialRedeTubula(text.target.value)}
+                  />
+                </div>
+                : false}
             </S.GridForm>
+
+            {campotipoInterferencia ?
+              <><h4>Registro de interferencias</h4><button onClick={openModalInterferencia} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button><table>
+                {interferencias.length > 0 ?
+                <tr>
+                  <th>Nome</th>
+                  <th>Latitude</th>
+                  <th>Longitude</th>
+                  <th>Profundidade</th>
+                  <th>Diâmetro</th>
+                </tr>: false} 
+                
+                  {interferencias.length > 0 ?
+                    interferencias.map((inter) =>
+                    <tr>
+                      <td>{inter.tipoInterferencia}</td>
+                      <td>{inter.latitude}</td>
+                      <td>{inter.longitude}</td>
+                      <td>{inter.profundidade}</td>
+                      <td>{inter.diametro}</td>
+                      <td>
+                      <button>
+                        <FiTrash color='#EA1C24' size={18} />
+                      </button>
+                    </td>
+                    <td>
+                      <button onClick={openModalInterferenciaEdit}>
+                        <FiEye color='#FECE51' size={18} />
+                      </button>
+                    </td>
+                  </tr>): 'Nenhuma interferencia cadastrada!'}
+                  
+              </table></> : false}
             {!finalizarEtapa
               ? <button onClick={() => { onSubmitLevantamento() }}>{loading
                 ? <img
@@ -2269,7 +2631,85 @@ export default function
                   : 'Finalizar Etapa'}
                 </button>
               : 'Etapa Finalizada!'}
+
           </S.Div>
+
+        </Modal>
+
+        <Modal
+          className='phaes-modal'
+          style={{
+            overlay: {
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            },
+          }}
+          isOpen={modalIsOpenInterferencia}
+          onAfterOpen={() => afterOpenModalInterferencia}
+          onRequestClose={() => closeModalInterferencia}
+        >
+          <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModalInterferencia}><FiX color='white' /></button>
+
+          <S.ModelsModal>
+            <h2>Adicione uma interferência</h2>
+            <div>
+              <input type='text' placeholder='Nome' 
+              value={tipoInterferencia}
+              onChange={(text) => setTipoInterferencia(text.target.value)}/>
+              <input type='text' placeholder='Latitude' 
+              value={latitude}
+              onChange={(text) => setLatitude(text.target.value)}/>
+              <input type='text' placeholder='Longitude' 
+              value={longitude}
+              onChange={(text) => setLongitude(text.target.value)}/>
+              <input type='text' placeholder='Profundidade'
+              value={profundidade}
+              onChange={(text) => setprofundidade(text.target.value)} />
+              <input type='text' placeholder='Diâmetro' 
+              value={diametro}
+              onChange={(text) => setDiametro(text.target.value)}/>
+            </div>
+            <button className='save' onClick={() => salvarInterferencia()}>{loading
+            ? (
+              <img
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src='https://contribua.org/mb-static/images/loading.gif'
+                alt='Loading'
+              />
+            )
+            : (
+              'Salvar'
+            )}</button>
+          </S.ModelsModal>
+
+        </Modal>
+
+        <Modal
+          className='phaes-modal'
+          style={{
+            overlay: {
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            },
+          }}
+          isOpen={modalIsOpenInterferenciaEdit}
+          onAfterOpen={() => afterOpenModalInterferenciaEdit}
+          onRequestClose={() => closeModalInterferenciaEdit}
+        >
+          <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModalInterferenciaEdit}><FiX color='white' /></button>
+
+          <S.ModelsModal>
+            <h2>Edite uma interferência</h2>
+            <div>
+              <input type='text' value='Cano de gás' />
+              <input type='text' value='-22.113590' />
+              <input type='text' value='-43.186420' />
+              <input type='text' value='15 Metros' />
+              <input type='text' value='5 Metros' />
+            </div>
+            <button className='save'>Salvar</button>
+          </S.ModelsModal>
+
         </Modal>
 
         <Modal
@@ -2619,18 +3059,18 @@ export default function
           </form>
 
           <button className='save' onClick={() => salvarEtapa()}>{loading
-                  ? (
-                    <img
-                      width='40px'
-                      style={{ margin: 'auto' }}
-                      height=''
-                      src='https://contribua.org/mb-static/images/loading.gif'
-                      alt='Loading'
-                    />
-                    )
-                  : (
-                      'Salvar'
-                    )}</button>
+            ? (
+              <img
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src='https://contribua.org/mb-static/images/loading.gif'
+                alt='Loading'
+              />
+            )
+            : (
+              'Salvar'
+            )}</button>
         </S.PhasesModal>
 
       </Modal>

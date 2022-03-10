@@ -257,6 +257,44 @@ export const Div = styled.div`
 
     margin-left: 10px;
   }
+
+  table {
+    background: #252332;
+    margin: 40px 0;
+    border-radius: 5px;
+  }
+
+  .buttonAddInter {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6px;
+  }
+
+  td, th {
+    text-align: left;
+    padding: 8px 0;
+  }
+
+  tr {
+    margin: 40px 0 90px 0 !important;
+    height: 53px;
+    width: 400px;
+    th {
+      padding: 20px;
+    }
+    td {
+      padding: 20px;
+      width: 400px;
+      button {
+        background: transparent;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+      }
+    }
+  }
 `
 
 export const GridForm = styled.div`
@@ -328,6 +366,8 @@ export const GridForm = styled.div`
       }
     }
   }
+
+  
 `
 
 export const PhasesModal = styled.div`
@@ -443,30 +483,31 @@ export const PhasesModal = styled.div`
 `
 
 export const ModelsModal = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  right: auto;
-  bottom: auto;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
+
+  padding: 50px 0;
+
+  button {
+    width: 159px;
+    height: 44px;
+    margin-top: 10px;
+  }
 
   div {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    @media (max-width: 520px) {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
+
+    input {
+      width: 420px;
+      height: 48px;
+      background: transparent;
+      margin-top: 10px;
+      padding: 7px;
+      border: 1px solid #252332;
+      box-sizing: border-box;
+      border-radius: 6px;
     }
   }
 
-  button {
-    -webkit-appearance: button;
-    margin-top: 10px;
-    width: 180px;
-    height: 40px;
-
-  }
 
   .save {
     background: ${theme.colors.green};
