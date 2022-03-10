@@ -63,7 +63,13 @@ export default function
     setIsOpenInterferencia(false)
   }
 
-  function openModalInterferenciaEdit() {
+  function openModalInterferenciaEdit(interferencia:any) {
+    setTipoInterferencia(interferencia.tipoInterferencia) 
+    setLatitude(interferencia.latitude)
+    setLongitude(interferencia.longitude)
+    setprofundidade(interferencia.profundidade)
+    setDiametro(interferencia.diametro)
+    
     setIsOpenInterferenciaEdit(true)
   }
 
@@ -524,7 +530,7 @@ export default function
   async function loadDados(url: string) {
     setLoading(true)
     // eslint-disable-next-line
-    const responser = await api.get(url + `?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/etapas/", '').split('/')[0]}`,
+    const responser = await api.get(url + `?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/etapas/", '').split('/')[1]}`,
     ).then((response) => {
       if (response.statusText === 'OK') {
         setDados(response.data.rows)
@@ -1164,7 +1170,7 @@ export default function
     let data = {
       novaEtapa: descricao,
       tipoEtapa: novaEtapa,
-      idConfigTravessia: idConfigTravessia.replace('#/etapas/', '').split('/')[0],
+      idConfigTravessia: idConfigTravessia.replace('#/etapas/', '').split('/')[1],
       numeroEtapa: dados.length + 1,
       nomePerfilAcesso: nomePerfilAcesso,
       croquiMapeamento: croquiMapeamento,
@@ -1253,6 +1259,46 @@ export default function
         console.log(response)
         if (response.statusText === 'OK') {
           toast.success('Cadastrada com sucesso!')
+          setLoading(false)
+          setIsOpenPhaseSelect(false)
+          reset()
+          loadDados('etapas')
+        } else if (response.statusText === 'Forbidden') {
+          toast.error('Ops, Não tem permisão!')
+          setLoading(false)
+        } else {
+          toast.error('Ops, Dados Incorretos!')
+          setLoading(false)
+        }
+      })
+      .catch((res) => {
+        console.log(res)
+        // toast.error(res.response.data);
+        setLoading(false)
+      })
+  }
+  function editarInterferencia(){
+    let data = {
+      tipo: variavelTitulo,
+      latitude: latitude,
+      longitude: longitude,
+      diametro: diametro,
+      profundidade: profundidade,
+      tipoRede: tipoRede,
+      tipoInterferencia: tipoInterferencia,
+      localizacao: localizacao,
+      angulacao: angulacao,
+      idTravessia: idConfigTravessia.replace('#/etapas/', '').split('/')[1],
+      idTodosCampos: idTodosCampos,
+      idEtapa: idEtapa,
+    }
+    api.put('interferencia', {
+      data: data,
+    })
+      .then((response) => {
+        console.log(response)
+        if (response.statusText === 'OK') {
+          toast.success('Editado com sucesso!')
           setLoading(false)
           setIsOpenPhaseSelect(false)
           reset()
@@ -2600,7 +2646,7 @@ export default function
                       </button>
                     </td>
                     <td>
-                      <button onClick={openModalInterferenciaEdit}>
+                      <button onClick={() => openModalInterferenciaEdit(inter)}>
                         <FiEye color='#FECE51' size={18} />
                       </button>
                     </td>
@@ -2701,13 +2747,35 @@ export default function
           <S.ModelsModal>
             <h2>Edite uma interferência</h2>
             <div>
-              <input type='text' value='Cano de gás' />
-              <input type='text' value='-22.113590' />
-              <input type='text' value='-43.186420' />
-              <input type='text' value='15 Metros' />
-              <input type='text' value='5 Metros' />
+            <input type='text' placeholder='Nome' 
+              value={tipoInterferencia}
+              onChange={(text) => setTipoInterferencia(text.target.value)}/>
+              <input type='text' placeholder='Latitude' 
+              value={latitude}
+              onChange={(text) => setLatitude(text.target.value)}/>
+              <input type='text' placeholder='Longitude' 
+              value={longitude}
+              onChange={(text) => setLongitude(text.target.value)}/>
+              <input type='text' placeholder='Profundidade'
+              value={profundidade}
+              onChange={(text) => setprofundidade(text.target.value)} />
+              <input type='text' placeholder='Diâmetro' 
+              value={diametro}
+              onChange={(text) => setDiametro(text.target.value)}/>
             </div>
-            <button className='save'>Salvar</button>
+            <button className='save'onClick={() => editarInterferencia()}>{loading
+            ? (
+              <img
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src='https://contribua.org/mb-static/images/loading.gif'
+                alt='Loading'
+              />
+            )
+            : (
+              'Salvar'
+            )}</button>
           </S.ModelsModal>
 
         </Modal>
