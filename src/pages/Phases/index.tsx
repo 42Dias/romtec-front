@@ -97,6 +97,8 @@ export default function
     setLatitude(pontosVerificacao.latitude)
     setLongitude(pontosVerificacao.longitude)
     setprofundidade(pontosVerificacao.profundidade)
+    setAngulacao(pontosVerificacao.angulacao)
+    setposicaoHoras(pontosVerificacao.posicaoHoras)
 
     setIsOpenVerificacaoEdit(true)
   }
@@ -147,6 +149,7 @@ export default function
   const [variavelTitulo, setVariavelTitulo] = useState('')
   const [idDados, setId] = useState('')
   const [status, setStatus] = useState('')
+  const [posicaoHoras, setposicaoHoras] = useState('')
   const [nomeFerramenta, setnomeFerramenta] = useState('')
   const [descricaoFerramenta, setdescricaoFerramenta] = useState('')
   const [diametroLarguraFerramenta, setdiametroLarguraFerramenta] = useState('')
@@ -1380,6 +1383,7 @@ export default function
       idTravessia: idConfigTravessia.replace('#/etapas/', '').split('/')[1],
       idTodosCampos: idTodosCampos,
       idEtapa: idEtapa,
+      posicaoHoras: posicaoHoras,
     }
     api.post('pontos-verificacao', {
       data: data,
@@ -1421,6 +1425,7 @@ export default function
       idTodosCampos: idTodosCampos,
       idEtapa: idEtapa,
       status: status,
+      posicaoHoras: posicaoHoras,
     }
     api.put(tabela + interferenciaId, {
       data: data,
@@ -2964,6 +2969,19 @@ export default function
                 value={profundidade}
                 onChange={(text) => setprofundidade(text.target.value)}
               />
+
+              {variavelTitulo == 'Execução da Travessia - Furo Piloto' ?
+              <input
+              type='text' placeholder='Angulacão'
+              value={angulacao}
+              onChange={(text) => setAngulacao(text.target.value)}
+            />:false}
+            {variavelTitulo == 'Execução da Travessia - Furo Piloto' ?
+              <input
+              type='text' placeholder='posicão em Horas'
+              value={posicaoHoras}
+              onChange={(text) => setposicaoHoras(text.target.value)}
+            />:false}
             </div>
             <button className='save' onClick={() => salvarPontosVerificacao()}>{loading
               ? (
@@ -3068,6 +3086,18 @@ export default function
                 value={profundidade}
                 onChange={(text) => setprofundidade(text.target.value)}
               />
+              {variavelTitulo == 'Execução da Travessia - Furo Piloto' ?
+              <input
+              type='text' placeholder='Angulacão'
+              value={angulacao}
+              onChange={(text) => setAngulacao(text.target.value)}
+            />:false}
+            {variavelTitulo == 'Execução da Travessia - Furo Piloto' ?
+              <input
+              type='text' placeholder='posicão em Horas'
+              value={posicaoHoras}
+              onChange={(text) => setposicaoHoras(text.target.value)}
+            />:false}
             </div>
             <button className='save' onClick={() => editarInterferencia('pontos-verificacao/')}>{loading
               ? (
