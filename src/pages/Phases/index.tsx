@@ -51,6 +51,7 @@ export default function
   const [modalIsOpenPhase, setIsOpenPhase] = useState(false)
   const [modalIsOpenInterferencia, setIsOpenInterferencia] = useState(false)
   const [modalIsOpenVerificacao, setIsOpenVerificacao] = useState(false)
+  const [modalIsOpenFerramenta, setIsOpenFerramenta] = useState(false)
   const [modalIsOpenVerificacaoEdit, setIsOpenVerificacaoEdit] = useState(false)
   const [modalIsOpenInterferenciaEdit, setIsOpenInterferenciaEdit] = useState(false)
   const [modalIsOpenPhaseSelect, setIsOpenPhaseSelect] = useState(false)
@@ -61,6 +62,9 @@ export default function
   function openModalPontosVerificacao() {
     setIsOpenVerificacao(true)
   }
+  function openModalFerramenta() {
+    setIsOpenFerramenta(true)
+  }
   function afterOpenModalInterferencia() {
 
   }
@@ -70,6 +74,9 @@ export default function
   }
   function closeModalVerificacao() {
     setIsOpenVerificacao(false)
+  }
+  function closeModalFerramenta() {
+    setIsOpenFerramenta(false)
   }
   function closeModalVerificacaoEdit() {
     setIsOpenVerificacaoEdit(false)
@@ -84,7 +91,15 @@ export default function
 
     setIsOpenInterferenciaEdit(true)
   }
+  function openModalPontosVerificacaoEdit(pontosVerificacao: any) {
+    setInterferenciaId(pontosVerificacao.id)
+    setStatus(pontosVerificacao.status)
+    setLatitude(pontosVerificacao.latitude)
+    setLongitude(pontosVerificacao.longitude)
+    setprofundidade(pontosVerificacao.profundidade)
 
+    setIsOpenVerificacaoEdit(true)
+  }
   function afterOpenModalInterferenciaEdit() {
 
   }
@@ -128,9 +143,13 @@ export default function
   const [dados, setDados] = useState<any[]>([])
   const [interferencias, setinterferencias] = useState<any[]>([])
   const [pontosVerificacao, setPontosVerificacao] = useState<any[]>([])
+  const [ferramentasList, setferramentasList] = useState<any[]>([])
   const [variavelTitulo, setVariavelTitulo] = useState('')
   const [idDados, setId] = useState('')
   const [status, setStatus] = useState('')
+  const [nomeFerramenta, setnomeFerramenta] = useState('')
+  const [descricaoFerramenta, setdescricaoFerramenta] = useState('')
+  const [diametroLarguraFerramenta, setdiametroLarguraFerramenta] = useState('')
   const [responsavel, setresponsavel] = useState('')
   const [infoEnvolvidas, setInfoEnvolvidas] = useState('')
   const [interferenciaId, setInterferenciaId] = useState('')
@@ -575,6 +594,17 @@ export default function
       if (response.statusText === 'OK') {
         console.log(response.data.rows)
         setPontosVerificacao(response.data.rows)
+      }
+    }).catch((res) => {
+      console.log(res)
+      // toast.error(res.response.data);
+      setLoading(false)
+    })
+    api.get(`ferramentaList`,
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        console.log(response.data.rows)
+        setferramentasList(response.data.rows)
       }
     }).catch((res) => {
       console.log(res)
@@ -1055,16 +1085,16 @@ export default function
           }).then((response) => {
             console.log(response)
             if (response.statusText === 'OK') {
-              toast.success('Cadastrado realizado com sucesso!')
+              //toast.success('Cadastrado realizado com sucesso!')
             }
           }).catch(res => {
             // console.log(res)
             toast.error(res.response)
             setLoading(false)
           })
-          toast.success('Imagem Válida!')
+          toast.success('Arquivo Válido!')
         } else {
-          toast.info('Imagem inválida, ou problemas com o servidor :(')
+          toast.info('Arquivo inválid0, ou problemas com o servidor :(')
         }
       }).catch((err) => {
         if (err.response) {
@@ -1183,9 +1213,10 @@ export default function
       nomePerfilAcesso = true
       //profundidadeMax = true
       //profundidadeMin = true
-      campoEquipamento = true
+      campoFerramentas = true
       vazaoBomba = true
       tempoHaste = true
+      campoPontosVerificacao = true
     } else if (etapa == '7') {
       novaEtapa = 'Alargamento'
       nomePerfilAcesso = true
@@ -1291,7 +1322,7 @@ export default function
     console.log(data)
     console.log(etapa)
   }
-  function salvarInterferencia() {
+  function salvarInterferencia(tabela:string) {
     let data = {
       tipo: variavelTitulo,
       latitude: latitude,
@@ -1305,8 +1336,13 @@ export default function
       idTravessia: idConfigTravessia.replace('#/etapas/', '').split('/')[1],
       idTodosCampos: idTodosCampos,
       idEtapa: idEtapa,
+      ordem: localizacao,
+      status: 'Execução',
+      nome: nomeFerramenta,
+      descricao: descricaoFerramenta,
+      diametroLargura: diametroLarguraFerramenta,
     }
-    api.post('interferencia', {
+    api.post(tabela, {
       data: data,
     })
       .then((response) => {
@@ -1315,6 +1351,7 @@ export default function
           toast.success('Cadastrada com sucesso!')
           setLoading(false)
           setIsOpenInterferencia(false)
+          setIsOpenFerramenta(false)
           reset()
           loadDados('etapas')
         } else if (response.statusText === 'Forbidden') {
@@ -1369,7 +1406,7 @@ export default function
         setLoading(false)
       })
   }
-  function editarInterferencia() {
+  function editarInterferencia(tabela:string) {
     let data = {
       tipo: variavelTitulo,
       latitude: latitude,
@@ -1383,8 +1420,9 @@ export default function
       idTravessia: idConfigTravessia.replace('#/etapas/', '').split('/')[1],
       idTodosCampos: idTodosCampos,
       idEtapa: idEtapa,
+      status: status,
     }
-    api.put('interferencia/' + interferenciaId, {
+    api.put(tabela + interferenciaId, {
       data: data,
     })
       .then((response) => {
@@ -1393,6 +1431,7 @@ export default function
           toast.success('Editado com sucesso!')
           setLoading(false)
           setIsOpenInterferenciaEdit(false)
+          setIsOpenVerificacaoEdit(false)
           reset()
           loadDados('etapas')
         } else if (response.statusText === 'Forbidden') {
@@ -1840,11 +1879,16 @@ export default function
               {campoFerramentas
                 ? <div>
                   <label htmlFor=''>Ferramentas</label>
-                  <input
-                    type='text'
-                    value={ferramentas}
-                    onChange={(text) => setferramentas(text.target.value)}
-                  />
+                  <div className='selectPlus'>
+                  <select name='' id='' value={ferramentas}
+                    onChange={(text) => setferramentas(text.target.value)}>
+                    {ferramentasList.length > 0 ?
+                      ferramentasList.map((ferramenta) => 
+                      <option value={ferramenta.id+'/'+ferramenta.nome}>{ferramenta.nome}</option>): <option>Nenhuma ferramenta cadastrada!</option>  }
+                  </select>
+                  <button onClick={openModalFerramenta} className='buttonAddInter'><FiPlus size={20} /></button>
+                  </div>
+                  
                 </div>
                 : false}
               {campoInfoEnvolvidas
@@ -2766,7 +2810,7 @@ export default function
                         </button>
                       </td>
                       <td>
-                        <button onClick={() => openModalInterferenciaEdit(pontos)}>
+                        <button onClick={() => openModalPontosVerificacaoEdit(pontos)}>
                           <FiEye color='#FECE51' size={18} />
                         </button>
                       </td>
@@ -2834,7 +2878,7 @@ export default function
                 value={diametro}
                 onChange={(text) => setDiametro(text.target.value)} />
             </div>
-            <button className='save' onClick={() => salvarInterferencia()}>{loading
+            <button className='save' onClick={() => salvarInterferencia('interferencia')}>{loading
               ? (
                 <img
                   width='40px'
@@ -2906,6 +2950,48 @@ export default function
               backgroundColor: 'rgba(0, 0, 0, 0.8)',
             },
           }}
+          isOpen={modalIsOpenFerramenta}
+          onAfterOpen={() => afterOpenModalInterferencia}
+          onRequestClose={() => closeModalFerramenta}
+        >
+          <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModalVerificacao}><FiX color='white' /></button>
+
+          <S.ModelsModal>
+            <h2>Adicionar Ferramenta</h2>
+            <div>
+              <input type='text' placeholder='Nome'
+                value={nomeFerramenta}
+                onChange={(text) => setnomeFerramenta(text.target.value)} />
+              <input type='text' placeholder='Descrição'
+                value={descricaoFerramenta}
+                onChange={(text) => setdescricaoFerramenta(text.target.value)} />
+              <input type='text' placeholder='Diametro ou Largura'
+                value={diametroLarguraFerramenta}
+                onChange={(text) => setdiametroLarguraFerramenta(text.target.value)} />
+            </div>
+            <button className='save' onClick={() => salvarInterferencia('ferramentaList')}>{loading
+              ? (
+                <img
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height=''
+                  src='https://contribua.org/mb-static/images/loading.gif'
+                  alt='Loading'
+                />
+              )
+              : (
+                'Salvar'
+              )}</button>
+          </S.ModelsModal>
+        </Modal>
+
+        <Modal
+          className='phaes-modal'
+          style={{
+            overlay: {
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            },
+          }}
           isOpen={modalIsOpenVerificacaoEdit}
           onAfterOpen={() => afterOpenModalInterferencia}
           onRequestClose={() => closeModalVerificacaoEdit}
@@ -2915,11 +3001,11 @@ export default function
           <S.ModelsModal>
             <h2>Editar ponto de verificação</h2>
             <div>
-              <label htmlFor=''>Status</label>
+              {/* <label htmlFor=''>Status</label>
               <select name='' id='' value={status} onChange={(text) => setStatus(text.target.value)}>
                 <option value='Planejamento'>Planejamento</option>
                 <option value='Execução'>Execução</option>
-              </select>
+              </select> */}
 
               <input type='text' placeholder='Latitude'
                 value={latitude}
@@ -2931,7 +3017,7 @@ export default function
                 value={profundidade}
                 onChange={(text) => setprofundidade(text.target.value)} />
             </div>
-            <button className='save' onClick={() => salvarPontosVerificacao()}>{loading
+            <button className='save' onClick={() => editarInterferencia('pontos-verificacao/')}>{loading
               ? (
                 <img
                   width='40px'
@@ -2956,7 +3042,7 @@ export default function
           }}
           isOpen={modalIsOpenInterferenciaEdit}
           onAfterOpen={() => afterOpenModalInterferenciaEdit}
-          onRequestClose={() => closeModalInterferenciaEdit}
+          onRequestClose={() => closeModalVerificacaoEdit}
         >
           <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModalInterferenciaEdit}><FiX color='white' /></button>
 
@@ -2979,7 +3065,7 @@ export default function
                 value={diametro}
                 onChange={(text) => setDiametro(text.target.value)} />
             </div>
-            <button className='save' onClick={() => editarInterferencia()}>{loading
+            <button className='save' onClick={() => editarInterferencia('interferencia/')}>{loading
               ? (
                 <img
                   width='40px'

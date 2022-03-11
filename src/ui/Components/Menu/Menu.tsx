@@ -22,15 +22,14 @@ const Menu = ({ children, onClose }: Props) => {
             <FiUser size={20} />
             <Link to='/usuarios'>Usuários</Link>
           </li>
-
-          <h4 className='noneClass'><FiMapPin size={20} />Travessias</h4>
+          <h4 ><FiMapPin size={20} />Travessias</h4>
           <li>
             <Link to='/'>Etapas da travessia</Link>
           </li>
-          <li className='noneClass'>
+          <li >
             <Link to='/configuracao-da-travessia'>Config. da travessia</Link>
           </li>
-          <li className='noneClass'>
+          <li>
             <Link to='/execucao-da-travessia'>Execução da travessia</Link>
           </li>
           <h4><FiFileText size={20} />Cadastros</h4>

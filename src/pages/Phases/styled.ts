@@ -338,6 +338,7 @@ export const GridForm = styled.div`
       }
     }
 
+
     select {
       width: 480px;
       height: 48px;
@@ -365,8 +366,25 @@ export const GridForm = styled.div`
         padding: 0;
       }
     }
-  }
 
+
+
+  }
+  .selectPlus {
+    display: flex;
+    flex-direction: row;
+    select {
+      width: 415px;
+    }
+
+    button {
+      margin-left: 10px;
+      width: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
   
 `
 
