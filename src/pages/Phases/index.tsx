@@ -47,7 +47,7 @@ type levantamento = {
   banco: string;
 }
 export default function
-Phases () {
+  Phases() {
   const [modalIsOpenPhase, setIsOpenPhase] = useState(false)
   const [modalIsOpenInterferencia, setIsOpenInterferencia] = useState(false)
   const [modalIsOpenVerificacao, setIsOpenVerificacao] = useState(false)
@@ -56,32 +56,32 @@ Phases () {
   const [modalIsOpenInterferenciaEdit, setIsOpenInterferenciaEdit] = useState(false)
   const [modalIsOpenPhaseSelect, setIsOpenPhaseSelect] = useState(false)
 
-  function openModalInterferencia () {
+  function openModalInterferencia() {
     setIsOpenInterferencia(true)
   }
-  function openModalPontosVerificacao () {
+  function openModalPontosVerificacao() {
     setIsOpenVerificacao(true)
   }
-  function openModalFerramenta () {
+  function openModalFerramenta() {
     setIsOpenFerramenta(true)
   }
-  function afterOpenModalInterferencia () {
+  function afterOpenModalInterferencia() {
 
   }
 
-  function closeModalInterferencia () {
+  function closeModalInterferencia() {
     setIsOpenInterferencia(false)
   }
-  function closeModalVerificacao () {
+  function closeModalVerificacao() {
     setIsOpenVerificacao(false)
   }
-  function closeModalFerramenta () {
+  function closeModalFerramenta() {
     setIsOpenFerramenta(false)
   }
-  function closeModalVerificacaoEdit () {
+  function closeModalVerificacaoEdit() {
     setIsOpenVerificacaoEdit(false)
   }
-  function openModalInterferenciaEdit (interferencia: any) {
+  function openModalInterferenciaEdit(interferencia: any) {
     setInterferenciaId(interferencia.id)
     setTipoInterferencia(interferencia.tipoInterferencia)
     setLatitude(interferencia.latitude)
@@ -91,7 +91,7 @@ Phases () {
 
     setIsOpenInterferenciaEdit(true)
   }
-  function openModalPontosVerificacaoEdit (pontosVerificacao: any) {
+  function openModalPontosVerificacaoEdit(pontosVerificacao: any) {
     setInterferenciaId(pontosVerificacao.id)
     setStatus(pontosVerificacao.status)
     setLatitude(pontosVerificacao.latitude)
@@ -100,35 +100,35 @@ Phases () {
 
     setIsOpenVerificacaoEdit(true)
   }
-  function afterOpenModalInterferenciaEdit () {
+  function afterOpenModalInterferenciaEdit() {
 
   }
 
-  function closeModalInterferenciaEdit () {
+  function closeModalInterferenciaEdit() {
     setIsOpenInterferenciaEdit(false)
   }
 
-  function openModalPhases () {
+  function openModalPhases() {
     setIsOpenPhase(true)
   }
 
-  function afterOpenModalPhases () {
+  function afterOpenModalPhases() {
 
   }
 
-  function closeModalPhases () {
+  function closeModalPhases() {
     setIsOpenPhase(false)
   }
 
-  function openModalPhasesSelect () {
+  function openModalPhasesSelect() {
     setIsOpenPhaseSelect(true)
   }
 
-  function afterOpenModalPhasesSelect () {
+  function afterOpenModalPhasesSelect() {
 
   }
 
-  function closeModalPhasesSelect () {
+  function closeModalPhasesSelect() {
     setIsOpenPhaseSelect(false)
   }
 
@@ -363,7 +363,7 @@ Phases () {
   // }
   const [camposInterferencia, setCamposInterferencia] = useState(false)
 
-  function handleCampos () {
+  function handleCampos() {
     if (camposInterferencia) {
       setCamposInterferencia(false)
     } else {
@@ -371,7 +371,7 @@ Phases () {
     }
   }
 
-  function onSubmitLevantamento () {
+  function onSubmitLevantamento() {
     // console.log(idEtapa)
     const data = {
       banco: 'todos-campos',
@@ -483,7 +483,7 @@ Phases () {
     // }
   }
 
-  function onSubmitInterferenciasFisicasMagneticas () {
+  function onSubmitInterferenciasFisicasMagneticas() {
     // console.log(responsavel)
     const data = {
       idConfigTravessia: idConfigTravessia.replace('#/etapas/', ''),
@@ -532,7 +532,7 @@ Phases () {
   //   }
   // }
 
-  async function createNewFile (submit: any) {
+  async function createNewFile(submit: any) {
     setLoading(true)
     // console.log('submit')
     // console.log(submit)
@@ -562,7 +562,7 @@ Phases () {
       setLoading(false)
     })
   }
-  async function loadDados (url: string) {
+  async function loadDados(url: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = await api.get(url + `?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/etapas/", '').split('/')[0]}`,
@@ -613,7 +613,7 @@ Phases () {
     })
     setLoading(false)
   }
-  async function deleteDados (id: string, tabela: string) {
+  async function deleteDados(id: string, tabela: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete(tabela + id,
@@ -628,7 +628,7 @@ Phases () {
       setLoading(false)
     })
   }
-  function update (data: any) {
+  function update(data: any) {
     // console.log('data')
     // console.log(data)
     // setDados(data)
@@ -681,7 +681,7 @@ Phases () {
     }
     // console.log(idDados)
   }
-  async function updateDados () {
+  async function updateDados() {
     setLoading(true)
     // console.log('idTodosCampos')
     // console.log(idTodosCampos)
@@ -811,7 +811,7 @@ Phases () {
     loadDados('etapas')
   }, [])
 
-  function openModal (data: any) {
+  function openModal(data: any) {
     // console.log(data)
     setIdEtapa(data.etapaId)
     api.get(`todos-campos?filter%5BetapaId%5D=${data.id}&filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
@@ -1031,13 +1031,13 @@ Phases () {
     setcampoPontosVerificacao(data.campoPontosVerificacao)
     setisOpenUpdatePlanejamentoPerfuração(true)
   }
-  function afterOpenModal () {
+  function afterOpenModal() {
     // references are now sync'd and can be accessed.
   }
-  function closeModal () {
+  function closeModal() {
     setIsOpenPlanejamento(false)
   }
-  async function makeRequisition (e: any) {
+  async function makeRequisition(e: any) {
     e.preventDefault()
     e.target.reset()
 
@@ -1109,7 +1109,7 @@ Phases () {
         toast.error('Erro: Tente mais tarde :(')
       })
   }
-  function salvarEtapa () {
+  function salvarEtapa() {
     const campoTipoSolo = false
     const campoDiametroPerfuracao = false
     let campoTipoRede = false
@@ -1322,7 +1322,7 @@ Phases () {
     console.log(data)
     console.log(etapa)
   }
-  function salvarInterferencia (tabela:string) {
+  function salvarInterferencia(tabela: string) {
     const data = {
       tipo: variavelTitulo,
       latitude: latitude,
@@ -1368,7 +1368,7 @@ Phases () {
         setLoading(false)
       })
   }
-  function salvarPontosVerificacao () {
+  function salvarPontosVerificacao() {
     const data = {
       latitude: latitude,
       longitude: longitude,
@@ -1406,7 +1406,7 @@ Phases () {
         setLoading(false)
       })
   }
-  function editarInterferencia (tabela:string) {
+  function editarInterferencia(tabela: string) {
     const data = {
       tipo: variavelTitulo,
       latitude: latitude,
@@ -1880,19 +1880,19 @@ Phases () {
                 ? <div>
                   <label htmlFor=''>Ferramentas</label>
                   <div className='selectPlus'>
-                  <select name='' id='' value={ferramentas}
-                    onChange={(text) => setferramentas(text.target.value)}>
+                    <select name='' id='' value={ferramentas}
+                      onChange={(text) => setferramentas(text.target.value)}>
                       <option value=''>Selecione...</option>
-                    {ferramentasList.length > 0 ?
-                      ferramentasList.map((ferramenta) => 
-                      <option value={ferramenta.id+'/'+ferramenta.nome}>{ferramenta.nome}</option>): <option>Nenhuma ferramenta cadastrada!</option>  }
-                  </select>
-                  <button onClick={openModalFerramenta} className='buttonAddInter'><FiPlus size={20} /></button>
+                      {ferramentasList.length > 0 ?
+                        ferramentasList.map((ferramenta) =>
+                          <option value={ferramenta.id + '/' + ferramenta.nome}>{ferramenta.nome}</option>) : <option>Nenhuma ferramenta cadastrada!</option>}
+                    </select>
+                    <button onClick={openModalFerramenta} className='buttonAddInter'><FiPlus size={20} /></button>
                   </div>
 
                 </div>
                 : false}
-                
+
               {campoInfoEnvolvidas
                 ? <div>
                   <label htmlFor=''>Informações Envolvidas</label>
@@ -2759,79 +2759,93 @@ Phases () {
                 : false}
             </S.GridForm>
 
-            {campotipoInterferencia ?
-              <><h4>Registro de interferencias</h4><button onClick={openModalInterferencia} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button>
-              <table>
-                {interferencias.length > 0 ?
-                  <tr>
-                    <th>Nome</th>
-                    <th>Latitude</th>
-                    <th>Longitude</th>
-                    <th>Profundidade</th>
-                    <th>Diâmetro</th>
-                  </tr> : false}
+            {campotipoInterferencia
+              ? <><h4>Registro de interferencias</h4><button onClick={openModalInterferencia} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button>
+                <div style={{ overflow: 'auto' }}>
+                  <table>
+                    {interferencias.length > 0
+                      ? <tr>
+                        <th>Nome</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th>Profundidade</th>
+                        <th>Diâmetro</th>                        
+                      </tr>
+                      : false}
 
-                {interferencias.length > 0 ?
-                  interferencias.map((inter) =>
-                    <tr>
-                      <td>{inter.tipoInterferencia}</td>
-                      <td>{inter.latitude}</td>
-                      <td>{inter.longitude}</td>
-                      <td>{inter.profundidade}</td>
-                      <td>{inter.diametro}</td>
-                      <td>
-                        <button onClick={() => deleteDados(inter.id, 'interferencia/')}>
-                          <FiTrash color='#EA1C24' size={18} />
-                        </button>
-                      </td>
-                      <td>
-                        <button onClick={() => openModalInterferenciaEdit(inter)}>
-                          <FiEye color='#FECE51' size={18} />
-                        </button>
-                      </td>
-                    </tr>) : 'Nenhuma interferencia cadastrada!'}
+                    {interferencias.length > 0
+                      ? interferencias.map((inter) =>
+                        <tr>
+                          <td>{inter.tipoInterferencia}</td>
+                          <td>{inter.latitude}</td>
+                          <td>{inter.longitude}</td>
+                          <td>{inter.profundidade}</td>
+                          <td>{inter.diametro}</td>                
+                          <td>
+                            <button onClick={() => deleteDados(inter.id, 'interferencia/')}>
+                              <FiTrash color='#EA1C24' size={18} />
+                            </button>
+                          </td>
+                          <td>
+                            <button onClick={() => openModalInterferenciaEdit(inter)}>
+                              <FiEye color='#FECE51' size={18} />
+                            </button>
+                          </td>
+                        </tr>)
+                      : 'Nenhuma interferencia cadastrada!'}
 
-              </table></> : false}
-            {campoPontosVerificacao ?
-              <><h4>Pontos de verificação</h4><button onClick={openModalPontosVerificacao} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button><table>
-                {pontosVerificacao.length > 0 ?
-                  <tr>
-                    <th>Latitude</th>
-                    <th>Longitude</th>
-                    <th>Profundidade</th>
-                    {variavelTitulo == 'Execução da Travessia - Furo Piloto' ?<th>Angulação</th>:false} 
-                    {variavelTitulo == 'Execução da Travessia - Furo Piloto' ?<th>Posição em Horas</th>:false} 
-                  </tr> : false}
+                  </table>
+                </div>
+              </>
+              : false}
+            {campoPontosVerificacao
+              ? <><h4>Pontos de verificação</h4><button onClick={openModalPontosVerificacao} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button>
+                <div style={{ overflow: 'auto' }}>
+                  <table>
+                    {pontosVerificacao.length > 0
+                      ? <tr>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th>Profundidade</th>
+                        {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <th>Angulação</th> : false}
+                        {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <th>Posição em Horas</th> : false}
+                      </tr>
+                      : false}
 
-                {pontosVerificacao.length > 0 ?
-                  pontosVerificacao.map((pontos) =>
-                    <tr>
-                      <td>{pontos.latitude}</td>
-                      <td>{pontos.longitude}</td>
-                      <td>{pontos.profundidade}</td>
-                      {variavelTitulo == 'Execução da Travessia - Furo Piloto' ?<td>{pontos.angulacao}</td>:false}
-                      {variavelTitulo == 'Execução da Travessia - Furo Piloto' ?<td>{pontos.posicaoHoras}</td>:false}
-                      <td>
-                        <button onClick={() => deleteDados(pontos.id, 'pontos-verificacao/')}>
-                          <FiTrash color='#EA1C24' size={18} />
-                        </button>
-                      </td>
-                      <td>
-                        <button onClick={() => openModalPontosVerificacaoEdit(pontos)}>
-                          <FiEye color='#FECE51' size={18} />
-                        </button>
-                      </td>
-                    </tr>) : 'Nenhuma interferencia cadastrada!'}
+                    {pontosVerificacao.length > 0
+                      ? pontosVerificacao.map((pontos) =>
+                        <tr>
+                          <td>{pontos.latitude}</td>
+                          <td>{pontos.longitude}</td>
+                          <td>{pontos.profundidade}</td>
+                          {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <td>{pontos.angulacao}</td> : false}
+                          {variavelTitulo == 'Execução da Travessia - Furo Piloto' ?<td>{pontos.posicaoHoras}</td> : false}
+                          <td>
+                            <button onClick={() => deleteDados(pontos.id, 'pontos-verificacao/')}>
+                              <FiTrash color='#EA1C24' size={18} />
+                            </button>
+                          </td>
+                          <td>
+                            <button onClick={() => openModalPontosVerificacaoEdit(pontos)}>
+                              <FiEye color='#FECE51' size={18} />
+                            </button>
+                          </td>
+                        </tr>)
+                      : 'Nenhuma interferencia cadastrada!'}
 
-              </table></> : false}
+                  </table>
+                </div>
+
+              </>
+              : false}
             {!finalizarEtapa
               ? <button onClick={() => { onSubmitLevantamento() }}>{loading
                 ? <img
-                    width='40px'
-                    style={{ margin: 'auto' }}
-                    height='' src='https://contribua.org/mb-static/images/loading.gif'
-                    alt='Loading'
-                  />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height='' src='https://contribua.org/mb-static/images/loading.gif'
+                  alt='Loading'
+                />
                 : 'Salvar'}
               </button>
               : false}
@@ -2840,11 +2854,11 @@ Phases () {
                 ? <button onClick={() => { toast.info('É preciso salvar a etapa!') }} className='finishPhase'>Finalizar Etapa</button>
                 : <button onClick={() => { updateDados() }} className='finishPhase'>{loading
                   ? <img
-                      width='40px'
-                      style={{ margin: 'auto' }}
-                      height='' src='https://contribua.org/mb-static/images/loading.gif'
-                      alt='Loading'
-                    />
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height='' src='https://contribua.org/mb-static/images/loading.gif'
+                    alt='Loading'
+                  />
                   : 'Finalizar Etapa'}
                 </button>
               : 'Etapa Finalizada!'}
@@ -2904,10 +2918,10 @@ Phases () {
                   src='https://contribua.org/mb-static/images/loading.gif'
                   alt='Loading'
                 />
-                )
+              )
               : (
-                  'Salvar'
-                )}
+                'Salvar'
+              )}
             </button>
           </S.ModelsModal>
 
@@ -2960,10 +2974,10 @@ Phases () {
                   src='https://contribua.org/mb-static/images/loading.gif'
                   alt='Loading'
                 />
-                )
+              )
               : (
-                  'Salvar'
-                )}
+                'Salvar'
+              )}
             </button>
           </S.ModelsModal>
         </Modal>
@@ -3009,10 +3023,10 @@ Phases () {
                   src='https://contribua.org/mb-static/images/loading.gif'
                   alt='Loading'
                 />
-                )
+              )
               : (
-                  'Salvar'
-                )}
+                'Salvar'
+              )}
             </button>
           </S.ModelsModal>
         </Modal>
@@ -3064,10 +3078,10 @@ Phases () {
                   src='https://contribua.org/mb-static/images/loading.gif'
                   alt='Loading'
                 />
-                )
+              )
               : (
-                  'Salvar'
-                )}
+                'Salvar'
+              )}
             </button>
           </S.ModelsModal>
         </Modal>
@@ -3123,10 +3137,10 @@ Phases () {
                   src='https://contribua.org/mb-static/images/loading.gif'
                   alt='Loading'
                 />
-                )
+              )
               : (
-                  'Salvar'
-                )}
+                'Salvar'
+              )}
             </button>
           </S.ModelsModal>
 
@@ -3369,11 +3383,11 @@ Phases () {
             </S.GridForm>
             <button onClick={() => onSubmitInterferenciasFisicasMagneticas()}>{loading
               ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height='' src='https://contribua.org/mb-static/images/loading.gif'
-                  alt='Loading'
-                />
+                width='40px'
+                style={{ margin: 'auto' }}
+                height='' src='https://contribua.org/mb-static/images/loading.gif'
+                alt='Loading'
+              />
               : 'Salvar'}
             </button>
           </S.Div>
@@ -3490,10 +3504,10 @@ Phases () {
                 src='https://contribua.org/mb-static/images/loading.gif'
                 alt='Loading'
               />
-              )
+            )
             : (
-                'Salvar'
-              )}
+              'Salvar'
+            )}
           </button>
         </S.PhasesModal>
 
