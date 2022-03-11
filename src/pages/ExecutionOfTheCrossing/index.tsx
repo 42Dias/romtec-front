@@ -24,7 +24,7 @@ type FormData = {
 }
 
 export default function
-ExecutionOfTheCrossing () {
+  ExecutionOfTheCrossing() {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenPhases, setIsOpenPhases] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
@@ -45,7 +45,7 @@ ExecutionOfTheCrossing () {
   const link = '/etapas/'
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
     data.idCliente = data.nomeCliente.split('/')[0]
     data.nomeCliente = data.nomeCliente.split('/')[1]
     data.idConfigTravessia = data.nomeConfigTravessia.split('/')[0]
@@ -63,10 +63,17 @@ ExecutionOfTheCrossing () {
       console.log(response)
       if (response.statusText === 'OK') {
         toast.success('Cadastrada com sucesso!')
-        setLoading(false)
-        setIsOpen(false)
-        reset()
-        loadDados()
+        console.log(response.data.id)
+        submit.idConfigTravessia = response.data.id
+        api.put('executarTravessia/'+response.data.id, { 
+          data: submit,
+        }).then((response) => {
+          setLoading(false)
+          setIsOpen(false)
+          reset()
+          loadDados()
+        })
+
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')
         setLoading(false)
@@ -81,7 +88,7 @@ ExecutionOfTheCrossing () {
     })
   }
 
-  async function loadDados () {
+  async function loadDados() {
     setLoading(true)
     // eslint-disable-next-line
     api.get('executarTravessia',
@@ -121,7 +128,7 @@ ExecutionOfTheCrossing () {
       setLoading(false)
     })
   }
-  async function deleteDados (id: string) {
+  async function deleteDados(id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('executarTravessia/' + id
@@ -136,7 +143,7 @@ ExecutionOfTheCrossing () {
       setLoading(false)
     })
   }
-  function update (dados: any) {
+  function update(dados: any) {
     console.log('dados')
     console.log(dados)
     setIdconfigTravessia(dados.id)
@@ -148,7 +155,7 @@ ExecutionOfTheCrossing () {
     setnomeConfigTravessia(dados.idConfigTravessia + '/' + dados.nomeConfigTravessia)
     setIsOpenUpdate(true)
   }
-  async function updateDados () {
+  async function updateDados() {
     setLoading(true)
     const responser = api.put('executarTravessia/' + idconfigTravessia, {
       data: {
@@ -176,11 +183,11 @@ ExecutionOfTheCrossing () {
     setLoading(true)
     loadDados()
   }, [])
-  function close () {
+  function close() {
     reset()
     setIsOpen(false)
   }
-  function onChange (e: any) {
+  function onChange(e: any) {
     console.log(`checked = ${e.target.checked}`)
   }
 
@@ -352,7 +359,7 @@ ExecutionOfTheCrossing () {
                   })}
                   name='nomeConfigTravessia' id='nomeConfigTravessia'
                 >
-                  <option value=''>Selecione...</option>
+                  <option value='1/Travessia personalizada'>Iniciar Travessia personalizada</option>
                   {travessia.length > 0
                     ? travessia.map((travessia) =>
 

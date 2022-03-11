@@ -537,6 +537,18 @@ export const ModelsModal = styled.div`
       margin-left: 0;
     }
   }
+  select {
+    width: 420px;
+    height: 48px;
+    border: 1px solid #252332;
+    background: transparent;
+    padding: 0 7px;
+    border-radius: 6px;
+    margin-top: 11px;
+    option {
+      background: ${theme.colors.darkBlack};
+    }
+  }
 `
 
 export const InterferenciasForm = styled.form`
