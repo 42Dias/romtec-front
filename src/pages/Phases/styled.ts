@@ -274,7 +274,7 @@ export const Div = styled.div`
 
   td, th {
     text-align: left;
-    padding: 8px 0;
+    padding: 10px 0;
   }
 
   tr {

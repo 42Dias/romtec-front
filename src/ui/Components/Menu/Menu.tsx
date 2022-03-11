@@ -23,7 +23,7 @@ const Menu = ({ children, onClose }: Props) => {
             <Link to='/usuarios'>Usuários</Link>
           </li>
           <h4 ><FiMapPin size={20} />Travessias</h4>
-          <li>
+          <li className='noneClass'>
             <Link to='/'>Etapas da travessia</Link>
           </li>
           <li >

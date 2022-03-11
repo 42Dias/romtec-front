@@ -1882,6 +1882,7 @@ export default function
                   <div className='selectPlus'>
                   <select name='' id='' value={ferramentas}
                     onChange={(text) => setferramentas(text.target.value)}>
+                      <option value=''>Selecione...</option>
                     {ferramentasList.length > 0 ?
                       ferramentasList.map((ferramenta) => 
                       <option value={ferramenta.id+'/'+ferramenta.nome}>{ferramenta.nome}</option>): <option>Nenhuma ferramenta cadastrada!</option>  }
@@ -1891,6 +1892,7 @@ export default function
                   
                 </div>
                 : false}
+                
               {campoInfoEnvolvidas
                 ? <div>
                   <label htmlFor=''>Informações Envolvidas</label>
@@ -2758,7 +2760,8 @@ export default function
             </S.GridForm>
 
             {campotipoInterferencia ?
-              <><h4>Registro de interferencias</h4><button onClick={openModalInterferencia} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button><table>
+              <><h4>Registro de interferencias</h4><button onClick={openModalInterferencia} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button>
+              <table>
                 {interferencias.length > 0 ?
                   <tr>
                     <th>Nome</th>
@@ -2796,6 +2799,8 @@ export default function
                     <th>Latitude</th>
                     <th>Longitude</th>
                     <th>Profundidade</th>
+                    {variavelTitulo == 'Execução da Travessia - Furo Piloto' ?<th>Angulação</th>:false} 
+                    {variavelTitulo == 'Execução da Travessia - Furo Piloto' ?<th>Posição em Horas</th>:false} 
                   </tr> : false}
 
                 {pontosVerificacao.length > 0 ?
@@ -2804,6 +2809,8 @@ export default function
                       <td>{pontos.latitude}</td>
                       <td>{pontos.longitude}</td>
                       <td>{pontos.profundidade}</td>
+                      {variavelTitulo == 'Execução da Travessia - Furo Piloto' ?<td>{pontos.angulacao}</td>:false}
+                      {variavelTitulo == 'Execução da Travessia - Furo Piloto' ?<td>{pontos.posicaoHoras}</td>:false}
                       <td>
                         <button onClick={() => deleteDados(pontos.id, 'pontos-verificacao/')}>
                           <FiTrash color='#EA1C24' size={18} />
@@ -2954,7 +2961,7 @@ export default function
           onAfterOpen={() => afterOpenModalInterferencia}
           onRequestClose={() => closeModalFerramenta}
         >
-          <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModalVerificacao}><FiX color='white' /></button>
+          <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModalFerramenta}><FiX color='white' /></button>
 
           <S.ModelsModal>
             <h2>Adicionar Ferramenta</h2>
@@ -2996,7 +3003,7 @@ export default function
           onAfterOpen={() => afterOpenModalInterferencia}
           onRequestClose={() => closeModalVerificacaoEdit}
         >
-          <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModalVerificacao}><FiX color='white' /></button>
+          <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModalVerificacaoEdit}><FiX color='white' /></button>
 
           <S.ModelsModal>
             <h2>Editar ponto de verificação</h2>
