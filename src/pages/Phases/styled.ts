@@ -304,6 +304,10 @@ export const GridForm = styled.div`
 
   padding: 40px 0;
 
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+
   .addInterferencia {
     width: 208px;
     margin-top: 39px;
@@ -336,8 +340,12 @@ export const GridForm = styled.div`
       &:focus {
         border: 1px solid ${theme.colors.yellow};
       }
-    }
 
+      @media(max-width: 520px) {
+        width: 100% !important;
+        max-width: 330px;
+      }
+    }
 
     select {
       width: 480px;
@@ -358,13 +366,6 @@ export const GridForm = styled.div`
         border: 1px solid ${theme.colors.yellow};
         background: transparent;
       } 
-
-      @media(max-width: 520px) {
-        width: 290px;  
-        margin: 10px 0;
-        margin-right: 50px;
-        padding: 0;
-      }
     }
 
 
@@ -375,6 +376,14 @@ export const GridForm = styled.div`
     flex-direction: row;
     select {
       width: 415px;
+
+      @media(max-width: 520px) {
+        margin: 10px 0;
+        margin-right: 50px;
+        padding: 0;
+        width: 100% !important;
+        max-width: 380px;
+      }
     }
 
     button {
@@ -404,6 +413,10 @@ export const PhasesModal = styled.div`
     transition: .5s;
     margin-top: 10px;
 
+    @media (max-width: 520px) {
+      width: 290px;
+    }
+
     color: #878787;
     option {
       background-color: #252332;
@@ -428,6 +441,10 @@ export const PhasesModal = styled.div`
 
     &:focus {
       border: 1px solid ${theme.colors.yellow};
+    }
+
+    @media (max-width: 520px) {
+      width: 290px;
     }
   }
 
@@ -523,7 +540,13 @@ export const ModelsModal = styled.div`
       border: 1px solid #252332;
       box-sizing: border-box;
       border-radius: 6px;
+
+      @media (max-width: 520px) {
+        width: 290px;
+      }
     }
+
+
   }
 
 
