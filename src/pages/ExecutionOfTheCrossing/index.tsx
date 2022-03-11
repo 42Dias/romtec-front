@@ -24,7 +24,7 @@ type FormData = {
 }
 
 export default function
-  ExecutionOfTheCrossing() {
+ExecutionOfTheCrossing () {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenPhases, setIsOpenPhases] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
@@ -45,7 +45,7 @@ export default function
   const link = '/etapas/'
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     data.idCliente = data.nomeCliente.split('/')[0]
     data.nomeCliente = data.nomeCliente.split('/')[1]
     data.idConfigTravessia = data.nomeConfigTravessia.split('/')[0]
@@ -65,7 +65,7 @@ export default function
         toast.success('Cadastrada com sucesso!')
         console.log(response.data.id)
         submit.idConfigTravessia = response.data.id
-        api.put('executarTravessia/'+response.data.id, { 
+        api.put('executarTravessia/' + response.data.id, {
           data: submit,
         }).then((response) => {
           setLoading(false)
@@ -73,7 +73,6 @@ export default function
           reset()
           loadDados()
         })
-
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')
         setLoading(false)
@@ -88,7 +87,7 @@ export default function
     })
   }
 
-  async function loadDados() {
+  async function loadDados () {
     setLoading(true)
     // eslint-disable-next-line
     api.get('executarTravessia',
@@ -128,7 +127,7 @@ export default function
       setLoading(false)
     })
   }
-  async function deleteDados(id: string) {
+  async function deleteDados (id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('executarTravessia/' + id
@@ -143,7 +142,7 @@ export default function
       setLoading(false)
     })
   }
-  function update(dados: any) {
+  function update (dados: any) {
     console.log('dados')
     console.log(dados)
     setIdconfigTravessia(dados.id)
@@ -155,7 +154,7 @@ export default function
     setnomeConfigTravessia(dados.idConfigTravessia + '/' + dados.nomeConfigTravessia)
     setIsOpenUpdate(true)
   }
-  async function updateDados() {
+  async function updateDados () {
     setLoading(true)
     const responser = api.put('executarTravessia/' + idconfigTravessia, {
       data: {
@@ -183,11 +182,11 @@ export default function
     setLoading(true)
     loadDados()
   }, [])
-  function close() {
+  function close () {
     reset()
     setIsOpen(false)
   }
-  function onChange(e: any) {
+  function onChange (e: any) {
     console.log(`checked = ${e.target.checked}`)
   }
 
@@ -324,16 +323,18 @@ export default function
                   },
                 })}
               /> */}
-              <TextField
-                label='Descrição'
-                errorMessage={errors.descricao?.message}
-                {...register('descricao', {
-                  required: {
-                    value: true,
-                    message: 'Todos os campos são obrigatórios',
-                  },
-                })}
-              />
+              <div className='form-control-group'>
+                <TextField
+                  label='Descrição'
+                  errorMessage={errors.descricao?.message}
+                  {...register('descricao', {
+                    required: {
+                      value: true,
+                      message: 'Todos os campos são obrigatórios',
+                    },
+                  })}
+                />
+              </div>
 
               {/* <TextField
                 label='Configuração da travessia'
@@ -410,11 +411,13 @@ export default function
                     : <option value=''>Nenhum Cliente cadastrado!</option>}
                 </select>
               </div>
-              <TextField
-                label='Nome da travessia'
-                value={nome}
-                onChange={(text) => setnome(text.target.value)}
-              />
+              <div className='form-control-group'>
+                <TextField
+                  label='Nome da travessia'
+                  value={nome}
+                  onChange={(text) => setnome(text.target.value)}
+                />
+              </div>
               {/* <TextField
                 label='Nome da travessia'
                 errorMessage={errors.descricao?.message}
@@ -425,11 +428,14 @@ export default function
                   },
                 })}
               /> */}
-              <TextField
-                label='Descrição'
-                value={descricao}
-                onChange={(text) => setdescricao(text.target.value)}
-              />
+
+              <div className='form-control-group'>
+                <TextField
+                  label='Descrição'
+                  value={descricao}
+                  onChange={(text) => setdescricao(text.target.value)}
+                />
+              </div>
 
               {/* <TextField
                 label='Configuração da travessia'

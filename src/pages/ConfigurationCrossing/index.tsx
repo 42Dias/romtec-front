@@ -140,27 +140,7 @@ ConfigurationCrossing () {
       <S.ContainerConfirmation>
         <h2>Configurações da travessia</h2>
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
-        <Select
-          showSearch
-          style={{ width: 200 }}
-          placeholder='Search to Select'
-          optionFilterProp='children'
-          // @ts-ignore
-          filterOption={(input, option) =>
-            // @ts-ignore
-            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-            // @ts-ignore
-          filterSort={(optionA, optionB) =>
-            // @ts-ignore
-            optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())}
-        >
-          <Option value='1'>Not Identified</Option>
-          <Option value='2'>Closed</Option>
-          <Option value='3'>Communicated</Option>
-          <Option value='4'>Identified</Option>
-          <Option value='5'>Resolved</Option>
-          <Option value='6'>Cancelled</Option>
-        </Select>
+
         <S.GridConfirmation>
           <span>Nome da configuração</span>
           <span>Descrição</span>

@@ -22,11 +22,11 @@ const Menu = ({ children, onClose }: Props) => {
             <FiUser size={20} />
             <Link to='/usuarios'>Usuários</Link>
           </li>
-          <h4 ><FiMapPin size={20} />Travessias</h4>
-          <li>
+          <h4><FiMapPin size={20} />Travessias</h4>
+          {/* <li>
             <Link to='/'>Etapas da travessia</Link>
-          </li>
-          <li >
+          </li> */}
+          <li>
             <Link to='/configuracao-da-travessia'>Config. da travessia</Link>
           </li>
           <li>
