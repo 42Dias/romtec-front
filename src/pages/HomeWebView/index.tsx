@@ -36,7 +36,7 @@ export default function
     // saves client's data into localStorage
     localStorage.setItem('status', JSON.stringify(response.tenants[0].status))
     localStorage.setItem('token', JSON.stringify(token.split('homeW/')[1]))
-    console.log(window.location.href = 'https://projetos.42dias.com.br/romtec#/home')
+    console.log(window.location.href = 'https://projetos.42dias.com.br/romtec/#/home')
   }
   useEffect(() => {
     if (!token) {
