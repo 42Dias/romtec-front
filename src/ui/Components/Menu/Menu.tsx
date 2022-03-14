@@ -23,14 +23,17 @@ const Menu = ({ children, onClose }: Props) => {
             <Link to='/usuarios'>Usuários</Link>
           </li>
           <h4><FiMapPin size={20} />Travessias</h4>
-          {/* <li>
-            <Link to='/'>Etapas da travessia</Link>
-          </li> */}
+          <li>
+            <Link to='/etapas-da-travessia'>Etapas da travessia</Link>
+          </li>
           <li>
             <Link to='/configuracao-da-travessia'>Config. da travessia</Link>
           </li>
-          <li>
+          <li className='noneClass'>
             <Link to='/execucao-da-travessia'>Execução da travessia</Link>
+          </li>
+          <li className='exec-mobile'>
+            <Link to='/execucao-da-travessia-mobile'>Execução da travessia</Link>
           </li>
           <h4><FiFileText size={20} />Cadastros</h4>
           <li>

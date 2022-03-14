@@ -35,6 +35,10 @@ import Tools from './pages/Tools'
 import Topography from './pages/Topography'
 import UpdatePassword from './pages/UpdatePassword'
 import Users from './pages/Users'
+import ExecutionOfTheCrossingMobile from './pages/ExecutionOfTheCrossingMobileMobile'
+import PhasesMobile from './pages/PhasesMobile'
+import FillInPhases from './pages/FillInPhases'
+import CrossingStages from './pages/CrossingStages'
 
 const Routes = (): JSX.Element => {
   return (
@@ -75,6 +79,10 @@ const Routes = (): JSX.Element => {
           <Route path='/atualizar-senha/:token' exact component={UpdatePassword} />
           <Route path='/etapas-da-configuracao/:id' exact component={ConfigurationSteps} />
           <Route path='/execucao-da-travessia' exact component={ExecutionOfTheCrossing} />
+          <Route path='/execucao-da-travessia-mobile' exact component={ExecutionOfTheCrossingMobile} />
+          <Route path='/etapas-mobile' exact component={PhasesMobile} />
+          <Route path='/preencher-fases' exact component={FillInPhases} />
+          <Route path='/etapas-da-travessia' exact component={CrossingStages} />
         </Switch>
       </HashRouter>
     </HashRouter>
