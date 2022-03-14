@@ -15,6 +15,7 @@ import FluidPreparation from './pages/FluidPreparation'
 import ForgotPassword from './pages/ForgotPassword'
 
 import Home from './pages/Home'
+import HomeW from './pages/HomeWebView'
 import InterferenceMapping from './pages/InterferenceMapping'
 import Interferences from './pages/Interferences'
 import InterferenceVerification from './pages/InterferenceVerification'
@@ -44,6 +45,7 @@ const Routes = (): JSX.Element => {
           <Route path='/' exact component={Login} />
           <Route path='/cadastro' exact component={Register} />
           <Route path='/home' exact component={Home} />
+          <Route path='/home/:token' exact component={HomeW} />
           <Route path='/recuperar-senha' exact component={ForgotPassword} />
           <Route path='/termos' exact component={Terms} />
           <Route path='/mao-de-obra' exact component={Labor} />

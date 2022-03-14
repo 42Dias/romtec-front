@@ -36,7 +36,7 @@ export default function UpdatePassword() {
   }
   useEffect(() => {
     
-    const hash = window.location.hash.replace(ip + '/romtec/#/atualizar-senha/', '');
+    const hash = window.location.hash.replace(ip + '/romtec/#/atualizar-senha/', ''); 
 
     console.log(hash)
     if (hash) {
