@@ -45,7 +45,7 @@ const Routes = (): JSX.Element => {
           <Route path='/' exact component={Login} />
           <Route path='/cadastro' exact component={Register} />
           <Route path='/home' exact component={Home} />
-          <Route path='/home/:token' exact component={HomeW} />
+          <Route path='/homeW/:token' exact component={HomeW} />
           <Route path='/recuperar-senha' exact component={ForgotPassword} />
           <Route path='/termos' exact component={Terms} />
           <Route path='/mao-de-obra' exact component={Labor} />

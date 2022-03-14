@@ -8,8 +8,9 @@ import { useEffect } from 'react'
 import { ip} from '../../services/api'
 
 export default function
- Home () {
-   let token = window.location.hash.replace(ip + '/romtec/#/home/', '');
+ HomeW () {
+   let token = window.location.hash//.replace(ip + '/romtec/#/homeW/', '');
+
   async function loadUser (token:any) {
     const response = await axios({
       method: 'get',
@@ -17,7 +18,7 @@ export default function
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token.split('home/')[1],
+        Authorization: 'Bearer ' + token.split('homeW/')[1],
       },
       timeout: 50000,
     }).then(response => {
@@ -25,11 +26,17 @@ export default function
     })
     console.log(response)
     console.log(response.tenants[0].roles[0]);
-    localStorage.setItem("roles", JSON.stringify(response.tenants[0].roles[0]));//saves client's data into localStorage:
-    console.log(response.tenants[0].tenant.id);
-    localStorage.setItem('tenantId', JSON.stringify(response.tenants[0].tenant.id))// saves client's data into localStorage:
-    localStorage.setItem('id', JSON.stringify(response.id))// saves client's data into localStorage:
-    localStorage.setItem("status", JSON.stringify(response.tenants[0].status));//saves client's data into localStorage:
+    // saves client's data into localStorage
+    localStorage.setItem('roles', JSON.stringify(response.tenants[0].roles[0]))
+    // saves client's data into localStorage
+    localStorage.setItem('tenantId', JSON.stringify(response.tenants[0].tenant.id))
+    // saves client's data into localStorage
+    localStorage.setItem('id', JSON.stringify(response.id))
+    localStorage.setItem('nome', JSON.stringify(response.firstName))
+    // saves client's data into localStorage
+    localStorage.setItem('status', JSON.stringify(response.tenants[0].status))
+    localStorage.setItem('token', JSON.stringify(token.split('homeW/')[1]))
+    console.log(window.location.href = 'https://projetos.42dias.com.br/romtec#/home')
   }
   useEffect(() => {
     if (!token) {
