@@ -189,4 +189,25 @@ export const ContainerDesc = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  
+  span {
+    @media (max-width: 768px) {
+      max-width: 200px;
+    }
+  }
+
+  button {
+    width: 155px;
+    height: 36px;
+
+    background: #FECE51;
+    border-radius: 5px;
+    border: 0;
+    color: black;
+
+    @media (max-width: 768px) {
+      height: 36px;
+      width: 285px;
+    }
+  }
 `

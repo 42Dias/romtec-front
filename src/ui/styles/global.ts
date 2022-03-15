@@ -90,6 +90,18 @@ export const GlobalStyle = createGlobalStyle`
       border-radius: 5px;
     }
 
+    .ant-select {
+      width: 100%;
+      height: 48px !important;
+      border: 0;
+
+      .ant-select-selector {
+        background: transparent !important;
+        height: 48px !important;
+        border: 1px solid #252332 !important;
+      }
+    }
+
     .flexBtns {
       display: flex;
 
@@ -134,7 +146,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     select {
-      width: 248px;
+      width: 100%;
       height: 48px;
 
       /* black secondary */

@@ -61,9 +61,9 @@ export default function CrossingStages () {
           <FiX />
         </button>
         <h2>Levantamento e Mapeamento de Interferências</h2>
-        <Select mode='tags' style={{ width: '100%' }} placeholder='Tags Mode' onChange={handleChange}>
+        <Select mode='tags' style={{ width: '100%' }} placeholder='Perfil de acesso' onChange={handleChange}>
           {children}
-        </Select>s
+        </Select>
         <h2>Croqui de Mapeamento</h2>
         <select>
           <option>Disponível (Não obrigatório)</option>

@@ -272,16 +272,7 @@ ExecutionOfTheCrossing () {
         <Modal isOpen={isOpen} onClose={() => close()}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
-              {/* <TextField
-                label='Nome do cliente'
-                {...register('nome', {
-                  required: {
-                    value: true,
-                    message: '',
-                  },
-                })}
-              /> */}
-              <div className='form-control-group'>
+              <div>
                 <label
                   htmlFor='nomeCliente'
                 >Nome do Cliente
@@ -303,6 +294,7 @@ ExecutionOfTheCrossing () {
                     : <option value=''>Nenhum Cliente cadastrado!</option>}
                 </select>
               </div>
+
               <TextField
                 label='Nome da travessia'
                 errorMessage={errors.descricao?.message}
@@ -313,31 +305,9 @@ ExecutionOfTheCrossing () {
                   },
                 })}
               />
-              {/* <TextField
-                label='Nome da travessia'
-                errorMessage={errors.descricao?.message}
-                {...register('descricao', {
-                  required: {
-                    value: true,
-                    message: 'Todos os campos são obrigatórios',
-                  },
-                })}
-              /> */}
-              <div className='form-control-group'>
-                <TextField
-                  label='Descrição'
-                  errorMessage={errors.descricao?.message}
-                  {...register('descricao', {
-                    required: {
-                      value: true,
-                      message: 'Todos os campos são obrigatórios',
-                    },
-                  })}
-                />
-              </div>
 
-              {/* <TextField
-                label='Configuração da travessia'
+              <TextField
+                label='Descrição'
                 errorMessage={errors.descricao?.message}
                 {...register('descricao', {
                   required: {
@@ -345,8 +315,9 @@ ExecutionOfTheCrossing () {
                     message: 'Todos os campos são obrigatórios',
                   },
                 })}
-              /> */}
-              <div className='form-control-group'>
+              />
+
+              <div>
                 <label
                   htmlFor='nomeConfigTravessia'
                 >Configuração da travessia
@@ -370,6 +341,7 @@ ExecutionOfTheCrossing () {
                     : <option value=''>Nenhuma Configuração de Travessia cadastrado!</option>}
                 </select>
               </div>
+
               <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
             </S.Form>
           </S.Container>
