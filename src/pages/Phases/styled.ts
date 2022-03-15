@@ -590,6 +590,7 @@ export const ModelsModal = styled.div`
       background: ${theme.colors.darkBlack};
     }
   }
+  
 `
 
 export const InterferenciasForm = styled.form`
@@ -644,5 +645,15 @@ export const ButtonOpenPhases = styled.div`
     cursor: pointer;
     svg {
     }
+  }
+`
+
+export const ContentForm = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-size: 14px;
+    color: ${theme.colors.white};
   }
 `

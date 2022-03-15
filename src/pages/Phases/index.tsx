@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react'
 import Modal from 'react-modal'
 import * as S from './styled'
+import * as S2 from '../Users/styled'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Pagination, Navigation } from 'swiper'
 import 'swiper/swiper-bundle.min.css'
 import 'swiper/swiper.min.css'
-
+import { TextField } from '../../ui/Components/TextField'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 
 import { FiPlus, FiCheck, FiPlay, FiLock, FiX, FiTrash, FiEye } from 'react-icons/fi'
-import { api, ip, token } from '../../services/api'
+import { api, ip, nome, roles, token } from '../../services/api'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { platform, type } from 'os'
@@ -31,6 +32,27 @@ type FormData = {
   tipoSolo: string;
   idConfigTravessia: string;
   banco: string;
+  fabricante: string;
+  modelo: string;
+  hourmeter: string;
+  lastOverhaul: Date;
+  nextOverhaul: Date;
+  reviewUpload: string;
+  revisionSubtypes: string;
+  tracao: string;
+  compressao: string;
+  torque: string;
+  rotacaoSpindle: string;
+  velocidadeTracao: string;
+  velocidadeCompressa: string;
+  diametroFuroPiloto: string;
+  anguloEntrada: string;
+  diametroNominal: string;
+  raioCurvatura: string;
+  comprimento: string;
+  vazao: string;
+  pressao: string;
+  alergamentoMaximo: string;
 }
 type levantamento = {
   id: string;
@@ -55,6 +77,8 @@ export default function
   const [modalIsOpenVerificacaoEdit, setIsOpenVerificacaoEdit] = useState(false)
   const [modalIsOpenInterferenciaEdit, setIsOpenInterferenciaEdit] = useState(false)
   const [modalIsOpenPhaseSelect, setIsOpenPhaseSelect] = useState(false)
+  const [isOpenMaquinaPerfuratriz, setIsOpenMaquinaPerfuratriz] = useState(false)
+  const [isOpenInvite, setIsOpenInvite] = useState(false)
 
   function openModalInterferencia() {
     setIsOpenInterferencia(true)
@@ -146,6 +170,7 @@ export default function
   const [interferencias, setinterferencias] = useState<any[]>([])
   const [pontosVerificacao, setPontosVerificacao] = useState<any[]>([])
   const [ferramentasList, setferramentasList] = useState<any[]>([])
+  const [maquinasPerfuratriz, setMaquinasPerfuratriz] = useState<any[]>([])
   const [variavelTitulo, setVariavelTitulo] = useState('')
   const [idDados, setId] = useState('')
   const [status, setStatus] = useState('')
@@ -300,7 +325,7 @@ export default function
   const [valaEntradaLatitude, setvalaEntradaLatitude] = useState('')
   const [nomePerfilAcesso, setnomePerfilAcesso] = useState('')
   const [dataExecucao, setdataExecucao] = useState('')
-  const [responsavelExecucao, setresponsavelExecucao] = useState('')
+  const [responsavelExecucao, setresponsavelExecucao] = useState(nome)
   const [horaExecucao, sethoraExecucao] = useState('')
   const [croquiMapeamento, setcroquiMapeamento] = useState('')
   const [equipamentoUtilizado, setequipamentoUtilizado] = useState('')
@@ -354,6 +379,9 @@ export default function
   const [finalizarEtapa, setFinalizarEtapa] = useState(false)
   const [name, setName] = useState<any>('')
   const [image, setImage] = useState<any>('')
+  const [user, setUsers] = useState<any[]>([])
+  const [email, setEmail] = useState('')
+  const [role, setRole] = useState('')
   let credencial = ''
   let nameImage = ''
   let Image: any
@@ -373,11 +401,44 @@ export default function
       setCamposInterferencia(true)
     }
   }
+  function onSubmit(data: FormData) {
+    console.log(data)
+    data.reviewUpload = documentos
+    Cadastro(data)
+    //reset()
+  }
 
-  function onSubmitLevantamento() {
+  async function Cadastro(submit: any) {
+    setLoading(true)
+    // eslint-disable-next-line
+    const responser = api.post('maquina-perfuratis', {
+      data: submit,
+    }).then((response) => {
+      console.log(response)
+      if (response.statusText === 'OK') {
+        toast.success('Cadastrada com sucesso!')
+        setLoading(false)
+        setIsOpenMaquinaPerfuratriz(false)
+        reset()
+        loadDados('etapas')
+      } else if (response.statusText === 'Forbidden') {
+        toast.error('Ops, Não tem permisão!')
+        setLoading(false)
+      } else {
+        toast.error('Ops, Dados Incorretos!')
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res)
+      // eslint-disable-next-line
+      toast.error(res.response.data);
+      setLoading(false)
+    })
+  }
+  function onSubmitLevantamento(tabela: string) {
     // console.log(idEtapa)
     const data = {
-      banco: 'todos-campos',
+      banco: tabela,
       idConfigTravessia: idConfigTravessia.replace('#/etapas/', '').split('/')[0],
       etapaId: idEtapa,
       PontoVerEntradaLat: latitudeEntrada,
@@ -475,6 +536,8 @@ export default function
       profundidadeMax: profundidadeMax,
       profundidadeMin: profundidadeMin,
       MaterialRedeTubula: MaterialRedeTubula,
+      emails: email,
+      roles: role,
     }
 
     // console.log(data)
@@ -551,7 +614,8 @@ export default function
         setLoading(false)
         reset()
         setIsOpenPlanejamento(false)
-        // loadDados()
+        setIsOpenInvite(false)
+        loadDados('etapas')
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')
         setLoading(false)
@@ -612,6 +676,30 @@ export default function
     }).catch((res) => {
       console.log(res)
       // toast.error(res.response.data);
+      setLoading(false)
+    })
+    api.get('maquina-perfuratis',
+    ).then((response) => {
+      console.log(response.data.rows)
+      if (response.statusText === 'OK') {
+        setMaquinasPerfuratriz(response.data.rows)
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
+    api.get('user/',
+    ).then((response) => {
+      console.log(response.data.rows)
+      if (response.statusText === 'OK') {
+        setUsers(response.data.rows)
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data)
+      toast.error(res.response.data)
       setLoading(false)
     })
     setLoading(false)
@@ -1173,7 +1261,8 @@ export default function
       novaEtapa = 'Planejamento da Travessia'
       nomePerfilAcesso = true
       croquiMapeamento = true
-      equipamentoUtilizado = true
+      //equipamentoUtilizado = true
+      campoFerramentas = true
       tipoInterferencia = true
       campoTipoRede = true
       MaterialRedeTubula = true
@@ -1613,11 +1702,21 @@ export default function
               {camponomePerfilAcesso
                 ? <div>
                   <label htmlFor=''>Nome do usuario do perfil de acesso</label>
-                  <input
+                  {/* <input
                     type='text' placeholder='nome'
                     value={nomePerfilAcesso}
                     onChange={(text) => setnomePerfilAcesso(text.target.value)}
-                  />
+                  /> */}
+                  <div className='selectPlus'>
+                    <select name='' id='' value={nomePerfilAcesso}
+                      onChange={(text) => setnomePerfilAcesso(text.target.value)}>
+                      <option value=''>Selecione...</option>
+                      {user.length > 0 ?
+                        user.map((user) =>
+                          <option value={user.id + '/' + user.firstName}>{user.firstName ? user.firstName : user.email}</option>) : <option>Nenhuma maquina cadastrada!</option>}
+                    </select>
+                    <button onClick={() => setIsOpenInvite(true)} className='buttonAddInter'><FiPlus size={20} /></button>
+                  </div>
                 </div>
                 : false}
               {campodataExecucao
@@ -1633,7 +1732,7 @@ export default function
               {camporesponsavelExecucao
                 ? <div>
                   <label htmlFor=''>Responsavel pela execução</label>
-                  <input
+                  <input disabled
                     type='text' placeholder='nome'
                     value={responsavelExecucao}
                     onChange={(text) => setresponsavelExecucao(text.target.value)}
@@ -1673,7 +1772,7 @@ export default function
                 : false}
               {campoprofundidadeEntrada
                 ? <div>
-                  <label htmlFor=''>Profundidade da travessia</label>
+                  <label htmlFor=''>Profundidade da travessia (m)</label>
                   <input
                     type='text' placeholder='Profundidade'
                     value={profundidadeEntrada}
@@ -1704,7 +1803,7 @@ export default function
                 : false}
               {campoprofundidadeSaida
                 ? <div>
-                  <label htmlFor=''>Tolerância da profundidade</label>
+                  <label htmlFor=''>Tolerância da profundidade (m)</label>
                   <input
                     type='text' placeholder='Profundidade'
                     value={profundidadeSaida}
@@ -2293,11 +2392,16 @@ export default function
               {campomaquinaPerfuratriz
                 ? <div>
                   <label htmlFor=''>Maquina Perfuratriz</label>
-                  <input
-                    type='text'
-                    value={maquinaPerfuratriz}
-                    onChange={(text) => setmaquinaPerfuratriz(text.target.value)}
-                  />
+                  <div className='selectPlus'>
+                    <select name='' id='' value={maquinaPerfuratriz}
+                      onChange={(text) => setmaquinaPerfuratriz(text.target.value)}>
+                      <option value=''>Selecione...</option>
+                      {maquinasPerfuratriz.length > 0 ?
+                        maquinasPerfuratriz.map((maquina) =>
+                          <option value={maquina.id + '/' + maquina.modelo}>{maquina.modelo}</option>) : <option>Nenhuma maquina cadastrada!</option>}
+                    </select>
+                    <button onClick={() => setIsOpenMaquinaPerfuratriz(true)} className='buttonAddInter'><FiPlus size={20} /></button>
+                  </div>
                 </div>
                 : false}
               {campodiametroAlargamento
@@ -2774,7 +2878,7 @@ export default function
                         <th>Latitude</th>
                         <th>Longitude</th>
                         <th>Profundidade</th>
-                        <th>Diâmetro</th>                        
+                        <th>Diâmetro</th>
                       </tr>
                       : false}
 
@@ -2785,7 +2889,7 @@ export default function
                           <td>{inter.latitude}</td>
                           <td>{inter.longitude}</td>
                           <td>{inter.profundidade}</td>
-                          <td>{inter.diametro}</td>                
+                          <td>{inter.diametro}</td>
                           <td>
                             <button onClick={() => deleteDados(inter.id, 'interferencia/')}>
                               <FiTrash color='#EA1C24' size={18} />
@@ -2824,7 +2928,7 @@ export default function
                           <td>{pontos.longitude}</td>
                           <td>{pontos.profundidade}</td>
                           {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <td>{pontos.angulacao}</td> : false}
-                          {variavelTitulo == 'Execução da Travessia - Furo Piloto' ?<td>{pontos.posicaoHoras}</td> : false}
+                          {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <td>{pontos.posicaoHoras}</td> : false}
                           <td>
                             <button onClick={() => deleteDados(pontos.id, 'pontos-verificacao/')}>
                               <FiTrash color='#EA1C24' size={18} />
@@ -2844,7 +2948,7 @@ export default function
               </>
               : false}
             {!finalizarEtapa
-              ? <button onClick={() => { onSubmitLevantamento() }}>{loading
+              ? <button onClick={() => { onSubmitLevantamento('todos-campos') }}>{loading
                 ? <img
                   width='40px'
                   style={{ margin: 'auto' }}
@@ -2971,17 +3075,17 @@ export default function
               />
 
               {variavelTitulo == 'Execução da Travessia - Furo Piloto' ?
-              <input
-              type='text' placeholder='Angulacão'
-              value={angulacao}
-              onChange={(text) => setAngulacao(text.target.value)}
-            />:false}
-            {variavelTitulo == 'Execução da Travessia - Furo Piloto' ?
-              <input
-              type='text' placeholder='posicão em Horas'
-              value={posicaoHoras}
-              onChange={(text) => setposicaoHoras(text.target.value)}
-            />:false}
+                <input
+                  type='text' placeholder='Angulacão'
+                  value={angulacao}
+                  onChange={(text) => setAngulacao(text.target.value)}
+                /> : false}
+              {variavelTitulo == 'Execução da Travessia - Furo Piloto' ?
+                <input
+                  type='text' placeholder='posicão em Horas'
+                  value={posicaoHoras}
+                  onChange={(text) => setposicaoHoras(text.target.value)}
+                /> : false}
             </div>
             <button className='save' onClick={() => salvarPontosVerificacao()}>{loading
               ? (
@@ -3087,17 +3191,17 @@ export default function
                 onChange={(text) => setprofundidade(text.target.value)}
               />
               {variavelTitulo == 'Execução da Travessia - Furo Piloto' ?
-              <input
-              type='text' placeholder='Angulacão'
-              value={angulacao}
-              onChange={(text) => setAngulacao(text.target.value)}
-            />:false}
-            {variavelTitulo == 'Execução da Travessia - Furo Piloto' ?
-              <input
-              type='text' placeholder='posicão em Horas'
-              value={posicaoHoras}
-              onChange={(text) => setposicaoHoras(text.target.value)}
-            />:false}
+                <input
+                  type='text' placeholder='Angulacão'
+                  value={angulacao}
+                  onChange={(text) => setAngulacao(text.target.value)}
+                /> : false}
+              {variavelTitulo == 'Execução da Travessia - Furo Piloto' ?
+                <input
+                  type='text' placeholder='posicão em Horas'
+                  value={posicaoHoras}
+                  onChange={(text) => setposicaoHoras(text.target.value)}
+                /> : false}
             </div>
             <button className='save' onClick={() => editarInterferencia('pontos-verificacao/')}>{loading
               ? (
@@ -3541,6 +3645,275 @@ export default function
           </button>
         </S.PhasesModal>
 
+      </Modal>
+
+      <Modal className='phaes-modal'
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          },
+        }}
+        isOpen={isOpenMaquinaPerfuratriz} onRequestClose={() => setIsOpenMaquinaPerfuratriz(false)}>
+        <S.Container>
+          <h3>Adicionar Maquina Perfuratriz</h3>
+          <S.Form onSubmit={handleSubmit(onSubmit)}>
+            <TextField
+              label='Fabricante'
+              errorMessage={errors.fabricante?.message}
+              {...register('fabricante', {
+                required: {
+                  value: true,
+                  message: 'Todos os campos são obrigatórios',
+                },
+              })}
+            />
+
+            <TextField
+              label='Nome da Máquina Perfuratriz'
+              {...register('modelo', {
+                required: true,
+              })}
+            />
+
+            <TextField
+              label='Horimetro'
+              {...register('hourmeter', {
+                required: true,
+              })}
+            />
+
+            <TextField
+              label='Última revisão/manutenção'
+              {...register('lastOverhaul', {
+                required: true,
+              })}
+            />
+
+            <TextField
+              label='Próxima revisão/manutenção'
+              {...register('nextOverhaul', {
+                required: true,
+              })}
+            />
+
+            {/* <TextField
+                label='Upload da revisão'
+                {...register('reviewUpload', {
+                  required: true,
+                })}
+              /> */}
+            <div>
+              <form
+                className='file'
+                encType='multipart/form-data'
+
+                onSubmit={makeRequisition}
+              >
+                <label>Upload da revisão</label>
+
+                <input
+                  type='file'
+                  name='image'
+                  onChange={e => {
+                    // console.log(e)
+                    // @ts-ignore
+                    nameImage = e.target.files[0].name
+                    // @ts-ignore
+                    Image = e.target.files[0]
+                    // @ts-ignore
+                    console.log(e.target.files[0].name)
+                    // @ts-ignore
+                    setName(name)
+                    // @ts-ignore
+                    console.log(e.target.files[0])
+                    // @ts-ignore
+                    setImage(e.target.files[0])
+
+                    // @ts-ignore
+                    // if (e.target.files[0].type.includes('image') || e.target.files[0].type.includes('file')) {
+                    // @ts-ignore
+                    uploadImage(e.target.files[0])
+                    // } else {
+                    // toast.error('Arquivo não suportado')
+                    // }
+                  }}
+                /><br /><br />
+
+              </form></div>
+            <S.ContentForm>
+              <fieldset>
+                <label htmlFor='revisionSubtypes'>Subtipos de revisão</label>
+                <select id='revisionSubtypes' {...register('revisionSubtypes')}>
+                  <option value=''>Select...</option>
+                  <option value='Navegador'>Preventiva</option>
+                  <option value='Operador'>Preditiva</option>
+                  <option value='Outro'>Corretiva</option>
+                </select>
+              </fieldset>
+            </S.ContentForm>
+
+            <TextField
+              label='Tração (kN)'
+              {...register('tracao', {
+                required: true,
+              })}
+            />
+
+            <TextField
+              label='Compressão (KN)'
+              {...register('compressao', {
+                required: true,
+              })}
+            />
+
+            <TextField
+              label='Torque (N.m)'
+              {...register('torque', {
+                required: true,
+              })}
+            />
+
+            <TextField
+              label='Rotação Spindle (RPM)'
+              {...register('rotacaoSpindle', {
+                required: true,
+              })}
+            />
+
+            <TextField
+              label='Velocidade Tração (m/min)'
+              {...register('velocidadeTracao', {
+                required: true,
+              })}
+            />
+
+            <TextField
+              label='Velocidade Compressão (m/min)'
+              {...register('velocidadeCompressa', {
+                required: true,
+              })}
+            />
+
+            <TextField
+              label='Diâmetro furo piloto (pol)'
+              {...register('diametroFuroPiloto', {
+                required: true,
+              })}
+            />
+
+            <TextField
+              label='Ângulo de entrada'
+              {...register('anguloEntrada', {
+                required: true,
+              })}
+            />
+
+            <TextField
+              label='Diâmetro nominal (mm)'
+              {...register('diametroNominal', {
+                required: true,
+              })}
+            />
+
+            <TextField
+              label='Raio de curvatura (m)'
+              {...register('raioCurvatura', {
+                required: true,
+              })}
+            />
+
+            <TextField
+              label='Comprimento (m)'
+              {...register('comprimento', {
+                required: true,
+              })}
+            />
+
+            <TextField
+              label='Vazão (L/min)'
+              {...register('vazao', {
+                required: true,
+              })}
+            />
+
+            <TextField
+              label='Pressão (psi)'
+              {...register('pressao', {
+                required: true,
+              })}
+            />
+
+            <TextField
+              label='Alargamento máximo (pol)'
+              {...register('alergamentoMaximo', {
+                required: true,
+              })}
+            />
+
+            <button
+              type='submit'
+            >{loading
+              ? <img
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src='https://contribua.org/mb-static/images/loading.gif'
+                alt='Loading'
+              />
+              : 'Salvar'}
+            </button>
+          </S.Form>
+        </S.Container>
+      </Modal>
+
+      <Modal className='phaes-modal'
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          },
+        }}
+        isOpen={isOpenInvite} onRequestClose={() => setIsOpenInvite(false)}>
+        <S2.ContainerModal>
+
+          <h1>Convidar usuário</h1>
+
+          <S2.GridInvite>
+            <div>
+              <label htmlFor='email'>Email</label>
+              <input type='email' id='email' placeholder='Email do convidado' onChange={(text) => setEmail(text.target.value)} />
+            </div>
+            <div>
+              <label htmlFor='select'>Selecione o tipo de permissão</label>
+              <select name='' id='select' onChange={(text) => setRole(text.target.value)}>
+
+                <option value='clienteADM'>Cliente ADM</option>
+                <option value='equipeCivil'>Equipe civil</option>
+                <option value='engenharia'>Engenharia</option>
+                <option value='engenhariaADM'>Engenharia ADM</option>
+                <option value='mapeamento'>Mapeamento</option>
+                <option value='navegador'>Navegação</option>
+                <option value='operador'>Operador</option>
+                {roles === 'admin' ? <option value='admin'>Plataforma ADM</option> : false}
+
+              </select>
+            </div>
+          </S2.GridInvite>
+
+          <S2.Btns>
+            <button onClick={() => onSubmitLevantamento('user')}>{loading
+              ? <img
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src='https://contribua.org/mb-static/images/loading.gif'
+                alt='Loading'
+              />
+              : 'Salvar'}
+            </button>
+            <button onClick={() => setIsOpenInvite(false)}>Cancelar</button> 
+          </S2.Btns>
+
+        </S2.ContainerModal>
       </Modal>
     </>
   )

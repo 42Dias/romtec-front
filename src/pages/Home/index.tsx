@@ -6,10 +6,12 @@ import image from '../../assets/obra.png'
 import axios from 'axios'
 import { useEffect } from 'react'
 import { ip, token } from '../../services/api'
+import { toast } from 'react-toastify'
 
 export default function
  Home () {
   async function loadUser (token:any) {
+    toast.info(token)
     const response = await axios({
       method: 'get',
       url: `${ip}:8145/api/auth/me`,
@@ -20,6 +22,7 @@ export default function
       },
       timeout: 50000,
     }).then(response => {
+      
       return response.data
     })
     console.log(response)
@@ -31,9 +34,10 @@ export default function
     localStorage.setItem("status", JSON.stringify(response.tenants[0].status));//saves client's data into localStorage:
   }
   useEffect(() => {
-    if (!token) {
-      window.location.reload()
-    }
+    // if (!token) {
+    //   window.location.reload()
+    // }
+    console.log(token)
     loadUser(token)
   }, [])
   return (

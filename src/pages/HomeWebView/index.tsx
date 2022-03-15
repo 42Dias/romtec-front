@@ -6,6 +6,7 @@ import image from '../../assets/obra.png'
 import axios from 'axios'
 import { useEffect } from 'react'
 import { ip} from '../../services/api'
+import { toast } from 'react-toastify'
 
 export default function
  HomeW () {
@@ -22,6 +23,7 @@ export default function
       },
       timeout: 50000,
     }).then(response => {
+      toast.info(token.split('homeW/')[1])
       return response.data
     })
     console.log(response)
@@ -36,12 +38,13 @@ export default function
     // saves client's data into localStorage
     localStorage.setItem('status', JSON.stringify(response.tenants[0].status))
     localStorage.setItem('token', JSON.stringify(token.split('homeW/')[1]))
-    console.log(window.location.href = 'https://projetos.42dias.com.br/romtec/#/home')
+    
+    window.location.href = ip+':3000/romtec/#/home'
   }
   useEffect(() => {
-    if (!token) {
-      window.location.reload()
-    }
+    // if (!token) {
+    //   window.location.reload()
+    // }
     loadUser(token)
   }, [])
   return (

@@ -85,6 +85,7 @@ export default function
       if (response.statusText === 'OK') {
         toast.success('Cadastrada com sucesso!')
         setLoading(false)
+        setIsOpen(false)
         reset()
         loadDados()
       } else if (response.statusText === 'Forbidden') {
