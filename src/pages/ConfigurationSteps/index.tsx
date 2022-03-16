@@ -2118,9 +2118,9 @@ export default function ConfigurationSteps () {
                   </button>
                   {/* <Link to={link + etapas.id}><span>Executar travessia</span></Link>
                   <button><span>Executar travessia</span></button> */}
-                  <button onClick={() => selectCampos(etapas)}>
+                  {/* <button onClick={() => selectCampos(etapas)}>
                     Atribuir campos
-                  </button>
+                  </button> */}
                 </S.GridConfirmation>
               </li>
             ))

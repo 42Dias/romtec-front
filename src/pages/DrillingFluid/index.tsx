@@ -25,11 +25,13 @@ type FormData = {
 }
 
 export default function
-DrillingFluid () {
+  DrillingFluid() {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
   const [fluidos, setFluidos] = useState<any[]>([])
+  const [soilTypes, setSoilTypes] = useState<any[]>([])
+  const [tipoSolo, setTipoSolo] = useState('')
   const [nome, setNome] = useState('')
   const [idFluidos, setIdFluidos] = useState('')
   const [viscosidadeEsperada, setViscosidadeEsperada] = useState('')
@@ -39,14 +41,16 @@ DrillingFluid () {
   const [teorAreia, setTeorAreia] = useState('')
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
     console.log(data)
     Cadastro(data)
-    
+
   }
-  async function Cadastro (submit: any) {
+  async function Cadastro(submit: any) {
     setLoading(true)
     submit.agua = '0'
+    submit.tipoSoloId = tipoSolo.split('/')[0],
+    submit.especificacaoSolo = tipoSolo.split('/')[1]
     // eslint-disable-next-line
     const responser = api.post('fluido-perfuracao', {
       data: submit,
@@ -55,6 +59,7 @@ DrillingFluid () {
       if (response.statusText === 'OK') {
         toast.success('Cadastrado com sucesso!')
         setLoading(false)
+        setIsOpen(false)
         reset()
         loadDados()
       } else if (response.statusText === 'Forbidden') {
@@ -71,7 +76,7 @@ DrillingFluid () {
     })
   }
 
-  async function loadDados () {
+  async function loadDados() {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.get('fluido-perfuracao',
@@ -87,9 +92,20 @@ DrillingFluid () {
       toast.error(res.response.data)
       setLoading(false)
     })
+    api.get('tipo-solo',
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        setSoilTypes(response.data.rows)
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
   }
   // eslint-disable-next-line
-  async function deleteDados (id: string) {
+  async function deleteDados(id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('fluido-perfuracao/' + id,
@@ -180,7 +196,7 @@ DrillingFluid () {
                   /> */}
                   <button
                     // onChange={onEdit}
-                    onClick={() => update(fluido)} 
+                    onClick={() => update(fluido)}
                     style={{ background: 'none', color: 'yellow' }}
                     title='Editar?'
                   >
@@ -240,17 +256,29 @@ DrillingFluid () {
                   required: false,
                 })}
               />
-
+              <div>
+                <label htmlFor=''>Tipos de solo</label>
+                <div className='selectPlus'>
+                  <select value={tipoSolo}
+                    onChange={(text) => { setTipoSolo(text.target.value)}}>
+                    <option value=''>Selecione...</option>
+                    {soilTypes.length > 0 ?
+                      soilTypes.map((tipoSolo) =>
+                        <option value={tipoSolo.id + '/' + tipoSolo.especificacaoSolo}>{tipoSolo.especificacaoSolo}</option>) : <option>Nenhuma maquina cadastrada!</option>}
+                  </select>
+                  {/* <button onClick={() => setIsOpenTipoSolo(true)} className='buttonAddInter'><FiPlus size={20} /></button> */}
+                </div>
+              </div>
               <button
                 type='submit'
               >
                 {loading
                   ? <img
-                      width='40px'
-                      style={{ margin: 'auto' }}
-                      height='' src='https://contribua.org/mb-static/images/loading.gif'
-                      alt='Loading'
-                    />
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height='' src='https://contribua.org/mb-static/images/loading.gif'
+                    alt='Loading'
+                  />
                   : 'Salvar'}
               </button>
             </S.Form>
@@ -262,7 +290,7 @@ DrillingFluid () {
             <S.Div>
               <TextField
                 label='Identificação'
-                value={nome} 
+                value={nome}
                 onChange={(text) => setNome(text.target.value)}
               />
 
@@ -295,8 +323,20 @@ DrillingFluid () {
                 value={teorAreia}
                 onChange={(text) => setTeorAreia(text.target.value)}
               />
-
-              <button  onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <div>
+                <label htmlFor=''>Tipos de solo</label>
+                <div className='selectPlus'>
+                  <select value={tipoSolo}
+                    onChange={(text) => { setTipoSolo(text.target.value)}}>
+                    <option value=''>Selecione...</option>
+                    {soilTypes.length > 0 ?
+                      soilTypes.map((tipoSolo) =>
+                        <option value={tipoSolo.id + '/' + tipoSolo.especificacaoSolo}>{tipoSolo.especificacaoSolo}</option>) : <option>Nenhuma maquina cadastrada!</option>}
+                  </select>
+                  {/* <button onClick={() => setIsOpenTipoSolo(true)} className='buttonAddInter'><FiPlus size={20} /></button> */}
+                </div>
+              </div>
+              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
             </S.Div>
           </S.Container>
         </Modal>

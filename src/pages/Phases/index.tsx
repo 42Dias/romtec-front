@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Modal from 'react-modal'
 import * as S from './styled'
 import * as S2 from '../Users/styled'
+import * as S3 from '../Soiltypes/styled'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import SwiperCore, { Pagination, Navigation } from 'swiper'
 import 'swiper/swiper-bundle.min.css'
@@ -53,21 +54,14 @@ type FormData = {
   vazao: string;
   pressao: string;
   alergamentoMaximo: string;
+  especificacaoSolo: string;
+  resistenciaSeca: string;
+  descricao: string;
+  reacaoDilatacao: string;
+  durezaPlastica: string;
+  indicePlasticidade: string;
 }
-type levantamento = {
-  id: string;
-  responsavel: string;
-  latitudeSaida: string;
-  equipamentos: string;
-  documentos: string;
-  tipoRede: string;
-  empresa: string;
-  sondagemInterferencia: string;
-  sondagem: string;
-  criacaoplanoFuro: string;
-  idConfigTravessia: string;
-  banco: string;
-}
+
 export default function
   Phases() {
   const [modalIsOpenPhase, setIsOpenPhase] = useState(false)
@@ -79,7 +73,8 @@ export default function
   const [modalIsOpenPhaseSelect, setIsOpenPhaseSelect] = useState(false)
   const [isOpenMaquinaPerfuratriz, setIsOpenMaquinaPerfuratriz] = useState(false)
   const [isOpenInvite, setIsOpenInvite] = useState(false)
-
+  const [isOpenTipoSolo, setIsOpenTipoSolo] = useState(false)
+  const [isOpenFluido, setIsOpenFluido] = useState(false)
   function openModalInterferencia() {
     setIsOpenInterferencia(true)
   }
@@ -166,7 +161,9 @@ export default function
   let idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas/', '')
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
   const [loading, setLoading] = useState(false)
+  const [fluidos, setFluidos] = useState<any[]>([])
   const [dados, setDados] = useState<any[]>([])
+  const [soilTypes, setSoilTypes] = useState<any[]>([])
   const [interferencias, setinterferencias] = useState<any[]>([])
   const [pontosVerificacao, setPontosVerificacao] = useState<any[]>([])
   const [ferramentasList, setferramentasList] = useState<any[]>([])
@@ -211,6 +208,11 @@ export default function
   const [latitude, setLatitude] = useState('')
   const [longitude, setLongitude] = useState('')
   const [diametro, setDiametro] = useState('')
+  const [especificacaoSolo, setEspecificacaoSolo] = useState('')
+  const [resistenciaSeca, setResistenciaSeca] = useState('')
+  const [reacaoDilatacao, setReacaoDilatacao] = useState('')
+  const [durezaPlastica, setDurezaPlastica] = useState('')
+  const [indicePlasticidade, setIndicePlasticidade] = useState('')
   // const [profundidade2, setProfundidade] = useState('')
   // const [tipoRede, setTipoRede] = useState('')
   const [localizacao, setLocalizacao] = useState('')
@@ -382,6 +384,13 @@ export default function
   const [user, setUsers] = useState<any[]>([])
   const [email, setEmail] = useState('')
   const [role, setRole] = useState('')
+  const [nomeFluido, setNomeFluido] = useState('')
+  const [idFluidos, setIdFluidos] = useState('')
+  const [viscosidadeEsperada, setViscosidadeEsperada] = useState('')
+  const [qtdePHPA, setQtdePHPA] = useState('')
+  const [qtdeBase, setQtdeBase] = useState('')
+  const [limiteEscoamento, setLimiteEscoamento] = useState('')
+  const [teorAreia, setTeorAreia] = useState('')
   let credencial = ''
   let nameImage = ''
   let Image: any
@@ -401,11 +410,47 @@ export default function
       setCamposInterferencia(true)
     }
   }
+  function onSubmitTipoSolo() {
+    let data = {
+      especificacaoSolo: especificacaoSolo,
+      descricao: descricao,
+      durezaPlastica: durezaPlastica,
+      indicePlasticidade: indicePlasticidade,
+      resistenciaSeca: resistenciaSeca,
+      reacaoDilatacao: reacaoDilatacao,
+    }
+    console.log(data)
+    createNewFileTipoSolo(data)
+    reset()
+  }
+
+  async function createNewFileTipoSolo(submit: any) {
+    setLoading(true)
+    const responser = api.post('tipo-solo', {
+      data: submit,
+    }).then((response) => {
+      if (response.statusText === 'OK') {
+        toast.success('Tipo de solo cadastrado com sucesso!')
+        setLoading(false)
+        setIsOpenTipoSolo(false)
+        loadDados('etapas')
+      } else if (response.statusText === 'Forbidden') {
+        toast.error('Ops, Não tem permisão!')
+        setLoading(false)
+      } else {
+        toast.error('Ops, Dados Incorretos!')
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res)
+      setLoading(false)
+    })
+  }
   function onSubmit(data: FormData) {
     console.log(data)
     data.reviewUpload = documentos
     Cadastro(data)
-    //reset()
+    reset()
   }
 
   async function Cadastro(submit: any) {
@@ -538,6 +583,15 @@ export default function
       MaterialRedeTubula: MaterialRedeTubula,
       emails: email,
       roles: role,
+      nome: nomeFluido,
+      viscosidadeEsperada: viscosidadeEsperada,
+      qtdePHPA: qtdePHPA,
+      qtdeBase: qtdeBase,
+      limiteEscoamento: limiteEscoamento,
+      teorAreia: teorAreia,
+      tipoSoloId: tipoSolo.split('/')[0],
+      especificacaoSolo: tipoSolo.split('/')[1],
+      agua: 0,
     }
 
     // console.log(data)
@@ -615,6 +669,7 @@ export default function
         reset()
         setIsOpenPlanejamento(false)
         setIsOpenInvite(false)
+        setIsOpenFluido(false)
         loadDados('etapas')
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')
@@ -629,10 +684,10 @@ export default function
       setLoading(false)
     })
   }
-  async function loadDados(url: string) {
+  async function loadDados(tipoSoloId: string) {
     setLoading(true)
     // eslint-disable-next-line
-    const responser = await api.get(url + `?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/etapas/", '').split('/')[0]}`,
+    const responser = await api.get(`etapas?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/etapas/", '').split('/')[0]}`,
     ).then((response) => {
       if (response.statusText === 'OK') {
         setDados(response.data.rows)
@@ -702,6 +757,30 @@ export default function
       toast.error(res.response.data)
       setLoading(false)
     })
+    api.get('tipo-solo',
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        setSoilTypes(response.data.rows)
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
+    await api.get('fluido-perfuracao?filter%5BtipoSoloId%5D='+tipoSoloId.split('/')[0],
+    ).then((response) => {
+      console.log(response.data.rows)
+      console.log(typeof (response.data.rows))
+      if (response.statusText === 'OK') {
+        setFluidos(response.data.rows)
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
     setLoading(false)
   }
   async function deleteDados(id: string, tabela: string) {
@@ -715,6 +794,19 @@ export default function
       }
     }).catch(res => {
       // console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
+    api.get('fluido-perfuracao',
+    ).then((response) => {
+      console.log(response.data.rows)
+      console.log(typeof (response.data.rows))
+      if (response.statusText === 'OK') {
+        setFluidos(response.data.rows)
+        setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
@@ -1201,7 +1293,7 @@ export default function
       })
   }
   function salvarEtapa() {
-    const campoTipoSolo = false
+    let campoTipoSolo = false
     const campoDiametroPerfuracao = false
     let campoTipoRede = false
     const campoTipoTubulacao = false
@@ -1233,23 +1325,26 @@ export default function
     let fluido = false
     let campoResponsel = false
     let horaExecucao = false
-    const profundidadeMax = false
-    const profundidadeMin = false
+    let profundidadeMax = false
+    let profundidadeMin = false
     let campoEquipamento = false
     let vazaoBomba = false
     let capacidadeSwivel = false
     let diametroFerramenta = false
-    const tipoRedeTubula = false
+    let tipoRedeTubula = false
     let campoDiametro = false
     let MaterialRedeTubula = false
     let tempoHaste = false
-    const capacidadePortaFusilink = false
-    const tipoRede = false
+    let capacidadePortaFusilink = false
+    //let tipoRede = false
     let maquinaPerfuratriz = false
     let campoFerramentas = false
     let campoPontosVerificacao = false
     idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas/', '')
     let novaEtapa = ''
+    let receitaFluido = false
+    let volumePrepardo = false
+    let testeVicosidade = false
     // if (etapa == '1') {
     //   novaEtapa = 'Levantamento e Mapeamento de Interferências'
     //   nomePerfilAcesso = true
@@ -1297,6 +1392,10 @@ export default function
       novaEtapa = 'Preparação de Fluído'
       nomePerfilAcesso = true
       fluido = true
+      receitaFluido =  true
+      volumePrepardo = true
+      testeVicosidade = true
+      campoTipoSolo = true
       campoResponsel = true
       dataExecucao = true
       horaExecucao = true
@@ -1380,11 +1479,15 @@ export default function
       MaterialRedeTubula: MaterialRedeTubula,
       tempoHaste: tempoHaste,
       capacidadePortaFusilink: capacidadePortaFusilink,
-      tipoRede: tipoRede,
+      //tipoRede: tipoRede,
       maquinaPerfuratriz: maquinaPerfuratriz,
       campoFerramentas: campoFerramentas,
       campoTipoRede: campoTipoRede,
       campoPontosVerificacao: campoPontosVerificacao,
+      campoTipoSolo: campoTipoSolo,
+      receitaFluido: receitaFluido,
+      volumePrepardo: volumePrepardo,
+      testeVicosidade: testeVicosidade,
     }
 
     api.post('etapas', {
@@ -1814,11 +1917,21 @@ export default function
               {campoTipoSolo
                 ? <div>
                   <label htmlFor=''>Tipos de solo</label>
-                  <input
+                  {/* <input
                     type='text' placeholder='Barro'
                     value={tipoSolo}
                     onChange={(text) => setTipoSolo(text.target.value)}
-                  />
+                  /> */}
+                  <div className='selectPlus'>
+                    <select value={tipoSolo}
+                      onChange={(text) => { setTipoSolo(text.target.value); loadDados(text.target.value) }}>
+                      <option value=''>Selecione...</option>
+                      {soilTypes.length > 0 ?
+                        soilTypes.map((tipoSolo) =>
+                          <option value={tipoSolo.id + '/' + tipoSolo.especificacaoSolo}>{tipoSolo.especificacaoSolo}</option>) : <option>Nenhuma maquina cadastrada!</option>}
+                    </select>
+                    <button onClick={() => setIsOpenTipoSolo(true)} className='buttonAddInter'><FiPlus size={20} /></button>
+                  </div>
                 </div>
                 : false}
 
@@ -1836,11 +1949,20 @@ export default function
               {campoTipoRede
                 ? <div>
                   <label htmlFor=''>Tipo de Rede</label>
-                  <input
+                  {/* <input
                     type='text' placeholder='Fibra óptica'
                     value={tipoRede}
                     onChange={(text) => settipoRede(text.target.value)}
-                  />
+                  /> */}
+                  <select name='' id=''
+                    value={tipoRede}
+                    onChange={(text) => settipoRede(text.target.value)}>
+                    <option value='Tubo água pead'>Tubo água pead</option>
+                    <option value='Tubo água barro'>Tubo água barro</option>
+                    <option value='Tubo água fundido'>Tubo água fundido</option>
+                    <option value='Tubo gás aço'>Tubo gás aço</option>
+                    <option value='Tubo gás esgoto'>Tubo gás esgoto</option>
+                  </select>
                 </div>
                 : false}
 
@@ -1984,12 +2106,15 @@ export default function
                 ? <div>
                   <label htmlFor=''>Ferramentas</label>
                   <div className='selectPlus'>
-                    <select name='' id='' value={ferramentas}
-                      onChange={(text) => setferramentas(text.target.value)}>
+                    <select
+                      name='' id='' value={ferramentas}
+                      onChange={(text) => setferramentas(text.target.value)}
+                    >
                       <option value=''>Selecione...</option>
-                      {ferramentasList.length > 0 ?
-                        ferramentasList.map((ferramenta) =>
-                          <option value={ferramenta.id + '/' + ferramenta.nome}>{ferramenta.nome}</option>) : <option>Nenhuma ferramenta cadastrada!</option>}
+                      {ferramentasList.length > 0
+                        ? ferramentasList.map((ferramenta) =>
+                          <option value={ferramenta.id + '/' + ferramenta.nome}>{ferramenta.nome}</option>)
+                        : <option>Nenhuma ferramenta cadastrada!</option>}
                     </select>
                     <button onClick={openModalFerramenta} className='buttonAddInter'><FiPlus size={20} /></button>
                   </div>
@@ -2310,18 +2435,28 @@ export default function
               {campoFluido
                 ? <div>
                   <label htmlFor=''>Fluido</label>
-                  <input
+                  {/* <input
                     type='text'
                     value={Fluido}
                     onChange={(text) => setFluido(text.target.value)}
-                  />
+                  /> */}
+                  <div className='selectPlus'>
+                    <select value={Fluido}
+                      onChange={(text) => {setFluido(text.target.value); setReceitaFluido(`Viscosidade esperada (Segundos Marsh - cP): ${text.target.value.toString().split('/')[2]}\npH da Água: ${text.target.value.toString().split('/')[3]}\nQuantidade base para formulação (Metros cúbicos - m²): ${text.target.value.toString().split('/')[4]}\nLimite de escoamento (Número - N): ${text.target.value.toString().split('/')[5]}\nTeor de areia (Porcentagem - %): ${text.target.value.toString().split('/')[6]}`);}}>
+                      <option value=''>Selecione...</option>
+                      {fluidos.length > 0 ? 
+                        fluidos.map((fluido) =>
+                          <option value={fluido.id + '/' + fluido.nome+'/'+fluido.viscosidadeEsperada+'/'+fluido.qtdePHPA+'/'+fluido.qtdeBase+'/'+fluido.limiteEscoamento+'/'+fluido.teorAreia}>{fluido.nome}</option>) : <option>Nenhuma maquina cadastrada!</option>}
+                    </select>
+                    <button onClick={() => setIsOpenFluido(true)} className='buttonAddInter'><FiPlus size={20} /></button>
+                  </div>
                 </div>
                 : false}
               {campoReceitaFluido
                 ? <div>
                   <label htmlFor=''>Receita do Fluido</label>
-                  <input
-                    type='text'
+                  <textarea 
+                    style={{height: 'auto'}}
                     value={ReceitaFluido}
                     onChange={(text) => setReceitaFluido(text.target.value)}
                   />
@@ -2740,7 +2875,7 @@ export default function
                 ? <div>
                   <label htmlFor=''>Vala de entrada latitude</label>
                   <input
-                    type='text'
+                    type='text' placeholder='Latitude'
                     value={valaEntradaLatitude}
                     onChange={(text) => setvalaEntradaLatitude(text.target.value)}
                   />
@@ -2750,7 +2885,7 @@ export default function
                 ? <div>
                   <label htmlFor=''>Vala de entrada longitude</label>
                   <input
-                    type='text'
+                    type='text' placeholder='Longitude'
                     value={valaEntradaLongitude}
                     onChange={(text) => setvalaEntradaLongitude(text.target.value)}
                   />
@@ -2778,7 +2913,7 @@ export default function
                 : false}
               {campovalaEntradaProfundidade
                 ? <div>
-                  <label htmlFor=''>Vala de entrada profundidade</label>
+                  <label htmlFor=''>Vala de entrada profundidade (m)</label>
                   <input
                     type='text'
                     value={valaEntradaProfundidade}
@@ -2790,7 +2925,7 @@ export default function
                 ? <div>
                   <label htmlFor=''>Vala de saida latitude</label>
                   <input
-                    type='text'
+                    type='text' placeholder='Latitude'
                     value={valaSaidaLatitude}
                     onChange={(text) => setvalaSaidaLatitude(text.target.value)}
                   />
@@ -2800,7 +2935,7 @@ export default function
                 ? <div>
                   <label htmlFor=''>Vala de saida longitude</label>
                   <input
-                    type='text'
+                    type='text' placeholder='Longitude'
                     value={valaSaidaLongitude}
                     onChange={(text) => setvalaSaidaLongitude(text.target.value)}
                   />
@@ -2828,7 +2963,7 @@ export default function
                 : false}
               {campovalaSaidaProfundidade
                 ? <div>
-                  <label htmlFor=''>Vala de saida profundidade</label>
+                  <label htmlFor=''>Vala de saida profundidade (m)</label>
                   <input
                     type='text'
                     value={valaSaidaProfundidade}
@@ -3236,26 +3371,35 @@ export default function
           <S.ModelsModal>
             <h2>Edite uma interferência</h2>
             <div>
+              <label >Nome</label>
               <input
                 type='text' placeholder='Nome'
                 value={tipoInterferencia}
                 onChange={(text) => setTipoInterferencia(text.target.value)}
               />
+              <br />
+              <label >Latitude</label>
               <input
                 type='text' placeholder='Latitude'
                 value={latitude}
                 onChange={(text) => setLatitude(text.target.value)}
               />
+              <br />
+              <label >Longitude</label>
               <input
                 type='text' placeholder='Longitude'
                 value={longitude}
                 onChange={(text) => setLongitude(text.target.value)}
               />
+              <br />
+              <label >Profundidade</label>
               <input
                 type='text' placeholder='Profundidade'
                 value={profundidade}
                 onChange={(text) => setprofundidade(text.target.value)}
               />
+              <br />
+              <label >Diâmetro (mm)</label>
               <input
                 type='text' placeholder='Diâmetro'
                 value={diametro}
@@ -3910,10 +4054,137 @@ export default function
               />
               : 'Salvar'}
             </button>
-            <button onClick={() => setIsOpenInvite(false)}>Cancelar</button> 
+            <button onClick={() => setIsOpenInvite(false)}>Cancelar</button>
           </S2.Btns>
 
         </S2.ContainerModal>
+      </Modal>
+
+      <Modal className='phaes-modal'
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          },
+        }}
+        isOpen={isOpenTipoSolo} onRequestClose={() => setIsOpenTipoSolo(false)}>
+        <S3.Container>
+          <h3>Adicionar Tipo de solo</h3>
+          <br />
+          <S3.Div>
+            <TextField
+              label='Especificação do solo'
+              value={especificacaoSolo}
+              onChange={(text) => setEspecificacaoSolo(text.target.value)}
+            />
+
+            <TextField
+              label='Resistência seca'
+              value={resistenciaSeca}
+              onChange={(text) => setResistenciaSeca(text.target.value)}
+            />
+
+            <TextField
+              label='Descrição'
+              value={descricao}
+              onChange={(text) => setDescricao(text.target.value)}
+            />
+
+            <TextField
+              label='Reação a dilatação'
+              value={reacaoDilatacao}
+              onChange={(text) => setReacaoDilatacao(text.target.value)}
+
+            />
+
+            <TextField
+              label='Dureza plastica'
+              value={durezaPlastica}
+              onChange={(text) => setDurezaPlastica(text.target.value)}
+
+            />
+
+            <TextField
+              label='Índice de plasticidade'
+              value={indicePlasticidade}
+              onChange={(text) => setIndicePlasticidade(text.target.value)}
+
+            />
+            <button onClick={() => onSubmitTipoSolo()}>
+              {loading
+                ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' />
+                : 'Salvar'}
+            </button>
+          </S3.Div>
+        </S3.Container>
+      </Modal>
+
+      <Modal className='phaes-modal'
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          },
+        }}
+        isOpen={isOpenFluido} onRequestClose={() => setIsOpenFluido(false)}>
+        <S3.Container>
+        <h3>Adicionar fluido</h3>
+          <br />
+          <S3.Div>
+            <TextField
+              label='Identificação'
+              value={nomeFluido}
+              onChange={(text) => setNomeFluido(text.target.value)}
+            />
+
+            <TextField
+              label='Viscosidade esperada (Segundos Marsh - cP)'
+              value={viscosidadeEsperada}
+              onChange={(text) => setViscosidadeEsperada(text.target.value)}
+            />
+
+            <TextField
+              label='pH da Água'
+              value={qtdePHPA}
+              onChange={(text) => setQtdePHPA(text.target.value)}
+            />
+
+            <TextField
+              label='Quantidade base para formulação (Metros cúbicos - m²)'
+              value={qtdeBase}
+              onChange={(text) => setQtdeBase(text.target.value)}
+            />
+
+            <TextField
+              label='Limite de escoamento (Número - N)'
+              value={limiteEscoamento}
+              onChange={(text) => setLimiteEscoamento(text.target.value)}
+            />
+
+            <TextField
+              label='Teor de areia (Porcentagem - %)'
+              value={teorAreia}
+              onChange={(text) => setTeorAreia(text.target.value)}
+            />
+            <div>
+              <label htmlFor=''>Tipos de solo</label>
+              {/* <input
+                    type='text' placeholder='Barro'
+                    value={tipoSolo}
+                    onChange={(text) => setTipoSolo(text.target.value)}
+                  /> */}
+              <div className='selectPlus'>
+                <select value={tipoSolo}
+                  onChange={(text) => { setTipoSolo(text.target.value); loadDados('etapas') }}>
+                  <option value=''>Selecione...</option>
+                  {soilTypes.length > 0 ?
+                    soilTypes.map((tipoSolo) =>
+                      <option value={tipoSolo.id + '/' + tipoSolo.especificacaoSolo}>{tipoSolo.especificacaoSolo}</option>) : <option>Nenhuma maquina cadastrada!</option>}
+                </select>
+                {/* <button onClick={() => setIsOpenTipoSolo(true)} className='buttonAddInter'><FiPlus size={20} /></button> */}
+              </div>
+            </div>
+            <button onClick={() => onSubmitLevantamento('fluido-perfuracao/')}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+          </S3.Div>
+        </S3.Container>
       </Modal>
     </>
   )

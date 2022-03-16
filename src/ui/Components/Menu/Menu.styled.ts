@@ -31,6 +31,16 @@ export const List = styled.ul`
   transition: width 2s;
   overflow-y: scroll;
 
+  .exec-mobile {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .exec-mobile {
+      display: block;
+    }
+  }
+
   @media (max-width: 768px) {
     .noneClass {
       display: none;

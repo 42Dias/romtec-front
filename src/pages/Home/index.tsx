@@ -11,7 +11,7 @@ import { toast } from 'react-toastify'
 export default function
  Home () {
   async function loadUser (token:any) {
-    toast.info(token)
+    //toast.info(token)
     const response = await axios({
       method: 'get',
       url: `${ip}:8145/api/auth/me`,

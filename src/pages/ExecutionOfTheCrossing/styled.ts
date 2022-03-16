@@ -101,59 +101,35 @@ export const GridConfirmation = styled.div`
 export const Form = styled.form`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  &.form-check {
+  @media (max-width: 768px) {
+    margin: 0 20px;
+  }
+  div {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+  }
+
+  select {
+    width: 345px;
+    height: 48px;
+    margin-top: 10px;
+    border-radius: 4px;
+    padding: 0 7px;
+    border: 1px solid #252332;
+    background: #1B1925;
+    color: #ccc;
+
+    @media (max-width: 521px) {
+      width: 290px;
+      margin: 10px 0;
+      margin-right: 50px;
+      padding: 0;
+    }
   }
 
   @media (max-width: 520px) {
     grid-template-columns: 1fr;
   }
-
-  .first {
-    margin-left: 8px !important;
-  }
-
-  .form-control-group-check {
-    display: flex;
-    flex-direction: column;
-    margin: 20px auto 20px -7px;
-  }
-
-  .form-control-group-check span {
-    color: white;
-  }
-
-    .form-control-group select {
-      width: 345px;
-      height: 48px;
-      box-sizing: border-box;
-      border-radius: 4px;
-      margin: 10px 0;
-      padding: 0 7px;
-      border: 1px solid ${theme.colors.black};
-      background: ${theme.colors.darkBlack};
-      color: #ccc;
-
-      option {
-        color: black;
-      }
-
-      :focus {
-        border: 1px solid ${theme.colors.yellow};
-        background: transparent;
-      } 
-
-      @media(max-width: 520px) {
-        width: 290px;  
-        margin: 10px 0;
-        margin-right: 50px;
-        padding: 0;
-      }
-    }
-  justify-items: center;
-  align-items: center;
 
   button {
     width: 101px;

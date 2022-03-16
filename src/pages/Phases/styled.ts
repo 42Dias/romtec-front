@@ -346,7 +346,28 @@ export const GridForm = styled.div`
         max-width: 330px;
       }
     }
+    textarea {
+      width: 480px;
+      height: 48px;
+      font-size: 12px;
+      border-radius: 5px;
+      border: 1px solid #252332;
+      background-color: ${theme.colors.darkBlack};
+      color: rgba(255, 255, 255, 0.35);
+      padding: 7px;
+      margin: 10px 0;
 
+      transition: .4s;
+
+      &:focus {
+        border: 1px solid ${theme.colors.yellow};
+      }
+
+      @media(max-width: 520px) {
+        width: 100% !important;
+        max-width: 330px;
+      }
+    }
     select {
       width: 480px;
       height: 48px;
