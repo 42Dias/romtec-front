@@ -700,7 +700,7 @@ export default function
       toast.error(res.response.data)
       setLoading(false)
     })
-    api.get(`interferencia?filter%5BetapaId%5D=${idEtapa}&filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
+    api.get(`interferencia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
     ).then((response) => {
       if (response.statusText === 'OK') {
         console.log(response.data.rows)
