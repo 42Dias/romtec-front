@@ -10,7 +10,7 @@ import { toast } from 'react-toastify'
 
 export default function
  HomeW () {
-   let token = window.location.hash//.replace(ip + '/romtec/#/homeW/', '');
+   let token = window.location.hash.split('homeW/')[1];
 
   async function loadUser (token:any) {
     const response = await axios({
@@ -19,12 +19,14 @@ export default function
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token.split('homeW/')[1],
+        Authorization: 'Bearer ' + token.replace(/"/g, ),
       },
       timeout: 50000,
     }).then(response => {
       toast.info(token.split('homeW/')[1])
       return response.data
+    }).catch((error)=>{
+      toast.error(error)
     })
     console.log(response)
     console.log(response.tenants[0].roles[0]);
@@ -66,6 +68,7 @@ export default function
           <S.ContainerSteps>
             <S.ContentSteps>
               <FiSettings size={20} />
+              <h4 style={{width: '50px'}}>{token}</h4>
               <h4>Morbi vitae lorem nisl.</h4>
               <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
             </S.ContentSteps>
