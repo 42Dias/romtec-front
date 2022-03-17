@@ -23,7 +23,7 @@ export default function
       },
       timeout: 50000,
     }).then(response => {
-      toast.info(token.split('homeW/')[1])
+      //toast.info(token.split('homeW/')[1])
       return response.data
     }).catch((error)=>{
       toast.error(error)
@@ -41,7 +41,7 @@ export default function
     localStorage.setItem('status', JSON.stringify(response.tenants[0].status))
     localStorage.setItem('token', JSON.stringify(token.split('homeW/')[1]))
     
-    window.location.href = ip+':3000/romtec/#/home'
+    window.location.href = ip+'/romtec/#/home'
   }
   useEffect(() => {
     // if (!token) {
