@@ -6,7 +6,7 @@ import * as S from './styled'
 import { Checkbox } from 'antd'
 import { TextField } from '../../ui/Components/TextField'
 import { useForm } from 'react-hook-form'
-import { FiPlus } from 'react-icons/fi'
+import { FiPlus, FiX } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
@@ -142,6 +142,7 @@ ExecutionOfTheCrossing () {
       setLoading(false)
     })
   }
+
   function update (dados: any) {
     console.log('dados')
     console.log(dados)
@@ -154,6 +155,7 @@ ExecutionOfTheCrossing () {
     setnomeConfigTravessia(dados.idConfigTravessia + '/' + dados.nomeConfigTravessia)
     setIsOpenUpdate(true)
   }
+
   async function updateDados () {
     setLoading(true)
     const responser = api.put('executarTravessia/' + idconfigTravessia, {
@@ -178,14 +180,17 @@ ExecutionOfTheCrossing () {
       toast.error(error.response.data)
     })
   }
+
   useEffect(() => {
     setLoading(true)
     loadDados()
   }, [])
+
   function close () {
     reset()
     setIsOpen(false)
   }
+
   function onChange (e: any) {
     console.log(`checked = ${e.target.checked}`)
   }
@@ -196,14 +201,14 @@ ExecutionOfTheCrossing () {
       <Navbar />
       <S.ContainerConfirmation>
         <h2>Processos de travessias</h2>
-        <button onClick={() => setIsOpen(true)}><FiPlus /></button>
+        <button className='bntAddInter' onClick={() => setIsOpen(true)}><FiPlus /></button>
         {/* <button onClick={() => setIsOpen(true)}>Nova<FiPlus /></button> */}
 
         <S.GridConfirmation>
-          <span>Nome do Cliente</span>
+          <span className='none'>Nome do Cliente</span>
           <span>Nome da Travessia</span>
-          <span>Descrição</span>
-          <span>Configuração da Travessia</span>
+          <span className='none'>Descrição</span>
+          <span className='none'>Configuração da Travessia</span>
 
         </S.GridConfirmation>
 
@@ -212,10 +217,11 @@ ExecutionOfTheCrossing () {
             ? execTtravessia.map((configurationCrossing) =>
               <li key={configurationCrossing.id}>
                 <S.GridConfirmation>
-                  <span>{configurationCrossing.nomeCliente}</span>
+                  <span className='none'>{configurationCrossing.nomeCliente}</span>
                   <span>{configurationCrossing.nomeTravessia}</span>
-                  <span>{configurationCrossing.descricao}</span>
-                  <span>{configurationCrossing.nomeConfigTravessia}</span>
+                  <span className='none'>{configurationCrossing.descricao}</span>
+                  <span className='none'>{configurationCrossing.nomeConfigTravessia}</span>
+                  <Link to={link + configurationCrossing.idConfigTravessia + '/' + configurationCrossing.id}><span>Executar travessia</span></Link>
                   <DeleteButton
                     onDelete={() => deleteDados(configurationCrossing.id)}
                   />
@@ -230,7 +236,6 @@ ExecutionOfTheCrossing () {
                   >
                     <FaEdit size={20} />
                   </button>
-                  <Link to={link + configurationCrossing.idConfigTravessia + '/' + configurationCrossing.id}><span>Executar travessia</span></Link>
                   {/* {<button><span>Executar travessia</span></button>}
                    <Link to='/etapas'><span>Executar travessia</span></Link> */}
                 </S.GridConfirmation>
