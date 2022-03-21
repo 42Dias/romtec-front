@@ -1341,6 +1341,7 @@ export default function FillInPhases () {
       <Sidebar />
       <Navbar />
       <S.Container>
+        
         <h1>{variavelTitulo}</h1>
 
         <S2.Div>
