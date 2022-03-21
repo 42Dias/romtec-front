@@ -29,7 +29,7 @@ export default function
       toast.error(error)
     })
     console.log(response)
-    console.log(response.tenants[0].roles[0]);
+    //console.log(response.tenants[0].roles[0]);
     // saves client's data into localStorage
     localStorage.setItem('roles', JSON.stringify(response.tenants[0].roles[0]))
     // saves client's data into localStorage
@@ -39,9 +39,11 @@ export default function
     localStorage.setItem('nome', JSON.stringify(response.firstName))
     // saves client's data into localStorage
     localStorage.setItem('status', JSON.stringify(response.tenants[0].status))
-    localStorage.setItem('token', JSON.stringify(token.split('homeW/')[1]))
+    console.log('token')
+    console.log(token)
+    localStorage.setItem('token', JSON.stringify(token))
     
-    window.location.href = ip+'/romtec/#/home'
+    window.location.href = ip+':3000/romtec/#/home'
   }
   useEffect(() => {
     // if (!token) {
