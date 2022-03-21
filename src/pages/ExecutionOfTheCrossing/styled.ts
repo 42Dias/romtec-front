@@ -38,6 +38,16 @@ export const ContainerConfirmation = styled.div`
     :hover {
       opacity: 80%;
     }
+
+    @media (max-width: 520px) {
+      width: 113px;
+      height: 34px;
+      background: ${theme.colors.yellow};
+
+      .bntAddInter svg {
+        color: black;
+      }
+    }
   }
 
   a {
@@ -67,6 +77,14 @@ export const GridConfirmation = styled.div`
   border-radius: 5px;
   margin-bottom: 13px;
 
+  a {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
   button {
     font-size: 14px;
     color: ${theme.colors.white};
@@ -78,10 +96,11 @@ export const GridConfirmation = styled.div`
     justify-content: center;
     border-radius: 5px;
     background-color: ${theme.colors.yellow};
-    margin-bottom: 20px;
+    margin-bottom: 0;
     color: ${theme.colors.black};
     font-weight: bold;
   }
+
   span {
     font-size: 14px;
     color: ${theme.colors.white};
@@ -90,10 +109,32 @@ export const GridConfirmation = styled.div`
       opacity: 80%;
     }
   }
+
   @media (max-width: 520px) {
-    overflow: auto;
+    padding: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: space-between;
+    align-items: center;
+
     span {
-      margin: 0 30px;
+      max-width: 120px;
+    }
+
+    a {
+      width: 113px;
+      margin-left: 20px;
+      span {
+        font-size: 10px;
+      }
+    }
+
+    button {
+      width: 25px;
+      height: 36px;
+    }
+
+    .none {
+      display: none;
     }
   }
 `

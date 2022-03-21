@@ -25,6 +25,7 @@ export default function ExecutionOfTheCrossingMobile () {
   function closeModalEdit () {
     setIsOpenEdit(false)
   }
+
   return (
     <>
       <Sidebar />

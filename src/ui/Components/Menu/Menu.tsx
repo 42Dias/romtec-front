@@ -32,7 +32,11 @@ const Menu = ({ children, onClose }: Props) => {
           <li >
             <Link to='/execucao-da-travessia'>Execução da travessia</Link>
           </li>
+<<<<<<< HEAD
+          <li className='exec-mobile'>
+=======
           {/* <li className='exec-mobile'>
+>>>>>>> 6befe909771fcd86fdf6b701f0870d5e8131e88d
             <Link to='/execucao-da-travessia-mobile'>Execução da travessia</Link>
           </li> */}
           <h4><FiFileText size={20} />Cadastros</h4>
