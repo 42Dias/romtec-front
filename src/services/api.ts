@@ -9,11 +9,12 @@ export let status = localStorage.getItem('status')?.replace(/"/g, '')
 export let Email = localStorage.getItem('email')?.replace(/"/g, '')
 export let nome = localStorage.getItem('nome')?.replace(/"/g, '')
 export let password = localStorage.getItem('password')?.replace(/"/g, '')
-export let ip = 'http://localhost'
-//export const ip = 'https://projetos.42dias.com.br'
+//export let ip = 'http://192.168.0.105'
+export const ip = 'https://projetos.42dias.com.br'
 
 export const api = axios.create({
   baseURL: ip + ':8145/api/tenant/' + tenantId + '/',
   timeout: 50000,
   headers: { Authorization: 'Bearer ' + token },
 })
+

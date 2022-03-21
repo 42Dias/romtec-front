@@ -83,7 +83,7 @@ const Routes = (): JSX.Element => {
           <Route path='/execucao-da-travessia' exact component={ExecutionOfTheCrossing} />
           <Route path='/execucao-da-travessia-mobile' exact component={ExecutionOfTheCrossingMobile} />
           <Route path='/etapas-mobile' exact component={PhasesMobile} />
-          <Route path='/preencher-fases' exact component={FillInPhases} />
+          <Route path='/preencher-fases/:idEtapa/:id/:etapaId' exact component={FillInPhases} />
           <Route path='/etapas-da-travessia' exact component={CrossingStages} />
         </Switch>
       </HashRouter>

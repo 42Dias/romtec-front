@@ -4258,27 +4258,40 @@ Phases () {
           }}
           navigation
         >
-          <SwiperSlide>
+          {/* <SwiperSlide>
             <button onClick={openModalEdit}>
               <FiCheck />
               <h2>1</h2>
               <h1>Limpeza</h1>
             </button>
-          </SwiperSlide>
-          <SwiperSlide className='containerForm'>
-            <Link to='/preencher-fases'>
+          </SwiperSlide> */}
+          
+          {dados.length > 0
+            ? dados.map(data =>
+             <SwiperSlide className='containerForm'>
+                {/* <div onClick={() => openModal(data)}> */}
+                <Link to={'/preencher-fases/'+idConfigTravessia.split('etapas/')[1]+'/'+data.id}>
+                  <FiCheck />
+                  <h2>{data.numeroEtapa}</h2>
+                  {/* <h2>{data.tipoEtapa}</h2> */}
+                  <h1>{data.novaEtapa}</h1>
+                  </Link> 
+                  </SwiperSlide>                            
+            )
+            : <p>🤔 Nenhuma Etapa cadastrada!</p>}
+            {/* <Link to={'/preencher-fases/'+idConfigTravessia.split('etapas/')[1]}>
               <FiPlay />
               <h2>2</h2>
               <h1>Levantamento e Mapeamento de interferências</h1>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide className='containerDisabled'>
+            </Link> */}
+         
+          {/* <SwiperSlide className='containerDisabled'>
             <button>
               <FiLock color='#5C5C5C' />
               <h2>3</h2>
               <h1>Cabeamento</h1>
             </button>
-          </SwiperSlide>
+          </SwiperSlide> */}
           <SwiperSlide onClick={openModalAdd} className='containerDisabled'>
             <button>
               <FiPlus color='#00E1AF' />
@@ -4346,16 +4359,38 @@ Phases () {
           <FiX />
         </button>
         <form>
-          <input placeholder='Nome da travessia' type='text' />
-          <input placeholder='Descrição' type='text' />
-          <select>
-            <option selected disabled>Selecione uma configuração</option>
-            <option>Config 1</option>
-            <option>Config 2</option>
-            <option>Config 3</option>
+          {/* <input placeholder='Nome da travessia' type='text' /> */}
+          <input placeholder='Descrição' type='text'
+            value={descricao}
+            onChange={(text) => setDescricao(text.target.value)}/>
+          <select
+           value={etapa}
+           onChange={(text) => setEtapa(text.target.value)}>
+          <option selected disabled>Selecione uma etapa</option>
+              {/* <option value='1'>Levantamento e Mapeamento de Interferências</option> */}
+              <option value='2'>Planejamento da Travessia</option>
+              <option value='3'>Sondagem das Interferências</option>
+              <option value='4'>Abertura de Valas de Entrada e Saída</option>
+              <option value='5'>Preparação de Fluído</option>
+              <option value='6'>Execução da Travessia - Furo Piloto</option>
+              <option value='7'>Alargamento</option>
+              <option value='8'>Limpeza</option>
+              <option value='9'>Puxamento de Rede</option>
           </select>
 
-          <button className='add'>Adicionar</button>
+          <button className='add' onClick={() => salvarEtapa()}>{loading
+            ? (
+              <img
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src='https://contribua.org/mb-static/images/loading.gif'
+                alt='Loading'
+              />
+              )
+            : (
+                'Salvar'
+              )}</button>
         </form>
       </Modal>
     </>
