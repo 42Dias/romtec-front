@@ -9,7 +9,7 @@ import * as S from './styles'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import { ip, password } from '../../services/api'
+import { Email, ip, password } from '../../services/api'
 
 type FormData = {
   email: string;
@@ -92,6 +92,9 @@ export default function Login() {
         console.log(window.location.href = window.location.href + 'atualizar-senha/' + token)
         //console.log(window.location.href = window.location.href + 'home')
       } else {
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+          console.log(window.location.href = window.location.href + 'homeW/'+Email+'-'+password)
+         }
         console.log(window.location.href = window.location.href + 'home')
       }
 

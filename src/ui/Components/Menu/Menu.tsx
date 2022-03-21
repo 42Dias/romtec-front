@@ -29,7 +29,7 @@ const Menu = ({ children, onClose }: Props) => {
           <li>
             <Link to='/configuracao-da-travessia'>Config. da travessia</Link>
           </li>
-          <li className='noneClass'>
+          <li >
             <Link to='/execucao-da-travessia'>Execução da travessia</Link>
           </li>
           {/* <li className='exec-mobile'>
