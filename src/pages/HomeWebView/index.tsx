@@ -12,6 +12,45 @@ export default function
  HomeW () {
    let token = window.location.hash.split('homeW/')[1];
 
+   function handleLocalStorage(emailA: string, passwordB: string) {
+    localStorage.setItem('email', JSON.stringify(emailA))
+    localStorage.setItem('password', JSON.stringify(passwordB))
+    console.log()
+  }
+  function handleLocalStorageToken(token: string[]) {
+    const setLocalStorage = (data: string[]) => {
+      localStorage.setItem('token', JSON.stringify(data))
+      console.log('OK!!!')
+    }
+    setLocalStorage(token)
+    loadUser(token)
+  }
+  async function Login(email: string, password:string) {
+    // eslint-disable-next-line
+    const responser = axios.post(ip + ':8145/api/auth/sign-in', {
+      email: email,
+      password: password,
+      invitationToken: '',
+      tenantId: '',
+    }).then((response) => {
+      console.log(response.statusText)
+      if (response.statusText === 'OK') {
+        toast.success('Login efetuado com sucesso!')
+        handleLocalStorage(email, password)
+        handleLocalStorageToken(response.data)
+      } else if (response.statusText === 'Forbidden') {
+        toast.error('Ops, Não tem permisão!')
+        //setLoading(false)
+      } else {
+        toast.error('Ops, Dados Incorretos!')
+        //setLoading(false)
+      }
+    }).catch(res => {
+      console.log(res.response.data)
+      toast.error(res.response.data)
+      //setLoading(false)
+    })
+  }
   async function loadUser (token:any) {
     const response = await axios({
       method: 'get',
@@ -43,13 +82,17 @@ export default function
     console.log(token)
     localStorage.setItem('token', JSON.stringify(token))
     
-    window.location.href = ip+':3000/romtec/#/home'
+    window.location.href = ip+'/romtec/#/home'
   }
   useEffect(() => {
     // if (!token) {
     //   window.location.reload()
     // }
-    loadUser(token)
+    // let data = {
+    //   email: token.split('homeW/')[1].split('-')[0],
+    //   password: token.split('homeW/')[1].split('-')[1]
+    // }
+    Login(token.split('-')[0], token.split('-')[1])
   }, [])
   return (
     <>
