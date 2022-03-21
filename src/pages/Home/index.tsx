@@ -7,6 +7,7 @@ import axios from 'axios'
 import { useEffect } from 'react'
 import { ip, token } from '../../services/api'
 import { toast } from 'react-toastify'
+import { Toast } from 'react-toastify/dist/components'
 
 export default function
  Home () {
@@ -24,7 +25,9 @@ export default function
     }).then(response => {
       
       return response.data
-    })
+    }).catch((error)=>
+      toast.error(error)
+    )
     console.log(response)
     console.log(response.tenants[0].roles[0]);
     localStorage.setItem("roles", JSON.stringify(response.tenants[0].roles[0]));//saves client's data into localStorage:
@@ -34,9 +37,9 @@ export default function
     localStorage.setItem("status", JSON.stringify(response.tenants[0].status));//saves client's data into localStorage:
   }
   useEffect(() => {
-    // if (!token) {
-    //   window.location.reload()
-    // }
+    if (token == undefined) {
+      window.location.reload()
+    }
     console.log(token)
     loadUser(token)
   }, [])

@@ -81,8 +81,10 @@ export default function
     console.log('token')
     console.log(token)
     localStorage.setItem('token', JSON.stringify(token))
+    setTimeout(function() {
+      window.location.href = ip+':3000/romtec/#/home'
+    }, 1000);
     
-    window.location.href = ip+'/romtec/#/home'
   }
   useEffect(() => {
     // if (!token) {
