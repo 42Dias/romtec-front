@@ -1756,7 +1756,7 @@ Phases () {
                   <FiCheck />
                   <h2>{data.numeroEtapa}</h2>
                   {/* <h2>{data.tipoEtapa}</h2> */}
-                  <h1>{data.novaEtapa}</h1>
+                  <h1>{data.tipoEtapa}</h1>
                 </div>
               </SwiperSlide>
               ,

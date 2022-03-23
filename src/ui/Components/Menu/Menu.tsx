@@ -29,12 +29,12 @@ const Menu = ({ children, onClose }: Props) => {
           <li>
             <Link to='/configuracao-da-travessia'>Config. da travessia</Link>
           </li>
-          <li className='exec-mobile' >
+          <li >
             <Link to='/execucao-da-travessia'>Execução da travessia</Link>
           </li>
-          <li className='noneClass'>
+          {/* <li className='exec-mobile'>
             <Link to='/execucao-da-travessia-mobile'>Execução da travessia</Link>
-          </li>
+          </li> */}
           <h4><FiFileText size={20} />Cadastros</h4>
           <li>
             <Link to='/mao-de-obra'>Mão de obra</Link>
