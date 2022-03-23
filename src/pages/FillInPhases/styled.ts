@@ -163,5 +163,42 @@ export const Container = styled.div`
     .swiper-button-disabled {
       color: ${theme.colors.white};
     }
-
+    button {
+      background: ${theme.colors.green};
+      width: 120px;
+      height: 39px;
+      border: 0;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    .buttonAddInter {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 6px;
+    }
+    .selectPlus {
+      display: flex;
+      flex-direction: row;
+      select {
+        width: 415px;
+  
+        @media(max-width: 520px) {
+          margin: 10px 0;
+          margin-right: 50px;
+          padding: 0;
+          width: 100% !important;
+          max-width: 380px;
+        }
+      }
+  
+      button {
+        margin-left: 10px;
+        width: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
 `

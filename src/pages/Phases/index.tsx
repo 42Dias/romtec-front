@@ -191,6 +191,7 @@ Phases () {
   const [variavelTitulo, setVariavelTitulo] = useState('')
   const [idDados, setId] = useState('')
   const [status, setStatus] = useState('')
+  const [nomeTravessia, setNomeTravessia] = useState('')
   const [posicaoHoras, setposicaoHoras] = useState('')
   const [nomeFerramenta, setnomeFerramenta] = useState('')
   const [descricaoFerramenta, setdescricaoFerramenta] = useState('')
@@ -453,7 +454,7 @@ Phases () {
         toast.success('Tipo de solo cadastrado com sucesso!')
         setLoading(false)
         setIsOpenTipoSolo(false)
-        loadDados('etapas')
+        loadDados('')
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')
         setLoading(false)
@@ -747,6 +748,17 @@ Phases () {
       if (response.statusText === 'OK') {
         console.log(response.data.rows)
         setferramentasList(response.data.rows)
+      }
+    }).catch((res) => {
+      console.log(res)
+      // toast.error(res.response.data);
+      setLoading(false)
+    })
+    api.get(`executarTravessia?filter%5Bid%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        console.log(response.data.rows)
+        setNomeTravessia(response.data.rows[0].nomeTravessia)
       }
     }).catch((res) => {
       console.log(res)
@@ -4239,7 +4251,7 @@ Phases () {
       </Modal>
 
       <S.ContainerNone>
-        <h2>Travessia número 1</h2>
+        <h2>{nomeTravessia}</h2>
 
         <Swiper
           spaceBetween={40}
@@ -4274,7 +4286,7 @@ Phases () {
                   <FiCheck />
                   <h2>{data.numeroEtapa}</h2>
                   {/* <h2>{data.tipoEtapa}</h2> */}
-                  <h1>{data.novaEtapa}</h1>
+                  <h1>{data.tipoEtapa}</h1>
                   </Link> 
                   </SwiperSlide>                            
             )
