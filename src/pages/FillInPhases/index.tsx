@@ -693,7 +693,7 @@ export default function FillInPhases() {
   async function loadDados(tipoSoloId: string) {
     setLoading(true)
     // eslint-disable-next-line
-    const responser = await api.get(`etapas?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/preencher-fases/", '').split('/')[0]}&filter%5Bid%5D=${idConfigTravessia.replace("#/preencher-fases/", '').split('/')[2]}`,
+    const responser = await api.get(`etapas?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/preencher-fases/", '').split('/')[0]}&filter%5Bid%5D=${idConfigTravessia.replace("#/preencher-fases/", '').split('/')[2].split("(")[0]}`,
     ).then((response) => {
       if (response.statusText === 'OK') {
         setDados(response.data.rows)

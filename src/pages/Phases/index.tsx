@@ -4282,7 +4282,7 @@ Phases () {
             ? dados.map(data =>
              <SwiperSlide className='containerForm'>
                 {/* <div onClick={() => openModal(data)}> */}
-                <Link to={'/preencher-fases/'+idConfigTravessia.split('etapas/')[1]+'/'+data.id}>
+                <Link to={'/preencher-fases/'+idConfigTravessia.split('etapas/')[1]+'/'+data.id+`(${data.tipoEtapa.replace(/ /g, '')})`}>
                   <FiCheck />
                   <h2>{data.numeroEtapa}</h2>
                   {/* <h2>{data.tipoEtapa}</h2> */}
