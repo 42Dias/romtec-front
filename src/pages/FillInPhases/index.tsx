@@ -2496,7 +2496,8 @@ export default function FillInPhases() {
             : false}
 
           {campotipoInterferencia
-            ? <><h4>Registro de interferencias</h4><button onClick={openModalInterferencia} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button>
+            ? <><h4>Registro de interferencias</h4>
+            {/* <button onClick={openModalInterferencia} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button> */}
               <div style={{ overflow: 'auto' }}>
                 <table>
                   {interferencias.length > 0
