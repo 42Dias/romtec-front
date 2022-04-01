@@ -113,6 +113,7 @@ export default function FillInPhases() {
   }
   function openModalInterferenciaEdit(interferencia: any) {
     setInterferenciaId(interferencia.id)
+    console.log(interferencia.id)
     setTipoInterferencia(interferencia.tipoInterferencia)
     setLatitude(interferencia.latitude)
     setLongitude(interferencia.longitude)
@@ -595,8 +596,8 @@ export default function FillInPhases() {
       qtdeBase: qtdeBase,
       limiteEscoamento: limiteEscoamento,
       teorAreia: teorAreia,
-      tipoSoloId: tipoSolo.split('/')[0],
-      especificacaoSolo: tipoSolo.split('/')[1],
+      tipoSoloId: tipoSolo != undefined ? tipoSolo.split('/')[0]: '',
+      especificacaoSolo: tipoSolo != undefined ? tipoSolo.split('/')[1]: '',
       agua: 0,
     }
 
@@ -878,6 +879,127 @@ export default function FillInPhases() {
       }
     }).catch(res => {
       console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
+    api.get(`todos-campos?filter%5BetapaId%5D=${idConfigTravessia.split("#/preencher-fases/")[1].split("/")[2].split("(")[0]}&filter%5BidTravessia%5D=${idConfigTravessia.split("#/preencher-fases/")[1].split("/")[0]}`,
+    ).then((response) => {
+      // console.log(response.data.rows)
+      if (response.statusText === 'OK') {
+        if (response.data.count > 0) {
+          // console.log(response.data.rows[0].id)
+          setIdEtapa(idConfigTravessia.split("#/preencher-fases/")[1].split("/")[2].split("(")[0])
+          setidTodosCampos(response.data.rows[0].id)
+          setlatitudeEntrada(response.data.rows[0].PontoVerEntradaLat)
+          setlongitudeEntrada(response.data.rows[0].PontoVerEntradaLong)
+          setlatitudeSaida(response.data.rows[0].PontoVerSaidaLat)
+          setlongitudeSaida(response.data.rows[0].PontoVerSaidaLong)
+          setTipoSolo(response.data.rows[0].TipoSolo)
+          setdiametroPerfuracao(response.data.rows[0].DiametroPerf)
+          settipoRede(response.data.rows[0].TipoRede)
+          settipoTubulacao(response.data.rows[0].TipoTub)
+          setresponsavel(response.data.rows[0].Responsavel)
+          setequipamentos(response.data.rows[0].Equipamentos)
+          setsondagemInterferencia(response.data.rows[0].ConfSondagemInterferencia)
+          setdocumentos(response.data.rows[0].Documentos)
+          setempresa(response.data.rows[0].EmpresaProp)
+          setsondagem(response.data.rows[0].Sondagem)
+          setDiametroInterferencia(response.data.rows[0].DiametroInterferencia)
+          setcriacaoplanoFuro(response.data.rows[0].CriacaoPlanoFuro)
+          setferramentas(response.data.rows[0].Ferramentas)
+          setInfoEnvolvidas(response.data.rows[0].InformacoesEnvolvidas)
+          setLocalDiretrizFuro(response.data.rows[0].LocalRelDiretrizFuro)
+          setTipoInterferencia(response.data.rows[0].TipoInterferencia)
+          setprofundidade(response.data.rows[0].Profundidade)
+          setRespTopografia(response.data.rows[0].ResponsavelTopografia)
+          setDataTopografia(response.data.rows[0].DataExecTopografia)
+
+          setnomePerfilAcesso(response.data.rows[0].nomePerfilAcesso)
+          setdataExecucao(response.data.rows[0].dataExecucao)
+          setresponsavelExecucao(response.data.rows[0].responsavelExecucao)
+          sethoraExecucao(response.data.rows[0].horaExecucao)
+          setcroquiMapeamento(response.data.rows[0].croquiMapeamento)
+          setequipamentoUtilizado(response.data.rows[0].equipamentoUtilizado)
+          setmaterializacaoCampo(response.data.rows[0].materializacaoCampo)
+          setquantidadeInterferencias(response.data.rows[0].quantidadeInterferencias)
+          setparaleloEsquerda(response.data.rows[0].paraleloEsquerda)
+          setparaleloDireita(response.data.rows[0].paraleloDireita)
+          setperpendicular(response.data.rows[0].perpendicular)
+          setlargura(response.data.rows[0].largura)
+          setcomprimento(response.data.rows[0].comprimento)
+          setprofundidadeVala(response.data.rows[0].profundidadeVala)
+          setestacaReferencia(response.data.rows[0].estacaReferencia)
+          setnumeroHastes(response.data.rows[0].numeroHastes)
+          setprofundidadePlanejada(response.data.rows[0].profundidadePlanejada)
+          setavancoPlanejado(response.data.rows[0].avancoPlanejado)
+          setprofundidadeExecutada(response.data.rows[0].profundidadeExecutada)
+          setavancoExecutado(response.data.rows[0].avancoExecutado)
+          setamarracao(response.data.rows[0].amarracao)
+          setmaquinaPerfuratriz(response.data.rows[0].maquinaPerfuratriz)
+          setdiametroAlargamento(response.data.rows[0].diametroAlargamento)
+          settempoHaste(response.data.rows[0].tempoHaste)
+          setvazaoBomba(response.data.rows[0].vazaoBomba)
+          settipoRedeTubula(response.data.rows[0].tipoRedeTubula)
+          setdiametroRede(response.data.rows[0].diametroRede)
+          setferramentasUtilizadas(response.data.rows[0].ferramentasUtilizadas)
+          setmodeloAlargador(response.data.rows[0].modeloAlargador)
+          setcapacidadePortaFusilink(response.data.rows[0].capacidadePortaFusilink)
+          setcapacidadeSwivel(response.data.rows[0].capacidadeSwivel)
+          setFluido(response.data.rows[0].fluido)
+          setcampoReceitaFluido(response.data.rows[0].receitaFluido)
+
+          setPortaSonda(response.data.rows[0].portaSonda)
+          setVolumePreparado(response.data.rows[0].volumePrepardo)
+          setTesteVicosidade(response.data.rows[0].testeVicosidade)
+          setConfirmacaoProcedimento(response.data.rows[0].confirmacaoProcedimento)
+          setHastes(response.data.rows[0].hastes)
+          setSonda(response.data.rows[0].sonda)
+          setpaPerfuracao(response.data.rows[0].paPerfuracao)
+          setPullingHead(response.data.rows[0].pullingHead)
+          setLocalizador(response.data.rows[0].localizador)
+          setLuva(response.data.rows[0].luva)
+          setHasteInicial(response.data.rows[0].hasteInicial)
+          setFlexobarra(response.data.rows[0].flexoBarra)
+          setRadio(response.data.rows[0].radio)
+          setParafuso(response.data.rows[0].parafuso)
+          setCondicaoFerramenta(response.data.rows[0].condicaoFerramenta)
+          setEmpresaProprietaria(response.data.rows[0].empresaProp)
+          setEmpresaProprietaria(response.data.rows[0].empresaProprietaria)
+          setDiametroFerramenta(response.data.rows[0].diametroFerramenta)
+          setFinalizarEtapa(response.data.rows[0].finalizarEtapa)
+          setprofundidadeEntrada(response.data.rows[0].profundidadeEntrada)
+          setprofundidadeSaida(response.data.rows[0].profundidadeSaida)
+          setvalaEntradaLatitude(response.data.rows[0].valaEntradaLatitude)
+          setvalaEntradaLongitude(response.data.rows[0].valaEntradaLongitude)
+          setvalaEntradaAltura(response.data.rows[0].valaEntradaAltura)
+          setvalaEntradaComprimento(response.data.rows[0].valaEntradaComprimento)
+          setvalaEntradaProfundidade(response.data.rows[0].valaEntradaProfundidade)
+          setvalaSaidaLatitude(response.data.rows[0].valaSaidaLatitude)
+          setvalaSaidaLongitude(response.data.rows[0].valaSaidaLongitude)
+          setvalaSaidaAltura(response.data.rows[0].valaSaidaAltura)
+          setvalaSaidaComprimento(response.data.rows[0].valaSaidaComprimento)
+          setvalaSaidaProfundidade(response.data.rows[0].valaSaidaProfundidade)
+          setprofundidadeMax(response.data.rows[0].profundidadeMax)
+          setprofundidadeMin(response.data.rows[0].profundidadeMin)
+          setMaterialRedeTubula(response.data.rows[0].MaterialRedeTubula)
+        } else {
+          setFinalizarEtapa(false)
+          setidTodosCampos('')
+        }
+        setLoading(false)
+      }
+      api.get(`interferencia?filter%5BidTravessia%5D=${idConfigTravessia.split("#/preencher-fases/")[1].split("/")[0]}`,
+      ).then((response) => {
+        if (response.statusText === 'OK') {
+          setinterferencias(response.data.rows)
+        }
+      }).catch((res) => {
+        console.log(res)
+        // toast.error(res.response.data);
+        setLoading(false)
+      })
+    }).catch(res => {
+      /// /console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
@@ -1228,12 +1350,13 @@ export default function FillInPhases() {
       tipoInterferencia: tipoInterferencia,
       localizacao: localizacao,
       angulacao: angulacao,
-      idTravessia: idConfigTravessia.replace('#/etapas/', '').split('/')[1],
+      idTravessia: idConfigTravessia.replace('#/preencher-fases/', '').split('/')[1],
       idTodosCampos: idTodosCampos,
       idEtapa: idEtapa,
       status: status,
       posicaoHoras: posicaoHoras,
     }
+    console.log(data.idTravessia)
     api.put(tabela + interferenciaId, {
       data: data,
     })
@@ -2576,8 +2699,30 @@ export default function FillInPhases() {
             </>
             : false}
           <div className='flexBtns'>
-            <button>Voltar</button>
-            <button>Finalizar etapa</button>
+          {!finalizarEtapa
+              ? <button onClick={() => { onSubmitLevantamento('todos-campos') }}>{loading
+                ? <img
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height='' src='https://contribua.org/mb-static/images/loading.gif'
+                    alt='Loading'
+                  />
+                : 'Salvar'}
+                </button>
+              : false}
+            {!finalizarEtapa
+              ? idTodosCampos === ''
+                ? <button onClick={() => { toast.info('É preciso salvar a etapa!') }} className='finishPhase'>Finalizar Etapa</button>
+                : <button onClick={() => { updateDados() }} className='finishPhase'>{loading
+                  ? <img
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height='' src='https://contribua.org/mb-static/images/loading.gif'
+                      alt='Loading'
+                    />
+                  : 'Finalizar Etapa'}
+                  </button>
+              : 'Etapa Finalizada!'}
           </div>
         </form>
       </S.Container>

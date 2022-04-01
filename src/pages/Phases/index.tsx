@@ -122,6 +122,7 @@ Phases () {
   }
   function openModalInterferenciaEdit (interferencia: any) {
     setInterferenciaId(interferencia.id)
+    console.log(interferencia.id) 
     setTipoInterferencia(interferencia.tipoInterferencia)
     setLatitude(interferencia.latitude)
     setLongitude(interferencia.longitude)
@@ -610,8 +611,8 @@ Phases () {
       qtdeBase: qtdeBase,
       limiteEscoamento: limiteEscoamento,
       teorAreia: teorAreia,
-      tipoSoloId: tipoSolo.split('/')[0],
-      especificacaoSolo: tipoSolo.split('/')[1],
+      tipoSoloId: tipoSolo != undefined ? tipoSolo.split('/')[0] : '',
+      especificacaoSolo: tipoSolo != undefined ? tipoSolo.split('/')[1] : '', 
       agua: 0,
     }
 
@@ -3129,6 +3130,7 @@ Phases () {
 
                 </>
               : false}
+
             {!finalizarEtapa
               ? <button onClick={() => { onSubmitLevantamento('todos-campos') }}>{loading
                 ? <img
@@ -4311,20 +4313,43 @@ Phases () {
           </SwiperSlide>
         </Swiper>
         <form>
-          <input placeholder='Nome da travessia' type='text' />
-          <input placeholder='Descrição' type='text' />
-          <select>
-            <option selected disabled>Selecione uma configuração</option>
-            <option>Config 1</option>
-            <option>Config 2</option>
-            <option>Config 3</option>
+          <span>Nova etapa</span><br/>
+          {/* <input placeholder='Nome da travessia' type='text' /> */}
+          <input placeholder='Descrição' type='text'
+            value={descricao}
+            onChange={(text) => setDescricao(text.target.value)}/>
+          <select
+           value={etapa}
+           onChange={(text) => setEtapa(text.target.value)}>
+          <option selected disabled>Selecione uma etapa</option>
+              {/* <option value='1'>Levantamento e Mapeamento de Interferências</option> */}
+              <option value='2'>Planejamento da Travessia</option>
+              <option value='3'>Sondagem das Interferências</option>
+              <option value='4'>Abertura de Valas de Entrada e Saída</option>
+              <option value='5'>Preparação de Fluído</option>
+              <option value='6'>Execução da Travessia - Furo Piloto</option>
+              <option value='7'>Alargamento</option>
+              <option value='8'>Limpeza</option>
+              <option value='9'>Puxamento de Rede</option>
           </select>
 
-          <button className='add'>Adicionar</button>
+          <button className='add' onClick={() => salvarEtapa()}>{loading
+            ? (
+              <img
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src='https://contribua.org/mb-static/images/loading.gif'
+                alt='Loading'
+              />
+              )
+            : (
+                'Adicionar'
+              )}</button>
         </form>
       </S.ContainerNone>
 
-      <Modal
+      {/* <Modal
         className='phaes-modal'
         style={{
           overlay: {
@@ -4355,7 +4380,7 @@ Phases () {
             <button className='add'>Adicionar</button>
           </form>
         </S.ContainerNone>
-      </Modal>
+      </Modal> */}
 
       <Modal
         isOpen={isOpenModalAdd}
