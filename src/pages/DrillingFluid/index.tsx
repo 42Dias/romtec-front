@@ -7,14 +7,14 @@ import { TextField } from '../../ui/Components/TextField'
 import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
-
+import Load from './../../assets/load.gif'
 import * as S from './styled'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
 import EditButton from '../../ui/Components/EditButton/EditButton'
 import { FaEdit } from 'react-icons/fa'
 
-type FormData = {
+type FormData = { 
   nome: string;
   viscosidadeEsperada: string;
   qtdePHPA: string;
@@ -276,7 +276,7 @@ export default function
                   ? <img
                     width='40px'
                     style={{ margin: 'auto' }}
-                    height='' src='https://contribua.org/mb-static/images/loading.gif'
+                    height='' src={Load}
                     alt='Loading'
                   />
                   : 'Salvar'}
@@ -336,7 +336,7 @@ export default function
                   {/* <button onClick={() => setIsOpenTipoSolo(true)} className='buttonAddInter'><FiPlus size={20} /></button> */}
                 </div>
               </div>
-              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src={Load} alt='Loading' /> : 'Salvar'}</button>
             </S.Div>
           </S.Container>
         </Modal>

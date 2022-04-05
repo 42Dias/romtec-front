@@ -3,7 +3,7 @@ import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
 
 import * as S from './styled'
-
+import Load from './../../assets/load.gif'
 import { TextField } from '../../ui/Components/TextField'
 import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
@@ -236,7 +236,7 @@ ProbeHolder () {
                     width='40px'
                     style={{ margin: 'auto' }}
                     height=''
-                    src='https://contribua.org/mb-static/images/loading.gif'
+                    src={Load}
                     alt='Loading'
                   />
                 : 'Salvar'}
@@ -287,7 +287,7 @@ ProbeHolder () {
                       width='40px'
                       style={{ margin: 'auto' }}
                       height=''
-                      src='https://contribua.org/mb-static/images/loading.gif'
+                      src={Load}
                       alt='Loading'
                     />
                   : 'Salvar'}

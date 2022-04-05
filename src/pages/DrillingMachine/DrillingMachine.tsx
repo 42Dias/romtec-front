@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form'
 import { api } from '../../services/api'
 import { FiPlus } from 'react-icons/fi'
 import { toast } from 'react-toastify'
-
+import Load from './../../assets/load.gif'
 import * as S from './styled'
 import EditButton from '../../ui/Components/EditButton/EditButton'
 
@@ -334,7 +334,7 @@ export function DrillingMachine () {
                     width='40px'
                     style={{ margin: 'auto' }}
                     height=''
-                    src='https://contribua.org/mb-static/images/loading.gif'
+                    src={Load} 
                     alt='Loading'
                   />
                 : 'Salvar'}

@@ -14,6 +14,7 @@ import { backgroundImages } from 'polished'
 import { FaEdit } from 'react-icons/fa'
 import { Field, Formik } from 'formik'
 import MaskedInput from '../../ui/Components/InputMask/InputMask'
+import Load from './../../assets/load.gif'
 
 type FormData = {
   cnpj: string;
@@ -504,7 +505,7 @@ export default function
                 )}
               />
 
-              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src={Load} alt='Loading' /> : 'Salvar'}</button>
             </S.Form>
           </S.Container>
         </Modal>
@@ -575,7 +576,7 @@ export default function
                 onChange={(text) => setUf(text.target.value)}
               />
 
-              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src={Load} alt='Loading' /> : 'Salvar'}</button>
             </S.Div>
           </S.Container>
         </Modal>

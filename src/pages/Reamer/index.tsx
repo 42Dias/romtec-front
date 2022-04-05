@@ -13,7 +13,7 @@ import { FaEdit } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import { api, id, nome } from '../../services/api'
 import { rawListeners } from 'process'
-
+import Load from './../../assets/load.gif'
 type FormData = {
   codigo: string;
   CapacidadeSwivel: string;
@@ -279,7 +279,7 @@ export default function
                   width='40px'
                   style={{ margin: 'auto' }}
                   height=''
-                  src='https://contribua.org/mb-static/images/loading.gif'
+                  src={Load}
                   alt='Loading'
                 />
                 : 'Salvar'}</button>
@@ -343,7 +343,7 @@ export default function
                     width='40px'
                     style={{ margin: 'auto' }}
                     height=''
-                    src='https://contribua.org/mb-static/images/loading.gif'
+                    src={Load}
                     alt='Loading'
                   />
                   : 'Salvar'}

@@ -17,6 +17,7 @@ import EditButton from '../../ui/Components/EditButton/EditButton'
 import { FaEdit } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 const { Option } = Select
+import Load from './../../assets/load.gif'
 
 type FormData = {
   descricao: string;
@@ -220,7 +221,7 @@ ConfigurationCrossing () {
                   },
                 })}
               />
-              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src={Load} alt='Loading' /> : 'Salvar'}</button>
             </S.Form>
           </S.Container>
         </Modal>
@@ -238,7 +239,7 @@ ConfigurationCrossing () {
                 value={descricao}
                 onChange={(text) => setdescricao(text.target.value)}
               />
-              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src={Load} alt='Loading' /> : 'Salvar'}</button>
             </S.Div>
           </S.Container>
         </Modal>

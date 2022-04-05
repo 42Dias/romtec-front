@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { ip } from '../../services/api'
 import { toast } from 'react-toastify'
 import axios from 'axios'
+import Load from './../../assets/load.gif'
 
 type FormData = {
   name: string;
@@ -163,7 +164,7 @@ export default function Register () {
               </label>
             </fieldset>
 
-            <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Entrar'}</button>
+            <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src={Load} alt='Loading' /> : 'Entrar'}</button>
           </form>
         </S.Form>
       </S.Content>

@@ -1,15 +1,13 @@
 import { theme } from '../../ui'
-
 import { useState } from 'react'
-
 import { useForm } from 'react-hook-form'
 import { FiEye } from 'react-icons/fi'
-
 import * as S from './styles'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { ip, password } from '../../services/api'
+import Load from './../../assets/load.gif'
 
 type FormData = {
   email: string;
@@ -155,7 +153,7 @@ export default function Login() {
           </S.Password>
           <Link to='/recuperar-senha'>Esqueceu a sua senha?</Link>
 
-          <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Entrar'}</button>
+          <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src={Load} alt='Loading' /> : 'Entrar'}</button>
         </S.Form>
         <strong>ou</strong>
         <Link to='/cadastro' style={{ color: `${theme.colors.yellow}` }}>Cadastrar-se</Link>

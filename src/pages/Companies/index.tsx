@@ -7,7 +7,7 @@ import { TextField } from '../../ui/Components/TextField'
 import { useForm } from 'react-hook-form'
 import { FiPlus } from 'react-icons/fi'
 import { SetStateAction, useEffect, useState } from 'react'
-
+import Load from './../../assets/load.gif'
 import * as S from './styles'
 import { toast } from 'react-toastify'
 import { api } from '../../services/api'
@@ -434,7 +434,7 @@ Companies () {
                   </S.Form>
                 )}
               />
-              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src={Load} alt='Loading' /> : 'Salvar'}</button>
             </S.Form>
           </S.Container>
           {/* eslint-disable-next-line */}
@@ -515,7 +515,7 @@ Companies () {
                 onChange={(text) => setResponsavelTecnico(text.target.value)}
               />
 
-              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src={Load} alt='Loading' /> : 'Salvar'}</button>
             </S.Div>
           </S.Container>
           {/* eslint-disable-next-line */}

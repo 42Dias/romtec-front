@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { ip } from '../../services/api'
 import { TextField } from '../../ui/Components/TextField'
-
+import Load from './../../assets/load.gif'
 import * as S from './styled'
 
 type FormData = {
@@ -54,7 +54,7 @@ export default function ForgotPassword () {
             onChange={(text) => setEmail(text.target.value)}
           />
         </div>
-        <button onClick={() => senEmail(email)}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> :'Enviar'}</button>
+        <button onClick={() => senEmail(email)}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src={Load} alt='Loading' /> :'Enviar'}</button>
         <Link to='/'>Voltar para o login</Link>
       </S.Content>
     </S.ContainerLogin>

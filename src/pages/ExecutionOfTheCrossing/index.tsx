@@ -13,6 +13,7 @@ import { api } from '../../services/api'
 import EditButton from '../../ui/Components/EditButton/EditButton'
 import { FaEdit } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import Load from './../../assets/load.gif'
 
 type FormData = {
   descricao: string;
@@ -347,7 +348,7 @@ ExecutionOfTheCrossing () {
                 </select>
               </div>
 
-              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src={Load} alt='Loading' /> : 'Salvar'}</button>
             </S.Form>
           </S.Container>
         </Modal>
@@ -445,7 +446,7 @@ ExecutionOfTheCrossing () {
                     : <option value=''>Nenhuma Configuração de Travessia cadastrado!</option>}
                 </select>
               </div>
-              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src={Load} alt='Loading' /> : 'Salvar'}</button>
             </S.Div>
           </S.Container>
         </Modal>

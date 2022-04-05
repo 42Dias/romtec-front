@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import { FiTool } from 'react-icons/fi'
 import { toast } from 'react-toastify'
 import { api, ip, roles } from '../../services/api'
+import Load from './../../assets/load.gif'
 
 export default function
 Users () {
@@ -268,7 +269,7 @@ Users () {
                     width='40px'
                     style={{ margin: 'auto' }}
                     height=''
-                    src='https://contribua.org/mb-static/images/loading.gif'
+                    src={Load}
                     alt='Loading'
                   />
                 : 'Salvar'}

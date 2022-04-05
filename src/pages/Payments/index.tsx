@@ -13,6 +13,7 @@ import DeleteButton from '../../ui/Components/DeleteButton/DeleteButton'
 import EditButton from '../../ui/Components/EditButton/EditButton'
 import { FaEdit } from 'react-icons/fa'
 import MaskedInput from '../../ui/Components/InputMask/InputMask'
+import Load from './../../assets/load.gif'
 
 type FormData = {
   ano: Date,
@@ -201,7 +202,7 @@ Payments () {
                       width='40px'
                       style={{ margin: 'auto' }}
                       height=''
-                      src='https://contribua.org/mb-static/images/loading.gif'
+                      src={Load}
                       alt='Loading'
                     />
                   : 'Salvar'}
@@ -234,7 +235,7 @@ Payments () {
                   ? <img
                       width='40px' style={{ margin: 'auto' }}
                       height=''
-                      src='https://contribua.org/mb-static/images/loading.gif'
+                      src={Load}
                       alt='Loading'
                     />
                   : 'Salvar'}
@@ -280,7 +281,7 @@ Payments () {
                 onChange={(text) => setValorPago(text.target.value)}
               />
 
-              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <button onClick={() => updateDados()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src={Load} alt='Loading' /> : 'Salvar'}</button>
             </S.Div>
           </S.Container>
           {/* eslint-disable-next-line */}

@@ -14,6 +14,7 @@ import { api, ip } from '../../services/api'
 import EditButton from '../../ui/Components/EditButton/EditButton'
 import { FaEdit } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import Load from './../../assets/load.gif'
 
 type FormData = {
   numeroEtapa: string
@@ -2212,7 +2213,7 @@ export default function ConfigurationSteps () {
                       width='40px'
                       style={{ margin: 'auto' }}
                       height=''
-                      src='https://contribua.org/mb-static/images/loading.gif'
+                      src={Load}
                       alt='Loading'
                     />
                     )
@@ -3414,7 +3415,7 @@ export default function ConfigurationSteps () {
                       width='40px'
                       style={{ margin: 'auto' }}
                       height=''
-                      src='https://contribua.org/mb-static/images/loading.gif'
+                      src={Load}
                       alt='Loading'
                     />
                     )
@@ -3575,7 +3576,7 @@ export default function ConfigurationSteps () {
                       width='40px'
                       style={{ margin: 'auto' }}
                       height=''
-                      src='https://contribua.org/mb-static/images/loading.gif'
+                      src={Load}
                       alt='Loading'
                     />
                     )
@@ -3727,7 +3728,7 @@ export default function ConfigurationSteps () {
                       width='40px'
                       style={{ margin: 'auto' }}
                       height=''
-                      src='https://contribua.org/mb-static/images/loading.gif'
+                      src={Load}
                       alt='Loading'
                     />
                     )
@@ -3835,7 +3836,7 @@ export default function ConfigurationSteps () {
                       width='40px'
                       style={{ margin: 'auto' }}
                       height=''
-                      src='https://contribua.org/mb-static/images/loading.gif'
+                      src={Load}
                       alt='Loading'
                     />
                     )
@@ -3872,7 +3873,7 @@ export default function ConfigurationSteps () {
                       width='40px'
                       style={{ margin: 'auto' }}
                       height=''
-                      src='https://contribua.org/mb-static/images/loading.gif'
+                      src={Load}
                       alt='Loading'
                     />
                     )

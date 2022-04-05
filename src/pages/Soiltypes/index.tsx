@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { api } from '../../services/api'
 import { toast } from 'react-toastify'
-
+import Load from './../../assets/load.gif'
 import * as S from './styled'
 import EditButton from '../../ui/Components/EditButton/EditButton'
 
@@ -257,7 +257,7 @@ SoilTypes () {
                   ? <img
                       width='40px'
                       style={{ margin: 'auto' }}
-                      height='' src='https://contribua.org/mb-static/images/loading.gif'
+                      height='' src={Load}
                       alt='Loading'
                     />
                   : 'Salvar'}
@@ -309,7 +309,7 @@ SoilTypes () {
               />
               <button onClick={() => updateDados()}>
                 {loading
-                  ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' />
+                  ? <img width='40px' style={{ margin: 'auto' }} height='' src={Load} alt='Loading' />
                   : 'Salvar'}
               </button>
             </S.Div>

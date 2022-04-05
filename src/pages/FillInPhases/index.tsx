@@ -14,6 +14,9 @@ import { api, ip, nome, roles } from '../../services/api'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import { TextField } from '../../ui/Components/TextField'
+import Load from './../../assets/load.gif'
+import { DatePicker, Space } from "antd";
+import moment from "moment";
 
 type FormData = {
   id: string;
@@ -418,7 +421,7 @@ export default function FillInPhases() {
   function openModal() {
     setIsOpen(true)
   }
-  function onSubmitTipoSolo () {
+  function onSubmitTipoSolo() {
     const data = {
       especificacaoSolo: especificacaoSolo,
       descricao: descricao,
@@ -516,7 +519,7 @@ export default function FillInPhases() {
       TipoInterferencia: tipoInterferencia,
       Profundidade: profundidade,
       ResponsavelTopografia: respTopografia,
-      DataExecTopografia: '2022-01-01',
+      DataExecTopografia: dataTopografia,
       nomePerfilAcesso: nomePerfilAcesso,
       dataExecucao: dataExecucao,
       responsavelExecucao: responsavelExecucao,
@@ -596,8 +599,8 @@ export default function FillInPhases() {
       qtdeBase: qtdeBase,
       limiteEscoamento: limiteEscoamento,
       teorAreia: teorAreia,
-      tipoSoloId: tipoSolo != undefined ? tipoSolo.split('/')[0]: '',
-      especificacaoSolo: tipoSolo != undefined ? tipoSolo.split('/')[1]: '',
+      tipoSoloId: tipoSolo != undefined ? tipoSolo.split('/')[0] : '',
+      especificacaoSolo: tipoSolo != undefined ? tipoSolo.split('/')[1] : '',
       agua: 0,
     }
 
@@ -1118,7 +1121,7 @@ export default function FillInPhases() {
         TipoInterferencia: tipoInterferencia,
         Profundidade: profundidade,
         ResponsavelTopografia: respTopografia,
-        DataExecTopografia: '2022-01-01',
+        DataExecTopografia: dataTopografia,
         nomePerfilAcesso: nomePerfilAcesso,
         dataExecucao: dataExecucao,
         responsavelExecucao: responsavelExecucao,
@@ -1293,7 +1296,7 @@ export default function FillInPhases() {
         toast.error('Erro: Tente mais tarde :(')
       })
   }
-  function salvarInterferencia (tabela: string) {
+  function salvarInterferencia(tabela: string) {
     const data = {
       tipo: variavelTitulo,
       latitude: latitude,
@@ -1339,7 +1342,7 @@ export default function FillInPhases() {
         setLoading(false)
       })
   }
-  function editarInterferencia (tabela: string) {
+  function editarInterferencia(tabela: string) {
     const data = {
       tipo: variavelTitulo,
       latitude: latitude,
@@ -1430,7 +1433,7 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Data execução</label>
               <input
-                type='text' placeholder='00/00/0000'
+                type='date' placeholder='00/00/0000'
                 value={dataExecucao}
                 onChange={(text) => setdataExecucao(text.target.value)}
               />
@@ -1461,7 +1464,7 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Ponto de verificação de entrada (lat)</label>
               <input
-                type='text' placeholder='Latitude'
+                type='number' placeholder='Latitude'
                 value={latitudeEntrada}
                 onChange={(text) => setlatitudeEntrada(text.target.value)}
               />
@@ -1472,7 +1475,7 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Ponto de verificação de entrada (long)</label>
               <input
-                type='text' placeholder='Longitude'
+                type='number' placeholder='Longitude'
                 value={longitudeEntrada}
                 onChange={(text) => setlongitudeEntrada(text.target.value)}
               />
@@ -1482,7 +1485,7 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Profundidade da travessia (m)</label>
               <input
-                type='text' placeholder='Profundidade'
+                type='number' placeholder='Profundidade'
                 value={profundidadeEntrada}
                 onChange={(text) => setprofundidadeEntrada(text.target.value)}
               />
@@ -1492,18 +1495,19 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Ponto de verificação de saída (lat)</label>
               <input
-                type='text' placeholder='Latitude'
+                type='number' placeholder='Latitude'
                 value={latitudeSaida}
                 onChange={(text) => setlatitudeSaida(text.target.value)}
               />
             </div>
             : false}
+          {/* <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"> */}
 
           {campoSaidaLongitude
             ? <div>
               <label htmlFor=''>Ponto de verificação de saída (long)</label>
               <input
-                type='text' placeholder='Longitude'
+                type='number' placeholder='Longitude'
                 value={longitudeSaida}
                 onChange={(text) => setlongitudeSaida(text.target.value)}
               />
@@ -1513,7 +1517,7 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Tolerância da profundidade (m)</label>
               <input
-                type='text' placeholder='Profundidade'
+                type='number' placeholder='Profundidade'
                 value={profundidadeSaida}
                 onChange={(text) => setprofundidadeSaida(text.target.value)}
               />
@@ -1780,7 +1784,7 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Data Topografia</label>
               <input
-                type='text'
+                type='date'
                 value={dataTopografia}
                 onChange={(text) => setDataTopografia(text.target.value)}
               />
@@ -2481,7 +2485,7 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Profundidade</label>
               <input
-                type='text'
+                type='number'
                 value={profundidade}
                 onChange={(text) => setprofundidade(text.target.value)}
               />
@@ -2491,7 +2495,7 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Vala de entrada latitude</label>
               <input
-                type='text' placeholder='Latitude'
+                type='number' placeholder='Latitude'
                 value={valaEntradaLatitude}
                 onChange={(text) => setvalaEntradaLatitude(text.target.value)}
               />
@@ -2501,13 +2505,13 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Vala de entrada longitude</label>
               <input
-                type='text' placeholder='Longitude'
+                type='number' placeholder='Longitude'
                 value={valaEntradaLongitude}
                 onChange={(text) => setvalaEntradaLongitude(text.target.value)}
               />
             </div>
             : false}
-          {campovalaEntradaAltura
+          {/* {campovalaEntradaAltura
             ? <div>
               <label htmlFor=''>Vala de entrada altura</label>
               <input
@@ -2516,12 +2520,12 @@ export default function FillInPhases() {
                 onChange={(text) => setvalaEntradaAltura(text.target.value)}
               />
             </div>
-            : false}
+            : false} */}
           {campovalaEntradaComprimento
             ? <div>
               <label htmlFor=''>Vala de entrada comprimento</label>
               <input
-                type='text'
+                type='number'
                 value={valaEntradaComprimento}
                 onChange={(text) => setvalaEntradaComprimento(text.target.value)}
               />
@@ -2531,7 +2535,7 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Vala de entrada profundidade (m)</label>
               <input
-                type='text'
+                type='number'
                 value={valaEntradaProfundidade}
                 onChange={(text) => setvalaEntradaProfundidade(text.target.value)}
               />
@@ -2541,7 +2545,7 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Vala de saida latitude</label>
               <input
-                type='text' placeholder='Latitude'
+                type='number' placeholder='Latitude'
                 value={valaSaidaLatitude}
                 onChange={(text) => setvalaSaidaLatitude(text.target.value)}
               />
@@ -2551,13 +2555,13 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Vala de saida longitude</label>
               <input
-                type='text' placeholder='Longitude'
+                type='number' placeholder='Longitude'
                 value={valaSaidaLongitude}
                 onChange={(text) => setvalaSaidaLongitude(text.target.value)}
               />
             </div>
             : false}
-          {campovalaSaidaAltura
+          {/* {campovalaSaidaAltura
             ? <div>
               <label htmlFor=''>Vala de saida altura</label>
               <input
@@ -2566,12 +2570,12 @@ export default function FillInPhases() {
                 onChange={(text) => setvalaSaidaAltura(text.target.value)}
               />
             </div>
-            : false}
+            : false} */}
           {campovalaSaidaComprimento
             ? <div>
               <label htmlFor=''>Vala de saida comprimento</label>
               <input
-                type='text'
+                type='number'
                 value={valaSaidaComprimento}
                 onChange={(text) => setvalaSaidaComprimento(text.target.value)}
               />
@@ -2581,7 +2585,7 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Vala de saida profundidade (m)</label>
               <input
-                type='text'
+                type='number'
                 value={valaSaidaProfundidade}
                 onChange={(text) => setvalaSaidaProfundidade(text.target.value)}
               />
@@ -2591,7 +2595,7 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Profundidade maxima</label>
               <input
-                type='text'
+                type='number'
                 value={profundidadeMax}
                 onChange={(text) => setprofundidadeMax(text.target.value)}
               />
@@ -2601,7 +2605,7 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Profundidade minima</label>
               <input
-                type='text'
+                type='number'
                 value={profundidadeMin}
                 onChange={(text) => setprofundidadeMin(text.target.value)}
               />
@@ -2620,7 +2624,7 @@ export default function FillInPhases() {
 
           {campotipoInterferencia
             ? <><h4>Registro de interferencias</h4>
-            {/* <button onClick={openModalInterferencia} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button> */}
+              {/* <button onClick={openModalInterferencia} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button> */}
               <div style={{ overflow: 'auto' }}>
                 <table>
                   {interferencias.length > 0
@@ -2699,29 +2703,29 @@ export default function FillInPhases() {
             </>
             : false}
           <div className='flexBtns'>
-          {!finalizarEtapa
+            {!finalizarEtapa
               ? <button onClick={() => { onSubmitLevantamento('todos-campos') }}>{loading
                 ? <img
-                    width='40px'
-                    style={{ margin: 'auto' }}
-                    height='' src='https://contribua.org/mb-static/images/loading.gif'
-                    alt='Loading'
-                  />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height='' src={Load}
+                  alt='Loading'
+                />
                 : 'Salvar'}
-                </button>
+              </button>
               : false}
             {!finalizarEtapa
               ? idTodosCampos === ''
                 ? <button onClick={() => { toast.info('É preciso salvar a etapa!') }} className='finishPhase'>Finalizar Etapa</button>
                 : <button onClick={() => { updateDados() }} className='finishPhase'>{loading
                   ? <img
-                      width='40px'
-                      style={{ margin: 'auto' }}
-                      height='' src='https://contribua.org/mb-static/images/loading.gif'
-                      alt='Loading'
-                    />
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height='' src={Load}
+                    alt='Loading'
+                  />
                   : 'Finalizar Etapa'}
-                  </button>
+                </button>
               : 'Etapa Finalizada!'}
           </div>
         </form>
@@ -2741,9 +2745,9 @@ export default function FillInPhases() {
           <FiX />
         </button>
         <form>
-          <input placeholder='Latitude' type='text' />
-          <input placeholder='Longitude' type='text' />
-          <input placeholder='Profundidade' type='text' />
+          <input placeholder='Latitude' type='number' />
+          <input placeholder='Longitude' type='number' />
+          <input placeholder='Profundidade' type='number' />
           <button className='init'>Iniciar <FiPlay /></button>
           <div className='flexBtns'>
             <button>Voltar <FiChevronLeft /></button>
@@ -2962,15 +2966,15 @@ export default function FillInPhases() {
               type='submit'
             >{loading
               ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height=''
-                  src='https://contribua.org/mb-static/images/loading.gif'
-                  alt='Loading'
-                />
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src={Load}
+                alt='Loading'
+              />
               : 'Salvar'}
             </button>
-          </form> 
+          </form>
         </S.Container>
       </Modal>
 
@@ -3012,12 +3016,12 @@ export default function FillInPhases() {
           <S2.Btns>
             <button onClick={() => onSubmitLevantamento('user')}>{loading
               ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height=''
-                  src='https://contribua.org/mb-static/images/loading.gif'
-                  alt='Loading'
-                />
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src={Load}
+                alt='Loading'
+              />
               : 'Salvar'}
             </button>
             <button onClick={() => setIsOpenInvite(false)}>Cancelar</button>
@@ -3079,119 +3083,119 @@ export default function FillInPhases() {
             />
             <button onClick={() => onSubmitTipoSolo()}>
               {loading
-                ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' />
+                ? <img width='40px' style={{ margin: 'auto' }} height='' src={Load} alt='Loading' />
                 : 'Salvar'}
             </button>
           </S3.Div>
         </S3.Container>
       </Modal>
       <Modal
-          className='phaes-modal'
-          style={{
-            overlay: {
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
-            },
-          }}
-          isOpen={modalIsOpenFerramenta}
-          onAfterOpen={() => afterOpenModalInterferencia}
-          onRequestClose={() => closeModalFerramenta}
-        >
-          <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModalFerramenta}><FiX color='white' /></button>
+        className='phaes-modal'
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          },
+        }}
+        isOpen={modalIsOpenFerramenta}
+        onAfterOpen={() => afterOpenModalInterferencia}
+        onRequestClose={() => closeModalFerramenta}
+      >
+        <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModalFerramenta}><FiX color='white' /></button>
 
-          <S4.ModelsModal>
-            <h2>Adicionar Ferramenta</h2>
-            <div>
-              <input
-                type='text' placeholder='Nome'
-                value={nomeFerramenta}
-                onChange={(text) => setnomeFerramenta(text.target.value)}
+        <S4.ModelsModal>
+          <h2>Adicionar Ferramenta</h2>
+          <div>
+            <input
+              type='text' placeholder='Nome'
+              value={nomeFerramenta}
+              onChange={(text) => setnomeFerramenta(text.target.value)}
+            />
+            <input
+              type='text' placeholder='Descrição'
+              value={descricaoFerramenta}
+              onChange={(text) => setdescricaoFerramenta(text.target.value)}
+            />
+            <input
+              type='number' placeholder='Diametro ou Largura'
+              value={diametroLarguraFerramenta}
+              onChange={(text) => setdiametroLarguraFerramenta(text.target.value)}
+            />
+          </div>
+          <button className='save' onClick={() => salvarInterferencia('ferramentaList')}>{loading
+            ? (
+              <img
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src={Load}
+                alt='Loading'
               />
-              <input
-                type='text' placeholder='Descrição'
-                value={descricaoFerramenta}
-                onChange={(text) => setdescricaoFerramenta(text.target.value)}
-              />
-              <input
-                type='text' placeholder='Diametro ou Largura'
-                value={diametroLarguraFerramenta}
-                onChange={(text) => setdiametroLarguraFerramenta(text.target.value)}
-              />
-            </div>
-            <button className='save' onClick={() => salvarInterferencia('ferramentaList')}>{loading
-              ? (
-                <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height=''
-                  src='https://contribua.org/mb-static/images/loading.gif'
-                  alt='Loading'
-                />
-                )
-              : (
-                  'Salvar'
-                )}
-            </button>
-          </S4.ModelsModal>
-        </Modal>
-        <Modal
-          className='phaes-modal'
-          style={{
-            overlay: {
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
-            },
-          }}
-          isOpen={modalIsOpenInterferencia}
-          onAfterOpen={() => afterOpenModalInterferencia}
-          onRequestClose={() => closeModalInterferencia}
-        >
-          <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModalInterferencia}><FiX color='white' /></button>
+            )
+            : (
+              'Salvar'
+            )}
+          </button>
+        </S4.ModelsModal>
+      </Modal>
+      <Modal
+        className='phaes-modal'
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          },
+        }}
+        isOpen={modalIsOpenInterferencia}
+        onAfterOpen={() => afterOpenModalInterferencia}
+        onRequestClose={() => closeModalInterferencia}
+      >
+        <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModalInterferencia}><FiX color='white' /></button>
 
-          <S4.ModelsModal>
-            <h2>Adicione uma interferência</h2>
-            <div>
-              <input
-                type='text' placeholder='Nome'
-                value={tipoInterferencia}
-                onChange={(text) => setTipoInterferencia(text.target.value)}
+        <S4.ModelsModal>
+          <h2>Adicione uma interferência</h2>
+          <div>
+            <input
+              type='text' placeholder='Nome'
+              value={tipoInterferencia}
+              onChange={(text) => setTipoInterferencia(text.target.value)}
+            />
+            <input
+              type='number' placeholder='Latitude'
+              value={latitude}
+              onChange={(text) => setLatitude(text.target.value)}
+            />
+            <input
+              type='number' placeholder='Longitude'
+              value={longitude}
+              onChange={(text) => setLongitude(text.target.value)}
+            />
+            <input
+              type='number' placeholder='Profundidade'
+              value={profundidade}
+              onChange={(text) => setprofundidade(text.target.value)}
+            />
+            <input
+              type='number' placeholder='Diâmetro'
+              value={diametro}
+              onChange={(text) => setDiametro(text.target.value)}
+            />
+          </div>
+          <button className='save' onClick={() => salvarInterferencia('interferencia')}>{loading
+            ? (
+              <img
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src={Load}
+                alt='Loading'
               />
-              <input
-                type='text' placeholder='Latitude'
-                value={latitude}
-                onChange={(text) => setLatitude(text.target.value)}
-              />
-              <input
-                type='text' placeholder='Longitude'
-                value={longitude}
-                onChange={(text) => setLongitude(text.target.value)}
-              />
-              <input
-                type='text' placeholder='Profundidade'
-                value={profundidade}
-                onChange={(text) => setprofundidade(text.target.value)}
-              />
-              <input
-                type='text' placeholder='Diâmetro'
-                value={diametro}
-                onChange={(text) => setDiametro(text.target.value)}
-              />
-            </div>
-            <button className='save' onClick={() => salvarInterferencia('interferencia')}>{loading
-              ? (
-                <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height=''
-                  src='https://contribua.org/mb-static/images/loading.gif'
-                  alt='Loading'
-                />
-                )
-              : (
-                  'Salvar'
-                )}
-            </button>
-          </S4.ModelsModal>
+            )
+            : (
+              'Salvar'
+            )}
+          </button>
+        </S4.ModelsModal>
 
-        </Modal>
+      </Modal>
 
       <Modal
         className='phaes-modal'
@@ -3262,79 +3266,79 @@ export default function FillInPhases() {
                 {/* <button onClick={() => setIsOpenTipoSolo(true)} className='buttonAddInter'><FiPlus size={20} /></button> */}
               </div>
             </div>
-            <button onClick={() => onSubmitLevantamento('fluido-perfuracao/')}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+            <button onClick={() => onSubmitLevantamento('fluido-perfuracao/')}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src={Load} alt='Loading' /> : 'Salvar'}</button>
           </S3.Div>
         </S3.Container>
       </Modal>
 
       <Modal
-          className='phaes-modal'
-          style={{
-            overlay: {
-              backgroundColor: 'rgba(0, 0, 0, 0.8)',
-            },
-          }}
-          isOpen={modalIsOpenInterferenciaEdit}
-          onAfterOpen={() => afterOpenModalInterferenciaEdit}
-          onRequestClose={() => closeModalVerificacaoEdit}
-        >
-          <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModalInterferenciaEdit}><FiX color='white' /></button>
+        className='phaes-modal'
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          },
+        }}
+        isOpen={modalIsOpenInterferenciaEdit}
+        onAfterOpen={() => afterOpenModalInterferenciaEdit}
+        onRequestClose={() => closeModalVerificacaoEdit}
+      >
+        <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModalInterferenciaEdit}><FiX color='white' /></button>
 
-          <S4.ModelsModal>
-            <h2>Edite uma interferência</h2>
-            <div>
-              <label>Nome</label>
-              <input
-                type='text' placeholder='Nome'
-                value={tipoInterferencia}
-                onChange={(text) => setTipoInterferencia(text.target.value)}
+        <S4.ModelsModal>
+          <h2>Edite uma interferência</h2>
+          <div>
+            <label>Nome</label>
+            <input
+              type='text' placeholder='Nome'
+              value={tipoInterferencia}
+              onChange={(text) => setTipoInterferencia(text.target.value)}
+            />
+            <br />
+            <label>Latitude</label>
+            <input
+              type='number' placeholder='Latitude'
+              value={latitude}
+              onChange={(text) => setLatitude(text.target.value)}
+            />
+            <br />
+            <label>Longitude</label>
+            <input
+              type='number' placeholder='Longitude'
+              value={longitude}
+              onChange={(text) => setLongitude(text.target.value)}
+            />
+            <br />
+            <label>Profundidade</label>
+            <input
+              type='number' placeholder='Profundidade'
+              value={profundidade}
+              onChange={(text) => setprofundidade(text.target.value)}
+            />
+            <br />
+            <label>Diâmetro (mm)</label>
+            <input
+              type='number' placeholder='Diâmetro'
+              value={diametro}
+              onChange={(text) => setDiametro(text.target.value)}
+            />
+          </div>
+          <button className='save' onClick={() => editarInterferencia('interferencia/')}>{loading
+            ? (
+              <img
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src={Load}
+                alt='Loading'
               />
-              <br />
-              <label>Latitude</label>
-              <input
-                type='text' placeholder='Latitude'
-                value={latitude}
-                onChange={(text) => setLatitude(text.target.value)}
-              />
-              <br />
-              <label>Longitude</label>
-              <input
-                type='text' placeholder='Longitude'
-                value={longitude}
-                onChange={(text) => setLongitude(text.target.value)}
-              />
-              <br />
-              <label>Profundidade</label>
-              <input
-                type='text' placeholder='Profundidade'
-                value={profundidade}
-                onChange={(text) => setprofundidade(text.target.value)}
-              />
-              <br />
-              <label>Diâmetro (mm)</label>
-              <input
-                type='text' placeholder='Diâmetro'
-                value={diametro}
-                onChange={(text) => setDiametro(text.target.value)}
-              />
-            </div>
-            <button className='save' onClick={() => editarInterferencia('interferencia/')}>{loading
-              ? (
-                <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height=''
-                  src='https://contribua.org/mb-static/images/loading.gif'
-                  alt='Loading'
-                />
-                )
-              : (
-                  'Salvar'
-                )}
-            </button>
-          </S4.ModelsModal>
+            )
+            : (
+              'Salvar'
+            )}
+          </button>
+        </S4.ModelsModal>
 
-        </Modal>
+      </Modal>
     </>
   )
 }

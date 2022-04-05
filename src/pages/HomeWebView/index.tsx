@@ -10,7 +10,7 @@ import { toast } from 'react-toastify'
 
 export default function
  HomeW () {
-   let token = window.location.hash.split('homeW/')[1];
+   let token = window.location.hash.split('homeW/')[1]; 
 
    function handleLocalStorage(emailA: string, passwordB: string) {
     localStorage.setItem('email', JSON.stringify(emailA))

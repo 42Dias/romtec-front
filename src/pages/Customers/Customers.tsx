@@ -2,7 +2,7 @@ import * as S from './styled'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Modal from '../../ui/Components/Modal/Modal'
-
+import Load from './../../assets/load.gif'
 import { FiPlus } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -268,7 +268,7 @@ export function Customers () {
                 })}
               />
 
-              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Salvar'}</button>
+              <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src={Load} alt='Loading' /> : 'Salvar'}</button>
             </S.Form>
           </S.Container>
         </Modal>

@@ -7,6 +7,7 @@ import { NotEmittedStatement } from 'typescript'
 import { ip, token, api, id } from '../../services/api'
 import { TextField } from '../../ui/Components/TextField'
 import * as S from './styled'
+import Load from './../../assets/load.gif'
 
 type FormData = {
   firstName: string;
@@ -159,7 +160,7 @@ export default function UpdatePassword() {
             onChange={(text) => setconfirmPassword(text.target.value)}
           />
         </div>
-        <button onClick={() => onSubmit()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src='https://contribua.org/mb-static/images/loading.gif' alt='Loading' /> : 'Enviar'}</button>
+        <button onClick={() => onSubmit()}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src={Load} alt='Loading' /> : 'Enviar'}</button>
         <Link to='/'>Voltar para o login</Link>
       </S.Content>
     </S.ContainerLogin>
