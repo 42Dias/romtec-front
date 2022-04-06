@@ -37,7 +37,7 @@ export const Container = styled.div`
     }
   }
 
-  input {
+  input, textarea{
     width: 100%;
     height: 48px;
 
@@ -200,5 +200,31 @@ export const Container = styled.div`
         align-items: center;
         justify-content: center;
       }
+    }
+
+    .tabela{
+      width: 200%;
+      table-layout: fixed;
+      @media (max-width: 520px) {
+        overflow: auto;
+        span {
+          margin: 0 30px;
+        }
+      }
+    }
+    table td {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+    .button {
+      background: transparent;
+      cursor: pointer;
+      width: 50px;
+      height: 50px;
+    }
+    .excluirEtapa{
+      width: 100%;
+      background-color: #d42a2a;
+      margin-top: -20%;
     }
 `

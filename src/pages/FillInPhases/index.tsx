@@ -702,6 +702,7 @@ export default function FillInPhases() {
       if (response.statusText === 'OK') {
         setDados(response.data.rows)
         setUrl(url)
+        console.log(response.data.rows[0].tipoEtapa)
         setVariavelTitulo(response.data.rows[0].tipoEtapa)
         setIdEtapa(response.data.rows[0].id)
         setcampoEntradaLatitude(response.data.rows[0].campoEntradaLatitude)
@@ -872,7 +873,8 @@ export default function FillInPhases() {
       toast.error(res.response.data)
       setLoading(false)
     })
-    await api.get('fluido-perfuracao?filter%5BtipoSoloId%5D=' + tipoSoloId.split('/')[0],
+    console.log(tipoSoloId)
+    await api.get('fluido-perfuracao',//?filter%5BtipoSoloId%5D=' + tipoSoloId.split('/')[0]
     ).then((response) => {
       console.log(response.data.rows)
       console.log(typeof (response.data.rows))
@@ -1209,6 +1211,12 @@ export default function FillInPhases() {
       setLoading(false)
     })
     setLoading(false)
+  }
+  async function deleteEtapa(){
+    await api.delete('etapas/' + idConfigTravessia.split("#/preencher-fases/")[1].split("/")[2].split("(")[0]).then((res) => {
+      toast.success('Etapa excluida!')
+      window.history.back()
+    })
   }
   useEffect(() => {
     // console.log(soilTypesUp)
@@ -1667,7 +1675,7 @@ export default function FillInPhases() {
             : false}
           {campoVolumePreparado
             ? <div>
-              <label htmlFor=''>Volume preparado</label>
+              <label htmlFor=''>Volume preparado (L)</label>
               <input
                 type='text'
                 value={VolumePreparado}
@@ -1677,7 +1685,7 @@ export default function FillInPhases() {
             : false}
           {campoTesteVicosidade
             ? <div>
-              <label htmlFor=''>Teste  de viscosidade</label>
+              <label htmlFor=''>Teste  de viscosidade  (s/Marsh)</label>
               <input
                 type='text'
                 value={TesteVicosidade}
@@ -2063,7 +2071,7 @@ export default function FillInPhases() {
                   {fluidos.length > 0
                     ? fluidos.map((fluido) =>
                       <option value={fluido.id + '/' + fluido.nome + '/' + fluido.viscosidadeEsperada + '/' + fluido.qtdePHPA + '/' + fluido.qtdeBase + '/' + fluido.limiteEscoamento + '/' + fluido.teorAreia}>{fluido.nome}</option>)
-                    : <option>Nenhuma maquina cadastrada!</option>}
+                    : <option>Nenhum fluido cadastrado!</option>}
                 </select>
                 <button onClick={() => setIsOpenFluido(true)} className='buttonAddInter'><FiPlus size={20} /></button>
               </div>
@@ -2181,7 +2189,7 @@ export default function FillInPhases() {
             : false}
           {campovazaoBomba
             ? <div>
-              <label htmlFor=''>Vazão Bomba</label>
+              <label htmlFor=''>Vazão Bomba (L/min)</label>
               <input
                 type='text'
                 value={vazaoBomba}
@@ -2621,18 +2629,18 @@ export default function FillInPhases() {
               />
             </div>
             : false}
-
+          <br/>
           {campotipoInterferencia
-            ? <><h4>Registro de interferencias</h4>
+            ? <><h2>Registro de interferencias</h2>
               {/* <button onClick={openModalInterferencia} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button> */}
-              <div style={{ overflow: 'auto' }}>
-                <table>
+              <div >
+                <table className='tabela'>
                   {interferencias.length > 0
                     ? <tr>
                       <th>Nome</th>
                       <th>Latitude</th>
                       <th>Longitude</th>
-                      <th>Profundidade</th>
+                      {variavelTitulo === 'Sondagem das Interferências' ? <th>Profundidade</th> : false}
                       <th>Diâmetro</th>
                     </tr>
                     : false}
@@ -2641,17 +2649,17 @@ export default function FillInPhases() {
                     ? interferencias.map((inter) =>
                       <tr>
                         <td>{inter.tipoInterferencia}</td>
-                        <td>{inter.latitude}</td>
-                        <td>{inter.longitude}</td>
-                        <td>{inter.profundidade}</td>
+                        <td>{parseFloat(inter.latitude).toPrecision(8)}</td> 
+                        <td>{parseFloat(inter.longitude).toPrecision(8)}</td>
+                        {variavelTitulo === 'Sondagem das Interferências' ? <td>{inter.profundidade}</td> : false}
                         <td>{inter.diametro}</td>
                         <td>
-                          <button onClick={() => deleteDados(inter.id, 'interferencia/')}>
+                          <button className='button' onClick={() => deleteDados(inter.id, 'interferencia/')}>
                             <FiTrash color='#EA1C24' size={18} />
                           </button>
                         </td>
                         <td>
-                          <button onClick={() => openModalInterferenciaEdit(inter)}>
+                          <button className='button' onClick={() => openModalInterferenciaEdit(inter)}>
                             <FiEye color='#FECE51' size={18} />
                           </button>
                         </td>
@@ -2728,6 +2736,7 @@ export default function FillInPhases() {
                 </button>
               : 'Etapa Finalizada!'}
           </div>
+          <button className='excluirEtapa' onClick={() => deleteEtapa()}>Excluir etapa</button>
         </form>
       </S.Container>
 

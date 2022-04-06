@@ -801,7 +801,7 @@ Phases () {
       toast.error(res.response.data)
       setLoading(false)
     })
-    await api.get('fluido-perfuracao?filter%5BtipoSoloId%5D=' + tipoSoloId.split('/')[0],
+    await api.get('fluido-perfuracao',//?filter%5BtipoSoloId%5D=' + tipoSoloId.split('/')[0]
     ).then((response) => {
       console.log(response.data.rows)
       console.log(typeof (response.data.rows))
@@ -2095,7 +2095,7 @@ Phases () {
                 : false}
               {campoVolumePreparado
                 ? <div>
-                  <label htmlFor=''>Volume preparado</label>
+                  <label htmlFor=''>Volume preparado (L)</label>
                   <input
                     type='text'
                     value={VolumePreparado}
@@ -2105,7 +2105,7 @@ Phases () {
                 : false}
               {campoTesteVicosidade
                 ? <div>
-                  <label htmlFor=''>Teste  de viscosidade</label>
+                  <label htmlFor=''>Teste  de viscosidade  (s/Marsh)</label>
                   <input
                     type='text'
                     value={TesteVicosidade}
@@ -2491,7 +2491,7 @@ Phases () {
                       {fluidos.length > 0
                         ? fluidos.map((fluido) =>
                           <option value={fluido.id + '/' + fluido.nome + '/' + fluido.viscosidadeEsperada + '/' + fluido.qtdePHPA + '/' + fluido.qtdeBase + '/' + fluido.limiteEscoamento + '/' + fluido.teorAreia}>{fluido.nome}</option>)
-                        : <option>Nenhuma maquina cadastrada!</option>}
+                        : <option>Nenhum fluido cadastrado!</option>}
                     </select>
                     <button onClick={() => setIsOpenFluido(true)} className='buttonAddInter'><FiPlus size={20} /></button>
                   </div>
@@ -2609,7 +2609,7 @@ Phases () {
                 : false}
               {campovazaoBomba
                 ? <div>
-                  <label htmlFor=''>Vazão Bomba</label>
+                  <label htmlFor=''>Vazão Bomba (L/min)</label>
                   <input
                     type='text'
                     value={vazaoBomba}

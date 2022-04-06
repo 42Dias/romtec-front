@@ -30,7 +30,7 @@ ConfigurationCrossing () {
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   // eslint-disable-next-line
   const [loading, setLoading] = useState(false)
-  // eslint-disable-next-line
+  // eslint-disable-next-line 
   const [travessia, setTravessia] = useState<any[]>([])
   const [idconfigTravessia, setIdconfigTravessia] = useState('')
   const [descricao, setdescricao] = useState('')
