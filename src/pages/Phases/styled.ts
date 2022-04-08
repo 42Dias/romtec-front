@@ -410,6 +410,18 @@ export const GridForm = styled.div`
       }
     }
 
+    .select {
+      width: 415px !important;
+      height: 20px !important;
+      @media(max-width: 520px) {
+        margin: 10px 0;
+        margin-right: 50px;
+        padding: 0;
+        width: 100% !important;
+        max-width: 380px;
+      }
+    }
+
     button {
       margin-left: 10px;
       width: 50px;
@@ -675,10 +687,22 @@ export const ButtonOpenPhases = styled.div`
 export const ContentForm = styled.div`
   display: flex;
   flex-direction: column;
-
+  margin-left: 5%;
   label {
     font-size: 14px;
     color: ${theme.colors.white};
+  }
+  select {
+    width: 350px;
+    height: 48px;
+    border: 1px solid #252332;
+    background: transparent;
+    padding: 0 7px;
+    border-radius: 6px;
+    margin-top: 11px;
+    option {
+      background: ${theme.colors.darkBlack};
+    }
   }
 `
 

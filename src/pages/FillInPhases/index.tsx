@@ -874,7 +874,7 @@ export default function FillInPhases() {
       setLoading(false)
     })
     console.log(tipoSoloId)
-    await api.get('fluido-perfuracao',//?filter%5BtipoSoloId%5D=' + tipoSoloId.split('/')[0]
+    await api.get('fluido-perfuracao?filter%5BtipoSoloId%5D=' + tipoSoloId.split('/')[0],// 
     ).then((response) => {
       console.log(response.data.rows)
       console.log(typeof (response.data.rows))
@@ -2071,7 +2071,7 @@ export default function FillInPhases() {
                   {fluidos.length > 0
                     ? fluidos.map((fluido) =>
                       <option value={fluido.id + '/' + fluido.nome + '/' + fluido.viscosidadeEsperada + '/' + fluido.qtdePHPA + '/' + fluido.qtdeBase + '/' + fluido.limiteEscoamento + '/' + fluido.teorAreia}>{fluido.nome}</option>)
-                    : <option>Nenhum fluido cadastrado!</option>}
+                    : <option>{"Nenhum tipo de solo selecionado \nou não nenhum fluido cadastrado!"}</option>}
                 </select>
                 <button onClick={() => setIsOpenFluido(true)} className='buttonAddInter'><FiPlus size={20} /></button>
               </div>
