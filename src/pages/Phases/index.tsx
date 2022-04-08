@@ -620,10 +620,10 @@ export default function
       tipoSoloId: tipoSolo != undefined ? tipoSolo.split('/')[0] : '',
       especificacaoSolo: tipoSolo != undefined ? tipoSolo.split('/')[1] : '',
       agua: 0,
-      anguloEntrada: anguloEntrada,
+      anguloEntrada: anguloEntrada != undefined ? anguloEntrada.split('/')[2] : 'Nao deu',
     }
 
-    // console.log(data)
+    console.log(data)
     // if (isUpdate) {
     //   updateDados()
     //   setIsUpdate(false)
@@ -723,7 +723,7 @@ export default function
       }
     }).catch(res => {
       // console.log(res)
-      toast.error(res.response.data)
+      toast.error(res.response)
       setLoading(false)
     })
   }
@@ -1174,6 +1174,19 @@ export default function
         }
         setLoading(false)
       }
+      api.get(`todos-campos?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}&limit=1`,
+          ).then((response) => {
+            // console.log(response.data.rows)
+            if (response.statusText === 'OK') {
+              if (response.data.count > 0) {
+                setAnguloEntrada(response.data.rows[0].anguloEntrada)
+              }
+            }
+          }).catch((res) => {
+            console.log(res)
+            toast.error(res.response.data);
+            setLoading(false)
+          })
       api.get(`interferencia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
       ).then((response) => {
         if (response.statusText === 'OK') {
@@ -2637,12 +2650,12 @@ export default function
                   <div className='selectPlus'>
                     <select
                       name='' id='' value={maquinaPerfuratriz}
-                      onChange={(text) => setmaquinaPerfuratriz(text.target.value)}
+                      onChange={(text) => { setmaquinaPerfuratriz(text.target.value); setAnguloEntrada(text.target.value) }}
                     >
                       <option value=''>Selecione...</option>
                       {maquinasPerfuratriz.length > 0
                         ? maquinasPerfuratriz.map((maquina) =>
-                          <option value={maquina.id + '/' + maquina.modelo}>{maquina.modelo}</option>)
+                          <option value={maquina.id + '/' + maquina.modelo + '/' + maquina.anguloEntrada}>{maquina.modelo}</option>)
                         : <option>Nenhuma maquina cadastrada!</option>}
                     </select>
                     <button onClick={() => setIsOpenMaquinaPerfuratriz(true)} className='buttonAddInter'><FiPlus size={20} /></button>
@@ -2669,7 +2682,7 @@ export default function
                   />
                 </div>
                 : false}
-                {campotempoHaste
+              {campotempoHaste
                 ? <div>
                   <label htmlFor=''>Ângulo de Entrada</label>
                   <input
