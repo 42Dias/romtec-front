@@ -20,9 +20,8 @@ import axios from 'axios'
 import { tuple } from 'antd/lib/_util/type'
 import { string } from 'yup'
 import { Link } from 'react-router-dom'
-import { Select, Radio } from 'antd';
-import 'antd/dist/antd.css';
-import { List, Typography, Divider } from "antd";
+import { Select, Radio, List, Typography, Divider } from 'antd'
+import 'antd/dist/antd.css'
 
 SwiperCore.use([Pagination, Navigation])
 
@@ -66,7 +65,7 @@ type FormData = {
   indicePlasticidade: string;
 }
 export default function
-  Phases() {
+Phases () {
   const [modalIsOpenPhase, setIsOpenPhase] = useState(false)
   const [modalIsOpenInterferencia, setIsOpenInterferencia] = useState(false)
   const [modalIsOpenVerificacao, setIsOpenVerificacao] = useState(false)
@@ -80,50 +79,50 @@ export default function
   const [isOpenFluido, setIsOpenFluido] = useState(false)
   const [isOpenModalEdit, setIsOpenModalEdit] = useState(false)
   const [isOpenModalAdd, setIsOpenModalAdd] = useState(false)
-  const { Option } = Select;
+  const { Option } = Select
 
-  function openModalEdit() {
+  function openModalEdit () {
     setIsOpenModalEdit(true)
   }
 
-  function closeModalEdit() {
+  function closeModalEdit () {
     setIsOpenModalEdit(false)
   }
 
-  function openModalAdd() {
+  function openModalAdd () {
     setIsOpenModalAdd(true)
   }
 
-  function closeModalAdd() {
+  function closeModalAdd () {
     setIsOpenModalAdd(false)
   }
 
-  function openModalInterferencia() {
+  function openModalInterferencia () {
     setIsOpenInterferencia(true)
   }
-  function openModalPontosVerificacao() {
+  function openModalPontosVerificacao () {
     setIsOpenVerificacao(true)
   }
-  function openModalFerramenta() {
+  function openModalFerramenta () {
     setIsOpenFerramenta(true)
   }
-  function afterOpenModalInterferencia() {
+  function afterOpenModalInterferencia () {
 
   }
 
-  function closeModalInterferencia() {
+  function closeModalInterferencia () {
     setIsOpenInterferencia(false)
   }
-  function closeModalVerificacao() {
+  function closeModalVerificacao () {
     setIsOpenVerificacao(false)
   }
-  function closeModalFerramenta() {
+  function closeModalFerramenta () {
     setIsOpenFerramenta(false)
   }
-  function closeModalVerificacaoEdit() {
+  function closeModalVerificacaoEdit () {
     setIsOpenVerificacaoEdit(false)
   }
-  function openModalInterferenciaEdit(interferencia: any) {
+  function openModalInterferenciaEdit (interferencia: any) {
     setInterferenciaId(interferencia.id)
     console.log(interferencia.id)
     setTipoInterferencia(interferencia.tipoInterferencia)
@@ -134,7 +133,7 @@ export default function
 
     setIsOpenInterferenciaEdit(true)
   }
-  function openModalPontosVerificacaoEdit(pontosVerificacao: any) {
+  function openModalPontosVerificacaoEdit (pontosVerificacao: any) {
     setInterferenciaId(pontosVerificacao.id)
     setStatus(pontosVerificacao.status)
     setLatitude(pontosVerificacao.latitude)
@@ -145,35 +144,35 @@ export default function
 
     setIsOpenVerificacaoEdit(true)
   }
-  function afterOpenModalInterferenciaEdit() {
+  function afterOpenModalInterferenciaEdit () {
 
   }
 
-  function closeModalInterferenciaEdit() {
+  function closeModalInterferenciaEdit () {
     setIsOpenInterferenciaEdit(false)
   }
 
-  function openModalPhases() {
+  function openModalPhases () {
     setIsOpenPhase(true)
   }
 
-  function afterOpenModalPhases() {
+  function afterOpenModalPhases () {
 
   }
 
-  function closeModalPhases() {
+  function closeModalPhases () {
     setIsOpenPhase(false)
   }
 
-  function openModalPhasesSelect() {
+  function openModalPhasesSelect () {
     setIsOpenPhaseSelect(true)
   }
 
-  function afterOpenModalPhasesSelect() {
+  function afterOpenModalPhasesSelect () {
 
   }
 
-  function closeModalPhasesSelect() {
+  function closeModalPhasesSelect () {
     setIsOpenPhaseSelect(false)
   }
 
@@ -431,14 +430,14 @@ export default function
   // }
   const [camposInterferencia, setCamposInterferencia] = useState(false)
 
-  function handleCampos() {
+  function handleCampos () {
     if (camposInterferencia) {
       setCamposInterferencia(false)
     } else {
       setCamposInterferencia(true)
     }
   }
-  function onSubmitTipoSolo() {
+  function onSubmitTipoSolo () {
     const data = {
       especificacaoSolo: especificacaoSolo,
       descricao: descricao,
@@ -452,7 +451,7 @@ export default function
     reset()
   }
 
-  async function createNewFileTipoSolo(submit: any) {
+  async function createNewFileTipoSolo (submit: any) {
     setLoading(true)
     const responser = api.post('tipo-solo', {
       data: submit,
@@ -474,14 +473,14 @@ export default function
       setLoading(false)
     })
   }
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     console.log(data)
     data.reviewUpload = documentos
     Cadastro(data)
     reset()
   }
 
-  async function Cadastro(submit: any) {
+  async function Cadastro (submit: any) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.post('maquina-perfuratis', {
@@ -508,7 +507,7 @@ export default function
       setLoading(false)
     })
   }
-  function onSubmitLevantamento(tabela: string) {
+  function onSubmitLevantamento (tabela: string) {
     // console.log(idEtapa)
     const data = {
       banco: tabela,
@@ -530,7 +529,7 @@ export default function
       Sondagem: sondagem,
       DiametroInterferencia: diametroPerfuracao,
       CriacaoPlanoFuro: criacaoplanoFuro,
-      //Ferramentas: ferramentas,
+      // Ferramentas: ferramentas,
       InformacoesEnvolvidas: infoEnvolvidas,
       Diametro: diametroPerfuracao,
       LocalRelDiretrizFuro: localDiretrizFuro,
@@ -632,7 +631,7 @@ export default function
     // }
   }
 
-  function onSubmitInterferenciasFisicasMagneticas() {
+  function onSubmitInterferenciasFisicasMagneticas () {
     // console.log(responsavel)
     const data = {
       idConfigTravessia: idConfigTravessia.replace('#/etapas/', ''),
@@ -681,7 +680,7 @@ export default function
   //   }
   // }
 
-  async function createNewFile(submit: any) {
+  async function createNewFile (submit: any) {
     setLoading(true)
 
     await api.post(submit.banco, {
@@ -690,10 +689,10 @@ export default function
       // console.log(response)
       if (response.statusText === 'OK') {
         ferramentas.map(async (ferramenta) => {
-          var data = {
+          const data = {
             travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1],
             ferramentaId: ferramenta.split('/')[0],
-            nome: ferramenta.split('/')[1]
+            nome: ferramenta.split('/')[1],
           }
           console.log(data)
           await api.post('ferramentasTravessia', {
@@ -713,7 +712,6 @@ export default function
             setLoading(false)
           })
         })
-
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')
         setLoading(false)
@@ -727,7 +725,7 @@ export default function
       setLoading(false)
     })
   }
-  async function loadDados(tipoSoloId: string) {
+  async function loadDados (tipoSoloId: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = await api.get(`etapas?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/etapas/", '').split('/')[0]}`,
@@ -746,7 +744,7 @@ export default function
     api.get(`interferencia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
     ).then((response) => {
       if (response.statusText === 'OK') {
-        //console.log(response.data.rows)
+        // console.log(response.data.rows)
         setinterferencias(response.data.rows)
       }
     }).catch((res) => {
@@ -757,7 +755,7 @@ export default function
     api.get(`pontos-verificacao?filter%5BetapaId%5D=${idEtapa}&filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
     ).then((response) => {
       if (response.statusText === 'OK') {
-        //console.log(response.data.rows)
+        // console.log(response.data.rows)
         setPontosVerificacao(response.data.rows)
       }
     }).catch((res) => {
@@ -768,7 +766,7 @@ export default function
     api.get('ferramentaList',
     ).then((response) => {
       if (response.statusText === 'OK') {
-        //console.log(response.data.rows)
+        // console.log(response.data.rows)
         setferramentasList(response.data.rows)
       }
     }).catch((res) => {
@@ -784,19 +782,19 @@ export default function
         setValorFerramenta(response.data.rows)
         // response.data.rows.map((ferramenta: any)=>
         // setValorFerramenta((prevProducts: any) => {
-        //       return [...new Set([prevProducts, ferramenta])]        
+        //       return [...new Set([prevProducts, ferramenta])]
         //     })
         // )
       }
     }).catch((res) => {
       console.log(res)
-      toast.error(res.response.data);
+      toast.error(res.response.data)
       setLoading(false)
     })
     api.get(`executarTravessia?filter%5Bid%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
     ).then((response) => {
       if (response.statusText === 'OK') {
-        //console.log(response.data.rows)
+        // console.log(response.data.rows)
         setNomeTravessia(response.data.rows[0].nomeTravessia)
       }
     }).catch((res) => {
@@ -806,7 +804,7 @@ export default function
     })
     api.get('maquina-perfuratis',
     ).then((response) => {
-      //console.log(response.data.rows)
+      // console.log(response.data.rows)
       if (response.statusText === 'OK') {
         setMaquinasPerfuratriz(response.data.rows)
         setLoading(false)
@@ -818,7 +816,7 @@ export default function
     })
     api.get('user/',
     ).then((response) => {
-      //console.log(response.data.rows)
+      // console.log(response.data.rows)
       if (response.statusText === 'OK') {
         setUsers(response.data.rows)
         setLoading(false)
@@ -839,9 +837,9 @@ export default function
       toast.error(res.response.data)
       setLoading(false)
     })
-    await api.get('fluido-perfuracao?filter%5BtipoSoloId%5D=' + tipoSoloId.split('/')[0],// 
+    await api.get('fluido-perfuracao?filter%5BtipoSoloId%5D=' + tipoSoloId.split('/')[0], //
     ).then((response) => {
-      //console.log(response.data.rows)
+      // console.log(response.data.rows)
       console.log(typeof (response.data.rows))
       if (response.statusText === 'OK') {
         setFluidos(response.data.rows)
@@ -854,7 +852,7 @@ export default function
     })
     setLoading(false)
   }
-  async function deleteDados(id: string, tabela: string) {
+  async function deleteDados (id: string, tabela: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete(tabela + id,
@@ -870,7 +868,7 @@ export default function
     })
     api.get('fluido-perfuracao',
     ).then((response) => {
-      //console.log(response.data.rows)
+      // console.log(response.data.rows)
       console.log(typeof (response.data.rows))
       if (response.statusText === 'OK') {
         setFluidos(response.data.rows)
@@ -882,7 +880,7 @@ export default function
       setLoading(false)
     })
   }
-  function update(data: any) {
+  function update (data: any) {
     // console.log('data')
     // console.log(data)
     // setDados(data)
@@ -935,7 +933,7 @@ export default function
     }
     // console.log(idDados)
   }
-  async function updateDados() {
+  async function updateDados () {
     setLoading(true)
     // console.log('idTodosCampos')
     // console.log(idTodosCampos)
@@ -960,7 +958,7 @@ export default function
         Sondagem: sondagem,
         DiametroInterferencia: diametroPerfuracao,
         CriacaoPlanoFuro: criacaoplanoFuro,
-        //Ferramentas: ferramentas,
+        // Ferramentas: ferramentas,
         InformacoesEnvolvidas: infoEnvolvidas,
         Diametro: diametroPerfuracao,
         LocalRelDiretrizFuro: localDiretrizFuro,
@@ -1065,7 +1063,7 @@ export default function
     loadDados('etapas')
   }, [])
 
-  function openModal(data: any) {
+  function openModal (data: any) {
     // console.log(data)
     setIdEtapa(data.etapaId)
     api.get(`todos-campos?filter%5BetapaId%5D=${data.id}&filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}&limit=1`,
@@ -1285,13 +1283,13 @@ export default function
     setcampoPontosVerificacao(data.campoPontosVerificacao)
     setisOpenUpdatePlanejamentoPerfuração(true)
   }
-  function afterOpenModal() {
+  function afterOpenModal () {
     // references are now sync'd and can be accessed.
   }
-  function closeModal() {
+  function closeModal () {
     setIsOpenPlanejamento(false)
   }
-  async function makeRequisition(e: any) {
+  async function makeRequisition (e: any) {
     e.preventDefault()
     e.target.reset()
 
@@ -1363,7 +1361,7 @@ export default function
         toast.error('Erro: Tente mais tarde :(')
       })
   }
-  function salvarEtapa() {
+  function salvarEtapa () {
     let campoTipoSolo = false
     const campoDiametroPerfuracao = false
     let campoTipoRede = false
@@ -1588,7 +1586,7 @@ export default function
     console.log(data)
     console.log(etapa)
   }
-  function salvarInterferencia(tabela: string) {
+  function salvarInterferencia (tabela: string) {
     const data = {
       tipo: variavelTitulo,
       latitude: latitude,
@@ -1634,7 +1632,7 @@ export default function
         setLoading(false)
       })
   }
-  function salvarPontosVerificacao() {
+  function salvarPontosVerificacao () {
     const data = {
       latitude: latitude,
       longitude: longitude,
@@ -1673,7 +1671,7 @@ export default function
         setLoading(false)
       })
   }
-  function editarInterferencia(tabela: string) {
+  function editarInterferencia (tabela: string) {
     const data = {
       tipo: variavelTitulo,
       latitude: latitude,
@@ -2187,16 +2185,16 @@ export default function
                   <label htmlFor=''>Ferramentas</label>
                   <div className='selectPlus'>
                     <Select
-                      className='select'
-                      mode="multiple"
+                      // className='select'
+                      mode='multiple'
                       // defaultValue={valorFerramenta?.map((ferramenta:any) => ferramenta.nome)}
                       onChange={(text) => setferramentas(text)}
-                      placeholder="Selecione..."
+                      placeholder='Selecione...'
                     >
                       {ferramentasList.length > 0
                         ? ferramentasList.map((ferramenta) =>
-                          <option value={ferramenta.id + "/" + ferramenta.nome}>{ferramenta.nome}</option>)
-                        : <option>Nenhuma ferramenta cadastrada!</option>}
+                          <Option value={ferramenta.id + '/' + ferramenta.nome}>{ferramenta.nome}</Option>)
+                        : <Option>Nenhuma ferramenta cadastrada!</Option>}
                     </Select>
                     {/* {ferramentas.length > 0 ?
                     ferramentas.map((ferramenta) => <label>{ferramenta.nome}</label>): false} */}
@@ -2669,7 +2667,7 @@ export default function
                   />
                 </div>
                 : false}
-                {campotempoHaste
+              {campotempoHaste
                 ? <div>
                   <label htmlFor=''>Ângulo de Entrada</label>
                   <input
@@ -3206,11 +3204,11 @@ export default function
             {!finalizarEtapa
               ? <button onClick={() => { onSubmitLevantamento('todos-campos') }}>{loading
                 ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height='' src={Load}
-                  alt='Loading'
-                />
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height='' src={Load}
+                    alt='Loading'
+                  />
                 : 'Salvar'}
               </button>
               : false}
@@ -3219,11 +3217,11 @@ export default function
                 ? <button onClick={() => { toast.info('É preciso salvar a etapa!') }} className='finishPhase'>Finalizar Etapa</button>
                 : <button onClick={() => { updateDados() }} className='finishPhase'>{loading
                   ? <img
-                    width='40px'
-                    style={{ margin: 'auto' }}
-                    height='' src={Load}
-                    alt='Loading'
-                  />
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height='' src={Load}
+                      alt='Loading'
+                    />
                   : 'Finalizar Etapa'}
                 </button>
               : 'Etapa Finalizada!'}
@@ -3283,10 +3281,10 @@ export default function
                   src={Load}
                   alt='Loading'
                 />
-              )
+                )
               : (
-                'Salvar'
-              )}
+                  'Salvar'
+                )}
             </button>
           </S.ModelsModal>
 
@@ -3332,17 +3330,17 @@ export default function
 
               {variavelTitulo == 'Execução da Travessia - Furo Piloto'
                 ? <input
-                  type='number' placeholder='Angulacão'
-                  value={angulacao}
-                  onChange={(text) => setAngulacao(text.target.value)}
-                />
+                    type='number' placeholder='Angulacão'
+                    value={angulacao}
+                    onChange={(text) => setAngulacao(text.target.value)}
+                  />
                 : false}
               {variavelTitulo == 'Execução da Travessia - Furo Piloto'
                 ? <input
-                  type='number' placeholder='posicão em Horas'
-                  value={posicaoHoras}
-                  onChange={(text) => setposicaoHoras(text.target.value)}
-                />
+                    type='number' placeholder='posicão em Horas'
+                    value={posicaoHoras}
+                    onChange={(text) => setposicaoHoras(text.target.value)}
+                  />
                 : false}
             </div>
             <button className='save' onClick={() => salvarPontosVerificacao()}>{loading
@@ -3354,10 +3352,10 @@ export default function
                   src={Load}
                   alt='Loading'
                 />
-              )
+                )
               : (
-                'Salvar'
-              )}
+                  'Salvar'
+                )}
             </button>
           </S.ModelsModal>
         </Modal>
@@ -3403,10 +3401,10 @@ export default function
                   src={Load}
                   alt='Loading'
                 />
-              )
+                )
               : (
-                'Salvar'
-              )}
+                  'Salvar'
+                )}
             </button>
           </S.ModelsModal>
         </Modal>
@@ -3450,17 +3448,17 @@ export default function
               />
               {variavelTitulo == 'Execução da Travessia - Furo Piloto'
                 ? <input
-                  type='number' placeholder='Angulacão'
-                  value={angulacao}
-                  onChange={(text) => setAngulacao(text.target.value)}
-                />
+                    type='number' placeholder='Angulacão'
+                    value={angulacao}
+                    onChange={(text) => setAngulacao(text.target.value)}
+                  />
                 : false}
               {variavelTitulo == 'Execução da Travessia - Furo Piloto'
                 ? <input
-                  type='number' placeholder='posicão em Horas'
-                  value={posicaoHoras}
-                  onChange={(text) => setposicaoHoras(text.target.value)}
-                />
+                    type='number' placeholder='posicão em Horas'
+                    value={posicaoHoras}
+                    onChange={(text) => setposicaoHoras(text.target.value)}
+                  />
                 : false}
             </div>
             <button className='save' onClick={() => editarInterferencia('pontos-verificacao/')}>{loading
@@ -3472,10 +3470,10 @@ export default function
                   src={Load}
                   alt='Loading'
                 />
-              )
+                )
               : (
-                'Salvar'
-              )}
+                  'Salvar'
+                )}
             </button>
           </S.ModelsModal>
         </Modal>
@@ -3540,10 +3538,10 @@ export default function
                   src={Load}
                   alt='Loading'
                 />
-              )
+                )
               : (
-                'Salvar'
-              )}
+                  'Salvar'
+                )}
             </button>
           </S.ModelsModal>
 
@@ -3786,11 +3784,11 @@ export default function
             </S.GridForm>
             <button onClick={() => onSubmitInterferenciasFisicasMagneticas()}>{loading
               ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height='' src={Load}
-                alt='Loading'
-              />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height='' src={Load}
+                  alt='Loading'
+                />
               : 'Salvar'}
             </button>
           </S.Div>
@@ -3907,10 +3905,10 @@ export default function
                 src={Load}
                 alt='Loading'
               />
-            )
+              )
             : (
-              'Salvar'
-            )}
+                'Salvar'
+              )}
           </button>
         </S.PhasesModal>
 
@@ -4126,12 +4124,12 @@ export default function
               type='submit'
             >{loading
               ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height=''
-                src={Load}
-                alt='Loading'
-              />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height=''
+                  src={Load}
+                  alt='Loading'
+                />
               : 'Salvar'}
             </button>
           </S.Form>
@@ -4176,12 +4174,12 @@ export default function
           <S2.Btns>
             <button onClick={() => onSubmitLevantamento('user')}>{loading
               ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height=''
-                src={Load}
-                alt='Loading'
-              />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height=''
+                  src={Load}
+                  alt='Loading'
+                />
               : 'Salvar'}
             </button>
             <button onClick={() => setIsOpenInvite(false)}>Cancelar</button>
@@ -4362,7 +4360,7 @@ export default function
                   {/* <h2>{data.tipoEtapa}</h2> */}
                   <h1>{data.tipoEtapa}</h1>
                 </Link>
-              </SwiperSlide>
+              </SwiperSlide>,
             )
             : <p>🤔 Nenhuma Etapa cadastrada!</p>}
           {/* <Link to={'/preencher-fases/'+idConfigTravessia.split('etapas/')[1]}>
@@ -4387,12 +4385,15 @@ export default function
         <form>
           <span>Nova etapa</span><br />
           {/* <input placeholder='Nome da travessia' type='text' /> */}
-          <input placeholder='Descrição' type='text'
+          <input
+            placeholder='Descrição' type='text'
             value={descricao}
-            onChange={(text) => setDescricao(text.target.value)} />
+            onChange={(text) => setDescricao(text.target.value)}
+          />
           <select
             value={etapa}
-            onChange={(text) => setEtapa(text.target.value)}>
+            onChange={(text) => setEtapa(text.target.value)}
+          >
             <option selected disabled>Selecione uma etapa</option>
             {/* <option value='1'>Levantamento e Mapeamento de Interferências</option> */}
             <option value='2'>Planejamento da Travessia</option>
@@ -4414,10 +4415,11 @@ export default function
                 src={Load}
                 alt='Loading'
               />
-            )
+              )
             : (
-              'Adicionar'
-            )}</button>
+                'Adicionar'
+              )}
+          </button>
         </form>
       </S.ContainerNone>
 
@@ -4469,12 +4471,15 @@ export default function
         </button>
         <form>
           {/* <input placeholder='Nome da travessia' type='text' /> */}
-          <input placeholder='Descrição' type='text'
+          <input
+            placeholder='Descrição' type='text'
             value={descricao}
-            onChange={(text) => setDescricao(text.target.value)} />
+            onChange={(text) => setDescricao(text.target.value)}
+          />
           <select
             value={etapa}
-            onChange={(text) => setEtapa(text.target.value)}>
+            onChange={(text) => setEtapa(text.target.value)}
+          >
             <option selected disabled>Selecione uma etapa</option>
             {/* <option value='1'>Levantamento e Mapeamento de Interferências</option> */}
             <option value='2'>Planejamento da Travessia</option>
@@ -4496,10 +4501,11 @@ export default function
                 src={Load}
                 alt='Loading'
               />
-            )
+              )
             : (
-              'Salvar'
-            )}</button>
+                'Salvar'
+              )}
+          </button>
         </form>
       </Modal>
     </>

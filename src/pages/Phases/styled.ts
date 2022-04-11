@@ -391,16 +391,13 @@ export const GridForm = styled.div`
         background: transparent;
       } 
     }
-
-
-
   }
+  
   .selectPlus {
     display: flex;
     flex-direction: row;
     select {
-      width: 415px;
-
+      width: 415px; 
       @media(max-width: 520px) {
         margin: 10px 0;
         margin-right: 50px;
@@ -412,6 +409,8 @@ export const GridForm = styled.div`
 
     .select {
       width: 415px !important;
+      position: relative;
+      bottom: 30px !important;
       height: 20px !important;
       @media(max-width: 520px) {
         margin: 10px 0;
@@ -420,6 +419,13 @@ export const GridForm = styled.div`
         width: 100% !important;
         max-width: 380px;
       }
+    }
+
+    .ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+      height: 45px !important;
+      background: transparent !important;
+      border-radius: 5px;
+      border: 1px solid #252332;
     }
 
     button {
