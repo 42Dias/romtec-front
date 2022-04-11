@@ -207,7 +207,15 @@ export const Container = styled.div`
       table-layout: fixed;
       @media (max-width: 520px) {
         width: 100%;
-        overflow: auto;
+        overflow-x: scroll;
+
+          display: grid;
+          justify-content: 1fr 1fr 1fr 1fr;
+      
+          th {
+            padding: 0 10px;
+            text-align: left;
+          }
         span {
           margin: 0 30px;
         }
