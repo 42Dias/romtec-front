@@ -780,11 +780,6 @@ Phases () {
         console.log(response.data.rows)
         setferramentas(response.data.rows)
         setValorFerramenta(response.data.rows)
-        // response.data.rows.map((ferramenta: any)=>
-        // setValorFerramenta((prevProducts: any) => {
-        //       return [...new Set([prevProducts, ferramenta])]
-        //     })
-        // )
       }
     }).catch((res) => {
       console.log(res)
@@ -1197,6 +1192,18 @@ Phases () {
       })
     }).catch(res => {
       /// /console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
+    api.get(`ferramentasTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        console.log(response.data.rows)
+        setferramentas(response.data.rows)
+        setValorFerramenta(response.data.rows)
+      }
+    }).catch((res) => {
+      console.log(res)
       toast.error(res.response.data)
       setLoading(false)
     })
@@ -2199,7 +2206,8 @@ Phases () {
                   <div className='selectPlus'>
                     <Select
                       className='select'
-                      mode='multiple'
+                      mode='multiple' 
+                      //defaultValue={ferramentas?.map((ferramenta) => [ferramenta.nome])} 
                       placeholder='Selecione...'
                       onChange={(text) => setferramentas(text)}
                     >
@@ -2207,7 +2215,7 @@ Phases () {
                         ? ferramentasList.map((ferramenta) =>
                           <option value={ferramenta.id + '/' + ferramenta.nome}>{ferramenta.nome}</option>)
                         : <option>Nenhuma ferramenta cadastrada!</option>}
-                    </Select>
+                    </Select> 
                     {/* <Select
                       mode='multiple'
                       // defaultValue={valorFerramenta?.map((ferramenta:any) => ferramenta.nome)}
