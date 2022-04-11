@@ -17,6 +17,7 @@ import { TextField } from '../../ui/Components/TextField'
 import Load from './../../assets/load.gif'
 import { DatePicker, Space } from "antd";
 import moment from "moment";
+import { Select, Radio, List, Typography, Divider } from 'antd'
 
 type FormData = {
   id: string;
@@ -213,7 +214,7 @@ export default function FillInPhases() {
   const [sondagem, setsondagem] = useState('')
   const [criacaoplanoFuro, setcriacaoplanoFuro] = useState('')
   const [url, setUrl] = useState('')
-  const [ferramentas, setferramentas] = useState('')
+  //const [ferramentas, setferramentas] = useState('')
   const [diametroInterferencia, setDiametroInterferencia] = useState('')
   const [profundidade, setprofundidade] = useState('')
   const [anguloAtaque, setanguloAtaque] = useState('')
@@ -410,6 +411,7 @@ export default function FillInPhases() {
   let nameImage = ''
   let Image: any
   const formData = new FormData()
+  const [ferramentas, setferramentas] = useState<any[]>([])
   // function onSubmit(data: FormData) {
   //   data.idConfigTravessia = idConfigTravessia.replace('#/preencher-fases/', '')
   //   data.banco = 'todos-campos'
@@ -1003,6 +1005,18 @@ export default function FillInPhases() {
         // toast.error(res.response.data);
         setLoading(false)
       })
+      api.get(`ferramentasTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        console.log(response.data.rows)
+        setferramentas(response.data.rows)
+        //setValorFerramenta(response.data.rows)
+      }
+    }).catch((res) => {
+      console.log(res)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
     }).catch(res => {
       /// /console.log(res.response.data)
       toast.error(res.response.data)
@@ -1726,20 +1740,23 @@ export default function FillInPhases() {
             : false}
           {campoFerramentas
             ? <div>
+              <br/>
               <label htmlFor=''>Ferramentas</label>
               <div className='selectPlus'>
-                <select
-                  name='' id='' value={ferramentas}
-                  onChange={(text) => setferramentas(text.target.value)}
-                >
-                  <option value=''>Selecione...</option>
-                  {ferramentasList.length > 0
-                    ? ferramentasList.map((ferramenta) =>
-                      <option value={ferramenta.id + '/' + ferramenta.nome}>{ferramenta.nome}</option>)
-                    : <option>Nenhuma ferramenta cadastrada!</option>}
-                </select>
+              <Select
+                      className='select'
+                      mode='multiple' 
+                      //defaultValue={ferramentas?.map((ferramenta) => [ferramenta.nome])} 
+                      placeholder='Selecione...'
+                      onChange={(text) => setferramentas(text)}
+                    >
+                      {ferramentasList.length > 0
+                        ? ferramentasList.map((ferramenta) =>
+                          <option value={ferramenta.id + '/' + ferramenta.nome}>{ferramenta.nome}</option>)
+                        : <option>Nenhuma ferramenta cadastrada!</option>}
+                    </Select> 
                 <button onClick={openModalFerramenta} className='buttonAddInter'><FiPlus size={20} /></button>
-              </div>
+              </div> 
 
             </div>
             : false}
