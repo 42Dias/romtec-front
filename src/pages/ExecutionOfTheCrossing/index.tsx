@@ -278,29 +278,26 @@ ExecutionOfTheCrossing () {
         <Modal isOpen={isOpen} onClose={() => close()}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
-              <div>
-                <label
-                  htmlFor='nomeCliente'
-                >Nome do Cliente
-                </label>
-                <select
-                  {...register('nomeCliente', {
-                    required: {
-                      value: true,
-                      message: 'Todos os campos são obrigatórios',
-                    },
-                  })}
-                  name='nomeCliente' id='nomeCliente'
-                >
-                  <option value=''>Selecione...</option>
-                  {clientes.length > 0
-                    ? clientes.map((cliente) =>
-                      <option value={cliente.id + '/' + cliente.nomeFantasia}>{cliente.nomeFantasia}</option>,
-                    )
-                    : <option value=''>Nenhum Cliente cadastrado!</option>}
-                </select>
-              </div>
-
+              <label
+                htmlFor='nomeCliente'
+              >Nome do Cliente
+              </label>
+              <select
+                {...register('nomeCliente', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+                name='nomeCliente' id='nomeCliente'
+              >
+                <option value=''>Selecione...</option>
+                {clientes.length > 0
+                  ? clientes.map((cliente) =>
+                    <option value={cliente.id + '/' + cliente.nomeFantasia}>{cliente.nomeFantasia}</option>,
+                  )
+                  : <option value=''>Nenhum Cliente cadastrado!</option>}
+              </select>
               <TextField
                 label='Nome da travessia'
                 errorMessage={errors.descricao?.message}
@@ -323,30 +320,28 @@ ExecutionOfTheCrossing () {
                 })}
               />
 
-              <div>
-                <label
-                  htmlFor='nomeConfigTravessia'
-                >Configuração da travessia
-                </label>
-                <select
-                  {...register('nomeConfigTravessia', {
-                    required: {
-                      value: true,
-                      message: 'Todos os campos são obrigatórios',
-                    },
-                  })}
-                  name='nomeConfigTravessia' id='nomeConfigTravessia'
-                >
-                  <option value='1/Travessia personalizada'>Iniciar Travessia personalizada</option>
-                  {travessia.length > 0
-                    ? travessia.map((travessia) =>
+              <label
+                htmlFor='nomeConfigTravessia'
+              >Configuração da travessia
+              </label>
+              <select
+                {...register('nomeConfigTravessia', {
+                  required: {
+                    value: true,
+                    message: 'Todos os campos são obrigatórios',
+                  },
+                })}
+                name='nomeConfigTravessia' id='nomeConfigTravessia'
+              >
+                <option value='1/Travessia personalizada'>Iniciar Travessia personalizada</option>
+                {travessia.length > 0
+                  ? travessia.map((travessia) =>
 
-                      <option value={travessia.id + '/' + travessia.nome}>{travessia.nome}</option>,
+                    <option value={travessia.id + '/' + travessia.nome}>{travessia.nome}</option>,
 
-                    )
-                    : <option value=''>Nenhuma Configuração de Travessia cadastrado!</option>}
-                </select>
-              </div>
+                  )
+                  : <option value=''>Nenhuma Configuração de Travessia cadastrado!</option>}
+              </select>
 
               <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src={Load} alt='Loading' /> : 'Salvar'}</button>
             </S.Form>

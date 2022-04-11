@@ -10,9 +10,9 @@ import { toast } from 'react-toastify'
 import { Toast } from 'react-toastify/dist/components'
 
 export default function
- Home () {
+Home () {
   async function loadUser (token:any) {
-    //toast.info(token)
+    // toast.info(token)
     const response = await axios({
       method: 'get',
       url: `${ip}:8145/api/auth/me`,
@@ -23,18 +23,17 @@ export default function
       },
       timeout: 50000,
     }).then(response => {
-      
       return response.data
-    }).catch((error)=>
-      toast.error(error)
+    }).catch((error) =>
+      toast.error(error),
     )
     console.log(response)
-    console.log(response.tenants[0].roles[0]);
-    localStorage.setItem("roles", JSON.stringify(response.tenants[0].roles[0]));//saves client's data into localStorage:
-    console.log(response.tenants[0].tenant.id);
+    console.log(response.tenants[0].roles[0])
+    localStorage.setItem('roles', JSON.stringify(response.tenants[0].roles[0]))// saves client's data into localStorage:
+    console.log(response.tenants[0].tenant.id)
     localStorage.setItem('tenantId', JSON.stringify(response.tenants[0].tenant.id))// saves client's data into localStorage:
     localStorage.setItem('id', JSON.stringify(response.id))// saves client's data into localStorage:
-    localStorage.setItem("status", JSON.stringify(response.tenants[0].status));//saves client's data into localStorage:
+    localStorage.setItem('status', JSON.stringify(response.tenants[0].status))// saves client's data into localStorage:
   }
   useEffect(() => {
     if (token == undefined) {
@@ -56,66 +55,7 @@ export default function
           </div>
           <img src={image} alt='' />
         </S.Content>
-
-        <S.Steps>
-          <h2>Etapas</h2>
-          <S.ContainerSteps>
-            <S.ContentSteps>
-              <FiSettings size={20} />
-              <h4>Morbi vitae lorem nisl.</h4>
-              <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
-            </S.ContentSteps>
-
-            <S.ContentSteps>
-              <FiSettings size={20} />
-              <h4>Morbi vitae lorem nisl.</h4>
-              <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
-            </S.ContentSteps>
-
-            <S.ContentSteps>
-              <FiSettings size={20} />
-              <h4>Morbi vitae lorem nisl.</h4>
-              <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
-            </S.ContentSteps>
-
-            <S.ContentSteps>
-              <FiSettings size={20} />
-              <h4>Morbi vitae lorem nisl.</h4>
-              <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
-            </S.ContentSteps>
-          </S.ContainerSteps>
-        </S.Steps>
-
-        <S.Steps>
-          <h2>Últimas Atualizações</h2>
-          <S.ContainerSteps>
-            <S.ContentSteps>
-              <FiSettings size={20} />
-              <h4>Morbi vitae lorem nisl.</h4>
-              <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
-            </S.ContentSteps>
-
-            <S.ContentSteps>
-              <FiSettings size={20} />
-              <h4>Morbi vitae lorem nisl.</h4>
-              <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
-            </S.ContentSteps>
-
-            <S.ContentSteps>
-              <FiSettings size={20} />
-              <h4>Morbi vitae lorem nisl.</h4>
-              <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
-            </S.ContentSteps>
-
-            <S.ContentSteps>
-              <FiSettings size={20} />
-              <h4>Morbi vitae lorem nisl.</h4>
-              <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
-            </S.ContentSteps>
-          </S.ContainerSteps>
-        </S.Steps>
       </S.Container>
-
     </>
   )
 }

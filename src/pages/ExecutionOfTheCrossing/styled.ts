@@ -69,7 +69,7 @@ export const ContainerConfirmation = styled.div`
 
 export const GridConfirmation = styled.div`
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   justify-items: center;
   align-items: center;
   background-color: ${theme.colors.black};
@@ -83,6 +83,7 @@ export const GridConfirmation = styled.div`
     align-items: center;
     justify-content: center;
     margin-top: 20px;
+    margin-left: 20px;
   }
 
   button {
@@ -115,7 +116,7 @@ export const GridConfirmation = styled.div`
     grid-template-columns: repeat(2, 1fr);
     justify-items: space-between;
     align-items: center;
-
+    
     span {
       max-width: 120px;
     }
@@ -142,13 +143,8 @@ export const GridConfirmation = styled.div`
 export const Form = styled.form`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  @media (max-width: 768px) {
-    margin: 0 20px;
-  }
-  div {
-    display: flex;
-    flex-direction: column;
-  }
+  max-width: 500px;
+  padding: 0 4%;
 
   select {
     width: 345px;
@@ -160,11 +156,9 @@ export const Form = styled.form`
     background: #1B1925;
     color: #ccc;
 
-    @media (max-width: 521px) {
+    @media (max-width: 520px) {
       width: 290px;
-      margin: 10px 0;
-      margin-right: 50px;
-      padding: 0;
+      padding: 0 7px;
     }
   }
 
@@ -181,7 +175,7 @@ export const Form = styled.form`
     transition: 1s;
     margin-bottom: 20px;
     margin-right: 250px;
-
+    margin-top: 20px;
     :hover {
       opacity: 80%;
     }
@@ -214,8 +208,13 @@ grid-template-columns: 1fr 1fr;
   color: white;
 }
 
+  .form-control-group {
+    width: 364px;
+  }
+
   .form-control-group select {
     width: 345px;
+   
     height: 48px;
     box-sizing: border-box;
     border-radius: 4px;
@@ -242,7 +241,8 @@ grid-template-columns: 1fr 1fr;
     }
   }
 justify-items: center;
-align-items: center;
+  align-items: center;
+  position: relative;
 
 button {
   width: 101px;
@@ -252,7 +252,7 @@ button {
   border: 0;
   transition: 1s;
   margin-bottom: 20px;
-  margin-right: 250px;
+  margin-right: 260px;
 
   :hover {
     opacity: 80%;

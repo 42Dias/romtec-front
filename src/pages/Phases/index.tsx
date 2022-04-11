@@ -20,9 +20,8 @@ import axios from 'axios'
 import { tuple } from 'antd/lib/_util/type'
 import { string } from 'yup'
 import { Link } from 'react-router-dom'
-import { Select, Radio } from 'antd';
-import 'antd/dist/antd.css';
-import { List, Typography, Divider } from "antd";
+import { Select, Radio, List, Typography, Divider } from 'antd'
+import 'antd/dist/antd.css'
 
 SwiperCore.use([Pagination, Navigation])
 
@@ -66,7 +65,7 @@ type FormData = {
   indicePlasticidade: string;
 }
 export default function
-  Phases() {
+Phases () {
   const [modalIsOpenPhase, setIsOpenPhase] = useState(false)
   const [modalIsOpenInterferencia, setIsOpenInterferencia] = useState(false)
   const [modalIsOpenVerificacao, setIsOpenVerificacao] = useState(false)
@@ -80,50 +79,50 @@ export default function
   const [isOpenFluido, setIsOpenFluido] = useState(false)
   const [isOpenModalEdit, setIsOpenModalEdit] = useState(false)
   const [isOpenModalAdd, setIsOpenModalAdd] = useState(false)
-  const { Option } = Select;
+  const { Option } = Select
 
-  function openModalEdit() {
+  function openModalEdit () {
     setIsOpenModalEdit(true)
   }
 
-  function closeModalEdit() {
+  function closeModalEdit () {
     setIsOpenModalEdit(false)
   }
 
-  function openModalAdd() {
+  function openModalAdd () {
     setIsOpenModalAdd(true)
   }
 
-  function closeModalAdd() {
+  function closeModalAdd () {
     setIsOpenModalAdd(false)
   }
 
-  function openModalInterferencia() {
+  function openModalInterferencia () {
     setIsOpenInterferencia(true)
   }
-  function openModalPontosVerificacao() {
+  function openModalPontosVerificacao () {
     setIsOpenVerificacao(true)
   }
-  function openModalFerramenta() {
+  function openModalFerramenta () {
     setIsOpenFerramenta(true)
   }
-  function afterOpenModalInterferencia() {
+  function afterOpenModalInterferencia () {
 
   }
 
-  function closeModalInterferencia() {
+  function closeModalInterferencia () {
     setIsOpenInterferencia(false)
   }
-  function closeModalVerificacao() {
+  function closeModalVerificacao () {
     setIsOpenVerificacao(false)
   }
-  function closeModalFerramenta() {
+  function closeModalFerramenta () {
     setIsOpenFerramenta(false)
   }
-  function closeModalVerificacaoEdit() {
+  function closeModalVerificacaoEdit () {
     setIsOpenVerificacaoEdit(false)
   }
-  function openModalInterferenciaEdit(interferencia: any) {
+  function openModalInterferenciaEdit (interferencia: any) {
     setInterferenciaId(interferencia.id)
     console.log(interferencia.id)
     setTipoInterferencia(interferencia.tipoInterferencia)
@@ -134,7 +133,7 @@ export default function
 
     setIsOpenInterferenciaEdit(true)
   }
-  function openModalPontosVerificacaoEdit(pontosVerificacao: any) {
+  function openModalPontosVerificacaoEdit (pontosVerificacao: any) {
     setInterferenciaId(pontosVerificacao.id)
     setStatus(pontosVerificacao.status)
     setLatitude(pontosVerificacao.latitude)
@@ -145,35 +144,35 @@ export default function
 
     setIsOpenVerificacaoEdit(true)
   }
-  function afterOpenModalInterferenciaEdit() {
+  function afterOpenModalInterferenciaEdit () {
 
   }
 
-  function closeModalInterferenciaEdit() {
+  function closeModalInterferenciaEdit () {
     setIsOpenInterferenciaEdit(false)
   }
 
-  function openModalPhases() {
+  function openModalPhases () {
     setIsOpenPhase(true)
   }
 
-  function afterOpenModalPhases() {
+  function afterOpenModalPhases () {
 
   }
 
-  function closeModalPhases() {
+  function closeModalPhases () {
     setIsOpenPhase(false)
   }
 
-  function openModalPhasesSelect() {
+  function openModalPhasesSelect () {
     setIsOpenPhaseSelect(true)
   }
 
-  function afterOpenModalPhasesSelect() {
+  function afterOpenModalPhasesSelect () {
 
   }
 
-  function closeModalPhasesSelect() {
+  function closeModalPhasesSelect () {
     setIsOpenPhaseSelect(false)
   }
 
@@ -431,14 +430,14 @@ export default function
   // }
   const [camposInterferencia, setCamposInterferencia] = useState(false)
 
-  function handleCampos() {
+  function handleCampos () {
     if (camposInterferencia) {
       setCamposInterferencia(false)
     } else {
       setCamposInterferencia(true)
     }
   }
-  function onSubmitTipoSolo() {
+  function onSubmitTipoSolo () {
     const data = {
       especificacaoSolo: especificacaoSolo,
       descricao: descricao,
@@ -452,7 +451,7 @@ export default function
     reset()
   }
 
-  async function createNewFileTipoSolo(submit: any) {
+  async function createNewFileTipoSolo (submit: any) {
     setLoading(true)
     const responser = api.post('tipo-solo', {
       data: submit,
@@ -474,14 +473,14 @@ export default function
       setLoading(false)
     })
   }
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     console.log(data)
     data.reviewUpload = documentos
     Cadastro(data)
     reset()
   }
 
-  async function Cadastro(submit: any) {
+  async function Cadastro (submit: any) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.post('maquina-perfuratis', {
@@ -508,7 +507,7 @@ export default function
       setLoading(false)
     })
   }
-  function onSubmitLevantamento(tabela: string) {
+  function onSubmitLevantamento (tabela: string) {
     // console.log(idEtapa)
     const data = {
       banco: tabela,
@@ -530,7 +529,7 @@ export default function
       Sondagem: sondagem,
       DiametroInterferencia: diametroPerfuracao,
       CriacaoPlanoFuro: criacaoplanoFuro,
-      //Ferramentas: ferramentas,
+      // Ferramentas: ferramentas,
       InformacoesEnvolvidas: infoEnvolvidas,
       Diametro: diametroPerfuracao,
       LocalRelDiretrizFuro: localDiretrizFuro,
@@ -632,7 +631,7 @@ export default function
     // }
   }
 
-  function onSubmitInterferenciasFisicasMagneticas() {
+  function onSubmitInterferenciasFisicasMagneticas () {
     // console.log(responsavel)
     const data = {
       idConfigTravessia: idConfigTravessia.replace('#/etapas/', ''),
@@ -681,7 +680,7 @@ export default function
   //   }
   // }
 
-  async function createNewFile(submit: any) {
+  async function createNewFile (submit: any) {
     setLoading(true)
 
     await api.post(submit.banco, {
@@ -690,10 +689,10 @@ export default function
       // console.log(response)
       if (response.statusText === 'OK') {
         ferramentas.map(async (ferramenta) => {
-          var data = {
+          const data = {
             travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1],
             ferramentaId: ferramenta.split('/')[0],
-            nome: ferramenta.split('/')[1]
+            nome: ferramenta.split('/')[1],
           }
           console.log(data)
           await api.post('ferramentasTravessia', {
@@ -713,7 +712,6 @@ export default function
             setLoading(false)
           })
         })
-
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')
         setLoading(false)
@@ -727,7 +725,7 @@ export default function
       setLoading(false)
     })
   }
-  async function loadDados(tipoSoloId: string) {
+  async function loadDados (tipoSoloId: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = await api.get(`etapas?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/etapas/", '').split('/')[0]}`,
@@ -746,7 +744,7 @@ export default function
     api.get(`interferencia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
     ).then((response) => {
       if (response.statusText === 'OK') {
-        //console.log(response.data.rows)
+        // console.log(response.data.rows)
         setinterferencias(response.data.rows)
       }
     }).catch((res) => {
@@ -757,7 +755,7 @@ export default function
     api.get(`pontos-verificacao?filter%5BetapaId%5D=${idEtapa}&filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
     ).then((response) => {
       if (response.statusText === 'OK') {
-        //console.log(response.data.rows)
+        // console.log(response.data.rows)
         setPontosVerificacao(response.data.rows)
       }
     }).catch((res) => {
@@ -768,7 +766,7 @@ export default function
     api.get('ferramentaList',
     ).then((response) => {
       if (response.statusText === 'OK') {
-        //console.log(response.data.rows)
+        // console.log(response.data.rows)
         setferramentasList(response.data.rows)
       }
     }).catch((res) => {
@@ -784,19 +782,19 @@ export default function
         setValorFerramenta(response.data.rows)
         // response.data.rows.map((ferramenta: any)=>
         // setValorFerramenta((prevProducts: any) => {
-        //       return [...new Set([prevProducts, ferramenta])]        
+        //       return [...new Set([prevProducts, ferramenta])]
         //     })
         // )
       }
     }).catch((res) => {
       console.log(res)
-      toast.error(res.response.data);
+      toast.error(res.response.data)
       setLoading(false)
     })
     api.get(`executarTravessia?filter%5Bid%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
     ).then((response) => {
       if (response.statusText === 'OK') {
-        //console.log(response.data.rows)
+        // console.log(response.data.rows)
         setNomeTravessia(response.data.rows[0].nomeTravessia)
       }
     }).catch((res) => {
@@ -806,7 +804,7 @@ export default function
     })
     api.get('maquina-perfuratis',
     ).then((response) => {
-      //console.log(response.data.rows)
+      // console.log(response.data.rows)
       if (response.statusText === 'OK') {
         setMaquinasPerfuratriz(response.data.rows)
         setLoading(false)
@@ -818,7 +816,7 @@ export default function
     })
     api.get('user/',
     ).then((response) => {
-      //console.log(response.data.rows)
+      // console.log(response.data.rows)
       if (response.statusText === 'OK') {
         setUsers(response.data.rows)
         setLoading(false)
@@ -839,9 +837,9 @@ export default function
       toast.error(res.response.data)
       setLoading(false)
     })
-    await api.get('fluido-perfuracao?filter%5BtipoSoloId%5D=' + tipoSoloId.split('/')[0],// 
+    await api.get('fluido-perfuracao?filter%5BtipoSoloId%5D=' + tipoSoloId.split('/')[0], //
     ).then((response) => {
-      //console.log(response.data.rows)
+      // console.log(response.data.rows)
       console.log(typeof (response.data.rows))
       if (response.statusText === 'OK') {
         setFluidos(response.data.rows)
@@ -854,7 +852,7 @@ export default function
     })
     setLoading(false)
   }
-  async function deleteDados(id: string, tabela: string) {
+  async function deleteDados (id: string, tabela: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete(tabela + id,
@@ -870,7 +868,7 @@ export default function
     })
     api.get('fluido-perfuracao',
     ).then((response) => {
-      //console.log(response.data.rows)
+      // console.log(response.data.rows)
       console.log(typeof (response.data.rows))
       if (response.statusText === 'OK') {
         setFluidos(response.data.rows)
@@ -882,7 +880,7 @@ export default function
       setLoading(false)
     })
   }
-  function update(data: any) {
+  function update (data: any) {
     // console.log('data')
     // console.log(data)
     // setDados(data)
@@ -935,7 +933,7 @@ export default function
     }
     // console.log(idDados)
   }
-  async function updateDados() {
+  async function updateDados () {
     setLoading(true)
     // console.log('idTodosCampos')
     // console.log(idTodosCampos)
@@ -960,7 +958,7 @@ export default function
         Sondagem: sondagem,
         DiametroInterferencia: diametroPerfuracao,
         CriacaoPlanoFuro: criacaoplanoFuro,
-        //Ferramentas: ferramentas,
+        // Ferramentas: ferramentas,
         InformacoesEnvolvidas: infoEnvolvidas,
         Diametro: diametroPerfuracao,
         LocalRelDiretrizFuro: localDiretrizFuro,
@@ -1065,7 +1063,7 @@ export default function
     loadDados('etapas')
   }, [])
 
-  function openModal(data: any) {
+  function openModal (data: any) {
     // console.log(data)
     setIdEtapa(data.etapaId)
     api.get(`todos-campos?filter%5BetapaId%5D=${data.id}&filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}&limit=1`,
@@ -1175,18 +1173,18 @@ export default function
         setLoading(false)
       }
       api.get(`todos-campos?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}&limit=1`,
-          ).then((response) => {
-            // console.log(response.data.rows)
-            if (response.statusText === 'OK') {
-              if (response.data.count > 0) {
-                setAnguloEntrada(response.data.rows[0].anguloEntrada)
-              }
-            }
-          }).catch((res) => {
-            console.log(res)
-            toast.error(res.response.data);
-            setLoading(false)
-          })
+      ).then((response) => {
+        // console.log(response.data.rows)
+        if (response.statusText === 'OK') {
+          if (response.data.count > 0) {
+            setAnguloEntrada(response.data.rows[0].anguloEntrada)
+          }
+        }
+      }).catch((res) => {
+        console.log(res)
+        toast.error(res.response.data)
+        setLoading(false)
+      })
       api.get(`interferencia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
       ).then((response) => {
         if (response.statusText === 'OK') {
@@ -1298,13 +1296,13 @@ export default function
     setcampoPontosVerificacao(data.campoPontosVerificacao)
     setisOpenUpdatePlanejamentoPerfuração(true)
   }
-  function afterOpenModal() {
+  function afterOpenModal () {
     // references are now sync'd and can be accessed.
   }
-  function closeModal() {
+  function closeModal () {
     setIsOpenPlanejamento(false)
   }
-  async function makeRequisition(e: any) {
+  async function makeRequisition (e: any) {
     e.preventDefault()
     e.target.reset()
 
@@ -1376,7 +1374,7 @@ export default function
         toast.error('Erro: Tente mais tarde :(')
       })
   }
-  function salvarEtapa() {
+  function salvarEtapa () {
     let campoTipoSolo = false
     const campoDiametroPerfuracao = false
     let campoTipoRede = false
@@ -1601,7 +1599,7 @@ export default function
     console.log(data)
     console.log(etapa)
   }
-  function salvarInterferencia(tabela: string) {
+  function salvarInterferencia (tabela: string) {
     const data = {
       tipo: variavelTitulo,
       latitude: latitude,
@@ -1647,7 +1645,7 @@ export default function
         setLoading(false)
       })
   }
-  function salvarPontosVerificacao() {
+  function salvarPontosVerificacao () {
     const data = {
       latitude: latitude,
       longitude: longitude,
@@ -1686,7 +1684,7 @@ export default function
         setLoading(false)
       })
   }
-  function editarInterferencia(tabela: string) {
+  function editarInterferencia (tabela: string) {
     const data = {
       tipo: variavelTitulo,
       latitude: latitude,
@@ -1907,7 +1905,7 @@ export default function
                     </select>
                     <button onClick={() => setIsOpenInvite(true)} className='buttonAddInter'><FiPlus size={20} /></button>
                   </div>
-                </div>
+                  </div>
                 : false}
               {campodataExecucao
                 ? <div>
@@ -1917,7 +1915,7 @@ export default function
                     value={dataExecucao}
                     onChange={(text) => setdataExecucao(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {camporesponsavelExecucao
                 ? <div>
@@ -1928,7 +1926,7 @@ export default function
                     value={responsavelExecucao}
                     onChange={(text) => setresponsavelExecucao(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campohoraExecucao
                 ? <div>
@@ -1938,7 +1936,7 @@ export default function
                     value={horaExecucao}
                     onChange={(text) => sethoraExecucao(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoEntradaLatitude
                 ? <div>
@@ -1948,7 +1946,7 @@ export default function
                     value={latitudeEntrada}
                     onChange={(text) => setlatitudeEntrada(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoEntradaLongitude
@@ -1959,7 +1957,7 @@ export default function
                     value={longitudeEntrada}
                     onChange={(text) => setlongitudeEntrada(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoprofundidadeEntrada
                 ? <div>
@@ -1969,7 +1967,7 @@ export default function
                     value={profundidadeEntrada}
                     onChange={(text) => setprofundidadeEntrada(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoSaidaLatitude
                 ? <div>
@@ -1979,7 +1977,7 @@ export default function
                     value={latitudeSaida}
                     onChange={(text) => setlatitudeSaida(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoSaidaLongitude
@@ -1990,7 +1988,7 @@ export default function
                     value={longitudeSaida}
                     onChange={(text) => setlongitudeSaida(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoprofundidadeSaida
                 ? <div>
@@ -2000,7 +1998,7 @@ export default function
                     value={profundidadeSaida}
                     onChange={(text) => setprofundidadeSaida(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoTipoSolo
                 ? <div>
@@ -2023,7 +2021,7 @@ export default function
                     </select>
                     <button onClick={() => setIsOpenTipoSolo(true)} className='buttonAddInter'><FiPlus size={20} /></button>
                   </div>
-                </div>
+                  </div>
                 : false}
 
               {campoDiametroPerfuracao
@@ -2034,7 +2032,7 @@ export default function
                     value={diametroPerfuracao}
                     onChange={(text) => setdiametroPerfuracao(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoTipoRede
@@ -2056,7 +2054,7 @@ export default function
                     <option value='Tubo gás aço'>Tubo gás aço</option>
                     <option value='Tubo gás esgoto'>Tubo gás esgoto</option>
                   </select>
-                </div>
+                  </div>
                 : false}
 
               {campoTipoTubulacao
@@ -2067,7 +2065,7 @@ export default function
                     value={tipoTubulacao}
                     onChange={(text) => settipoTubulacao(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoResponsel
@@ -2078,7 +2076,7 @@ export default function
                     value={responsavel}
                     onChange={(text) => setresponsavel(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoEquipamento
@@ -2089,7 +2087,7 @@ export default function
                     value={equipamentos}
                     onChange={(text) => setequipamentos(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoDocumento
@@ -2132,7 +2130,7 @@ export default function
                     /><br /><br />
 
                   </form>
-                </div>
+                  </div>
                 : false}
               {campoConfirmacaoProcedimento
                 ? <div>
@@ -2142,7 +2140,7 @@ export default function
                     value={ConfirmacaoProcedimento}
                     onChange={(text) => setConfirmacaoProcedimento(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoVolumePreparado
                 ? <div>
@@ -2152,7 +2150,7 @@ export default function
                     value={VolumePreparado}
                     onChange={(text) => setVolumePreparado(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoTesteVicosidade
                 ? <div>
@@ -2162,7 +2160,7 @@ export default function
                     value={TesteVicosidade}
                     onChange={(text) => setTesteVicosidade(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoSondagemInterferencia
                 ? <div>
@@ -2172,7 +2170,7 @@ export default function
                     value={sondagemInterferencia}
                     onChange={(text) => setsondagemInterferencia(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoSondagem
                 ? <div>
@@ -2182,7 +2180,7 @@ export default function
                     value={sondagem}
                     onChange={(text) => setsondagem(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoPlanoFuro
@@ -2193,7 +2191,7 @@ export default function
                     value={criacaoplanoFuro}
                     onChange={(text) => setcriacaoplanoFuro(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoFerramentas
                 ? <div>
@@ -2201,16 +2199,26 @@ export default function
                   <div className='selectPlus'>
                     <Select
                       className='select'
-                      mode="multiple"
-                      // defaultValue={valorFerramenta?.map((ferramenta:any) => ferramenta.nome)}
-                      onChange={(text) => setferramentas(text)}
-                      placeholder="Selecione..."
+                      mode='multiple'
+                      placeholder='Selecione...'
+                      onChange={(text) => setferramentas(text.target.value)}
                     >
                       {ferramentasList.length > 0
                         ? ferramentasList.map((ferramenta) =>
-                          <option value={ferramenta.id + "/" + ferramenta.nome}>{ferramenta.nome}</option>)
+                          <option value={ferramenta.id + '/' + ferramenta.nome}>{ferramenta.nome}</option>)
                         : <option>Nenhuma ferramenta cadastrada!</option>}
                     </Select>
+                    {/* <Select
+                      mode='multiple'
+                      // defaultValue={valorFerramenta?.map((ferramenta:any) => ferramenta.nome)}
+                      onChange={(text) => setferramentas(text)}
+                      placeholder='Selecione...'
+                    >
+                      {ferramentasList.length > 0
+                        ? ferramentasList.map((ferramenta) =>
+                          <option value={ferramenta.id + '/' + ferramenta.nome}>{ferramenta.nome}</option>)
+                        : <option>Nenhuma ferramenta cadastrada!</option>}
+                    </Select> */}
                     {/* {ferramentas.length > 0 ?
                     ferramentas.map((ferramenta) => <label>{ferramenta.nome}</label>): false} */}
                     {/* <Divider orientation="left">Small Size</Divider>
@@ -2236,7 +2244,7 @@ export default function
                     <button onClick={openModalFerramenta} className='buttonAddInter'><FiPlus size={20} /></button>
                   </div>
 
-                </div>
+                  </div>
                 : false}
 
               {campoInfoEnvolvidas
@@ -2247,7 +2255,7 @@ export default function
                     value={infoEnvolvidas}
                     onChange={(text) => setInfoEnvolvidas(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoDiametro
@@ -2258,7 +2266,7 @@ export default function
                     value={diametroPerfuracao}
                     onChange={(text) => setdiametroPerfuracao(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoLocalizaDiretrizFuro
@@ -2269,7 +2277,7 @@ export default function
                     value={localDiretrizFuro}
                     onChange={(text) => setLocalDiretrizFuro(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoResponselTopografia
@@ -2280,7 +2288,7 @@ export default function
                     value={respTopografia}
                     onChange={(text) => setRespTopografia(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoDataTopografia
@@ -2291,7 +2299,7 @@ export default function
                     value={dataTopografia}
                     onChange={(text) => setDataTopografia(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoEmpresa
@@ -2302,7 +2310,7 @@ export default function
                     value={empresa}
                     onChange={(text) => setempresa(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {/* {camponomePerfilAcesso
@@ -2389,7 +2397,7 @@ export default function
                     /><br /><br />
 
                   </form>
-                </div>
+                  </div>
                 : false}
 
               {campoequipamentoUtilizado
@@ -2400,7 +2408,7 @@ export default function
                     value={equipamentoUtilizado}
                     onChange={(text) => setequipamentoUtilizado(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campomaterializacaoCampo
@@ -2411,7 +2419,7 @@ export default function
                     value={materializacaoCampo}
                     onChange={(text) => setmaterializacaoCampo(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoquantidadeInterferencias
@@ -2422,7 +2430,7 @@ export default function
                     value={quantidadeInterferencias}
                     onChange={(text) => setquantidadeInterferencias(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoparaleloEsquerda
@@ -2434,7 +2442,7 @@ export default function
                     value={paraleloEsquerda}
                     onChange={(text) => setparaleloEsquerda(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoparaleloDireita
                 ? <div>
@@ -2444,7 +2452,7 @@ export default function
                     value={paraleloDireita}
                     onChange={(text) => setparaleloDireita(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoperpendicular
                 ? <div>
@@ -2454,7 +2462,7 @@ export default function
                     value={perpendicular}
                     onChange={(text) => setperpendicular(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoProfundidade
                 ? <div>
@@ -2464,7 +2472,7 @@ export default function
                     value={profundidade}
                     onChange={(text) => setprofundidade(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoDiametroInterferencia
                 ? <div>
@@ -2474,7 +2482,7 @@ export default function
                     value={diametroInterferencia}
                     onChange={(text) => setDiametroInterferencia(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {/* {campoTipoInterferencia
@@ -2495,7 +2503,7 @@ export default function
                     value={EmpresaProprietaria}
                     onChange={(text) => setEmpresaProprietaria(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campolargura
                 ? <div>
@@ -2506,7 +2514,7 @@ export default function
                     value={largura}
                     onChange={(text) => setlargura(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campocomprimento
                 ? <div>
@@ -2516,7 +2524,7 @@ export default function
                     value={comprimento}
                     onChange={(text) => setcomprimento(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoprofundidadeVala
                 ? <div>
@@ -2526,7 +2534,7 @@ export default function
                     value={profundidadeVala}
                     onChange={(text) => setprofundidadeVala(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoestacaReferencia
@@ -2537,7 +2545,7 @@ export default function
                     value={estacaReferencia}
                     onChange={(text) => setestacaReferencia(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoSondagemInterferencia
                 ? <div>
@@ -2547,7 +2555,7 @@ export default function
                     value={sondagemInterferencia}
                     onChange={(text) => setestacaReferencia(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoFluido
                 ? <div>
@@ -2570,7 +2578,7 @@ export default function
                     </select>
                     <button onClick={() => setIsOpenFluido(true)} className='buttonAddInter'><FiPlus size={20} /></button>
                   </div>
-                </div>
+                  </div>
                 : false}
               {campoReceitaFluido
                 ? <div>
@@ -2580,7 +2588,7 @@ export default function
                     value={ReceitaFluido}
                     onChange={(text) => setReceitaFluido(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {camponumeroHastes
                 ? <div>
@@ -2591,7 +2599,7 @@ export default function
                     value={numeroHastes}
                     onChange={(text) => setnumeroHastes(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoprofundidadePlanejada
                 ? <div>
@@ -2601,7 +2609,7 @@ export default function
                     value={profundidadePlanejada}
                     onChange={(text) => setprofundidadePlanejada(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoavancoPlanejado
                 ? <div>
@@ -2611,7 +2619,7 @@ export default function
                     value={avancoPlanejado}
                     onChange={(text) => setavancoPlanejado(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoprofundidadeExecutada
                 ? <div>
@@ -2621,7 +2629,7 @@ export default function
                     value={profundidadeExecutada}
                     onChange={(text) => setprofundidadeExecutada(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoavancoExecutado
                 ? <div>
@@ -2631,7 +2639,7 @@ export default function
                     value={avancoExecutado}
                     onChange={(text) => setavancoExecutado(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoamarracao
@@ -2642,7 +2650,7 @@ export default function
                     value={amarracao}
                     onChange={(text) => setamarracao(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campomaquinaPerfuratriz
                 ? <div>
@@ -2660,7 +2668,7 @@ export default function
                     </select>
                     <button onClick={() => setIsOpenMaquinaPerfuratriz(true)} className='buttonAddInter'><FiPlus size={20} /></button>
                   </div>
-                </div>
+                  </div>
                 : false}
               {campodiametroAlargamento
                 ? <div>
@@ -2670,7 +2678,7 @@ export default function
                     value={diametroAlargamento}
                     onChange={(text) => setdiametroAlargamento(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campotempoHaste
                 ? <div>
@@ -2680,7 +2688,7 @@ export default function
                     value={tempoHaste}
                     onChange={(text) => settempoHaste(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campotempoHaste
                 ? <div>
@@ -2690,7 +2698,7 @@ export default function
                     value={anguloEntrada}
                     onChange={(text) => setAnguloEntrada(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campovazaoBomba
                 ? <div>
@@ -2700,7 +2708,7 @@ export default function
                     value={vazaoBomba}
                     onChange={(text) => setvazaoBomba(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campotipoRedeTubula
                 ? <div>
@@ -2710,7 +2718,7 @@ export default function
                     value={tipoRedeTubula}
                     onChange={(text) => settipoRedeTubula(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campodiametroRede
                 ? <div>
@@ -2720,7 +2728,7 @@ export default function
                     value={diametroRede}
                     onChange={(text) => setdiametroRede(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {campoPortaSonda
@@ -2732,7 +2740,7 @@ export default function
                     value={PortaSonda}
                     onChange={(text) => setPortaSonda(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoHastes
                 ? <div>
@@ -2742,7 +2750,7 @@ export default function
                     value={Hastes}
                     onChange={(text) => setHastes(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoSonda
                 ? <div>
@@ -2752,7 +2760,7 @@ export default function
                     value={Sonda}
                     onChange={(text) => setSonda(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campopaPerfuracao
                 ? <div>
@@ -2762,7 +2770,7 @@ export default function
                     value={paPerfuracao}
                     onChange={(text) => setpaPerfuracao(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoPullingHead
                 ? <div>
@@ -2772,7 +2780,7 @@ export default function
                     value={PullingHead}
                     onChange={(text) => setPullingHead(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoLocalizador
                 ? <div>
@@ -2782,7 +2790,7 @@ export default function
                     value={Localizador}
                     onChange={(text) => setLocalizador(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoLuva
                 ? <div>
@@ -2792,7 +2800,7 @@ export default function
                     value={Luva}
                     onChange={(text) => setLuva(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoHasteInicial
                 ? <div>
@@ -2802,7 +2810,7 @@ export default function
                     value={HasteInicial}
                     onChange={(text) => setHasteInicial(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoFlexobarra
                 ? <div>
@@ -2812,7 +2820,7 @@ export default function
                     value={Flexobarra}
                     onChange={(text) => setFlexobarra(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoRadio
                 ? <div>
@@ -2822,7 +2830,7 @@ export default function
                     value={Radio}
                     onChange={(text) => setRadio(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoParafuso
                 ? <div>
@@ -2832,7 +2840,7 @@ export default function
                     value={Parafuso}
                     onChange={(text) => setParafuso(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campomodeloAlargador
                 ? <div>
@@ -2842,7 +2850,7 @@ export default function
                     value={modeloAlargador}
                     onChange={(text) => setmodeloAlargador(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campocapacidadePortaFusilink
                 ? <div>
@@ -2852,7 +2860,7 @@ export default function
                     value={capacidadePortaFusilink}
                     onChange={(text) => setcapacidadePortaFusilink(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campocapacidadeSwivel
                 ? <div>
@@ -2862,7 +2870,7 @@ export default function
                     value={capacidadeSwivel}
                     onChange={(text) => setcapacidadeSwivel(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoDiametroFerramenta
                 ? <div>
@@ -2872,7 +2880,7 @@ export default function
                     value={DiametroFerramenta}
                     onChange={(text) => setDiametroFerramenta(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoCondicaoFerramenta
                 ? <div>
@@ -2882,7 +2890,7 @@ export default function
                     value={CondicaoFerramenta}
                     onChange={(text) => setCondicaoFerramenta(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {/*
               <div>
@@ -2969,7 +2977,7 @@ export default function
                     <option value='Direita'>Direita</option>
                     <option value='Paralelo'>Paralelo</option>
                   </select>
-                </div>
+                  </div>
                 : false}
 
               {camposInterferencia
@@ -2980,7 +2988,7 @@ export default function
                     value={diametroInterferencia}
                     onChange={(text) => setDiametroInterferencia(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {camposInterferencia
@@ -2991,7 +2999,7 @@ export default function
                     value={tipoInterferencia}
                     onChange={(text) => setTipoInterferencia(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
 
               {camposInterferencia
@@ -3002,7 +3010,7 @@ export default function
                     value={profundidade}
                     onChange={(text) => setprofundidade(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campovalaEntradaLatitude
                 ? <div>
@@ -3012,7 +3020,7 @@ export default function
                     value={valaEntradaLatitude}
                     onChange={(text) => setvalaEntradaLatitude(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campovalaEntradaLongitude
                 ? <div>
@@ -3022,7 +3030,7 @@ export default function
                     value={valaEntradaLongitude}
                     onChange={(text) => setvalaEntradaLongitude(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {/* {campovalaEntradaAltura
                 ? <div>
@@ -3042,7 +3050,7 @@ export default function
                     value={valaEntradaComprimento}
                     onChange={(text) => setvalaEntradaComprimento(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campovalaEntradaProfundidade
                 ? <div>
@@ -3052,7 +3060,7 @@ export default function
                     value={valaEntradaProfundidade}
                     onChange={(text) => setvalaEntradaProfundidade(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campovalaSaidaLatitude
                 ? <div>
@@ -3062,7 +3070,7 @@ export default function
                     value={valaSaidaLatitude}
                     onChange={(text) => setvalaSaidaLatitude(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campovalaSaidaLongitude
                 ? <div>
@@ -3072,7 +3080,7 @@ export default function
                     value={valaSaidaLongitude}
                     onChange={(text) => setvalaSaidaLongitude(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {/* {campovalaSaidaAltura
                 ? <div>
@@ -3092,7 +3100,7 @@ export default function
                     value={valaSaidaComprimento}
                     onChange={(text) => setvalaSaidaComprimento(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campovalaSaidaProfundidade
                 ? <div>
@@ -3102,7 +3110,7 @@ export default function
                     value={valaSaidaProfundidade}
                     onChange={(text) => setvalaSaidaProfundidade(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoprofundidadeMax
                 ? <div>
@@ -3112,7 +3120,7 @@ export default function
                     value={profundidadeMax}
                     onChange={(text) => setprofundidadeMax(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoprofundidadeMin
                 ? <div>
@@ -3122,7 +3130,7 @@ export default function
                     value={profundidadeMin}
                     onChange={(text) => setprofundidadeMin(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
               {campoMaterialRedeTubula
                 ? <div>
@@ -3132,7 +3140,7 @@ export default function
                     value={MaterialRedeTubula}
                     onChange={(text) => setMaterialRedeTubula(text.target.value)}
                   />
-                </div>
+                  </div>
                 : false}
             </S.GridForm>
 
@@ -3147,7 +3155,7 @@ export default function
                         <th>Longitude</th>
                         <th>Profundidade</th>
                         <th>Diâmetro</th>
-                      </tr>
+                        </tr>
                       : false}
 
                     {interferencias.length > 0
@@ -3173,7 +3181,7 @@ export default function
 
                   </table>
                 </div>
-              </>
+                </>
               : false}
             {campoPontosVerificacao
               ? <><h4>Pontos de verificação</h4><button onClick={openModalPontosVerificacao} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button>
@@ -3186,7 +3194,7 @@ export default function
                         <th>Profundidade</th>
                         {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <th>Angulação</th> : false}
                         {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <th>Posição em Horas</th> : false}
-                      </tr>
+                        </tr>
                       : false}
 
                     {pontosVerificacao.length > 0
@@ -3213,32 +3221,32 @@ export default function
                   </table>
                 </div>
 
-              </>
+                </>
               : false}
 
             {!finalizarEtapa
               ? <button onClick={() => { onSubmitLevantamento('todos-campos') }}>{loading
                 ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height='' src={Load}
-                  alt='Loading'
-                />
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height='' src={Load}
+                    alt='Loading'
+                  />
                 : 'Salvar'}
-              </button>
+                </button>
               : false}
             {!finalizarEtapa
               ? idTodosCampos === ''
                 ? <button onClick={() => { toast.info('É preciso salvar a etapa!') }} className='finishPhase'>Finalizar Etapa</button>
                 : <button onClick={() => { updateDados() }} className='finishPhase'>{loading
                   ? <img
-                    width='40px'
-                    style={{ margin: 'auto' }}
-                    height='' src={Load}
-                    alt='Loading'
-                  />
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height='' src={Load}
+                      alt='Loading'
+                    />
                   : 'Finalizar Etapa'}
-                </button>
+                  </button>
               : 'Etapa Finalizada!'}
 
           </S.Div>
@@ -3296,10 +3304,10 @@ export default function
                   src={Load}
                   alt='Loading'
                 />
-              )
+                )
               : (
-                'Salvar'
-              )}
+                  'Salvar'
+                )}
             </button>
           </S.ModelsModal>
 
@@ -3345,17 +3353,17 @@ export default function
 
               {variavelTitulo == 'Execução da Travessia - Furo Piloto'
                 ? <input
-                  type='number' placeholder='Angulacão'
-                  value={angulacao}
-                  onChange={(text) => setAngulacao(text.target.value)}
-                />
+                    type='number' placeholder='Angulacão'
+                    value={angulacao}
+                    onChange={(text) => setAngulacao(text.target.value)}
+                  />
                 : false}
               {variavelTitulo == 'Execução da Travessia - Furo Piloto'
                 ? <input
-                  type='number' placeholder='posicão em Horas'
-                  value={posicaoHoras}
-                  onChange={(text) => setposicaoHoras(text.target.value)}
-                />
+                    type='number' placeholder='posicão em Horas'
+                    value={posicaoHoras}
+                    onChange={(text) => setposicaoHoras(text.target.value)}
+                  />
                 : false}
             </div>
             <button className='save' onClick={() => salvarPontosVerificacao()}>{loading
@@ -3367,10 +3375,10 @@ export default function
                   src={Load}
                   alt='Loading'
                 />
-              )
+                )
               : (
-                'Salvar'
-              )}
+                  'Salvar'
+                )}
             </button>
           </S.ModelsModal>
         </Modal>
@@ -3416,10 +3424,10 @@ export default function
                   src={Load}
                   alt='Loading'
                 />
-              )
+                )
               : (
-                'Salvar'
-              )}
+                  'Salvar'
+                )}
             </button>
           </S.ModelsModal>
         </Modal>
@@ -3463,17 +3471,17 @@ export default function
               />
               {variavelTitulo == 'Execução da Travessia - Furo Piloto'
                 ? <input
-                  type='number' placeholder='Angulacão'
-                  value={angulacao}
-                  onChange={(text) => setAngulacao(text.target.value)}
-                />
+                    type='number' placeholder='Angulacão'
+                    value={angulacao}
+                    onChange={(text) => setAngulacao(text.target.value)}
+                  />
                 : false}
               {variavelTitulo == 'Execução da Travessia - Furo Piloto'
                 ? <input
-                  type='number' placeholder='posicão em Horas'
-                  value={posicaoHoras}
-                  onChange={(text) => setposicaoHoras(text.target.value)}
-                />
+                    type='number' placeholder='posicão em Horas'
+                    value={posicaoHoras}
+                    onChange={(text) => setposicaoHoras(text.target.value)}
+                  />
                 : false}
             </div>
             <button className='save' onClick={() => editarInterferencia('pontos-verificacao/')}>{loading
@@ -3485,10 +3493,10 @@ export default function
                   src={Load}
                   alt='Loading'
                 />
-              )
+                )
               : (
-                'Salvar'
-              )}
+                  'Salvar'
+                )}
             </button>
           </S.ModelsModal>
         </Modal>
@@ -3553,10 +3561,10 @@ export default function
                   src={Load}
                   alt='Loading'
                 />
-              )
+                )
               : (
-                'Salvar'
-              )}
+                  'Salvar'
+                )}
             </button>
           </S.ModelsModal>
 
@@ -3799,11 +3807,11 @@ export default function
             </S.GridForm>
             <button onClick={() => onSubmitInterferenciasFisicasMagneticas()}>{loading
               ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height='' src={Load}
-                alt='Loading'
-              />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height='' src={Load}
+                  alt='Loading'
+                />
               : 'Salvar'}
             </button>
           </S.Div>
@@ -3920,10 +3928,10 @@ export default function
                 src={Load}
                 alt='Loading'
               />
-            )
+              )
             : (
-              'Salvar'
-            )}
+                'Salvar'
+              )}
           </button>
         </S.PhasesModal>
 
@@ -4139,12 +4147,12 @@ export default function
               type='submit'
             >{loading
               ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height=''
-                src={Load}
-                alt='Loading'
-              />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height=''
+                  src={Load}
+                  alt='Loading'
+                />
               : 'Salvar'}
             </button>
           </S.Form>
@@ -4189,12 +4197,12 @@ export default function
           <S2.Btns>
             <button onClick={() => onSubmitLevantamento('user')}>{loading
               ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height=''
-                src={Load}
-                alt='Loading'
-              />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height=''
+                  src={Load}
+                  alt='Loading'
+                />
               : 'Salvar'}
             </button>
             <button onClick={() => setIsOpenInvite(false)}>Cancelar</button>
@@ -4375,7 +4383,7 @@ export default function
                   {/* <h2>{data.tipoEtapa}</h2> */}
                   <h1>{data.tipoEtapa}</h1>
                 </Link>
-              </SwiperSlide>
+              </SwiperSlide>,
             )
             : <p>🤔 Nenhuma Etapa cadastrada!</p>}
           {/* <Link to={'/preencher-fases/'+idConfigTravessia.split('etapas/')[1]}>
@@ -4400,12 +4408,15 @@ export default function
         <form>
           <span>Nova etapa</span><br />
           {/* <input placeholder='Nome da travessia' type='text' /> */}
-          <input placeholder='Descrição' type='text'
+          <input
+            placeholder='Descrição' type='text'
             value={descricao}
-            onChange={(text) => setDescricao(text.target.value)} />
+            onChange={(text) => setDescricao(text.target.value)}
+          />
           <select
             value={etapa}
-            onChange={(text) => setEtapa(text.target.value)}>
+            onChange={(text) => setEtapa(text.target.value)}
+          >
             <option selected disabled>Selecione uma etapa</option>
             {/* <option value='1'>Levantamento e Mapeamento de Interferências</option> */}
             <option value='2'>Planejamento da Travessia</option>
@@ -4427,10 +4438,11 @@ export default function
                 src={Load}
                 alt='Loading'
               />
-            )
+              )
             : (
-              'Adicionar'
-            )}</button>
+                'Adicionar'
+              )}
+          </button>
         </form>
       </S.ContainerNone>
 
@@ -4482,12 +4494,15 @@ export default function
         </button>
         <form>
           {/* <input placeholder='Nome da travessia' type='text' /> */}
-          <input placeholder='Descrição' type='text'
+          <input
+            placeholder='Descrição' type='text'
             value={descricao}
-            onChange={(text) => setDescricao(text.target.value)} />
+            onChange={(text) => setDescricao(text.target.value)}
+          />
           <select
             value={etapa}
-            onChange={(text) => setEtapa(text.target.value)}>
+            onChange={(text) => setEtapa(text.target.value)}
+          >
             <option selected disabled>Selecione uma etapa</option>
             {/* <option value='1'>Levantamento e Mapeamento de Interferências</option> */}
             <option value='2'>Planejamento da Travessia</option>
@@ -4509,10 +4524,11 @@ export default function
                 src={Load}
                 alt='Loading'
               />
-            )
+              )
             : (
-              'Salvar'
-            )}</button>
+                'Salvar'
+              )}
+          </button>
         </form>
       </Modal>
     </>

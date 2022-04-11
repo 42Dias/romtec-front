@@ -16,8 +16,8 @@ import { api } from '../../services/api'
 import EditButton from '../../ui/Components/EditButton/EditButton'
 import { FaEdit } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-const { Option } = Select
 import Load from './../../assets/load.gif'
+const { Option } = Select
 
 type FormData = {
   descricao: string;
@@ -30,7 +30,7 @@ ConfigurationCrossing () {
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
   // eslint-disable-next-line
   const [loading, setLoading] = useState(false)
-  // eslint-disable-next-line 
+  // eslint-disable-next-line
   const [travessia, setTravessia] = useState<any[]>([])
   const [idconfigTravessia, setIdconfigTravessia] = useState('')
   const [descricao, setdescricao] = useState('')
@@ -142,10 +142,10 @@ ConfigurationCrossing () {
         <h2>Configurações da travessia</h2>
         <button onClick={() => setIsOpen(true)}><FiPlus /></button>
 
-        <S.GridConfirmation>
+        <S.GridConfirmationGrid>
           <span>Nome da configuração</span>
           <span>Descrição</span>
-        </S.GridConfirmation>
+        </S.GridConfirmationGrid>
 
         <ul>
           <li>

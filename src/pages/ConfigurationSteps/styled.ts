@@ -1,101 +1,92 @@
 import styled from 'styled-components/macro'
 import { theme } from '../../ui'
 
-export const ContainerConfirmation = styled.div`
-  width: 100%;
-  height: 100%;
-  padding: 50px 15px;
+export const ContainerConfirmation = styled.div`  width: 100%;
+height: 100%;
+padding: 50px 15px;
 
-  ul {
-    list-style-type: none;
-  }
+ul {
+  list-style-type: none;
+}
 
-  h2 {
-    color: ${theme.colors.white};
-    font-size: 24px;
-    padding: 20px 0;
-  }
-
-  p {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 80px;
-    font-size: 20px;
-  }
-
-  button {
-    width: 54px;
-    height: 44px;
-    border-radius: 5px;
-    background: ${theme.colors.green};
-    border: 0;
-    transition: 1s;
-    position: relative;
-    top: 0;
-    margin: 0 0 20px 0;
-
-    :hover {
-      opacity: 80%;
-    }
-  }
-
-  a {
-    width: 155px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-    background-color: ${theme.colors.yellow};
-    margin-bottom: 20px;
-
-    span {
-      color: ${theme.colors.black};
-      font-weight: bold;
-    }
-  }
-`
-
-export const GridConfirmation = styled.div`
-  display: grid;
-  grid-template-columns: repeat(9, 1fr);
-  justify-items: center;
-  align-items: center;
-  background-color: ${theme.colors.black};
-  padding: 20px;
-  border-radius: 5px;
-  margin-bottom: 13px;
-
-  button {
-    font-size: 14px;
-    color: ${theme.colors.white};
-    transition: 1s;
-    width: 155px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-    background-color: ${theme.colors.yellow};
-    margin-bottom: 20px;
-    color: ${theme.colors.black};
-    font-weight: bold;
-
-
-    :hover {
-      opacity: 80%;
-    }
-  }
-
-  
+h2 {
+  color: ${theme.colors.white};
+  font-size: 24px;
+  padding: 20px 0;
 
   @media (max-width: 520px) {
-    overflow: auto;
-    span {
-      margin: 0 30px;
-    }
+    font-size: 18px;
   }
+}
+
+p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 80px;
+  font-size: 20px;
+}
+
+button {
+  width: 54px;
+  height: 44px;
+  border-radius: 5px;
+  background: ${theme.colors.green};
+  border: 0;
+  transition: 1s;
+  position: relative;
+  top: 0;
+  /* margin: 0 0 5px 0; */
+
+  :hover {
+    opacity: 80%;
+  }
+}
+
+a {
+  width: 155px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  background-color: ${theme.colors.yellow};
+  /* margin-bottom: 20px; */
+
+  span {
+    color: ${theme.colors.black};
+    font-weight: bold;
+  }
+}
+`
+
+export const GridConfirmation = styled.div`  display: grid;
+grid-template-columns: repeat(5, 1fr);
+justify-items: center;
+align-items: center;
+background-color: ${theme.colors.black};
+padding: 20px;
+border-radius: 5px;
+margin-bottom: 13px;
+
+margin: 10px 0;
+
+span {
+  font-size: 14px;
+  color: ${theme.colors.white};
+  transition: 1s;
+
+  :hover {
+    opacity: 80%;
+  }
+}
+
+@media (max-width: 520px) {
+  overflow: auto;
+  span {
+    margin: 0 30px;
+  }
+}
 `
 
 export const Form = styled.form`

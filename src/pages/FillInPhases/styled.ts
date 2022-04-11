@@ -206,6 +206,7 @@ export const Container = styled.div`
       width: 200%;
       table-layout: fixed;
       @media (max-width: 520px) {
+        width: 100%;
         overflow: auto;
         span {
           margin: 0 30px;

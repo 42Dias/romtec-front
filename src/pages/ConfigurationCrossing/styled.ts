@@ -14,6 +14,10 @@ export const ContainerConfirmation = styled.div`
     color: ${theme.colors.white};
     font-size: 24px;
     padding: 20px 0;
+
+    @media (max-width: 520px) {
+      font-size: 18px;
+    }
   }
 
   p {
@@ -33,7 +37,7 @@ export const ContainerConfirmation = styled.div`
     transition: 1s;
     position: relative;
     top: 0;
-    margin: 0 0 20px 0;
+    /* margin: 0 0 5px 0; */
 
     :hover {
       opacity: 80%;
@@ -48,7 +52,7 @@ export const ContainerConfirmation = styled.div`
     justify-content: center;
     border-radius: 5px;
     background-color: ${theme.colors.yellow};
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 
     span {
       color: ${theme.colors.black};
@@ -57,9 +61,39 @@ export const ContainerConfirmation = styled.div`
   }
 `
 
+export const GridConfirmationGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  justify-items: center;
+  align-items: center;
+  background-color: ${theme.colors.black};
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 13px;
+
+  margin: 10px 0;
+
+  span {
+    font-size: 14px;
+    color: ${theme.colors.white};
+    transition: 1s;
+
+    :hover {
+      opacity: 80%;
+    }
+  }
+
+  @media (max-width: 520px) {
+    overflow: auto;
+    span {
+      margin: 0 30px;
+    }
+  }
+`
+
 export const GridConfirmation = styled.div`
   display: grid;
-  grid-template-columns: repeat(7, 1fr)  ;
+  grid-template-columns: repeat(5, 1fr);
   justify-items: center;
   align-items: center;
   background-color: ${theme.colors.black};

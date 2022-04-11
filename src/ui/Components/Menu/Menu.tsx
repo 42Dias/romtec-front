@@ -29,7 +29,7 @@ const Menu = ({ children, onClose }: Props) => {
           <li>
             <Link to='/configuracao-da-travessia'>Config. da travessia</Link>
           </li>
-          <li >
+          <li>
             <Link to='/execucao-da-travessia'>Execução da travessia</Link>
           </li>
           {/* <li className='exec-mobile'>
@@ -72,10 +72,10 @@ const Menu = ({ children, onClose }: Props) => {
           <li>
             <Link to='/planos'>Planos</Link>
           </li>
-          <h4><FiClipboard size={20} />Relatórios</h4>
+          {/* <h4><FiClipboard size={20} />Relatórios</h4>
           <li>
             <Link to='/relatorios'>Relatórios</Link>
-          </li>
+          </li> */}
         </S.List>
       </S.Container>
       {children}

@@ -158,9 +158,15 @@ export const ContainerModal = styled.div`
   h1 {
     text-align: center;
   }
+
   @media (max-width: 520px) {
     margin: 0;
+
+    h1 {
+      font-size: 22px;
+    }
   }
+
   button {
     margin: 10px 20px;
     @media (max-width: 520px) {

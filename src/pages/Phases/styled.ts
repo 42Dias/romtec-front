@@ -349,6 +349,7 @@ export const GridForm = styled.div`
         max-width: 330px;
       }
     }
+
     textarea {
       width: 480px;
       height: 48px;
@@ -371,6 +372,7 @@ export const GridForm = styled.div`
         max-width: 330px;
       }
     }
+
     select {
       width: 480px;
       height: 48px;
@@ -391,16 +393,13 @@ export const GridForm = styled.div`
         background: transparent;
       } 
     }
-
-
-
   }
   .selectPlus {
     display: flex;
     flex-direction: row;
+    
     select {
       width: 415px;
-
       @media(max-width: 520px) {
         margin: 10px 0;
         margin-right: 50px;
@@ -410,9 +409,33 @@ export const GridForm = styled.div`
       }
     }
 
+    .ant-select-selection-search {
+      width: 100% !important;
+    }
+
+    .ant-select-selection-overflow {width: 100% !important; }
+
+    .ant-select-selection-overflow-item {
+      width: 100% !important;
+      margin: 5px 0 !important;
+    }
+
+    .ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+      height: 44px !important;
+      position: relative;
+      bottom: 9px;
+      background: transparent !important; 
+      border-radius: 5px !important;
+      border: 1px solid #252332 !important;
+    } 
+
+    .ant-select-selection-overflow {
+      margin: 0 !important;
+    }
+
     .select {
       width: 415px !important;
-      height: 20px !important;
+      margin: 0 !important;
       @media(max-width: 520px) {
         margin: 10px 0;
         margin-right: 50px;
@@ -420,6 +443,7 @@ export const GridForm = styled.div`
         width: 100% !important;
         max-width: 380px;
       }
+
     }
 
     button {
