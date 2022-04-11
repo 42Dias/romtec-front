@@ -221,6 +221,7 @@ export const Container = styled.div`
       background: transparent !important; 
       border-radius: 5px !important;
       border: 1px solid #252332 !important;
+      margin-top: 17px;
     } 
 
     .ant-select-selection-overflow {
