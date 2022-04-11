@@ -431,6 +431,10 @@ export const GridForm = styled.div`
 
     .ant-select-selection-overflow {
       margin: 0 !important;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      /* grid-template-columns: 1fr; */
+      overflow: hidden;
     }
 
     .select {

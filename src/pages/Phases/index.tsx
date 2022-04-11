@@ -1905,7 +1905,7 @@ Phases () {
                     </select>
                     <button onClick={() => setIsOpenInvite(true)} className='buttonAddInter'><FiPlus size={20} /></button>
                   </div>
-                  </div>
+                </div>
                 : false}
               {campodataExecucao
                 ? <div>
@@ -1915,7 +1915,7 @@ Phases () {
                     value={dataExecucao}
                     onChange={(text) => setdataExecucao(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {camporesponsavelExecucao
                 ? <div>
@@ -1926,7 +1926,7 @@ Phases () {
                     value={responsavelExecucao}
                     onChange={(text) => setresponsavelExecucao(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campohoraExecucao
                 ? <div>
@@ -1936,7 +1936,7 @@ Phases () {
                     value={horaExecucao}
                     onChange={(text) => sethoraExecucao(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoEntradaLatitude
                 ? <div>
@@ -1946,7 +1946,7 @@ Phases () {
                     value={latitudeEntrada}
                     onChange={(text) => setlatitudeEntrada(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoEntradaLongitude
@@ -1957,7 +1957,7 @@ Phases () {
                     value={longitudeEntrada}
                     onChange={(text) => setlongitudeEntrada(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoprofundidadeEntrada
                 ? <div>
@@ -1967,7 +1967,7 @@ Phases () {
                     value={profundidadeEntrada}
                     onChange={(text) => setprofundidadeEntrada(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoSaidaLatitude
                 ? <div>
@@ -1977,7 +1977,7 @@ Phases () {
                     value={latitudeSaida}
                     onChange={(text) => setlatitudeSaida(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoSaidaLongitude
@@ -1988,7 +1988,7 @@ Phases () {
                     value={longitudeSaida}
                     onChange={(text) => setlongitudeSaida(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoprofundidadeSaida
                 ? <div>
@@ -1998,7 +1998,7 @@ Phases () {
                     value={profundidadeSaida}
                     onChange={(text) => setprofundidadeSaida(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoTipoSolo
                 ? <div>
@@ -2021,7 +2021,7 @@ Phases () {
                     </select>
                     <button onClick={() => setIsOpenTipoSolo(true)} className='buttonAddInter'><FiPlus size={20} /></button>
                   </div>
-                  </div>
+                </div>
                 : false}
 
               {campoDiametroPerfuracao
@@ -2032,7 +2032,7 @@ Phases () {
                     value={diametroPerfuracao}
                     onChange={(text) => setdiametroPerfuracao(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoTipoRede
@@ -2054,7 +2054,7 @@ Phases () {
                     <option value='Tubo gás aço'>Tubo gás aço</option>
                     <option value='Tubo gás esgoto'>Tubo gás esgoto</option>
                   </select>
-                  </div>
+                </div>
                 : false}
 
               {campoTipoTubulacao
@@ -2065,7 +2065,7 @@ Phases () {
                     value={tipoTubulacao}
                     onChange={(text) => settipoTubulacao(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoResponsel
@@ -2076,7 +2076,7 @@ Phases () {
                     value={responsavel}
                     onChange={(text) => setresponsavel(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoEquipamento
@@ -2087,7 +2087,7 @@ Phases () {
                     value={equipamentos}
                     onChange={(text) => setequipamentos(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoDocumento
@@ -2130,7 +2130,7 @@ Phases () {
                     /><br /><br />
 
                   </form>
-                  </div>
+                </div>
                 : false}
               {campoConfirmacaoProcedimento
                 ? <div>
@@ -2140,7 +2140,7 @@ Phases () {
                     value={ConfirmacaoProcedimento}
                     onChange={(text) => setConfirmacaoProcedimento(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoVolumePreparado
                 ? <div>
@@ -2150,7 +2150,7 @@ Phases () {
                     value={VolumePreparado}
                     onChange={(text) => setVolumePreparado(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoTesteVicosidade
                 ? <div>
@@ -2160,7 +2160,7 @@ Phases () {
                     value={TesteVicosidade}
                     onChange={(text) => setTesteVicosidade(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoSondagemInterferencia
                 ? <div>
@@ -2170,7 +2170,7 @@ Phases () {
                     value={sondagemInterferencia}
                     onChange={(text) => setsondagemInterferencia(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoSondagem
                 ? <div>
@@ -2180,7 +2180,7 @@ Phases () {
                     value={sondagem}
                     onChange={(text) => setsondagem(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoPlanoFuro
@@ -2191,7 +2191,7 @@ Phases () {
                     value={criacaoplanoFuro}
                     onChange={(text) => setcriacaoplanoFuro(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoFerramentas
                 ? <div>
@@ -2201,7 +2201,7 @@ Phases () {
                       className='select'
                       mode='multiple'
                       placeholder='Selecione...'
-                      onChange={(text) => setferramentas(text.target.value)}
+                      onChange={(text) => setferramentas(text)}
                     >
                       {ferramentasList.length > 0
                         ? ferramentasList.map((ferramenta) =>
@@ -2244,7 +2244,7 @@ Phases () {
                     <button onClick={openModalFerramenta} className='buttonAddInter'><FiPlus size={20} /></button>
                   </div>
 
-                  </div>
+                </div>
                 : false}
 
               {campoInfoEnvolvidas
@@ -2255,7 +2255,7 @@ Phases () {
                     value={infoEnvolvidas}
                     onChange={(text) => setInfoEnvolvidas(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoDiametro
@@ -2266,7 +2266,7 @@ Phases () {
                     value={diametroPerfuracao}
                     onChange={(text) => setdiametroPerfuracao(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoLocalizaDiretrizFuro
@@ -2277,7 +2277,7 @@ Phases () {
                     value={localDiretrizFuro}
                     onChange={(text) => setLocalDiretrizFuro(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoResponselTopografia
@@ -2288,7 +2288,7 @@ Phases () {
                     value={respTopografia}
                     onChange={(text) => setRespTopografia(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoDataTopografia
@@ -2299,7 +2299,7 @@ Phases () {
                     value={dataTopografia}
                     onChange={(text) => setDataTopografia(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoEmpresa
@@ -2310,7 +2310,7 @@ Phases () {
                     value={empresa}
                     onChange={(text) => setempresa(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {/* {camponomePerfilAcesso
@@ -2397,7 +2397,7 @@ Phases () {
                     /><br /><br />
 
                   </form>
-                  </div>
+                </div>
                 : false}
 
               {campoequipamentoUtilizado
@@ -2408,7 +2408,7 @@ Phases () {
                     value={equipamentoUtilizado}
                     onChange={(text) => setequipamentoUtilizado(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campomaterializacaoCampo
@@ -2419,7 +2419,7 @@ Phases () {
                     value={materializacaoCampo}
                     onChange={(text) => setmaterializacaoCampo(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoquantidadeInterferencias
@@ -2430,7 +2430,7 @@ Phases () {
                     value={quantidadeInterferencias}
                     onChange={(text) => setquantidadeInterferencias(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoparaleloEsquerda
@@ -2442,7 +2442,7 @@ Phases () {
                     value={paraleloEsquerda}
                     onChange={(text) => setparaleloEsquerda(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoparaleloDireita
                 ? <div>
@@ -2452,7 +2452,7 @@ Phases () {
                     value={paraleloDireita}
                     onChange={(text) => setparaleloDireita(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoperpendicular
                 ? <div>
@@ -2462,7 +2462,7 @@ Phases () {
                     value={perpendicular}
                     onChange={(text) => setperpendicular(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoProfundidade
                 ? <div>
@@ -2472,7 +2472,7 @@ Phases () {
                     value={profundidade}
                     onChange={(text) => setprofundidade(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoDiametroInterferencia
                 ? <div>
@@ -2482,7 +2482,7 @@ Phases () {
                     value={diametroInterferencia}
                     onChange={(text) => setDiametroInterferencia(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {/* {campoTipoInterferencia
@@ -2503,7 +2503,7 @@ Phases () {
                     value={EmpresaProprietaria}
                     onChange={(text) => setEmpresaProprietaria(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campolargura
                 ? <div>
@@ -2514,7 +2514,7 @@ Phases () {
                     value={largura}
                     onChange={(text) => setlargura(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campocomprimento
                 ? <div>
@@ -2524,7 +2524,7 @@ Phases () {
                     value={comprimento}
                     onChange={(text) => setcomprimento(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoprofundidadeVala
                 ? <div>
@@ -2534,7 +2534,7 @@ Phases () {
                     value={profundidadeVala}
                     onChange={(text) => setprofundidadeVala(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoestacaReferencia
@@ -2545,7 +2545,7 @@ Phases () {
                     value={estacaReferencia}
                     onChange={(text) => setestacaReferencia(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoSondagemInterferencia
                 ? <div>
@@ -2555,7 +2555,7 @@ Phases () {
                     value={sondagemInterferencia}
                     onChange={(text) => setestacaReferencia(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoFluido
                 ? <div>
@@ -2578,7 +2578,7 @@ Phases () {
                     </select>
                     <button onClick={() => setIsOpenFluido(true)} className='buttonAddInter'><FiPlus size={20} /></button>
                   </div>
-                  </div>
+                </div>
                 : false}
               {campoReceitaFluido
                 ? <div>
@@ -2588,7 +2588,7 @@ Phases () {
                     value={ReceitaFluido}
                     onChange={(text) => setReceitaFluido(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {camponumeroHastes
                 ? <div>
@@ -2599,7 +2599,7 @@ Phases () {
                     value={numeroHastes}
                     onChange={(text) => setnumeroHastes(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoprofundidadePlanejada
                 ? <div>
@@ -2609,7 +2609,7 @@ Phases () {
                     value={profundidadePlanejada}
                     onChange={(text) => setprofundidadePlanejada(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoavancoPlanejado
                 ? <div>
@@ -2619,7 +2619,7 @@ Phases () {
                     value={avancoPlanejado}
                     onChange={(text) => setavancoPlanejado(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoprofundidadeExecutada
                 ? <div>
@@ -2629,7 +2629,7 @@ Phases () {
                     value={profundidadeExecutada}
                     onChange={(text) => setprofundidadeExecutada(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoavancoExecutado
                 ? <div>
@@ -2639,7 +2639,7 @@ Phases () {
                     value={avancoExecutado}
                     onChange={(text) => setavancoExecutado(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoamarracao
@@ -2650,7 +2650,7 @@ Phases () {
                     value={amarracao}
                     onChange={(text) => setamarracao(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campomaquinaPerfuratriz
                 ? <div>
@@ -2668,7 +2668,7 @@ Phases () {
                     </select>
                     <button onClick={() => setIsOpenMaquinaPerfuratriz(true)} className='buttonAddInter'><FiPlus size={20} /></button>
                   </div>
-                  </div>
+                </div>
                 : false}
               {campodiametroAlargamento
                 ? <div>
@@ -2678,7 +2678,7 @@ Phases () {
                     value={diametroAlargamento}
                     onChange={(text) => setdiametroAlargamento(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campotempoHaste
                 ? <div>
@@ -2688,7 +2688,7 @@ Phases () {
                     value={tempoHaste}
                     onChange={(text) => settempoHaste(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campotempoHaste
                 ? <div>
@@ -2698,7 +2698,7 @@ Phases () {
                     value={anguloEntrada}
                     onChange={(text) => setAnguloEntrada(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campovazaoBomba
                 ? <div>
@@ -2708,7 +2708,7 @@ Phases () {
                     value={vazaoBomba}
                     onChange={(text) => setvazaoBomba(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campotipoRedeTubula
                 ? <div>
@@ -2718,7 +2718,7 @@ Phases () {
                     value={tipoRedeTubula}
                     onChange={(text) => settipoRedeTubula(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campodiametroRede
                 ? <div>
@@ -2728,7 +2728,7 @@ Phases () {
                     value={diametroRede}
                     onChange={(text) => setdiametroRede(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoPortaSonda
@@ -2740,7 +2740,7 @@ Phases () {
                     value={PortaSonda}
                     onChange={(text) => setPortaSonda(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoHastes
                 ? <div>
@@ -2750,7 +2750,7 @@ Phases () {
                     value={Hastes}
                     onChange={(text) => setHastes(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoSonda
                 ? <div>
@@ -2760,7 +2760,7 @@ Phases () {
                     value={Sonda}
                     onChange={(text) => setSonda(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campopaPerfuracao
                 ? <div>
@@ -2770,7 +2770,7 @@ Phases () {
                     value={paPerfuracao}
                     onChange={(text) => setpaPerfuracao(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoPullingHead
                 ? <div>
@@ -2780,7 +2780,7 @@ Phases () {
                     value={PullingHead}
                     onChange={(text) => setPullingHead(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoLocalizador
                 ? <div>
@@ -2790,7 +2790,7 @@ Phases () {
                     value={Localizador}
                     onChange={(text) => setLocalizador(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoLuva
                 ? <div>
@@ -2800,7 +2800,7 @@ Phases () {
                     value={Luva}
                     onChange={(text) => setLuva(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoHasteInicial
                 ? <div>
@@ -2810,7 +2810,7 @@ Phases () {
                     value={HasteInicial}
                     onChange={(text) => setHasteInicial(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoFlexobarra
                 ? <div>
@@ -2820,7 +2820,7 @@ Phases () {
                     value={Flexobarra}
                     onChange={(text) => setFlexobarra(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoRadio
                 ? <div>
@@ -2830,7 +2830,7 @@ Phases () {
                     value={Radio}
                     onChange={(text) => setRadio(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoParafuso
                 ? <div>
@@ -2840,7 +2840,7 @@ Phases () {
                     value={Parafuso}
                     onChange={(text) => setParafuso(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campomodeloAlargador
                 ? <div>
@@ -2850,7 +2850,7 @@ Phases () {
                     value={modeloAlargador}
                     onChange={(text) => setmodeloAlargador(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campocapacidadePortaFusilink
                 ? <div>
@@ -2860,7 +2860,7 @@ Phases () {
                     value={capacidadePortaFusilink}
                     onChange={(text) => setcapacidadePortaFusilink(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campocapacidadeSwivel
                 ? <div>
@@ -2870,7 +2870,7 @@ Phases () {
                     value={capacidadeSwivel}
                     onChange={(text) => setcapacidadeSwivel(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoDiametroFerramenta
                 ? <div>
@@ -2880,7 +2880,7 @@ Phases () {
                     value={DiametroFerramenta}
                     onChange={(text) => setDiametroFerramenta(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoCondicaoFerramenta
                 ? <div>
@@ -2890,7 +2890,7 @@ Phases () {
                     value={CondicaoFerramenta}
                     onChange={(text) => setCondicaoFerramenta(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {/*
               <div>
@@ -2977,7 +2977,7 @@ Phases () {
                     <option value='Direita'>Direita</option>
                     <option value='Paralelo'>Paralelo</option>
                   </select>
-                  </div>
+                </div>
                 : false}
 
               {camposInterferencia
@@ -2988,7 +2988,7 @@ Phases () {
                     value={diametroInterferencia}
                     onChange={(text) => setDiametroInterferencia(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {camposInterferencia
@@ -2999,7 +2999,7 @@ Phases () {
                     value={tipoInterferencia}
                     onChange={(text) => setTipoInterferencia(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {camposInterferencia
@@ -3010,7 +3010,7 @@ Phases () {
                     value={profundidade}
                     onChange={(text) => setprofundidade(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campovalaEntradaLatitude
                 ? <div>
@@ -3020,7 +3020,7 @@ Phases () {
                     value={valaEntradaLatitude}
                     onChange={(text) => setvalaEntradaLatitude(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campovalaEntradaLongitude
                 ? <div>
@@ -3030,7 +3030,7 @@ Phases () {
                     value={valaEntradaLongitude}
                     onChange={(text) => setvalaEntradaLongitude(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {/* {campovalaEntradaAltura
                 ? <div>
@@ -3050,7 +3050,7 @@ Phases () {
                     value={valaEntradaComprimento}
                     onChange={(text) => setvalaEntradaComprimento(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campovalaEntradaProfundidade
                 ? <div>
@@ -3060,7 +3060,7 @@ Phases () {
                     value={valaEntradaProfundidade}
                     onChange={(text) => setvalaEntradaProfundidade(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campovalaSaidaLatitude
                 ? <div>
@@ -3070,7 +3070,7 @@ Phases () {
                     value={valaSaidaLatitude}
                     onChange={(text) => setvalaSaidaLatitude(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campovalaSaidaLongitude
                 ? <div>
@@ -3080,7 +3080,7 @@ Phases () {
                     value={valaSaidaLongitude}
                     onChange={(text) => setvalaSaidaLongitude(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {/* {campovalaSaidaAltura
                 ? <div>
@@ -3100,7 +3100,7 @@ Phases () {
                     value={valaSaidaComprimento}
                     onChange={(text) => setvalaSaidaComprimento(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campovalaSaidaProfundidade
                 ? <div>
@@ -3110,7 +3110,7 @@ Phases () {
                     value={valaSaidaProfundidade}
                     onChange={(text) => setvalaSaidaProfundidade(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoprofundidadeMax
                 ? <div>
@@ -3120,7 +3120,7 @@ Phases () {
                     value={profundidadeMax}
                     onChange={(text) => setprofundidadeMax(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoprofundidadeMin
                 ? <div>
@@ -3130,7 +3130,7 @@ Phases () {
                     value={profundidadeMin}
                     onChange={(text) => setprofundidadeMin(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoMaterialRedeTubula
                 ? <div>
@@ -3140,7 +3140,7 @@ Phases () {
                     value={MaterialRedeTubula}
                     onChange={(text) => setMaterialRedeTubula(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
             </S.GridForm>
 
@@ -3155,7 +3155,7 @@ Phases () {
                         <th>Longitude</th>
                         <th>Profundidade</th>
                         <th>Diâmetro</th>
-                        </tr>
+                      </tr>
                       : false}
 
                     {interferencias.length > 0
@@ -3181,7 +3181,7 @@ Phases () {
 
                   </table>
                 </div>
-                </>
+              </>
               : false}
             {campoPontosVerificacao
               ? <><h4>Pontos de verificação</h4><button onClick={openModalPontosVerificacao} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button>
@@ -3194,7 +3194,7 @@ Phases () {
                         <th>Profundidade</th>
                         {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <th>Angulação</th> : false}
                         {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <th>Posição em Horas</th> : false}
-                        </tr>
+                      </tr>
                       : false}
 
                     {pontosVerificacao.length > 0
@@ -3221,7 +3221,7 @@ Phases () {
                   </table>
                 </div>
 
-                </>
+              </>
               : false}
 
             {!finalizarEtapa
@@ -3233,7 +3233,7 @@ Phases () {
                     alt='Loading'
                   />
                 : 'Salvar'}
-                </button>
+              </button>
               : false}
             {!finalizarEtapa
               ? idTodosCampos === ''
@@ -3246,7 +3246,7 @@ Phases () {
                       alt='Loading'
                     />
                   : 'Finalizar Etapa'}
-                  </button>
+                </button>
               : 'Etapa Finalizada!'}
 
           </S.Div>
