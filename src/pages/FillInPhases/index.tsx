@@ -1472,7 +1472,7 @@ export default function FillInPhases() {
         Sondagem: sondagem,
         DiametroInterferencia: diametroPerfuracao,
         CriacaoPlanoFuro: criacaoplanoFuro,
-        Ferramentas: ferramentas,
+        //Ferramentas: ferramentas,
         InformacoesEnvolvidas: infoEnvolvidas,
         Diametro: diametroPerfuracao,
         LocalRelDiretrizFuro: localDiretrizFuro,
