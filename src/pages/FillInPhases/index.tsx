@@ -949,7 +949,7 @@ export default function FillInPhases() {
         ferramentas.map(async (ferramenta) => {
           try {
             const data = {
-              travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1],
+              travessiaId: idConfigTravessia.replace('#/preencher-fases/', '').split('/')[1],
               ferramentaId: ferramenta.split('/')[0],
               nome: ferramenta.split('/')[1],
             }
@@ -1115,7 +1115,7 @@ export default function FillInPhases() {
       // toast.error(res.response.data);
       setLoading(false)
     })
-    api.get(`graficoTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
+    api.get(`graficoTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/preencher-fases/', '').split('/')[1]}`,
     ).then((response) => {
       if (response.statusText === 'OK') {
         // console.log(response.data.rows)
@@ -1333,7 +1333,7 @@ export default function FillInPhases() {
         // toast.error(res.response.data);
         setLoading(false)
       })
-      api.get(`ferramentasTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
+      api.get(`ferramentasTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/preencher-fases/', '').split('/')[1]}`,
       ).then((response) => {
         if (response.statusText === 'OK') {
           console.log(response.data.rows)
@@ -1671,7 +1671,7 @@ export default function FillInPhases() {
       tipoInterferencia: tipoInterferencia,
       localizacao: localizacao,
       angulacao: angulacao,
-      idTravessia: idConfigTravessia.replace('#/etapas/', '').split('/')[1],
+      idTravessia: idConfigTravessia.replace('#/preencher-fases/', '').split('/')[1],
       idTodosCampos: idTodosCampos,
       idEtapa: idEtapa,
       ordem: localizacao,
@@ -3065,7 +3065,7 @@ export default function FillInPhases() {
             </>
             : false}
           {campoFerramentas
-            ? <><h4>Ferramentas selecionadas</h4>
+            ? <><br/><h4>Ferramentas selecionadas</h4>
               {/* <button onClick={openModalInterferencia} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button> */}
               <div style={{ overflow: 'auto' }}>
                 <table >
@@ -3090,10 +3090,11 @@ export default function FillInPhases() {
                           </button>
                         </td> */}
                       </tr>)
-                    : 'Nenhuma interferencia cadastrada!'}
+                    : 'Nenhuma ferramenta selecionada!'}
 
                 </table>
               </div>
+              <br/>
             </>
             : false}
           {campoPontosVerificacao
