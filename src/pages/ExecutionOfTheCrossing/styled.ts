@@ -165,7 +165,6 @@ export const Form = styled.form`
   @media (max-width: 520px) {
     grid-template-columns: 1fr;
   }
-
   button {
     width: 101px;
     height: 44px;
@@ -192,6 +191,7 @@ grid-template-columns: 1fr 1fr;
 
 @media (max-width: 520px) {
   grid-template-columns: 1fr;
+  padding: 30px;
 }
 
 .first {

@@ -458,7 +458,10 @@ export const GridForm = styled.div`
       justify-content: center;
     }
   }
-  
+  .myChartDiv {
+    max-width: 600px;
+    max-height: 400px;
+  }
 `
 
 export const PhasesModal = styled.div`

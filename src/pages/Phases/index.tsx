@@ -22,7 +22,17 @@ import { string } from 'yup'
 import { Link } from 'react-router-dom'
 import { Select, Radio, List, Typography, Divider } from 'antd'
 import 'antd/dist/antd.css'
-
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
 SwiperCore.use([Pagination, Navigation])
 
 type FormData = {
@@ -65,7 +75,7 @@ type FormData = {
   indicePlasticidade: string;
 }
 export default function
-Phases () {
+  Phases() {
   const [modalIsOpenPhase, setIsOpenPhase] = useState(false)
   const [modalIsOpenInterferencia, setIsOpenInterferencia] = useState(false)
   const [modalIsOpenVerificacao, setIsOpenVerificacao] = useState(false)
@@ -81,50 +91,50 @@ Phases () {
   const [isOpenModalAdd, setIsOpenModalAdd] = useState(false)
   const { Option } = Select
 
-  function openModalEdit () {
+  function openModalEdit() {
     setIsOpenModalEdit(true)
   }
 
-  function closeModalEdit () {
+  function closeModalEdit() {
     setIsOpenModalEdit(false)
   }
 
-  function openModalAdd () {
+  function openModalAdd() {
     setIsOpenModalAdd(true)
   }
 
-  function closeModalAdd () {
+  function closeModalAdd() {
     setIsOpenModalAdd(false)
   }
 
-  function openModalInterferencia () {
+  function openModalInterferencia() {
     setIsOpenInterferencia(true)
   }
-  function openModalPontosVerificacao () {
+  function openModalPontosVerificacao() {
     setIsOpenVerificacao(true)
   }
-  function openModalFerramenta () {
+  function openModalFerramenta() {
     setIsOpenFerramenta(true)
   }
-  function afterOpenModalInterferencia () {
+  function afterOpenModalInterferencia() {
 
   }
 
-  function closeModalInterferencia () {
+  function closeModalInterferencia() {
     setIsOpenInterferencia(false)
   }
-  function closeModalVerificacao () {
+  function closeModalVerificacao() {
     setIsOpenVerificacao(false)
   }
-  function closeModalFerramenta () {
+  function closeModalFerramenta() {
     setIsOpenFerramenta(false)
   }
-  function closeModalVerificacaoEdit () {
+  function closeModalVerificacaoEdit() {
     setIsOpenVerificacaoEdit(false)
   }
-  function openModalInterferenciaEdit (interferencia: any) {
+  function openModalInterferenciaEdit(interferencia: any) {
     setInterferenciaId(interferencia.id)
-    console.log(interferencia.id)
+    //console.log(interferencia.id)
     setTipoInterferencia(interferencia.tipoInterferencia)
     setLatitude(interferencia.latitude)
     setLongitude(interferencia.longitude)
@@ -133,7 +143,7 @@ Phases () {
 
     setIsOpenInterferenciaEdit(true)
   }
-  function openModalPontosVerificacaoEdit (pontosVerificacao: any) {
+  function openModalPontosVerificacaoEdit(pontosVerificacao: any) {
     setInterferenciaId(pontosVerificacao.id)
     setStatus(pontosVerificacao.status)
     setLatitude(pontosVerificacao.latitude)
@@ -144,41 +154,42 @@ Phases () {
 
     setIsOpenVerificacaoEdit(true)
   }
-  function afterOpenModalInterferenciaEdit () {
+  function afterOpenModalInterferenciaEdit() {
 
   }
 
-  function closeModalInterferenciaEdit () {
+  function closeModalInterferenciaEdit() {
     setIsOpenInterferenciaEdit(false)
   }
 
-  function openModalPhases () {
+  function openModalPhases() {
     setIsOpenPhase(true)
   }
 
-  function afterOpenModalPhases () {
+  function afterOpenModalPhases() {
 
   }
 
-  function closeModalPhases () {
+  function closeModalPhases() {
     setIsOpenPhase(false)
   }
 
-  function openModalPhasesSelect () {
+  function openModalPhasesSelect() {
     setIsOpenPhaseSelect(true)
   }
 
-  function afterOpenModalPhasesSelect () {
+  function afterOpenModalPhasesSelect() {
 
   }
 
-  function closeModalPhasesSelect () {
+  function closeModalPhasesSelect() {
     setIsOpenPhaseSelect(false)
   }
 
   const [isOpen, setIsOpen] = useState(false)
   const [campoPontosVerificacao, setcampoPontosVerificacao] = useState(false)
   const [disabled, setDisabled] = useState(false)
+  const [grafico, setGrafico] = useState(false)
   const [modalIsOpenPlanejamento, setIsOpenPlanejamento] = useState(false)
   const [modalIsOpenAddInterferencia, setIsOpenAddInterferencia] = useState(false)
   let idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas/', '')
@@ -242,6 +253,7 @@ Phases () {
   // const [tipoRede, setTipoRede] = useState('')
   const [localizacao, setLocalizacao] = useState('')
   const [angulacao, setAngulacao] = useState('')
+  const [compFuro, setCompFuro] = useState('')
   const [profundidadeEntrada, setprofundidadeEntrada] = useState('')
   const [profundidadeSaida, setprofundidadeSaida] = useState('')
   const [campoprofundidadeEntrada, setcampoprofundidadeEntrada] = useState(false)
@@ -407,6 +419,7 @@ Phases () {
   const [name, setName] = useState<any>('')
   const [image, setImage] = useState<any>('')
   const [user, setUsers] = useState<any[]>([])
+  const [graficoTravessia, setGraficoTravessia] = useState<any[]>([])
   const [email, setEmail] = useState('')
   const [role, setRole] = useState('')
   const [nomeFluido, setNomeFluido] = useState('')
@@ -421,7 +434,203 @@ Phases () {
   let Image: any
   const formData = new FormData()
   const [valorFerramenta, setValorFerramenta] = useState<any>([])
+  //Grafico
+  var distancia = ''
+  var dadosF = {}
+  var angulo: number[] = []
+  var variacaoProfundidade: number[] = []
+  var variacaoDistanciaPercorrida: number[] = []
+  // var dadosF:object[] = { angulo, variacaoProfundidade, variacaoDistanciaPercorrida}
+  var comprimentoHaste = 3
+  var coordenadas2 = [
+    { x: 0, y: -1.45521375 },
+    { x: 2.9104275, y: -1.45521375 },
+    { x: 5.820855001, y: -1.45521375 },
+    { x: 8.787664059, y: -1.45521375 },
+    { x: 11.77277563, y: -1.45521375 },
+    { x: 14.77277563, y: -1.45521375 },
+    { x: 17.77277563, y: -1.45521375 },
+    { x: 20.77277563, y: -1.45521375 },
+    { x: 23.7578872, y: -1.45521375 },
+    { x: 26.72469626, y: -1.45521375 },
+    { x: 29.63512376, y: -1.45521375 },
+    { x: 32.54555126, y: -1.45521375 }
+  ]
+  var coordenadas = [
+    { x: 0, y: 0 },
+    { x: 2.9104275, y: -0.727606875 },
+    { x: 5.820855001, y: -1.45521375 },
+    { x: 8.787664059, y: -1.900235109 },
+    { x: 11.77277563, y: -2.198746266 },
+    { x: 14.77277563, y: -2.198746266 },
+    { x: 17.77277563, y: -2.198746266 },
+    { x: 20.77277563, y: -2.198746266 },
+    { x: 23.7578872, y: -1.900235109 },
+    { x: 26.72469626, y: -1.45521375 },
+    { x: 29.63512376, y: -0.727606875 },
+    { x: 32.54555126, y: 0 }
 
+    // {x:-23.59693508,	y:-48.055697640},
+    // {x:-23.59684265,  y:-48.055649689},
+    // {x:-23.59678962,  y:-48.055631500},
+    // {x:-23.59667755,  y:-48.055570257},
+    // {x:-23.59660628,  y:-48.055533945},
+    // {x:-23.59654719,  y:-48.055495915},
+    // {x:-23.59648052,  y:-48.055481034},
+    // {x:-23.59641536,  y:-48.055433083},
+    // {x:-23.59632293,  y:-48.055383479},
+    // {x:-23.59624717,  y:-48.055347102}
+  ]
+  var interferenciasG = [
+    { x: - 2.5, y: 0 },
+    { x: - 2.3, y: 6 },
+    { x: - 2.4, y: 9 },
+    { x: - 2.5, y: 12 },
+    { x: - 2.5, y: 15 },
+    { x: - 2.5, y: 18 },
+    { x: - 2.5, y: 21 },
+    { x: - 2.5, y: 24 },
+    { x: - 2.5, y: 27 },
+    { x: - 2.6, y: 30 },
+    { x: - 2.6, y: 33 },
+    { x: - 2.5, y: 36 }
+
+  ]
+  const NUMBER_CFG = { count: 100, min: 0, max: 100 };
+  let labels: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        label: 'Dataset 1',
+        data: [10, 30, 39, 20, 25, 34, -10],
+        //borderColor: Utils.CHART_COLORS.red,
+        //backgroundColor: Utils.CHART_COLORS.red,
+      },
+      {
+        label: 'Dataset 2',
+        data: [18, 33, 22, 19, 11, 39, 30],
+        //borderColor: Utils.CHART_COLORS.blue,
+        //backgroundColor: Utils.CHART_COLORS.blue,
+      }
+    ]
+  }
+
+  const config = {
+    type: 'line',
+    data: data,
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Suggested Min and Max Settings'
+        }
+      },
+      scales: {
+        y: {
+          // the data minimum used for determining the ticks is Math.min(dataMin, suggestedMin)
+          suggestedMin: 30,
+
+          // the data maximum used for determining the ticks is Math.max(dataMax, suggestedMax)
+          suggestedMax: 50,
+        }
+      }
+    },
+  };
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top' as const,
+      },
+      title: {
+        display: true,
+        text: 'PERFIL PLANO DE FURO',
+      },
+    },
+  };
+  const options2 = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top' as const,
+      },
+      title: {
+        display: true,
+        text: 'PLANTA PLANO DE FURO',
+      },
+    },
+  };
+  //formulas()
+  const dataG = {
+    labels,
+    datasets: [
+      // {
+      //   label: 'variacaoProfundidade',
+      //   data: variacaoProfundidade,
+      //   borderColor: 'rgb(255, 99, 132)',
+      //   backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      // },
+      // {
+      //   label: 'variacaoDistanciaPercorrida',
+      //   data: variacaoDistanciaPercorrida,
+      //   borderColor: 'rgb(53, 162, 235)',
+      //   backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      // },
+      // {
+      //   label: 'angulo',
+      //   data: angulo,
+      //   borderColor: 'rgb(53, 162, 235)',
+      //   backgroundColor: 'rgba(53, 162, 255, 0.5)',
+      // },
+      {
+        label: 'PLANO DE FURO PERFIL',
+        data: coordenadas,
+        borderColor: 'rgb(53, 162, 235)',
+        backgroundColor: 'rgba(53, 162, 255, 0.5)',
+      },
+    ],
+  };
+  const dataG2 = {
+    labels,
+    datasets: [
+      // {
+      //   label: 'variacaoProfundidade',
+      //   data: variacaoProfundidade,
+      //   borderColor: 'rgb(255, 99, 132)',
+      //   backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      // },
+      // {
+      //   label: 'variacaoDistanciaPercorrida',
+      //   data: variacaoDistanciaPercorrida,
+      //   borderColor: 'rgb(53, 162, 235)',
+      //   backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      // },
+      // {
+      //   label: 'angulo',
+      //   data: angulo,
+      //   borderColor: 'rgb(53, 162, 235)',
+      //   backgroundColor: 'rgba(53, 162, 255, 0.5)',
+      // },
+      {
+        label: 'PLANO DE FURO PERFIL',
+        data: coordenadas2,
+        borderColor: 'rgb(53, 162, 235)',
+        backgroundColor: 'rgba(53, 162, 255, 0.5)',
+      },
+    ],
+  };
   // function onSubmit(data: FormData) {
   //   data.idConfigTravessia = idConfigTravessia.replace('#/etapas/', '')
   //   data.banco = 'todos-campos'
@@ -430,14 +639,36 @@ Phases () {
   // }
   const [camposInterferencia, setCamposInterferencia] = useState(false)
 
-  function handleCampos () {
+  function formulas() {
+    for (var i = 1; i <= 12; i++) {
+      labels.push(i)
+      angulo.push(Math.atan(i / 100) * (180 / Math.PI))
+      variacaoProfundidade.push((Math.sin((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
+      variacaoDistanciaPercorrida.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
+
+      dadosF = {
+        angulo, variacaoProfundidade, variacaoDistanciaPercorrida
+      }
+      //console.log(angulo)
+    }
+    // console.log('angulo')
+    // console.log(dadosF)
+    if (grafico) {
+      setGrafico(false)
+    } else {
+      setGrafico(true)
+    }
+    return dadosF
+  }
+
+  function handleCampos() {
     if (camposInterferencia) {
       setCamposInterferencia(false)
     } else {
       setCamposInterferencia(true)
     }
   }
-  function onSubmitTipoSolo () {
+  function onSubmitTipoSolo() {
     const data = {
       especificacaoSolo: especificacaoSolo,
       descricao: descricao,
@@ -446,12 +677,12 @@ Phases () {
       resistenciaSeca: resistenciaSeca,
       reacaoDilatacao: reacaoDilatacao,
     }
-    console.log(data)
+    //console.log(data)
     createNewFileTipoSolo(data)
     reset()
   }
 
-  async function createNewFileTipoSolo (submit: any) {
+  async function createNewFileTipoSolo(submit: any) {
     setLoading(true)
     const responser = api.post('tipo-solo', {
       data: submit,
@@ -473,20 +704,20 @@ Phases () {
       setLoading(false)
     })
   }
-  function onSubmit (data: FormData) {
-    console.log(data)
+  function onSubmit(data: FormData) {
+    //console.log(data)
     data.reviewUpload = documentos
     Cadastro(data)
     reset()
   }
 
-  async function Cadastro (submit: any) {
+  async function Cadastro(submit: any) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.post('maquina-perfuratis', {
       data: submit,
     }).then((response) => {
-      console.log(response)
+      //console.log(response)
       if (response.statusText === 'OK') {
         toast.success('Cadastrada com sucesso!')
         setLoading(false)
@@ -507,7 +738,7 @@ Phases () {
       setLoading(false)
     })
   }
-  function onSubmitLevantamento (tabela: string) {
+  function onSubmitLevantamento(tabela: string) {
     // console.log(idEtapa)
     const data = {
       banco: tabela,
@@ -517,6 +748,10 @@ Phases () {
       PontoVerEntradaLong: longitudeEntrada,
       PontoVerSaidaLat: latitudeSaida,
       PontoVerSaidaLong: longitudeSaida,
+      pontoVerEntradaLat: latitudeEntrada,
+      pontoVerEntradaLong: longitudeEntrada,
+      pontoVerSaidaLat: latitudeSaida,
+      pontoVerSaidaLong: longitudeSaida,
       TipoSolo: tipoSolo,
       DiametroPerf: diametroPerfuracao,
       TipoRede: tipoRede,
@@ -616,13 +851,14 @@ Phases () {
       qtdeBase: qtdeBase,
       limiteEscoamento: limiteEscoamento,
       teorAreia: teorAreia,
-      tipoSoloId: tipoSolo != undefined ? tipoSolo.split('/')[0] : '',
-      especificacaoSolo: tipoSolo != undefined ? tipoSolo.split('/')[1] : '',
+      tipoSoloId: tipoSolo,
+      especificacaoSolo: especificacaoSolo,
       agua: 0,
-      anguloEntrada: anguloEntrada != undefined ? anguloEntrada.split('/')[2] : 'Nao deu',
+      anguloEntrada: anguloEntrada,
+      anguloMaquina: anguloEntrada,
     }
 
-    console.log(data)
+    //console.log(data)
     // if (isUpdate) {
     //   updateDados()
     //   setIsUpdate(false)
@@ -631,7 +867,7 @@ Phases () {
     // }
   }
 
-  function onSubmitInterferenciasFisicasMagneticas () {
+  function onSubmitInterferenciasFisicasMagneticas() {
     // console.log(responsavel)
     const data = {
       idConfigTravessia: idConfigTravessia.replace('#/etapas/', ''),
@@ -680,7 +916,7 @@ Phases () {
   //   }
   // }
 
-  async function createNewFile (submit: any) {
+  async function createNewFile(submit: any) {
     setLoading(true)
 
     await api.post(submit.banco, {
@@ -688,29 +924,70 @@ Phases () {
     }).then(async (response) => {
       // console.log(response)
       if (response.statusText === 'OK') {
-        ferramentas.map(async (ferramenta) => {
-          const data = {
-            travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1],
-            ferramentaId: ferramenta.split('/')[0],
-            nome: ferramenta.split('/')[1],
+        toast.success('Cadastro realizado com sucesso!')
+        if (variavelTitulo === "Planejamento da Travessia") {
+          //console.log(graficoTravessia.length)
+          if (graficoTravessia.length > 0) {
+            await api.put(`graficoTravessia/${graficoTravessia[0].id}`, {
+              data: submit,
+            }).then(async (response) => {
+              //toast.success('Cadastrada com sucesso!')
+              setLoading(false)
+              reset()
+              setIsOpenPlanejamento(false)
+              setIsOpenInvite(false)
+              setIsOpenFluido(false)
+              loadDados('etapas')
+            }).catch(res => {
+              // console.log(res)
+              toast.error(res.response.data)
+              setLoading(false)
+            })
+          } else {
+            await api.post('graficoTravessia', {
+              data: submit,
+            }).then(async (response) => {
+
+            }).catch(res => {
+              // console.log(res)
+              toast.error(res.response.data)
+              setLoading(false)
+            })
           }
-          console.log(data)
-          await api.post('ferramentasTravessia', {
-            data: data,
-          }).then(async (response) => {
-            setidTodosCampos(response.data.id)
-            toast.success('Cadastrada com sucesso!')
+        }
+        ferramentas.map(async (ferramenta) => {
+          try {
+            const data = {
+              travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1],
+              ferramentaId: ferramenta.split('/')[0],
+              nome: ferramenta.split('/')[1],
+            }
+            await api.post('ferramentasTravessia', {
+              data: data,
+            }).then(async (response) => {
+              setidTodosCampos(response.data.id)
+              setLoading(false)
+              reset()
+              setIsOpenPlanejamento(false)
+              setIsOpenInvite(false)
+              setIsOpenFluido(false)
+              loadDados('etapas')
+            }).catch(res => {
+              // console.log(res)
+              toast.error(res.response.data)
+              setLoading(false)
+            })
+          } catch (error) {
+            console.log(error)
             setLoading(false)
             reset()
             setIsOpenPlanejamento(false)
             setIsOpenInvite(false)
             setIsOpenFluido(false)
             loadDados('etapas')
-          }).catch(res => {
-            // console.log(res)
-            toast.error(res.response.data)
-            setLoading(false)
-          })
+          }
+          //console.log(data)
+
         })
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')
@@ -725,7 +1002,7 @@ Phases () {
       setLoading(false)
     })
   }
-  async function loadDados (tipoSoloId: string) {
+  async function loadDados(tipoSoloId: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = await api.get(`etapas?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/etapas/", '').split('/')[0]}`,
@@ -746,6 +1023,17 @@ Phases () {
       if (response.statusText === 'OK') {
         // console.log(response.data.rows)
         setinterferencias(response.data.rows)
+      }
+    }).catch((res) => {
+      console.log(res)
+      // toast.error(res.response.data);
+      setLoading(false)
+    })
+    api.get(`graficoTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        // console.log(response.data.rows)
+        setGraficoTravessia(response.data.rows)
       }
     }).catch((res) => {
       console.log(res)
@@ -777,7 +1065,7 @@ Phases () {
     api.get(`ferramentasTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
     ).then((response) => {
       if (response.statusText === 'OK') {
-        console.log(response.data.rows)
+        //console.log(response.data.rows)
         setferramentas(response.data.rows)
         setValorFerramenta(response.data.rows)
       }
@@ -847,7 +1135,7 @@ Phases () {
     })
     setLoading(false)
   }
-  async function deleteDados (id: string, tabela: string) {
+  async function deleteDados(id: string, tabela: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete(tabela + id,
@@ -875,7 +1163,7 @@ Phases () {
       setLoading(false)
     })
   }
-  function update (data: any) {
+  function update(data: any) {
     // console.log('data')
     // console.log(data)
     // setDados(data)
@@ -928,7 +1216,7 @@ Phases () {
     }
     // console.log(idDados)
   }
-  async function updateDados () {
+  async function updateDados() {
     setLoading(true)
     // console.log('idTodosCampos')
     // console.log(idTodosCampos)
@@ -1051,6 +1339,7 @@ Phases () {
   }
   useEffect(() => {
     // console.log(soilTypesUp)
+    //formulas()
     idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas/', '')
     // console.log('useEffect')
     // console.log(idConfigTravessia)
@@ -1058,8 +1347,9 @@ Phases () {
     loadDados('etapas')
   }, [])
 
-  function openModal (data: any) {
+  function openModal(data: any) {
     // console.log(data)
+    //formulas()
     setIdEtapa(data.etapaId)
     api.get(`todos-campos?filter%5BetapaId%5D=${data.id}&filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}&limit=1`,
     ).then((response) => {
@@ -1085,7 +1375,7 @@ Phases () {
           setsondagem(response.data.rows[0].Sondagem)
           setDiametroInterferencia(response.data.rows[0].DiametroInterferencia)
           setcriacaoplanoFuro(response.data.rows[0].CriacaoPlanoFuro)
-          setferramentas(response.data.rows[0].Ferramentas)
+          //setferramentas(response.data.rows[0].Ferramentas)
           setInfoEnvolvidas(response.data.rows[0].InformacoesEnvolvidas)
           setLocalDiretrizFuro(response.data.rows[0].LocalRelDiretrizFuro)
           setTipoInterferencia(response.data.rows[0].TipoInterferencia)
@@ -1161,6 +1451,13 @@ Phases () {
           setprofundidadeMax(response.data.rows[0].profundidadeMax)
           setprofundidadeMin(response.data.rows[0].profundidadeMin)
           setMaterialRedeTubula(response.data.rows[0].MaterialRedeTubula)
+          setAnguloEntrada(response.data.rows[0].anguloEntrada)
+          distancia = (getDistanceFromLatLonInKm(
+            { lat: Number(response.data.rows[0].PontoVerEntradaLat), lng: Number(response.data.rows[0].PontoVerEntradaLong) },
+            { lat: Number(response.data.rows[0].PontoVerSaidaLat), lng: Number(response.data.rows[0].PontoVerSaidaLong) }
+          ));
+          setCompFuro(distancia)
+          console.log(distancia)
         } else {
           setFinalizarEtapa(false)
           setidTodosCampos('')
@@ -1301,15 +1598,18 @@ Phases () {
     setcampoprofundidadeMin(data.profundidadeMin)
     setcampoMaterialRedeTubula(data.MaterialRedeTubula)
     setcampoPontosVerificacao(data.campoPontosVerificacao)
+
+
     setisOpenUpdatePlanejamentoPerfuração(true)
   }
-  function afterOpenModal () {
+
+  function afterOpenModal() {
     // references are now sync'd and can be accessed.
   }
-  function closeModal () {
+  function closeModal() {
     setIsOpenPlanejamento(false)
   }
-  async function makeRequisition (e: any) {
+  async function makeRequisition(e: any) {
     e.preventDefault()
     e.target.reset()
 
@@ -1381,7 +1681,7 @@ Phases () {
         toast.error('Erro: Tente mais tarde :(')
       })
   }
-  function salvarEtapa () {
+  function salvarEtapa() {
     let campoTipoSolo = false
     const campoDiametroPerfuracao = false
     let campoTipoRede = false
@@ -1583,7 +1883,7 @@ Phases () {
       data: data,
     })
       .then((response) => {
-        console.log(response)
+        //console.log(response)
         if (response.statusText === 'OK') {
           toast.success('Cadastrada com sucesso!')
           setLoading(false)
@@ -1603,10 +1903,10 @@ Phases () {
         // toast.error(res.response.data);
         setLoading(false)
       })
-    console.log(data)
-    console.log(etapa)
+    //console.log(data)
+    //console.log(etapa)
   }
-  function salvarInterferencia (tabela: string) {
+  function salvarInterferencia(tabela: string) {
     const data = {
       tipo: variavelTitulo,
       latitude: latitude,
@@ -1630,7 +1930,7 @@ Phases () {
       data: data,
     })
       .then((response) => {
-        console.log(response)
+        //console.log(response)
         if (response.statusText === 'OK') {
           toast.success('Cadastrada com sucesso!')
           setLoading(false)
@@ -1652,7 +1952,7 @@ Phases () {
         setLoading(false)
       })
   }
-  function salvarPontosVerificacao () {
+  function salvarPontosVerificacao() {
     const data = {
       latitude: latitude,
       longitude: longitude,
@@ -1670,7 +1970,7 @@ Phases () {
       data: data,
     })
       .then((response) => {
-        console.log(response)
+        //console.log(response)
         if (response.statusText === 'OK') {
           toast.success('Cadastrada com sucesso!')
           setLoading(false)
@@ -1691,7 +1991,7 @@ Phases () {
         setLoading(false)
       })
   }
-  function editarInterferencia (tabela: string) {
+  function editarInterferencia(tabela: string) {
     const data = {
       tipo: variavelTitulo,
       latitude: latitude,
@@ -1712,7 +2012,7 @@ Phases () {
       data: data,
     })
       .then((response) => {
-        console.log(response)
+        //console.log(response)
         if (response.statusText === 'OK') {
           toast.success('Editado com sucesso!')
           setLoading(false)
@@ -1733,6 +2033,20 @@ Phases () {
         // toast.error(res.response.data);
         setLoading(false)
       })
+  }
+  function getDistanceFromLatLonInKm(position1: { lat: number; lng: number }, position2: { lat: number; lng: number }) {
+    "use strict";
+    var deg2rad = function (deg: number) { return deg * (Math.PI / 180); },
+      R = 6371,
+      dLat = deg2rad(position2.lat - position1.lat),
+      dLng = deg2rad(position2.lng - position1.lng),
+      a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+        + Math.cos(deg2rad(position1.lat))
+        * Math.cos(deg2rad(position1.lat))
+        * Math.sin(dLng / 2) * Math.sin(dLng / 2),
+      c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    console.log(((R * c * 1000).toFixed()))
+    return ((R * c * 1000).toFixed());
   }
   return (
     <>
@@ -1993,7 +2307,14 @@ Phases () {
                   <input
                     type='number' placeholder='Longitude'
                     value={longitudeSaida}
-                    onChange={(text) => setlongitudeSaida(text.target.value)}
+                    onChange={(text) => {
+                      setlongitudeSaida(text.target.value);
+                      distancia = (getDistanceFromLatLonInKm(
+                        { lat: Number(latitudeEntrada), lng: Number(longitudeEntrada) },
+                        { lat: Number(latitudeSaida), lng: Number(longitudeSaida) }
+                      ));
+                      setCompFuro(distancia)
+                    }}
                   />
                 </div>
                 : false}
@@ -2018,7 +2339,7 @@ Phases () {
                   <div className='selectPlus'>
                     <select
                       value={tipoSolo}
-                      onChange={(text) => { setTipoSolo(text.target.value); loadDados(text.target.value) }}
+                      onChange={(text) => { setTipoSolo(text.target.value.split('/')[0]); setEspecificacaoSolo(text.target.value.split('/')[1]); loadDados(text.target.value) }}
                     >
                       <option value=''>Selecione...</option>
                       {soilTypes.length > 0
@@ -2206,7 +2527,7 @@ Phases () {
                   <div className='selectPlus'>
                     <Select
                       className='select'
-                      mode='multiple' 
+                      mode='multiple'
                       //defaultValue={ferramentas?.map((ferramenta) => [ferramenta.nome])} 
                       placeholder='Selecione...'
                       onChange={(text) => setferramentas(text)}
@@ -2215,7 +2536,7 @@ Phases () {
                         ? ferramentasList.map((ferramenta) =>
                           <option value={ferramenta.id + '/' + ferramenta.nome}>{ferramenta.nome}</option>)
                         : <option>Nenhuma ferramenta cadastrada!</option>}
-                    </Select> 
+                    </Select>
                     {/* <Select
                       mode='multiple'
                       // defaultValue={valorFerramenta?.map((ferramenta:any) => ferramenta.nome)}
@@ -2666,7 +2987,7 @@ Phases () {
                   <div className='selectPlus'>
                     <select
                       name='' id='' value={maquinaPerfuratriz}
-                      onChange={(text) => { setmaquinaPerfuratriz(text.target.value); setAnguloEntrada(text.target.value) }}
+                      onChange={(text) => { setmaquinaPerfuratriz(text.target.value); setAnguloEntrada(text.target.value.split('/')[2]) }}
                     >
                       <option value=''>Selecione...</option>
                       {maquinasPerfuratriz.length > 0
@@ -2698,16 +3019,7 @@ Phases () {
                   />
                 </div>
                 : false}
-              {campotempoHaste
-                ? <div>
-                  <label htmlFor=''>Ângulo de Entrada</label>
-                  <input
-                    type='text'
-                    value={anguloEntrada}
-                    onChange={(text) => setAnguloEntrada(text.target.value)}
-                  />
-                </div>
-                : false}
+
               {campovazaoBomba
                 ? <div>
                   <label htmlFor=''>Vazão Bomba (L/min)</label>
@@ -2718,6 +3030,23 @@ Phases () {
                   />
                 </div>
                 : false}
+              {variavelTitulo === "Execução da Travessia - Furo Piloto"
+                ? <><div>
+                  <label htmlFor=''>Ângulo de Entrada</label>
+                  <input
+                    type='text'
+                    value={anguloEntrada}
+                    onChange={(text) => setAnguloEntrada(text.target.value)} />
+                </div><button style={{ marginTop: '35px', width: '200px' }} onClick={() => { formulas() }} className='finishPhase'>Visualizar plano de furo</button></>
+                : false}
+              {grafico ?
+                <><div className="myChartDiv">
+                  {/* <canvas id="myChart" width="600" height="400"></canvas> */}
+                  <Line id="myChart" width="600" height="400" options={options} data={dataG} />
+                </div><div className="myChartDiv">
+                    {/* <canvas id="myChart" width="600" height="400"></canvas> */}
+                    <Line id="myChart" width="600" height="400" options={options2} data={dataG2} />
+                  </div></> : false}
               {campotipoRedeTubula
                 ? <div>
                   <label htmlFor=''>Tipo de Rede/Tubulação</label>
@@ -3150,6 +3479,17 @@ Phases () {
                   />
                 </div>
                 : false}
+              {variavelTitulo === "Planejamento da Travessia"
+                ? <div>
+                  <label htmlFor=''>Distancia Entrada x Saida (m)</label>
+                  <input
+                    disabled
+                    type='text'
+                    value={compFuro}
+                    onChange={(text) => setCompFuro(text.target.value)}
+                  />
+                </div>
+                : false}
             </S.GridForm>
 
             {campotipoInterferencia
@@ -3186,6 +3526,37 @@ Phases () {
                           </td>
                         </tr>)
                       : 'Nenhuma interferencia cadastrada!'}
+
+                  </table>
+                </div>
+              </>
+              : false}
+            {campoFerramentas
+              ? <><h4>Ferramentas</h4>
+                <div style={{ overflow: 'auto' }}>
+                  <table>
+                    {ferramentas.length > 0
+                      ? <tr>
+                        <th>Nome</th>
+                      </tr>
+                      : false}
+
+                    {ferramentas.length > 0
+                      ? ferramentas.map((inter) =>
+                        <tr>
+                          <td>{inter.nome}</td>
+                          <td>
+                            <button onClick={() => deleteDados(inter.id, 'ferramentasTravessia/')}>
+                              <FiTrash color='#EA1C24' size={18} />
+                            </button>
+                          </td>
+                          {/* <td>
+                            <button onClick={() => openModalInterferenciaEdit(inter)}>
+                              <FiEye color='#FECE51' size={18} />
+                            </button>
+                          </td> */}
+                        </tr>)
+                      : 'Nenhuma ferramenta selecionada!'}
 
                   </table>
                 </div>
@@ -3235,11 +3606,11 @@ Phases () {
             {!finalizarEtapa
               ? <button onClick={() => { onSubmitLevantamento('todos-campos') }}>{loading
                 ? <img
-                    width='40px'
-                    style={{ margin: 'auto' }}
-                    height='' src={Load}
-                    alt='Loading'
-                  />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height='' src={Load}
+                  alt='Loading'
+                />
                 : 'Salvar'}
               </button>
               : false}
@@ -3248,11 +3619,11 @@ Phases () {
                 ? <button onClick={() => { toast.info('É preciso salvar a etapa!') }} className='finishPhase'>Finalizar Etapa</button>
                 : <button onClick={() => { updateDados() }} className='finishPhase'>{loading
                   ? <img
-                      width='40px'
-                      style={{ margin: 'auto' }}
-                      height='' src={Load}
-                      alt='Loading'
-                    />
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height='' src={Load}
+                    alt='Loading'
+                  />
                   : 'Finalizar Etapa'}
                 </button>
               : 'Etapa Finalizada!'}
@@ -3312,10 +3683,10 @@ Phases () {
                   src={Load}
                   alt='Loading'
                 />
-                )
+              )
               : (
-                  'Salvar'
-                )}
+                'Salvar'
+              )}
             </button>
           </S.ModelsModal>
 
@@ -3361,17 +3732,17 @@ Phases () {
 
               {variavelTitulo == 'Execução da Travessia - Furo Piloto'
                 ? <input
-                    type='number' placeholder='Angulacão'
-                    value={angulacao}
-                    onChange={(text) => setAngulacao(text.target.value)}
-                  />
+                  type='number' placeholder='Angulacão'
+                  value={angulacao}
+                  onChange={(text) => setAngulacao(text.target.value)}
+                />
                 : false}
               {variavelTitulo == 'Execução da Travessia - Furo Piloto'
                 ? <input
-                    type='number' placeholder='posicão em Horas'
-                    value={posicaoHoras}
-                    onChange={(text) => setposicaoHoras(text.target.value)}
-                  />
+                  type='number' placeholder='posicão em Horas'
+                  value={posicaoHoras}
+                  onChange={(text) => setposicaoHoras(text.target.value)}
+                />
                 : false}
             </div>
             <button className='save' onClick={() => salvarPontosVerificacao()}>{loading
@@ -3383,10 +3754,10 @@ Phases () {
                   src={Load}
                   alt='Loading'
                 />
-                )
+              )
               : (
-                  'Salvar'
-                )}
+                'Salvar'
+              )}
             </button>
           </S.ModelsModal>
         </Modal>
@@ -3432,10 +3803,10 @@ Phases () {
                   src={Load}
                   alt='Loading'
                 />
-                )
+              )
               : (
-                  'Salvar'
-                )}
+                'Salvar'
+              )}
             </button>
           </S.ModelsModal>
         </Modal>
@@ -3479,17 +3850,17 @@ Phases () {
               />
               {variavelTitulo == 'Execução da Travessia - Furo Piloto'
                 ? <input
-                    type='number' placeholder='Angulacão'
-                    value={angulacao}
-                    onChange={(text) => setAngulacao(text.target.value)}
-                  />
+                  type='number' placeholder='Angulacão'
+                  value={angulacao}
+                  onChange={(text) => setAngulacao(text.target.value)}
+                />
                 : false}
               {variavelTitulo == 'Execução da Travessia - Furo Piloto'
                 ? <input
-                    type='number' placeholder='posicão em Horas'
-                    value={posicaoHoras}
-                    onChange={(text) => setposicaoHoras(text.target.value)}
-                  />
+                  type='number' placeholder='posicão em Horas'
+                  value={posicaoHoras}
+                  onChange={(text) => setposicaoHoras(text.target.value)}
+                />
                 : false}
             </div>
             <button className='save' onClick={() => editarInterferencia('pontos-verificacao/')}>{loading
@@ -3501,10 +3872,10 @@ Phases () {
                   src={Load}
                   alt='Loading'
                 />
-                )
+              )
               : (
-                  'Salvar'
-                )}
+                'Salvar'
+              )}
             </button>
           </S.ModelsModal>
         </Modal>
@@ -3569,10 +3940,10 @@ Phases () {
                   src={Load}
                   alt='Loading'
                 />
-                )
+              )
               : (
-                  'Salvar'
-                )}
+                'Salvar'
+              )}
             </button>
           </S.ModelsModal>
 
@@ -3815,11 +4186,11 @@ Phases () {
             </S.GridForm>
             <button onClick={() => onSubmitInterferenciasFisicasMagneticas()}>{loading
               ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height='' src={Load}
-                  alt='Loading'
-                />
+                width='40px'
+                style={{ margin: 'auto' }}
+                height='' src={Load}
+                alt='Loading'
+              />
               : 'Salvar'}
             </button>
           </S.Div>
@@ -3936,10 +4307,10 @@ Phases () {
                 src={Load}
                 alt='Loading'
               />
-              )
+            )
             : (
-                'Salvar'
-              )}
+              'Salvar'
+            )}
           </button>
         </S.PhasesModal>
 
@@ -4155,12 +4526,12 @@ Phases () {
               type='submit'
             >{loading
               ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height=''
-                  src={Load}
-                  alt='Loading'
-                />
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src={Load}
+                alt='Loading'
+              />
               : 'Salvar'}
             </button>
           </S.Form>
@@ -4205,12 +4576,12 @@ Phases () {
           <S2.Btns>
             <button onClick={() => onSubmitLevantamento('user')}>{loading
               ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height=''
-                  src={Load}
-                  alt='Loading'
-                />
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src={Load}
+                alt='Loading'
+              />
               : 'Salvar'}
             </button>
             <button onClick={() => setIsOpenInvite(false)}>Cancelar</button>
@@ -4446,10 +4817,10 @@ Phases () {
                 src={Load}
                 alt='Loading'
               />
-              )
+            )
             : (
-                'Adicionar'
-              )}
+              'Adicionar'
+            )}
           </button>
         </form>
       </S.ContainerNone>
@@ -4532,10 +4903,10 @@ Phases () {
                 src={Load}
                 alt='Loading'
               />
-              )
+            )
             : (
-                'Salvar'
-              )}
+              'Salvar'
+            )}
           </button>
         </form>
       </Modal>

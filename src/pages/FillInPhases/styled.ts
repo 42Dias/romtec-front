@@ -278,4 +278,14 @@ export const Container = styled.div`
       background-color: #d42a2a;
       margin-top: -20%;
     }
+    .finishPhase {
+      width: 100%;
+      height: 44px;
+  
+      background: #FECE51;
+      color: black;
+      border-radius: 5px;
+
+      margin-bottom: 10px;
+    }
 `
