@@ -33,6 +33,8 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { setLabels } from 'react-chartjs-2/dist/utils'
+import moment from 'moment'
 SwiperCore.use([Pagination, Navigation])
 
 type FormData = {
@@ -197,6 +199,8 @@ export default function
   const [loading, setLoading] = useState(false)
   const [fluidos, setFluidos] = useState<any[]>([])
   const [dados, setDados] = useState<any[]>([])
+  const [dadosGafico, setDadosGrafico] = useState({})
+  const [labelsG, setLabelsG] = useState({})
   const [soilTypes, setSoilTypes] = useState<any[]>([])
   const [interferencias, setinterferencias] = useState<any[]>([])
   const [pontosVerificacao, setPontosVerificacao] = useState<any[]>([])
@@ -217,6 +221,9 @@ export default function
   const [tipoInterferencia, setTipoInterferencia] = useState('')
   const [localDiretrizFuro, setLocalDiretrizFuro] = useState('')
   const [equipamentos, setequipamentos] = useState('')
+  const [comprimentoMordenteEntrada, setcomprimentoMordenteEntrada] = useState('')
+  const [portaSondaBroca, setPortaSondaBroca] = useState('')
+  const [cabecaSonda, setCabecaSonda] = useState('')
   const [dataTopografia, setDataTopografia] = useState('')
   const [respTopografia, setRespTopografia] = useState('')
   const [documentos, setdocumentos] = useState('')
@@ -235,6 +242,7 @@ export default function
   const [criacaoplanoFuro, setcriacaoplanoFuro] = useState('')
   const [url, setUrl] = useState('')
   const [ferramentas, setferramentas] = useState<any[]>([])
+  const [ferramentasT, setferramentasT] = useState<any[]>([])
   const [diametroInterferencia, setDiametroInterferencia] = useState('')
   const [profundidade, setprofundidade] = useState('')
   const [anguloAtaque, setanguloAtaque] = useState('')
@@ -255,6 +263,7 @@ export default function
   const [angulacao, setAngulacao] = useState('')
   const [compFuro, setCompFuro] = useState('')
   const [profundidadeEntrada, setprofundidadeEntrada] = useState('')
+  const [profundidadePVE, setprofundidadePVE] = useState('')
   const [profundidadeSaida, setprofundidadeSaida] = useState('')
   const [campoprofundidadeEntrada, setcampoprofundidadeEntrada] = useState(false)
   const [campoprofundidadeSaida, setcampoprofundidadeSaida] = useState(false)
@@ -434,6 +443,8 @@ export default function
   let Image: any
   const formData = new FormData()
   const [valorFerramenta, setValorFerramenta] = useState<any>([])
+  var date = moment(new Date()).format('YYYY-MM-DD')
+  var hora = moment(new Date()).format('HH:mm')
   //Grafico
   var distancia = ''
   var dadosF = {}
@@ -456,6 +467,7 @@ export default function
     { x: 29.63512376, y: -1.45521375 },
     { x: 32.54555126, y: -1.45521375 }
   ]
+
   var coordenadas = [
     { x: 0, y: 0 },
     { x: 2.9104275, y: -0.727606875 },
@@ -481,6 +493,16 @@ export default function
     // {x:-23.59632293,  y:-48.055383479},
     // {x:-23.59624717,  y:-48.055347102}
   ]
+  var coordenadas3 = [
+    0,
+    2.9104275,
+    5.820855001,
+    8.787664059,
+    11.77277563,
+    14.77277563,
+    17.77277563,
+    29.63512376,
+    32.54555126]
   var interferenciasG = [
     { x: - 2.5, y: 0 },
     { x: - 2.3, y: 6 },
@@ -497,7 +519,7 @@ export default function
 
   ]
   const NUMBER_CFG = { count: 100, min: 0, max: 100 };
-  let labels: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+  let labels: number[] = []
   const data = {
     labels: labels,
     datasets: [
@@ -574,7 +596,7 @@ export default function
   };
   //formulas()
   const dataG = {
-    labels,
+    labelsG,
     datasets: [
       // {
       //   label: 'variacaoProfundidade',
@@ -596,7 +618,7 @@ export default function
       // },
       {
         label: 'PLANO DE FURO PERFIL',
-        data: coordenadas,
+        data: dadosGafico,
         borderColor: 'rgb(53, 162, 235)',
         backgroundColor: 'rgba(53, 162, 255, 0.5)',
       },
@@ -640,19 +662,26 @@ export default function
   const [camposInterferencia, setCamposInterferencia] = useState(false)
 
   function formulas() {
-    for (var i = 1; i <= 12; i++) {
+    variacaoProfundidade.push(0)
+    variacaoDistanciaPercorrida.push(0)
+    labels.push(0)
+    var dadoG = []
+    for (var i = 1; i <= 100; i++) {
       labels.push(i)
       angulo.push(Math.atan(i / 100) * (180 / Math.PI))
       variacaoProfundidade.push((Math.sin((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
       variacaoDistanciaPercorrida.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
+      dadoG.push({ x: variacaoProfundidade[i - 1], y: variacaoDistanciaPercorrida[i - 1] })
 
-      dadosF = {
-        angulo, variacaoProfundidade, variacaoDistanciaPercorrida
-      }
+      dadosF = [{ x: variacaoDistanciaPercorrida, y: variacaoProfundidade }]
       //console.log(angulo)
     }
-    // console.log('angulo')
-    // console.log(dadosF)
+    setDadosGrafico(dadoG)
+    setLabelsG(labels)
+    console.log('angulo')
+    console.log(dadosF)
+    console.log(coordenadas2)
+    console.log(dadosGafico)
     if (grafico) {
       setGrafico(false)
     } else {
@@ -758,6 +787,9 @@ export default function
       TipoTub: tipoTubulacao,
       Responsavel: responsavel,
       Equipamentos: equipamentos,
+      comprimentoMordenteEntrada: comprimentoMordenteEntrada,
+      portaSondaBroca: portaSondaBroca,
+      cabecaSonda: cabecaSonda,
       Documentos: documentos,
       EmpresaProp: empresa,
       ConfSondagemInterferencia: sondagemInterferencia,
@@ -829,6 +861,7 @@ export default function
       finalizarEtapa: false,
       travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1],
       profundidadeEntrada: profundidadeEntrada,
+      profundidadePVE: profundidadePVE,
       profundidadeSaida: profundidadeSaida,
       valaEntradaLatitude: valaEntradaLatitude,
       valaEntradaLongitude: valaEntradaLongitude,
@@ -1003,6 +1036,7 @@ export default function
     })
   }
   async function loadDados(tipoSoloId: string) {
+    // formulas()
     setLoading(true)
     // eslint-disable-next-line
     const responser = await api.get(`etapas?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/etapas/", '').split('/')[0]}`,
@@ -1066,7 +1100,7 @@ export default function
     ).then((response) => {
       if (response.statusText === 'OK') {
         //console.log(response.data.rows)
-        setferramentas(response.data.rows)
+        setferramentasT(response.data.rows)
         setValorFerramenta(response.data.rows)
       }
     }).catch((res) => {
@@ -1235,6 +1269,9 @@ export default function
         TipoTub: tipoTubulacao,
         Responsavel: responsavel,
         Equipamentos: equipamentos,
+        comprimentoMordenteEntrada: comprimentoMordenteEntrada,
+        portaSondaBroca: portaSondaBroca,
+        cabecaSonda: cabecaSonda,
         Documentos: documentos,
         EmpresaProp: empresa,
         ConfSondagemInterferencia: sondagemInterferencia,
@@ -1306,6 +1343,7 @@ export default function
         travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1],
         finalizarEtapa: true,
         profundidadeEntrada: profundidadeEntrada,
+        profundidadePVE: profundidadePVE,
         profundidadeSaida: profundidadeSaida,
         valaEntradaLatitude: valaEntradaLatitude,
         valaEntradaLongitude: valaEntradaLongitude,
@@ -1350,6 +1388,8 @@ export default function
   function openModal(data: any) {
     // console.log(data)
     //formulas()
+    setdataExecucao(date)
+    sethoraExecucao(hora)
     setIdEtapa(data.etapaId)
     api.get(`todos-campos?filter%5BetapaId%5D=${data.id}&filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}&limit=1`,
     ).then((response) => {
@@ -1369,6 +1409,9 @@ export default function
           settipoTubulacao(response.data.rows[0].TipoTub)
           setresponsavel(response.data.rows[0].Responsavel)
           setequipamentos(response.data.rows[0].Equipamentos)
+          setcomprimentoMordenteEntrada(response.data.rows[0].comprimentoMordenteEntrada)
+          setPortaSondaBroca(response.data.rows[0].portaSondaBroca)
+          setCabecaSonda(response.data.rows[0].cabecaSonda)
           setsondagemInterferencia(response.data.rows[0].ConfSondagemInterferencia)
           setdocumentos(response.data.rows[0].Documentos)
           setempresa(response.data.rows[0].EmpresaProp)
@@ -1399,6 +1442,7 @@ export default function
           setprofundidadeVala(response.data.rows[0].profundidadeVala)
           setestacaReferencia(response.data.rows[0].estacaReferencia)
           setnumeroHastes(response.data.rows[0].numeroHastes)
+          setReceitaFluido(response.data.rows[0].receitaFluido)
           setprofundidadePlanejada(response.data.rows[0].profundidadePlanejada)
           setavancoPlanejado(response.data.rows[0].avancoPlanejado)
           setprofundidadeExecutada(response.data.rows[0].profundidadeExecutada)
@@ -1437,6 +1481,7 @@ export default function
           setDiametroFerramenta(response.data.rows[0].diametroFerramenta)
           setFinalizarEtapa(response.data.rows[0].finalizarEtapa)
           setprofundidadeEntrada(response.data.rows[0].profundidadeEntrada)
+          setprofundidadePVE(response.data.rows[0].profundidadePVE)
           setprofundidadeSaida(response.data.rows[0].profundidadeSaida)
           setvalaEntradaLatitude(response.data.rows[0].valaEntradaLatitude)
           setvalaEntradaLongitude(response.data.rows[0].valaEntradaLongitude)
@@ -1496,7 +1541,7 @@ export default function
     ).then((response) => {
       if (response.statusText === 'OK') {
         console.log(response.data.rows)
-        setferramentas(response.data.rows)
+        setferramentasT(response.data.rows)
         setValorFerramenta(response.data.rows)
       }
     }).catch((res) => {
@@ -1839,6 +1884,7 @@ export default function
       campoEntradaLatitude: campoEntradaLatitude,
       campoEntradaLongitude: campoEntradaLongitude,
       profundidadeEntrada: profundidadeEntrada,
+      profundidadePVE: profundidadePVE,
       campoSaidaLatitude: campoSaidaLatitude,
       campoSaidaLongitude: campoSaidaLongitude,
       profundidadeSaida: profundidadeSaida,
@@ -2282,11 +2328,11 @@ export default function
                 : false}
               {campoprofundidadeEntrada
                 ? <div>
-                  <label htmlFor=''>Profundidade da travessia (m)</label>
+                  <label htmlFor=''>Profundidade PVE (m)</label>
                   <input
                     type='number' placeholder='Profundidade'
-                    value={profundidadeEntrada}
-                    onChange={(text) => setprofundidadeEntrada(text.target.value)}
+                    value={profundidadePVE}
+                    onChange={(text) => setprofundidadePVE(text.target.value)}
                   />
                 </div>
                 : false}
@@ -2320,11 +2366,21 @@ export default function
                 : false}
               {campoprofundidadeSaida
                 ? <div>
-                  <label htmlFor=''>Tolerância da profundidade (m)</label>
+                  <label htmlFor=''>Profundidade PVS (m)</label>
                   <input
                     type='number' placeholder='Profundidade'
                     value={profundidadeSaida}
                     onChange={(text) => setprofundidadeSaida(text.target.value)}
+                  />
+                </div>
+                : false}
+              {campoprofundidadeEntrada
+                ? <div>
+                  <label htmlFor=''>Profundidade da travessia (m)</label>
+                  <input
+                    type='number' placeholder='Profundidade'
+                    value={profundidadeEntrada}
+                    onChange={(text) => setprofundidadeEntrada(text.target.value)}
                   />
                 </div>
                 : false}
@@ -2897,7 +2953,7 @@ export default function
                   <div className='selectPlus'>
                     <select
                       value={Fluido}
-                      onChange={(text) => { setFluido(text.target.value); setReceitaFluido(`Viscosidade esperada (Segundos Marsh - cP): ${text.target.value.toString().split('/')[2]}\npH da Água: ${text.target.value.toString().split('/')[3]}\nQuantidade base para formulação (Metros cúbicos - m²): ${text.target.value.toString().split('/')[4]}\nLimite de escoamento (Número - N): ${text.target.value.toString().split('/')[5]}\nTeor de areia (Porcentagem - %): ${text.target.value.toString().split('/')[6]}`) }}
+                      onChange={(text) => { setFluido(text.target.value); text.target.value != '' ? setReceitaFluido(`Viscosidade esperada (Segundos Marsh - cP): ${text.target.value.toString().split('/')[2]}\npH da Água: ${text.target.value.toString().split('/')[3]}\nQuantidade base para formulação (Metros cúbicos - m²): ${text.target.value.toString().split('/')[4]}\nLimite de escoamento (Número - N): ${text.target.value.toString().split('/')[5]}\nTeor de areia (Porcentagem - %): ${text.target.value.toString().split('/')[6]}`): false }}
                     >
                       <option value=''>Selecione...</option>
                       {fluidos.length > 0
@@ -3037,7 +3093,31 @@ export default function
                     type='text'
                     value={anguloEntrada}
                     onChange={(text) => setAnguloEntrada(text.target.value)} />
-                </div><button style={{ marginTop: '35px', width: '200px' }} onClick={() => { formulas() }} className='finishPhase'>Visualizar plano de furo</button></>
+                </div><button style={{ marginTop: '35px', width: '200px' }} onClick={() => { formulas() }} className='finishPhase'>Visualizar plano de furo</button>
+
+                  <div>
+                    <label htmlFor=''>Comprimento mordentes à entrada (m)</label>
+                    <input
+                      type='text'
+                      value={comprimentoMordenteEntrada}
+                      onChange={(text) => setcomprimentoMordenteEntrada(text.target.value)} />
+                  </div>
+
+                  <div>
+                    <label htmlFor=''>Porta sonda até Broca (m)</label>
+                    <input
+                      type='text'
+                      value={portaSondaBroca}
+                      onChange={(text) => setPortaSondaBroca(text.target.value)} />
+                  </div>
+
+                  <div>
+                    <label htmlFor=''>Cabeça da sonda (m)</label>
+                    <input
+                      type='text'
+                      value={cabecaSonda}
+                      onChange={(text) => setCabecaSonda(text.target.value)} />
+                  </div></>
                 : false}
               {grafico ?
                 <><div className="myChartDiv">
@@ -3211,7 +3291,7 @@ export default function
                 : false}
               {campoDiametroFerramenta
                 ? <div>
-                  <label htmlFor=''>Diametro da ferramenta</label>
+                  <label htmlFor=''>Diametro da ferramenta (mm)</label>
                   <input
                     type='text'
                     value={DiametroFerramenta}
@@ -3381,7 +3461,7 @@ export default function
                 : false} */}
               {campovalaEntradaComprimento
                 ? <div>
-                  <label htmlFor=''>Vala de entrada comprimento</label>
+                  <label htmlFor=''>Vala de entrada comprimento (m)</label>
                   <input
                     type='number'
                     value={valaEntradaComprimento}
@@ -3431,7 +3511,7 @@ export default function
                 : false} */}
               {campovalaSaidaComprimento
                 ? <div>
-                  <label htmlFor=''>Vala de saida comprimento</label>
+                  <label htmlFor=''>Vala de saida comprimento (m)</label>
                   <input
                     type='number'
                     value={valaSaidaComprimento}
@@ -3451,7 +3531,7 @@ export default function
                 : false}
               {campoprofundidadeMax
                 ? <div>
-                  <label htmlFor=''>Profundidade maxima</label>
+                  <label htmlFor=''>Profundidade maxima (m)</label>
                   <input
                     type='number'
                     value={profundidadeMax}
@@ -3469,7 +3549,7 @@ export default function
                   />
                 </div>
                 : false}
-              {campoMaterialRedeTubula
+              {/* {campoMaterialRedeTubula
                 ? <div>
                   <label htmlFor=''>Material de rede/tubulação</label>
                   <input
@@ -3478,7 +3558,7 @@ export default function
                     onChange={(text) => setMaterialRedeTubula(text.target.value)}
                   />
                 </div>
-                : false}
+                : false} */}
               {variavelTitulo === "Planejamento da Travessia"
                 ? <div>
                   <label htmlFor=''>Distancia Entrada x Saida (m)</label>
@@ -3532,17 +3612,17 @@ export default function
               </>
               : false}
             {campoFerramentas
-              ? <><h4>Ferramentas</h4>
+              ? <><h4>Ferramentas selecionadas</h4>
                 <div style={{ overflow: 'auto' }}>
                   <table>
-                    {ferramentas.length > 0
+                    {ferramentasT.length > 0
                       ? <tr>
                         <th>Nome</th>
                       </tr>
                       : false}
 
-                    {ferramentas.length > 0
-                      ? ferramentas.map((inter) =>
+                    {ferramentasT.length > 0
+                      ? ferramentasT.map((inter) =>
                         <tr>
                           <td>{inter.nome}</td>
                           <td>

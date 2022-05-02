@@ -209,6 +209,9 @@ export default function FillInPhases() {
   const [tipoInterferencia, setTipoInterferencia] = useState('')
   const [localDiretrizFuro, setLocalDiretrizFuro] = useState('')
   const [equipamentos, setequipamentos] = useState('')
+  const [comprimentoMordenteEntrada, setcomprimentoMordenteEntrada] = useState('')
+  const [portaSondaBroca, setPortaSondaBroca] = useState('')
+  const [cabecaSonda, setCabecaSonda] = useState('')
   const [dataTopografia, setDataTopografia] = useState('')
   const [respTopografia, setRespTopografia] = useState('')
   const [documentos, setdocumentos] = useState('')
@@ -247,7 +250,9 @@ export default function FillInPhases() {
   const [localizacao, setLocalizacao] = useState('')
   const [angulacao, setAngulacao] = useState('')
   const [profundidadeEntrada, setprofundidadeEntrada] = useState('')
+  const [profundidadePVE, setprofundidadePVE] = useState('')
   const [profundidadeSaida, setprofundidadeSaida] = useState('')
+  const [profundidadePVS, setprofundidadePVS] = useState('')
   const [campoprofundidadeEntrada, setcampoprofundidadeEntrada] = useState(false)
   const [campoprofundidadeSaida, setcampoprofundidadeSaida] = useState(false)
   const [isUpdate, setIsUpdate] = useState(false)
@@ -422,11 +427,14 @@ export default function FillInPhases() {
   const [teorAreia, setTeorAreia] = useState('')
   const [graficoTravessia, setGraficoTravessia] = useState<any[]>([])
   const [compFuro, setCompFuro] = useState('')
+  var date = moment(new Date()).format('YYYY-MM-DD')
+  var hora = moment(new Date()).format('HH:mm')
   let credencial = ''
   let nameImage = ''
   let Image: any
   const formData = new FormData()
   const [ferramentas, setferramentas] = useState<any[]>([])
+  const [ferramentasT, setferramentasT] = useState<any[]>([])
   // function onSubmit(data: FormData) {
   //   data.idConfigTravessia = idConfigTravessia.replace('#/preencher-fases/', '')
   //   data.banco = 'todos-campos'
@@ -745,6 +753,9 @@ export default function FillInPhases() {
       TipoTub: tipoTubulacao,
       Responsavel: responsavel,
       Equipamentos: equipamentos,
+      comprimentoMordenteEntrada: comprimentoMordenteEntrada,
+      portaSondaBroca: portaSondaBroca,
+      cabecaSonda: cabecaSonda,
       Documentos: documentos,
       EmpresaProp: empresa,
       ConfSondagemInterferencia: sondagemInterferencia,
@@ -816,7 +827,9 @@ export default function FillInPhases() {
       finalizarEtapa: false,
       travessiaId: idConfigTravessia.replace('#/preencher-fases/', '').split('/')[1],
       profundidadeEntrada: profundidadeEntrada,
+      profundidadePVE: profundidadePVE,
       profundidadeSaida: profundidadeSaida,
+      profundidadePVS: profundidadePVS,
       valaEntradaLatitude: valaEntradaLatitude,
       valaEntradaLongitude: valaEntradaLongitude,
       valaEntradaAltura: valaEntradaAltura,
@@ -995,6 +1008,8 @@ export default function FillInPhases() {
   }
   async function loadDados(tipoSoloId: string) {
     setLoading(true)
+    setdataExecucao(date)
+    sethoraExecucao(hora)
     // eslint-disable-next-line
     const responser = await api.get(`etapas?filter%5BidConfigTravessia%5D=${idConfigTravessia.replace("#/preencher-fases/", '').split('/')[0]}&filter%5Bid%5D=${idConfigTravessia.replace("#/preencher-fases/", '').split('/')[2].split("(")[0]}`,
     ).then((response) => {
@@ -1215,6 +1230,9 @@ export default function FillInPhases() {
           settipoTubulacao(response.data.rows[0].TipoTub)
           setresponsavel(response.data.rows[0].Responsavel)
           setequipamentos(response.data.rows[0].Equipamentos)
+          setcomprimentoMordenteEntrada(response.data.rows[0].comprimentoMordenteEntrada)
+          setPortaSondaBroca(response.data.rows[0].portaSondaBroca)
+          setCabecaSonda(response.data.rows[0].cabecaSonda)
           setsondagemInterferencia(response.data.rows[0].ConfSondagemInterferencia)
           setdocumentos(response.data.rows[0].Documentos)
           setempresa(response.data.rows[0].EmpresaProp)
@@ -1269,6 +1287,7 @@ export default function FillInPhases() {
           setConfirmacaoProcedimento(response.data.rows[0].confirmacaoProcedimento)
           setHastes(response.data.rows[0].hastes)
           setSonda(response.data.rows[0].sonda)
+          setReceitaFluido(response.data.rows[0].receitaFluido)
           setpaPerfuracao(response.data.rows[0].paPerfuracao)
           setPullingHead(response.data.rows[0].pullingHead)
           setLocalizador(response.data.rows[0].localizador)
@@ -1283,6 +1302,7 @@ export default function FillInPhases() {
           setDiametroFerramenta(response.data.rows[0].diametroFerramenta)
           setFinalizarEtapa(response.data.rows[0].finalizarEtapa)
           setprofundidadeEntrada(response.data.rows[0].profundidadeEntrada)
+          setprofundidadePVE(response.data.rows[0].profundidadePVE)
           setprofundidadeSaida(response.data.rows[0].profundidadeSaida)
           setvalaEntradaLatitude(response.data.rows[0].valaEntradaLatitude)
           setvalaEntradaLongitude(response.data.rows[0].valaEntradaLongitude)
@@ -1337,7 +1357,7 @@ export default function FillInPhases() {
       ).then((response) => {
         if (response.statusText === 'OK') {
           console.log(response.data.rows)
-          setferramentas(response.data.rows)
+          setferramentasT(response.data.rows)
           //setValorFerramenta(response.data.rows)
         }
       }).catch((res) => {
@@ -1537,6 +1557,7 @@ export default function FillInPhases() {
         travessiaId: idConfigTravessia.replace('#/preencher-fases/', '').split('/')[1],
         finalizarEtapa: true,
         profundidadeEntrada: profundidadeEntrada,
+        profundidadePVE: profundidadePVE,
         profundidadeSaida: profundidadeSaida,
         valaEntradaLatitude: valaEntradaLatitude,
         valaEntradaLongitude: valaEntradaLongitude,
@@ -1847,11 +1868,11 @@ export default function FillInPhases() {
             : false}
           {campoprofundidadeEntrada
             ? <div>
-              <label htmlFor=''>Profundidade da travessia (m)</label>
+              <label htmlFor=''>Profundidade PVE (m)</label>
               <input
-                type='number' placeholder='Profundidade'
-                value={profundidadeEntrada}
-                onChange={(text) => setprofundidadeEntrada(text.target.value)}
+                type='number' placeholder='Profundidade PVE (m)'
+                value={profundidadePVE}
+                onChange={(text) => setprofundidadePVE(text.target.value)}
               />
             </div>
             : false}
@@ -1886,11 +1907,21 @@ export default function FillInPhases() {
             : false}
           {campoprofundidadeSaida
             ? <div>
-              <label htmlFor=''>Tolerância da profundidade (m)</label>
+              <label htmlFor=''>Profundidade PVS (m)</label>
               <input
-                type='number' placeholder='Profundidade'
+                type='number' placeholder='Profundidade PVS (m)'
                 value={profundidadeSaida}
                 onChange={(text) => setprofundidadeSaida(text.target.value)}
+              />
+            </div>
+            : false}
+          {campoprofundidadeEntrada
+            ? <div>
+              <label htmlFor=''>Profundidade da travessia (m)</label>
+              <input
+                type='number' placeholder='Profundidade'
+                value={profundidadeEntrada}
+                onChange={(text) => setprofundidadeEntrada(text.target.value)}
               />
             </div>
             : false}
@@ -2431,7 +2462,7 @@ export default function FillInPhases() {
               <div className='selectPlus'>
                 <select
                   value={Fluido}
-                  onChange={(text) => { setFluido(text.target.value); setReceitaFluido(`Viscosidade esperada (Segundos Marsh - cP): ${text.target.value.toString().split('/')[2]}\npH da Água: ${text.target.value.toString().split('/')[3]}\nQuantidade base para formulação (Metros cúbicos - m²): ${text.target.value.toString().split('/')[4]}\nLimite de escoamento (Número - N): ${text.target.value.toString().split('/')[5]}\nTeor de areia (Porcentagem - %): ${text.target.value.toString().split('/')[6]}`) }}
+                  onChange={(text) => { setFluido(text.target.value); text.target.value != '' ? setReceitaFluido(`Viscosidade esperada (Segundos Marsh - cP): ${text.target.value.toString().split('/')[2]}\npH da Água: ${text.target.value.toString().split('/')[3]}\nQuantidade base para formulação (Metros cúbicos - m²): ${text.target.value.toString().split('/')[4]}\nLimite de escoamento (Número - N): ${text.target.value.toString().split('/')[5]}\nTeor de areia (Porcentagem - %): ${text.target.value.toString().split('/')[6]}`) : false}}
                 >
                   <option value=''>Selecione...</option>
                   {fluidos.length > 0
@@ -2570,7 +2601,29 @@ export default function FillInPhases() {
                 type='text'
                 value={anguloEntrada}
                 onChange={(text) => setAnguloEntrada(text.target.value)} />
-            </div><button style={{ marginTop: '35px', width: '200px' }} onClick={() => { formulas() }} className='finishPhase'>Visualizar plano de furo</button></>
+            </div><button style={{ marginTop: '35px', width: '200px' }} onClick={() => { formulas() }} className='finishPhase'>Visualizar plano de furo</button>
+
+              <div>
+                <label htmlFor=''>Comprimento mordentes à entrada (m)</label>
+                <input
+                  type='text'
+                  value={comprimentoMordenteEntrada}
+                  onChange={(text) => setcomprimentoMordenteEntrada(text.target.value)} />
+              </div>
+              <div>
+                <label htmlFor=''>Porta sonda até Broca (m)</label>
+                <input
+                  type='text'
+                  value={portaSondaBroca}
+                  onChange={(text) => setPortaSondaBroca(text.target.value)} />
+              </div>
+              <div>
+                <label htmlFor=''>Cabeça da sonda (m)</label>
+                <input
+                  type='text'
+                  value={cabecaSonda}
+                  onChange={(text) => setCabecaSonda(text.target.value)} />
+              </div></>
             : false}
           {grafico ?
             <><div className="myChartDiv">
@@ -2755,7 +2808,7 @@ export default function FillInPhases() {
             : false}
           {campoDiametroFerramenta
             ? <div>
-              <label htmlFor=''>Diametro da ferramenta</label>
+              <label htmlFor=''>Diametro da ferramenta (mm)</label>
               <input
                 type='text'
                 value={DiametroFerramenta}
@@ -2925,7 +2978,7 @@ export default function FillInPhases() {
             : false} */}
           {campovalaEntradaComprimento
             ? <div>
-              <label htmlFor=''>Vala de entrada comprimento</label>
+              <label htmlFor=''>Vala de entrada comprimento (m)</label>
               <input
                 type='number'
                 value={valaEntradaComprimento}
@@ -3013,7 +3066,7 @@ export default function FillInPhases() {
               />
             </div>
             : false}
-          {campoMaterialRedeTubula
+          {/* {campoMaterialRedeTubula
             ? <div>
               <label htmlFor=''>Material de rede/tubulação</label>
               <input
@@ -3022,7 +3075,7 @@ export default function FillInPhases() {
                 onChange={(text) => setMaterialRedeTubula(text.target.value)}
               />
             </div>
-            : false}
+            : false} */}
           <br />
           {campotipoInterferencia
             ? <><h4>Registro de interferencias</h4>
@@ -3065,18 +3118,18 @@ export default function FillInPhases() {
             </>
             : false}
           {campoFerramentas
-            ? <><br/><h4>Ferramentas selecionadas</h4>
+            ? <><br /><h4>Ferramentas selecionadas</h4>
               {/* <button onClick={openModalInterferencia} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button> */}
               <div style={{ overflow: 'auto' }}>
                 <table >
-                  {ferramentas.length > 0
+                  {ferramentasT.length > 0
                     ? <tr>
                       <th>Nome</th>
                     </tr>
                     : false}
 
-                  {ferramentas.length > 0
-                    ? ferramentas.map((inter) =>
+                  {ferramentasT.length > 0
+                    ? ferramentasT.map((inter) =>
                       <tr>
                         <td>{inter.nome}</td>
                         <td>
@@ -3094,7 +3147,7 @@ export default function FillInPhases() {
 
                 </table>
               </div>
-              <br/>
+              <br />
             </>
             : false}
           {campoPontosVerificacao
