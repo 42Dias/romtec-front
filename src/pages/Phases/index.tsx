@@ -3067,7 +3067,7 @@ export default function
                 : false}
               {campotempoHaste
                 ? <div>
-                  <label htmlFor=''>Tempo Haste</label>
+                  <label htmlFor=''>Tempo Haste (min/s)</label>
                   <input
                     type='text'
                     value={tempoHaste}
@@ -3281,7 +3281,7 @@ export default function
                 : false}
               {campocapacidadeSwivel
                 ? <div>
-                  <label htmlFor=''>Capacidade do Swivel</label>
+                  <label htmlFor=''>Capacidade do Swivel (t)</label>
                   <input
                     type='text'
                     value={capacidadeSwivel}
@@ -3647,12 +3647,12 @@ export default function
                 <div style={{ overflow: 'auto' }}>
                   <table>
                     {pontosVerificacao.length > 0
-                      ? <tr>
+                      ? <tr> 
                         <th>Latitude</th>
                         <th>Longitude</th>
-                        <th>Profundidade</th>
-                        {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <th>Angulação</th> : false}
-                        {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <th>Posição em Horas</th> : false}
+                        <th>Profundidade (m)</th>
+                        {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <th>Angulação (º)</th> : false}
+                        {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <th>Posição em Horas (h)</th> : false}
                       </tr>
                       : false}
 

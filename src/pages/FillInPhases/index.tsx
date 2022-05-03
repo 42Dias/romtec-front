@@ -2462,7 +2462,7 @@ export default function FillInPhases() {
               <div className='selectPlus'>
                 <select
                   value={Fluido}
-                  onChange={(text) => { setFluido(text.target.value); text.target.value != '' ? setReceitaFluido(`Viscosidade esperada (Segundos Marsh - cP): ${text.target.value.toString().split('/')[2]}\npH da Água: ${text.target.value.toString().split('/')[3]}\nQuantidade base para formulação (Metros cúbicos - m²): ${text.target.value.toString().split('/')[4]}\nLimite de escoamento (Número - N): ${text.target.value.toString().split('/')[5]}\nTeor de areia (Porcentagem - %): ${text.target.value.toString().split('/')[6]}`) : false}}
+                  onChange={(text) => { setFluido(text.target.value); text.target.value != '' ? setReceitaFluido(`Viscosidade esperada (Segundos Marsh - cP): ${text.target.value.toString().split('/')[2]}\npH da Água: ${text.target.value.toString().split('/')[3]}\nQuantidade base para formulação (Metros cúbicos - m²): ${text.target.value.toString().split('/')[4]}\nLimite de escoamento (Número - N): ${text.target.value.toString().split('/')[5]}\nTeor de areia (Porcentagem - %): ${text.target.value.toString().split('/')[6]}`) : false }}
                 >
                   <option value=''>Selecione...</option>
                   {fluidos.length > 0
@@ -2576,7 +2576,7 @@ export default function FillInPhases() {
             : false}
           {campotempoHaste
             ? <div>
-              <label htmlFor=''>Tempo Haste</label>
+              <label htmlFor=''>Tempo Haste (min/s)</label>
               <input
                 type='text'
                 value={tempoHaste}
@@ -2798,7 +2798,7 @@ export default function FillInPhases() {
             : false}
           {campocapacidadeSwivel
             ? <div>
-              <label htmlFor=''>Capacidade do Swivel</label>
+              <label htmlFor=''>Capacidade do Swivel (t)</label>
               <input
                 type='text'
                 value={capacidadeSwivel}
@@ -3158,9 +3158,9 @@ export default function FillInPhases() {
                     ? <tr>
                       <th>Latitude</th>
                       <th>Longitude</th>
-                      <th>Profundidade</th>
-                      {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <th>Angulação</th> : false}
-                      {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <th>Posição em Horas</th> : false}
+                      <th>Profundidade (m)</th>
+                      {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <th>Angulação (º)</th> : false}
+                      {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <th>Posição em Horas (h)</th> : false}
                     </tr>
                     : false}
 
@@ -3465,6 +3465,75 @@ export default function FillInPhases() {
             </button>
           </form>
         </S.Container>
+      </Modal>
+
+      <Modal
+        className='phaes-modal'
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          },
+        }}
+        isOpen={modalIsOpenVerificacaoEdit}
+        onAfterOpen={() => afterOpenModalInterferencia}
+        onRequestClose={() => closeModalVerificacaoEdit}
+      >
+        <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModalVerificacaoEdit}><FiX color='white' /></button>
+
+        <S4.ModelsModal>
+          <h2>Editar ponto de verificação</h2>
+          <div>
+            {/* <label htmlFor=''>Status</label>
+              <select name='' id='' value={status} onChange={(text) => setStatus(text.target.value)}>
+                <option value='Planejamento'>Planejamento</option>
+                <option value='Execução'>Execução</option>
+              </select> */}
+
+            <input
+              type='number' placeholder='Latitude'
+              value={latitude}
+              onChange={(text) => setLatitude(text.target.value)}
+            />
+            <input
+              type='number' placeholder='Longitude'
+              value={longitude}
+              onChange={(text) => setLongitude(text.target.value)}
+            />
+            <input
+              type='number' placeholder='Profundidade'
+              value={profundidade}
+              onChange={(text) => setprofundidade(text.target.value)}
+            />
+            {variavelTitulo == 'Execução da Travessia - Furo Piloto'
+              ? <input
+                type='number' placeholder='Angulacão'
+                value={angulacao}
+                onChange={(text) => setAngulacao(text.target.value)}
+              />
+              : false}
+            {variavelTitulo == 'Execução da Travessia - Furo Piloto'
+              ? <input
+                type='number' placeholder='posicão em Horas'
+                value={posicaoHoras}
+                onChange={(text) => setposicaoHoras(text.target.value)}
+              />
+              : false}
+          </div>
+          <button className='save' onClick={() => editarInterferencia('pontos-verificacao/')}>{loading
+            ? (
+              <img
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src={Load}
+                alt='Loading'
+              />
+            )
+            : (
+              'Salvar'
+            )}
+          </button>
+        </S4.ModelsModal>
       </Modal>
 
       <Modal
