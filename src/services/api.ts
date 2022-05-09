@@ -14,7 +14,7 @@ export let password = localStorage.getItem('password')?.replace(/"/g, '')
 export const ip = 'http://7dd208931cad.sn.mynetname.net'
 
 export const api = axios.create({
-  baseURL: ip + ':8145/api/tenant/' + tenantId + '/',
+  baseURL: ip + ':42145/api/tenant/' + tenantId + '/',
   timeout: 50000,
   headers: { Authorization: 'Bearer ' + token },
 })
