@@ -84,7 +84,7 @@ export default function Register () {
       timeout: 50000,
     }).then(response => {
       // navigate('/home', { replace: true })
-      console.log(window.location.href = window.location.href + 'home')
+      console.log(window.location.href = window.location.href.replace("cadastro",'home'))
       return response.data
     })
     console.log(response)

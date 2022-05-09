@@ -25,7 +25,7 @@ type FormData = {
 }
 
 export default function
-ExecutionOfTheCrossing () {
+  ExecutionOfTheCrossing() {
   const [isOpen, setIsOpen] = useState(false)
   const [isOpenPhases, setIsOpenPhases] = useState(false)
   const [isOpenUpdate, setIsOpenUpdate] = useState(false)
@@ -46,7 +46,7 @@ ExecutionOfTheCrossing () {
   const link = '/etapas/'
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
 
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
     data.idCliente = data.nomeCliente.split('/')[0]
     data.nomeCliente = data.nomeCliente.split('/')[1]
     data.idConfigTravessia = data.nomeConfigTravessia.split('/')[0]
@@ -88,7 +88,7 @@ ExecutionOfTheCrossing () {
     })
   }
 
-  async function loadDados () {
+  async function loadDados() {
     setLoading(true)
     // eslint-disable-next-line
     api.get('executarTravessia',
@@ -128,7 +128,7 @@ ExecutionOfTheCrossing () {
       setLoading(false)
     })
   }
-  async function deleteDados (id: string) {
+  async function deleteDados(id: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete('executarTravessia/' + id
@@ -144,7 +144,7 @@ ExecutionOfTheCrossing () {
     })
   }
 
-  function update (dados: any) {
+  function update(dados: any) {
     console.log('dados')
     console.log(dados)
     setIdconfigTravessia(dados.id)
@@ -157,7 +157,7 @@ ExecutionOfTheCrossing () {
     setIsOpenUpdate(true)
   }
 
-  async function updateDados () {
+  async function updateDados() {
     setLoading(true)
     const responser = api.put('executarTravessia/' + idconfigTravessia, {
       data: {
@@ -187,12 +187,12 @@ ExecutionOfTheCrossing () {
     loadDados()
   }, [])
 
-  function close () {
+  function close() {
     reset()
     setIsOpen(false)
   }
 
-  function onChange (e: any) {
+  function onChange(e: any) {
     console.log(`checked = ${e.target.checked}`)
   }
 
@@ -278,26 +278,28 @@ ExecutionOfTheCrossing () {
         <Modal isOpen={isOpen} onClose={() => close()}>
           <S.Container>
             <S.Form onSubmit={handleSubmit(onSubmit)}>
-              <label
-                htmlFor='nomeCliente'
-              >Nome do Cliente
-              </label>
-              <select
-                {...register('nomeCliente', {
-                  required: {
-                    value: true,
-                    message: 'Todos os campos são obrigatórios',
-                  },
-                })}
-                name='nomeCliente' id='nomeCliente'
-              >
-                <option value=''>Selecione...</option>
-                {clientes.length > 0
-                  ? clientes.map((cliente) =>
-                    <option value={cliente.id + '/' + cliente.nomeFantasia}>{cliente.nomeFantasia}</option>,
-                  )
-                  : <option value=''>Nenhum Cliente cadastrado!</option>}
-              </select>
+              <div>
+                <label
+                  htmlFor='nomeCliente'
+                >Nome do Cliente
+                </label>
+                <select
+                  {...register('nomeCliente', {
+                    required: {
+                      value: true,
+                      message: 'Todos os campos são obrigatórios',
+                    },
+                  })}
+                  name='nomeCliente' id='nomeCliente'
+                >
+                  <option value=''>Selecione...</option>
+                  {clientes.length > 0
+                    ? clientes.map((cliente) =>
+                      <option value={cliente.id + '/' + cliente.nomeFantasia}>{cliente.nomeFantasia}</option>,
+                    )
+                    : <option value=''>Nenhum Cliente cadastrado!</option>}
+                </select>
+              </div>
               <TextField
                 label='Nome da travessia'
                 errorMessage={errors.descricao?.message}
@@ -319,30 +321,30 @@ ExecutionOfTheCrossing () {
                   },
                 })}
               />
+              <div>
+                <label
+                  htmlFor='nomeConfigTravessia'
+                >Configuração da travessia
+                </label>
+                <select
+                  {...register('nomeConfigTravessia', {
+                    required: {
+                      value: true,
+                      message: 'Todos os campos são obrigatórios',
+                    },
+                  })}
+                  name='nomeConfigTravessia' id='nomeConfigTravessia'
+                >
+                  <option value='1/Travessia personalizada'>Iniciar Travessia personalizada</option>
+                  {travessia.length > 0
+                    ? travessia.map((travessia) =>
 
-              <label
-                htmlFor='nomeConfigTravessia'
-              >Configuração da travessia
-              </label>
-              <select
-                {...register('nomeConfigTravessia', {
-                  required: {
-                    value: true,
-                    message: 'Todos os campos são obrigatórios',
-                  },
-                })}
-                name='nomeConfigTravessia' id='nomeConfigTravessia'
-              >
-                <option value='1/Travessia personalizada'>Iniciar Travessia personalizada</option>
-                {travessia.length > 0
-                  ? travessia.map((travessia) =>
+                      <option value={travessia.id + '/' + travessia.nome}>{travessia.nome}</option>,
 
-                    <option value={travessia.id + '/' + travessia.nome}>{travessia.nome}</option>,
-
-                  )
-                  : <option value=''>Nenhuma Configuração de Travessia cadastrado!</option>}
-              </select>
-
+                    )
+                    : <option value=''>Nenhuma Configuração de Travessia cadastrado!</option>}
+                </select>
+              </div>
               <button type='submit'>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src={Load} alt='Loading' /> : 'Salvar'}</button>
             </S.Form>
           </S.Container>
