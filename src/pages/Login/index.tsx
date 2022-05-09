@@ -6,7 +6,7 @@ import * as S from './styles'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import { ip, password } from '../../services/api'
+import { ip, password, port } from '../../services/api'
 import Load from './../../assets/load.gif'
 
 type FormData = {
@@ -49,7 +49,7 @@ export default function Login() {
       setMudarSenha(true)
     }
     // eslint-disable-next-line
-    const responser = axios.post(ip + ':8145/api/auth/sign-in', {
+    const responser = axios.post(`${ip}:${port}/api/auth/sign-in`, {
       email: submit.email,
       password: submit.password,
       invitationToken: '',
@@ -77,7 +77,7 @@ export default function Login() {
   async function loadUser(token: any) {
     const response = await axios({
       method: 'get',
-      url: `${ip}:8145/api/auth/me`,
+      url: `${ip}:${port}/api/auth/me`,
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',

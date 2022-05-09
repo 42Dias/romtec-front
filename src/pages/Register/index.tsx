@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import * as S from './styles'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import { ip } from '../../services/api'
+import { ip, port } from '../../services/api'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import Load from './../../assets/load.gif'
@@ -48,7 +48,7 @@ export default function Register () {
 
   async function Cadastro (submit:any) {
     setLoading(true)
-    const responser = axios.post(ip + ':8145/api/auth/sign-up', {
+    const responser = axios.post(ip + `:${port}/api/auth/sign-up`, {
       nome: submit.name,
       email: submit.email,
       password: submit.password,
@@ -75,7 +75,7 @@ export default function Register () {
   async function loadUser (token:any) {
     const response = await axios({
       method: 'get',
-      url: `${ip}:8145/api/auth/me`,
+      url: `${ip}:${port}/api/auth/me`,
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',

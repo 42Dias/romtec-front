@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { ip } from '../../services/api'
+import { ip, port } from '../../services/api'
 import { TextField } from '../../ui/Components/TextField'
 import Load from './../../assets/load.gif'
 import * as S from './styled'
@@ -23,7 +23,7 @@ export default function ForgotPassword () {
   } 
   async function senEmail(email:string) {
     setLoading(true)
-    axios.post(`${ip}:8145/api/trocarSenha`, {
+    axios.post(`${ip}:${port}/api/trocarSenha`, {
       email: email
     }).then((response) => {
       if (response.statusText == "OK") {

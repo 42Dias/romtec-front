@@ -5,7 +5,7 @@ import { FiSettings } from 'react-icons/fi'
 import image from '../../assets/obra.png'
 import axios from 'axios'
 import { useEffect } from 'react'
-import { ip} from '../../services/api'
+import { ip, port} from '../../services/api'
 import { toast } from 'react-toastify'
 
 export default function
@@ -27,7 +27,7 @@ export default function
   }
   async function Login(email: string, password:string) {
     // eslint-disable-next-line
-    const responser = axios.post(ip + ':8145/api/auth/sign-in', {
+    const responser = axios.post(ip + ':${port}/api/auth/sign-in', {
       email: email,
       password: password,
       invitationToken: '',
@@ -54,7 +54,7 @@ export default function
   async function loadUser (token:any) {
     const response = await axios({
       method: 'get',
-      url: `${ip}:8145/api/auth/me`,
+      url: `${ip}:${port}/api/auth/me`,
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',

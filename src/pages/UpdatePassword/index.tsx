@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { NotEmittedStatement } from 'typescript'
-import { ip, token, api, id } from '../../services/api'
+import { ip, token, api, id, port } from '../../services/api'
 import { TextField } from '../../ui/Components/TextField'
 import * as S from './styled'
 import Load from './../../assets/load.gif'
@@ -59,7 +59,7 @@ export default function UpdatePassword() {
     }
     const response = await axios({
       method: "get",
-      url: `${ip}:8145/api/auth/me`,
+      url: `${ip}:${port}/api/auth/me`,
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -103,7 +103,7 @@ export default function UpdatePassword() {
     // async function update(data: any) {
     if (dataU) {
       // data.password = dataU.senha
-      await axios.put(ip + ":8145/api/auth/password-reset", {
+      await axios.put(ip + `:${port}/api/auth/password-reset`, {
         token: id,
         password: dataU.password,
         firstName: dataU.firstName
@@ -116,7 +116,7 @@ export default function UpdatePassword() {
         toast.error(res.response.data)
         setLoading(false)
       });
-      // const response = await axios.put(`${ip}:8145/api/auth/password-reset/`, {
+      // const response = await axios.put(`${ip}:${port}/api/auth/password-reset/`, {
       //   token: token,
       //   password: dataU.senha
       // }).then((response) => {

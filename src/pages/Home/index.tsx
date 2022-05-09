@@ -5,7 +5,7 @@ import { FiSettings } from 'react-icons/fi'
 import image from '../../assets/obra.png'
 import axios from 'axios'
 import { useEffect } from 'react'
-import { ip, token } from '../../services/api'
+import { ip, port, token } from '../../services/api'
 import { toast } from 'react-toastify'
 import { Toast } from 'react-toastify/dist/components'
 
@@ -15,7 +15,7 @@ Home () {
     // toast.info(token)
     const response = await axios({
       method: 'get',
-      url: `${ip}:8145/api/auth/me`,
+      url: `${ip}:${port}/api/auth/me`,
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
