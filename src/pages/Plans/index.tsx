@@ -75,7 +75,7 @@ Plans () {
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res.response.data)
+      //console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
@@ -91,7 +91,7 @@ Plans () {
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res.response.data)
+      //console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })

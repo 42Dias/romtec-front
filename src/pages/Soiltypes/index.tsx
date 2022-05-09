@@ -81,7 +81,7 @@ SoilTypes () {
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res.response.data)
+      //console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
@@ -96,7 +96,7 @@ SoilTypes () {
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res.response.data)
+      //console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })

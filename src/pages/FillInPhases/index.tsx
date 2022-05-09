@@ -1115,7 +1115,7 @@ export default function FillInPhases() {
         setLoading(false)
       }
     }).catch(res => {
-      // console.log(res.response.data)
+      // //console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
@@ -1171,7 +1171,7 @@ export default function FillInPhases() {
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res.response.data)
+      //console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
@@ -1183,7 +1183,7 @@ export default function FillInPhases() {
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res.response.data)
+      //console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
@@ -1194,7 +1194,7 @@ export default function FillInPhases() {
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res.response.data)
+      //console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
@@ -1208,7 +1208,7 @@ export default function FillInPhases() {
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res.response.data)
+      //console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
@@ -1366,7 +1366,7 @@ export default function FillInPhases() {
         setLoading(false)
       })
     }).catch(res => {
-      /// /console.log(res.response.data)
+      /// ///console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
@@ -1396,7 +1396,7 @@ export default function FillInPhases() {
         setLoading(false)
       }
     }).catch(res => {
-      // console.log(res.response.data)
+      // //console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
@@ -1409,7 +1409,7 @@ export default function FillInPhases() {
         setLoading(false)
       }
     }).catch(res => {
-      console.log(res.response.data)
+      //console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
@@ -1583,7 +1583,7 @@ export default function FillInPhases() {
         toast.success('Etapa finalizada!')
       }
     }).catch(res => {
-      // console.log(res.response.data)
+      // //console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
