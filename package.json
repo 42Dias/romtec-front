@@ -2,7 +2,7 @@
   "name": "romtec-front",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://7dd208931cad.sn.mynetname.net",
+  "homepage": "http://7dd208931cad.sn.mynetname.net/romtec",
   "scripts": {
     "dev": "react-scripts start",
     "build": "react-scripts build",
