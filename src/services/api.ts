@@ -12,7 +12,7 @@ export let password = localStorage.getItem('password')?.replace(/"/g, '')
 //export let ip = 'http://localhost' 
 //export const ip = 'https://projetos.42dias.com.br'  
 export const ip = 'http://7dd208931cad.sn.mynetname.net'
-export const port = ':42145'
+export const port = '42145'
 export const api = axios.create({
   baseURL: `${ip}:${port}/api/tenant/${tenantId}/`,
   timeout: 50000,
