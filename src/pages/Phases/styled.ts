@@ -10,6 +10,11 @@ export const ContainerConfirmation = styled.div`
       display: none;
     }
 
+    .button-delete {
+      /* position: absolute; */
+      background: transparent !important;
+    }
+
     .interferenciasForm {
       display: flex;
       flex-direction: column;
