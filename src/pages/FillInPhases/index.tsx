@@ -197,13 +197,14 @@ export default function FillInPhases() {
   const [ferramentasList, setferramentasList] = useState<any[]>([])
   const [maquinasPerfuratriz, setMaquinasPerfuratriz] = useState<any[]>([])
   const [variavelTitulo, setVariavelTitulo] = useState('')
+  const [variavelDescricao, setVariavelDescricao] = useState('')
   const [idDados, setId] = useState('')
   const [status, setStatus] = useState('')
   const [posicaoHoras, setposicaoHoras] = useState('')
   const [nomeFerramenta, setnomeFerramenta] = useState('')
   const [descricaoFerramenta, setdescricaoFerramenta] = useState('')
   const [diametroLarguraFerramenta, setdiametroLarguraFerramenta] = useState('')
-  const [responsavel, setresponsavel] = useState('')
+  const [responsavel, setresponsavel] = useState(nome)
   const [infoEnvolvidas, setInfoEnvolvidas] = useState('')
   const [interferenciaId, setInterferenciaId] = useState('')
   const [tipoInterferencia, setTipoInterferencia] = useState('')
@@ -941,7 +942,7 @@ export default function FillInPhases() {
               setIsOpenPlanejamento(false)
               setIsOpenInvite(false)
               setIsOpenFluido(false)
-              loadDados('etapas')
+              loadDados(tipoSolo)
             }).catch(res => {
               // console.log(res)
               toast.error(res.response.data)
@@ -1018,6 +1019,7 @@ export default function FillInPhases() {
         setUrl(url)
         console.log(response.data.rows[0].tipoEtapa)
         setVariavelTitulo(response.data.rows[0].tipoEtapa)
+        setVariavelDescricao(response.data.rows[0].novaEtapa)
         setIdEtapa(response.data.rows[0].id)
         setcampoEntradaLatitude(response.data.rows[0].campoEntradaLatitude)
         setcampoEntradaLongitude(response.data.rows[0].campoEntradaLongitude)
@@ -1199,7 +1201,7 @@ export default function FillInPhases() {
       setLoading(false)
     })
     console.log(tipoSoloId)
-    await api.get('fluido-perfuracao?filter%5BtipoSoloId%5D=' + tipoSoloId.split('/')[0],// 
+    await api.get('fluido-perfuracao?filter%5BtipoSoloId%5D=' + tipoSoloId,// 
     ).then((response) => {
       console.log(response.data.rows)
       console.log(typeof (response.data.rows))
@@ -1776,8 +1778,8 @@ export default function FillInPhases() {
       <Sidebar />
       <Navbar />
       <S.Container>
-        <h1>{variavelTitulo}</h1>
-
+        <h2 style={{ marginTop: '-10px' }}>{variavelTitulo}</h2>
+        <h3 style={{ width: '100%', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', paddingLeft: '10px', paddingRight: '10px' }}>{variavelDescricao}</h3>
         <form>
           {/* <input placeholder='Responsável' type='text' />
           <input placeholder='Empresa proprietária' type='text' />
@@ -1791,29 +1793,30 @@ export default function FillInPhases() {
           </select>
           <button onClick={openModal} className='add'>Registro de interferência</button> */}
 
-          {camponomePerfilAcesso
-            ? <div>
-              <label htmlFor=''>Nome do usuario do perfil de acesso</label>
-              {/* <input
-                    type='text' placeholder='nome'
-                    value={nomePerfilAcesso}
-                    onChange={(text) => setnomePerfilAcesso(text.target.value)}
-                  /> */}
-              <div className='selectPlus'>
-                <select
-                  name='' id='' value={nomePerfilAcesso}
-                  onChange={(text) => setnomePerfilAcesso(text.target.value)}
-                >
-                  <option value=''>Selecione...</option>
-                  {user.length > 0
-                    ? user.map((user) =>
-                      <option value={user.id + '/' + user.firstName}>{user.firstName ? user.firstName : user.email}</option>)
-                    : <option>Nenhuma maquina cadastrada!</option>}
-                </select>
-                <button onClick={() => setIsOpenInvite(true)} className='buttonAddInter'><FiPlus size={20} /></button>
-              </div>
-            </div>
-            : false}
+          {//</form>camponomePerfilAcesso
+            // ? <div>
+            //   <label htmlFor=''>Nome do usuario do perfil de acesso</label>
+            //   {/* <input
+            //         type='text' placeholder='nome'
+            //         value={nomePerfilAcesso}
+            //         onChange={(text) => setnomePerfilAcesso(text.target.value)}
+            //       /> */}
+            //   <div className='selectPlus'>
+            //     <select
+            //       name='' id='' value={nomePerfilAcesso}
+            //       onChange={(text) => setnomePerfilAcesso(text.target.value)}
+            //     >
+            //       <option value=''>Selecione...</option>
+            //       {user.length > 0
+            //         ? user.map((user) =>
+            //           <option value={user.id + '/' + user.firstName}>{user.firstName ? user.firstName : user.email}</option>)
+            //         : <option>Nenhuma maquina cadastrada!</option>}
+            //     </select>
+            //     <button onClick={() => setIsOpenInvite(true)} className='buttonAddInter'><FiPlus size={20} /></button>
+            //   </div>
+            // </div>
+            //: false
+          }
           {campodataExecucao
             ? <div>
               <label htmlFor=''>Data execução</label>
@@ -1824,7 +1827,7 @@ export default function FillInPhases() {
               />
             </div>
             : false}
-          {camporesponsavelExecucao
+          {/* {camporesponsavelExecucao
             ? <div>
               <label htmlFor=''>Responsavel pela execução</label>
               <input
@@ -1834,12 +1837,12 @@ export default function FillInPhases() {
                 onChange={(text) => setresponsavelExecucao(text.target.value)}
               />
             </div>
-            : false}
+            : false} */}
           {campohoraExecucao
             ? <div>
               <label htmlFor=''>Hora de execução</label>
               <input
-                type='text' placeholder='00:00'
+                type='time' placeholder='00:00'
                 value={horaExecucao}
                 onChange={(text) => sethoraExecucao(text.target.value)}
               />
@@ -1866,13 +1869,23 @@ export default function FillInPhases() {
               />
             </div>
             : false}
-          {campoprofundidadeEntrada
+          {/* {campoprofundidadeEntrada
             ? <div>
               <label htmlFor=''>Profundidade PVE (m)</label>
               <input
                 type='number' placeholder='Profundidade PVE (m)'
                 value={profundidadePVE}
                 onChange={(text) => setprofundidadePVE(text.target.value)}
+              />
+            </div>
+            : false} */}
+             {campoprofundidadeEntrada
+            ? <div>
+              <label htmlFor=''>Profundidade da travessia (m)</label>
+              <input
+                type='number' placeholder='Profundidade da travessia (m)'
+                value={profundidadeEntrada}
+                onChange={(text) => setprofundidadeEntrada(text.target.value)}
               />
             </div>
             : false}
@@ -1907,53 +1920,20 @@ export default function FillInPhases() {
             : false}
           {campoprofundidadeSaida
             ? <div>
-              <label htmlFor=''>Profundidade PVS (m)</label>
+              <label htmlFor=''>Tolerância da profundidade (m)</label>
               <input
-                type='number' placeholder='Profundidade PVS (m)'
+                type='number' placeholder='Tolerância da profundidade (m)'
                 value={profundidadeSaida}
                 onChange={(text) => setprofundidadeSaida(text.target.value)}
               />
             </div>
             : false}
-          {campoprofundidadeEntrada
-            ? <div>
-              <label htmlFor=''>Profundidade da travessia (m)</label>
-              <input
-                type='number' placeholder='Profundidade'
-                value={profundidadeEntrada}
-                onChange={(text) => setprofundidadeEntrada(text.target.value)}
-              />
-            </div>
-            : false}
-          {campoTipoSolo
-            ? <div>
-              <label htmlFor=''>Tipos de solo</label>
-              {/* <input
-                    type='text' placeholder='Barro'
-                    value={tipoSolo}
-                    onChange={(text) => setTipoSolo(text.target.value)}
-                  /> */}
-              <div className='selectPlus'>
-                <select
-                  value={tipoSolo}
-                  onChange={(text) => { setTipoSolo(text.target.value.split('/')[0]); setEspecificacaoSolo(text.target.value.split('/')[1]); loadDados(text.target.value) }}
-                >
-                  <option value=''>Selecione...</option>
-                  {soilTypes.length > 0
-                    ? soilTypes.map((tipoSolo) =>
-                      <option value={tipoSolo.id + '/' + tipoSolo.especificacaoSolo}>{tipoSolo.especificacaoSolo}</option>)
-                    : <option>Nenhuma maquina cadastrada!</option>}
-                </select>
-                <button onClick={() => setIsOpenTipoSolo(true)} className='buttonAddInter'><FiPlus size={20} /></button>
-              </div>
-            </div>
-            : false}
 
           {campoDiametroPerfuracao
             ? <div>
-              <label htmlFor=''>Diâmetro de perfuração</label>
+              <label htmlFor=''>Diâmetro de perfuração (mm)</label>
               <input
-                type='text' placeholder='20 metros'
+                type='number' placeholder='200 mm'
                 value={diametroPerfuracao}
                 onChange={(text) => setdiametroPerfuracao(text.target.value)}
               />
@@ -1993,16 +1973,18 @@ export default function FillInPhases() {
             </div>
             : false}
 
-          {campoResponsel
-            ? <div>
+          {//campoResponsel? 
+            <div>
               <label htmlFor=''>Responsável</label>
               <input
+                disabled
                 type='text'
                 value={responsavel}
                 onChange={(text) => setresponsavel(text.target.value)}
               />
             </div>
-            : false}
+            //: false
+          }
 
           {campoEquipamento
             ? <div>
@@ -2071,7 +2053,7 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Volume preparado (L)</label>
               <input
-                type='text'
+                type='number'
                 value={VolumePreparado}
                 onChange={(text) => setVolumePreparado(text.target.value)}
               />
@@ -2081,7 +2063,7 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Teste  de viscosidade  (s/Marsh)</label>
               <input
-                type='text'
+                type='number'
                 value={TesteVicosidade}
                 onChange={(text) => setTesteVicosidade(text.target.value)}
               />
@@ -2154,9 +2136,10 @@ export default function FillInPhases() {
 
           {campoDiametro
             ? <div>
-              <label htmlFor=''>Diâmetro da Perfuração</label>
+              <label htmlFor=''>Diâmetro da Perfuração (mm)</label>
               <input
-                type='text'
+                type='number'
+                placeholder='Diâmetro da Perfuração (mm)'
                 value={diametroPerfuracao}
                 onChange={(text) => setdiametroPerfuracao(text.target.value)}
               />
@@ -2320,7 +2303,7 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Quantidade de interferencias</label>
               <input
-                type='text'
+                type='number'
                 value={quantidadeInterferencias}
                 onChange={(text) => setquantidadeInterferencias(text.target.value)}
               />
@@ -2330,9 +2313,9 @@ export default function FillInPhases() {
           {campoparaleloEsquerda
             ? <div>
               <label htmlFor=''>Localização em relação a diretriz do furo:</label>
-              <label htmlFor=''>Paralelo esquerda(m)</label>
+              <label htmlFor=''>Paralelo esquerda (m)</label>
               <input
-                type='text'
+                type='number'
                 value={paraleloEsquerda}
                 onChange={(text) => setparaleloEsquerda(text.target.value)}
               />
@@ -2340,9 +2323,9 @@ export default function FillInPhases() {
             : false}
           {campoparaleloDireita
             ? <div>
-              <label htmlFor=''>Paralelo Direita(m)</label>
+              <label htmlFor=''>Paralelo Direita (m)</label>
               <input
-                type='text'
+                type='number'
                 value={paraleloDireita}
                 onChange={(text) => setparaleloDireita(text.target.value)}
               />
@@ -2350,9 +2333,9 @@ export default function FillInPhases() {
             : false}
           {campoperpendicular
             ? <div>
-              <label htmlFor=''>Paralelo Perpendicular(m)</label>
+              <label htmlFor=''>Paralelo Perpendicular (m)</label>
               <input
-                type='text'
+                type='number'
                 value={perpendicular}
                 onChange={(text) => setperpendicular(text.target.value)}
               />
@@ -2360,9 +2343,9 @@ export default function FillInPhases() {
             : false}
           {campoProfundidade
             ? <div>
-              <label htmlFor=''>Profundidade</label>
+              <label htmlFor=''>Profundidade (m)</label>
               <input
-                type='text'
+                type='number'
                 value={profundidade}
                 onChange={(text) => setprofundidade(text.target.value)}
               />
@@ -2370,9 +2353,9 @@ export default function FillInPhases() {
             : false}
           {campoDiametroInterferencia
             ? <div>
-              <label htmlFor=''>Diametro de Interferência</label>
+              <label htmlFor=''>Diametro de Interferência (mm)</label>
               <input
-                type='text'
+                type='number'
                 value={diametroInterferencia}
                 onChange={(text) => setDiametroInterferencia(text.target.value)}
               />
@@ -2404,7 +2387,7 @@ export default function FillInPhases() {
               <h3>Dimensões da vala de entrada e saida:</h3>
               <label htmlFor=''>Largura(m)</label>
               <input
-                type='text'
+                type='number'
                 value={largura}
                 onChange={(text) => setlargura(text.target.value)}
               />
@@ -2414,7 +2397,7 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Comprimento(m)</label>
               <input
-                type='text'
+                type='number'
                 value={comprimento}
                 onChange={(text) => setcomprimento(text.target.value)}
               />
@@ -2424,7 +2407,7 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Profundidade(m)</label>
               <input
-                type='text'
+                type='number'
                 value={profundidadeVala}
                 onChange={(text) => setprofundidadeVala(text.target.value)}
               />
@@ -2451,6 +2434,31 @@ export default function FillInPhases() {
               />
             </div>
             : false}
+
+          {campoTipoSolo
+            ? <div>
+              <label htmlFor=''>Tipos de solo</label>
+              {/* <input
+                    type='text' placeholder='Barro'
+                    value={tipoSolo}
+                    onChange={(text) => setTipoSolo(text.target.value)}
+                  /> */}
+              <div className='selectPlus'>
+                <select
+                  value={tipoSolo}
+                  onChange={(text) => { setTipoSolo(text.target.value.split('/')[0]); setEspecificacaoSolo(text.target.value.split('/')[1]); loadDados(text.target.value) }}
+                >
+                  <option value=''>Selecione...</option>
+                  {soilTypes.length > 0
+                    ? soilTypes.map((tipoSolo) =>
+                      <option value={tipoSolo.id + '/' + tipoSolo.especificacaoSolo}>{tipoSolo.especificacaoSolo}</option>)
+                    : <option>Nenhuma maquina cadastrada!</option>}
+                </select>
+                <button onClick={() => setIsOpenTipoSolo(true)} className='buttonAddInter'><FiPlus size={20} /></button>
+              </div>
+            </div>
+            : false}
+
           {campoFluido
             ? <div>
               <label htmlFor=''>Fluido</label>
@@ -2489,7 +2497,7 @@ export default function FillInPhases() {
               <label htmlFor=''>Perfuração:</label>
               <label htmlFor=''>Numero de Hates</label>
               <input
-                type='text'
+                type='number'
                 value={numeroHastes}
                 onChange={(text) => setnumeroHastes(text.target.value)}
               />
@@ -2497,9 +2505,9 @@ export default function FillInPhases() {
             : false}
           {campoprofundidadePlanejada
             ? <div>
-              <label htmlFor=''>Profundidade Planejada</label>
+              <label htmlFor=''>Profundidade Planejada (m)</label>
               <input
-                type='text'
+                type='number'
                 value={profundidadePlanejada}
                 onChange={(text) => setprofundidadePlanejada(text.target.value)}
               />
@@ -2517,9 +2525,9 @@ export default function FillInPhases() {
             : false}
           {campoprofundidadeExecutada
             ? <div>
-              <label htmlFor=''>Profundidade Executada</label>
+              <label htmlFor=''>Profundidade Executada (m)</label>
               <input
-                type='text'
+                type='number'
                 value={profundidadeExecutada}
                 onChange={(text) => setprofundidadeExecutada(text.target.value)}
               />
@@ -2566,9 +2574,9 @@ export default function FillInPhases() {
             : false}
           {campodiametroAlargamento
             ? <div>
-              <label htmlFor=''>Diametro de Alargamento</label>
+              <label htmlFor=''>Diametro de Alargamento (mm)</label>
               <input
-                type='text'
+                type='number'
                 value={diametroAlargamento}
                 onChange={(text) => setdiametroAlargamento(text.target.value)}
               />
@@ -2578,7 +2586,7 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Tempo Haste (min/s)</label>
               <input
-                type='text'
+                type='number'
                 value={tempoHaste}
                 onChange={(text) => settempoHaste(text.target.value)}
               />
@@ -2588,7 +2596,7 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Vazão Bomba (L/min)</label>
               <input
-                type='text'
+                type='number'
                 value={vazaoBomba}
                 onChange={(text) => setvazaoBomba(text.target.value)}
               />
@@ -2598,7 +2606,7 @@ export default function FillInPhases() {
             ? <><div>
               <label htmlFor=''>Ângulo de Entrada</label>
               <input
-                type='text'
+                type='number'
                 value={anguloEntrada}
                 onChange={(text) => setAnguloEntrada(text.target.value)} />
             </div><button style={{ marginTop: '35px', width: '200px' }} onClick={() => { formulas() }} className='finishPhase'>Visualizar plano de furo</button>
@@ -2606,21 +2614,21 @@ export default function FillInPhases() {
               <div>
                 <label htmlFor=''>Comprimento mordentes à entrada (m)</label>
                 <input
-                  type='text'
+                  type='number'
                   value={comprimentoMordenteEntrada}
                   onChange={(text) => setcomprimentoMordenteEntrada(text.target.value)} />
               </div>
               <div>
                 <label htmlFor=''>Porta sonda até Broca (m)</label>
                 <input
-                  type='text'
+                  type='number'
                   value={portaSondaBroca}
                   onChange={(text) => setPortaSondaBroca(text.target.value)} />
               </div>
               <div>
                 <label htmlFor=''>Cabeça da sonda (m)</label>
                 <input
-                  type='text'
+                  type='number'
                   value={cabecaSonda}
                   onChange={(text) => setCabecaSonda(text.target.value)} />
               </div></>
@@ -2656,9 +2664,9 @@ export default function FillInPhases() {
             : false}
           {campodiametroRede
             ? <div>
-              <label htmlFor=''>Diametro da Rede</label>
+              <label htmlFor=''>Diametro da Rede (mm)</label>
               <input
-                type='text'
+                type='number'
                 value={diametroRede}
                 onChange={(text) => setdiametroRede(text.target.value)}
               />
@@ -2800,7 +2808,7 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Capacidade do Swivel (t)</label>
               <input
-                type='text'
+                type='number'
                 value={capacidadeSwivel}
                 onChange={(text) => setcapacidadeSwivel(text.target.value)}
               />
@@ -2810,7 +2818,7 @@ export default function FillInPhases() {
             ? <div>
               <label htmlFor=''>Diametro da ferramenta (mm)</label>
               <input
-                type='text'
+                type='number'
                 value={DiametroFerramenta}
                 onChange={(text) => setDiametroFerramenta(text.target.value)}
               />
@@ -2916,9 +2924,9 @@ export default function FillInPhases() {
 
           {camposInterferencia
             ? <div>
-              <label htmlFor=''>Diâmetro</label>
+              <label htmlFor=''>Diâmetro (mm)</label>
               <input
-                type='text'
+                type='number'
                 value={diametroInterferencia}
                 onChange={(text) => setDiametroInterferencia(text.target.value)}
               />
@@ -2938,7 +2946,7 @@ export default function FillInPhases() {
 
           {camposInterferencia
             ? <div>
-              <label htmlFor=''>Profundidade</label>
+              <label htmlFor=''>Profundidade (m)</label>
               <input
                 type='number'
                 value={profundidade}
@@ -3028,7 +3036,7 @@ export default function FillInPhases() {
             : false} */}
           {campovalaSaidaComprimento
             ? <div>
-              <label htmlFor=''>Vala de saida comprimento</label>
+              <label htmlFor=''>Vala de saida comprimento (m)</label>
               <input
                 type='number'
                 value={valaSaidaComprimento}
@@ -3048,7 +3056,7 @@ export default function FillInPhases() {
             : false}
           {campoprofundidadeMax
             ? <div>
-              <label htmlFor=''>Profundidade maxima</label>
+              <label htmlFor=''>Profundidade maxima (m)</label>
               <input
                 type='number'
                 value={profundidadeMax}
@@ -3058,7 +3066,7 @@ export default function FillInPhases() {
             : false}
           {campoprofundidadeMin
             ? <div>
-              <label htmlFor=''>Profundidade minima</label>
+              <label htmlFor=''>Profundidade minima (m)</label>
               <input
                 type='number'
                 value={profundidadeMin}
@@ -3216,7 +3224,7 @@ export default function FillInPhases() {
                 </button>
               : 'Etapa Finalizada!'}
           </div>
-          <button className='excluirEtapa' onClick={() => deleteEtapa()}>Excluir etapa</button>
+          {/* <button className='excluirEtapa' onClick={() => deleteEtapa()}>Excluir etapa</button> */}
         </form>
       </S.Container>
 
@@ -3776,30 +3784,35 @@ export default function FillInPhases() {
 
             <TextField
               label='Viscosidade esperada (Segundos Marsh - cP)'
+              type='number'
               value={viscosidadeEsperada}
               onChange={(text) => setViscosidadeEsperada(text.target.value)}
             />
 
             <TextField
               label='pH da Água'
+              type='number'
               value={qtdePHPA}
               onChange={(text) => setQtdePHPA(text.target.value)}
             />
 
             <TextField
               label='Quantidade base para formulação (Metros cúbicos - m²)'
+              type='number'
               value={qtdeBase}
               onChange={(text) => setQtdeBase(text.target.value)}
             />
 
             <TextField
               label='Limite de escoamento (Número - N)'
+              type='number'
               value={limiteEscoamento}
               onChange={(text) => setLimiteEscoamento(text.target.value)}
             />
 
             <TextField
               label='Teor de areia (Porcentagem - %)'
+              type='number'
               value={teorAreia}
               onChange={(text) => setTeorAreia(text.target.value)}
             />
@@ -3813,13 +3826,13 @@ export default function FillInPhases() {
               <div className='selectPlus'>
                 <select
                   value={tipoSolo}
-                  onChange={(text) => { setTipoSolo(text.target.value); loadDados('etapas') }}
+                  onChange={(text) => { setTipoSolo(text.target.value.split('/')[0]); setEspecificacaoSolo(text.target.value.split('/')[1]); loadDados(text.target.value.split('/')[0]) }}
                 >
                   <option value=''>Selecione...</option>
                   {soilTypes.length > 0
                     ? soilTypes.map((tipoSolo) =>
                       <option value={tipoSolo.id + '/' + tipoSolo.especificacaoSolo}>{tipoSolo.especificacaoSolo}</option>)
-                    : <option>Nenhuma maquina cadastrada!</option>}
+                    : <option>Nenhum tipo de solo cadastrado!</option>}
                 </select>
                 {/* <button onClick={() => setIsOpenTipoSolo(true)} className='buttonAddInter'><FiPlus size={20} /></button> */}
               </div>

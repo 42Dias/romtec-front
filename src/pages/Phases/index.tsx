@@ -11,6 +11,7 @@ import { TextField } from '../../ui/Components/TextField'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Load from './../../assets/load.gif'
+import logo from './../../assets/logoR.png'
 import { FiPlus, FiCheck, FiPlay, FiLock, FiX, FiTrash, FiEye } from 'react-icons/fi'
 import { api, ip, nome, roles, token } from '../../services/api'
 import { useForm } from 'react-hook-form'
@@ -207,6 +208,7 @@ export default function
   const [ferramentasList, setferramentasList] = useState<any[]>([])
   const [maquinasPerfuratriz, setMaquinasPerfuratriz] = useState<any[]>([])
   const [variavelTitulo, setVariavelTitulo] = useState('')
+  const [variavelDescricao, setVariavelDescricao] = useState('')
   const [idDados, setId] = useState('')
   const [status, setStatus] = useState('')
   const [anguloEntrada, setAnguloEntrada] = useState('')
@@ -215,7 +217,7 @@ export default function
   const [nomeFerramenta, setnomeFerramenta] = useState('')
   const [descricaoFerramenta, setdescricaoFerramenta] = useState('')
   const [diametroLarguraFerramenta, setdiametroLarguraFerramenta] = useState('')
-  const [responsavel, setresponsavel] = useState('')
+  const [responsavel, setresponsavel] = useState(nome)
   const [infoEnvolvidas, setInfoEnvolvidas] = useState('')
   const [interferenciaId, setInterferenciaId] = useState('')
   const [tipoInterferencia, setTipoInterferencia] = useState('')
@@ -462,7 +464,7 @@ export default function
     { x: 14.77277563, y: -1.45521375 },
     { x: 17.77277563, y: -1.45521375 },
     { x: 20.77277563, y: -1.45521375 },
-    { x: 23.7578872,  y: -1.45521375 },
+    { x: 23.7578872, y: -1.45521375 },
     { x: 26.72469626, y: -1.45521375 },
     { x: 29.63512376, y: -1.45521375 },
     { x: 32.54555126, y: -1.45521375 }
@@ -970,7 +972,7 @@ export default function
               setIsOpenPlanejamento(false)
               setIsOpenInvite(false)
               setIsOpenFluido(false)
-              loadDados('etapas')
+              loadDados(tipoSolo)
             }).catch(res => {
               // console.log(res)
               toast.error(res.response.data)
@@ -1154,7 +1156,7 @@ export default function
       toast.error(res.response.data)
       setLoading(false)
     })
-    await api.get('fluido-perfuracao?filter%5BtipoSoloId%5D=' + tipoSoloId.split('/')[0], //
+    await api.get('fluido-perfuracao?filter%5BtipoSoloId%5D=' + tipoSoloId, //
     ).then((response) => {
       // console.log(response.data.rows)
       console.log(typeof (response.data.rows))
@@ -1550,6 +1552,7 @@ export default function
       setLoading(false)
     })
     setVariavelTitulo(data.tipoEtapa)
+    setVariavelDescricao(data.novaEtapa)
     setIdEtapa(data.id)
     setcampoEntradaLatitude(data.campoEntradaLatitude)
     setcampoEntradaLongitude(data.campoEntradaLongitude)
@@ -1791,7 +1794,7 @@ export default function
       nomePerfilAcesso = true
       croquiMapeamento = true
       // equipamentoUtilizado = true
-      campoFerramentas = true
+      //campoFerramentas = true
       tipoInterferencia = true
       campoTipoRede = true
       MaterialRedeTubula = true
@@ -1866,7 +1869,8 @@ export default function
       // tipoRedeTubula = true
       // campoDiametro = true
       // MaterialRedeTubula = true
-      campoEquipamento = true
+      campoFerramentas = true
+      //campoEquipamento = true
       tempoHaste = true
       capacidadeSwivel = true
       // capacidadePortaFusilink = true
@@ -1998,6 +2002,12 @@ export default function
         setLoading(false)
       })
   }
+  async function deleteEtapa(id: string) {
+    await api.delete('etapas/' + id).then((res) => {
+      toast.success('Etapa excluida!')
+      window.history.back()
+    })
+  }
   function salvarPontosVerificacao() {
     const data = {
       latitude: latitude,
@@ -2100,7 +2110,7 @@ export default function
       <Navbar />
       <S.ContainerConfirmation>
         <h2>Selecione uma etapa</h2>
-        <Modal
+        {/* <Modal
           className='phaes-modal'
           style={{
             overlay: {
@@ -2124,7 +2134,7 @@ export default function
             <button className='save'>Salvar</button>
           </S.ModelsModal>
 
-        </Modal>
+        </Modal> */}
 
         <Modal
           className='phaes-modal'
@@ -2170,10 +2180,13 @@ export default function
             ? dados.map(data =>
               <SwiperSlide>
                 <div onClick={() => openModal(data)}>
-                  <FiPlay />
+                <button className='button' style={{marginLeft: '150px', marginTop: '-10px'}} onClick={() => deleteEtapa(data.id)}>
+                    <FiTrash color='#EA1C24' size={25} />
+                  </button>
+                  <FiPlay style={{marginLeft: '-180px', marginTop: '10px'}} />
                   <h2>{data.numeroEtapa}</h2>
-                  {/* <h2>{data.tipoEtapa}</h2> */}
-                  <h1>{data.tipoEtapa}</h1>
+                  <h3 style={{ marginTop: '-10px' }}>{data.tipoEtapa}</h3>
+                  <h1 style={{ width: '100%', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', paddingLeft: '10px', paddingRight: '10px' }}>{data.novaEtapa}</h1>
                 </div>
               </SwiperSlide>
               ,
@@ -2246,19 +2259,20 @@ export default function
           onRequestClose={() => closeModal}
         >
           {/* <h2>Planejamento de perfuração</h2> */}
-          <h2>{variavelTitulo}</h2>
+          <h2 style={{ marginTop: '-10px' }}>{variavelTitulo}</h2>
+          <h3 style={{ width: '100%', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', paddingLeft: '10px', paddingRight: '10px' }}>{variavelDescricao}</h3>
           {/* <button onClick={closeModal}>close</button> */}
 
           <S.Div>
             <S.GridForm>
-              {camponomePerfilAcesso
+              {/*camponomePerfilAcesso
                 ? <div>
                   <label htmlFor=''>Nome do usuario do perfil de acesso</label>
                   {/* <input
                     type='text' placeholder='nome'
                     value={nomePerfilAcesso}
                     onChange={(text) => setnomePerfilAcesso(text.target.value)}
-                  /> */}
+                  /> }
                   <div className='selectPlus'>
                     <select
                       name='' id='' value={nomePerfilAcesso}
@@ -2273,7 +2287,7 @@ export default function
                     <button onClick={() => setIsOpenInvite(true)} className='buttonAddInter'><FiPlus size={20} /></button>
                   </div>
                 </div>
-                : false}
+                      : false*/}
               {campodataExecucao
                 ? <div>
                   <label htmlFor=''>Data execução</label>
@@ -2284,7 +2298,7 @@ export default function
                   />
                 </div>
                 : false}
-              {camporesponsavelExecucao
+              {/* {camporesponsavelExecucao
                 ? <div>
                   <label htmlFor=''>Responsavel pela execução</label>
                   <input
@@ -2294,7 +2308,7 @@ export default function
                     onChange={(text) => setresponsavelExecucao(text.target.value)}
                   />
                 </div>
-                : false}
+                : false} */}
               {campohoraExecucao
                 ? <div>
                   <label htmlFor=''>Hora de execução</label>
@@ -2326,13 +2340,23 @@ export default function
                   />
                 </div>
                 : false}
-              {campoprofundidadeEntrada
+              {/* {campoprofundidadeEntrada
                 ? <div>
                   <label htmlFor=''>Profundidade PVE (m)</label>
                   <input
                     type='number' placeholder='Profundidade'
                     value={profundidadePVE}
                     onChange={(text) => setprofundidadePVE(text.target.value)}
+                  />
+                </div>
+                : false} */}
+              {campoprofundidadeEntrada
+                ? <div>
+                  <label htmlFor=''>Profundidade da travessia (m)</label>
+                  <input
+                    type='number' placeholder='Profundidade da travessia (m)'
+                    value={profundidadeEntrada}
+                    onChange={(text) => setprofundidadeEntrada(text.target.value)}
                   />
                 </div>
                 : false}
@@ -2366,24 +2390,15 @@ export default function
                 : false}
               {campoprofundidadeSaida
                 ? <div>
-                  <label htmlFor=''>Profundidade PVS (m)</label>
+                  <label htmlFor=''>Tolerância da profundidade (m)</label>
                   <input
-                    type='number' placeholder='Profundidade'
+                    type='number' placeholder='Tolerância da profundidade (m)'
                     value={profundidadeSaida}
                     onChange={(text) => setprofundidadeSaida(text.target.value)}
                   />
                 </div>
                 : false}
-              {campoprofundidadeEntrada
-                ? <div>
-                  <label htmlFor=''>Profundidade da travessia (m)</label>
-                  <input
-                    type='number' placeholder='Profundidade'
-                    value={profundidadeEntrada}
-                    onChange={(text) => setprofundidadeEntrada(text.target.value)}
-                  />
-                </div>
-                : false}
+
               {campoTipoSolo
                 ? <div>
                   <label htmlFor=''>Tipos de solo</label>
@@ -2392,10 +2407,10 @@ export default function
                     value={tipoSolo}
                     onChange={(text) => setTipoSolo(text.target.value)}
                   /> */}
-                  <div className='selectPlus'>
+                  <div className='selectPlus' style={{ marginTop: '-1px' }}>
                     <select
                       value={tipoSolo}
-                      onChange={(text) => { setTipoSolo(text.target.value.split('/')[0]); setEspecificacaoSolo(text.target.value.split('/')[1]); loadDados(text.target.value) }}
+                      onChange={(text) => { setTipoSolo(text.target.value.split('/')[0]); setEspecificacaoSolo(text.target.value.split('/')[1]); loadDados(text.target.value.split('/')[0]) }}
                     >
                       <option value=''>Selecione...</option>
                       {soilTypes.length > 0
@@ -2410,9 +2425,9 @@ export default function
 
               {campoDiametroPerfuracao
                 ? <div>
-                  <label htmlFor=''>Diâmetro de perfuração</label>
+                  <label htmlFor=''>Diâmetro de perfuração (mm)</label>
                   <input
-                    type='number' placeholder='20 metros'
+                    type='number' placeholder='200 mm'
                     value={diametroPerfuracao}
                     onChange={(text) => setdiametroPerfuracao(text.target.value)}
                   />
@@ -2452,16 +2467,18 @@ export default function
                 </div>
                 : false}
 
-              {campoResponsel
-                ? <div>
+              {//campoResponsel ?
+                <div>
                   <label htmlFor=''>Responsável</label>
                   <input
+                    disabled
                     type='text'
                     value={responsavel}
                     onChange={(text) => setresponsavel(text.target.value)}
                   />
                 </div>
-                : false}
+                //: false
+              }
 
               {campoEquipamento
                 ? <div>
@@ -2526,13 +2543,46 @@ export default function
                   />
                 </div>
                 : false}
+              {campoFluido
+                ? <div>
+                  <label htmlFor=''>Fluido</label>
+                  {/* <input
+                    type='text'
+                    value={Fluido}
+                    onChange={(text) => setFluido(text.target.value)}
+                  /> */}
+                  <div className='selectPlus' style={{ marginTop: '-2px' }}>
+                    <select
+                      value={Fluido}
+                      onChange={(text) => { setFluido(text.target.value); text.target.value != '' ? setReceitaFluido(`Viscosidade esperada (Segundos Marsh - cP): ${text.target.value.toString().split('/')[2]}\npH da Água: ${text.target.value.toString().split('/')[3]}\nQuantidade base para formulação (Metros cúbicos - m²): ${text.target.value.toString().split('/')[4]}\nLimite de escoamento (Número - N): ${text.target.value.toString().split('/')[5]}\nTeor de areia (Porcentagem - %): ${text.target.value.toString().split('/')[6]}`) : false }}
+                    >
+                      <option value=''>Selecione...</option>
+                      {fluidos.length > 0
+                        ? fluidos.map((fluido) =>
+                          <option value={fluido.id + '/' + fluido.nome + '/' + fluido.viscosidadeEsperada + '/' + fluido.qtdePHPA + '/' + fluido.qtdeBase + '/' + fluido.limiteEscoamento + '/' + fluido.teorAreia}>{fluido.nome}</option>)
+                        : <option>Nenhum tipo de solo selecionado ou não nenhum fluido cadastrado!</option>}
+                    </select>
+                    <button onClick={() => setIsOpenFluido(true)} className='buttonAddInter'><FiPlus size={20} /></button>
+                  </div>
+                </div>
+                : false}
               {campoVolumePreparado
                 ? <div>
                   <label htmlFor=''>Volume preparado (L)</label>
                   <input
-                    type='text'
+                    type='number'
                     value={VolumePreparado}
                     onChange={(text) => setVolumePreparado(text.target.value)}
+                  />
+                </div>
+                : false}
+              {campoReceitaFluido
+                ? <div>
+                  <label htmlFor=''>Receita do Fluido</label>
+                  <textarea
+                    style={{ height: 'auto' }}
+                    value={ReceitaFluido}
+                    onChange={(text) => setReceitaFluido(text.target.value)}
                   />
                 </div>
                 : false}
@@ -2540,7 +2590,7 @@ export default function
                 ? <div>
                   <label htmlFor=''>Teste  de viscosidade  (s/Marsh)</label>
                   <input
-                    type='text'
+                    type='number'
                     value={TesteVicosidade}
                     onChange={(text) => setTesteVicosidade(text.target.value)}
                   />
@@ -2580,7 +2630,7 @@ export default function
               {campoFerramentas
                 ? <div>
                   <label htmlFor=''>Ferramentas</label>
-                  <div className='selectPlus'>
+                  <div className='selectPlus' style={{ marginTop: '-2px' }}>
                     <Select
                       className='select'
                       mode='multiple'
@@ -2645,9 +2695,10 @@ export default function
 
               {campoDiametro
                 ? <div>
-                  <label htmlFor=''>Diâmetro da Perfuração</label>
+                  <label htmlFor=''>Diâmetro da Perfuração (mm)</label>
                   <input
                     type='number'
+                    placeholder='Diâmetro da Perfuração (mm)'
                     value={diametroPerfuracao}
                     onChange={(text) => setdiametroPerfuracao(text.target.value)}
                   />
@@ -2754,6 +2805,7 @@ export default function
                     <h2>Faça upload</h2>
 
                     <input
+                      style={{ marginTop: '-8px' }}
                       type='file'
                       name='image'
                       onChange={e => {
@@ -2942,39 +2994,8 @@ export default function
                   />
                 </div>
                 : false}
-              {campoFluido
-                ? <div>
-                  <label htmlFor=''>Fluido</label>
-                  {/* <input
-                    type='text'
-                    value={Fluido}
-                    onChange={(text) => setFluido(text.target.value)}
-                  /> */}
-                  <div className='selectPlus'>
-                    <select
-                      value={Fluido}
-                      onChange={(text) => { setFluido(text.target.value); text.target.value != '' ? setReceitaFluido(`Viscosidade esperada (Segundos Marsh - cP): ${text.target.value.toString().split('/')[2]}\npH da Água: ${text.target.value.toString().split('/')[3]}\nQuantidade base para formulação (Metros cúbicos - m²): ${text.target.value.toString().split('/')[4]}\nLimite de escoamento (Número - N): ${text.target.value.toString().split('/')[5]}\nTeor de areia (Porcentagem - %): ${text.target.value.toString().split('/')[6]}`): false }}
-                    >
-                      <option value=''>Selecione...</option>
-                      {fluidos.length > 0
-                        ? fluidos.map((fluido) =>
-                          <option value={fluido.id + '/' + fluido.nome + '/' + fluido.viscosidadeEsperada + '/' + fluido.qtdePHPA + '/' + fluido.qtdeBase + '/' + fluido.limiteEscoamento + '/' + fluido.teorAreia}>{fluido.nome}</option>)
-                        : <option>Nenhum tipo de solo selecionado ou não nenhum fluido cadastrado!</option>}
-                    </select>
-                    <button onClick={() => setIsOpenFluido(true)} className='buttonAddInter'><FiPlus size={20} /></button>
-                  </div>
-                </div>
-                : false}
-              {campoReceitaFluido
-                ? <div>
-                  <label htmlFor=''>Receita do Fluido</label>
-                  <textarea
-                    style={{ height: 'auto' }}
-                    value={ReceitaFluido}
-                    onChange={(text) => setReceitaFluido(text.target.value)}
-                  />
-                </div>
-                : false}
+
+
               {camponumeroHastes
                 ? <div>
                   <label htmlFor=''>Perfuração:</label>
@@ -2988,7 +3009,7 @@ export default function
                 : false}
               {campoprofundidadePlanejada
                 ? <div>
-                  <label htmlFor=''>Profundidade Planejada</label>
+                  <label htmlFor=''>Profundidade Planejada (m)</label>
                   <input
                     type='number'
                     value={profundidadePlanejada}
@@ -3008,7 +3029,7 @@ export default function
                 : false}
               {campoprofundidadeExecutada
                 ? <div>
-                  <label htmlFor=''>Profundidade Executada</label>
+                  <label htmlFor=''>Profundidade Executada (m)</label>
                   <input
                     type='number'
                     value={profundidadeExecutada}
@@ -3040,7 +3061,7 @@ export default function
               {campomaquinaPerfuratriz
                 ? <div>
                   <label htmlFor=''>Maquina Perfuratriz</label>
-                  <div className='selectPlus'>
+                  <div className='selectPlus' style={{ marginTop: '-2px' }}>
                     <select
                       name='' id='' value={maquinaPerfuratriz}
                       onChange={(text) => { setmaquinaPerfuratriz(text.target.value); setAnguloEntrada(text.target.value.split('/')[2]) }}
@@ -3057,7 +3078,7 @@ export default function
                 : false}
               {campodiametroAlargamento
                 ? <div>
-                  <label htmlFor=''>Diametro de Alargamento</label>
+                  <label htmlFor=''>Diametro de Alargamento (mm)</label>
                   <input
                     type='number'
                     value={diametroAlargamento}
@@ -3069,7 +3090,7 @@ export default function
                 ? <div>
                   <label htmlFor=''>Tempo Haste (min/s)</label>
                   <input
-                    type='text'
+                    type='number'
                     value={tempoHaste}
                     onChange={(text) => settempoHaste(text.target.value)}
                   />
@@ -3080,7 +3101,7 @@ export default function
                 ? <div>
                   <label htmlFor=''>Vazão Bomba (L/min)</label>
                   <input
-                    type='text'
+                    type='number'
                     value={vazaoBomba}
                     onChange={(text) => setvazaoBomba(text.target.value)}
                   />
@@ -3090,7 +3111,7 @@ export default function
                 ? <><div>
                   <label htmlFor=''>Ângulo de Entrada</label>
                   <input
-                    type='text'
+                    type='number'
                     value={anguloEntrada}
                     onChange={(text) => setAnguloEntrada(text.target.value)} />
                 </div><button style={{ marginTop: '35px', width: '200px' }} onClick={() => { formulas() }} className='finishPhase'>Visualizar plano de furo</button>
@@ -3098,7 +3119,7 @@ export default function
                   <div>
                     <label htmlFor=''>Comprimento mordentes à entrada (m)</label>
                     <input
-                      type='text'
+                      type='number'
                       value={comprimentoMordenteEntrada}
                       onChange={(text) => setcomprimentoMordenteEntrada(text.target.value)} />
                   </div>
@@ -3106,7 +3127,7 @@ export default function
                   <div>
                     <label htmlFor=''>Porta sonda até Broca (m)</label>
                     <input
-                      type='text'
+                      type='number'
                       value={portaSondaBroca}
                       onChange={(text) => setPortaSondaBroca(text.target.value)} />
                   </div>
@@ -3114,7 +3135,7 @@ export default function
                   <div>
                     <label htmlFor=''>Cabeça da sonda (m)</label>
                     <input
-                      type='text'
+                      type='number'
                       value={cabecaSonda}
                       onChange={(text) => setCabecaSonda(text.target.value)} />
                   </div></>
@@ -3139,9 +3160,9 @@ export default function
                 : false}
               {campodiametroRede
                 ? <div>
-                  <label htmlFor=''>Diametro da Rede</label>
+                  <label htmlFor=''>Diametro da Rede (mm)</label>
                   <input
-                    type='text'
+                    type='number'
                     value={diametroRede}
                     onChange={(text) => setdiametroRede(text.target.value)}
                   />
@@ -3283,7 +3304,7 @@ export default function
                 ? <div>
                   <label htmlFor=''>Capacidade do Swivel (t)</label>
                   <input
-                    type='text'
+                    type='number'
                     value={capacidadeSwivel}
                     onChange={(text) => setcapacidadeSwivel(text.target.value)}
                   />
@@ -3293,7 +3314,7 @@ export default function
                 ? <div>
                   <label htmlFor=''>Diametro da ferramenta (mm)</label>
                   <input
-                    type='text'
+                    type='number'
                     value={DiametroFerramenta}
                     onChange={(text) => setDiametroFerramenta(text.target.value)}
                   />
@@ -3647,7 +3668,7 @@ export default function
                 <div style={{ overflow: 'auto' }}>
                   <table>
                     {pontosVerificacao.length > 0
-                      ? <tr> 
+                      ? <tr>
                         <th>Latitude</th>
                         <th>Longitude</th>
                         <th>Profundidade (m)</th>
@@ -4750,6 +4771,7 @@ export default function
             />
 
             <TextField
+              type='number'
               label='Viscosidade esperada (Segundos Marsh - cP)'
               value={viscosidadeEsperada}
               onChange={(text) => setViscosidadeEsperada(text.target.value)}
@@ -4757,24 +4779,28 @@ export default function
 
             <TextField
               label='pH da Água'
+              type='number'
               value={qtdePHPA}
               onChange={(text) => setQtdePHPA(text.target.value)}
             />
 
             <TextField
               label='Quantidade base para formulação (Metros cúbicos - m²)'
+              type='number'
               value={qtdeBase}
               onChange={(text) => setQtdeBase(text.target.value)}
             />
 
             <TextField
               label='Limite de escoamento (Número - N)'
+              type='number'
               value={limiteEscoamento}
               onChange={(text) => setLimiteEscoamento(text.target.value)}
             />
 
             <TextField
               label='Teor de areia (Porcentagem - %)'
+              type='number'
               value={teorAreia}
               onChange={(text) => setTeorAreia(text.target.value)}
             />
@@ -4785,7 +4811,7 @@ export default function
                     value={tipoSolo}
                     onChange={(text) => setTipoSolo(text.target.value)}
                   /> */}
-              <div className='selectPlus'>
+              <div className='selectPlus' style={{ marginTop: '-2px' }}>
                 <select
                   value={tipoSolo}
                   onChange={(text) => { setTipoSolo(text.target.value); loadDados('etapas') }}
@@ -4794,7 +4820,7 @@ export default function
                   {soilTypes.length > 0
                     ? soilTypes.map((tipoSolo) =>
                       <option value={tipoSolo.id + '/' + tipoSolo.especificacaoSolo}>{tipoSolo.especificacaoSolo}</option>)
-                    : <option>Nenhuma maquina cadastrada!</option>}
+                    : <option>Nenhum tipo de solo cadastrado!</option>}
                 </select>
                 {/* <button onClick={() => setIsOpenTipoSolo(true)} className='buttonAddInter'><FiPlus size={20} /></button> */}
               </div>
@@ -4837,10 +4863,13 @@ export default function
               <SwiperSlide className='containerForm'>
                 {/* <div onClick={() => openModal(data)}> */}
                 <Link to={'/preencher-fases/' + idConfigTravessia.split('etapas/')[1] + '/' + data.id + `(${data.tipoEtapa.replace(/ /g, '')})`}>
-                  <FiPlay />
+                <button className='button' style={{marginLeft: '270px'}} onClick={() => deleteEtapa(data.id)}>
+                    <FiTrash color='#EA1C24' size={25} />
+                  </button>
+                  <FiPlay style={{ marginTop: '10px' }}/>
                   <h2>{data.numeroEtapa}</h2>
-                  {/* <h2>{data.tipoEtapa}</h2> */}
-                  <h1>{data.tipoEtapa}</h1>
+                  <h3 style={{ marginTop: '-10px' }}>{data.tipoEtapa}</h3>
+                  <h1 style={{ width: '100%', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', paddingLeft: '10px', paddingRight: '10px' }}>{data.novaEtapa}</h1>
                 </Link>
               </SwiperSlide>,
             )
@@ -4865,9 +4894,9 @@ export default function
           </SwiperSlide>
         </Swiper>
         <form>
-          <span>Nova etapa</span><br />
+          {/* <span>Nova etapa</span><br /> */}
           {/* <input placeholder='Nome da travessia' type='text' /> */}
-          <input
+          {/* <input
             placeholder='Descrição' type='text'
             value={descricao}
             onChange={(text) => setDescricao(text.target.value)}
@@ -4877,7 +4906,7 @@ export default function
             onChange={(text) => setEtapa(text.target.value)}
           >
             <option selected disabled>Selecione uma etapa</option>
-            {/* <option value='1'>Levantamento e Mapeamento de Interferências</option> */}
+            {/* <option value='1'>Levantamento e Mapeamento de Interferências</option> }
             <option value='2'>Planejamento da Travessia</option>
             <option value='3'>Sondagem das Interferências</option>
             <option value='4'>Abertura de Valas de Entrada e Saída</option>
@@ -4901,7 +4930,8 @@ export default function
             : (
               'Adicionar'
             )}
-          </button>
+          </button> */}
+          <img style={{ width: '100%' }} src={logo} />
         </form>
       </S.ContainerNone>
 
