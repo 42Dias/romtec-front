@@ -235,7 +235,7 @@ export default function FillInPhases() {
   const [profundidade, setprofundidade] = useState('')
   const [anguloAtaque, setanguloAtaque] = useState('')
   const [posicaoRelogio, setposicaoRelogio] = useState('')
-  const [idEtapa, setIdEtapa] = useState('')
+  const [idEtapa, setIdEtapa] = useState(idConfigTravessia.split("#/preencher-fases/")[1].split("/")[2].split("(")[0])
   const [azimute, setazimute] = useState('')
   const [latitude, setLatitude] = useState('')
   const [longitude, setLongitude] = useState('')
@@ -928,6 +928,12 @@ export default function FillInPhases() {
     }).then(async (response) => {
       // console.log(response)
       if (response.statusText === 'OK') {
+        setLoading(false)
+        reset()
+        setIsOpenPlanejamento(false)
+        setIsOpenInvite(false)
+        setIsOpenFluido(false)
+        loadDados('etapas')
         setidTodosCampos(response.data.id)
         toast.success('Cadastrada com sucesso!')
         if (variavelTitulo === "Planejamento da Travessia") {
@@ -966,6 +972,7 @@ export default function FillInPhases() {
               travessiaId: idConfigTravessia.replace('#/preencher-fases/', '').split('/')[1],
               ferramentaId: ferramenta.split('/')[0],
               nome: ferramenta.split('/')[1],
+              etapaId: idEtapa,
             }
             await api.post('ferramentasTravessia', {
               data: data,
@@ -1355,7 +1362,7 @@ export default function FillInPhases() {
         // toast.error(res.response.data);
         setLoading(false)
       })
-      api.get(`ferramentasTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/preencher-fases/', '').split('/')[1]}`,
+      api.get(`ferramentasTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/preencher-fases/', '').split('/')[1]}&filter%5BetapaId%5D=${idConfigTravessia.split("#/preencher-fases/")[1].split("/")[2].split("(")[0]}`,
       ).then((response) => {
         if (response.statusText === 'OK') {
           console.log(response.data.rows)
@@ -1591,12 +1598,12 @@ export default function FillInPhases() {
     })
     setLoading(false)
   }
-  async function deleteEtapa() {
-    await api.delete('etapas/' + idConfigTravessia.split("#/preencher-fases/")[1].split("/")[2].split("(")[0]).then((res) => {
-      toast.success('Etapa excluida!')
-      window.history.back()
-    })
-  }
+  // async function deleteEtapa() {
+  //   await api.delete('etapas/' + idConfigTravessia.split("#/preencher-fases/")[1].split("/")[2].split("(")[0]).then((res) => {
+  //     toast.success('Etapa excluida!')
+  //     window.history.back()
+  //   })
+  // }
   useEffect(() => {
     // console.log(soilTypesUp)
     idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/preencher-fases/', '')
@@ -1879,7 +1886,7 @@ export default function FillInPhases() {
               />
             </div>
             : false} */}
-             {campoprofundidadeEntrada
+          {campoprofundidadeEntrada
             ? <div>
               <label htmlFor=''>Profundidade da travessia (m)</label>
               <input
@@ -2446,13 +2453,13 @@ export default function FillInPhases() {
               <div className='selectPlus'>
                 <select
                   value={tipoSolo}
-                  onChange={(text) => { setTipoSolo(text.target.value.split('/')[0]); setEspecificacaoSolo(text.target.value.split('/')[1]); loadDados(text.target.value) }}
+                  onChange={(text) => { setTipoSolo(text.target.value.split('/')[0]); setEspecificacaoSolo(text.target.value.split('/')[1]); loadDados(text.target.value.split('/')[0]) }}
                 >
                   <option value=''>Selecione...</option>
                   {soilTypes.length > 0
                     ? soilTypes.map((tipoSolo) =>
                       <option value={tipoSolo.id + '/' + tipoSolo.especificacaoSolo}>{tipoSolo.especificacaoSolo}</option>)
-                    : <option>Nenhuma maquina cadastrada!</option>}
+                    : <option>Nenhum tipo de solo cadastrado!</option>}
                 </select>
                 <button onClick={() => setIsOpenTipoSolo(true)} className='buttonAddInter'><FiPlus size={20} /></button>
               </div>
@@ -2476,7 +2483,7 @@ export default function FillInPhases() {
                   {fluidos.length > 0
                     ? fluidos.map((fluido) =>
                       <option value={fluido.id + '/' + fluido.nome + '/' + fluido.viscosidadeEsperada + '/' + fluido.qtdePHPA + '/' + fluido.qtdeBase + '/' + fluido.limiteEscoamento + '/' + fluido.teorAreia}>{fluido.nome}</option>)
-                    : <option>{"Nenhum tipo de solo selecionado \nou não nenhum fluido cadastrado!"}</option>}
+                    : <option>{"Nenhum tipo de solo selecionado ou nenhum fluido cadastrado!"}</option>}
                 </select>
                 <button onClick={() => setIsOpenFluido(true)} className='buttonAddInter'><FiPlus size={20} /></button>
               </div>
@@ -2609,7 +2616,7 @@ export default function FillInPhases() {
                 type='number'
                 value={anguloEntrada}
                 onChange={(text) => setAnguloEntrada(text.target.value)} />
-            </div><button style={{ marginTop: '35px', width: '200px' }} onClick={() => { formulas() }} className='finishPhase'>Visualizar plano de furo</button>
+            </div>
 
               <div>
                 <label htmlFor=''>Comprimento mordentes à entrada (m)</label>
@@ -2631,7 +2638,9 @@ export default function FillInPhases() {
                   type='number'
                   value={cabecaSonda}
                   onChange={(text) => setCabecaSonda(text.target.value)} />
-              </div></>
+              </div>
+              <button style={{ marginTop: '35px', width: '200px' }} onClick={() => { formulas() }} className='finishPhase'>Visualizar plano de furo</button>
+            </>
             : false}
           {grafico ?
             <><div className="myChartDiv">
@@ -3735,12 +3744,12 @@ export default function FillInPhases() {
               onChange={(text) => setLongitude(text.target.value)}
             />
             <input
-              type='number' placeholder='Profundidade'
+              type='number' placeholder='Profundidade (m)'
               value={profundidade}
               onChange={(text) => setprofundidade(text.target.value)}
             />
             <input
-              type='number' placeholder='Diâmetro'
+              type='number' placeholder='Diâmetro (mm)'
               value={diametro}
               onChange={(text) => setDiametro(text.target.value)}
             />
@@ -3826,7 +3835,7 @@ export default function FillInPhases() {
               <div className='selectPlus'>
                 <select
                   value={tipoSolo}
-                  onChange={(text) => { setTipoSolo(text.target.value.split('/')[0]); setEspecificacaoSolo(text.target.value.split('/')[1]); loadDados(text.target.value.split('/')[0]) }}
+                  onChange={(text) => { setTipoSolo(text.target.value.split('/')[0]); setEspecificacaoSolo(text.target.value.split('/')[1]); }}//loadDados(text.target.value.split('/')[0]) 
                 >
                   <option value=''>Selecione...</option>
                   {soilTypes.length > 0

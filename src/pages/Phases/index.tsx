@@ -78,7 +78,7 @@ type FormData = {
   indicePlasticidade: string;
 }
 export default function
-Phases () {
+  Phases() {
   const [modalIsOpenPhase, setIsOpenPhase] = useState(false)
   const [modalIsOpenInterferencia, setIsOpenInterferencia] = useState(false)
   const [modalIsOpenVerificacao, setIsOpenVerificacao] = useState(false)
@@ -94,48 +94,48 @@ Phases () {
   const [isOpenModalAdd, setIsOpenModalAdd] = useState(false)
   const { Option } = Select
 
-  function openModalEdit () {
+  function openModalEdit() {
     setIsOpenModalEdit(true)
   }
 
-  function closeModalEdit () {
+  function closeModalEdit() {
     setIsOpenModalEdit(false)
   }
 
-  function openModalAdd () {
+  function openModalAdd() {
     setIsOpenModalAdd(true)
   }
 
-  function closeModalAdd () {
+  function closeModalAdd() {
     setIsOpenModalAdd(false)
   }
 
-  function openModalInterferencia () {
+  function openModalInterferencia() {
     setIsOpenInterferencia(true)
   }
-  function openModalPontosVerificacao () {
+  function openModalPontosVerificacao() {
     setIsOpenVerificacao(true)
   }
-  function openModalFerramenta () {
+  function openModalFerramenta() {
     setIsOpenFerramenta(true)
   }
-  function afterOpenModalInterferencia () {
+  function afterOpenModalInterferencia() {
 
   }
 
-  function closeModalInterferencia () {
+  function closeModalInterferencia() {
     setIsOpenInterferencia(false)
   }
-  function closeModalVerificacao () {
+  function closeModalVerificacao() {
     setIsOpenVerificacao(false)
   }
-  function closeModalFerramenta () {
+  function closeModalFerramenta() {
     setIsOpenFerramenta(false)
   }
-  function closeModalVerificacaoEdit () {
+  function closeModalVerificacaoEdit() {
     setIsOpenVerificacaoEdit(false)
   }
-  function openModalInterferenciaEdit (interferencia: any) {
+  function openModalInterferenciaEdit(interferencia: any) {
     setInterferenciaId(interferencia.id)
     // console.log(interferencia.id)
     setTipoInterferencia(interferencia.tipoInterferencia)
@@ -146,7 +146,7 @@ Phases () {
 
     setIsOpenInterferenciaEdit(true)
   }
-  function openModalPontosVerificacaoEdit (pontosVerificacao: any) {
+  function openModalPontosVerificacaoEdit(pontosVerificacao: any) {
     setInterferenciaId(pontosVerificacao.id)
     setStatus(pontosVerificacao.status)
     setLatitude(pontosVerificacao.latitude)
@@ -157,35 +157,35 @@ Phases () {
 
     setIsOpenVerificacaoEdit(true)
   }
-  function afterOpenModalInterferenciaEdit () {
+  function afterOpenModalInterferenciaEdit() {
 
   }
 
-  function closeModalInterferenciaEdit () {
+  function closeModalInterferenciaEdit() {
     setIsOpenInterferenciaEdit(false)
   }
 
-  function openModalPhases () {
+  function openModalPhases() {
     setIsOpenPhase(true)
   }
 
-  function afterOpenModalPhases () {
+  function afterOpenModalPhases() {
 
   }
 
-  function closeModalPhases () {
+  function closeModalPhases() {
     setIsOpenPhase(false)
   }
 
-  function openModalPhasesSelect () {
+  function openModalPhasesSelect() {
     setIsOpenPhaseSelect(true)
   }
 
-  function afterOpenModalPhasesSelect () {
+  function afterOpenModalPhasesSelect() {
 
   }
 
-  function closeModalPhasesSelect () {
+  function closeModalPhasesSelect() {
     setIsOpenPhaseSelect(false)
   }
 
@@ -244,6 +244,7 @@ Phases () {
   const [criacaoplanoFuro, setcriacaoplanoFuro] = useState('')
   const [url, setUrl] = useState('')
   const [ferramentas, setferramentas] = useState<any[]>([])
+  const [todosCampos, setTodosCampos] = useState<any[]>([])
   const [ferramentasT, setferramentasT] = useState<any[]>([])
   const [diametroInterferencia, setDiametroInterferencia] = useState('')
   const [profundidade, setprofundidade] = useState('')
@@ -663,7 +664,7 @@ Phases () {
   // }
   const [camposInterferencia, setCamposInterferencia] = useState(false)
 
-  function formulas () {
+  function formulas() {
     variacaoProfundidade.push(0)
     variacaoDistanciaPercorrida.push(0)
     labels.push(0)
@@ -692,14 +693,14 @@ Phases () {
     return dadosF
   }
 
-  function handleCampos () {
+  function handleCampos() {
     if (camposInterferencia) {
       setCamposInterferencia(false)
     } else {
       setCamposInterferencia(true)
     }
   }
-  function onSubmitTipoSolo () {
+  function onSubmitTipoSolo() {
     const data = {
       especificacaoSolo: especificacaoSolo,
       descricao: descricao,
@@ -713,7 +714,7 @@ Phases () {
     reset()
   }
 
-  async function createNewFileTipoSolo (submit: any) {
+  async function createNewFileTipoSolo(submit: any) {
     setLoading(true)
     const responser = api.post('tipo-solo', {
       data: submit,
@@ -735,14 +736,14 @@ Phases () {
       setLoading(false)
     })
   }
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
     // console.log(data)
     data.reviewUpload = documentos
     Cadastro(data)
     reset()
   }
 
-  async function Cadastro (submit: any) {
+  async function Cadastro(submit: any) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.post('maquina-perfuratis', {
@@ -769,7 +770,7 @@ Phases () {
       setLoading(false)
     })
   }
-  function onSubmitLevantamento (tabela: string) {
+  function onSubmitLevantamento(tabela: string) {
     // console.log(idEtapa)
     const data = {
       banco: tabela,
@@ -902,7 +903,7 @@ Phases () {
     // }
   }
 
-  function onSubmitInterferenciasFisicasMagneticas () {
+  function onSubmitInterferenciasFisicasMagneticas() {
     // console.log(responsavel)
     const data = {
       idConfigTravessia: idConfigTravessia.replace('#/etapas/', ''),
@@ -951,7 +952,7 @@ Phases () {
   //   }
   // }
 
-  async function createNewFile (submit: any) {
+  async function createNewFile(submit: any) {
     setLoading(true)
 
     await api.post(submit.banco, {
@@ -960,6 +961,12 @@ Phases () {
       // console.log(response)
       if (response.statusText === 'OK') {
         toast.success('Cadastro realizado com sucesso!')
+        setLoading(false)
+        reset()
+        setIsOpenPlanejamento(false)
+        setIsOpenInvite(false)
+        setIsOpenFluido(false)
+        loadDados('etapas')
         if (variavelTitulo === 'Planejamento da Travessia') {
           // console.log(graficoTravessia.length)
           if (graficoTravessia.length > 0) {
@@ -996,6 +1003,7 @@ Phases () {
               travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1],
               ferramentaId: ferramenta.split('/')[0],
               nome: ferramenta.split('/')[1],
+              etapaId: idEtapa,
             }
             await api.post('ferramentasTravessia', {
               data: data,
@@ -1036,7 +1044,7 @@ Phases () {
       setLoading(false)
     })
   }
-  async function loadDados (tipoSoloId: string) {
+  async function loadDados(tipoSoloId: string) {
     // formulas()
     setLoading(true)
     // eslint-disable-next-line
@@ -1097,7 +1105,7 @@ Phases () {
       // toast.error(res.response.data);
       setLoading(false)
     })
-    api.get(`ferramentasTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
+    api.get(`ferramentasTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}&filter%5BetapaId%5D=${idEtapa}`,
     ).then((response) => {
       if (response.statusText === 'OK') {
         // console.log(response.data.rows)
@@ -1170,7 +1178,7 @@ Phases () {
     })
     setLoading(false)
   }
-  async function deleteDados (id: string, tabela: string) {
+  async function deleteDados(id: string, tabela: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete(tabela + id,
@@ -1198,7 +1206,7 @@ Phases () {
       setLoading(false)
     })
   }
-  function update (data: any) {
+  function update(data: any) {
     // console.log('data')
     // console.log(data)
     // setDados(data)
@@ -1251,7 +1259,7 @@ Phases () {
     }
     // console.log(idDados)
   }
-  async function updateDados () {
+  async function updateDados() {
     setLoading(true)
     // console.log('idTodosCampos')
     // console.log(idTodosCampos)
@@ -1386,19 +1394,20 @@ Phases () {
     loadDados('etapas')
   }, [])
 
-  function openModal (data: any) {
+  function openModal(data: any) {
     // console.log(data)
     // formulas()
     setdataExecucao(date)
     sethoraExecucao(hora)
-    setIdEtapa(data.etapaId)
-    api.get(`todos-campos?filter%5BetapaId%5D=${data.id}&filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}&limit=1`,
+    setIdEtapa(data.id)
+    api.get(`todos-campos?filter%5BetapaId%5D=${data.id}&filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,//&limit=1
     ).then((response) => {
       // console.log(response.data.rows)
       if (response.statusText === 'OK') {
         if (response.data.count > 0) {
           // console.log(response.data.rows[0].id)
-          setIdEtapa(data.etapaId)
+          setTodosCampos(response.data.rows)
+          setIdEtapa(data.id)
           setidTodosCampos(response.data.rows[0].id)
           setlatitudeEntrada(response.data.rows[0].PontoVerEntradaLat)
           setlongitudeEntrada(response.data.rows[0].PontoVerEntradaLong)
@@ -1538,7 +1547,7 @@ Phases () {
       toast.error(res.response.data)
       setLoading(false)
     })
-    api.get(`ferramentasTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
+    api.get(`ferramentasTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}&filter%5BetapaId%5D=${data.id}`,
     ).then((response) => {
       if (response.statusText === 'OK') {
         console.log(response.data.rows)
@@ -1647,15 +1656,16 @@ Phases () {
     setcampoPontosVerificacao(data.campoPontosVerificacao)
 
     setisOpenUpdatePlanejamentoPerfuração(true)
+    //loadDados('')
   }
 
-  function afterOpenModal () {
+  function afterOpenModal() {
     // references are now sync'd and can be accessed.
   }
-  function closeModal () {
+  function closeModal() {
     setIsOpenPlanejamento(false)
   }
-  async function makeRequisition (e: any) {
+  async function makeRequisition(e: any) {
     e.preventDefault()
     e.target.reset()
 
@@ -1727,7 +1737,7 @@ Phases () {
         toast.error('Erro: Tente mais tarde :(')
       })
   }
-  function salvarEtapa () {
+  function salvarEtapa() {
     let campoTipoSolo = false
     const campoDiametroPerfuracao = false
     let campoTipoRede = false
@@ -1954,7 +1964,7 @@ Phases () {
     // console.log(data)
     // console.log(etapa)
   }
-  function salvarInterferencia (tabela: string) {
+  function salvarInterferencia(tabela: string) {
     const data = {
       tipo: variavelTitulo,
       latitude: latitude,
@@ -2000,13 +2010,37 @@ Phases () {
         setLoading(false)
       })
   }
-  async function deleteEtapa (id: string) {
-    await api.delete('etapas/' + id).then((res) => {
-      toast.success('Etapa excluida!')
-      window.history.back()
-    })
+  async function deleteEtapa(id: string) {
+    if (confirm("Tem certeza que deseja excluir essa etapa?")) {
+      await api.delete('etapas/' + id).then(async (res) => {
+        toast.success('Ok, etapa excluida!')
+        if (confirm("Deseja excluir tudo referente a essa etapa?")) {
+          if (pontosVerificacao.length > 0) {
+            pontosVerificacao.map(async (dados) => {
+              await api.delete('pontos-verificacao/' + dados.id)
+            })
+          } else if (ferramentasT.length > 0) {
+            ferramentasT.map(async (dados) => {
+              await api.delete('ferramentasTravessia/' + dados.id)
+            })
+          } else if (todosCampos.length > 0) {
+            todosCampos.map(async (dados) => {
+              await api.delete('todos-campos/' + dados.id)
+            })
+          }
+          toast.success('Ok, dados da etapa excluidos!')
+          loadDados('')
+        } else {
+          toast.info('Ok, dados da etapa não foram excluidos!')
+        }
+      })
+      //toast.success('Ok, etapa excluida!')
+    } else {
+      toast.info('Ok, a etapa não foi excluida!')
+    }
+
   }
-  function salvarPontosVerificacao () {
+  function salvarPontosVerificacao() {
     const data = {
       latitude: latitude,
       longitude: longitude,
@@ -2045,7 +2079,7 @@ Phases () {
         setLoading(false)
       })
   }
-  function editarInterferencia (tabela: string) {
+  function editarInterferencia(tabela: string) {
     const data = {
       tipo: variavelTitulo,
       latitude: latitude,
@@ -2088,15 +2122,15 @@ Phases () {
         setLoading(false)
       })
   }
-  function getDistanceFromLatLonInKm (position1: { lat: number; lng: number }, position2: { lat: number; lng: number }) {
+  function getDistanceFromLatLonInKm(position1: { lat: number; lng: number }, position2: { lat: number; lng: number }) {
     const deg2rad = function (deg: number) { return deg * (Math.PI / 180) }
     const R = 6371
     const dLat = deg2rad(position2.lat - position1.lat)
     const dLng = deg2rad(position2.lng - position1.lng)
     const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(deg2rad(position1.lat)) *
-        Math.cos(deg2rad(position1.lat)) *
-        Math.sin(dLng / 2) * Math.sin(dLng / 2)
+      Math.cos(deg2rad(position1.lat)) *
+      Math.cos(deg2rad(position1.lat)) *
+      Math.sin(dLng / 2) * Math.sin(dLng / 2)
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
     console.log(((R * c * 1000).toFixed()))
     return ((R * c * 1000).toFixed())
@@ -2174,14 +2208,14 @@ Phases () {
           navigation
         >
           {dados.length > 0
-            ? dados.map(data =>
+            ? dados.map((data, index) =>
               <SwiperSlide>
                 <div onClick={() => openModal(data)}>
-                  <button className='button-delete' style={{ marginLeft: '150px', marginTop: '-10px' }} onClick={() => deleteEtapa(data.id)}>
+                  <button className='button-delete' style={{ marginLeft: '-130px', marginTop: '-10px' }} onClick={() => deleteEtapa(data.id + ';' + data.idConfigTravessia)}>
                     <FiTrash color='#EA1C24' size={25} />
                   </button>
-                  <FiPlay style={{ marginLeft: '-180px', marginTop: '24px' }} />
-                  <h2>{data.numeroEtapa}</h2>
+                  <FiPlay style={{ marginLeft: '110px', marginTop: '24px' }} />
+                  <h2 style={{ marginTop: '-15px' }}>{data.numeroEtapa}</h2>
                   <h3 style={{ marginTop: '-10px' }}>{data.tipoEtapa}</h3>
                   <h1 style={{ width: '100%', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', paddingLeft: '10px', paddingRight: '10px' }}>{data.novaEtapa}</h1>
                 </div>
@@ -2254,7 +2288,7 @@ Phases () {
                     value={dataExecucao}
                     onChange={(text) => setdataExecucao(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {/* {camporesponsavelExecucao
                 ? <div>
@@ -2275,7 +2309,7 @@ Phases () {
                     value={horaExecucao}
                     onChange={(text) => sethoraExecucao(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoEntradaLatitude
                 ? <div>
@@ -2285,7 +2319,7 @@ Phases () {
                     value={latitudeEntrada}
                     onChange={(text) => setlatitudeEntrada(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoEntradaLongitude
@@ -2296,7 +2330,7 @@ Phases () {
                     value={longitudeEntrada}
                     onChange={(text) => setlongitudeEntrada(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {/* {campoprofundidadeEntrada
                 ? <div>
@@ -2316,7 +2350,7 @@ Phases () {
                     value={profundidadeEntrada}
                     onChange={(text) => setprofundidadeEntrada(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoSaidaLatitude
                 ? <div>
@@ -2326,7 +2360,7 @@ Phases () {
                     value={latitudeSaida}
                     onChange={(text) => setlatitudeSaida(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoSaidaLongitude
@@ -2344,7 +2378,7 @@ Phases () {
                       setCompFuro(distancia)
                     }}
                   />
-                  </div>
+                </div>
                 : false}
               {campoprofundidadeSaida
                 ? <div>
@@ -2354,7 +2388,7 @@ Phases () {
                     value={profundidadeSaida}
                     onChange={(text) => setprofundidadeSaida(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoTipoSolo
@@ -2374,11 +2408,11 @@ Phases () {
                       {soilTypes.length > 0
                         ? soilTypes.map((tipoSolo) =>
                           <option value={tipoSolo.id + '/' + tipoSolo.especificacaoSolo}>{tipoSolo.especificacaoSolo}</option>)
-                        : <option>Nenhuma maquina cadastrada!</option>}
+                        : <option>Nenhum tipo de solo cadastrado!</option>}
                     </select>
                     <button onClick={() => setIsOpenTipoSolo(true)} className='buttonAddInter'><FiPlus size={20} /></button>
                   </div>
-                  </div>
+                </div>
                 : false}
 
               {campoDiametroPerfuracao
@@ -2389,7 +2423,7 @@ Phases () {
                     value={diametroPerfuracao}
                     onChange={(text) => setdiametroPerfuracao(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoTipoRede
@@ -2411,7 +2445,7 @@ Phases () {
                     <option value='Tubo gás aço'>Tubo gás aço</option>
                     <option value='Tubo gás esgoto'>Tubo gás esgoto</option>
                   </select>
-                  </div>
+                </div>
                 : false}
 
               {campoTipoTubulacao
@@ -2422,7 +2456,7 @@ Phases () {
                     value={tipoTubulacao}
                     onChange={(text) => settipoTubulacao(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {// campoResponsel ?
@@ -2446,7 +2480,7 @@ Phases () {
                     value={equipamentos}
                     onChange={(text) => setequipamentos(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoDocumento
@@ -2489,7 +2523,7 @@ Phases () {
                     /><br /><br />
 
                   </form>
-                  </div>
+                </div>
                 : false}
               {campoConfirmacaoProcedimento
                 ? <div>
@@ -2499,7 +2533,7 @@ Phases () {
                     value={ConfirmacaoProcedimento}
                     onChange={(text) => setConfirmacaoProcedimento(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoFluido
                 ? <div>
@@ -2518,11 +2552,11 @@ Phases () {
                       {fluidos.length > 0
                         ? fluidos.map((fluido) =>
                           <option value={fluido.id + '/' + fluido.nome + '/' + fluido.viscosidadeEsperada + '/' + fluido.qtdePHPA + '/' + fluido.qtdeBase + '/' + fluido.limiteEscoamento + '/' + fluido.teorAreia}>{fluido.nome}</option>)
-                        : <option>Nenhum tipo de solo selecionado ou não nenhum fluido cadastrado!</option>}
+                        : <option>Nenhum tipo de solo selecionado ou nenhum fluido cadastrado!</option>}
                     </select>
                     <button onClick={() => setIsOpenFluido(true)} className='buttonAddInter'><FiPlus size={20} /></button>
                   </div>
-                  </div>
+                </div>
                 : false}
               {campoVolumePreparado
                 ? <div>
@@ -2532,7 +2566,7 @@ Phases () {
                     value={VolumePreparado}
                     onChange={(text) => setVolumePreparado(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoReceitaFluido
                 ? <div>
@@ -2542,7 +2576,7 @@ Phases () {
                     value={ReceitaFluido}
                     onChange={(text) => setReceitaFluido(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoTesteVicosidade
                 ? <div>
@@ -2552,7 +2586,7 @@ Phases () {
                     value={TesteVicosidade}
                     onChange={(text) => setTesteVicosidade(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoSondagemInterferencia
                 ? <div>
@@ -2562,7 +2596,7 @@ Phases () {
                     value={sondagemInterferencia}
                     onChange={(text) => setsondagemInterferencia(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoSondagem
                 ? <div>
@@ -2572,7 +2606,7 @@ Phases () {
                     value={sondagem}
                     onChange={(text) => setsondagem(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoPlanoFuro
@@ -2583,7 +2617,7 @@ Phases () {
                     value={criacaoplanoFuro}
                     onChange={(text) => setcriacaoplanoFuro(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoFerramentas
                 ? <div>
@@ -2637,7 +2671,7 @@ Phases () {
                     <button onClick={openModalFerramenta} className='buttonAddInter'><FiPlus size={20} /></button>
                   </div>
 
-                  </div>
+                </div>
                 : false}
 
               {campoInfoEnvolvidas
@@ -2648,7 +2682,7 @@ Phases () {
                     value={infoEnvolvidas}
                     onChange={(text) => setInfoEnvolvidas(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoDiametro
@@ -2660,7 +2694,7 @@ Phases () {
                     value={diametroPerfuracao}
                     onChange={(text) => setdiametroPerfuracao(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoLocalizaDiretrizFuro
@@ -2671,7 +2705,7 @@ Phases () {
                     value={localDiretrizFuro}
                     onChange={(text) => setLocalDiretrizFuro(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoResponselTopografia
@@ -2682,7 +2716,7 @@ Phases () {
                     value={respTopografia}
                     onChange={(text) => setRespTopografia(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoDataTopografia
@@ -2693,7 +2727,7 @@ Phases () {
                     value={dataTopografia}
                     onChange={(text) => setDataTopografia(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoEmpresa
@@ -2704,7 +2738,7 @@ Phases () {
                     value={empresa}
                     onChange={(text) => setempresa(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {/* {camponomePerfilAcesso
@@ -2792,7 +2826,7 @@ Phases () {
                     /><br /><br />
 
                   </form>
-                  </div>
+                </div>
                 : false}
 
               {campoequipamentoUtilizado
@@ -2803,7 +2837,7 @@ Phases () {
                     value={equipamentoUtilizado}
                     onChange={(text) => setequipamentoUtilizado(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campomaterializacaoCampo
@@ -2814,7 +2848,7 @@ Phases () {
                     value={materializacaoCampo}
                     onChange={(text) => setmaterializacaoCampo(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoquantidadeInterferencias
@@ -2825,7 +2859,7 @@ Phases () {
                     value={quantidadeInterferencias}
                     onChange={(text) => setquantidadeInterferencias(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoparaleloEsquerda
@@ -2837,7 +2871,7 @@ Phases () {
                     value={paraleloEsquerda}
                     onChange={(text) => setparaleloEsquerda(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoparaleloDireita
                 ? <div>
@@ -2847,7 +2881,7 @@ Phases () {
                     value={paraleloDireita}
                     onChange={(text) => setparaleloDireita(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoperpendicular
                 ? <div>
@@ -2857,7 +2891,7 @@ Phases () {
                     value={perpendicular}
                     onChange={(text) => setperpendicular(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoProfundidade
                 ? <div>
@@ -2867,7 +2901,7 @@ Phases () {
                     value={profundidade}
                     onChange={(text) => setprofundidade(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoDiametroInterferencia
                 ? <div>
@@ -2877,7 +2911,7 @@ Phases () {
                     value={diametroInterferencia}
                     onChange={(text) => setDiametroInterferencia(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {/* {campoTipoInterferencia
@@ -2898,7 +2932,7 @@ Phases () {
                     value={EmpresaProprietaria}
                     onChange={(text) => setEmpresaProprietaria(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campolargura
                 ? <div>
@@ -2909,7 +2943,7 @@ Phases () {
                     value={largura}
                     onChange={(text) => setlargura(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campocomprimento
                 ? <div>
@@ -2919,7 +2953,7 @@ Phases () {
                     value={comprimento}
                     onChange={(text) => setcomprimento(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoprofundidadeVala
                 ? <div>
@@ -2929,7 +2963,7 @@ Phases () {
                     value={profundidadeVala}
                     onChange={(text) => setprofundidadeVala(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoestacaReferencia
@@ -2940,7 +2974,7 @@ Phases () {
                     value={estacaReferencia}
                     onChange={(text) => setestacaReferencia(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoSondagemInterferencia
                 ? <div>
@@ -2950,7 +2984,7 @@ Phases () {
                     value={sondagemInterferencia}
                     onChange={(text) => setestacaReferencia(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {camponumeroHastes
@@ -2962,7 +2996,7 @@ Phases () {
                     value={numeroHastes}
                     onChange={(text) => setnumeroHastes(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoprofundidadePlanejada
                 ? <div>
@@ -2972,7 +3006,7 @@ Phases () {
                     value={profundidadePlanejada}
                     onChange={(text) => setprofundidadePlanejada(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoavancoPlanejado
                 ? <div>
@@ -2982,7 +3016,7 @@ Phases () {
                     value={avancoPlanejado}
                     onChange={(text) => setavancoPlanejado(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoprofundidadeExecutada
                 ? <div>
@@ -2992,7 +3026,7 @@ Phases () {
                     value={profundidadeExecutada}
                     onChange={(text) => setprofundidadeExecutada(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoavancoExecutado
                 ? <div>
@@ -3002,7 +3036,7 @@ Phases () {
                     value={avancoExecutado}
                     onChange={(text) => setavancoExecutado(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoamarracao
@@ -3013,7 +3047,7 @@ Phases () {
                     value={amarracao}
                     onChange={(text) => setamarracao(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campomaquinaPerfuratriz
                 ? <div>
@@ -3031,7 +3065,7 @@ Phases () {
                     </select>
                     <button onClick={() => setIsOpenMaquinaPerfuratriz(true)} className='buttonAddInter'><FiPlus size={20} /></button>
                   </div>
-                  </div>
+                </div>
                 : false}
               {campodiametroAlargamento
                 ? <div>
@@ -3041,7 +3075,7 @@ Phases () {
                     value={diametroAlargamento}
                     onChange={(text) => setdiametroAlargamento(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campotempoHaste
                 ? <div>
@@ -3051,7 +3085,7 @@ Phases () {
                     value={tempoHaste}
                     onChange={(text) => settempoHaste(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campovazaoBomba
@@ -3062,7 +3096,7 @@ Phases () {
                     value={vazaoBomba}
                     onChange={(text) => setvazaoBomba(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {variavelTitulo === 'Execução da Travessia - Furo Piloto'
                 ? <><div>
@@ -3072,7 +3106,7 @@ Phases () {
                     value={anguloEntrada}
                     onChange={(text) => setAnguloEntrada(text.target.value)}
                   />
-                    </div><button style={{ marginTop: '35px', width: '200px' }} onClick={() => { formulas() }} className='finishPhase'>Visualizar plano de furo</button>
+                </div>
 
                   <div>
                     <label htmlFor=''>Comprimento mordentes à entrada (m)</label>
@@ -3100,16 +3134,18 @@ Phases () {
                       onChange={(text) => setCabecaSonda(text.target.value)}
                     />
                   </div>
-                  </>
+                  <button style={{ marginTop: '35px', width: '200px' }} onClick={() => { formulas() }} className='finishPhase'>Visualizar plano de furo</button>
+                </>
                 : false}
+              <br />
               {grafico
                 ? <><div className='myChartDiv'>
                   {/* <canvas id="myChart" width="600" height="400"></canvas> */}
                   <Line id='myChart' width='600' height='400' options={options} data={dataG} />
                 </div><div className='myChartDiv'>
-                      {/* <canvas id="myChart" width="600" height="400"></canvas> */}
-                      <Line id='myChart' width='600' height='400' options={options2} data={dataG2} />
-                          </div>
+                    {/* <canvas id="myChart" width="600" height="400"></canvas> */}
+                    <Line id='myChart' width='600' height='400' options={options2} data={dataG2} />
+                  </div>
                 </> : false}
               {campotipoRedeTubula
                 ? <div>
@@ -3119,7 +3155,7 @@ Phases () {
                     value={tipoRedeTubula}
                     onChange={(text) => settipoRedeTubula(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campodiametroRede
                 ? <div>
@@ -3129,7 +3165,7 @@ Phases () {
                     value={diametroRede}
                     onChange={(text) => setdiametroRede(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {campoPortaSonda
@@ -3141,7 +3177,7 @@ Phases () {
                     value={PortaSonda}
                     onChange={(text) => setPortaSonda(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoHastes
                 ? <div>
@@ -3151,7 +3187,7 @@ Phases () {
                     value={Hastes}
                     onChange={(text) => setHastes(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoSonda
                 ? <div>
@@ -3161,7 +3197,7 @@ Phases () {
                     value={Sonda}
                     onChange={(text) => setSonda(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campopaPerfuracao
                 ? <div>
@@ -3171,7 +3207,7 @@ Phases () {
                     value={paPerfuracao}
                     onChange={(text) => setpaPerfuracao(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoPullingHead
                 ? <div>
@@ -3181,7 +3217,7 @@ Phases () {
                     value={PullingHead}
                     onChange={(text) => setPullingHead(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoLocalizador
                 ? <div>
@@ -3191,7 +3227,7 @@ Phases () {
                     value={Localizador}
                     onChange={(text) => setLocalizador(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoLuva
                 ? <div>
@@ -3201,7 +3237,7 @@ Phases () {
                     value={Luva}
                     onChange={(text) => setLuva(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoHasteInicial
                 ? <div>
@@ -3211,7 +3247,7 @@ Phases () {
                     value={HasteInicial}
                     onChange={(text) => setHasteInicial(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoFlexobarra
                 ? <div>
@@ -3221,7 +3257,7 @@ Phases () {
                     value={Flexobarra}
                     onChange={(text) => setFlexobarra(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoRadio
                 ? <div>
@@ -3231,7 +3267,7 @@ Phases () {
                     value={Radio}
                     onChange={(text) => setRadio(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoParafuso
                 ? <div>
@@ -3241,7 +3277,7 @@ Phases () {
                     value={Parafuso}
                     onChange={(text) => setParafuso(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campomodeloAlargador
                 ? <div>
@@ -3251,7 +3287,7 @@ Phases () {
                     value={modeloAlargador}
                     onChange={(text) => setmodeloAlargador(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campocapacidadePortaFusilink
                 ? <div>
@@ -3261,7 +3297,7 @@ Phases () {
                     value={capacidadePortaFusilink}
                     onChange={(text) => setcapacidadePortaFusilink(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campocapacidadeSwivel
                 ? <div>
@@ -3271,7 +3307,7 @@ Phases () {
                     value={capacidadeSwivel}
                     onChange={(text) => setcapacidadeSwivel(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoDiametroFerramenta
                 ? <div>
@@ -3281,7 +3317,7 @@ Phases () {
                     value={DiametroFerramenta}
                     onChange={(text) => setDiametroFerramenta(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoCondicaoFerramenta
                 ? <div>
@@ -3291,7 +3327,7 @@ Phases () {
                     value={CondicaoFerramenta}
                     onChange={(text) => setCondicaoFerramenta(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {/*
               <div>
@@ -3378,7 +3414,7 @@ Phases () {
                     <option value='Direita'>Direita</option>
                     <option value='Paralelo'>Paralelo</option>
                   </select>
-                  </div>
+                </div>
                 : false}
 
               {camposInterferencia
@@ -3389,7 +3425,7 @@ Phases () {
                     value={diametroInterferencia}
                     onChange={(text) => setDiametroInterferencia(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {camposInterferencia
@@ -3400,7 +3436,7 @@ Phases () {
                     value={tipoInterferencia}
                     onChange={(text) => setTipoInterferencia(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
 
               {camposInterferencia
@@ -3411,7 +3447,7 @@ Phases () {
                     value={profundidade}
                     onChange={(text) => setprofundidade(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campovalaEntradaLatitude
                 ? <div>
@@ -3421,7 +3457,7 @@ Phases () {
                     value={valaEntradaLatitude}
                     onChange={(text) => setvalaEntradaLatitude(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campovalaEntradaLongitude
                 ? <div>
@@ -3431,7 +3467,7 @@ Phases () {
                     value={valaEntradaLongitude}
                     onChange={(text) => setvalaEntradaLongitude(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {/* {campovalaEntradaAltura
                 ? <div>
@@ -3451,7 +3487,7 @@ Phases () {
                     value={valaEntradaComprimento}
                     onChange={(text) => setvalaEntradaComprimento(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campovalaEntradaProfundidade
                 ? <div>
@@ -3461,7 +3497,7 @@ Phases () {
                     value={valaEntradaProfundidade}
                     onChange={(text) => setvalaEntradaProfundidade(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campovalaSaidaLatitude
                 ? <div>
@@ -3471,7 +3507,7 @@ Phases () {
                     value={valaSaidaLatitude}
                     onChange={(text) => setvalaSaidaLatitude(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campovalaSaidaLongitude
                 ? <div>
@@ -3481,7 +3517,7 @@ Phases () {
                     value={valaSaidaLongitude}
                     onChange={(text) => setvalaSaidaLongitude(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {/* {campovalaSaidaAltura
                 ? <div>
@@ -3501,7 +3537,7 @@ Phases () {
                     value={valaSaidaComprimento}
                     onChange={(text) => setvalaSaidaComprimento(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campovalaSaidaProfundidade
                 ? <div>
@@ -3511,7 +3547,7 @@ Phases () {
                     value={valaSaidaProfundidade}
                     onChange={(text) => setvalaSaidaProfundidade(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoprofundidadeMax
                 ? <div>
@@ -3521,7 +3557,7 @@ Phases () {
                     value={profundidadeMax}
                     onChange={(text) => setprofundidadeMax(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {campoprofundidadeMin
                 ? <div>
@@ -3531,7 +3567,7 @@ Phases () {
                     value={profundidadeMin}
                     onChange={(text) => setprofundidadeMin(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
               {/* {campoMaterialRedeTubula
                 ? <div>
@@ -3552,7 +3588,7 @@ Phases () {
                     value={compFuro}
                     onChange={(text) => setCompFuro(text.target.value)}
                   />
-                  </div>
+                </div>
                 : false}
             </S.GridForm>
 
@@ -3567,7 +3603,7 @@ Phases () {
                         <th>Longitude</th>
                         <th>Profundidade</th>
                         <th>Diâmetro</th>
-                        </tr>
+                      </tr>
                       : false}
 
                     {interferencias.length > 0
@@ -3593,7 +3629,7 @@ Phases () {
 
                   </table>
                 </div>
-                </>
+              </>
               : false}
             {campoFerramentas
               ? <><h4>Ferramentas selecionadas</h4>
@@ -3602,7 +3638,7 @@ Phases () {
                     {ferramentasT.length > 0
                       ? <tr>
                         <th>Nome</th>
-                        </tr>
+                      </tr>
                       : false}
 
                     {ferramentasT.length > 0
@@ -3624,7 +3660,7 @@ Phases () {
 
                   </table>
                 </div>
-                </>
+              </>
               : false}
             {campoPontosVerificacao
               ? <><h4>Pontos de verificação</h4><button onClick={openModalPontosVerificacao} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button>
@@ -3637,7 +3673,7 @@ Phases () {
                         <th>Profundidade (m)</th>
                         {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <th>Angulação (º)</th> : false}
                         {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <th>Posição em Horas (h)</th> : false}
-                        </tr>
+                      </tr>
                       : false}
 
                     {pontosVerificacao.length > 0
@@ -3664,32 +3700,32 @@ Phases () {
                   </table>
                 </div>
 
-                </>
+              </>
               : false}
 
             {!finalizarEtapa
               ? <button onClick={() => { onSubmitLevantamento('todos-campos') }}>{loading
                 ? <img
-                    width='40px'
-                    style={{ margin: 'auto' }}
-                    height='' src={Load}
-                    alt='Loading'
-                  />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height='' src={Load}
+                  alt='Loading'
+                />
                 : 'Salvar'}
-                </button>
+              </button>
               : false}
             {!finalizarEtapa
               ? idTodosCampos === ''
                 ? <button onClick={() => { toast.info('É preciso salvar a etapa!') }} className='finishPhase'>Finalizar Etapa</button>
                 : <button onClick={() => { updateDados() }} className='finishPhase'>{loading
                   ? <img
-                      width='40px'
-                      style={{ margin: 'auto' }}
-                      height='' src={Load}
-                      alt='Loading'
-                    />
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height='' src={Load}
+                    alt='Loading'
+                  />
                   : 'Finalizar Etapa'}
-                  </button>
+                </button>
               : 'Etapa Finalizada!'}
 
           </S.Div>
@@ -3728,12 +3764,12 @@ Phases () {
                 onChange={(text) => setLongitude(text.target.value)}
               />
               <input
-                type='number' placeholder='Profundidade'
+                type='number' placeholder='Profundidade (m)'
                 value={profundidade}
                 onChange={(text) => setprofundidade(text.target.value)}
               />
               <input
-                type='number' placeholder='Diâmetro'
+                type='number' placeholder='Diâmetro (mm)'
                 value={diametro}
                 onChange={(text) => setDiametro(text.target.value)}
               />
@@ -3747,10 +3783,10 @@ Phases () {
                   src={Load}
                   alt='Loading'
                 />
-                )
+              )
               : (
-                  'Salvar'
-                )}
+                'Salvar'
+              )}
             </button>
           </S.ModelsModal>
 
@@ -3796,17 +3832,17 @@ Phases () {
 
               {variavelTitulo == 'Execução da Travessia - Furo Piloto'
                 ? <input
-                    type='number' placeholder='Angulacão'
-                    value={angulacao}
-                    onChange={(text) => setAngulacao(text.target.value)}
-                  />
+                  type='number' placeholder='Angulacão'
+                  value={angulacao}
+                  onChange={(text) => setAngulacao(text.target.value)}
+                />
                 : false}
               {variavelTitulo == 'Execução da Travessia - Furo Piloto'
                 ? <input
-                    type='number' placeholder='posicão em Horas'
-                    value={posicaoHoras}
-                    onChange={(text) => setposicaoHoras(text.target.value)}
-                  />
+                  type='number' placeholder='posicão em Horas'
+                  value={posicaoHoras}
+                  onChange={(text) => setposicaoHoras(text.target.value)}
+                />
                 : false}
             </div>
             <button className='save' onClick={() => salvarPontosVerificacao()}>{loading
@@ -3818,10 +3854,10 @@ Phases () {
                   src={Load}
                   alt='Loading'
                 />
-                )
+              )
               : (
-                  'Salvar'
-                )}
+                'Salvar'
+              )}
             </button>
           </S.ModelsModal>
         </Modal>
@@ -3867,10 +3903,10 @@ Phases () {
                   src={Load}
                   alt='Loading'
                 />
-                )
+              )
               : (
-                  'Salvar'
-                )}
+                'Salvar'
+              )}
             </button>
           </S.ModelsModal>
         </Modal>
@@ -3914,17 +3950,17 @@ Phases () {
               />
               {variavelTitulo == 'Execução da Travessia - Furo Piloto'
                 ? <input
-                    type='number' placeholder='Angulacão'
-                    value={angulacao}
-                    onChange={(text) => setAngulacao(text.target.value)}
-                  />
+                  type='number' placeholder='Angulacão'
+                  value={angulacao}
+                  onChange={(text) => setAngulacao(text.target.value)}
+                />
                 : false}
               {variavelTitulo == 'Execução da Travessia - Furo Piloto'
                 ? <input
-                    type='number' placeholder='posicão em Horas'
-                    value={posicaoHoras}
-                    onChange={(text) => setposicaoHoras(text.target.value)}
-                  />
+                  type='number' placeholder='posicão em Horas'
+                  value={posicaoHoras}
+                  onChange={(text) => setposicaoHoras(text.target.value)}
+                />
                 : false}
             </div>
             <button className='save' onClick={() => editarInterferencia('pontos-verificacao/')}>{loading
@@ -3936,10 +3972,10 @@ Phases () {
                   src={Load}
                   alt='Loading'
                 />
-                )
+              )
               : (
-                  'Salvar'
-                )}
+                'Salvar'
+              )}
             </button>
           </S.ModelsModal>
         </Modal>
@@ -4004,10 +4040,10 @@ Phases () {
                   src={Load}
                   alt='Loading'
                 />
-                )
+              )
               : (
-                  'Salvar'
-                )}
+                'Salvar'
+              )}
             </button>
           </S.ModelsModal>
 
@@ -4250,11 +4286,11 @@ Phases () {
             </S.GridForm>
             <button onClick={() => onSubmitInterferenciasFisicasMagneticas()}>{loading
               ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height='' src={Load}
-                  alt='Loading'
-                />
+                width='40px'
+                style={{ margin: 'auto' }}
+                height='' src={Load}
+                alt='Loading'
+              />
               : 'Salvar'}
             </button>
           </S.Div>
@@ -4371,10 +4407,10 @@ Phases () {
                 src={Load}
                 alt='Loading'
               />
-              )
+            )
             : (
-                'Salvar'
-              )}
+              'Salvar'
+            )}
           </button>
         </S.PhasesModal>
 
@@ -4590,12 +4626,12 @@ Phases () {
               type='submit'
             >{loading
               ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height=''
-                  src={Load}
-                  alt='Loading'
-                />
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src={Load}
+                alt='Loading'
+              />
               : 'Salvar'}
             </button>
           </S.Form>
@@ -4640,12 +4676,12 @@ Phases () {
           <S2.Btns>
             <button onClick={() => onSubmitLevantamento('user')}>{loading
               ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height=''
-                  src={Load}
-                  alt='Loading'
-                />
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src={Load}
+                alt='Loading'
+              />
               : 'Salvar'}
             </button>
             <button onClick={() => setIsOpenInvite(false)}>Cancelar</button>
@@ -4777,7 +4813,7 @@ Phases () {
               <div className='selectPlus' style={{ marginTop: '-2px' }}>
                 <select
                   value={tipoSolo}
-                  onChange={(text) => { setTipoSolo(text.target.value); loadDados('etapas') }}
+                  onChange={(text) => { setTipoSolo(text.target.value); }}//loadDados('etapas')
                 >
                   <option value=''>Selecione...</option>
                   {soilTypes.length > 0
@@ -4825,10 +4861,10 @@ Phases () {
             ? dados.map(data =>
               <SwiperSlide className='containerForm'>
                 {/* <div onClick={() => openModal(data)}> */}
+                <button className='button' style={{ marginLeft: '-270px', marginTop: '-100px', position: 'absolute' }} onClick={() => deleteEtapa(data.id + ';' + data.idConfigTravessia)}>
+                  <FiTrash color='#EA1C24' size={30} />
+                </button>
                 <Link to={'/preencher-fases/' + idConfigTravessia.split('etapas/')[1] + '/' + data.id + `(${data.tipoEtapa.replace(/ /g, '')})`}>
-                  <button className='button' style={{ marginLeft: '270px' }} onClick={() => deleteEtapa(data.id)}>
-                    <FiTrash color='#EA1C24' size={25} />
-                  </button>
                   <FiPlay style={{ marginTop: '10px' }} />
                   <h2>{data.numeroEtapa}</h2>
                   <h3 style={{ marginTop: '-10px' }}>{data.tipoEtapa}</h3>
@@ -4976,10 +5012,10 @@ Phases () {
                 src={Load}
                 alt='Loading'
               />
-              )
+            )
             : (
-                'Salvar'
-              )}
+              'Salvar'
+            )}
           </button>
         </form>
       </Modal>

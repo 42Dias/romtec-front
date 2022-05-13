@@ -9,7 +9,7 @@ export let status = localStorage.getItem('status')?.replace(/"/g, '')
 export let Email = localStorage.getItem('email')?.replace(/"/g, '')
 export let nome = localStorage.getItem('nome')?.replace(/"/g, '')
 export let password = localStorage.getItem('password')?.replace(/"/g, '')
-//export let ip = 'http://localhost' 
+//export let ip = 'http://localhost'
 export const ip = 'https://projetos.42dias.com.br'  
 export const port = '8145' 
 
