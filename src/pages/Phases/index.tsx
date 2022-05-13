@@ -2011,11 +2011,11 @@ export default function
       })
   }
   async function deleteEtapa(id: string) {
-    if (confirm("Tem certeza que deseja excluir essa etapa?")) {
+    if (window.confirm("Tem certeza que deseja excluir essa etapa?")) {
       await api.delete('etapas/' + id).then(async (res) => {
         toast.success('Ok, etapa excluida!')
-        if (confirm("Deseja excluir tudo referente a essa etapa?")) {
-          if (pontosVerificacao.length > 0) {
+        if (window.confirm("Deseja excluir tudo referente a essa etapa?")) {
+          if (pontosVerificacao.length > 0) { 
             pontosVerificacao.map(async (dados) => {
               await api.delete('pontos-verificacao/' + dados.id)
             })
