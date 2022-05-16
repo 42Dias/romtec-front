@@ -92,6 +92,8 @@ export default function
   const [isOpenFluido, setIsOpenFluido] = useState(false)
   const [isOpenModalEdit, setIsOpenModalEdit] = useState(false)
   const [isOpenModalAdd, setIsOpenModalAdd] = useState(false)
+  const [modalIsOpenDeletarEtapa, setIsOpenDeletarEtapa] = useState(false)
+  const [modalIsOpenDeletarDadosEtapa, setIsOpenDeletarDadosEtapa] = useState(false)
   const { Option } = Select
 
   function openModalEdit() {
@@ -206,6 +208,7 @@ export default function
   const [interferencias, setinterferencias] = useState<any[]>([])
   const [pontosVerificacao, setPontosVerificacao] = useState<any[]>([])
   const [ferramentasList, setferramentasList] = useState<any[]>([])
+  const [etapaDeletar, setEtapaDeletar] = useState('')
   const [maquinasPerfuratriz, setMaquinasPerfuratriz] = useState<any[]>([])
   const [variavelTitulo, setVariavelTitulo] = useState('')
   const [variavelDescricao, setVariavelDescricao] = useState('')
@@ -2011,34 +2014,39 @@ export default function
       })
   }
   async function deleteEtapa(id: string) {
-    if (window.confirm("Tem certeza que deseja excluir essa etapa?")) {
+    //if (confirm("Tem certeza que deseja excluir essa etapa?")) {
       await api.delete('etapas/' + id).then(async (res) => {
         toast.success('Ok, etapa excluida!')
-        if (window.confirm("Deseja excluir tudo referente a essa etapa?")) {
-          if (pontosVerificacao.length > 0) { 
-            pontosVerificacao.map(async (dados) => {
-              await api.delete('pontos-verificacao/' + dados.id)
-            })
-          } else if (ferramentasT.length > 0) {
-            ferramentasT.map(async (dados) => {
-              await api.delete('ferramentasTravessia/' + dados.id)
-            })
-          } else if (todosCampos.length > 0) {
-            todosCampos.map(async (dados) => {
-              await api.delete('todos-campos/' + dados.id)
-            })
-          }
-          toast.success('Ok, dados da etapa excluidos!')
+        //if (confirm("Deseja excluir tudo referente a essa etapa?")) {
           loadDados('')
-        } else {
-          toast.info('Ok, dados da etapa não foram excluidos!')
-        }
+          setIsOpenDeletarEtapa(false)
+          setIsOpenDeletarDadosEtapa(true)
+        // } else {
+        //   toast.info('Ok, dados da etapa não foram excluidos!')
+        // }
       })
       //toast.success('Ok, etapa excluida!')
-    } else {
-      toast.info('Ok, a etapa não foi excluida!')
+    // } else {
+    //   toast.info('Ok, a etapa não foi excluida!')
+    // }
+  }
+  async function deletarDadosEtapa(){
+    if (pontosVerificacao.length > 0) {
+      pontosVerificacao.map(async (dados) => {
+        await api.delete('pontos-verificacao/' + dados.id)
+      })
+    } else if (ferramentasT.length > 0) {
+      ferramentasT.map(async (dados) => {
+        await api.delete('ferramentasTravessia/' + dados.id)
+      })
+    } else if (todosCampos.length > 0) {
+      todosCampos.map(async (dados) => {
+        await api.delete('todos-campos/' + dados.id)
+      })
     }
-
+    toast.success('Ok, dados da etapa excluidos!')
+    loadDados('')
+    setIsOpenDeletarDadosEtapa(false)
   }
   function salvarPontosVerificacao() {
     const data = {
@@ -2211,7 +2219,7 @@ export default function
             ? dados.map((data, index) =>
               <SwiperSlide>
                 <div onClick={() => openModal(data)}>
-                  <button className='button-delete' style={{ marginLeft: '-130px', marginTop: '-10px' }} onClick={() => deleteEtapa(data.id + ';' + data.idConfigTravessia)}>
+                  <button className='button-delete' style={{ marginLeft: '-130px', marginTop: '-10px' }} onClick={() => {setEtapaDeletar(data.id + ';' + data.idConfigTravessia), setIsOpenDeletarEtapa(true)}}>
                     <FiTrash color='#EA1C24' size={25} />
                   </button>
                   <FiPlay style={{ marginLeft: '110px', marginTop: '24px' }} />
@@ -4643,6 +4651,82 @@ export default function
         style={{
           overlay: {
             backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            height: '400px',
+          },
+        }}
+        isOpen={modalIsOpenDeletarEtapa} onRequestClose={() => setIsOpenDeletarEtapa(false)}
+      >
+        <S2.ContainerModal>
+
+          <h1>Deletar etapa</h1>
+
+          <S2.GridInvite>
+            <div>
+              <label htmlFor='email'>Tem certeza que deseja excluir essa etapa?</label>
+              
+            </div>
+          </S2.GridInvite>
+
+          <S2.Btns>
+            <button onClick={() => deleteEtapa(etapaDeletar)}>{loading
+              ? <img
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src={Load}
+                alt='Loading'
+              />
+              : 'Confirmar'}
+            </button>
+            <button onClick={() => setIsOpenDeletarEtapa(false)}>Cancelar</button>
+          </S2.Btns>
+
+        </S2.ContainerModal>
+      </Modal>
+
+      <Modal
+        className='phaes-modal'
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            height: '400px',
+          },
+        }}
+        isOpen={modalIsOpenDeletarDadosEtapa} onRequestClose={() => setIsOpenDeletarDadosEtapa(false)}
+      >
+        <S2.ContainerModal>
+
+          <h1>Deletar etapa</h1>
+
+          <S2.GridInvite>
+            <div>
+              <label htmlFor='email'>Deseja excluir tudo referente a essa etapa?</label>
+              
+            </div>
+          </S2.GridInvite>
+
+          <S2.Btns> 
+            <button onClick={() => deletarDadosEtapa()}>{loading
+              ? <img
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src={Load}
+                alt='Loading'
+              />
+              : 'Confirmar'}
+            </button>
+            <button onClick={() => setIsOpenDeletarDadosEtapa(false)}>Cancelar</button>
+          </S2.Btns>
+
+        </S2.ContainerModal>
+      </Modal>
+
+      <Modal
+        className='phaes-modal'
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
           },
         }}
         isOpen={isOpenInvite} onRequestClose={() => setIsOpenInvite(false)}
@@ -4861,7 +4945,7 @@ export default function
             ? dados.map(data =>
               <SwiperSlide className='containerForm'>
                 {/* <div onClick={() => openModal(data)}> */}
-                <button className='button' style={{ marginLeft: '-270px', marginTop: '-100px', position: 'absolute' }} onClick={() => deleteEtapa(data.id + ';' + data.idConfigTravessia)}>
+                <button className='button' style={{ marginLeft: '-270px', marginTop: '-100px', position: 'absolute' }} onClick={() => {setEtapaDeletar(data.id + ';' + data.idConfigTravessia), setIsOpenDeletarEtapa(true)}}>
                   <FiTrash color='#EA1C24' size={30} />
                 </button>
                 <Link to={'/preencher-fases/' + idConfigTravessia.split('etapas/')[1] + '/' + data.id + `(${data.tipoEtapa.replace(/ /g, '')})`}>
