@@ -5,14 +5,14 @@ import { FiSettings } from 'react-icons/fi'
 import image from '../../assets/obra.png'
 import axios from 'axios'
 import { useEffect } from 'react'
-import { ip, port} from '../../services/api'
+import { ip, port } from '../../services/api'
 import { toast } from 'react-toastify'
 
 export default function
- HomeW () {
-   let token = window.location.hash.split('homeW/')[1]; 
+  HomeW() {
+  let token = window.location.hash.split('homeW/')[1];
 
-   function handleLocalStorage(emailA: string, passwordB: string) {
+  function handleLocalStorage(emailA: string, passwordB: string) {
     localStorage.setItem('email', JSON.stringify(emailA))
     localStorage.setItem('password', JSON.stringify(passwordB))
     console.log()
@@ -25,7 +25,7 @@ export default function
     setLocalStorage(token)
     loadUser(token)
   }
-  async function Login(email: string, password:string) {
+  async function Login(email: string, password: string) {
     // eslint-disable-next-line
     const responser = axios.post(ip + ':${port}/api/auth/sign-in', {
       email: email,
@@ -51,40 +51,41 @@ export default function
       //setLoading(false)
     })
   }
-  async function loadUser (token:any) {
+  async function loadUser(token: any) {
     const response = await axios({
       method: 'get',
       url: `${ip}:${port}/api/auth/me`,
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token.replace(/"/g, ),
+        Authorization: 'Bearer ' + token.replace(/"/g,),
       },
       timeout: 50000,
     }).then(response => {
       //toast.info(token.split('homeW/')[1])
+      console.log(response)
+      //console.log(response.tenants[0].roles[0]);
+      // saves client's data into localStorage
+      localStorage.setItem('roles', JSON.stringify(response.data.tenants[0].roles[0]))
+      // saves client's data into localStorage
+      localStorage.setItem('tenantId', JSON.stringify(response.data.tenants[0].tenant.id))
+      // saves client's data into localStorage
+      localStorage.setItem('id', JSON.stringify(response.data.id))
+      localStorage.setItem('nome', JSON.stringify(response.data.firstName))
+      // saves client's data into localStorage
+      localStorage.setItem('status', JSON.stringify(response.data.tenants[0].status))
+      console.log('token')
+      console.log(token)
+      localStorage.setItem('token', JSON.stringify(token))
+      setTimeout(function () {
+        window.location.href = ip + ':3000/romtec/#/home'
+      }, 1000);
       return response.data
-    }).catch((error)=>{
+    }).catch((error) => {
       toast.error(error)
     })
-    console.log(response)
-    //console.log(response.tenants[0].roles[0]);
-    // saves client's data into localStorage
-    localStorage.setItem('roles', JSON.stringify(response.tenants[0].roles[0]))
-    // saves client's data into localStorage
-    localStorage.setItem('tenantId', JSON.stringify(response.tenants[0].tenant.id))
-    // saves client's data into localStorage
-    localStorage.setItem('id', JSON.stringify(response.id))
-    localStorage.setItem('nome', JSON.stringify(response.firstName))
-    // saves client's data into localStorage
-    localStorage.setItem('status', JSON.stringify(response.tenants[0].status))
-    console.log('token')
-    console.log(token)
-    localStorage.setItem('token', JSON.stringify(token))
-    setTimeout(function() {
-      window.location.href = ip+':3000/romtec/#/home'
-    }, 1000);
-    
+
+
   }
   useEffect(() => {
     // if (!token) {
@@ -115,7 +116,7 @@ export default function
           <S.ContainerSteps>
             <S.ContentSteps>
               <FiSettings size={20} />
-              <h4 style={{width: '50px'}}>{token}</h4>
+              <h4 style={{ width: '50px' }}>{token}</h4>
               <h4>Morbi vitae lorem nisl.</h4>
               <p>Morbi vitae lorem nisl. Sed lobortis non sapien sit amet consectetur.</p>
             </S.ContentSteps>
