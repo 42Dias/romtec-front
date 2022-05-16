@@ -2014,6 +2014,7 @@ export default function
       })
   }
   async function deleteEtapa(id: string) {
+    setLoading(true)
     //if (confirm("Tem certeza que deseja excluir essa etapa?")) {
       await api.delete('etapas/' + id).then(async (res) => {
         toast.success('Ok, etapa excluida!')
@@ -2021,16 +2022,19 @@ export default function
           loadDados('')
           setIsOpenDeletarEtapa(false)
           setIsOpenDeletarDadosEtapa(true)
+          setLoading(false)
         // } else {
         //   toast.info('Ok, dados da etapa não foram excluidos!')
         // }
       })
+      setLoading(false)
       //toast.success('Ok, etapa excluida!')
     // } else {
     //   toast.info('Ok, a etapa não foi excluida!')
     // }
   }
   async function deletarDadosEtapa(){
+    setLoading(true)
     if (pontosVerificacao.length > 0) {
       pontosVerificacao.map(async (dados) => {
         await api.delete('pontos-verificacao/' + dados.id)
@@ -2047,6 +2051,7 @@ export default function
     toast.success('Ok, dados da etapa excluidos!')
     loadDados('')
     setIsOpenDeletarDadosEtapa(false)
+    setLoading(false)
   }
   function salvarPontosVerificacao() {
     const data = {

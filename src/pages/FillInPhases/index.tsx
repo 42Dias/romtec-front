@@ -8,7 +8,7 @@ import * as S4 from '../Phases/styled'
 import { Link } from 'react-router-dom'
 import Modal from 'react-modal'
 import { useEffect, useState } from 'react'
-import { FiCheck, FiChevronLeft, FiEye, FiPlay, FiPlus, FiTrash, FiX } from 'react-icons/fi'
+import { FiCheck, FiChevronLeft, FiEye, FiPlay, FiPlus, FiTrash, FiX, FiArrowLeft} from 'react-icons/fi'
 import { useForm } from 'react-hook-form'
 import { api, ip, nome, roles } from '../../services/api'
 import { toast } from 'react-toastify'
@@ -919,100 +919,200 @@ export default function FillInPhases() {
 
   async function createNewFile(submit: any) {
     setLoading(true)
+    toast.info("Carregando...")
     // console.log('submit')
     // console.log(submit)
     // eslint-disable-next-line
     console.log(credencial)
-    await api.post(submit.banco, {
-      data: submit,
-    }).then(async (response) => {
-      // console.log(response)
-      if (response.statusText === 'OK') {
-        setLoading(false)
-        reset()
-        setIsOpenPlanejamento(false)
-        setIsOpenInvite(false)
-        setIsOpenFluido(false)
-        loadDados('etapas')
-        setidTodosCampos(response.data.id)
-        toast.success('Cadastrada com sucesso!')
-        if (variavelTitulo === "Planejamento da Travessia") {
-          //console.log(graficoTravessia.length)
-          if (graficoTravessia.length > 0) {
-            await api.put(`graficoTravessia/${graficoTravessia[0].id}`, {
-              data: submit,
-            }).then(async (response) => {
-              //toast.success('Cadastrada com sucesso!')
-              setLoading(false)
-              reset()
-              setIsOpenPlanejamento(false)
-              setIsOpenInvite(false)
-              setIsOpenFluido(false)
-              loadDados(tipoSolo)
-            }).catch(res => {
-              // console.log(res)
-              toast.error(res.response.data)
-              setLoading(false)
-            })
-          } else {
-            await api.post('graficoTravessia', {
-              data: submit,
-            }).then(async (response) => {
-
-            }).catch(res => {
-              // console.log(res)
-              toast.error(res.response.data)
-              setLoading(false)
-            })
-          }
-        }
-        ferramentas.map(async (ferramenta) => {
-          try {
-            const data = {
-              travessiaId: idConfigTravessia.replace('#/preencher-fases/', '').split('/')[1],
-              ferramentaId: ferramenta.split('/')[0],
-              nome: ferramenta.split('/')[1],
-              etapaId: idEtapa,
+    if(idTodosCampos === ''){
+      await api.post(submit.banco, {
+        data: submit,
+      }).then(async (response) => {
+        // console.log(response)
+        if (response.statusText === 'OK') {
+          setLoading(false)
+          reset()
+          setIsOpenPlanejamento(false)
+          setIsOpenInvite(false)
+          setIsOpenFluido(false)
+          loadDados('etapas')
+          setidTodosCampos(response.data.id)
+          toast.success('Cadastrada com sucesso!')
+          if (variavelTitulo === "Planejamento da Travessia") {
+            //console.log(graficoTravessia.length)
+            if (graficoTravessia.length > 0) {
+              await api.put(`graficoTravessia/${graficoTravessia[0].id}`, {
+                data: submit,
+              }).then(async (response) => {
+                //toast.success('Cadastrada com sucesso!')
+                setLoading(false)
+                reset()
+                setIsOpenPlanejamento(false)
+                setIsOpenInvite(false)
+                setIsOpenFluido(false)
+                loadDados(tipoSolo)
+              }).catch(res => {
+                // console.log(res)
+                toast.error(res.response.data)
+                setLoading(false)
+              })
+            } else {
+              await api.post('graficoTravessia', {
+                data: submit,
+              }).then(async (response) => {
+  
+              }).catch(res => {
+                // console.log(res)
+                toast.error(res.response.data)
+                setLoading(false)
+              })
             }
-            await api.post('ferramentasTravessia', {
-              data: data,
-            }).then(async (response) => {
-              setidTodosCampos(response.data.id)
+          }
+          ferramentas.map(async (ferramenta) => {
+            try {
+              const data = {
+                travessiaId: idConfigTravessia.replace('#/preencher-fases/', '').split('/')[1],
+                ferramentaId: ferramenta.split('/')[0],
+                nome: ferramenta.split('/')[1],
+                etapaId: idEtapa,
+              }
+              await api.post('ferramentasTravessia', {
+                data: data,
+              }).then(async (response) => {
+                setidTodosCampos(response.data.id)
+                setLoading(false)
+                reset()
+                setIsOpenPlanejamento(false)
+                setIsOpenInvite(false)
+                setIsOpenFluido(false)
+                loadDados('etapas')
+              }).catch(res => {
+                // console.log(res)
+                toast.error(res.response.data)
+                setLoading(false)
+              })
+            } catch (error) {
+              console.log(error)
               setLoading(false)
               reset()
               setIsOpenPlanejamento(false)
               setIsOpenInvite(false)
               setIsOpenFluido(false)
               loadDados('etapas')
-            }).catch(res => {
-              // console.log(res)
-              toast.error(res.response.data)
-              setLoading(false)
-            })
-          } catch (error) {
-            console.log(error)
-            setLoading(false)
-            reset()
-            setIsOpenPlanejamento(false)
-            setIsOpenInvite(false)
-            setIsOpenFluido(false)
-            loadDados('etapas')
+            }
+            //console.log(data)
+  
+          })
+          if(submit.banco === 'todos-campos'){
+            window.location.href = window.location.href.split("(")[0].replace("preencher-fases", "etapas")
           }
-          //console.log(data)
-
-        })
-      } else if (response.statusText === 'Forbidden') {
-        toast.error('Ops, Não tem permisão!')
+        } else if (response.statusText === 'Forbidden') {
+          toast.error('Ops, Não tem permisão!')
+          setLoading(false)
+        } else {
+          toast.error('Ops, Dados Incorretos!')
+          setLoading(false)
+        }
+      }).catch(res => {
+        console.log(res.response)
+        toast.error(res.response)
         setLoading(false)
-      } else {
-        toast.error('Ops, Dados Incorretos!')
+      })
+    }else{
+      await api.put(`${submit.banco}/${idTodosCampos}`, {
+        data: submit,
+      }).then(async (response) => {
+        // console.log(response)
+        if (response.statusText === 'OK') {
+          setLoading(false)
+          reset()
+          setIsOpenPlanejamento(false)
+          setIsOpenInvite(false)
+          setIsOpenFluido(false)
+          loadDados('etapas')
+          setidTodosCampos(response.data.id)
+          toast.success('Alterado com sucesso!')
+          if (variavelTitulo === "Planejamento da Travessia") {
+            //console.log(graficoTravessia.length)
+            if (graficoTravessia.length > 0) {
+              await api.put(`graficoTravessia/${graficoTravessia[0].id}`, {
+                data: submit,
+              }).then(async (response) => {
+                //toast.success('Cadastrada com sucesso!')
+                setLoading(false)
+                reset()
+                setIsOpenPlanejamento(false)
+                setIsOpenInvite(false)
+                setIsOpenFluido(false)
+                loadDados(tipoSolo)
+              }).catch(res => {
+                // console.log(res)
+                toast.error(res.response.data)
+                setLoading(false)
+              })
+            } else {
+              await api.post('graficoTravessia', {
+                data: submit,
+              }).then(async (response) => {
+  
+              }).catch(res => {
+                // console.log(res)
+                toast.error(res.response.data)
+                setLoading(false)
+              })
+            }
+          }
+          ferramentas.map(async (ferramenta) => {
+            try {
+              const data = {
+                travessiaId: idConfigTravessia.replace('#/preencher-fases/', '').split('/')[1],
+                ferramentaId: ferramenta.split('/')[0],
+                nome: ferramenta.split('/')[1],
+                etapaId: idEtapa,
+              }
+              await api.post('ferramentasTravessia', {
+                data: data,
+              }).then(async (response) => {
+                setidTodosCampos(response.data.id)
+                setLoading(false)
+                reset()
+                setIsOpenPlanejamento(false)
+                setIsOpenInvite(false)
+                setIsOpenFluido(false)
+                loadDados('etapas')
+              }).catch(res => {
+                // console.log(res)
+                toast.error(res.response.data)
+                setLoading(false)
+              })
+            } catch (error) {
+              console.log(error)
+              setLoading(false)
+              reset()
+              setIsOpenPlanejamento(false)
+              setIsOpenInvite(false)
+              setIsOpenFluido(false)
+              loadDados('etapas')
+            }
+            //console.log(data)
+  
+          })
+          if(submit.banco === 'todos-campos'){
+            window.location.href = window.location.href.split("(")[0].replace("preencher-fases", "etapas").replace("/"+idEtapa,"")
+          }
+        } else if (response.statusText === 'Forbidden') {
+          toast.error('Ops, Não tem permisão!')
+          setLoading(false)
+        } else {
+          toast.error('Ops, Dados Incorretos!')
+          setLoading(false)
+        }
+      }).catch(res => {
+        // console.log(res)
+        toast.error(res.response)
         setLoading(false)
-      }
-    }).catch(res => {
-      // console.log(res)
-      toast.error(res.response)
-      setLoading(false)
-    })
+      })
+    }
   }
   async function loadDados(tipoSoloId: string) {
     setLoading(true)
@@ -1785,7 +1885,8 @@ export default function FillInPhases() {
       <Sidebar />
       <Navbar />
       <S.Container>
-        <h2 style={{ marginTop: '-10px' }}>{variavelTitulo}</h2>
+        <button style={{background: '#FECE51', width: '50px'}} onClick={() => { onSubmitLevantamento('todos-campos') }}><FiArrowLeft color='#000' size={25}/></button> 
+        <h2 style={{ marginTop: '10px' }}>{variavelTitulo}</h2>
         <h3 style={{ width: '100%', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', paddingLeft: '10px', paddingRight: '10px' }}>{variavelDescricao}</h3>
         <form>
           {/* <input placeholder='Responsável' type='text' />
