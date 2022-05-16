@@ -27,7 +27,8 @@ export default function
   }
   async function Login(email: string, password: string) {
     // eslint-disable-next-line
-    const responser = axios.post(ip + ':${port}/api/auth/sign-in', {
+    console.log(email + " - "+ password)
+    const responser = axios.post(`${ip}:${port}/api/auth/sign-in`, {
       email: email,
       password: password,
       invitationToken: '',
@@ -46,8 +47,13 @@ export default function
         //setLoading(false)
       }
     }).catch(res => {
-      //console.log(res.response.data)
-      toast.error(res.response.data)
+      console.log(res.response)
+      if(res.response !== undefined){
+         toast.error(res.response.data)
+      }else {
+        toast.error('Erro no servidor!')
+      }
+     
       //setLoading(false)
     })
   }
@@ -77,9 +83,9 @@ export default function
       console.log('token')
       console.log(token)
       localStorage.setItem('token', JSON.stringify(token))
-      setTimeout(function () {
-        window.location.href = ip + ':3000/romtec/#/home'
-      }, 1000);
+      //setTimeout(function () {
+        window.location.href = ip + '/romtec/#/home'
+      //}, 1000);
       return response.data
     }).catch((error) => {
       toast.error(error)
@@ -95,6 +101,7 @@ export default function
     //   email: token.split('homeW/')[1].split('-')[0],
     //   password: token.split('homeW/')[1].split('-')[1]
     // }
+
     Login(token.split('-')[0], token.split('-')[1])
   }, [])
   return (
