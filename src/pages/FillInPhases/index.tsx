@@ -1885,7 +1885,7 @@ export default function FillInPhases() {
       <Sidebar />
       <Navbar />
       <S.Container>
-        <button style={{background: '#FECE51', width: '50px'}} onClick={() => { onSubmitLevantamento('todos-campos') }}><FiArrowLeft color='#000' size={25}/></button> 
+        <button style={{background: '#FECE51', width: '50px'}} onClick={() => {  window.location.href = window.location.href.split("(")[0].replace("preencher-fases", "etapas").replace("/"+idEtapa,"") }}><FiArrowLeft color='#000' size={25}/></button> 
         <h2 style={{ marginTop: '10px' }}>{variavelTitulo}</h2>
         <h3 style={{ width: '100%', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', paddingLeft: '10px', paddingRight: '10px' }}>{variavelDescricao}</h3>
         <form>
