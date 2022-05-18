@@ -36,6 +36,7 @@ import {
 import { Line } from 'react-chartjs-2'
 import { setLabels } from 'react-chartjs-2/dist/utils'
 import moment from 'moment'
+import { backgrounds } from 'polished'
 SwiperCore.use([Pagination, Navigation])
 
 type FormData = {
@@ -92,6 +93,7 @@ export default function
   const [isOpenFluido, setIsOpenFluido] = useState(false)
   const [isOpenModalEdit, setIsOpenModalEdit] = useState(false)
   const [isOpenModalAdd, setIsOpenModalAdd] = useState(false)
+  const [isOpenTipoRede, setIsOpenTipoRede] = useState(false)
   const [modalIsOpenDeletarEtapa, setIsOpenDeletarEtapa] = useState(false)
   const [modalIsOpenDeletarDadosEtapa, setIsOpenDeletarDadosEtapa] = useState(false)
   const { Option } = Select
@@ -249,6 +251,7 @@ export default function
   const [ferramentas, setferramentas] = useState<any[]>([])
   const [todosCampos, setTodosCampos] = useState<any[]>([])
   const [ferramentasT, setferramentasT] = useState<any[]>([])
+  const [tipoRedeList, setTipoRedeList] = useState<any[]>([])
   const [diametroInterferencia, setDiametroInterferencia] = useState('')
   const [profundidade, setprofundidade] = useState('')
   const [anguloAtaque, setanguloAtaque] = useState('')
@@ -347,6 +350,10 @@ export default function
   const [campoFlexobarra, setcampoFlexobarra] = useState(false)
   const [campoRadio, setcampoRadio] = useState(false)
   const [campoParafuso, setcampoParafuso] = useState(false)
+  const [planejamentoTravessia, setPlanejamentoTravessia] = useState(false)
+  const [sondagemInterferencias, setSondagemInterferencias] = useState(false)
+  const [aberturaValasEntradaSaida, setAberturaValasEntradaSaida] = useState(false)
+  const [execucaoTravessiaFuroPiloto, setExecucaoTravessiaFuroPiloto] = useState(false)
   const [campoDiametroFerramenta, setcampoDiametroFerramenta] = useState(false)
   const [campoCondicaoFerramenta, setcampoCondicaoFerramenta] = useState(false)
   const [campoEmpresaProprietaria, setcampoEmpresaProprietaria] = useState(false)
@@ -444,6 +451,15 @@ export default function
   const [qtdeBase, setQtdeBase] = useState('')
   const [limiteEscoamento, setLimiteEscoamento] = useState('')
   const [teorAreia, setTeorAreia] = useState('')
+  //campos tipo de rede
+  const [tipoDeRede, setTipoDeRede] = useState('')
+  const [identificacao, setIdentificacao] = useState('')
+  const [materialRede, setMaterialRede] = useState('')
+  const [espessuaraParede, setEspessuaraParede] = useState('')
+  const [distanciaMinima, setDistanciaMinima] = useState('')
+  const [distanciaMinimaInter, setDistanciaMinimaInter] = useState('')
+  const [proprietarioRede, setProprietarioRede] = useState('')
+
   let credencial = ''
   let nameImage = ''
   let Image: any
@@ -459,7 +475,7 @@ export default function
   const variacaoDistanciaPercorrida: number[] = []
   // var dadosF:object[] = { angulo, variacaoProfundidade, variacaoDistanciaPercorrida}
   const comprimentoHaste = 3
-  const coordenadas2 = [
+  const coordenadas2 = [ 
     { x: 0, y: -1.45521375 },
     { x: 2.9104275, y: -1.45521375 },
     { x: 5.820855001, y: -1.45521375 },
@@ -839,7 +855,7 @@ export default function
       tempoHaste: tempoHaste,
       vazaoBomba: vazaoBomba,
       tipoRedeTubula: tipoRedeTubula,
-      diametroRede: diametroRede,
+      //diametroRede: diametroRede,
       ferramentasUtilizadas: ferramentasUtilizadas,
       modeloAlargador: modeloAlargador,
       capacidadePortaFusilink: capacidadePortaFusilink,
@@ -895,6 +911,14 @@ export default function
       agua: 0,
       anguloEntrada: anguloEntrada,
       anguloMaquina: anguloEntrada,
+      identificacao: identificacao,
+      tipoRedeR: tipoDeRede,
+      diametroRede: diametroRede,
+      espessuaraParede: espessuaraParede,
+      distanciaMinima: distanciaMinima,
+      materialRede: materialRede,
+      proprietario: proprietarioRede,
+
     }
 
     // console.log(data)
@@ -958,95 +982,198 @@ export default function
   async function createNewFile(submit: any) {
     setLoading(true)
 
-    await api.post(submit.banco, {
-      data: submit,
-    }).then(async (response) => {
-      // console.log(response)
-      if (response.statusText === 'OK') {
-        toast.success('Cadastro realizado com sucesso!')
-        setLoading(false)
-        reset()
-        setIsOpenPlanejamento(false)
-        setIsOpenInvite(false)
-        setIsOpenFluido(false)
-        loadDados('etapas')
-        if (variavelTitulo === 'Planejamento da Travessia') {
-          // console.log(graficoTravessia.length)
-          if (graficoTravessia.length > 0) {
-            await api.put(`graficoTravessia/${graficoTravessia[0].id}`, {
-              data: submit,
-            }).then(async (response) => {
-              // toast.success('Cadastrada com sucesso!')
-              setLoading(false)
-              reset()
-              setIsOpenPlanejamento(false)
-              setIsOpenInvite(false)
-              setIsOpenFluido(false)
-              loadDados(tipoSolo)
-            }).catch(res => {
-              // console.log(res)
-              toast.error(res.response.data)
-              setLoading(false)
-            })
-          } else {
-            await api.post('graficoTravessia', {
-              data: submit,
-            }).then(async (response) => {
+    if (idTodosCampos === '' || submit.banco !== 'todos-campos') {
+      await api.post(submit.banco, {
+        data: submit,
+      }).then(async (response) => {
+        // console.log(response)
+        if (response.statusText === 'OK') {
+          setLoading(false)
+          reset()
+          setIsOpenPlanejamento(false)
+          setIsOpenInvite(false)
+          setIsOpenFluido(false)
+          setIsOpenTipoRede(false)
+          loadDados('etapas')
+          setidTodosCampos(response.data.id)
+          toast.success('Cadastro realizado com sucesso!')
+          if (variavelTitulo === "Planejamento da Travessia") {
+            //console.log(graficoTravessia.length)
+            if (graficoTravessia.length > 0) {
+              await api.put(`graficoTravessia/${graficoTravessia[0].id}`, {
+                data: submit,
+              }).then(async (response) => {
+                //toast.success('Cadastrada com sucesso!')
+                setLoading(false)
+                reset()
+                setIsOpenPlanejamento(false)
+                setIsOpenInvite(false)
+                setIsOpenFluido(false)
+                loadDados(tipoSolo)
+              }).catch(res => {
+                // console.log(res)
+                toast.error(res.response.data)
+                setLoading(false)
+              })
+            } else {
+              await api.post('graficoTravessia', {
+                data: submit,
+              }).then(async (response) => {
 
-            }).catch(res => {
-              // console.log(res)
-              toast.error(res.response.data)
-              setLoading(false)
-            })
-          }
-        }
-        ferramentas.map(async (ferramenta) => {
-          try {
-            const data = {
-              travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1],
-              ferramentaId: ferramenta.split('/')[0],
-              nome: ferramenta.split('/')[1],
-              etapaId: idEtapa,
+              }).catch(res => {
+                // console.log(res)
+                toast.error(res.response.data)
+                setLoading(false)
+              })
             }
-            await api.post('ferramentasTravessia', {
-              data: data,
-            }).then(async (response) => {
-              setidTodosCampos(response.data.id)
+          }
+          ferramentas.map(async (ferramenta) => {
+            try {
+              const data = {
+                travessiaId: idConfigTravessia.replace('#/preencher-fases/', '').split('/')[1],
+                ferramentaId: ferramenta.split('/')[0],
+                nome: ferramenta.split('/')[1],
+                etapaId: idEtapa,
+              }
+              await api.post('ferramentasTravessia', {
+                data: data,
+              }).then(async (response) => {
+                setidTodosCampos(response.data.id)
+                setLoading(false)
+                reset()
+                setIsOpenPlanejamento(false)
+                setIsOpenInvite(false)
+                setIsOpenFluido(false)
+                loadDados('etapas')
+              }).catch(res => {
+                // console.log(res)
+                toast.error(res.response.data)
+                setLoading(false)
+              })
+            } catch (error) {
+              console.log(error)
               setLoading(false)
               reset()
               setIsOpenPlanejamento(false)
               setIsOpenInvite(false)
               setIsOpenFluido(false)
               loadDados('etapas')
-            }).catch(res => {
-              // console.log(res)
-              toast.error(res.response.data)
-              setLoading(false)
-            })
-          } catch (error) {
-            console.log(error)
-            setLoading(false)
-            reset()
-            setIsOpenPlanejamento(false)
-            setIsOpenInvite(false)
-            setIsOpenFluido(false)
-            loadDados('etapas')
+            }
+            //console.log(data)
+
+          })
+          if (submit.banco === 'todos-campos') {
+            window.location.href = window.location.href.split("(")[0].replace("preencher-fases", "etapas")
           }
-          // console.log(data)
-        })
-      } else if (response.statusText === 'Forbidden') {
-        toast.error('Ops, Não tem permisão!')
+        } else if (response.statusText === 'Forbidden') {
+          toast.error('Ops, Não tem permisão!')
+          setLoading(false)
+        } else {
+          toast.error('Ops, Dados Incorretos!')
+          setLoading(false)
+        }
+      }).catch(res => {
+        console.log(res.response)
+        toast.error(res.response)
         setLoading(false)
-      } else {
-        toast.error('Ops, Dados Incorretos!')
+      })
+    } else {
+      await api.put(`${submit.banco}/${idTodosCampos}`, {
+        data: submit,
+      }).then(async (response) => {
+        // console.log(response)
+        if (response.statusText === 'OK') {
+          setLoading(false)
+          reset()
+          setIsOpenPlanejamento(false)
+          setIsOpenInvite(false)
+          setIsOpenFluido(false)
+          loadDados('etapas')
+          setidTodosCampos(response.data.id)
+          toast.success('Alterado com sucesso!')
+          if (variavelTitulo === "Planejamento da Travessia") {
+            //console.log(graficoTravessia.length)
+            if (graficoTravessia.length > 0) {
+              await api.put(`graficoTravessia/${graficoTravessia[0].id}`, {
+                data: submit,
+              }).then(async (response) => {
+                //toast.success('Cadastrada com sucesso!')
+                setLoading(false)
+                reset()
+                setIsOpenPlanejamento(false)
+                setIsOpenInvite(false)
+                setIsOpenFluido(false)
+                loadDados(tipoSolo)
+              }).catch(res => {
+                // console.log(res)
+                toast.error(res.response.data)
+                setLoading(false)
+              })
+            } else {
+              await api.post('graficoTravessia', {
+                data: submit,
+              }).then(async (response) => {
+
+              }).catch(res => {
+                // console.log(res)
+                toast.error(res.response.data)
+                setLoading(false)
+              })
+            }
+          }
+          ferramentas.map(async (ferramenta) => {
+            try {
+              const data = {
+                travessiaId: idConfigTravessia.replace('#/preencher-fases/', '').split('/')[1],
+                ferramentaId: ferramenta.split('/')[0],
+                nome: ferramenta.split('/')[1],
+                etapaId: idEtapa,
+              }
+              await api.post('ferramentasTravessia', {
+                data: data,
+              }).then(async (response) => {
+                setidTodosCampos(response.data.id)
+                setLoading(false)
+                reset()
+                setIsOpenPlanejamento(false)
+                setIsOpenInvite(false)
+                setIsOpenFluido(false)
+                loadDados('etapas')
+              }).catch(res => {
+                // console.log(res)
+                toast.error(res.response.data)
+                setLoading(false)
+              })
+            } catch (error) {
+              console.log(error)
+              setLoading(false)
+              reset()
+              setIsOpenPlanejamento(false)
+              setIsOpenInvite(false)
+              setIsOpenFluido(false)
+              loadDados('etapas')
+            }
+            //console.log(data)
+
+          })
+          if (submit.banco === 'todos-campos') {
+            window.location.href = window.location.href.split("(")[0].replace("preencher-fases", "etapas").replace("/" + idEtapa, "")
+          }
+        } else if (response.statusText === 'Forbidden') {
+          toast.error('Ops, Não tem permisão!')
+          setLoading(false)
+        } else {
+          toast.error('Ops, Dados Incorretos!')
+          setLoading(false)
+        }
+      }).catch(res => {
+        // console.log(res)
+        toast.error(res.response)
         setLoading(false)
-      }
-    }).catch(res => {
-      // console.log(res)
-      toast.error(res.response)
-      setLoading(false)
-    })
+      })
+    }
   }
+
   async function loadDados(tipoSoloId: string) {
     // formulas()
     setLoading(true)
@@ -1055,6 +1182,17 @@ export default function
     ).then((response) => {
       if (response.statusText === 'OK') {
         setDados(response.data.rows)
+        response.data.rows.map((etapa: any) => {
+          if (etapa.tipoEtapa === "Planejamento da Travessia") {
+            setPlanejamentoTravessia(true)
+          } else if (etapa.tipoEtapa === "Sondagem das Interferências") {
+            setSondagemInterferencias(true)
+          } else if (etapa.tipoEtapa === "Abertura de Valas de Entrada e Saída") {
+            setAberturaValasEntradaSaida(true)
+          } else if (etapa.tipoEtapa === "Execução da Travessia - Furo Piloto") {
+            setExecucaoTravessiaFuroPiloto(true)
+          }
+        })
         setUrl(url)
         // console.log(dados)
         setLoading(false)
@@ -1102,6 +1240,17 @@ export default function
       if (response.statusText === 'OK') {
         // console.log(response.data.rows)
         setferramentasList(response.data.rows)
+      }
+    }).catch((res) => {
+      console.log(res)
+      // toast.error(res.response.data);
+      setLoading(false)
+    })
+    api.get('tipoRede',
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        // console.log(response.data.rows)
+        setTipoRedeList(response.data.rows)
       }
     }).catch((res) => {
       console.log(res)
@@ -1528,6 +1677,19 @@ export default function
         if (response.statusText === 'OK') {
           if (response.data.count > 0) {
             setAnguloEntrada(response.data.rows[0].anguloEntrada)
+            api.get(`tipoRede?filter%5Bid%5D=${response.data.rows[0].TipoRede}&limit=1`,
+            ).then((response) => {
+              // console.log(response.data.rows)
+              if (response.statusText === 'OK') {
+                if (response.data.count > 0) {
+                  setDistanciaMinima(response.data.rows[0].distanciaMinima)
+                }
+              }
+            }).catch((res) => {
+              console.log(res)
+              toast.error(res.response.data)
+              setLoading(false)
+            })
           }
         }
       }).catch((res) => {
@@ -2016,24 +2178,24 @@ export default function
   async function deleteEtapa(id: string) {
     setLoading(true)
     //if (confirm("Tem certeza que deseja excluir essa etapa?")) {
-      await api.delete('etapas/' + id).then(async (res) => {
-        toast.success('Ok, etapa excluida!')
-        //if (confirm("Deseja excluir tudo referente a essa etapa?")) {
-          loadDados('')
-          setIsOpenDeletarEtapa(false)
-          setIsOpenDeletarDadosEtapa(true)
-          setLoading(false)
-        // } else {
-        //   toast.info('Ok, dados da etapa não foram excluidos!')
-        // }
-      })
+    await api.delete('etapas/' + id).then(async (res) => {
+      toast.success('Ok, etapa excluida!')
+      //if (confirm("Deseja excluir tudo referente a essa etapa?")) {
+      loadDados('')
+      setIsOpenDeletarEtapa(false)
+      setIsOpenDeletarDadosEtapa(true)
       setLoading(false)
-      //toast.success('Ok, etapa excluida!')
+      // } else {
+      //   toast.info('Ok, dados da etapa não foram excluidos!')
+      // }
+    })
+    setLoading(false)
+    //toast.success('Ok, etapa excluida!')
     // } else {
     //   toast.info('Ok, a etapa não foi excluida!')
     // }
   }
-  async function deletarDadosEtapa(){
+  async function deletarDadosEtapa() {
     setLoading(true)
     if (pontosVerificacao.length > 0) {
       pontosVerificacao.map(async (dados) => {
@@ -2224,7 +2386,7 @@ export default function
             ? dados.map((data, index) =>
               <SwiperSlide>
                 <div onClick={() => openModal(data)}>
-                  <button className='button-delete' style={{ marginLeft: '-130px', marginTop: '-10px' }} onClick={() => {setEtapaDeletar(data.id + ';' + data.idConfigTravessia), setIsOpenDeletarEtapa(true)}}>
+                  <button className='button-delete' style={{ marginLeft: '-130px', marginTop: '-10px' }} onClick={() => { setEtapaDeletar(data.id + ';' + data.idConfigTravessia), setIsOpenDeletarEtapa(true) }}>
                     <FiTrash color='#EA1C24' size={25} />
                   </button>
                   <FiPlay style={{ marginLeft: '110px', marginTop: '24px' }} />
@@ -2442,12 +2604,25 @@ export default function
               {campoTipoRede
                 ? <div>
                   <label htmlFor=''>Tipo de Rede</label>
+                  <div className='selectPlus' style={{ marginTop: '-2px' }}>
+                    <select
+                      name='' id='' value={tipoRede}
+                      onChange={(text) => settipoRede(text.target.value)}
+                    >
+                      <option value=''>Selecione...</option>
+                      {tipoRedeList.length > 0
+                        ? tipoRedeList.map((rede) =>
+                          <option value={rede.id}>{rede.identificacaoRede}</option>)
+                        : <option>Nenhum tipo de rede cadastrado!</option>}
+                    </select>
+                    {/* <button onClick={() => setIsOpenTipoRede(true)} className='buttonAddInter'><FiPlus size={20} /></button> */}
+                  </div>
                   {/* <input
                     type='text' placeholder='Fibra óptica'
                     value={tipoRede}
                     onChange={(text) => settipoRede(text.target.value)}
                   /> */}
-                  <select
+                  {/* <select
                     name='' id=''
                     value={tipoRede}
                     onChange={(text) => settipoRede(text.target.value)}
@@ -2457,7 +2632,7 @@ export default function
                     <option value='Tubo água fundido'>Tubo água fundido</option>
                     <option value='Tubo gás aço'>Tubo gás aço</option>
                     <option value='Tubo gás esgoto'>Tubo gás esgoto</option>
-                  </select>
+                  </select> */}
                 </div>
                 : false}
 
@@ -3113,7 +3288,7 @@ export default function
                 : false}
               {variavelTitulo === 'Execução da Travessia - Furo Piloto'
                 ? <><div>
-                  <label htmlFor=''>Ângulo de Entrada</label>
+                  <label htmlFor=''>Ângulo de Entrada (º)</label>
                   <input
                     type='number'
                     value={anguloEntrada}
@@ -3759,8 +3934,25 @@ export default function
           <button style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 0 }} onClick={closeModalInterferencia}><FiX color='white' /></button>
 
           <S.ModelsModal>
-            <h2>Adicione uma interferência</h2>
-            <div>
+            <h2>Adicionar uma interferência</h2>
+              <S.Div>
+                <S.GridForm>
+                  <label htmlFor=''>Tipo de Rede</label>
+                  <div className='selectPlus' style={{ marginTop: '-2px', width: '43%'}}>
+                    <select
+                      name='' id='' value={tipoRede}
+                      onChange={(text) => {settipoRede(text.target.value)}}
+                    >
+                      <option style={{color: 'white'}} value=''>Selecione...</option>
+                      <option style={{color: 'white'}} value={'Outro/'+distanciaMinima}>Outro</option>
+                      {tipoRedeList.length > 0
+                        ? tipoRedeList.map((rede) =>
+                          <option style={{color: 'white'}} value={rede.id+"/"+rede.distanciaMinima}>{rede.identificacaoRede}</option>)
+                        : <option style={{color: 'white'}}>Nenhum tipo de rede cadastrado!</option>}
+                    </select>
+                    <button onClick={() => setIsOpenTipoRede(true)} className='buttonAddInter'><FiPlus size={20} /></button>
+                  </div>
+               
               <input
                 type='text' placeholder='Nome'
                 value={tipoInterferencia}
@@ -3786,7 +3978,12 @@ export default function
                 value={diametro}
                 onChange={(text) => setDiametro(text.target.value)}
               />
-            </div>
+              <input
+                disabled
+                type='number' placeholder='Distância mínima (m)'
+                value={tipoRede.split('/')[1]}
+                onChange={(text) => setDistanciaMinimaInter(text.target.value)}
+              />
             <button className='save' onClick={() => salvarInterferencia('interferencia')}>{loading
               ? (
                 <img
@@ -3798,9 +3995,11 @@ export default function
                 />
               )
               : (
-                'Salvar'
+                'Confirmar'
               )}
-            </button>
+            </button> 
+            </S.GridForm>
+              </S.Div>
           </S.ModelsModal>
 
         </Modal>
@@ -4400,11 +4599,11 @@ export default function
             >
               <option selected disabled>Selecione</option>
               {/* <option value='1'>Levantamento e Mapeamento de Interferências</option> */}
-              <option value='2'>Planejamento da Travessia</option>
-              <option value='3'>Sondagem das Interferências</option>
-              <option value='4'>Abertura de Valas de Entrada e Saída</option>
+              {planejamentoTravessia === false ? <option value='2'>Planejamento da Travessia</option> : false}
+              {sondagemInterferencias === false ? <option value='3'>Sondagem das Interferências</option> : false}
+              {aberturaValasEntradaSaida === false ? <option value='4'>Abertura de Valas de Entrada e Saída</option> : false}
               <option value='5'>Preparação de Fluído</option>
-              <option value='6'>Execução da Travessia - Furo Piloto</option>
+              {execucaoTravessiaFuroPiloto === false ? <option value='6'>Execução da Travessia - Furo Piloto</option> : false}
               <option value='7'>Alargamento</option>
               <option value='8'>Limpeza</option>
               <option value='9'>Puxamento de Rede</option>
@@ -4587,7 +4786,7 @@ export default function
             />
 
             <TextField
-              label='Ângulo de entrada'
+              label='Ângulo de entrada (º)'
               {...register('anguloEntrada', {
                 required: true,
               })}
@@ -4668,7 +4867,7 @@ export default function
           <S2.GridInvite>
             <div>
               <label htmlFor='email'>Tem certeza que deseja excluir essa etapa?</label>
-              
+
             </div>
           </S2.GridInvite>
 
@@ -4706,11 +4905,11 @@ export default function
           <S2.GridInvite>
             <div>
               <label htmlFor='email'>Deseja excluir tudo referente a essa etapa?</label>
-              
+
             </div>
           </S2.GridInvite>
 
-          <S2.Btns> 
+          <S2.Btns>
             <button onClick={() => deletarDadosEtapa()}>{loading
               ? <img
                 width='40px'
@@ -4918,6 +5117,84 @@ export default function
         </S3.Container>
       </Modal>
 
+
+      <Modal
+        className='phaes-modal'
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          },
+        }}
+        isOpen={isOpenTipoRede}
+        onAfterOpen={() => afterOpenModalPhasesSelect}
+        onRequestClose={() => setIsOpenTipoRede(false)}
+      >
+        <S3.Container>
+          <h3>Adicionar tipo de rede</h3>
+          <br />
+          <S3.Div>
+            <div>
+              <label htmlFor=''>Tipos de rede</label>
+              <div className='selectPlus' style={{ marginTop: '-2px' }}>
+                <select
+                  style={{ backgroundColor: '#252332', color: 'white' }}
+                  value={tipoDeRede}
+                  onChange={(text) => { setTipoDeRede(text.target.value); }}//loadDados('etapas')
+                >
+                  <option value=''>Selecione...</option>
+                  <option value='Água Potável'>Água Potável</option>
+                  <option value='Esgoto'>Esgoto</option>
+                  <option value='Águas Pluviais'>Águas Pluviais</option>
+                  <option value='Elétrica'>Elétrica</option>
+                  <option value='Telecomunicação'>Telecomunicação</option>
+                  <option value='Fibra Óptica'>Fibra Óptica</option>
+                  <option value='Semafórica'>Semafórica</option>
+                  <option value='Petrobrás'>Petrobrás</option>
+                  <option value='Gasoduto'>Gasoduto</option>
+                  <option value='Outro'>Outro</option>
+                </select>
+              </div>
+            </div>
+            <TextField
+              type='number'
+              label='Diâmetro da rede (mm)'
+              value={diametroRede}
+              onChange={(text) => setdiametroRede(text.target.value)}
+            />
+
+            <TextField
+              type='text'
+              label='Material da Rede'
+              value={materialRede}
+              onChange={(text) => setMaterialRede(text.target.value)}
+            />
+
+            <TextField
+              label='Espessura de parede (mm)'
+              type='number'
+              value={espessuaraParede}
+              onChange={(text) => setEspessuaraParede(text.target.value)}
+            />
+
+            <TextField
+              label='Distância mínima (m)'
+              type='number'
+              value={distanciaMinima}
+              onChange={(text) => setDistanciaMinima(text.target.value)}
+            />
+
+            <TextField
+              label='Proprietário da rede'
+              type='text'
+              value={proprietarioRede}
+              onChange={(text) => setProprietarioRede(text.target.value)}
+            />
+
+            <button onClick={() => onSubmitLevantamento('tipoRede/')}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src={Load} alt='Loading' /> : 'Salvar'}</button>
+          </S3.Div>
+        </S3.Container>
+      </Modal>
+
       <S.ContainerNone>
         <h2>{nomeTravessia}</h2>
 
@@ -4950,7 +5227,7 @@ export default function
             ? dados.map(data =>
               <SwiperSlide className='containerForm'>
                 {/* <div onClick={() => openModal(data)}> */}
-                <button className='button' style={{ marginLeft: '-270px', marginTop: '-100px', position: 'absolute' }} onClick={() => {setEtapaDeletar(data.id + ';' + data.idConfigTravessia), setIsOpenDeletarEtapa(true)}}>
+                <button className='button' style={{ marginLeft: '-270px', marginTop: '-100px', position: 'absolute' }} onClick={() => { setEtapaDeletar(data.id + ';' + data.idConfigTravessia), setIsOpenDeletarEtapa(true) }}>
                   <FiTrash color='#EA1C24' size={30} />
                 </button>
                 <Link to={'/preencher-fases/' + idConfigTravessia.split('etapas/')[1] + '/' + data.id + `(${data.tipoEtapa.replace(/ /g, '')})`}>

@@ -31,6 +31,7 @@ import Register from './pages/Register'
 import Reports from './pages/Reports'
 import Rods from './pages/Rods'
 import SoilTypes from './pages/Soiltypes'
+import RedeTypes from './pages/Redetypes'
 import Terms from './pages/Terms'
 import Tools from './pages/Tools'
 import Topography from './pages/Topography'
@@ -55,6 +56,7 @@ const Routes = (): JSX.Element => {
           <Route path='/mao-de-obra' exact component={Labor} />
           <Route path='/maquina-perfuratriz' exact component={DrillingMachine} />
           <Route path='/tipos-de-solo' exact component={SoilTypes} />
+          <Route path='/tipos-de-rede' exact component={RedeTypes} />
           <Route path='/hastes' exact component={Rods} />
           <Route path='/ferramentas' exact component={Tools} />
           <Route path='/fluido-de-perfuracao' exact component={DrillingFluid} />

@@ -248,14 +248,14 @@ export const Container = styled.div`
       width: 200%;
       table-layout: fixed;
       @media (max-width: 520px) {
-        width: 100%;
+        width: 200%;
         overflow-x: scroll;
 
           display: grid;
-          justify-content: 1fr 1fr 1fr 1fr;
+          justify-content: 1fr 1fr 1fr 1fr 1fr;
       
           th {
-            padding: 0 10px;
+            padding: 0 15px;
             text-align: left;
           }
         span {

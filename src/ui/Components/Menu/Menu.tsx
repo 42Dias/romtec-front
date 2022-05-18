@@ -46,6 +46,9 @@ const Menu = ({ children, onClose }: Props) => {
             <Link to='/tipos-de-solo'>Tipos de Solos</Link>
           </li>
           <li>
+            <Link to='/tipos-de-rede'>Tipos de Rede</Link>
+          </li>
+          <li>
             <Link to='/fluido-de-perfuracao'>Fluido de Perfuração</Link>
           </li>
           <li>

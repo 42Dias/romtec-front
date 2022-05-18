@@ -8,7 +8,7 @@ import * as S4 from '../Phases/styled'
 import { Link } from 'react-router-dom'
 import Modal from 'react-modal'
 import { useEffect, useState } from 'react'
-import { FiCheck, FiChevronLeft, FiEye, FiPlay, FiPlus, FiTrash, FiX, FiArrowLeft} from 'react-icons/fi'
+import { FiCheck, FiChevronLeft, FiEye, FiPlay, FiPlus, FiTrash, FiX, FiArrowLeft } from 'react-icons/fi'
 import { useForm } from 'react-hook-form'
 import { api, ip, nome, roles } from '../../services/api'
 import { toast } from 'react-toastify'
@@ -82,6 +82,7 @@ export default function FillInPhases() {
   const [isOpenInvite, setIsOpenInvite] = useState(false)
   const [isOpenTipoSolo, setIsOpenTipoSolo] = useState(false)
   const [isOpenFluido, setIsOpenFluido] = useState(false)
+  const [isOpenTipoRede, setIsOpenTipoRede] = useState(false)
   const [isOpenModalEdit, setIsOpenModalEdit] = useState(false)
   const [isOpenModalAdd, setIsOpenModalAdd] = useState(false)
   const [grafico, setGrafico] = useState(false)
@@ -196,6 +197,7 @@ export default function FillInPhases() {
   const [pontosVerificacao, setPontosVerificacao] = useState<any[]>([])
   const [ferramentasList, setferramentasList] = useState<any[]>([])
   const [maquinasPerfuratriz, setMaquinasPerfuratriz] = useState<any[]>([])
+  const [tipoRedeList, setTipoRedeList] = useState<any[]>([])
   const [variavelTitulo, setVariavelTitulo] = useState('')
   const [variavelDescricao, setVariavelDescricao] = useState('')
   const [idDados, setId] = useState('')
@@ -428,6 +430,14 @@ export default function FillInPhases() {
   const [teorAreia, setTeorAreia] = useState('')
   const [graficoTravessia, setGraficoTravessia] = useState<any[]>([])
   const [compFuro, setCompFuro] = useState('')
+  //campos tipo de rede
+  const [tipoDeRede, setTipoDeRede] = useState('')
+  //const [diametroRede, setDiametroRede] = useState('')
+  const [materialRede, setMaterialRede] = useState('')
+  const [espessuaraParede, setEspessuaraParede] = useState('')
+  const [distanciaMinima, setDistanciaMinima] = useState('')
+  const [proprietarioRede, setProprietarioRede] = useState('')
+
   var date = moment(new Date()).format('YYYY-MM-DD')
   var hora = moment(new Date()).format('HH:mm')
   let credencial = ''
@@ -857,6 +867,11 @@ export default function FillInPhases() {
       agua: 0,
       anguloEntrada: anguloEntrada,
       anguloMaquina: anguloEntrada,
+      tipoRede: tipoDeRede,
+      diametro: diametroRede,
+      espessuaraParede: espessuaraParede,
+      distanciaMinima: distanciaMinima,
+      proprietario: proprietarioRede,
     }
 
     // console.log(data)
@@ -924,7 +939,7 @@ export default function FillInPhases() {
     // console.log(submit)
     // eslint-disable-next-line
     console.log(credencial)
-    if(idTodosCampos === ''){
+    if (idTodosCampos === '' || submit.banco !== 'todos-campos') {
       await api.post(submit.banco, {
         data: submit,
       }).then(async (response) => {
@@ -935,9 +950,10 @@ export default function FillInPhases() {
           setIsOpenPlanejamento(false)
           setIsOpenInvite(false)
           setIsOpenFluido(false)
+          setIsOpenTipoRede(false)
           loadDados('etapas')
           setidTodosCampos(response.data.id)
-          toast.success('Cadastrada com sucesso!')
+          toast.success('Cadastro realizado com sucesso!')
           if (variavelTitulo === "Planejamento da Travessia") {
             //console.log(graficoTravessia.length)
             if (graficoTravessia.length > 0) {
@@ -960,7 +976,7 @@ export default function FillInPhases() {
               await api.post('graficoTravessia', {
                 data: submit,
               }).then(async (response) => {
-  
+
               }).catch(res => {
                 // console.log(res)
                 toast.error(res.response.data)
@@ -1001,9 +1017,9 @@ export default function FillInPhases() {
               loadDados('etapas')
             }
             //console.log(data)
-  
+
           })
-          if(submit.banco === 'todos-campos'){
+          if (submit.banco === 'todos-campos') {
             window.location.href = window.location.href.split("(")[0].replace("preencher-fases", "etapas")
           }
         } else if (response.statusText === 'Forbidden') {
@@ -1018,7 +1034,7 @@ export default function FillInPhases() {
         toast.error(res.response)
         setLoading(false)
       })
-    }else{
+    } else {
       await api.put(`${submit.banco}/${idTodosCampos}`, {
         data: submit,
       }).then(async (response) => {
@@ -1054,7 +1070,7 @@ export default function FillInPhases() {
               await api.post('graficoTravessia', {
                 data: submit,
               }).then(async (response) => {
-  
+
               }).catch(res => {
                 // console.log(res)
                 toast.error(res.response.data)
@@ -1095,10 +1111,10 @@ export default function FillInPhases() {
               loadDados('etapas')
             }
             //console.log(data)
-  
+
           })
-          if(submit.banco === 'todos-campos'){
-            window.location.href = window.location.href.split("(")[0].replace("preencher-fases", "etapas").replace("/"+idEtapa,"")
+          if (submit.banco === 'todos-campos') {
+            window.location.href = window.location.href.split("(")[0].replace("preencher-fases", "etapas").replace("/" + idEtapa, "")
           }
         } else if (response.statusText === 'Forbidden') {
           toast.error('Ops, Não tem permisão!')
@@ -1266,6 +1282,17 @@ export default function FillInPhases() {
       if (response.statusText === 'OK') {
         console.log(response.data.rows)
         setferramentasList(response.data.rows)
+      }
+    }).catch((res) => {
+      console.log(res)
+      // toast.error(res.response.data);
+      setLoading(false)
+    })
+    api.get('tipoRede',
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        // console.log(response.data.rows)
+        setTipoRedeList(response.data.rows)
       }
     }).catch((res) => {
       console.log(res)
@@ -1885,7 +1912,7 @@ export default function FillInPhases() {
       <Sidebar />
       <Navbar />
       <S.Container>
-        <button style={{background: '#FECE51', width: '50px'}} onClick={() => {  window.location.href = window.location.href.split("(")[0].replace("preencher-fases", "etapas").replace("/"+idEtapa,"") }}><FiArrowLeft color='#000' size={25}/></button> 
+        <button style={{ background: '#FECE51', width: '50px' }} onClick={() => { window.location.href = window.location.href.split("(")[0].replace("preencher-fases", "etapas").replace("/" + idEtapa, "") }}><FiArrowLeft color='#000' size={25} /></button>
         <h2 style={{ marginTop: '10px' }}>{variavelTitulo}</h2>
         <h3 style={{ width: '100%', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', paddingLeft: '10px', paddingRight: '10px' }}>{variavelDescricao}</h3>
         <form>
@@ -2051,12 +2078,25 @@ export default function FillInPhases() {
           {campoTipoRede
             ? <div>
               <label htmlFor=''>Tipo de Rede</label>
+              <div className='selectPlus' style={{ marginTop: '-2px' }}>
+                <select
+                  name='' id='' value={tipoRedeList}
+                  onChange={(text) => { settipoRede(text.target.value) }}
+                >
+                  <option value=''>Selecione...</option>
+                  {tipoRedeList.length > 0
+                    ? tipoRedeList.map((rede) =>
+                      <option value={rede.id}>{rede.identificacaoRede}</option>)
+                    : <option>Nenhum tipo de rede cadastrado!</option>}
+                </select>
+                {/* <button onClick={() => setIsOpenTipoRede(true)} className='buttonAddInter'><FiPlus size={20} /></button> */}
+              </div>
               {/* <input
                     type='text' placeholder='Fibra óptica'
                     value={tipoRede}
                     onChange={(text) => settipoRede(text.target.value)}
                   /> */}
-              <select
+              {/* <select
                 name='' id=''
                 value={tipoRede}
                 onChange={(text) => settipoRede(text.target.value)}
@@ -2066,7 +2106,7 @@ export default function FillInPhases() {
                 <option value='Tubo água fundido'>Tubo água fundido</option>
                 <option value='Tubo gás aço'>Tubo gás aço</option>
                 <option value='Tubo gás esgoto'>Tubo gás esgoto</option>
-              </select>
+              </select> */}
             </div>
             : false}
 
@@ -2673,7 +2713,7 @@ export default function FillInPhases() {
                   <option value=''>Selecione...</option>
                   {maquinasPerfuratriz.length > 0
                     ? maquinasPerfuratriz.map((maquina) =>
-                      <option value={maquina.id + '/' + maquina.modelo}>{maquina.modelo}</option>)
+                      <option value={maquina.id + '/' + maquina.modelo + '/' + maquina.anguloEntrada}>{maquina.modelo}</option>)
                     : <option>Nenhuma maquina cadastrada!</option>}
                 </select>
                 <button onClick={() => setIsOpenMaquinaPerfuratriz(true)} className='buttonAddInter'><FiPlus size={20} /></button>
@@ -2712,7 +2752,7 @@ export default function FillInPhases() {
             : false}
           {variavelTitulo === "Execução da Travessia - Furo Piloto"
             ? <><div>
-              <label htmlFor=''>Ângulo de Entrada</label>
+              <label htmlFor=''>Ângulo de Entrada (º)</label>
               <input
                 type='number'
                 value={anguloEntrada}
@@ -3199,14 +3239,14 @@ export default function FillInPhases() {
             ? <><h4>Registro de interferencias</h4>
               {/* <button onClick={openModalInterferencia} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button> */}
               <div style={{ overflow: 'auto' }}>
-                <table >
+                <table className='tabela'>
                   {interferencias.length > 0
                     ? <tr>
                       <th>Nome</th>
                       <th>Latitude</th>
                       <th>Longitude</th>
-                      {variavelTitulo === 'Sondagem das Interferências' ? <th>Profundidade</th> : false}
                       <th>Diâmetro</th>
+                      {variavelTitulo === 'Sondagem das Interferências' ? <th>Profundidade</th> : false}
                     </tr>
                     : false}
 
@@ -3216,8 +3256,8 @@ export default function FillInPhases() {
                         <td>{inter.tipoInterferencia}</td>
                         <td>{parseFloat(inter.latitude).toPrecision(8)}</td>
                         <td>{parseFloat(inter.longitude).toPrecision(8)}</td>
-                        {variavelTitulo === 'Sondagem das Interferências' ? <td>{inter.profundidade}</td> : false}
                         <td>{inter.diametro}</td>
+                        {variavelTitulo === 'Sondagem das Interferências' ? inter.profundidade !== '' ? <td>{inter.profundidade}</td> : <td> 00</td> : false}
                         <td>
                           <button className='button' onClick={() => deleteDados(inter.id, 'interferencia/')}>
                             <FiTrash color='#EA1C24' size={18} />
@@ -3521,7 +3561,7 @@ export default function FillInPhases() {
             />
 
             <TextField
-              label='Ângulo de entrada'
+              label='Ângulo de entrada (º)'
               {...register('anguloEntrada', {
                 required: true,
               })}
@@ -3583,6 +3623,82 @@ export default function FillInPhases() {
             </button>
           </form>
         </S.Container>
+      </Modal>
+
+      <Modal
+        className='phaes-modal'
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          },
+        }}
+        isOpen={isOpenTipoRede}
+        onAfterOpen={() => afterOpenModalPhasesSelect}
+        onRequestClose={() => setIsOpenTipoRede(false)}
+      >
+        <S3.Container>
+          <h3>Adicionar tipo de rede</h3>
+          <br />
+          <S3.Div>
+            <div>
+              <label htmlFor=''>Tipos de rede</label>
+              <div className='selectPlus' style={{ marginTop: '-2px' }}>
+                <select
+                  style={{ backgroundColor: '#252332', color: 'white' }}
+                  value={tipoDeRede}
+                  onChange={(text) => { setTipoDeRede(text.target.value); }}//loadDados('etapas')
+                >
+                  <option value=''>Selecione...</option>
+                  <option value='Água Potável'>Água Potável</option>
+                  <option value='Esgoto'>Esgoto</option>
+                  <option value='Águas Pluviais'>Águas Pluviais</option>
+                  <option value='Elétrica'>Elétrica</option>
+                  <option value='Telecomunicação'>Telecomunicação</option>
+                  <option value='Fibra Óptica'>Fibra Óptica</option>
+                  <option value='Semafórica'>Semafórica</option>
+                  <option value='Petrobrás'>Petrobrás</option>
+                  <option value='Gasoduto'>Gasoduto</option>
+                </select>
+              </div>
+            </div>
+            <TextField
+              type='number'
+              label='Diâmetro da rede (mm)'
+              value={diametroRede}
+              onChange={(text) => setdiametroRede(text.target.value)}
+            />
+
+            <TextField
+              type='text'
+              label='Material da Rede'
+              value={materialRede}
+              onChange={(text) => setMaterialRede(text.target.value)}
+            />
+
+            <TextField
+              label='Espessura de parede (mm)'
+              type='number'
+              value={espessuaraParede}
+              onChange={(text) => setEspessuaraParede(text.target.value)}
+            />
+
+            <TextField
+              label='Distância mínima (m)'
+              type='number'
+              value={distanciaMinima}
+              onChange={(text) => setDistanciaMinima(text.target.value)}
+            />
+
+            <TextField
+              label='Proprietário da rede'
+              type='text'
+              value={proprietarioRede}
+              onChange={(text) => setProprietarioRede(text.target.value)}
+            />
+
+            <button onClick={() => onSubmitLevantamento('tipoRede/')}>{loading ? <img width='40px' style={{ margin: 'auto' }} height='' src={Load} alt='Loading' /> : 'Salvar'}</button>
+          </S3.Div>
+        </S3.Container>
       </Modal>
 
       <Modal
@@ -3829,6 +3945,20 @@ export default function FillInPhases() {
         <S4.ModelsModal>
           <h2>Adicione uma interferência</h2>
           <div>
+          <label htmlFor=''>Tipo de Rede</label>
+                  <div className='selectPlus' style={{ marginTop: '-2px' }}>
+                    <select
+                      name='' id='' value={tipoRede}
+                      onChange={(text) => settipoRede(text.target.value) }
+                    > 
+                      <option value=''>Selecione...</option>
+                      {tipoRedeList.length > 0
+                        ? tipoRedeList.map((rede) =>
+                          <option value={rede.id}>{rede.identificacaoRede}</option>)
+                        : <option>Nenhum tipo de rede cadastrado!</option>}
+                    </select>
+                    <button onClick={() => setIsOpenTipoRede(true)} className='buttonAddInter'><FiPlus size={20} /></button>
+                  </div>
             <input
               type='text' placeholder='Nome'
               value={tipoInterferencia}
