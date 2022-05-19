@@ -436,6 +436,7 @@ export default function FillInPhases() {
   const [materialRede, setMaterialRede] = useState('')
   const [espessuaraParede, setEspessuaraParede] = useState('')
   const [distanciaMinima, setDistanciaMinima] = useState('')
+  const [distanciaMinimaInter, setDistanciaMinimaInter] = useState('')
   const [proprietarioRede, setProprietarioRede] = useState('')
 
   var date = moment(new Date()).format('YYYY-MM-DD')
@@ -1824,7 +1825,8 @@ export default function FillInPhases() {
       longitude: longitude,
       diametro: diametro,
       profundidade: profundidade,
-      tipoRede: tipoRede,
+      TipoRede: tipoRede,
+      distanciaMinimaInter: distanciaMinimaInter,
       tipoInterferencia: tipoInterferencia,
       localizacao: localizacao,
       angulacao: angulacao,

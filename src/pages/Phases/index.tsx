@@ -1336,6 +1336,7 @@ export default function
     const responser = api.delete(tabela + id,
     ).then((response) => {
       if (response.statusText === 'OK') {
+        toast.success("Excluido com sucesso!")
         loadDados('etapas')
         setLoading(false)
       }
@@ -2136,7 +2137,8 @@ export default function
       longitude: longitude,
       diametro: diametro,
       profundidade: profundidade,
-      tipoRede: tipoRede,
+      TipoRede: tipoRede,
+      distanciaMinimaInter: distanciaMinimaInter,
       tipoInterferencia: tipoInterferencia,
       localizacao: localizacao,
       angulacao: angulacao,
