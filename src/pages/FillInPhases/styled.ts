@@ -251,8 +251,6 @@ export const Container = styled.div`
         width: 200%;
         overflow-x: scroll;
 
-          display: grid;
-          justify-content: 1fr 1fr 1fr 1fr 1fr;
       
           th {
             padding: 0 15px;

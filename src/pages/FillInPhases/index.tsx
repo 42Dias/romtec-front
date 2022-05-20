@@ -15,7 +15,7 @@ import { toast } from 'react-toastify'
 import axios from 'axios'
 import { TextField } from '../../ui/Components/TextField'
 import Load from './../../assets/load.gif'
-import { DatePicker, Space } from "antd";
+import { Checkbox, DatePicker, Space } from "antd";
 import moment from "moment";
 import { Select, Radio, List, Typography, Divider } from 'antd'
 import {
@@ -765,7 +765,7 @@ export default function FillInPhases() {
       TipoTub: tipoTubulacao,
       Responsavel: responsavel,
       Equipamentos: equipamentos,
-      comprimentoMordenteEntrada: comprimentoMordenteEntrada,
+      comprimentoMordentesEntrada: comprimentoMordenteEntrada,
       portaSondaBroca: portaSondaBroca,
       cabecaSonda: cabecaSonda,
       Documentos: documentos,
@@ -1021,7 +1021,7 @@ export default function FillInPhases() {
 
           })
           if (submit.banco === 'todos-campos') {
-            window.location.href = window.location.href.split("(")[0].replace("preencher-fases", "etapas")
+            window.location.href = window.location.href.split("(")[0].replace("preencher-fases", "etapas").replace("/"+idEtapa, "")
           }
         } else if (response.statusText === 'Forbidden') {
           toast.error('Ops, Não tem permisão!')
@@ -1367,7 +1367,7 @@ export default function FillInPhases() {
           settipoTubulacao(response.data.rows[0].TipoTub)
           setresponsavel(response.data.rows[0].Responsavel)
           setequipamentos(response.data.rows[0].Equipamentos)
-          setcomprimentoMordenteEntrada(response.data.rows[0].comprimentoMordenteEntrada)
+          setcomprimentoMordenteEntrada(response.data.rows[0].comprimentoMordentesEntrada)
           setPortaSondaBroca(response.data.rows[0].portaSondaBroca)
           setCabecaSonda(response.data.rows[0].cabecaSonda)
           setsondagemInterferencia(response.data.rows[0].ConfSondagemInterferencia)
@@ -1881,6 +1881,7 @@ export default function FillInPhases() {
       idEtapa: idEtapa,
       status: status,
       posicaoHoras: posicaoHoras,
+      confirmado: true,
     }
     console.log(data.idTravessia)
     api.put(tabela + interferenciaId, {
@@ -2136,7 +2137,7 @@ export default function FillInPhases() {
             //: false
           }
 
-          {campoEquipamento
+          {/* {campoEquipamento
             ? <div>
               <label htmlFor=''>Equipamentos</label>
               <input
@@ -2145,7 +2146,7 @@ export default function FillInPhases() {
                 onChange={(text) => setequipamentos(text.target.value)}
               />
             </div>
-            : false}
+            : false} */}
 
           {campoDocumento
             ? <div>
@@ -3244,7 +3245,8 @@ export default function FillInPhases() {
                 <table className='tabela'>
                   {interferencias.length > 0
                     ? <tr>
-                      <th>Nome</th>
+                      {variavelTitulo === 'Sondagem das Interferências' ? <th>Confirmado</th> : false}
+                      <th style={{marginLeft: '20px'}}>Nome</th>
                       <th>Latitude</th>
                       <th>Longitude</th>
                       <th>Diâmetro</th>
@@ -3255,11 +3257,12 @@ export default function FillInPhases() {
                   {interferencias.length > 0
                     ? interferencias.map((inter) =>
                       <tr>
+                        {variavelTitulo === 'Sondagem das Interferências' ? inter.confirmado === true ? <td style={{paddingLeft: '40px'}}>{<FiCheck size={25} color="green"/>}</td> : <td style={{paddingLeft: '40px'}}>{<FiX size={25} color="red"/>}</td> : false}
                         <td>{inter.tipoInterferencia}</td>
                         <td>{parseFloat(inter.latitude).toPrecision(8)}</td>
                         <td>{parseFloat(inter.longitude).toPrecision(8)}</td>
                         <td>{inter.diametro}</td>
-                        {variavelTitulo === 'Sondagem das Interferências' ? inter.profundidade !== '' ? <td>{inter.profundidade}</td> : <td> 00</td> : false}
+                        {variavelTitulo === 'Sondagem das Interferências' ?  <td >{inter.profundidade}</td> : false}
                         <td>
                           <button className='button' onClick={() => deleteDados(inter.id, 'interferencia/')}>
                             <FiTrash color='#EA1C24' size={18} />
@@ -4146,7 +4149,7 @@ export default function FillInPhases() {
               />
             )
             : (
-              'Salvar'
+              'Confirmar'
             )}
           </button>
         </S4.ModelsModal>

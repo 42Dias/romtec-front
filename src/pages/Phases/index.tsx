@@ -21,7 +21,7 @@ import axios from 'axios'
 import { tuple } from 'antd/lib/_util/type'
 import { string } from 'yup'
 import { Link } from 'react-router-dom'
-import { Select, Radio, List, Typography, Divider } from 'antd'
+import { Select, Radio, List, Typography, Divider, Checkbox } from 'antd'
 import 'antd/dist/antd.css'
 import {
   Chart as ChartJS,
@@ -475,7 +475,7 @@ export default function
   const variacaoDistanciaPercorrida: number[] = []
   // var dadosF:object[] = { angulo, variacaoProfundidade, variacaoDistanciaPercorrida}
   const comprimentoHaste = 3
-  const coordenadas2 = [ 
+  const coordenadas2 = [
     { x: 0, y: -1.45521375 },
     { x: 2.9104275, y: -1.45521375 },
     { x: 5.820855001, y: -1.45521375 },
@@ -809,7 +809,7 @@ export default function
       TipoTub: tipoTubulacao,
       Responsavel: responsavel,
       Equipamentos: equipamentos,
-      comprimentoMordenteEntrada: comprimentoMordenteEntrada,
+      comprimentoMordentesEntrada: comprimentoMordenteEntrada,
       portaSondaBroca: portaSondaBroca,
       cabecaSonda: cabecaSonda,
       Documentos: documentos,
@@ -1431,7 +1431,7 @@ export default function
         TipoTub: tipoTubulacao,
         Responsavel: responsavel,
         Equipamentos: equipamentos,
-        comprimentoMordenteEntrada: comprimentoMordenteEntrada,
+        comprimentoMordentesEntrada: comprimentoMordenteEntrada,
         portaSondaBroca: portaSondaBroca,
         cabecaSonda: cabecaSonda,
         Documentos: documentos,
@@ -1572,7 +1572,7 @@ export default function
           settipoTubulacao(response.data.rows[0].TipoTub)
           setresponsavel(response.data.rows[0].Responsavel)
           setequipamentos(response.data.rows[0].Equipamentos)
-          setcomprimentoMordenteEntrada(response.data.rows[0].comprimentoMordenteEntrada)
+          setcomprimentoMordenteEntrada(response.data.rows[0].comprimentoMordentesEntrada)
           setPortaSondaBroca(response.data.rows[0].portaSondaBroca)
           setCabecaSonda(response.data.rows[0].cabecaSonda)
           setsondagemInterferencia(response.data.rows[0].ConfSondagemInterferencia)
@@ -2272,6 +2272,7 @@ export default function
       idEtapa: idEtapa,
       status: status,
       posicaoHoras: posicaoHoras,
+      confirmado: true,
     }
     api.put(tabela + interferenciaId, {
       data: data,
@@ -3788,6 +3789,7 @@ export default function
                   <table>
                     {interferencias.length > 0
                       ? <tr>
+                        {variavelTitulo === 'Sondagem das Interferências' ? <th>Confirmado</th> : false}
                         <th>Nome</th>
                         <th>Latitude</th>
                         <th>Longitude</th>
@@ -3799,6 +3801,7 @@ export default function
                     {interferencias.length > 0
                       ? interferencias.map((inter) =>
                         <tr>
+                          {variavelTitulo === 'Sondagem das Interferências' ? inter.confirmado === true ? <td style={{ paddingLeft: '40px' }}>{<FiCheck size={25} color="green" />}</td> : <td style={{ paddingLeft: '40px' }}>{<FiX size={25} color="red" />}</td> : false}
                           <td>{inter.tipoInterferencia}</td>
                           <td>{inter.latitude}</td>
                           <td>{inter.longitude}</td>
@@ -3937,71 +3940,71 @@ export default function
 
           <S.ModelsModal>
             <h2>Adicionar uma interferência</h2>
-              <S.Div>
-                <S.GridForm>
-                  <label htmlFor=''>Tipo de Rede</label>
-                  <div className='selectPlus' style={{ marginTop: '-2px', width: '43%'}}>
-                    <select
-                      name='' id='' value={tipoRede}
-                      onChange={(text) => {settipoRede(text.target.value)}}
-                    >
-                      <option style={{color: 'white'}} value=''>Selecione...</option>
-                      <option style={{color: 'white'}} value={'Outro/'+distanciaMinima}>Outro</option>
-                      {tipoRedeList.length > 0
-                        ? tipoRedeList.map((rede) =>
-                          <option style={{color: 'white'}} value={rede.id+"/"+rede.distanciaMinima}>{rede.identificacaoRede}</option>)
-                        : <option style={{color: 'white'}}>Nenhum tipo de rede cadastrado!</option>}
-                    </select>
-                    <button onClick={() => setIsOpenTipoRede(true)} className='buttonAddInter'><FiPlus size={20} /></button>
-                  </div>
-               
-              <input
-                type='text' placeholder='Nome'
-                value={tipoInterferencia}
-                onChange={(text) => setTipoInterferencia(text.target.value)}
-              />
-              <input
-                type='number' placeholder='Latitude'
-                value={latitude}
-                onChange={(text) => setLatitude(text.target.value)}
-              />
-              <input
-                type='number' placeholder='Longitude'
-                value={longitude}
-                onChange={(text) => setLongitude(text.target.value)}
-              />
-              <input
-                type='number' placeholder='Profundidade (m)'
-                value={profundidade}
-                onChange={(text) => setprofundidade(text.target.value)}
-              />
-              <input
-                type='number' placeholder='Diâmetro (mm)'
-                value={diametro}
-                onChange={(text) => setDiametro(text.target.value)}
-              />
-              <input
-                disabled
-                type='number' placeholder='Distância mínima (m)'
-                value={tipoRede.split('/')[1]}
-                onChange={(text) => setDistanciaMinimaInter(text.target.value)}
-              />
-            <button className='save' onClick={() => salvarInterferencia('interferencia')}>{loading
-              ? (
-                <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height=''
-                  src={Load}
-                  alt='Loading'
+            <S.Div>
+              <S.GridForm>
+                <label htmlFor=''>Tipo de Rede</label>
+                <div className='selectPlus' style={{ marginTop: '-2px', width: '43%' }}>
+                  <select
+                    name='' id='' value={tipoRede}
+                    onChange={(text) => { settipoRede(text.target.value) }}
+                  >
+                    <option style={{ color: 'white' }} value=''>Selecione...</option>
+                    <option style={{ color: 'white' }} value={'Outro/' + distanciaMinima}>Outro</option>
+                    {tipoRedeList.length > 0
+                      ? tipoRedeList.map((rede) =>
+                        <option style={{ color: 'white' }} value={rede.id + "/" + rede.distanciaMinima}>{rede.identificacaoRede}</option>)
+                      : <option style={{ color: 'white' }}>Nenhum tipo de rede cadastrado!</option>}
+                  </select>
+                  <button onClick={() => setIsOpenTipoRede(true)} className='buttonAddInter'><FiPlus size={20} /></button>
+                </div>
+
+                <input
+                  type='text' placeholder='Nome'
+                  value={tipoInterferencia}
+                  onChange={(text) => setTipoInterferencia(text.target.value)}
                 />
-              )
-              : (
-                'Confirmar'
-              )}
-            </button> 
-            </S.GridForm>
-              </S.Div>
+                <input
+                  type='number' placeholder='Latitude'
+                  value={latitude}
+                  onChange={(text) => setLatitude(text.target.value)}
+                />
+                <input
+                  type='number' placeholder='Longitude'
+                  value={longitude}
+                  onChange={(text) => setLongitude(text.target.value)}
+                />
+                <input
+                  type='number' placeholder='Profundidade (m)'
+                  value={profundidade}
+                  onChange={(text) => setprofundidade(text.target.value)}
+                />
+                <input
+                  type='number' placeholder='Diâmetro (mm)'
+                  value={diametro}
+                  onChange={(text) => setDiametro(text.target.value)}
+                />
+                <input
+                  disabled
+                  type='number' placeholder='Distância mínima (m)'
+                  value={tipoRede.split('/')[1]}
+                  onChange={(text) => setDistanciaMinimaInter(text.target.value)}
+                />
+                <button className='save' onClick={() => salvarInterferencia('interferencia')}>{loading
+                  ? (
+                    <img
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height=''
+                      src={Load}
+                      alt='Loading'
+                    />
+                  )
+                  : (
+                    'Confirmar'
+                  )}
+                </button>
+              </S.GridForm>
+            </S.Div>
           </S.ModelsModal>
 
         </Modal>
@@ -4256,7 +4259,7 @@ export default function
                 />
               )
               : (
-                'Salvar'
+                'Confirmar'
               )}
             </button>
           </S.ModelsModal>
@@ -5361,11 +5364,11 @@ export default function
           >
             <option selected disabled>Selecione uma etapa</option>
             {/* <option value='1'>Levantamento e Mapeamento de Interferências</option> */}
-            <option value='2'>Planejamento da Travessia</option>
-            <option value='3'>Sondagem das Interferências</option>
-            <option value='4'>Abertura de Valas de Entrada e Saída</option>
+            {planejamentoTravessia === false ? <option value='2'>Planejamento da Travessia</option> : false}
+            {sondagemInterferencias === false ? <option value='3'>Sondagem das Interferências</option> : false}
+            {aberturaValasEntradaSaida === false ? <option value='4'>Abertura de Valas de Entrada e Saída</option> : false}
             <option value='5'>Preparação de Fluído</option>
-            <option value='6'>Execução da Travessia - Furo Piloto</option>
+            {execucaoTravessiaFuroPiloto === false ? <option value='6'>Execução da Travessia - Furo Piloto</option> : false}
             <option value='7'>Alargamento</option>
             <option value='8'>Limpeza</option>
             <option value='9'>Puxamento de Rede</option>
