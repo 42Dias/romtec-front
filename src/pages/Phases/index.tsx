@@ -541,7 +541,7 @@ export default function
 
   ]
   const NUMBER_CFG = { count: 100, min: 0, max: 100 }
-  const labels: number[] = []
+  const labels: number[] = [0.5,0.10,0.15,0.20,0.25,0.30,0.35,0.40,0.45,0.50,0.55,0.60,0.65,0.70,0.75,0.80,0.85,0.90,0.95,1.00,1.05,1.10,1.15,1.20,1.25,1.30,1.35,1.40,1.45,1.50, 2.00,2.10,2.20,2.30,2.40,2.50,3.00]
   const data = {
     labels: labels,
     datasets: [
@@ -618,7 +618,7 @@ export default function
   }
   // formulas()
   const dataG = {
-    labelsG,
+    labels,
     datasets: [
       // {
       //   label: 'variacaoProfundidade',
@@ -683,25 +683,51 @@ export default function
   // }
   const [camposInterferencia, setCamposInterferencia] = useState(false)
 
-  function formulas() {
+  async function formulas() {
+    await api.get(`graficoTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        // console.log(response.data.rows)
+        setGraficoTravessia(response.data.rows)
+        distancia = (getDistanceFromLatLonInKm(
+          { lat: Number(response.data.rows[0].pontoVerEntradaLat), lng: Number(response.data.rows[0].pontoVerEntradaLong) },
+          { lat: Number(response.data.rows[0].pontoVerSaidaLat), lng: Number(response.data.rows[0].pontoVerSaidaLong) },
+        ))
+      }
+    }).catch((res) => {
+      console.log(res)
+      // toast.error(res.response.data);
+      setLoading(false)
+    })
     variacaoProfundidade.push(0)
     variacaoDistanciaPercorrida.push(0)
-    labels.push(0)
+    console.log(distancia)
+    //distancia = distancia + 4
+    //distancia = String(30)
+    console.log(distancia)
+    //labels.push(0)
     const dadoG = []
-    for (let i = 1; i <= 100; i++) {
-      labels.push(i)
-      angulo.push(Math.atan(i / 100) * (180 / Math.PI))
+    for (let i = 1; i <= Number(distancia); i++) {
+      //labels.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
+      angulo.push(Math.atan(i / Number(distancia)) * (180 / Math.PI))
       variacaoProfundidade.push((Math.sin((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
       variacaoDistanciaPercorrida.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
-      dadoG.push({ x: variacaoProfundidade[i - 1], y: variacaoDistanciaPercorrida[i - 1] })
+      if(i < Number(distancia)-2){
+        dadoG.push({ x: variacaoProfundidade[i - 1], y: variacaoDistanciaPercorrida[i - 1]*-1 })
+      }else{
+        dadoG.push({ x: variacaoProfundidade[Number(distancia) - i], y: variacaoDistanciaPercorrida[Number(distancia) - i]*-1 })
+      }
+      
+      
 
       dadosF = [{ x: variacaoDistanciaPercorrida, y: variacaoProfundidade }]
       // console.log(angulo)
     }
+    
     setDadosGrafico(dadoG)
     setLabelsG(labels)
     console.log('angulo')
-    console.log(dadosF)
+    console.log(dadoG)
     console.log(coordenadas2)
     console.log(dadosGafico)
     if (grafico) {
@@ -1218,6 +1244,10 @@ export default function
       if (response.statusText === 'OK') {
         // console.log(response.data.rows)
         setGraficoTravessia(response.data.rows)
+        distancia = (getDistanceFromLatLonInKm(
+          { lat: Number(response.data.rows[0].PontoVerEntradaLat), lng: Number(response.data.rows[0].PontoVerEntradaLong) },
+          { lat: Number(response.data.rows[0].PontoVerSaidaLat), lng: Number(response.data.rows[0].PontoVerSaidaLong) },
+        ))
       }
     }).catch((res) => {
       console.log(res)
@@ -1553,6 +1583,11 @@ export default function
     setdataExecucao(date)
     sethoraExecucao(hora)
     setIdEtapa(data.id)
+    console.log(data)
+    console.log(data.tipoEtapa === 'Execução da Travessia - Furo Piloto') 
+    if(data.tipoEtapa === 'Execução da Travessia - Furo Piloto'){
+     
+    }
     api.get(`todos-campos?filter%5BetapaId%5D=${data.id}&filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,//&limit=1
     ).then((response) => {
       // console.log(response.data.rows)
