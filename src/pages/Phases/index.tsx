@@ -37,6 +37,7 @@ import { Line } from 'react-chartjs-2'
 import { setLabels } from 'react-chartjs-2/dist/utils'
 import moment from 'moment'
 import { backgrounds } from 'polished'
+import App from './App.js';
 SwiperCore.use([Pagination, Navigation])
 
 type FormData = {
@@ -205,7 +206,7 @@ export default function
   const [fluidos, setFluidos] = useState<any[]>([])
   const [dados, setDados] = useState<any[]>([])
   const [dadosGafico, setDadosGrafico] = useState({})
-  const [labelsG, setLabelsG] = useState({})
+  const [labelsG, setLabelsG] = useState<any[]>([])
   const [soilTypes, setSoilTypes] = useState<any[]>([])
   const [interferencias, setinterferencias] = useState<any[]>([])
   const [pontosVerificacao, setPontosVerificacao] = useState<any[]>([])
@@ -470,6 +471,7 @@ export default function
   // Grafico
   let distancia = ''
   let dadosF = {}
+  let dadoslabels = {}
   const angulo: number[] = []
   const variacaoProfundidade: number[] = []
   const variacaoDistanciaPercorrida: number[] = []
@@ -541,7 +543,8 @@ export default function
 
   ]
   const NUMBER_CFG = { count: 100, min: 0, max: 100 }
-  const labels: number[] = [0.5,0.10,0.15,0.20,0.25,0.30,0.35,0.40,0.45,0.50,0.55,0.60,0.65,0.70,0.75,0.80,0.85,0.90,0.95,1.00,1.05,1.10,1.15,1.20,1.25,1.30,1.35,1.40,1.45,1.50, 2.00,2.10,2.20,2.30,2.40,2.50,3.00]
+  //const labels: number[] = [0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75]
+  const labels: number[] = []
   const data = {
     labels: labels,
     datasets: [
@@ -603,6 +606,16 @@ export default function
         text: 'PERFIL PLANO DE FURO',
       },
     },
+    scales: { 
+      x: {
+        // the data minimum used for determining the ticks is Math.min(dataMin, suggestedMin)
+        suggestedMin: 30,
+
+        // the data maximum used for determining the ticks is Math.max(dataMax, suggestedMax)
+        suggestedMax: 50,
+      },
+     
+    },
   }
   const options2 = {
     responsive: true,
@@ -618,7 +631,7 @@ export default function
   }
   // formulas()
   const dataG = {
-    labels,
+    labels: labelsG, 
     datasets: [
       // {
       //   label: 'variacaoProfundidade',
@@ -647,7 +660,7 @@ export default function
     ],
   }
   const dataG2 = {
-    labels,
+    labels: labelsG,
     datasets: [
       // {
       //   label: 'variacaoProfundidade',
@@ -684,10 +697,11 @@ export default function
   const [camposInterferencia, setCamposInterferencia] = useState(false)
 
   async function formulas() {
+    const toastId = toast.loading('Gerando grafico...');
     await api.get(`graficoTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
     ).then((response) => {
       if (response.statusText === 'OK') {
-        // console.log(response.data.rows)
+        console.log(response.data.rows)
         setGraficoTravessia(response.data.rows)
         distancia = (getDistanceFromLatLonInKm(
           { lat: Number(response.data.rows[0].pontoVerEntradaLat), lng: Number(response.data.rows[0].pontoVerEntradaLong) },
@@ -701,43 +715,103 @@ export default function
     })
     variacaoProfundidade.push(0)
     variacaoDistanciaPercorrida.push(0)
-    console.log(distancia)
     //distancia = distancia + 4
-    //distancia = String(30)
-    console.log(distancia)
-    //labels.push(0)
+    //console.log(distancia)
+    labels.push(0)
     const dadoG = []
-    for (let i = 1; i <= Number(distancia); i++) {
-      //labels.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
-      angulo.push(Math.atan(i / Number(distancia)) * (180 / Math.PI))
-      variacaoProfundidade.push((Math.sin((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
-      variacaoDistanciaPercorrida.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
-      if(i < Number(distancia)-2){
-        dadoG.push({ x: variacaoProfundidade[i - 1], y: variacaoDistanciaPercorrida[i - 1]*-1 })
-      }else{
-        dadoG.push({ x: variacaoProfundidade[Number(distancia) - i], y: variacaoDistanciaPercorrida[Number(distancia) - i]*-1 })
-      }
+    var i = 1
+    var graficoTrue = false
+    var distanciaPercorrida = 0
+    var index = 0
+    var umaCasa = 0
+    var inicioCurva = graficoTravessia[0].profundidadeEntrada-(graficoTravessia[0].profundidadeEntrada*0.6)
+    // for (let i = 1; i <= 10; i++) {
+    //   //labels.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
+    //   angulo.push(Math.atan(i / 100) * (180 / Math.PI))
+    //   variacaoProfundidade.push((Math.sin((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste)+ variacaoProfundidade[i-1] )
+    //   variacaoDistanciaPercorrida.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste)+ variacaoDistanciaPercorrida[i-1])
+    //   //if(i < Number(distancia)-2){ 
+    //     dadoG.push({ x: variacaoProfundidade[i - 1], y: variacaoDistanciaPercorrida[i - 1]*-1 })
+    //     labels.push(variacaoProfundidade[i - 1])
+    //   // }else{
+    //   //   dadoG.push({ x: variacaoProfundidade[Number(distancia) - i], y: variacaoDistanciaPercorrida[Number(distancia) - i]*-1 })
+    //   // }
       
       
+    //   dadoslabels = [variacaoProfundidade]
+    //   dadosF = [variacaoDistanciaPercorrida] 
+    //   // console.log(angulo)
+    // }
 
-      dadosF = [{ x: variacaoDistanciaPercorrida, y: variacaoProfundidade }]
+    distancia = String(200)
+    distanciaPercorrida = (Number(distancia)-(Number(distancia)*0.1)-inicioCurva)
+    console.log(inicioCurva)
+    console.log(distanciaPercorrida)
+    while (graficoTrue === false && i < 5000) { 
+      //console.log(variacaoProfundidade[variacaoProfundidade.length - 1] )
+      //labels.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
+      angulo.push(Math.atan(i / 100) * (180 / Math.PI))
+      variacaoProfundidade.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste)+ variacaoProfundidade[i-1])
+      variacaoDistanciaPercorrida.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste)+ variacaoDistanciaPercorrida[i-1])
+      umaCasa = umaCasa+comprimentoHaste//Number(variacaoDistanciaPercorrida[i - 1].toFixed(0))
+      labels.push(umaCasa)
+      //i < Number(distancia)-20
+      if (variacaoProfundidade[i - 1] < graficoTravessia[0].profundidadeEntrada) {//        
+        
+        //console.log("Descida")
+        // console.log('variacaoDistanciaPercorrida')
+        // console.log(variacaoDistanciaPercorrida[i - 1])
+        // console.log('variacaoProfundidade')
+        // console.log(variacaoProfundidade[i - 1]* -1)
+        if(inicioCurva > variacaoProfundidade[i - 1]){
+          console.log("Descida")
+          dadoG.push({ arg: variacaoDistanciaPercorrida[i - 1], val: variacaoProfundidade[i - 1] * -1 })
+        }else{
+          console.log("Descida2")
+          dadoG.push({ arg: variacaoDistanciaPercorrida[i - 1] , val: variacaoProfundidade[i - 1] * -1 })
+        }
+        
+        index = i - 1
+      } else if (variacaoDistanciaPercorrida[i - 1] < distanciaPercorrida) {
+        //labels.push(umaCasa)
+        console.log("Plato")
+        // console.log(variacaoDistanciaPercorrida[i - 1])
+        // console.log(variacaoProfundidade[i - 1] * -1)
+        dadoG.push({ arg: variacaoDistanciaPercorrida[i - 1], val: variacaoProfundidade[index] * -1 })
+      } else if (variacaoDistanciaPercorrida[i - 1] > distanciaPercorrida){
+        index = index-1
+        //labels.push(umaCasa)
+        console.log("Subida")
+        // console.log(variacaoDistanciaPercorrida[i - 1])
+        // console.log(index)
+        // console.log(variacaoProfundidade[index] * -1)
+        dadoG.push({ arg: variacaoDistanciaPercorrida[i - 1], val: variacaoProfundidade[index] * -1 })
+        
+      }
+      if(index === 0 && i != 1){
+        graficoTrue = true
+      }
+
+      //dadosF = [{ x: variacaoDistanciaPercorrida, y: variacaoProfundidade }]
       // console.log(angulo)
+      i = i + 1
     }
-    
     setDadosGrafico(dadoG)
     setLabelsG(labels)
-    console.log('angulo')
+    // console.log('angulo')
     console.log(dadoG)
-    console.log(coordenadas2)
-    console.log(dadosGafico)
+    toast.dismiss(toastId);
+    //console.log(dadosGafico)
     if (grafico) {
       setGrafico(false)
     } else {
       setGrafico(true)
     }
-    return dadosF
+    return dadoG 
   }
-
+  // console.log('labels')
+  // console.log(labelsG)
+  // console.log(dadosGafico)
   function handleCampos() {
     if (camposInterferencia) {
       setCamposInterferencia(false)
@@ -1567,9 +1641,10 @@ export default function
     })
     setLoading(false)
   }
+
   useEffect(() => {
     // console.log(soilTypesUp)
-    // formulas()
+   
     idConfigTravessia = window.location.hash.replace(ip + '/romtec/#/etapas/', '')
     // console.log('useEffect')
     // console.log(idConfigTravessia)
@@ -1580,6 +1655,7 @@ export default function
   function openModal(data: any) {
     // console.log(data)
     // formulas()
+    setGrafico(false)
     setdataExecucao(date)
     sethoraExecucao(hora)
     setIdEtapa(data.id)
@@ -3367,18 +3443,19 @@ export default function
               {grafico
                 ? <><div className='myChartDiv'>
                   {/* <canvas id="myChart" width="600" height="400"></canvas> */}
-                  <Line id='myChart' width='600' height='400' options={options} data={dataG} />
-                </div><div className='myChartDiv'>
-                    {/* <canvas id="myChart" width="600" height="400"></canvas> */}
+                  {/* <Line id='myChart' width='600' height='400' options={options} data={dataG} /> */}
+                  <App data={dadosGafico} />
+                </div>
+                {/* <div className='myChartDiv'>
                     <Line id='myChart' width='600' height='400' options={options2} data={dataG2} />
-                  </div>
+                  </div> */}
                 </> : false}
               {campotipoRedeTubula
                 ? <div>
                   <label htmlFor=''>Tipo de Rede/Tubulação</label>
                   <input
                     type='text'
-                    value={tipoRedeTubula}
+                    value={tipoRedeTubula} 
                     onChange={(text) => settipoRedeTubula(text.target.value)}
                   />
                 </div>

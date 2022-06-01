@@ -464,7 +464,7 @@ export const GridForm = styled.div`
     }
   }
   .myChartDiv {
-    max-width: 600px;
+    width: 100%;
     max-height: 400px;
   }
 `
