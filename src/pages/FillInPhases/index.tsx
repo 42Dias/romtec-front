@@ -29,6 +29,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import App from '../Phases/App'
 
 type FormData = {
   id: string;
@@ -192,6 +193,8 @@ export default function FillInPhases() {
   const [loading, setLoading] = useState(false)
   const [fluidos, setFluidos] = useState<any[]>([])
   const [dados, setDados] = useState<any[]>([])
+  const [dadosGafico, setDadosGrafico] = useState({})
+  const [labelsG, setLabelsG] = useState<any[]>([])
   const [soilTypes, setSoilTypes] = useState<any[]>([])
   const [interferencias, setinterferencias] = useState<any[]>([])
   const [pontosVerificacao, setPontosVerificacao] = useState<any[]>([])
@@ -518,7 +521,7 @@ export default function FillInPhases() {
 
   ]
   const NUMBER_CFG = { count: 100, min: 0, max: 100 };
-  let labels: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+  const labels: number[] = []
   const data = {
     labels: labels,
     datasets: [
@@ -652,26 +655,118 @@ export default function FillInPhases() {
       },
     ],
   };
-  function formulas() {
-    for (var i = 1; i <= 12; i++) {
-      labels.push(i)
-      angulo.push(Math.atan(i / 100) * (180 / Math.PI))
-      variacaoProfundidade.push((Math.sin((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
-      variacaoDistanciaPercorrida.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
-
-      dadosF = {
-        angulo, variacaoProfundidade, variacaoDistanciaPercorrida
+  async function formulas() {
+    const toastId = toast.loading('Gerando grafico...');
+    await api.get(`graficoTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        console.log(response.data.rows)
+        setGraficoTravessia(response.data.rows)
+        distancia = (getDistanceFromLatLonInKm(
+          { lat: Number(response.data.rows[0].pontoVerEntradaLat), lng: Number(response.data.rows[0].pontoVerEntradaLong) },
+          { lat: Number(response.data.rows[0].pontoVerSaidaLat), lng: Number(response.data.rows[0].pontoVerSaidaLong) },
+        ))
       }
-      //console.log(angulo)
+    }).catch((res) => {
+      console.log(res)
+      // toast.error(res.response.data);
+      setLoading(false)
+    })
+    variacaoProfundidade.push(0)
+    variacaoDistanciaPercorrida.push(0)
+    //distancia = distancia + 4
+    //console.log(distancia)
+    labels.push(0)
+    const dadoG = []
+    var i = 1
+    var graficoTrue = false
+    var distanciaPercorrida = 0
+    var index = 0
+    var umaCasa = 0
+    var inicioCurva = graficoTravessia[0].profundidadeEntrada-(graficoTravessia[0].profundidadeEntrada*0.6)
+    // for (let i = 1; i <= 10; i++) {
+    //   //labels.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
+    //   angulo.push(Math.atan(i / 100) * (180 / Math.PI))
+    //   variacaoProfundidade.push((Math.sin((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste)+ variacaoProfundidade[i-1] )
+    //   variacaoDistanciaPercorrida.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste)+ variacaoDistanciaPercorrida[i-1])
+    //   //if(i < Number(distancia)-2){ 
+    //     dadoG.push({ x: variacaoProfundidade[i - 1], y: variacaoDistanciaPercorrida[i - 1]*-1 })
+    //     labels.push(variacaoProfundidade[i - 1])
+    //   // }else{
+    //   //   dadoG.push({ x: variacaoProfundidade[Number(distancia) - i], y: variacaoDistanciaPercorrida[Number(distancia) - i]*-1 })
+    //   // }
+      
+      
+    //   dadoslabels = [variacaoProfundidade]
+    //   dadosF = [variacaoDistanciaPercorrida] 
+    //   // console.log(angulo)
+    // }
+
+    distancia = String(200)
+    distanciaPercorrida = (Number(distancia)-(Number(distancia)*0.1)-inicioCurva)
+    console.log(inicioCurva)
+    console.log(distanciaPercorrida)
+    while (graficoTrue === false && i < 5000) { 
+      //console.log(variacaoProfundidade[variacaoProfundidade.length - 1] )
+      //labels.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
+      angulo.push(Math.atan(i / 100) * (180 / Math.PI))
+      variacaoProfundidade.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste)+ variacaoProfundidade[i-1])
+      variacaoDistanciaPercorrida.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste)+ variacaoDistanciaPercorrida[i-1])
+      umaCasa = umaCasa+comprimentoHaste//Number(variacaoDistanciaPercorrida[i - 1].toFixed(0))
+      labels.push(umaCasa)
+      //i < Number(distancia)-20
+      if (variacaoProfundidade[i - 1] < graficoTravessia[0].profundidadeEntrada) {//        
+        
+        //console.log("Descida")
+        // console.log('variacaoDistanciaPercorrida')
+        // console.log(variacaoDistanciaPercorrida[i - 1])
+        // console.log('variacaoProfundidade')
+        // console.log(variacaoProfundidade[i - 1]* -1)
+        if(inicioCurva > variacaoProfundidade[i - 1]){
+          console.log("Descida")
+          dadoG.push({ arg: variacaoDistanciaPercorrida[i - 1], val: variacaoProfundidade[i - 1] * -1 })
+        }else{
+          console.log("Descida2")
+          dadoG.push({ arg: variacaoDistanciaPercorrida[i - 1] , val: variacaoProfundidade[i - 1] * -1 })
+        }
+        
+        index = i - 1
+      } else if (variacaoDistanciaPercorrida[i - 1] < distanciaPercorrida) {
+        //labels.push(umaCasa)
+        console.log("Plato")
+        // console.log(variacaoDistanciaPercorrida[i - 1])
+        // console.log(variacaoProfundidade[i - 1] * -1)
+        dadoG.push({ arg: variacaoDistanciaPercorrida[i - 1], val: variacaoProfundidade[index] * -1 })
+      } else if (variacaoDistanciaPercorrida[i - 1] > distanciaPercorrida){
+        index = index-1
+        //labels.push(umaCasa)
+        console.log("Subida")
+        // console.log(variacaoDistanciaPercorrida[i - 1])
+        // console.log(index)
+        // console.log(variacaoProfundidade[index] * -1)
+        dadoG.push({ arg: variacaoDistanciaPercorrida[i - 1], val: variacaoProfundidade[index] * -1 })
+        
+      }
+      if(index === 0 && i != 1){
+        graficoTrue = true
+      }
+
+      //dadosF = [{ x: variacaoDistanciaPercorrida, y: variacaoProfundidade }]
+      // console.log(angulo)
+      i = i + 1
     }
+    setDadosGrafico(dadoG)
+    setLabelsG(labels) 
     // console.log('angulo')
-    // console.log(dadosF)
+    console.log(dadoG)
+    toast.dismiss(toastId);
+    //console.log(dadosGafico)
     if (grafico) {
       setGrafico(false)
     } else {
       setGrafico(true)
     }
-    return dadosF
+    return dadoG 
   }
   function openModal() {
     setIsOpen(true)
@@ -2789,10 +2884,11 @@ export default function FillInPhases() {
           {grafico ?
             <><div className="myChartDiv">
               {/* <canvas id="myChart" width="600" height="400"></canvas> */}
-              <Line id="myChart" width="600" height="400" options={options} data={dataG} />
-            </div><div className="myChartDiv">
+              {/* <Line id="myChart" width="600" height="400" options={options} data={dataG} />
+            </div><div className="myChartDiv"> */}
+            <App data={dadosGafico} />
                 {/* <canvas id="myChart" width="600" height="400"></canvas> */}
-                <Line id="myChart" width="600" height="400" options={options2} data={dataG2} />
+                {/* <Line id="myChart" width="600" height="400" options={options2} data={dataG2} /> */}
               </div></> : false}
           {campotipoRedeTubula
             ? <div>
