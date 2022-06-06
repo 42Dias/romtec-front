@@ -778,7 +778,7 @@ export default function
           dadoG.push({ arg: variacaoDistanciaPercorrida[x - descidaRetaArry.length], val: variacaoProfundidade[x] * -1 })
       }
     }
-    
+
     //Descida Plato
     for (var i = 0; i <= (curvaDescida + descidaReta + (platoDescida * 2)); i++) {
       platoDescidaArry.push(i)
@@ -797,7 +797,7 @@ export default function
         console.log("Curva subida")
         curvaDescidaArry.push({ x: variacaoDistanciaPercorrida[i], y: variacaoProfundidade[i] * -1 })
         //if (variacaoDistanciaPercorrida[i - tamanho] >= descidaRetaArry[tamanho - 1])
-          dadoG.push({ arg: variacaoDistanciaPercorrida[i], val: variacaoProfundidade[i] })
+        dadoG.push({ arg: variacaoDistanciaPercorrida[i], val: variacaoProfundidade[i] })
       }
     }
 
@@ -805,7 +805,7 @@ export default function
     for (var i = 0; i <= descidaReta; i++) {
       console.log("Subida Reta")
       //descidaRetaArry.push(i)
-      dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + 1), val: dadoG[dadoG.length - 1].val + 1})
+      dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + 1), val: dadoG[dadoG.length - 1].val + 1 })
     }
     //console.log(descidaRetaArry)
 
@@ -2555,6 +2555,7 @@ export default function
         </Modal> */}
 
         <Modal
+        ariaHideApp={false}
           className='phaes-modal'
           style={{
             overlay: {
@@ -2617,6 +2618,7 @@ export default function
         </Swiper>
 
         <Modal
+        ariaHideApp={false}
           style={{
             overlay: {
               backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -4137,6 +4139,7 @@ export default function
         </Modal>
 
         <Modal
+        ariaHideApp={false}
           className='phaes-modal'
           style={{
             overlay: {
@@ -4221,6 +4224,7 @@ export default function
         </Modal>
 
         <Modal
+        ariaHideApp={false}
           className='phaes-modal'
           style={{
             overlay: {
@@ -4291,6 +4295,7 @@ export default function
         </Modal>
 
         <Modal
+        ariaHideApp={false}
           className='phaes-modal'
           style={{
             overlay: {
@@ -4340,6 +4345,7 @@ export default function
         </Modal>
 
         <Modal
+        ariaHideApp={false}
           className='phaes-modal'
           style={{
             overlay: {
@@ -4409,6 +4415,7 @@ export default function
         </Modal>
 
         <Modal
+        ariaHideApp={false}
           className='phaes-modal'
           style={{
             overlay: {
@@ -4478,6 +4485,7 @@ export default function
         </Modal>
 
         <Modal
+        ariaHideApp={false}
           style={{
             overlay: {
               position: 'fixed',
@@ -4535,6 +4543,7 @@ export default function
         </Modal>
 
         <Modal
+        ariaHideApp={false}
           style={{
             overlay: {
               backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -4557,6 +4566,7 @@ export default function
         />
 
         <Modal
+        ariaHideApp={false}
           style={{
             overlay: {
               backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -4579,6 +4589,7 @@ export default function
         />
 
         <Modal
+        ariaHideApp={false}
           style={{
             overlay: {
               backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -4601,6 +4612,7 @@ export default function
         />
 
         <Modal
+        ariaHideApp={false}
           style={{
             overlay: {
               backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -4623,6 +4635,7 @@ export default function
         />
 
         <Modal
+        ariaHideApp={false}
           style={{
             overlay: {
               backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -4786,6 +4799,7 @@ export default function
       </S.ContainerConfirmation>
 
       <Modal
+      ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -4845,6 +4859,7 @@ export default function
       </Modal>
 
       <Modal
+      ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -5067,6 +5082,7 @@ export default function
       </Modal>
 
       <Modal
+      ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -5105,6 +5121,7 @@ export default function
       </Modal>
 
       <Modal
+      ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -5143,6 +5160,7 @@ export default function
       </Modal>
 
       <Modal
+      ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -5195,6 +5213,7 @@ export default function
       </Modal>
 
       <Modal
+      ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -5255,6 +5274,7 @@ export default function
       </Modal>
 
       <Modal
+      ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -5335,6 +5355,7 @@ export default function
 
 
       <Modal
+      ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -5550,6 +5571,7 @@ export default function
       </Modal> */}
 
       <Modal
+      ariaHideApp={false}
         isOpen={isOpenModalAdd}
         onRequestClose={closeModalAdd}
         overlayClassName='react-modal-overlay'
@@ -5564,27 +5586,30 @@ export default function
         </button>
         <form>
           {/* <input placeholder='Nome da travessia' type='text' /> */}
+          <label>Descrição</label>
           <input
             placeholder='Descrição' type='text'
             value={descricao}
             onChange={(text) => setDescricao(text.target.value)}
           />
-          <select
-            value={etapa}
-            onChange={(text) => setEtapa(text.target.value)}
-          >
-            <option selected disabled>Selecione uma etapa</option>
-            {/* <option value='1'>Levantamento e Mapeamento de Interferências</option> */}
-            {planejamentoTravessia === false ? <option value='2'>Planejamento da Travessia</option> : false}
-            {sondagemInterferencias === false ? <option value='3'>Sondagem das Interferências</option> : false}
-            {aberturaValasEntradaSaida === false ? <option value='4'>Abertura de Valas de Entrada e Saída</option> : false}
-            <option value='5'>Preparação de Fluído</option>
-            {execucaoTravessiaFuroPiloto === false ? <option value='6'>Execução da Travessia - Furo Piloto</option> : false}
-            <option value='7'>Alargamento</option>
-            <option value='8'>Limpeza</option>
-            <option value='9'>Puxamento de Rede</option>
-          </select>
-
+          <form style={{marginTop: '10px'}}>
+            <label>Escolha o tipo de etapa</label>
+            <select
+              value={etapa}
+              onChange={(text) => setEtapa(text.target.value)}
+            >
+              <option selected disabled>Selecione uma etapa...</option>
+              {/* <option value='1'>Levantamento e Mapeamento de Interferências</option> */}
+              {planejamentoTravessia === false ? <option value='2'>Planejamento da Travessia</option> : false}
+              {sondagemInterferencias === false ? <option value='3'>Sondagem das Interferências</option> : false}
+              {aberturaValasEntradaSaida === false ? <option value='4'>Abertura de Valas de Entrada e Saída</option> : false}
+              <option value='5'>Preparação de Fluído</option>
+              {execucaoTravessiaFuroPiloto === false ? <option value='6'>Execução da Travessia - Furo Piloto</option> : false}
+              <option value='7'>Alargamento</option>
+              <option value='8'>Limpeza</option>
+              <option value='9'>Puxamento de Rede</option>
+            </select>
+          </form>
           <button className='add' onClick={() => salvarEtapa()}>{loading
             ? (
               <img

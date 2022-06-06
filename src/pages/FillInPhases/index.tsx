@@ -683,7 +683,7 @@ export default function FillInPhases() {
     var distanciaPercorrida = 0
     var index = 0
     var umaCasa = 0
-    var inicioCurva = graficoTravessia[0].profundidadeEntrada-(graficoTravessia[0].profundidadeEntrada*0.6)
+    var inicioCurva = graficoTravessia[0].profundidadeEntrada - (graficoTravessia[0].profundidadeEntrada * 0.6)
     // for (let i = 1; i <= 10; i++) {
     //   //labels.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
     //   angulo.push(Math.atan(i / 100) * (180 / Math.PI))
@@ -695,41 +695,41 @@ export default function FillInPhases() {
     //   // }else{
     //   //   dadoG.push({ x: variacaoProfundidade[Number(distancia) - i], y: variacaoDistanciaPercorrida[Number(distancia) - i]*-1 })
     //   // }
-      
-      
+
+
     //   dadoslabels = [variacaoProfundidade]
     //   dadosF = [variacaoDistanciaPercorrida] 
     //   // console.log(angulo)
     // }
 
     distancia = String(200)
-    distanciaPercorrida = (Number(distancia)-(Number(distancia)*0.1)-inicioCurva)
+    distanciaPercorrida = (Number(distancia) - (Number(distancia) * 0.1) - inicioCurva)
     console.log(inicioCurva)
     console.log(distanciaPercorrida)
-    while (graficoTrue === false && i < 5000) { 
+    while (graficoTrue === false && i < 5000) {
       //console.log(variacaoProfundidade[variacaoProfundidade.length - 1] )
       //labels.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
       angulo.push(Math.atan(i / 100) * (180 / Math.PI))
-      variacaoProfundidade.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste)+ variacaoProfundidade[i-1])
-      variacaoDistanciaPercorrida.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste)+ variacaoDistanciaPercorrida[i-1])
-      umaCasa = umaCasa+comprimentoHaste//Number(variacaoDistanciaPercorrida[i - 1].toFixed(0))
+      variacaoProfundidade.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste) + variacaoProfundidade[i - 1])
+      variacaoDistanciaPercorrida.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste) + variacaoDistanciaPercorrida[i - 1])
+      umaCasa = umaCasa + comprimentoHaste//Number(variacaoDistanciaPercorrida[i - 1].toFixed(0))
       labels.push(umaCasa)
       //i < Number(distancia)-20
       if (variacaoProfundidade[i - 1] < graficoTravessia[0].profundidadeEntrada) {//        
-        
+
         //console.log("Descida")
         // console.log('variacaoDistanciaPercorrida')
         // console.log(variacaoDistanciaPercorrida[i - 1])
         // console.log('variacaoProfundidade')
         // console.log(variacaoProfundidade[i - 1]* -1)
-        if(inicioCurva > variacaoProfundidade[i - 1]){
+        if (inicioCurva > variacaoProfundidade[i - 1]) {
           console.log("Descida")
           dadoG.push({ arg: variacaoDistanciaPercorrida[i - 1], val: variacaoProfundidade[i - 1] * -1 })
-        }else{
+        } else {
           console.log("Descida2")
-          dadoG.push({ arg: variacaoDistanciaPercorrida[i - 1] , val: variacaoProfundidade[i - 1] * -1 })
+          dadoG.push({ arg: variacaoDistanciaPercorrida[i - 1], val: variacaoProfundidade[i - 1] * -1 })
         }
-        
+
         index = i - 1
       } else if (variacaoDistanciaPercorrida[i - 1] < distanciaPercorrida) {
         //labels.push(umaCasa)
@@ -737,17 +737,17 @@ export default function FillInPhases() {
         // console.log(variacaoDistanciaPercorrida[i - 1])
         // console.log(variacaoProfundidade[i - 1] * -1)
         dadoG.push({ arg: variacaoDistanciaPercorrida[i - 1], val: variacaoProfundidade[index] * -1 })
-      } else if (variacaoDistanciaPercorrida[i - 1] > distanciaPercorrida){
-        index = index-1
+      } else if (variacaoDistanciaPercorrida[i - 1] > distanciaPercorrida) {
+        index = index - 1
         //labels.push(umaCasa)
         console.log("Subida")
         // console.log(variacaoDistanciaPercorrida[i - 1])
         // console.log(index)
         // console.log(variacaoProfundidade[index] * -1)
         dadoG.push({ arg: variacaoDistanciaPercorrida[i - 1], val: variacaoProfundidade[index] * -1 })
-        
+
       }
-      if(index === 0 && i != 1){
+      if (index === 0 && i != 1) {
         graficoTrue = true
       }
 
@@ -756,7 +756,7 @@ export default function FillInPhases() {
       i = i + 1
     }
     setDadosGrafico(dadoG)
-    setLabelsG(labels) 
+    setLabelsG(labels)
     // console.log('angulo')
     console.log(dadoG)
     toast.dismiss(toastId);
@@ -766,7 +766,7 @@ export default function FillInPhases() {
     } else {
       setGrafico(true)
     }
-    return dadoG 
+    return dadoG
   }
   function openModal() {
     setIsOpen(true)
@@ -1116,7 +1116,7 @@ export default function FillInPhases() {
 
           })
           if (submit.banco === 'todos-campos') {
-            window.location.href = window.location.href.split("(")[0].replace("preencher-fases", "etapas").replace("/"+idEtapa, "")
+            window.location.href = window.location.href.split("(")[0].replace("preencher-fases", "etapas").replace("/" + idEtapa, "")
           }
         } else if (response.statusText === 'Forbidden') {
           toast.error('Ops, Não tem permisão!')
@@ -2886,10 +2886,10 @@ export default function FillInPhases() {
               {/* <canvas id="myChart" width="600" height="400"></canvas> */}
               {/* <Line id="myChart" width="600" height="400" options={options} data={dataG} />
             </div><div className="myChartDiv"> */}
-            <App data={dadosGafico} />
-                {/* <canvas id="myChart" width="600" height="400"></canvas> */}
-                {/* <Line id="myChart" width="600" height="400" options={options2} data={dataG2} /> */}
-              </div></> : false}
+              <App data={dadosGafico} />
+              {/* <canvas id="myChart" width="600" height="400"></canvas> */}
+              {/* <Line id="myChart" width="600" height="400" options={options2} data={dataG2} /> */}
+            </div></> : false}
           {campotipoRedeTubula
             ? <div>
               <label htmlFor=''>Tipo de Rede/Tubulação</label>
@@ -3342,7 +3342,7 @@ export default function FillInPhases() {
                   {interferencias.length > 0
                     ? <tr>
                       {variavelTitulo === 'Sondagem das Interferências' ? <th>Confirmado</th> : false}
-                      <th style={{marginLeft: '20px'}}>Nome</th>
+                      <th style={{ marginLeft: '20px' }}>Nome</th>
                       <th>Latitude</th>
                       <th>Longitude</th>
                       <th>Diâmetro</th>
@@ -3353,12 +3353,12 @@ export default function FillInPhases() {
                   {interferencias.length > 0
                     ? interferencias.map((inter) =>
                       <tr>
-                        {variavelTitulo === 'Sondagem das Interferências' ? inter.confirmado === true ? <td style={{paddingLeft: '40px'}}>{<FiCheck size={25} color="green"/>}</td> : <td style={{paddingLeft: '40px'}}>{<FiX size={25} color="red"/>}</td> : false}
+                        {variavelTitulo === 'Sondagem das Interferências' ? inter.confirmado === true ? <td style={{ paddingLeft: '40px' }}>{<FiCheck size={25} color="green" />}</td> : <td style={{ paddingLeft: '40px' }}>{<FiX size={25} color="red" />}</td> : false}
                         <td>{inter.tipoInterferencia}</td>
                         <td>{parseFloat(inter.latitude).toPrecision(8)}</td>
                         <td>{parseFloat(inter.longitude).toPrecision(8)}</td>
                         <td>{inter.diametro}</td>
-                        {variavelTitulo === 'Sondagem das Interferências' ?  <td >{inter.profundidade}</td> : false}
+                        {variavelTitulo === 'Sondagem das Interferências' ? <td >{inter.profundidade}</td> : false}
                         <td>
                           <button className='button' onClick={() => deleteDados(inter.id, 'interferencia/')}>
                             <FiTrash color='#EA1C24' size={18} />
@@ -3481,6 +3481,7 @@ export default function FillInPhases() {
 
       <Modal
         isOpen={modalIsOpen}
+        ariaHideApp={false}
         onRequestClose={closeModal}
         overlayClassName='react-modal-overlay'
         className='react-modal-content'
@@ -3505,6 +3506,7 @@ export default function FillInPhases() {
       </Modal>
 
       <Modal
+        ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -3513,6 +3515,13 @@ export default function FillInPhases() {
         }}
         isOpen={isOpenMaquinaPerfuratriz} onRequestClose={() => setIsOpenMaquinaPerfuratriz(false)}
       >
+        <button
+          className='react-modal-close'
+          type='button'
+          onClick={() => setIsOpenMaquinaPerfuratriz(false)}
+        >
+          <FiX />
+        </button>
         <S.Container>
           <h3>Adicionar Maquina Perfuratriz</h3>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -3727,6 +3736,7 @@ export default function FillInPhases() {
       </Modal>
 
       <Modal
+        ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -3737,6 +3747,13 @@ export default function FillInPhases() {
         onAfterOpen={() => afterOpenModalPhasesSelect}
         onRequestClose={() => setIsOpenTipoRede(false)}
       >
+        <button
+          className='react-modal-close'
+          type='button'
+          onClick={() => setIsOpenTipoRede(false)}
+        >
+          <FiX />
+        </button>
         <S3.Container>
           <h3>Adicionar tipo de rede</h3>
           <br />
@@ -3803,6 +3820,7 @@ export default function FillInPhases() {
       </Modal>
 
       <Modal
+        ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -3872,6 +3890,7 @@ export default function FillInPhases() {
       </Modal>
 
       <Modal
+        ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -3924,6 +3943,7 @@ export default function FillInPhases() {
       </Modal>
 
       <Modal
+        ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -3932,6 +3952,13 @@ export default function FillInPhases() {
         }}
         isOpen={isOpenTipoSolo} onRequestClose={() => setIsOpenTipoSolo(false)}
       >
+        <button
+          className='react-modal-close'
+          type='button'
+          onClick={() => setIsOpenTipoSolo(false)}
+        >
+          <FiX />
+        </button>
         <S3.Container>
           <h3>Adicionar Tipo de solo</h3>
           <br />
@@ -3983,6 +4010,7 @@ export default function FillInPhases() {
         </S3.Container>
       </Modal>
       <Modal
+        ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -4031,6 +4059,7 @@ export default function FillInPhases() {
         </S4.ModelsModal>
       </Modal>
       <Modal
+        ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -4046,20 +4075,20 @@ export default function FillInPhases() {
         <S4.ModelsModal>
           <h2>Adicione uma interferência</h2>
           <div>
-          <label htmlFor=''>Tipo de Rede</label>
-                  <div className='selectPlus' style={{ marginTop: '-2px' }}>
-                    <select
-                      name='' id='' value={tipoRede}
-                      onChange={(text) => settipoRede(text.target.value) }
-                    > 
-                      <option value=''>Selecione...</option>
-                      {tipoRedeList.length > 0
-                        ? tipoRedeList.map((rede) =>
-                          <option value={rede.id}>{rede.identificacaoRede}</option>)
-                        : <option>Nenhum tipo de rede cadastrado!</option>}
-                    </select>
-                    <button onClick={() => setIsOpenTipoRede(true)} className='buttonAddInter'><FiPlus size={20} /></button>
-                  </div>
+            <label htmlFor=''>Tipo de Rede</label>
+            <div className='selectPlus' style={{ marginTop: '-2px' }}>
+              <select
+                name='' id='' value={tipoRede}
+                onChange={(text) => settipoRede(text.target.value)}
+              >
+                <option value=''>Selecione...</option>
+                {tipoRedeList.length > 0
+                  ? tipoRedeList.map((rede) =>
+                    <option value={rede.id}>{rede.identificacaoRede}</option>)
+                  : <option>Nenhum tipo de rede cadastrado!</option>}
+              </select>
+              <button onClick={() => setIsOpenTipoRede(true)} className='buttonAddInter'><FiPlus size={20} /></button>
+            </div>
             <input
               type='text' placeholder='Nome'
               value={tipoInterferencia}
@@ -4105,6 +4134,7 @@ export default function FillInPhases() {
       </Modal>
 
       <Modal
+        ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -4113,6 +4143,13 @@ export default function FillInPhases() {
         }}
         isOpen={isOpenFluido} onRequestClose={() => setIsOpenFluido(false)}
       >
+        <button
+          className='react-modal-close'
+          type='button'
+          onClick={() => setIsOpenFluido(false)}
+        >
+          <FiX />
+        </button>
         <S3.Container>
           <h3>Adicionar fluido</h3>
           <br />
@@ -4184,6 +4221,7 @@ export default function FillInPhases() {
       </Modal>
 
       <Modal
+        ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {

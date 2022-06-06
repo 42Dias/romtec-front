@@ -317,6 +317,7 @@ export default function
 
               <TextField
                 label='Tração (kN)'
+                type='number'
                 {...register('tracao', {
                   required: true,
                 })}
@@ -324,6 +325,7 @@ export default function
 
               <TextField
                 label='Compressão (KN)'
+                type='number'
                 {...register('compressao', {
                   required: true,
                 })}
@@ -331,6 +333,7 @@ export default function
 
               <TextField
                 label='Torque (N.m)'
+                type='number'
                 {...register('torque', {
                   required: true,
                 })}
@@ -338,6 +341,7 @@ export default function
 
               <TextField
                 label='Rotação Spindle (RPM)'
+                type='number'
                 {...register('rotacaoSpindle', {
                   required: true,
                 })}
@@ -345,6 +349,7 @@ export default function
 
               <TextField
                 label='Velocidade Tração (m/min)'
+                type='number'
                 {...register('velocidadeTracao', {
                   required: true,
                 })}
@@ -352,6 +357,7 @@ export default function
 
               <TextField
                 label='Velocidade Compressão (m/min)'
+                type='number'
                 {...register('velocidadeCompressa', {
                   required: true,
                 })}
@@ -359,6 +365,7 @@ export default function
 
               <TextField
                 label='Diâmetro furo piloto (pol)'
+                type='number'
                 {...register('diametroFuroPiloto', {
                   required: true,
                 })}
@@ -366,6 +373,7 @@ export default function
 
               <TextField
                 label='Ângulo de entrada'
+                type='number'
                 {...register('anguloEntrada', {
                   required: true,
                 })}
@@ -373,6 +381,7 @@ export default function
 
               <TextField
                 label='Diâmetro nominal (mm)'
+                type='number'
                 {...register('diametroNominal', {
                   required: true,
                 })}
@@ -380,6 +389,7 @@ export default function
 
               <TextField
                 label='Raio de curvatura (m)'
+                type='number'
                 {...register('raioCurvatura', {
                   required: true,
                 })}
@@ -387,6 +397,7 @@ export default function
 
               <TextField
                 label='Comprimento (m)'
+                type='number'
                 {...register('comprimento', {
                   required: true,
                 })}
@@ -394,6 +405,7 @@ export default function
 
               <TextField
                 label='Vazão (L/min)'
+                type='number'
                 {...register('vazao', {
                   required: true,
                 })}
@@ -401,6 +413,7 @@ export default function
 
               <TextField
                 label='Pressão (psi)'
+                type='number'
                 {...register('pressao', {
                   required: true,
                 })}
@@ -408,6 +421,7 @@ export default function
 
               <TextField
                 label='Alargamento máximo (pol)'
+                type='number'
                 {...register('alergamentoMaximo', {
                   required: true,
                 })}
@@ -483,84 +497,98 @@ export default function
 
               <TextField
                 label='Tração (ton)'
+                type='number'
                 value={tracao}
                 onChange={(text) => setTracao(text.target.value)}
               />
 
               <TextField
                 label='Compressão (KN)'
+                type='number'
                 value={compressao}
                 onChange={(text) => setcompressao(text.target.value)}
               />
 
               <TextField
                 label='Torque'
+                type='number'
                 value={torque}
                 onChange={(text) => setTorque(text.target.value)}
               />
 
               <TextField
                 label='Rotação Spindle (RPM)'
+                type='number'
                 value={rotacaoSpindle}
                 onChange={(text) => setRotacaoSpindle(text.target.value)}
               />
 
               <TextField
                 label='Velocidade Tração (m/min)'
+                type='number'
                 value={velocidadeTracao}
                 onChange={(text) => setVelocidadeTracao(text.target.value)}
               />
 
               <TextField
                 label='Velocidade Compressão (m/min)'
+                type='number'
                 value={velocidadeCompressa}
                 onChange={(text) => setVelocidadeCompressa(text.target.value)}
               />
 
               <TextField
                 label='Diâmetro furo piloto (pol)'
+                type='number'
                 value={diametroFuroPiloto}
                 onChange={(text) => setDiametroFuroPiloto(text.target.value)}
               />
 
               <TextField
                 label='Ângulo de entrada'
+                type='number'
                 value={anguloEntrada}
                 onChange={(text) => setVAnguloEntrada(text.target.value)}
               />
 
               <TextField
                 label='Diâmetro nominal (mm)'
+                type='number'
                 value={diametroNominal}
                 onChange={(text) => setDiametroNominal(text.target.value)}
               />
 
               <TextField
                 label='Raio de curvatura (m)'
+                type='number'
                 value={raioCurvatura}
                 onChange={(text) => setRaioCurvatura(text.target.value)}
               />
 
               <TextField
                 label='Comprimento (m)'
+                type='number'
                 value={comprimento}
                 onChange={(text) => setcomprimento(text.target.value)}
               />
 
               <TextField
                 label='Vazão (L/min)'
+                type='number'
                 value={vazao}
                 onChange={(text) => setVazao(text.target.value)}
               />
 
               <TextField
                 label='Pressão (psi)'
+                type='number'
                 value={pressao}
                 onChange={(text) => setPressao(text.target.value)}
               />
 
               <TextField
                 label='Alargamento máximo (pol)'
+                type='number'
                 value={alergamentoMaximo}
                 onChange={(text) => setAlergamentoMaximo(text.target.value)}
               />
