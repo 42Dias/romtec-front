@@ -3623,6 +3623,7 @@ export default function FillInPhases() {
 
             <TextField
               label='Tração (kN)'
+              type='number'
               {...register('tracao', {
                 required: true,
               })}
@@ -3630,6 +3631,7 @@ export default function FillInPhases() {
 
             <TextField
               label='Compressão (KN)'
+              type='number'
               {...register('compressao', {
                 required: true,
               })}
@@ -3637,6 +3639,7 @@ export default function FillInPhases() {
 
             <TextField
               label='Torque (N.m)'
+              type='number'
               {...register('torque', {
                 required: true,
               })}
@@ -3644,6 +3647,7 @@ export default function FillInPhases() {
 
             <TextField
               label='Rotação Spindle (RPM)'
+              type='number'
               {...register('rotacaoSpindle', {
                 required: true,
               })}
@@ -3651,6 +3655,7 @@ export default function FillInPhases() {
 
             <TextField
               label='Velocidade Tração (m/min)'
+              type='number'
               {...register('velocidadeTracao', {
                 required: true,
               })}
@@ -3658,6 +3663,7 @@ export default function FillInPhases() {
 
             <TextField
               label='Velocidade Compressão (m/min)'
+              type='number'
               {...register('velocidadeCompressa', {
                 required: true,
               })}
@@ -3665,6 +3671,7 @@ export default function FillInPhases() {
 
             <TextField
               label='Diâmetro furo piloto (pol)'
+              type='number'
               {...register('diametroFuroPiloto', {
                 required: true,
               })}
@@ -3672,6 +3679,7 @@ export default function FillInPhases() {
 
             <TextField
               label='Ângulo de entrada (º)'
+              type='number'
               {...register('anguloEntrada', {
                 required: true,
               })}
@@ -3679,6 +3687,7 @@ export default function FillInPhases() {
 
             <TextField
               label='Diâmetro nominal (mm)'
+              type='number'
               {...register('diametroNominal', {
                 required: true,
               })}
@@ -3686,6 +3695,7 @@ export default function FillInPhases() {
 
             <TextField
               label='Raio de curvatura (m)'
+              type='number'
               {...register('raioCurvatura', {
                 required: true,
               })}
@@ -3693,6 +3703,7 @@ export default function FillInPhases() {
 
             <TextField
               label='Comprimento (m)'
+              type='number'
               {...register('comprimento', {
                 required: true,
               })}
@@ -3700,6 +3711,7 @@ export default function FillInPhases() {
 
             <TextField
               label='Vazão (L/min)'
+              type='number'
               {...register('vazao', {
                 required: true,
               })}
@@ -3707,6 +3719,7 @@ export default function FillInPhases() {
 
             <TextField
               label='Pressão (psi)'
+              type='number'
               {...register('pressao', {
                 required: true,
               })}
@@ -3714,6 +3727,7 @@ export default function FillInPhases() {
 
             <TextField
               label='Alargamento máximo (pol)'
+              type='number'
               {...register('alergamentoMaximo', {
                 required: true,
               })}

@@ -14,6 +14,7 @@ import { toast } from 'react-toastify'
 import Load from './../../assets/load.gif'
 import * as S from './styled'
 import EditButton from '../../ui/Components/EditButton/EditButton'
+import axios from 'axios'
 
 type FormData = {
   fabricante: string;
@@ -68,9 +69,18 @@ export default function
   const [alergamentoMaximo, setAlergamentoMaximo] = useState('')
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>()
   const [maqPerfuratriz, setMaqPerfuratriz] = useState<any[]>([])
+  const [campoDocumento, setcampoDocumento] = useState(false)
+  const [documentos, setdocumentos] = useState('')
+  const [name, setName] = useState<any>('')
+  const [image, setImage] = useState<any>('')
+  let credencial = ''
+  let nameImage = ''
+  let Image: any
+  const formData = new FormData()
 
   function onSubmit(data: FormData) {
     console.log(data)
+    data.reviewUpload = documentos
     Cadastro(data)
     //reset()
   }
@@ -205,7 +215,78 @@ export default function
     loadDados()
   }, [])
 
+  async function makeRequisition(e: any) {
+    e.preventDefault()
+    e.target.reset()
 
+    toast.info('Carregando...')
+    const body = {
+      data: {
+        imagemUrl: campoDocumento,
+        status: 'ativo',
+        nome: name,
+      },
+    }
+  }
+  const uploadImage = async (imagemNova: string | Blob) => {
+    // console.log("upload")
+    formData.append('file', imagemNova)
+
+    // console.log(...formData)
+
+    const headers = {
+      headers: {
+        // 'Content-Type': 'application/json'
+        'Content-Type': 'multipart/form-data',
+
+      },
+    }
+    console.log(nameImage)
+    await api.get('file/credentials', {
+      params: {
+        filename: nameImage,
+        storageId: 'execucaoTravessia',
+      },
+    })
+      .then((response) => {
+        console.log(response)
+        if (response.status == 200) {
+          const pathHelper = response.data.mensagem
+          credencial = response.data.uploadCredentials.url
+          setdocumentos(response.data.downloadUrl)
+          console.log(credencial)
+          console.log(imagemNova)
+          axios.post(credencial, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          }).then((response) => {
+            console.log(response)
+            if (response.statusText === 'OK') {
+              // toast.success('Cadastrado realizado com sucesso!')
+            }
+          }).catch(res => {
+            // console.log(res)
+            toast.error(res.response)
+            setLoading(false)
+          })
+          toast.success('Arquivo Válido!')
+        } else {
+          toast.info('Arquivo inválid0, ou problemas com o servidor :(')
+        }
+      }).catch((err) => {
+        if (err.response) {
+          // console.log(err)
+          toast.error('Erro: Tente mais tarde :(')
+        } else {
+          // setStatus({
+          //   type: 'error',
+          //   mensagem: "Erro: Tente mais tarde :("
+          // });
+        }
+        toast.error('Erro: Tente mais tarde :(')
+      })
+  }
 
   return (
     <>
@@ -284,6 +365,7 @@ export default function
 
               <TextField
                 label='Última revisão/manutenção'
+                type='date'
                 {...register('lastOverhaul', {
                   required: true,
                 })}
@@ -291,17 +373,51 @@ export default function
 
               <TextField
                 label='Próxima revisão/manutenção'
+                type='date'
                 {...register('nextOverhaul', {
                   required: true,
                 })}
               />
 
-              <TextField
-                label='Upload da revisão'
-                {...register('reviewUpload', {
-                  required: true,
-                })}
-              />
+              <div style={{marginLeft: '20px'}}>
+                <form
+                  className='file'
+                  encType='multipart/form-data'
+
+                  onSubmit={makeRequisition}
+                >
+                  <label>Upload da revisão</label>
+
+                  <input
+                    type='file'
+                    name='image'
+                    onChange={e => {
+                      // console.log(e)
+                      // @ts-ignore
+                      nameImage = e.target.files[0].name
+                      // @ts-ignore
+                      Image = e.target.files[0]
+                      // @ts-ignore
+                      console.log(e.target.files[0].name)
+                      // @ts-ignore
+                      setName(name)
+                      // @ts-ignore
+                      console.log(e.target.files[0])
+                      // @ts-ignore
+                      setImage(e.target.files[0])
+
+                      // @ts-ignore
+                      // if (e.target.files[0].type.includes('image') || e.target.files[0].type.includes('file')) {
+                      // @ts-ignore
+                      uploadImage(e.target.files[0])
+                      // } else {
+                      // toast.error('Arquivo não suportado')
+                      // }
+                    }}
+                  /><br /><br />
+
+                </form>
+              </div>
 
               <S.ContentForm>
                 <fieldset>
@@ -466,22 +582,57 @@ export default function
 
               <TextField
                 label='Última revisão/manutenção'
+                type='date'
                 value={lastOverhaul}
                 onChange={(text) => setLastOverhaul(text.target.value)}
               />
 
               <TextField
                 label='Próxima revisão/manutenção'
+                type='date'
                 value={nextOverhaul}
                 onChange={(text) => setNextOverhaul(text.target.value)}
               />
 
-              <TextField
-                label='Upload da revisão'
-                value={reviewUpload}
-                onChange={(text) => setReviewUpload(text.target.value)}
-              />
+              <div style={{marginLeft: '20px'}}>
+                <form
+                  className='file'
+                  encType='multipart/form-data'
 
+                  onSubmit={makeRequisition}
+                >
+                  <label>Upload da revisão</label>
+
+                  <input
+                    type='file'
+                    name='image'
+                    onChange={e => {
+                      // console.log(e)
+                      // @ts-ignore
+                      nameImage = e.target.files[0].name
+                      // @ts-ignore
+                      Image = e.target.files[0]
+                      // @ts-ignore
+                      console.log(e.target.files[0].name)
+                      // @ts-ignore
+                      setName(name)
+                      // @ts-ignore
+                      console.log(e.target.files[0])
+                      // @ts-ignore
+                      setImage(e.target.files[0])
+
+                      // @ts-ignore
+                      // if (e.target.files[0].type.includes('image') || e.target.files[0].type.includes('file')) {
+                      // @ts-ignore
+                      uploadImage(e.target.files[0])
+                      // } else {
+                      // toast.error('Arquivo não suportado')
+                      // }
+                    }}
+                  /><br /><br />
+
+                </form>
+              </div>
               <S.ContentForm>
                 <fieldset>
                   <label htmlFor='revisionSubtypes'>Subtipos de revisão</label>
