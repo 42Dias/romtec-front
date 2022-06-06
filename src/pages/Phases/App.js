@@ -9,7 +9,13 @@ import {
   Crosshair,
   HorizontalLine,
   Label,
-  Legend
+  Legend,
+  CommonSeriesSettings,
+  ArgumentAxis,
+  Grid,
+  Format,
+  Export,
+  Point,
 } from "devextreme-react/chart";
 import { dataSource } from "./data.js";
 
@@ -17,6 +23,7 @@ const crosshairFormat = {
   type: "fixedPoint",
   precision: 2
 };
+const exportFormats = ['PNG', 'PDF', 'JPEG', 'GIF', 'SVG'];
 
 function App({data}){ 
     console.log('data')
@@ -34,7 +41,13 @@ function App({data}){
           type="logarithmic"
           pane="top"
         />
-        
+        <ValueAxis title="Linear Axis" pane="bottom" />
+        <Tooltip enabled={true} format="exponential" />
+        <Crosshair enabled={true}>
+          <HorizontalLine visible={true} />
+          <Label visible={true} format={data} />
+        </Crosshair>
+        <Legend visible={true} />
       </Chart>
     );
   }

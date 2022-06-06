@@ -11,7 +11,7 @@ export let nome = localStorage.getItem('nome')?.replace(/"/g, '')
 export let password = localStorage.getItem('password')?.replace(/"/g, '')
 //export let ip = 'http://localhost' 
 // export const ip = 'https://projetos.42dias.com.br'  
-// export const port = '8145' 
+//export const port = '8145' 
 
 export const ip = 'http://7dd208931cad.sn.mynetname.net'
 export const port = '42145'
