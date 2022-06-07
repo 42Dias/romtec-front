@@ -436,7 +436,7 @@ export default function
   const [CondicaoFerramenta, setCondicaoFerramenta] = useState('')
   const [EmpresaProprietaria, setEmpresaProprietaria] = useState('')
   const [idTodosCampos, setidTodosCampos] = useState('')
-  const [etapa, setEtapa] = useState('2')
+  const [etapa, setEtapa] = useState('0')
   const [descricao, setDescricao] = useState('')
   const [finalizarEtapa, setFinalizarEtapa] = useState(false)
   const [name, setName] = useState<any>('')
@@ -3854,7 +3854,7 @@ export default function
                 </div>
                 : false}
               {campovalaEntradaLongitude
-                ? <div>
+                ? <div style={{marginTop: '-190px'}}>
                   <label htmlFor=''>Vala de entrada longitude</label>
                   <input
                     type='number' placeholder='Longitude'
@@ -3884,7 +3884,7 @@ export default function
                 </div>
                 : false}
               {campovalaEntradaProfundidade
-                ? <div>
+                ? <div style={{marginTop: '-190px'}}>
                   <label htmlFor=''>Vala de entrada profundidade (m)</label>
                   <input
                     type='number'
@@ -3904,7 +3904,7 @@ export default function
                 </div>
                 : false}
               {campovalaSaidaLongitude
-                ? <div>
+                ? <div style={{marginTop: '-190px'}}>
                   <label htmlFor=''>Vala de saida longitude</label>
                   <input
                     type='number' placeholder='Longitude'
@@ -3934,7 +3934,7 @@ export default function
                 </div>
                 : false}
               {campovalaSaidaProfundidade
-                ? <div>
+                ? <div style={{marginTop: '-90px'}}>
                   <label htmlFor=''>Vala de saida profundidade (m)</label>
                   <input
                     type='number'
@@ -4827,7 +4827,7 @@ export default function
               value={etapa}
               onChange={(text) => setEtapa(text.target.value)}
             >
-              <option selected disabled>Selecione</option>
+              <option value='0'>Selecione2...</option>
               {/* <option value='1'>Levantamento e Mapeamento de Interferências</option> */}
               {planejamentoTravessia === false ? <option value='2'>Planejamento da Travessia</option> : false}
               {sondagemInterferencias === false ? <option value='3'>Sondagem das Interferências</option> : false}
@@ -4840,7 +4840,8 @@ export default function
             </select>
           </form>
 
-          <button className='save' onClick={() => salvarEtapa()}>{loading
+          {etapa === '0' ? 
+          <button className='save' onClick={() => toast.info("Selecione o tipo da etapa!")}>{loading
             ? (
               <img
                 width='40px'
@@ -4853,7 +4854,21 @@ export default function
             : (
               'Salvar'
             )}
-          </button>
+          </button> :
+          <button  className='save' onClick={() => salvarEtapa()}>{loading
+            ? (
+              <img
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src={Load}
+                alt='Loading'
+              />
+            )
+            : (
+              'Salvar'
+            )}
+          </button>}
         </S.PhasesModal>
 
       </Modal>
