@@ -16,6 +16,7 @@ export const Modal = styled.div`
 
   @media (max-width: 520px) {
     height: 250vh;
+    margin-top: -200px;
   }
 `
 

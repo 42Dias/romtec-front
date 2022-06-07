@@ -165,7 +165,7 @@ export const Container = styled.div`
     }
     button {
       background: ${theme.colors.green};
-      width: 120px;
+      width: 100%;
       height: 39px;
       border: 0;
       border-radius: 5px;

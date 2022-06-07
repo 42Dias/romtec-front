@@ -99,14 +99,14 @@ export const Form = styled.form`
   align-items: center;
 
   button {
-    width: 101px;
+    width: 90%;
     height: 44px;
     border-radius: 5px;
     background: ${theme.colors.green};
     border: 0;
     transition: 1s;
     margin-bottom: 20px;
-    margin-right: 250px;
+    margin-right: 10px;
 
     :hover {
       opacity: 80%;
@@ -124,14 +124,14 @@ export const Div = styled.div`
   align-items: center;
 
   button {
-    width: 101px;
+    width: 90%;
     height: 44px;
     border-radius: 5px;
     background: ${theme.colors.green};
     border: 0;
     transition: 1s;
     margin-bottom: 20px;
-    margin-right: 250px;
+    margin-right: 20px;
 
     :hover {
       opacity: 80%;

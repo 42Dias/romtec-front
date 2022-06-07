@@ -594,7 +594,7 @@ export const ModelsModal = styled.div`
   padding: 50px 0;
 
   button {
-    width: 159px;
+    width: 100%;
     height: 44px;
     margin-top: 10px;
   }
@@ -614,7 +614,7 @@ export const ModelsModal = styled.div`
       border-radius: 6px;
 
       @media (max-width: 520px) {
-        width: 290px;
+        width: 100%;
       }
     }
 

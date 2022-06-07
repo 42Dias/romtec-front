@@ -75,6 +75,7 @@ export const Form = styled.form`
 
   @media (max-width: 520px) {
     grid-template-columns: 1fr;
+    margin-left: 10px;
   }
   justify-items: center;
   align-items: center;
@@ -97,14 +98,14 @@ export const Form = styled.form`
   }
 
   button {
-    width: 101px;
+    width: 90%;
     height: 44px;
     border-radius: 5px;
     background: ${theme.colors.green};
     border: 0;
     transition: 1s;
     margin-bottom: 20px;
-    margin-right: 250px;
+    margin-right: 20px;
 
     :hover {
       opacity: 80%;
@@ -127,6 +128,7 @@ export const Div = styled.div`
 
   @media (max-width: 520px) {
     grid-template-columns: 1fr;
+    margin-left: 20px;
   }
   justify-items: center;
   align-items: center;
@@ -149,14 +151,15 @@ export const Div = styled.div`
   }
 
   button {
-    width: 101px;
+    width: 90%;
     height: 44px;
     border-radius: 5px;
     background: ${theme.colors.green};
     border: 0;
     transition: 1s;
     margin-bottom: 20px;
-    margin-right: 250px;
+    margin-right: 10px;
+    margin-left: -10px;
 
     :hover {
       opacity: 80%;
