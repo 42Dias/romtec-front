@@ -77,7 +77,7 @@ export const ContainerConfirmation = styled.div`
 
     .containerForm {
       button {
-        background: #FECE51 !important;
+        background: ${theme.colors.yellow} !important;
       }
     }
 
@@ -259,7 +259,7 @@ export const Div = styled.div`
     width: 161px;
     height: 44px;
 
-    background: #FECE51;
+    background: ${theme.colors.yellow};
     color: black;
     border-radius: 5px;
 
@@ -838,6 +838,10 @@ export const ContainerNone = styled.div`
       svg {
         font-size: 32px;
         color: ${theme.colors.green};
+
+        @media (max-width: 520px) {
+          color: #fff;
+        }
       }
 
       div {
@@ -862,7 +866,7 @@ export const ContainerNone = styled.div`
       justify-content: center;
       align-items: center;
       a {
-        background: #FECE51 !important;
+        background: ${theme.colors.yellow} !important;
         width: 100%;
         border-radius: 20px;
         height: 194px;
