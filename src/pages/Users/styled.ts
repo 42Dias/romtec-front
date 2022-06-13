@@ -77,7 +77,11 @@ export const Steps = styled.div`
   }
 
   ul {
-    list-style-type: none;
+    list-style-type: none; 
+
+    li {
+      margin: 10px 0;
+    }
   }
 
   .flex-title {
