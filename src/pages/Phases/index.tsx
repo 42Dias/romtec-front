@@ -11,7 +11,7 @@ import { TextField } from '../../ui/Components/TextField'
 import Sidebar from '../../ui/Components/Sidebar/Sidebar'
 import Navbar from '../../ui/Components/Navbar/Navbar'
 import Load from './../../assets/load.gif'
-import logo from './../../assets/logoR.png'
+import logo from './../../assets/pit-vazio.png'
 import { FiPlus, FiCheck, FiPlay, FiLock, FiX, FiTrash, FiEye } from 'react-icons/fi'
 import { api, ip, nome, roles, token } from '../../services/api'
 import { useForm } from 'react-hook-form'
@@ -37,7 +37,7 @@ import { Line } from 'react-chartjs-2'
 import { setLabels } from 'react-chartjs-2/dist/utils'
 import moment from 'moment'
 import { backgrounds } from 'polished'
-import App from './App.js';
+import App from './App.js'
 SwiperCore.use([Pagination, Navigation])
 
 type FormData = {
@@ -80,7 +80,7 @@ type FormData = {
   indicePlasticidade: string;
 }
 export default function
-  Phases() {
+Phases () {
   const [modalIsOpenPhase, setIsOpenPhase] = useState(false)
   const [modalIsOpenInterferencia, setIsOpenInterferencia] = useState(false)
   const [modalIsOpenVerificacao, setIsOpenVerificacao] = useState(false)
@@ -99,48 +99,48 @@ export default function
   const [modalIsOpenDeletarDadosEtapa, setIsOpenDeletarDadosEtapa] = useState(false)
   const { Option } = Select
 
-  function openModalEdit() {
+  function openModalEdit () {
     setIsOpenModalEdit(true)
   }
 
-  function closeModalEdit() {
+  function closeModalEdit () {
     setIsOpenModalEdit(false)
   }
 
-  function openModalAdd() {
+  function openModalAdd () {
     setIsOpenModalAdd(true)
   }
 
-  function closeModalAdd() {
+  function closeModalAdd () {
     setIsOpenModalAdd(false)
   }
 
-  function openModalInterferencia() {
+  function openModalInterferencia () {
     setIsOpenInterferencia(true)
   }
-  function openModalPontosVerificacao() {
+  function openModalPontosVerificacao () {
     setIsOpenVerificacao(true)
   }
-  function openModalFerramenta() {
+  function openModalFerramenta () {
     setIsOpenFerramenta(true)
   }
-  function afterOpenModalInterferencia() {
+  function afterOpenModalInterferencia () {
 
   }
 
-  function closeModalInterferencia() {
+  function closeModalInterferencia () {
     setIsOpenInterferencia(false)
   }
-  function closeModalVerificacao() {
+  function closeModalVerificacao () {
     setIsOpenVerificacao(false)
   }
-  function closeModalFerramenta() {
+  function closeModalFerramenta () {
     setIsOpenFerramenta(false)
   }
-  function closeModalVerificacaoEdit() {
+  function closeModalVerificacaoEdit () {
     setIsOpenVerificacaoEdit(false)
   }
-  function openModalInterferenciaEdit(interferencia: any) {
+  function openModalInterferenciaEdit (interferencia: any) {
     setInterferenciaId(interferencia.id)
     // console.log(interferencia.id)
     setTipoInterferencia(interferencia.tipoInterferencia)
@@ -151,7 +151,7 @@ export default function
 
     setIsOpenInterferenciaEdit(true)
   }
-  function openModalPontosVerificacaoEdit(pontosVerificacao: any) {
+  function openModalPontosVerificacaoEdit (pontosVerificacao: any) {
     setInterferenciaId(pontosVerificacao.id)
     setStatus(pontosVerificacao.status)
     setLatitude(pontosVerificacao.latitude)
@@ -162,35 +162,35 @@ export default function
 
     setIsOpenVerificacaoEdit(true)
   }
-  function afterOpenModalInterferenciaEdit() {
+  function afterOpenModalInterferenciaEdit () {
 
   }
 
-  function closeModalInterferenciaEdit() {
+  function closeModalInterferenciaEdit () {
     setIsOpenInterferenciaEdit(false)
   }
 
-  function openModalPhases() {
+  function openModalPhases () {
     setIsOpenPhase(true)
   }
 
-  function afterOpenModalPhases() {
+  function afterOpenModalPhases () {
 
   }
 
-  function closeModalPhases() {
+  function closeModalPhases () {
     setIsOpenPhase(false)
   }
 
-  function openModalPhasesSelect() {
+  function openModalPhasesSelect () {
     setIsOpenPhaseSelect(true)
   }
 
-  function afterOpenModalPhasesSelect() {
+  function afterOpenModalPhasesSelect () {
 
   }
 
-  function closeModalPhasesSelect() {
+  function closeModalPhasesSelect () {
     setIsOpenPhaseSelect(false)
   }
 
@@ -452,7 +452,7 @@ export default function
   const [qtdeBase, setQtdeBase] = useState('')
   const [limiteEscoamento, setLimiteEscoamento] = useState('')
   const [teorAreia, setTeorAreia] = useState('')
-  //campos tipo de rede
+  // campos tipo de rede
   const [tipoDeRede, setTipoDeRede] = useState('')
   const [identificacao, setIdentificacao] = useState('')
   const [materialRede, setMaterialRede] = useState('')
@@ -470,8 +470,8 @@ export default function
   const hora = moment(new Date()).format('HH:mm')
   // Grafico
   let distancia = ''
-  let dadosF = {}
-  let dadoslabels = {}
+  const dadosF = {}
+  const dadoslabels = {}
   const angulo: number[] = []
   const variacaoProfundidade: number[] = []
   const variacaoDistanciaPercorrida: number[] = []
@@ -542,7 +542,7 @@ export default function
 
   ]
   const NUMBER_CFG = { count: 100, min: 0, max: 100 }
-  //const labels: number[] = [0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75]
+  // const labels: number[] = [0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75]
   const labels: number[] = []
   const data = {
     labels: labels,
@@ -695,8 +695,8 @@ export default function
   // }
   const [camposInterferencia, setCamposInterferencia] = useState(false)
 
-  async function formulas() {
-    const toastId = toast.loading('Gerando grafico...');
+  async function formulas () {
+    const toastId = toast.loading('Gerando grafico...')
     await api.get(`graficoTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
     ).then((response) => {
       if (response.statusText === 'OK') {
@@ -714,70 +714,70 @@ export default function
     })
     variacaoProfundidade.push(0)
     variacaoDistanciaPercorrida.push(0)
-    //distancia = distancia + 4
-    //console.log(distancia)
+    // distancia = distancia + 4
+    // console.log(distancia)
     labels.push(0)
     distancia = String(200)
     comprimentoHaste = 1.5
     const dadoG = [{ arg: 0, val: 0 }]
     var x = 0
-    var y = 0
-    var raioCurvatura = 1
-    var anguloDescida = 45
-    var anguloTrabalho = anguloDescida
-    var qtdHaste = anguloDescida / raioCurvatura
-    var graficoTrue = false
-    var distanciaPercorrida = 0
-    var index = 0
-    var curvaDescida = qtdHaste * comprimentoHaste
+    const y = 0
+    const raioCurvatura = 1
+    const anguloDescida = 45
+    const anguloTrabalho = anguloDescida
+    const qtdHaste = anguloDescida / raioCurvatura
+    const graficoTrue = false
+    const distanciaPercorrida = 0
+    const index = 0
+    const curvaDescida = qtdHaste * comprimentoHaste
     // var umaCasa = 0
-    // var inicioCurva = graficoTravessia[0].profundidadeEntrada - (graficoTravessia[0].profundidadeEntrada * 0.6) 
-    var angulacao = 180
-    var descida = Number(distancia) / 2
-    var subida = Number(distancia) / 2
-    var quantidadeMetros = qtdHaste * comprimentoHaste
-    var proporcaoCurvaDescida = descida * (quantidadeMetros / 100)
-    var diferencaPlato = 100 - curvaDescida
-    var plato = diferencaPlato / 2
-    var descidaReta = (100 - curvaDescida) / 2
-    var platoDescida = (100 - curvaDescida) / 2
-    var profundidadeCurvaDescida = 0
-    var avancoCurvaDescida = 0
-    var diferencaX = 0
-    var diferencaY = 0
-    var acrescimoDifX = 0
-    var acrescimoDifY = 0
-    var inicioCurva = 45 * comprimentoHaste
-    var profundidadeT = (graficoTravessia[0].profundidadeEntrada - inicioCurva) / 2
-    
-    console.log("qtdHaste")
+    // var inicioCurva = graficoTravessia[0].profundidadeEntrada - (graficoTravessia[0].profundidadeEntrada * 0.6)
+    const angulacao = 180
+    const descida = Number(distancia) / 2
+    const subida = Number(distancia) / 2
+    const quantidadeMetros = qtdHaste * comprimentoHaste
+    const proporcaoCurvaDescida = descida * (quantidadeMetros / 100)
+    const diferencaPlato = 100 - curvaDescida
+    const plato = diferencaPlato / 2
+    const descidaReta = (100 - curvaDescida) / 2
+    const platoDescida = (100 - curvaDescida) / 2
+    let profundidadeCurvaDescida = 0
+    let avancoCurvaDescida = 0
+    let diferencaX = 0
+    let diferencaY = 0
+    let acrescimoDifX = 0
+    let acrescimoDifY = 0
+    const inicioCurva = 45 * comprimentoHaste
+    const profundidadeT = (graficoTravessia[0].profundidadeEntrada - inicioCurva) / 2
+
+    console.log('qtdHaste')
     console.log(qtdHaste)
-    console.log("descida")
+    console.log('descida')
     console.log(descida)
-    console.log("quantidadeMetros")
+    console.log('quantidadeMetros')
     console.log(quantidadeMetros)
-    console.log("proporcaoCurvaDescida")
+    console.log('proporcaoCurvaDescida')
     console.log(proporcaoCurvaDescida)
-    console.log("diferencaPlato")
+    console.log('diferencaPlato')
     console.log(diferencaPlato)
-    console.log("plato")
+    console.log('plato')
     console.log(plato)
-    console.log("curvaDescida")
+    console.log('curvaDescida')
     console.log(curvaDescida)
-    console.log("inicioCurva")
+    console.log('inicioCurva')
     console.log(inicioCurva)
-    console.log("profundidadeT")
+    console.log('profundidadeT')
     console.log(profundidadeT)
-    console.log("descidaReta")
+    console.log('descidaReta')
     console.log(descidaReta)
 
-    var descidaRetaArry = []
-    var curvaDescidaArry = []
-    var platoDescidaArry = []
+    const descidaRetaArry = []
+    const curvaDescidaArry = []
+    const platoDescidaArry = []
 
-    //Descida Reta
+    // Descida Reta
     for (var i = 1; i <= descidaReta; i++) {
-      console.log("Descida Reta")
+      console.log('Descida Reta')
       descidaRetaArry.push(i)
       dadoG.push({ arg: i, val: (i * -1) })
     }
@@ -789,7 +789,7 @@ export default function
     acrescimoDifX = diferencaX / curvaDescida
     acrescimoDifY = diferencaY / curvaDescida
 
-    //Curva Descida
+    // Curva Descida
     for (var x = 0; x <= (curvaDescida + descidaReta); x++) {
       // angulo.push(Math.atan((x + descidaRetaArry.length + 9) / 100) * (angulacao / Math.PI))
       // variacaoProfundidade.push((Math.sin((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoProfundidade[x])
@@ -798,25 +798,25 @@ export default function
       //   variacaoDistanciaPercorrida.push((Math.cos((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoDistanciaPercorrida[x - descidaRetaArry.length])
       //   curvaDescidaArry.push({ x: variacaoDistanciaPercorrida[x - descidaRetaArry.length], y: variacaoProfundidade[x] * -1 })
       //   if (variacaoDistanciaPercorrida[x - descidaRetaArry.length] >= descidaRetaArry[descidaRetaArry.length - 1])
-      if (x >= descidaRetaArry.length && (Number(graficoTravessia[0].profundidadeEntrada)*-1) <= dadoG[dadoG.length - 1].val) {
-        console.log("Curva Descida")                                                                                                                                            //-16           +  ((               25                      -  (                 25                     +         -16                 ))  *-0,1)                                                                            
-        //dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + diferencaX + acrescimoDifX), val: (dadoG[dadoG.length - 1].val - diferencaY - acrescimoDifY) })
-                                    //16              + ((-16+25)*0,1*((-25-(-16))/(-16-25)))
+      if (x >= descidaRetaArry.length && (Number(graficoTravessia[0].profundidadeEntrada) * -1) <= dadoG[dadoG.length - 1].val) {
+        console.log('Curva Descida') // -16           +  ((               25                      -  (                 25                     +         -16                 ))  *-0,1)
+        // dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + diferencaX + acrescimoDifX), val: (dadoG[dadoG.length - 1].val - diferencaY - acrescimoDifY) })
+        // 16              + ((-16+25)*0,1*((-25-(-16))/(-16-25)))
         dadoG.push({ arg: dadoG[dadoG.length - 1].arg + (((curvaDescida + descidaReta) - ((curvaDescida + descidaReta) - dadoG[dadoG.length - 1].arg)) * 0.05) / 2, val: dadoG[dadoG.length - 1].val + ((Number(graficoTravessia[0].profundidadeEntrada) - (Number(graficoTravessia[0].profundidadeEntrada) + dadoG[dadoG.length - 1].val)) * -0.01) })
-        //()dadoG[dadoG.length - 1].arg + ((dadoG[dadoG.length - 1].arg + (curvaDescida + descidaReta - dadoG[dadoG.length - 1].arg)) * 0.1 * ((curvaDescida - dadoG[dadoG.length - 1].arg) / (curvaDescida + descidaReta) - dadoG[dadoG.length - 1].arg))
+        // ()dadoG[dadoG.length - 1].arg + ((dadoG[dadoG.length - 1].arg + (curvaDescida + descidaReta - dadoG[dadoG.length - 1].arg)) * 0.1 * ((curvaDescida - dadoG[dadoG.length - 1].arg) / (curvaDescida + descidaReta) - dadoG[dadoG.length - 1].arg))
       }
     }
 
-    //Descida Plato
+    // Descida Plato
     for (var i = 0; i <= (curvaDescida + descidaReta + (platoDescida * 5)); i++) {
       platoDescidaArry.push(i)
       if (i > dadoG.length) {
-        console.log("Descida Plato")
+        console.log('Descida Plato')
         dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + 1), val: (dadoG[dadoG.length - 1].val) })
       }
     }
-    var tamanho = dadoG.length
-    //Curva subida
+    const tamanho = dadoG.length
+    // Curva subida
     for (var x = dadoG[dadoG.length - 1].arg; x <= Number(distancia); x++) {
       // angulo.push(Math.atan((x + descidaRetaArry.length + 9) / 100) * (angulacao / Math.PI))
       // variacaoProfundidade.push((Math.sin((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoProfundidade[x])
@@ -825,18 +825,18 @@ export default function
       //   variacaoDistanciaPercorrida.push((Math.cos((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoDistanciaPercorrida[x - descidaRetaArry.length])
       //   curvaDescidaArry.push({ x: variacaoDistanciaPercorrida[x - descidaRetaArry.length], y: variacaoProfundidade[x] * -1 })
       //   if (variacaoDistanciaPercorrida[x - descidaRetaArry.length] >= descidaRetaArry[descidaRetaArry.length - 1])
-      var diferenca = dadoG[dadoG.length - 1].arg - Number(graficoTravessia[0].profundidadeEntrada)
-      if ( 0 >= dadoG[dadoG.length - 1].val && dadoG[dadoG.length - 1].arg <= Number(distancia) - (descidaReta)) {
-        console.log("Curva Subida")                                                                                                                                            //-16           +  ((               25                      -  (                 25                     +         -16                 ))  *-0,1)                                                                            
-        //dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + diferencaX + acrescimoDifX), val: (dadoG[dadoG.length - 1].val - diferencaY - acrescimoDifY) })
-                                    //16              + ((-16+25)*0,1*((-25-(-16))/(-16-25)))
+      const diferenca = dadoG[dadoG.length - 1].arg - Number(graficoTravessia[0].profundidadeEntrada)
+      if (dadoG[dadoG.length - 1].val <= 0 && dadoG[dadoG.length - 1].arg <= Number(distancia) - (descidaReta)) {
+        console.log('Curva Subida') // -16           +  ((               25                      -  (                 25                     +         -16                 ))  *-0,1)
+        // dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + diferencaX + acrescimoDifX), val: (dadoG[dadoG.length - 1].val - diferencaY - acrescimoDifY) })
+        // 16              + ((-16+25)*0,1*((-25-(-16))/(-16-25)))
         dadoG.push({ arg: dadoG[dadoG.length - 1].arg + (((curvaDescida + descidaReta) - ((curvaDescida + descidaReta) - dadoG[dadoG.length - 1].arg)) * 0.01) / 2, val: Number((dadoG[dadoG.length - 1].val + ((Number(graficoTravessia[0].profundidadeEntrada) - (Number(graficoTravessia[0].profundidadeEntrada) + dadoG[dadoG.length - 1].val)) * 0.01)).toFixed(3)) })
-        //()dadoG[dadoG.length - 1].arg + ((dadoG[dadoG.length - 1].arg + (curvaDescida + descidaReta - dadoG[dadoG.length - 1].arg)) * 0.1 * ((curvaDescida - dadoG[dadoG.length - 1].arg) / (curvaDescida + descidaReta) - dadoG[dadoG.length - 1].arg))
+        // ()dadoG[dadoG.length - 1].arg + ((dadoG[dadoG.length - 1].arg + (curvaDescida + descidaReta - dadoG[dadoG.length - 1].arg)) * 0.1 * ((curvaDescida - dadoG[dadoG.length - 1].arg) / (curvaDescida + descidaReta) - dadoG[dadoG.length - 1].arg))
       }
     }
-    //Descida Reta
+    // Descida Reta
     for (var i = dadoG[dadoG.length - 1].val; i <= 0; i++) {
-      console.log("Subida Reta")
+      console.log('Subida Reta')
       descidaRetaArry.push(i)
       dadoG.push({ arg: dadoG[dadoG.length - 1].arg + 1, val: i })
     }
@@ -860,29 +860,28 @@ export default function
     //   //descidaRetaArry.push(i)
     //   dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + 1), val: dadoG[dadoG.length - 1].val + 1 })
     // }
-    //console.log(descidaRetaArry)
+    // console.log(descidaRetaArry)
 
     // for (let i = 1; i <= 10; i++) {
     //   //labels.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
     //   angulo.push(Math.atan(i / 100) * (180 / Math.PI))
     //   variacaoProfundidade.push((Math.sin((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste)+ variacaoProfundidade[i-1] )
     //   variacaoDistanciaPercorrida.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste)+ variacaoDistanciaPercorrida[i-1])
-    //   //if(i < Number(distancia)-2){ 
+    //   //if(i < Number(distancia)-2){
     //     dadoG.push({ x: variacaoProfundidade[i - 1], y: variacaoDistanciaPercorrida[i - 1]*-1 })
     //     labels.push(variacaoProfundidade[i - 1])
     //   // }else{
     //   //   dadoG.push({ x: variacaoProfundidade[Number(distancia) - i], y: variacaoDistanciaPercorrida[Number(distancia) - i]*-1 })
     //   // }
 
-
     //   dadoslabels = [variacaoProfundidade]
-    //   dadosF = [variacaoDistanciaPercorrida] 
+    //   dadosF = [variacaoDistanciaPercorrida]
     //   // console.log(angulo)
     // }
-    // 45 * 1.5 = 67,5 
+    // 45 * 1.5 = 67,5
 
-    //comprimentoHaste = 1.5
-    //distanciaPercorrida = (Number(distancia)-(Number(distancia)*0.1))
+    // comprimentoHaste = 1.5
+    // distanciaPercorrida = (Number(distancia)-(Number(distancia)*0.1))
     // console.log(inicioCurva)
     // console.log(distanciaPercorrida)
     // while (graficoTrue === false && x < 10000) {
@@ -898,7 +897,7 @@ export default function
     //   variacaoDistanciaPercorrida.push(x + 1)
     //   //console.log(variacaoDistanciaPercorrida[x])
     //   //i < Number(distancia)-20
-    //   if (variacaoDistanciaPercorrida[x] <= descidaReta) {//        
+    //   if (variacaoDistanciaPercorrida[x] <= descidaReta) {//
 
     //     console.log("Descida reta")
     //     // console.log('variacaoDistanciaPercorrida')
@@ -923,12 +922,12 @@ export default function
     //     index = x
 
     //     dadoG.push({ arg: variacaoDistanciaPercorrida[x], val: variacaoProfundidade[x] })
-    //   } 
+    //   }
     //   // else if (variacaoDistanciaPercorrida[x] > (descida + curvaDescida) && variacaoDistanciaPercorrida[x] <= ((descida * 2) + (curvaDescida + subida))) {
     //   //   //labels.push(umaCasa)
     //   //   console.log("Plato")
     //   //   dadoG.push({ arg: variacaoDistanciaPercorrida[x], val: variacaoProfundidade[index] })
-    //   // } 
+    //   // }
     //   //else  {
     //   //   index = index - 1
     //   //   //labels.push(umaCasa)
@@ -955,7 +954,7 @@ export default function
     // var x = 0
     // var y = 0
     // i = comprimentoHaste
-    // while(dadoG[dadoG.length - 1].val >= (graficoTravessia[0].profundidadeEntrada * -1) && y < 10000){      
+    // while(dadoG[dadoG.length - 1].val >= (graficoTravessia[0].profundidadeEntrada * -1) && y < 10000){
     //   x = i + 0.05
     //   y = i - 0.05
     //   dadoG.push({ arg: (x) , val: ((y) * -1) })
@@ -963,27 +962,27 @@ export default function
     setDadosGrafico(dadoG)
     setLabelsG(labels)
     // console.log('angulo')
-    //console.log(dadoG)
-    toast.dismiss(toastId);
-    //console.log(dadosGafico)
+    // console.log(dadoG)
+    toast.dismiss(toastId)
+    // console.log(dadosGafico)
     if (grafico) {
       setGrafico(false)
     } else {
       setGrafico(true)
     }
-    //return dadoG
+    // return dadoG
   }
   // console.log('labels')
   // console.log(labelsG)
   // console.log(dadosGafico)
-  function handleCampos() {
+  function handleCampos () {
     if (camposInterferencia) {
       setCamposInterferencia(false)
     } else {
       setCamposInterferencia(true)
     }
   }
-  function onSubmitTipoSolo() {
+  function onSubmitTipoSolo () {
     const data = {
       especificacaoSolo: especificacaoSolo,
       descricao: descricao,
@@ -997,7 +996,7 @@ export default function
     reset()
   }
 
-  async function createNewFileTipoSolo(submit: any) {
+  async function createNewFileTipoSolo (submit: any) {
     setLoading(true)
     const responser = api.post('tipo-solo', {
       data: submit,
@@ -1019,14 +1018,14 @@ export default function
       setLoading(false)
     })
   }
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     // console.log(data)
     data.reviewUpload = documentos
     Cadastro(data)
     reset()
   }
 
-  async function Cadastro(submit: any) {
+  async function Cadastro (submit: any) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.post('maquina-perfuratis', {
@@ -1053,7 +1052,7 @@ export default function
       setLoading(false)
     })
   }
-  function onSubmitLevantamento(tabela: string) {
+  function onSubmitLevantamento (tabela: string) {
     // console.log(idEtapa)
     const data = {
       banco: tabela,
@@ -1119,7 +1118,7 @@ export default function
       tempoHaste: tempoHaste,
       vazaoBomba: vazaoBomba,
       tipoRedeTubula: tipoRedeTubula,
-      //diametroRede: diametroRede,
+      // diametroRede: diametroRede,
       ferramentasUtilizadas: ferramentasUtilizadas,
       modeloAlargador: modeloAlargador,
       capacidadePortaFusilink: capacidadePortaFusilink,
@@ -1194,7 +1193,7 @@ export default function
     // }
   }
 
-  function onSubmitInterferenciasFisicasMagneticas() {
+  function onSubmitInterferenciasFisicasMagneticas () {
     // console.log(responsavel)
     const data = {
       idConfigTravessia: idConfigTravessia.replace('#/etapas/', ''),
@@ -1243,7 +1242,7 @@ export default function
   //   }
   // }
 
-  async function createNewFile(submit: any) {
+  async function createNewFile (submit: any) {
     setLoading(true)
 
     if (idTodosCampos === '' || submit.banco !== 'todos-campos') {
@@ -1261,13 +1260,13 @@ export default function
           loadDados('etapas')
           setidTodosCampos(response.data.id)
           toast.success('Cadastro realizado com sucesso!')
-          if (variavelTitulo === "Planejamento da Travessia") {
-            //console.log(graficoTravessia.length)
+          if (variavelTitulo === 'Planejamento da Travessia') {
+            // console.log(graficoTravessia.length)
             if (graficoTravessia.length > 0) {
               await api.put(`graficoTravessia/${graficoTravessia[0].id}`, {
                 data: submit,
               }).then(async (response) => {
-                //toast.success('Cadastrada com sucesso!')
+                // toast.success('Cadastrada com sucesso!')
                 setLoading(false)
                 reset()
                 setIsOpenPlanejamento(false)
@@ -1323,11 +1322,10 @@ export default function
               setIsOpenFluido(false)
               loadDados('etapas')
             }
-            //console.log(data)
-
+            // console.log(data)
           })
           if (submit.banco === 'todos-campos') {
-            window.location.href = window.location.href.split("(")[0].replace("preencher-fases", "etapas")
+            window.location.href = window.location.href.split('(')[0].replace('preencher-fases', 'etapas')
           }
         } else if (response.statusText === 'Forbidden') {
           toast.error('Ops, Não tem permisão!')
@@ -1355,13 +1353,13 @@ export default function
           loadDados('etapas')
           setidTodosCampos(response.data.id)
           toast.success('Alterado com sucesso!')
-          if (variavelTitulo === "Planejamento da Travessia") {
-            //console.log(graficoTravessia.length)
+          if (variavelTitulo === 'Planejamento da Travessia') {
+            // console.log(graficoTravessia.length)
             if (graficoTravessia.length > 0) {
               await api.put(`graficoTravessia/${graficoTravessia[0].id}`, {
                 data: submit,
               }).then(async (response) => {
-                //toast.success('Cadastrada com sucesso!')
+                // toast.success('Cadastrada com sucesso!')
                 setLoading(false)
                 reset()
                 setIsOpenPlanejamento(false)
@@ -1417,11 +1415,10 @@ export default function
               setIsOpenFluido(false)
               loadDados('etapas')
             }
-            //console.log(data)
-
+            // console.log(data)
           })
           if (submit.banco === 'todos-campos') {
-            window.location.href = window.location.href.split("(")[0].replace("preencher-fases", "etapas").replace("/" + idEtapa, "")
+            window.location.href = window.location.href.split('(')[0].replace('preencher-fases', 'etapas').replace('/' + idEtapa, '')
           }
         } else if (response.statusText === 'Forbidden') {
           toast.error('Ops, Não tem permisão!')
@@ -1438,7 +1435,7 @@ export default function
     }
   }
 
-  async function loadDados(tipoSoloId: string) {
+  async function loadDados (tipoSoloId: string) {
     // formulas()
     setLoading(true)
     // eslint-disable-next-line
@@ -1447,13 +1444,13 @@ export default function
       if (response.statusText === 'OK') {
         setDados(response.data.rows)
         response.data.rows.map((etapa: any) => {
-          if (etapa.tipoEtapa === "Planejamento da Travessia") {
+          if (etapa.tipoEtapa === 'Planejamento da Travessia') {
             setPlanejamentoTravessia(true)
-          } else if (etapa.tipoEtapa === "Sondagem das Interferências") {
+          } else if (etapa.tipoEtapa === 'Sondagem das Interferências') {
             setSondagemInterferencias(true)
-          } else if (etapa.tipoEtapa === "Abertura de Valas de Entrada e Saída") {
+          } else if (etapa.tipoEtapa === 'Abertura de Valas de Entrada e Saída') {
             setAberturaValasEntradaSaida(true)
-          } else if (etapa.tipoEtapa === "Execução da Travessia - Furo Piloto") {
+          } else if (etapa.tipoEtapa === 'Execução da Travessia - Furo Piloto') {
             setExecucaoTravessiaFuroPiloto(true)
           }
         })
@@ -1598,13 +1595,13 @@ export default function
     })
     setLoading(false)
   }
-  async function deleteDados(id: string, tabela: string) {
+  async function deleteDados (id: string, tabela: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete(tabela + id,
     ).then((response) => {
       if (response.statusText === 'OK') {
-        toast.success("Excluido com sucesso!")
+        toast.success('Excluido com sucesso!')
         loadDados('etapas')
         setLoading(false)
       }
@@ -1627,7 +1624,7 @@ export default function
       setLoading(false)
     })
   }
-  function update(data: any) {
+  function update (data: any) {
     // console.log('data')
     // console.log(data)
     // setDados(data)
@@ -1680,7 +1677,7 @@ export default function
     }
     // console.log(idDados)
   }
-  async function updateDados() {
+  async function updateDados () {
     setLoading(true)
     // console.log('idTodosCampos')
     // console.log(idTodosCampos)
@@ -1816,7 +1813,7 @@ export default function
     loadDados('etapas')
   }, [])
 
-  function openModal(data: any) {
+  function openModal (data: any) {
     // console.log(data)
     // formulas()
     setGrafico(false)
@@ -1828,7 +1825,7 @@ export default function
     if (data.tipoEtapa === 'Execução da Travessia - Furo Piloto') {
 
     }
-    api.get(`todos-campos?filter%5BetapaId%5D=${data.id}&filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,//&limit=1
+    api.get(`todos-campos?filter%5BetapaId%5D=${data.id}&filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`, // &limit=1
     ).then((response) => {
       // console.log(response.data.rows)
       if (response.statusText === 'OK') {
@@ -2097,16 +2094,16 @@ export default function
     setcampoPontosVerificacao(data.campoPontosVerificacao)
 
     setisOpenUpdatePlanejamentoPerfuração(true)
-    //loadDados('')
+    // loadDados('')
   }
 
-  function afterOpenModal() {
+  function afterOpenModal () {
     // references are now sync'd and can be accessed.
   }
-  function closeModal() {
+  function closeModal () {
     setIsOpenPlanejamento(false)
   }
-  async function makeRequisition(e: any) {
+  async function makeRequisition (e: any) {
     e.preventDefault()
     e.target.reset()
 
@@ -2178,7 +2175,7 @@ export default function
         toast.error('Erro: Tente mais tarde :(')
       })
   }
-  function salvarEtapa() {
+  function salvarEtapa () {
     let campoTipoSolo = false
     const campoDiametroPerfuracao = false
     let campoTipoRede = false
@@ -2402,11 +2399,11 @@ export default function
         // toast.error(res.response.data);
         setLoading(false)
       })
-      setIsOpenModalAdd(false)
+    setIsOpenModalAdd(false)
     // console.log(data)
     // console.log(etapa)
   }
-  function salvarInterferencia(tabela: string) {
+  function salvarInterferencia (tabela: string) {
     const data = {
       tipo: variavelTitulo,
       latitude: latitude,
@@ -2453,12 +2450,12 @@ export default function
         setLoading(false)
       })
   }
-  async function deleteEtapa(id: string) {
+  async function deleteEtapa (id: string) {
     setLoading(true)
-    //if (confirm("Tem certeza que deseja excluir essa etapa?")) {
+    // if (confirm("Tem certeza que deseja excluir essa etapa?")) {
     await api.delete('etapas/' + id).then(async (res) => {
       toast.success('Ok, etapa excluida!')
-      //if (confirm("Deseja excluir tudo referente a essa etapa?")) {
+      // if (confirm("Deseja excluir tudo referente a essa etapa?")) {
       loadDados('')
       setIsOpenDeletarEtapa(false)
       setIsOpenDeletarDadosEtapa(true)
@@ -2468,12 +2465,12 @@ export default function
       // }
     })
     setLoading(false)
-    //toast.success('Ok, etapa excluida!')
+    // toast.success('Ok, etapa excluida!')
     // } else {
     //   toast.info('Ok, a etapa não foi excluida!')
     // }
   }
-  async function deletarDadosEtapa() {
+  async function deletarDadosEtapa () {
     setLoading(true)
     if (pontosVerificacao.length > 0) {
       pontosVerificacao.map(async (dados) => {
@@ -2493,7 +2490,7 @@ export default function
     setIsOpenDeletarDadosEtapa(false)
     setLoading(false)
   }
-  function salvarPontosVerificacao() {
+  function salvarPontosVerificacao () {
     const data = {
       latitude: latitude,
       longitude: longitude,
@@ -2532,7 +2529,7 @@ export default function
         setLoading(false)
       })
   }
-  function editarInterferencia(tabela: string) {
+  function editarInterferencia (tabela: string) {
     const data = {
       tipo: variavelTitulo,
       latitude: latitude,
@@ -2576,7 +2573,7 @@ export default function
         setLoading(false)
       })
   }
-  function getDistanceFromLatLonInKm(position1: { lat: number; lng: number }, position2: { lat: number; lng: number }) {
+  function getDistanceFromLatLonInKm (position1: { lat: number; lng: number }, position2: { lat: number; lng: number }) {
     const deg2rad = function (deg: number) { return deg * (Math.PI / 180) }
     const R = 6371
     const dLat = deg2rad(position2.lat - position1.lat)
@@ -2674,7 +2671,7 @@ export default function
                   <h3 style={{ marginTop: '-10px' }}>{data.tipoEtapa}</h3>
                   <h1 style={{ width: '100%', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', paddingLeft: '10px', paddingRight: '10px' }}>{data.novaEtapa}</h1>
                 </div>
-              </SwiperSlide>
+              </SwiperSlide>,
             )
             : <p>🤔 Nenhuma Etapa cadastrada!</p>}
           <SwiperSlide>
@@ -4081,7 +4078,7 @@ export default function
                     {interferencias.length > 0
                       ? interferencias.map((inter) =>
                         <tr>
-                          {variavelTitulo === 'Sondagem das Interferências' ? inter.confirmado === true ? <td style={{ paddingLeft: '40px' }}>{<FiCheck size={25} color="green" />}</td> : <td style={{ paddingLeft: '40px' }}>{<FiX size={25} color="red" />}</td> : false}
+                          {variavelTitulo === 'Sondagem das Interferências' ? inter.confirmado === true ? <td style={{ paddingLeft: '40px' }}><FiCheck size={25} color='green' /></td> : <td style={{ paddingLeft: '40px' }}><FiX size={25} color='red' /></td> : false}
                           <td>{inter.tipoInterferencia}</td>
                           <td>{inter.latitude}</td>
                           <td>{inter.longitude}</td>
@@ -4179,11 +4176,11 @@ export default function
             {!finalizarEtapa
               ? <button onClick={() => { onSubmitLevantamento('todos-campos') }}>{loading
                 ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height='' src={Load}
-                  alt='Loading'
-                />
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height='' src={Load}
+                    alt='Loading'
+                  />
                 : 'Salvar'}
               </button>
               : false}
@@ -4192,11 +4189,11 @@ export default function
                 ? <button onClick={() => { toast.info('É preciso salvar a etapa!') }} className='finishPhase'>Finalizar Etapa</button>
                 : <button onClick={() => { updateDados() }} className='finishPhase'>{loading
                   ? <img
-                    width='40px'
-                    style={{ margin: 'auto' }}
-                    height='' src={Load}
-                    alt='Loading'
-                  />
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height='' src={Load}
+                      alt='Loading'
+                    />
                   : 'Finalizar Etapa'}
                 </button>
               : 'Etapa Finalizada!'}
@@ -4233,7 +4230,7 @@ export default function
                     <option style={{ color: 'white' }} value={'Outro/' + distanciaMinima}>Outro</option>
                     {tipoRedeList.length > 0
                       ? tipoRedeList.map((rede) =>
-                        <option style={{ color: 'white' }} value={rede.id + "/" + rede.distanciaMinima}>{rede.identificacaoRede}</option>)
+                        <option style={{ color: 'white' }} value={rede.id + '/' + rede.distanciaMinima}>{rede.identificacaoRede}</option>)
                       : <option style={{ color: 'white' }}>Nenhum tipo de rede cadastrado!</option>}
                   </select>
                   <button onClick={() => setIsOpenTipoRede(true)} className='buttonAddInter'><FiPlus size={20} /></button>
@@ -4279,10 +4276,10 @@ export default function
                       src={Load}
                       alt='Loading'
                     />
-                  )
+                    )
                   : (
-                    'Confirmar'
-                  )}
+                      'Confirmar'
+                    )}
                 </button>
               </S.GridForm>
             </S.Div>
@@ -4331,17 +4328,17 @@ export default function
 
               {variavelTitulo == 'Execução da Travessia - Furo Piloto'
                 ? <input
-                  type='number' placeholder='Angulacão'
-                  value={angulacao}
-                  onChange={(text) => setAngulacao(text.target.value)}
-                />
+                    type='number' placeholder='Angulacão'
+                    value={angulacao}
+                    onChange={(text) => setAngulacao(text.target.value)}
+                  />
                 : false}
               {variavelTitulo == 'Execução da Travessia - Furo Piloto'
                 ? <input
-                  type='number' placeholder='posicão em Horas'
-                  value={posicaoHoras}
-                  onChange={(text) => setposicaoHoras(text.target.value)}
-                />
+                    type='number' placeholder='posicão em Horas'
+                    value={posicaoHoras}
+                    onChange={(text) => setposicaoHoras(text.target.value)}
+                  />
                 : false}
             </div>
             <button className='save' onClick={() => salvarPontosVerificacao()}>{loading
@@ -4353,10 +4350,10 @@ export default function
                   src={Load}
                   alt='Loading'
                 />
-              )
+                )
               : (
-                'Salvar'
-              )}
+                  'Salvar'
+                )}
             </button>
           </S.ModelsModal>
         </Modal>
@@ -4403,10 +4400,10 @@ export default function
                   src={Load}
                   alt='Loading'
                 />
-              )
+                )
               : (
-                'Salvar'
-              )}
+                  'Salvar'
+                )}
             </button>
           </S.ModelsModal>
         </Modal>
@@ -4451,17 +4448,17 @@ export default function
               />
               {variavelTitulo == 'Execução da Travessia - Furo Piloto'
                 ? <input
-                  type='number' placeholder='Angulacão'
-                  value={angulacao}
-                  onChange={(text) => setAngulacao(text.target.value)}
-                />
+                    type='number' placeholder='Angulacão'
+                    value={angulacao}
+                    onChange={(text) => setAngulacao(text.target.value)}
+                  />
                 : false}
               {variavelTitulo == 'Execução da Travessia - Furo Piloto'
                 ? <input
-                  type='number' placeholder='posicão em Horas'
-                  value={posicaoHoras}
-                  onChange={(text) => setposicaoHoras(text.target.value)}
-                />
+                    type='number' placeholder='posicão em Horas'
+                    value={posicaoHoras}
+                    onChange={(text) => setposicaoHoras(text.target.value)}
+                  />
                 : false}
             </div>
             <button className='save' onClick={() => editarInterferencia('pontos-verificacao/')}>{loading
@@ -4473,10 +4470,10 @@ export default function
                   src={Load}
                   alt='Loading'
                 />
-              )
+                )
               : (
-                'Salvar'
-              )}
+                  'Salvar'
+                )}
             </button>
           </S.ModelsModal>
         </Modal>
@@ -4542,10 +4539,10 @@ export default function
                   src={Load}
                   alt='Loading'
                 />
-              )
+                )
               : (
-                'Confirmar'
-              )}
+                  'Confirmar'
+                )}
             </button>
           </S.ModelsModal>
 
@@ -4794,11 +4791,11 @@ export default function
             </S.GridForm>
             <button onClick={() => onSubmitInterferenciasFisicasMagneticas()}>{loading
               ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height='' src={Load}
-                alt='Loading'
-              />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height='' src={Load}
+                  alt='Loading'
+                />
               : 'Salvar'}
             </button>
           </S.Div>
@@ -4907,8 +4904,8 @@ export default function
             </select>
           </form>
 
-          {etapa === '0' ?
-            <button className='save' onClick={() => toast.info("Selecione o tipo da etapa!")}>{loading
+          {etapa === '0'
+            ? <button className='save' onClick={() => toast.info('Selecione o tipo da etapa!')}>{loading
               ? (
                 <img
                   width='40px'
@@ -4917,12 +4914,12 @@ export default function
                   src={Load}
                   alt='Loading'
                 />
-              )
+                )
               : (
-                'Salvar'
-              )}
-            </button> :
-            <button className='save' onClick={() => salvarEtapa()}>{loading
+                  'Salvar'
+                )}
+              </button>
+            : <button className='save' onClick={() => salvarEtapa()}>{loading
               ? (
                 <img
                   width='40px'
@@ -4931,11 +4928,11 @@ export default function
                   src={Load}
                   alt='Loading'
                 />
-              )
+                )
               : (
-                'Salvar'
-              )}
-            </button>}
+                  'Salvar'
+                )}
+              </button>}
         </S.PhasesModal>
 
       </Modal>
@@ -5151,12 +5148,12 @@ export default function
               type='submit'
             >{loading
               ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height=''
-                src={Load}
-                alt='Loading'
-              />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height=''
+                  src={Load}
+                  alt='Loading'
+                />
               : 'Salvar'}
             </button>
           </S.Form>
@@ -5188,12 +5185,12 @@ export default function
           <S2.Btns>
             <button onClick={() => deleteEtapa(etapaDeletar)}>{loading
               ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height=''
-                src={Load}
-                alt='Loading'
-              />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height=''
+                  src={Load}
+                  alt='Loading'
+                />
               : 'Confirmar'}
             </button>
             <button onClick={() => setIsOpenDeletarEtapa(false)}>Cancelar</button>
@@ -5227,12 +5224,12 @@ export default function
           <S2.Btns>
             <button onClick={() => deletarDadosEtapa()}>{loading
               ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height=''
-                src={Load}
-                alt='Loading'
-              />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height=''
+                  src={Load}
+                  alt='Loading'
+                />
               : 'Confirmar'}
             </button>
             <button onClick={() => setIsOpenDeletarDadosEtapa(false)}>Cancelar</button>
@@ -5280,12 +5277,12 @@ export default function
           <S2.Btns>
             <button onClick={() => onSubmitLevantamento('user')}>{loading
               ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height=''
-                src={Load}
-                alt='Loading'
-              />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height=''
+                  src={Load}
+                  alt='Loading'
+                />
               : 'Salvar'}
             </button>
             <button onClick={() => setIsOpenInvite(false)}>Cancelar</button>
@@ -5419,7 +5416,7 @@ export default function
               <div className='selectPlus' style={{ marginTop: '-2px' }}>
                 <select
                   value={tipoSolo}
-                  onChange={(text) => { setTipoSolo(text.target.value); }}//loadDados('etapas')
+                  onChange={(text) => { setTipoSolo(text.target.value) }}// loadDados('etapas')
                 >
                   <option value=''>Selecione...</option>
                   {soilTypes.length > 0
@@ -5434,7 +5431,6 @@ export default function
           </S3.Div>
         </S3.Container>
       </Modal>
-
 
       <Modal
         ariaHideApp={false}
@@ -5458,7 +5454,7 @@ export default function
                 <select
                   style={{ backgroundColor: '#252332', color: 'white' }}
                   value={tipoDeRede}
-                  onChange={(text) => { setTipoDeRede(text.target.value); }}//loadDados('etapas')
+                  onChange={(text) => { setTipoDeRede(text.target.value) }}// loadDados('etapas')
                 >
                   <option value=''>Selecione...</option>
                   <option value='Água Potável'>Água Potável</option>
@@ -5680,7 +5676,7 @@ export default function
               value={etapa}
               onChange={(text) => setEtapa(text.target.value)}
             >
-              <option value="0">Selecione uma etapa...</option>
+              <option value='0'>Selecione uma etapa...</option>
               {/* <option value='1'>Levantamento e Mapeamento de Interferências</option> */}
               {planejamentoTravessia === false ? <option value='2'>Planejamento da Travessia</option> : false}
               {sondagemInterferencias === false ? <option value='3'>Sondagem das Interferências</option> : false}
@@ -5692,35 +5688,35 @@ export default function
               <option value='9'>Puxamento de Rede</option>
             </select>
           </form>
-          {etapa === '0' ? 
-          <button className='add' onClick={() => toast.info("Selecione o tipo da etapa!")}>{loading
-            ? (
-              <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height=''
-                src={Load}
-                alt='Loading'
-              />
-            )
-            : (
-              'Salvar'
-            )}
-          </button> :
-          <button className='add' onClick={() => salvarEtapa()}>{loading
-            ? (
-              <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height=''
-                src={Load}
-                alt='Loading'
-              />
-            )
-            : (
-              'Salvar'
-            )}
-          </button>}
+          {etapa === '0'
+            ? <button className='add' onClick={() => toast.info('Selecione o tipo da etapa!')}>{loading
+              ? (
+                <img
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height=''
+                  src={Load}
+                  alt='Loading'
+                />
+                )
+              : (
+                  'Salvar'
+                )}
+            </button>
+            : <button className='add' onClick={() => salvarEtapa()}>{loading
+              ? (
+                <img
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height=''
+                  src={Load}
+                  alt='Loading'
+                />
+                )
+              : (
+                  'Salvar'
+                )}
+            </button>}
         </form>
       </Modal>
     </>
