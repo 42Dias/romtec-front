@@ -200,7 +200,7 @@ export const ContainerDesc = styled.div`
     width: 155px;
     height: 36px;
 
-    background: #FECE51;
+    background: ${theme.colors.yellow};
     border-radius: 5px;
     border: 0;
     color: black;
