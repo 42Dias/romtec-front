@@ -384,6 +384,7 @@ export default function
                     <fieldset>
                       <label htmlFor='cnpj'>CNPJ</label>
                       <MaskedInput
+                        type="tel"
                         onChangeUnMask={(value) => setValue('cnpj', value)}
                         mask='99.999.999/9999-99'
                         id='cnpj'
@@ -416,6 +417,7 @@ export default function
                       <fieldset>
                         <label htmlFor='cep'>CEP</label>
                         <MaskedInput
+                          type="tel"
                           onChangeUnMask={(value) => setValue('cep', value)}
                           mask='99999-999'
                           id='cep'
@@ -434,6 +436,7 @@ export default function
 
                     <TextField
                       label='Numero'
+                      type="number"
                       {...register('numero', {
                         required: {
                           value: true,

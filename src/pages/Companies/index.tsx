@@ -281,6 +281,7 @@ Companies () {
                     <fieldset>
                       <label htmlFor='cnpj'>CNPJ</label>
                       <MaskedInput
+                      type="tel"
                         onChangeUnMask={(value) => setValue('cnpj', value)}
                         mask='99.999.999/9999-99'
                         id='cnpj'
@@ -316,6 +317,7 @@ Companies () {
                       <fieldset>
                         <label htmlFor='cep'>CEP</label>
                         <MaskedInput
+                        type="tel"
                           onChangeUnMask={(value) => setValue('cep', value)}
                           mask='99999-999'
                           id='cep'
@@ -334,6 +336,7 @@ Companies () {
 
                     <TextField
                       label='Numero'
+                      type="number"
                       {...register('numero', {
                         required: {
                           value: true,
@@ -404,6 +407,7 @@ Companies () {
 
                     <TextField
                       label='E-mail'
+                      type="email"
                       {...register('email', {
                         required: {
                           value: true,
@@ -415,6 +419,7 @@ Companies () {
                     <fieldset>
                       <label htmlFor='telefone'>Telefone</label>
                       <MaskedInput
+                        type="tel"
                         onChangeUnMask={(value) => setValue('tel', value)}
                         mask='(99) 99999-9999'
                         id='telefone'
@@ -445,6 +450,7 @@ Companies () {
             <S.Div>
               <TextField
                 label='CNPJ'
+                type="tel"
                 value={cnpj}
                 onChange={(text) => setCnpj(text.target.value)}
               />
@@ -463,6 +469,7 @@ Companies () {
 
               <TextField
                 label='CEP'
+                type="tel"
                 value={cep}
                 onChange={(text) => setCep(text.target.value)}
               />
@@ -493,18 +500,21 @@ Companies () {
 
               <TextField
                 label='Número'
+                type="number"
                 value={numero}
                 onChange={(text) => setNumero(text.target.value)}
               />
 
               <TextField
                 label='E-mail'
+                type="email"
                 value={email}
                 onChange={(text) => setEmail(text.target.value)}
               />
 
               <TextField
                 label='Telefone'
+                type="tel"
                 value={tel}
                 onChange={(text) => setTel(text.target.value)}
               />

@@ -358,6 +358,7 @@ export default function
 
               <TextField
                 label='Horimetro'
+                type='number'
                 {...register('hourmeter', {
                   required: true,
                 })}
@@ -576,6 +577,7 @@ export default function
 
               <TextField
                 label='Horimetro'
+                type='number'
                 value={hourmeter}
                 onChange={(text) => setHourmeter(text.target.value)}
               />

@@ -677,13 +677,151 @@ export default function FillInPhases() {
     //distancia = distancia + 4
     //console.log(distancia)
     labels.push(0)
-    const dadoG = []
-    var i = 1
+    distancia = String(200)
+    comprimentoHaste = 1.5
+    const dadoG = [{ arg: 0, val: 0 }]
+    var x = 0
+    var y = 0
+    var raioCurvatura = 1
+    var anguloDescida = 45
+    var anguloTrabalho = anguloDescida
+    var qtdHaste = anguloDescida / raioCurvatura
     var graficoTrue = false
     var distanciaPercorrida = 0
     var index = 0
-    var umaCasa = 0
-    var inicioCurva = graficoTravessia[0].profundidadeEntrada - (graficoTravessia[0].profundidadeEntrada * 0.6)
+    var curvaDescida = qtdHaste * comprimentoHaste
+    // var umaCasa = 0
+    // var inicioCurva = graficoTravessia[0].profundidadeEntrada - (graficoTravessia[0].profundidadeEntrada * 0.6) 
+    var angulacao = 180
+    var descida = Number(distancia) / 2
+    var subida = Number(distancia) / 2
+    var quantidadeMetros = qtdHaste * comprimentoHaste
+    var proporcaoCurvaDescida = descida * (quantidadeMetros / 100)
+    var diferencaPlato = 100 - curvaDescida
+    var plato = diferencaPlato / 2
+    var descidaReta = (100 - curvaDescida) / 2
+    var platoDescida = (100 - curvaDescida) / 2
+    var profundidadeCurvaDescida = 0
+    var avancoCurvaDescida = 0
+    var diferencaX = 0
+    var diferencaY = 0
+    var acrescimoDifX = 0
+    var acrescimoDifY = 0
+    var inicioCurva = 45 * comprimentoHaste
+    var profundidadeT = (graficoTravessia[0].profundidadeEntrada - inicioCurva) / 2
+    
+    console.log("qtdHaste")
+    console.log(qtdHaste)
+    console.log("descida")
+    console.log(descida)
+    console.log("quantidadeMetros")
+    console.log(quantidadeMetros)
+    console.log("proporcaoCurvaDescida")
+    console.log(proporcaoCurvaDescida)
+    console.log("diferencaPlato")
+    console.log(diferencaPlato)
+    console.log("plato")
+    console.log(plato)
+    console.log("curvaDescida")
+    console.log(curvaDescida)
+    console.log("inicioCurva")
+    console.log(inicioCurva)
+    console.log("profundidadeT")
+    console.log(profundidadeT)
+    console.log("descidaReta")
+    console.log(descidaReta)
+
+    var descidaRetaArry = []
+    var curvaDescidaArry = []
+    var platoDescidaArry = []
+
+    //Descida Reta
+    for (var i = 1; i <= descidaReta; i++) {
+      console.log("Descida Reta")
+      descidaRetaArry.push(i)
+      dadoG.push({ arg: i, val: (i * -1) })
+    }
+
+    profundidadeCurvaDescida = graficoTravessia[0].profundidadeEntrada - (dadoG[dadoG.length - 1].val * -1)
+    avancoCurvaDescida = descida + curvaDescida - profundidadeCurvaDescida
+    diferencaX = avancoCurvaDescida / curvaDescida
+    diferencaY = profundidadeCurvaDescida / curvaDescida
+    acrescimoDifX = diferencaX / curvaDescida
+    acrescimoDifY = diferencaY / curvaDescida
+
+    //Curva Descida
+    for (var x = 0; x <= (curvaDescida + descidaReta); x++) {
+      // angulo.push(Math.atan((x + descidaRetaArry.length + 9) / 100) * (angulacao / Math.PI))
+      // variacaoProfundidade.push((Math.sin((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoProfundidade[x])
+      // if (x >= descidaRetaArry.length) {
+      //   console.log("Curva Descida")
+      //   variacaoDistanciaPercorrida.push((Math.cos((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoDistanciaPercorrida[x - descidaRetaArry.length])
+      //   curvaDescidaArry.push({ x: variacaoDistanciaPercorrida[x - descidaRetaArry.length], y: variacaoProfundidade[x] * -1 })
+      //   if (variacaoDistanciaPercorrida[x - descidaRetaArry.length] >= descidaRetaArry[descidaRetaArry.length - 1])
+      if (x >= descidaRetaArry.length && (Number(graficoTravessia[0].profundidadeEntrada)*-1) <= dadoG[dadoG.length - 1].val) {
+        console.log("Curva Descida")                                                                                                                                            //-16           +  ((               25                      -  (                 25                     +         -16                 ))  *-0,1)                                                                            
+        //dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + diferencaX + acrescimoDifX), val: (dadoG[dadoG.length - 1].val - diferencaY - acrescimoDifY) })
+                                    //16              + ((-16+25)*0,1*((-25-(-16))/(-16-25)))
+        dadoG.push({ arg: dadoG[dadoG.length - 1].arg + (((curvaDescida + descidaReta) - ((curvaDescida + descidaReta) - dadoG[dadoG.length - 1].arg)) * 0.05) / 2, val: dadoG[dadoG.length - 1].val + ((Number(graficoTravessia[0].profundidadeEntrada) - (Number(graficoTravessia[0].profundidadeEntrada) + dadoG[dadoG.length - 1].val)) * -0.01) })
+        //()dadoG[dadoG.length - 1].arg + ((dadoG[dadoG.length - 1].arg + (curvaDescida + descidaReta - dadoG[dadoG.length - 1].arg)) * 0.1 * ((curvaDescida - dadoG[dadoG.length - 1].arg) / (curvaDescida + descidaReta) - dadoG[dadoG.length - 1].arg))
+      }
+    }
+
+    //Descida Plato
+    for (var i = 0; i <= (curvaDescida + descidaReta + (platoDescida * 5)); i++) {
+      platoDescidaArry.push(i)
+      if (i > dadoG.length) {
+        console.log("Descida Plato")
+        dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + 1), val: (dadoG[dadoG.length - 1].val) })
+      }
+    }
+    var tamanho = dadoG.length
+    //Curva subida
+    for (var x = dadoG[dadoG.length - 1].arg; x <= Number(distancia); x++) {
+      // angulo.push(Math.atan((x + descidaRetaArry.length + 9) / 100) * (angulacao / Math.PI))
+      // variacaoProfundidade.push((Math.sin((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoProfundidade[x])
+      // if (x >= descidaRetaArry.length) {
+      //   console.log("Curva Descida")
+      //   variacaoDistanciaPercorrida.push((Math.cos((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoDistanciaPercorrida[x - descidaRetaArry.length])
+      //   curvaDescidaArry.push({ x: variacaoDistanciaPercorrida[x - descidaRetaArry.length], y: variacaoProfundidade[x] * -1 })
+      //   if (variacaoDistanciaPercorrida[x - descidaRetaArry.length] >= descidaRetaArry[descidaRetaArry.length - 1])
+      var diferenca = dadoG[dadoG.length - 1].arg - Number(graficoTravessia[0].profundidadeEntrada)
+      if ( 0 >= dadoG[dadoG.length - 1].val && dadoG[dadoG.length - 1].arg <= Number(distancia) - (descidaReta)) {
+        console.log("Curva Subida")                                                                                                                                            //-16           +  ((               25                      -  (                 25                     +         -16                 ))  *-0,1)                                                                            
+        //dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + diferencaX + acrescimoDifX), val: (dadoG[dadoG.length - 1].val - diferencaY - acrescimoDifY) })
+                                    //16              + ((-16+25)*0,1*((-25-(-16))/(-16-25)))
+        dadoG.push({ arg: dadoG[dadoG.length - 1].arg + (((curvaDescida + descidaReta) - ((curvaDescida + descidaReta) - dadoG[dadoG.length - 1].arg)) * 0.01) / 2, val: Number((dadoG[dadoG.length - 1].val + ((Number(graficoTravessia[0].profundidadeEntrada) - (Number(graficoTravessia[0].profundidadeEntrada) + dadoG[dadoG.length - 1].val)) * 0.01)).toFixed(3)) })
+        //()dadoG[dadoG.length - 1].arg + ((dadoG[dadoG.length - 1].arg + (curvaDescida + descidaReta - dadoG[dadoG.length - 1].arg)) * 0.1 * ((curvaDescida - dadoG[dadoG.length - 1].arg) / (curvaDescida + descidaReta) - dadoG[dadoG.length - 1].arg))
+      }
+    }
+    //Descida Reta
+    for (var i = dadoG[dadoG.length - 1].val; i <= 0; i++) {
+      console.log("Subida Reta")
+      descidaRetaArry.push(i)
+      dadoG.push({ arg: dadoG[dadoG.length - 1].arg + 1, val: i })
+    }
+    // for (var i = 0; i <= (curvaDescida) + tamanho; i++) {
+    //   // angulo.push(Math.atan((i + tamanho + 9) / 100) * (angulacao / Math.PI))
+    //   // variacaoProfundidade.push((Math.sin((angulo[i] * (Math.PI / angulacao))) * comprimentoHaste) + dadoG[dadoG.length - 1].val)
+    //   // variacaoDistanciaPercorrida.push((Math.cos((angulo[i] * (Math.PI / angulacao))) * comprimentoHaste) + dadoG[dadoG.length - 1].arg)
+    //   if (i >= dadoG[tamanho - 1].arg) {
+    //     console.log("Curva subida")
+    //     //variacaoDistanciaPercorrida.push((Math.cos((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoDistanciaPercorrida[x - descidaRetaArry.length])
+    //     //curvaDescidaArry.push({ x: variacaoDistanciaPercorrida[x - descidaRetaArry.length], y: variacaoProfundidade[x] * -1 })
+    //     variacaoProfundidade.push(((-1 + (curvaDescida * ((((raioCurvatura * 100) / 45)) / 100))) * -1) + variacaoProfundidade[variacaoProfundidade.length - 1])
+    //     //if (variacaoDistanciaPercorrida[x - descidaRetaArry.length] >= descidaRetaArry[descidaRetaArry.length - 1])
+    //     dadoG.push({ arg: dadoG[dadoG.length - 1].arg + 1, val: variacaoProfundidade[variacaoProfundidade.length - 1] * -1 })
+    //   }
+    // }
+
+    // //Subida Reta
+    // for (var i = 0; i <= descidaReta; i++) {
+    //   console.log("Subida Reta")
+    //   //descidaRetaArry.push(i)
+    //   dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + 1), val: dadoG[dadoG.length - 1].val + 1 })
+    // }
+    //console.log(descidaRetaArry)
+
     // for (let i = 1; i <= 10; i++) {
     //   //labels.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
     //   angulo.push(Math.atan(i / 100) * (180 / Math.PI))
@@ -701,64 +839,91 @@ export default function FillInPhases() {
     //   dadosF = [variacaoDistanciaPercorrida] 
     //   // console.log(angulo)
     // }
+    // 45 * 1.5 = 67,5 
 
-    distancia = String(200)
-    distanciaPercorrida = (Number(distancia) - (Number(distancia) * 0.1) - inicioCurva)
-    console.log(inicioCurva)
-    console.log(distanciaPercorrida)
-    while (graficoTrue === false && i < 5000) {
-      //console.log(variacaoProfundidade[variacaoProfundidade.length - 1] )
-      //labels.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
-      angulo.push(Math.atan(i / 100) * (180 / Math.PI))
-      variacaoProfundidade.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste) + variacaoProfundidade[i - 1])
-      variacaoDistanciaPercorrida.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste) + variacaoDistanciaPercorrida[i - 1])
-      umaCasa = umaCasa + comprimentoHaste//Number(variacaoDistanciaPercorrida[i - 1].toFixed(0))
-      labels.push(umaCasa)
-      //i < Number(distancia)-20
-      if (variacaoProfundidade[i - 1] < graficoTravessia[0].profundidadeEntrada) {//        
+    //comprimentoHaste = 1.5
+    //distanciaPercorrida = (Number(distancia)-(Number(distancia)*0.1))
+    // console.log(inicioCurva)
+    // console.log(distanciaPercorrida)
+    // while (graficoTrue === false && x < 10000) {
+    //   //console.log(variacaoProfundidade[variacaoProfundidade.length - 1] )
+    //   //labels.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
+    //   // angulo.push(Math.atan(i / 100) * (angulacao / Math.PI))
+    //   // variacaoProfundidade.push((Math.sin((angulo[i - 1] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoProfundidade[i - 1])
+    //   // variacaoDistanciaPercorrida.push((Math.cos((angulo[i - 1] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoDistanciaPercorrida[i - 1])
+    //   // umaCasa = Number(variacaoDistanciaPercorrida[i - 1].toFixed(0))//umaCasa+comprimentoHaste
+    //   // labels.push(umaCasa)
+    //   y = y - 1
+    //   variacaoProfundidade.push(y)
+    //   variacaoDistanciaPercorrida.push(x + 1)
+    //   //console.log(variacaoDistanciaPercorrida[x])
+    //   //i < Number(distancia)-20
+    //   if (variacaoDistanciaPercorrida[x] <= descidaReta) {//        
 
-        //console.log("Descida")
-        // console.log('variacaoDistanciaPercorrida')
-        // console.log(variacaoDistanciaPercorrida[i - 1])
-        // console.log('variacaoProfundidade')
-        // console.log(variacaoProfundidade[i - 1]* -1)
-        if (inicioCurva > variacaoProfundidade[i - 1]) {
-          console.log("Descida")
-          dadoG.push({ arg: variacaoDistanciaPercorrida[i - 1], val: variacaoProfundidade[i - 1] * -1 })
-        } else {
-          console.log("Descida2")
-          dadoG.push({ arg: variacaoDistanciaPercorrida[i - 1], val: variacaoProfundidade[i - 1] * -1 })
-        }
+    //     console.log("Descida reta")
+    //     // console.log('variacaoDistanciaPercorrida')
+    //     // console.log(variacaoDistanciaPercorrida[i - 1])
+    //     // console.log('variacaoProfundidade')
+    //     // console.log(variacaoProfundidade[i - 1]* -1)
+    //     // if(inicioCurva > variacaoProfundidade[i - 1]){
+    //     //   console.log("Descida")
+    //     //   dadoG.push({ arg: variacaoDistanciaPercorrida[i - 1], val: variacaoProfundidade[i - 1] * -1 })
+    //     // }else{
+    //     //   console.log("Descida2")
+    //     //   dadoG.push({ arg: variacaoDistanciaPercorrida[i - 1] , val: variacaoProfundidade[i - 1] * -1 })
+    //     // }
+    //     dadoG.push({ arg: variacaoDistanciaPercorrida[x], val: variacaoProfundidade[x] })
 
-        index = i - 1
-      } else if (variacaoDistanciaPercorrida[i - 1] < distanciaPercorrida) {
-        //labels.push(umaCasa)
-        console.log("Plato")
-        // console.log(variacaoDistanciaPercorrida[i - 1])
-        // console.log(variacaoProfundidade[i - 1] * -1)
-        dadoG.push({ arg: variacaoDistanciaPercorrida[i - 1], val: variacaoProfundidade[index] * -1 })
-      } else if (variacaoDistanciaPercorrida[i - 1] > distanciaPercorrida) {
-        index = index - 1
-        //labels.push(umaCasa)
-        console.log("Subida")
-        // console.log(variacaoDistanciaPercorrida[i - 1])
-        // console.log(index)
-        // console.log(variacaoProfundidade[index] * -1)
-        dadoG.push({ arg: variacaoDistanciaPercorrida[i - 1], val: variacaoProfundidade[index] * -1 })
+    //     //distanciaPercorrida = Number(distancia) - (variacaoDistanciaPercorrida[x])
+    //   } else if (variacaoDistanciaPercorrida[x] > descidaReta && variacaoDistanciaPercorrida[x] <= (descidaReta + curvaDescida)) {
+    //     console.log("Inicio curva")
+    //     angulo.push(Math.atan(x / 100) * (angulacao / Math.PI))
+    //     variacaoProfundidade.push((Math.sin((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoProfundidade[x])
+    //     variacaoDistanciaPercorrida.push((Math.cos((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoDistanciaPercorrida[x])
+    //     index = x
 
-      }
-      if (index === 0 && i != 1) {
-        graficoTrue = true
-      }
+    //     dadoG.push({ arg: variacaoDistanciaPercorrida[x], val: variacaoProfundidade[x] })
+    //   } 
+    //   // else if (variacaoDistanciaPercorrida[x] > (descida + curvaDescida) && variacaoDistanciaPercorrida[x] <= ((descida * 2) + (curvaDescida + subida))) {
+    //   //   //labels.push(umaCasa)
+    //   //   console.log("Plato")
+    //   //   dadoG.push({ arg: variacaoDistanciaPercorrida[x], val: variacaoProfundidade[index] })
+    //   // } 
+    //   //else  {
+    //   //   index = index - 1
+    //   //   //labels.push(umaCasa)
+    //   //   console.log("Subida")
+    //   //   // console.log(variacaoDistanciaPercorrida[i - 1])
+    //   //   // console.log(index)
+    //   //   // console.log(variacaoProfundidade[index] * -1)
+    //   //   dadoG.push({ arg: variacaoDistanciaPercorrida[x], val: variacaoProfundidade[index] })
 
-      //dadosF = [{ x: variacaoDistanciaPercorrida, y: variacaoProfundidade }]
-      // console.log(angulo)
-      i = i + 1
-    }
+    //   // }
+    //   // if (index === 0 && x != 1) {
+    //   //   graficoTrue = true
+    //   // }
+
+    //   //dadosF = [{ x: variacaoDistanciaPercorrida, y: variacaoProfundidade }]
+    //   // console.log(angulo)
+    //   x = x + 1
+    // }
+    // var i = 0
+    // while(dadoG[dadoG.length - 1].val >= profundidadeT && i < 10000){
+    //   i = i + comprimentoHaste
+    //   dadoG.push({ arg: i, val: (i * -1) })
+    // }
+    // var x = 0
+    // var y = 0
+    // i = comprimentoHaste
+    // while(dadoG[dadoG.length - 1].val >= (graficoTravessia[0].profundidadeEntrada * -1) && y < 10000){      
+    //   x = i + 0.05
+    //   y = i - 0.05
+    //   dadoG.push({ arg: (x) , val: ((y) * -1) })
+    // }
     setDadosGrafico(dadoG)
     setLabelsG(labels)
     // console.log('angulo')
-    console.log(dadoG)
+    //console.log(dadoG)
     toast.dismiss(toastId);
     //console.log(dadosGafico)
     if (grafico) {
@@ -766,7 +931,7 @@ export default function FillInPhases() {
     } else {
       setGrafico(true)
     }
-    return dadoG
+    //return dadoG
   }
   function openModal() {
     setIsOpen(true)
@@ -1480,7 +1645,7 @@ export default function FillInPhases() {
           setDataTopografia(response.data.rows[0].DataExecTopografia)
 
           setnomePerfilAcesso(response.data.rows[0].nomePerfilAcesso)
-          setdataExecucao(response.data.rows[0].dataExecucao)
+          response.data.rows[0].dataExecucao === "" ? setdataExecucao(date) : setdataExecucao(response.data.rows[0].dataExecucao)
           setresponsavelExecucao(response.data.rows[0].responsavelExecucao)
           sethoraExecucao(response.data.rows[0].horaExecucao)
           setcroquiMapeamento(response.data.rows[0].croquiMapeamento)
@@ -2178,7 +2343,7 @@ export default function FillInPhases() {
               <label htmlFor=''>Tipo de Rede</label>
               <div className='selectPlus' style={{ marginTop: '-2px' }}>
                 <select
-                  name='' id='' value={tipoRedeList}
+                  name='' id='' value={tipoRede}
                   onChange={(text) => { settipoRede(text.target.value) }}
                 >
                   <option value=''>Selecione...</option>

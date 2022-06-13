@@ -113,7 +113,7 @@ export const ContainerUsers = styled.div`
     flex-direction: column;
     align-items: flex-start;
     padding: 20px 20px;
-    height: 180px;
+    height: auto;
     margin: 20px 0;
 
     div {

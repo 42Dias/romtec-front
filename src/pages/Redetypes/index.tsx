@@ -251,6 +251,7 @@ export default function
               </div>
               <TextField
                 label='Diâmetro da rede (mm)'
+                type='number'
                 {...register('diametroRede', {
                   required: true,
                 })}
@@ -265,6 +266,7 @@ export default function
 
               <TextField
                 label='Espessura de parede (mm)'
+                type='number'
                 {...register('espessuaraParede', {
                   required: true,
                 })}
@@ -272,14 +274,8 @@ export default function
 
               <TextField
                 label='Distância mínima (m)'
+                type='number'
                 {...register('distanciaMinima', {
-                  required: true,
-                })}
-              />
-
-              <TextField
-                label='Espessura de parede (mm)'
-                {...register('espessuaraParede', {
                   required: true,
                 })}
               />

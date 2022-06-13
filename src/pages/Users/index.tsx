@@ -116,13 +116,14 @@ Users () {
               <li key={user.id}>
                 <S.ContainerUsers>
                   <div>
-                    <h4>{user.firstName}</h4>
+                    <h4>{user.firstName === null ? "Convidado" : user.firstName}</h4>
                     <span>{user.email}</span> <br />
-                    <span>CNPJ: {user.cnpj}</span> <br />
-                    <span>Telefone: {user.tel}</span>
+                    {/* <span>CNPJ: {user.cnpj}</span> <br />
+                    <span>Telefone: {user.tel}</span> */}
+                    <span>Perfil de acesso: {user.roles[0]}</span>
                   </div>
 
-                  <button onClick={() => setIsOpen(true)}>Atribuir perfil</button>
+                  {/* <button onClick={() => setIsOpen(true)}>Atribuir perfil</button> */}
                 </S.ContainerUsers>
               </li>
             ))}

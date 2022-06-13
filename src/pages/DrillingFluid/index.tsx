@@ -223,7 +223,8 @@ export default function
               />
 
               <TextField
-                label='Viscosidade esperada (cP)'
+                label='Viscosidade esperada (Segundos Marsh - cP)'
+                type='number'
                 {...register('viscosidadeEsperada', {
                   required: false,
                 })}
@@ -231,27 +232,31 @@ export default function
 
               <TextField
                 label='pH da Água'
+                type='number'
                 {...register('qtdePHPA', {
                   required: false,
                 })}
               />
 
               <TextField
-                label='Quantidade base para formulação (m²)'
+                label='Quantidade base para formulação (Metros cúbicos - m²)'
+                type='number'
                 {...register('qtdeBase', {
                   required: false,
                 })}
               />
 
               <TextField
-                label='Limite de escoamento (N)'
+                label='Limite de escoamento (Número - N)'
+                type='number'
                 {...register('limiteEscoamento', {
                   required: false,
                 })}
               />
 
               <TextField
-                label='Teor de areia (%)'
+                label='Teor de areia (Porcentagem - %)'
+                type='number'
                 {...register('teorAreia', {
                   required: false,
                 })}
@@ -296,30 +301,35 @@ export default function
 
               <TextField
                 label='Viscosidade esperada (Segundos Marsh - cP)'
+                type='number'
                 value={viscosidadeEsperada}
                 onChange={(text) => setViscosidadeEsperada(text.target.value)}
               />
 
               <TextField
                 label='pH da Água'
+                type='number'
                 value={qtdePHPA}
                 onChange={(text) => setQtdePHPA(text.target.value)}
               />
 
               <TextField
                 label='Quantidade base para formulação (Metros cúbicos - m²)'
+                type='number'
                 value={qtdeBase}
                 onChange={(text) => setQtdeBase(text.target.value)}
               />
 
               <TextField
                 label='Limite de escoamento (Número - N)'
+                type='number'
                 value={limiteEscoamento}
                 onChange={(text) => setLimiteEscoamento(text.target.value)}
               />
 
               <TextField
                 label='Teor de areia (Porcentagem - %)'
+                type='number'
                 value={teorAreia}
                 onChange={(text) => setTeorAreia(text.target.value)}
               />

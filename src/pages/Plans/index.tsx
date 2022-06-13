@@ -188,6 +188,7 @@ Plans () {
               <fieldset className='valorPago'>
                 <label htmlFor='valor'>Valor</label>
                 <MaskedInput
+                  type='tel'
                   onChangeUnMask={(value) => setValue('valor', value)}
                   mask='R$ 9999999'
                   id='valor'
@@ -233,6 +234,7 @@ Plans () {
 
               <TextField
                 label='Valor'
+                type='number'
                 value={valor}
                 onChange={(text) => setValor(text.target.value)}
               />

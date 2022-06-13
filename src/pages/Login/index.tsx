@@ -17,9 +17,9 @@ type FormData = {
 export default function Login() {
   const [textPass, setTextPass] = useState(true)
   const [loading, setLoading] = useState(false)
-  const [mudarSenha, setMudarSenha] = useState(false)
+  //const [mudarSenha, setMudarSenha] = useState(false)
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>()
-
+  var mudarSenha = false
   function onSubmit({ email, password }: FormData) {
     const submit = {
       email,
@@ -45,8 +45,10 @@ export default function Login() {
   async function Login(submit: any) {
     setLoading(true)
     console.log(submit.password)
-    if (submit.password === 'K4bXm93xexrc3Sd') {
-      setMudarSenha(true)
+    if (submit.password === "K4bXm93xexrc3Sd") {
+      console.log("Mudar senha")
+      //setMudarSenha(true)
+      mudarSenha = false
     }
     // eslint-disable-next-line
     const responser = axios.post(`${ip}:${port}/api/auth/sign-in`, {
@@ -86,12 +88,13 @@ export default function Login() {
       timeout: 50000,
     }).then(response => {
       // navigate('/home', { replace: true })
-      if (password === 'K4bXm93xexrc3Sd') {
-        console.log(window.location.href = window.location.href + 'atualizar-senha/' + token)
+      //if (password === 'K4bXm93xexrc3Sd') {
+        mudarSenha ? console.log(window.location.href = window.location.href + 'atualizar-senha/' + token) : console.log(window.location.href = window.location.href + 'home')
         //console.log(window.location.href = window.location.href + 'home')
-      } else {
-        console.log(window.location.href = window.location.href + 'home')
-      }
+      //} else {
+        
+        
+      //}
 
       return response.data
     })

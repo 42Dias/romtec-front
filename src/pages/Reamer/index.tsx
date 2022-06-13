@@ -216,6 +216,7 @@ export default function
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 label='Código'
+                type="number"
                 errorMessage={errors.codigo?.message}
                 id='codigo'
                 {...register('codigo', {
@@ -227,7 +228,8 @@ export default function
               />
 
               <TextField
-                label='Capacidade do Swivel(Ton)'
+                label='Capacidade do Swivel (Ton)'
+                type="number"
                 {...register('CapacidadeSwivel', {
                   required: true,
                 })}
@@ -256,6 +258,7 @@ export default function
 
               <TextField
                 label='Número de jatos'
+                type="number"
                 {...register('numeroJatos', {
                   required: true,
                 })}
@@ -263,6 +266,7 @@ export default function
 
               <TextField
                 label='Diâmetro(mm)'
+                type="number"
                 {...register('diametro', {
                   required: true,
                 })}
@@ -292,12 +296,14 @@ export default function
             <S.Div onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 label='Código'
+                type="number"
                 value={codigo}
                 onChange={(text) => setCodigo(text.target.value)}
               />
 
               <TextField
-                label='Capacidade do Swivel'
+                label='Capacidade do Swivel (Ton)'
+                type="number"
                 value={CapacidadeSwivel}
                 onChange={(text) => setCapacidadeSwivel(text.target.value)}
               />
@@ -322,12 +328,14 @@ export default function
 
               <TextField
                 label='Número de jatos'
+                type="number"
                 value={numeroJatos}
                 onChange={(text) => setNumeroJatos(text.target.value)}
               />
 
               <TextField
                 label='Diâmetro(mm)'
+                type="number"
                 value={diametro}
                 onChange={(text) => setDiametro(text.target.value)}
               />

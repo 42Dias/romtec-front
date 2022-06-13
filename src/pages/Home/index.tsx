@@ -5,7 +5,7 @@ import { FiSettings } from 'react-icons/fi'
 import image from '../../assets/obra.png'
 import axios from 'axios'
 import { useEffect } from 'react'
-import { ip, port, token } from '../../services/api'
+import { ip, password, port, token } from '../../services/api'
 import { toast } from 'react-toastify'
 import { Toast } from 'react-toastify/dist/components'
 
@@ -23,6 +23,10 @@ Home () {
       },
       timeout: 50000,
     }).then(response => {
+      if (password === "K4bXm93xexrc3Sd") {
+        console.log("Mudar senha")
+        window.location.href = window.location.href.replace("home","atualizar-senha/") + token
+      }
       return response.data
     }).catch((error) =>
       toast.error(error),

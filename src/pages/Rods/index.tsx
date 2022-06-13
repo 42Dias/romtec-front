@@ -211,6 +211,7 @@ Rods () {
 
               <TextField
                 label='Raio de curvatura'
+                type="number"
                 {...register('raioCurvatura', {
                   required: true,
                 })}
@@ -218,6 +219,7 @@ Rods () {
 
               <TextField
                 label='Diâmetro do tubo(mm)*'
+                type="number"
                 {...register('diametroTubo', {
                   required: true,
                 })}
@@ -232,6 +234,7 @@ Rods () {
 
               <TextField
                 label='Diâmetro do Tool Joint(mm)'
+                type="number"
                 {...register('diametroToolJoint', {
                   required: true,
                 })}
@@ -239,6 +242,7 @@ Rods () {
 
               <TextField
                 label='Torque máximo'
+                type="number"
                 {...register('torque', {
                   required: true,
                 })}
@@ -246,6 +250,7 @@ Rods () {
 
               <TextField
                 label='Comprimento total(m)'
+                type="number"
                 {...register('comprimentoTotal', {
                   required: true,
                 })}
@@ -281,12 +286,14 @@ Rods () {
 
               <TextField
                 label='Raio de curvatura'
+                type="number"
                 value={raioCurvatura}
                 onChange={(text) => setRaioCurvatura(text.target.value)}
               />
 
               <TextField
                 label='Diâmetro do tubo(mm)*'
+                type="number"
                 value={diametroTubo}
                 onChange={(text) => setDiametroTubo(text.target.value)}
               />
@@ -299,18 +306,21 @@ Rods () {
 
               <TextField
                 label='Diâmetro do Tool Joint(mm)'
+                type="number"
                 value={diametroToolJoint}
                 onChange={(text) => setDiametroToolJoint(text.target.value)}
               />
 
               <TextField
                 label='Torque máximo'
+                type="number"
                 value={torque}
                 onChange={(text) => setTorque(text.target.value)}
               />
 
               <TextField
                 label='Comprimento total(m)'
+                type="number"
                 value={comprimentoTotal}
                 onChange={(text) => setComprimentoTotal(text.target.value)}
               />

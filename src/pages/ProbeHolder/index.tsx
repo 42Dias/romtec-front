@@ -190,6 +190,7 @@ ProbeHolder () {
             <S.Form onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 label='Código'
+                type="number"
                 errorMessage={errors.codigo?.message}
                 id='codigo'
                 {...register('codigo', {
@@ -218,6 +219,7 @@ ProbeHolder () {
 
               <TextField
                 label='Número de Jatos'
+                type="number"
                 id='numeroJatos'
                 {...register('numeroJatos', {
                   required: true,
@@ -250,6 +252,7 @@ ProbeHolder () {
             <S.Div>
               <TextField
                 label='Código'
+                type="number"
                 id='codigo'
                 value={codigo}
                 onChange={(text) => setCodigo(text.target.value)}
@@ -270,6 +273,7 @@ ProbeHolder () {
 
               <TextField
                 label='Número de Jatos'
+                type="number"
                 id='numeroJatos'
                 value={numeroJatos}
                 onChange={(text) => setNumeroJatos(text.target.value)}

@@ -265,6 +265,7 @@ Labor () {
               <fieldset>
                 <label htmlFor='rg'>RG</label>
                 <MaskedInput
+                  type="tel"
                   onChangeUnMask={(value) => setValue('rg', value)}
                   mask='99.999.999-9'
                   id='rg'
@@ -275,6 +276,7 @@ Labor () {
               <fieldset>
                 <label htmlFor='cpf'>CPF</label>
                 <MaskedInput
+                  type="tel"
                   onChangeUnMask={(value) => setValue('cpf', value)}
                   mask='999.999.999-99'
                   id='cpf'
@@ -285,6 +287,7 @@ Labor () {
               <fieldset>
                 <label htmlFor='celular'>Celular</label>
                 <MaskedInput
+                type="tel"
                   onChangeUnMask={(value) => setValue('celular', value)}
                   mask='(99) 99999-9999'
                   id='celular'
@@ -295,6 +298,7 @@ Labor () {
               <fieldset>
                 <label htmlFor='cep'>CEP</label>
                 <MaskedInput
+                type="tel"
                   onChangeUnMask={(value) => setValue('cep', value)}
                   mask='99999-999'
                   id='cep'

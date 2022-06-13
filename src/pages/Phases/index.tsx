@@ -719,7 +719,7 @@ export default function
     labels.push(0)
     distancia = String(200)
     comprimentoHaste = 1.5
-    const dadoG = []
+    const dadoG = [{ arg: 0, val: 0 }]
     var x = 0
     var y = 0
     var raioCurvatura = 1
@@ -741,7 +741,15 @@ export default function
     var plato = diferencaPlato / 2
     var descidaReta = (100 - curvaDescida) / 2
     var platoDescida = (100 - curvaDescida) / 2
-
+    var profundidadeCurvaDescida = 0
+    var avancoCurvaDescida = 0
+    var diferencaX = 0
+    var diferencaY = 0
+    var acrescimoDifX = 0
+    var acrescimoDifY = 0
+    var inicioCurva = 45 * comprimentoHaste
+    var profundidadeT = (graficoTravessia[0].profundidadeEntrada - inicioCurva) / 2
+    
     console.log("qtdHaste")
     console.log(qtdHaste)
     console.log("descida")
@@ -754,33 +762,53 @@ export default function
     console.log(diferencaPlato)
     console.log("plato")
     console.log(plato)
+    console.log("curvaDescida")
+    console.log(curvaDescida)
+    console.log("inicioCurva")
+    console.log(inicioCurva)
+    console.log("profundidadeT")
+    console.log(profundidadeT)
+    console.log("descidaReta")
+    console.log(descidaReta)
 
     var descidaRetaArry = []
     var curvaDescidaArry = []
     var platoDescidaArry = []
 
     //Descida Reta
-    for (var i = 0; i <= descidaReta; i++) {
+    for (var i = 1; i <= descidaReta; i++) {
       console.log("Descida Reta")
       descidaRetaArry.push(i)
-      dadoG.push({ arg: descidaRetaArry[i], val: (i * -1) })
+      dadoG.push({ arg: i, val: (i * -1) })
     }
+
+    profundidadeCurvaDescida = graficoTravessia[0].profundidadeEntrada - (dadoG[dadoG.length - 1].val * -1)
+    avancoCurvaDescida = descida + curvaDescida - profundidadeCurvaDescida
+    diferencaX = avancoCurvaDescida / curvaDescida
+    diferencaY = profundidadeCurvaDescida / curvaDescida
+    acrescimoDifX = diferencaX / curvaDescida
+    acrescimoDifY = diferencaY / curvaDescida
 
     //Curva Descida
     for (var x = 0; x <= (curvaDescida + descidaReta); x++) {
-      angulo.push(Math.atan((x + descidaRetaArry.length + 9) / 100) * (angulacao / Math.PI))
-      variacaoProfundidade.push((Math.sin((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoProfundidade[x])
-      if (x >= descidaRetaArry.length) {
-        console.log("Curva Descida")
-        variacaoDistanciaPercorrida.push((Math.cos((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoDistanciaPercorrida[x - descidaRetaArry.length])
-        curvaDescidaArry.push({ x: variacaoDistanciaPercorrida[x - descidaRetaArry.length], y: variacaoProfundidade[x] * -1 })
-        if (variacaoDistanciaPercorrida[x - descidaRetaArry.length] >= descidaRetaArry[descidaRetaArry.length - 1])
-          dadoG.push({ arg: variacaoDistanciaPercorrida[x - descidaRetaArry.length], val: variacaoProfundidade[x] * -1 })
+      // angulo.push(Math.atan((x + descidaRetaArry.length + 9) / 100) * (angulacao / Math.PI))
+      // variacaoProfundidade.push((Math.sin((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoProfundidade[x])
+      // if (x >= descidaRetaArry.length) {
+      //   console.log("Curva Descida")
+      //   variacaoDistanciaPercorrida.push((Math.cos((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoDistanciaPercorrida[x - descidaRetaArry.length])
+      //   curvaDescidaArry.push({ x: variacaoDistanciaPercorrida[x - descidaRetaArry.length], y: variacaoProfundidade[x] * -1 })
+      //   if (variacaoDistanciaPercorrida[x - descidaRetaArry.length] >= descidaRetaArry[descidaRetaArry.length - 1])
+      if (x >= descidaRetaArry.length && (Number(graficoTravessia[0].profundidadeEntrada)*-1) <= dadoG[dadoG.length - 1].val) {
+        console.log("Curva Descida")                                                                                                                                            //-16           +  ((               25                      -  (                 25                     +         -16                 ))  *-0,1)                                                                            
+        //dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + diferencaX + acrescimoDifX), val: (dadoG[dadoG.length - 1].val - diferencaY - acrescimoDifY) })
+                                    //16              + ((-16+25)*0,1*((-25-(-16))/(-16-25)))
+        dadoG.push({ arg: dadoG[dadoG.length - 1].arg + (((curvaDescida + descidaReta) - ((curvaDescida + descidaReta) - dadoG[dadoG.length - 1].arg)) * 0.05) / 2, val: dadoG[dadoG.length - 1].val + ((Number(graficoTravessia[0].profundidadeEntrada) - (Number(graficoTravessia[0].profundidadeEntrada) + dadoG[dadoG.length - 1].val)) * -0.01) })
+        //()dadoG[dadoG.length - 1].arg + ((dadoG[dadoG.length - 1].arg + (curvaDescida + descidaReta - dadoG[dadoG.length - 1].arg)) * 0.1 * ((curvaDescida - dadoG[dadoG.length - 1].arg) / (curvaDescida + descidaReta) - dadoG[dadoG.length - 1].arg))
       }
     }
 
     //Descida Plato
-    for (var i = 0; i <= (curvaDescida + descidaReta + (platoDescida * 2)); i++) {
+    for (var i = 0; i <= (curvaDescida + descidaReta + (platoDescida * 5)); i++) {
       platoDescidaArry.push(i)
       if (i > dadoG.length) {
         console.log("Descida Plato")
@@ -789,24 +817,49 @@ export default function
     }
     var tamanho = dadoG.length
     //Curva subida
-    for (var i = 0; i <= (curvaDescida + descidaReta) + tamanho; i++) {
-      angulo.push(Math.atan((i + tamanho + 9) / 100) * (angulacao / Math.PI))
-      variacaoProfundidade.push((Math.sin((angulo[i] * (Math.PI / angulacao))) * comprimentoHaste) + dadoG[dadoG.length - 1].val)
-      variacaoDistanciaPercorrida.push((Math.cos((angulo[i] * (Math.PI / angulacao))) * comprimentoHaste) + dadoG[dadoG.length - 1].arg)
-      if (i >= dadoG[tamanho - 1].arg) {
-        console.log("Curva subida")
-        curvaDescidaArry.push({ x: variacaoDistanciaPercorrida[i], y: variacaoProfundidade[i] * -1 })
-        //if (variacaoDistanciaPercorrida[i - tamanho] >= descidaRetaArry[tamanho - 1])
-        dadoG.push({ arg: variacaoDistanciaPercorrida[i], val: variacaoProfundidade[i] })
+    for (var x = dadoG[dadoG.length - 1].arg; x <= Number(distancia); x++) {
+      // angulo.push(Math.atan((x + descidaRetaArry.length + 9) / 100) * (angulacao / Math.PI))
+      // variacaoProfundidade.push((Math.sin((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoProfundidade[x])
+      // if (x >= descidaRetaArry.length) {
+      //   console.log("Curva Descida")
+      //   variacaoDistanciaPercorrida.push((Math.cos((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoDistanciaPercorrida[x - descidaRetaArry.length])
+      //   curvaDescidaArry.push({ x: variacaoDistanciaPercorrida[x - descidaRetaArry.length], y: variacaoProfundidade[x] * -1 })
+      //   if (variacaoDistanciaPercorrida[x - descidaRetaArry.length] >= descidaRetaArry[descidaRetaArry.length - 1])
+      var diferenca = dadoG[dadoG.length - 1].arg - Number(graficoTravessia[0].profundidadeEntrada)
+      if ( 0 >= dadoG[dadoG.length - 1].val && dadoG[dadoG.length - 1].arg <= Number(distancia) - (descidaReta)) {
+        console.log("Curva Subida")                                                                                                                                            //-16           +  ((               25                      -  (                 25                     +         -16                 ))  *-0,1)                                                                            
+        //dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + diferencaX + acrescimoDifX), val: (dadoG[dadoG.length - 1].val - diferencaY - acrescimoDifY) })
+                                    //16              + ((-16+25)*0,1*((-25-(-16))/(-16-25)))
+        dadoG.push({ arg: dadoG[dadoG.length - 1].arg + (((curvaDescida + descidaReta) - ((curvaDescida + descidaReta) - dadoG[dadoG.length - 1].arg)) * 0.01) / 2, val: Number((dadoG[dadoG.length - 1].val + ((Number(graficoTravessia[0].profundidadeEntrada) - (Number(graficoTravessia[0].profundidadeEntrada) + dadoG[dadoG.length - 1].val)) * 0.01)).toFixed(3)) })
+        //()dadoG[dadoG.length - 1].arg + ((dadoG[dadoG.length - 1].arg + (curvaDescida + descidaReta - dadoG[dadoG.length - 1].arg)) * 0.1 * ((curvaDescida - dadoG[dadoG.length - 1].arg) / (curvaDescida + descidaReta) - dadoG[dadoG.length - 1].arg))
       }
     }
-
-    //Subida Reta
-    for (var i = 0; i <= descidaReta; i++) {
+    //Descida Reta
+    for (var i = dadoG[dadoG.length - 1].val; i <= 0; i++) {
       console.log("Subida Reta")
-      //descidaRetaArry.push(i)
-      dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + 1), val: dadoG[dadoG.length - 1].val + 1 })
+      descidaRetaArry.push(i)
+      dadoG.push({ arg: dadoG[dadoG.length - 1].arg + 1, val: i })
     }
+    // for (var i = 0; i <= (curvaDescida) + tamanho; i++) {
+    //   // angulo.push(Math.atan((i + tamanho + 9) / 100) * (angulacao / Math.PI))
+    //   // variacaoProfundidade.push((Math.sin((angulo[i] * (Math.PI / angulacao))) * comprimentoHaste) + dadoG[dadoG.length - 1].val)
+    //   // variacaoDistanciaPercorrida.push((Math.cos((angulo[i] * (Math.PI / angulacao))) * comprimentoHaste) + dadoG[dadoG.length - 1].arg)
+    //   if (i >= dadoG[tamanho - 1].arg) {
+    //     console.log("Curva subida")
+    //     //variacaoDistanciaPercorrida.push((Math.cos((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoDistanciaPercorrida[x - descidaRetaArry.length])
+    //     //curvaDescidaArry.push({ x: variacaoDistanciaPercorrida[x - descidaRetaArry.length], y: variacaoProfundidade[x] * -1 })
+    //     variacaoProfundidade.push(((-1 + (curvaDescida * ((((raioCurvatura * 100) / 45)) / 100))) * -1) + variacaoProfundidade[variacaoProfundidade.length - 1])
+    //     //if (variacaoDistanciaPercorrida[x - descidaRetaArry.length] >= descidaRetaArry[descidaRetaArry.length - 1])
+    //     dadoG.push({ arg: dadoG[dadoG.length - 1].arg + 1, val: variacaoProfundidade[variacaoProfundidade.length - 1] * -1 })
+    //   }
+    // }
+
+    // //Subida Reta
+    // for (var i = 0; i <= descidaReta; i++) {
+    //   console.log("Subida Reta")
+    //   //descidaRetaArry.push(i)
+    //   dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + 1), val: dadoG[dadoG.length - 1].val + 1 })
+    // }
     //console.log(descidaRetaArry)
 
     // for (let i = 1; i <= 10; i++) {
@@ -893,6 +946,19 @@ export default function
     //   //dadosF = [{ x: variacaoDistanciaPercorrida, y: variacaoProfundidade }]
     //   // console.log(angulo)
     //   x = x + 1
+    // }
+    // var i = 0
+    // while(dadoG[dadoG.length - 1].val >= profundidadeT && i < 10000){
+    //   i = i + comprimentoHaste
+    //   dadoG.push({ arg: i, val: (i * -1) })
+    // }
+    // var x = 0
+    // var y = 0
+    // i = comprimentoHaste
+    // while(dadoG[dadoG.length - 1].val >= (graficoTravessia[0].profundidadeEntrada * -1) && y < 10000){      
+    //   x = i + 0.05
+    //   y = i - 0.05
+    //   dadoG.push({ arg: (x) , val: ((y) * -1) })
     // }
     setDadosGrafico(dadoG)
     setLabelsG(labels)
@@ -2336,6 +2402,7 @@ export default function
         // toast.error(res.response.data);
         setLoading(false)
       })
+      setIsOpenModalAdd(false)
     // console.log(data)
     // console.log(etapa)
   }
@@ -2555,7 +2622,7 @@ export default function
         </Modal> */}
 
         <Modal
-        ariaHideApp={false}
+          ariaHideApp={false}
           className='phaes-modal'
           style={{
             overlay: {
@@ -2618,7 +2685,7 @@ export default function
         </Swiper>
 
         <Modal
-        ariaHideApp={false}
+          ariaHideApp={false}
           style={{
             overlay: {
               backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -3854,7 +3921,7 @@ export default function
                 </div>
                 : false}
               {campovalaEntradaLongitude
-                ? <div style={{marginTop: '-190px'}}>
+                ? <div style={{ marginTop: '-190px' }}>
                   <label htmlFor=''>Vala de entrada longitude</label>
                   <input
                     type='number' placeholder='Longitude'
@@ -3884,7 +3951,7 @@ export default function
                 </div>
                 : false}
               {campovalaEntradaProfundidade
-                ? <div style={{marginTop: '-190px'}}>
+                ? <div style={{ marginTop: '-190px' }}>
                   <label htmlFor=''>Vala de entrada profundidade (m)</label>
                   <input
                     type='number'
@@ -3904,7 +3971,7 @@ export default function
                 </div>
                 : false}
               {campovalaSaidaLongitude
-                ? <div style={{marginTop: '-190px'}}>
+                ? <div style={{ marginTop: '-190px' }}>
                   <label htmlFor=''>Vala de saida longitude</label>
                   <input
                     type='number' placeholder='Longitude'
@@ -3934,7 +4001,7 @@ export default function
                 </div>
                 : false}
               {campovalaSaidaProfundidade
-                ? <div style={{marginTop: '-90px'}}>
+                ? <div style={{ marginTop: '-90px' }}>
                   <label htmlFor=''>Vala de saida profundidade (m)</label>
                   <input
                     type='number'
@@ -4139,7 +4206,7 @@ export default function
         </Modal>
 
         <Modal
-        ariaHideApp={false}
+          ariaHideApp={false}
           className='phaes-modal'
           style={{
             overlay: {
@@ -4224,7 +4291,7 @@ export default function
         </Modal>
 
         <Modal
-        ariaHideApp={false}
+          ariaHideApp={false}
           className='phaes-modal'
           style={{
             overlay: {
@@ -4295,7 +4362,7 @@ export default function
         </Modal>
 
         <Modal
-        ariaHideApp={false}
+          ariaHideApp={false}
           className='phaes-modal'
           style={{
             overlay: {
@@ -4345,7 +4412,7 @@ export default function
         </Modal>
 
         <Modal
-        ariaHideApp={false}
+          ariaHideApp={false}
           className='phaes-modal'
           style={{
             overlay: {
@@ -4415,7 +4482,7 @@ export default function
         </Modal>
 
         <Modal
-        ariaHideApp={false}
+          ariaHideApp={false}
           className='phaes-modal'
           style={{
             overlay: {
@@ -4485,7 +4552,7 @@ export default function
         </Modal>
 
         <Modal
-        ariaHideApp={false}
+          ariaHideApp={false}
           style={{
             overlay: {
               position: 'fixed',
@@ -4543,7 +4610,7 @@ export default function
         </Modal>
 
         <Modal
-        ariaHideApp={false}
+          ariaHideApp={false}
           style={{
             overlay: {
               backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -4566,7 +4633,7 @@ export default function
         />
 
         <Modal
-        ariaHideApp={false}
+          ariaHideApp={false}
           style={{
             overlay: {
               backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -4589,7 +4656,7 @@ export default function
         />
 
         <Modal
-        ariaHideApp={false}
+          ariaHideApp={false}
           style={{
             overlay: {
               backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -4612,7 +4679,7 @@ export default function
         />
 
         <Modal
-        ariaHideApp={false}
+          ariaHideApp={false}
           style={{
             overlay: {
               backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -4635,7 +4702,7 @@ export default function
         />
 
         <Modal
-        ariaHideApp={false}
+          ariaHideApp={false}
           style={{
             overlay: {
               backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -4799,7 +4866,7 @@ export default function
       </S.ContainerConfirmation>
 
       <Modal
-      ariaHideApp={false}
+        ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -4840,41 +4907,41 @@ export default function
             </select>
           </form>
 
-          {etapa === '0' ? 
-          <button className='save' onClick={() => toast.info("Selecione o tipo da etapa!")}>{loading
-            ? (
-              <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height=''
-                src={Load}
-                alt='Loading'
-              />
-            )
-            : (
-              'Salvar'
-            )}
-          </button> :
-          <button  className='save' onClick={() => salvarEtapa()}>{loading
-            ? (
-              <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height=''
-                src={Load}
-                alt='Loading'
-              />
-            )
-            : (
-              'Salvar'
-            )}
-          </button>}
+          {etapa === '0' ?
+            <button className='save' onClick={() => toast.info("Selecione o tipo da etapa!")}>{loading
+              ? (
+                <img
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height=''
+                  src={Load}
+                  alt='Loading'
+                />
+              )
+              : (
+                'Salvar'
+              )}
+            </button> :
+            <button className='save' onClick={() => salvarEtapa()}>{loading
+              ? (
+                <img
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height=''
+                  src={Load}
+                  alt='Loading'
+                />
+              )
+              : (
+                'Salvar'
+              )}
+            </button>}
         </S.PhasesModal>
 
       </Modal>
 
       <Modal
-      ariaHideApp={false}
+        ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -5097,7 +5164,7 @@ export default function
       </Modal>
 
       <Modal
-      ariaHideApp={false}
+        ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -5136,7 +5203,7 @@ export default function
       </Modal>
 
       <Modal
-      ariaHideApp={false}
+        ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -5175,7 +5242,7 @@ export default function
       </Modal>
 
       <Modal
-      ariaHideApp={false}
+        ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -5228,7 +5295,7 @@ export default function
       </Modal>
 
       <Modal
-      ariaHideApp={false}
+        ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -5289,7 +5356,7 @@ export default function
       </Modal>
 
       <Modal
-      ariaHideApp={false}
+        ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -5370,7 +5437,7 @@ export default function
 
 
       <Modal
-      ariaHideApp={false}
+        ariaHideApp={false}
         className='phaes-modal'
         style={{
           overlay: {
@@ -5586,7 +5653,7 @@ export default function
       </Modal> */}
 
       <Modal
-      ariaHideApp={false}
+        ariaHideApp={false}
         isOpen={isOpenModalAdd}
         onRequestClose={closeModalAdd}
         overlayClassName='react-modal-overlay'
@@ -5607,13 +5674,13 @@ export default function
             value={descricao}
             onChange={(text) => setDescricao(text.target.value)}
           />
-          <form style={{marginTop: '10px'}}>
+          <form style={{ marginTop: '10px' }}>
             <label>Escolha o tipo de etapa</label>
             <select
               value={etapa}
               onChange={(text) => setEtapa(text.target.value)}
             >
-              <option selected disabled>Selecione uma etapa...</option>
+              <option value="0">Selecione uma etapa...</option>
               {/* <option value='1'>Levantamento e Mapeamento de Interferências</option> */}
               {planejamentoTravessia === false ? <option value='2'>Planejamento da Travessia</option> : false}
               {sondagemInterferencias === false ? <option value='3'>Sondagem das Interferências</option> : false}
@@ -5625,6 +5692,21 @@ export default function
               <option value='9'>Puxamento de Rede</option>
             </select>
           </form>
+          {etapa === '0' ? 
+          <button className='add' onClick={() => toast.info("Selecione o tipo da etapa!")}>{loading
+            ? (
+              <img
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src={Load}
+                alt='Loading'
+              />
+            )
+            : (
+              'Salvar'
+            )}
+          </button> :
           <button className='add' onClick={() => salvarEtapa()}>{loading
             ? (
               <img
@@ -5638,7 +5720,7 @@ export default function
             : (
               'Salvar'
             )}
-          </button>
+          </button>}
         </form>
       </Modal>
     </>

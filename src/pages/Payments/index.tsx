@@ -187,6 +187,7 @@ Payments () {
               <fieldset className='valorPago'>
                 <label htmlFor='valorPago'>Valor de pagamento</label>
                 <MaskedInput
+                  type='tel'
                   onChangeUnMask={(value) => setValue('valorPago', value)}
                   mask='R$ 9999999'
                   id='valorPago'

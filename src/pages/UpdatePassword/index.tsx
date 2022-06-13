@@ -156,6 +156,7 @@ export default function UpdatePassword() {
             label='Digite sua senha novamente'
             placeholder='sua melhor senha novamente'
             id='confirmPassword'
+            type='password'
             value={confirmPassword}
             onChange={(text) => setconfirmPassword(text.target.value)}
           />
