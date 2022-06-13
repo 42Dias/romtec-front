@@ -30,7 +30,7 @@ export const Container = styled.div`
         background: #252332;
 
         :last-child {
-          background: #FECE51;
+          background: ${theme.colors.yellow};
           color: black;
         }
       }
@@ -142,7 +142,7 @@ export const Container = styled.div`
 
       button {
         border-radius: 20px;
-        background: #FECE51 !important;
+        background: ${theme.colors.yellow} !important;
       }
     }
 
@@ -250,8 +250,6 @@ export const Container = styled.div`
       @media (max-width: 520px) {
         width: 200%;
         overflow-x: scroll;
-
-      
           th {
             padding: 0 15px;
             text-align: left;
@@ -280,7 +278,7 @@ export const Container = styled.div`
       width: 100%;
       height: 44px;
   
-      background: #FECE51;
+      background: ${theme.colors.yellow};;
       color: black;
       border-radius: 5px;
 
