@@ -460,7 +460,7 @@ Phases () {
   const [distanciaMinima, setDistanciaMinima] = useState('')
   const [distanciaMinimaInter, setDistanciaMinimaInter] = useState('')
   const [proprietarioRede, setProprietarioRede] = useState('')
-
+  const [FluidoId, setFluidoId] = useState('')
   let credencial = ''
   let nameImage = ''
   let Image: any
@@ -1748,6 +1748,7 @@ Phases () {
         capacidadePortaFusilink: capacidadePortaFusilink,
         capacidadeSwivel: capacidadeSwivel,
         fluido: Fluido,
+        fluidoId: FluidoId,
         receitaFluido: ReceitaFluido,
         portaSonda: PortaSonda,
         confirmacaoProcedimento: ConfirmacaoProcedimento,
@@ -1894,8 +1895,9 @@ Phases () {
           setcapacidadePortaFusilink(response.data.rows[0].capacidadePortaFusilink)
           setcapacidadeSwivel(response.data.rows[0].capacidadeSwivel)
           setFluido(response.data.rows[0].fluido)
+          setFluidoId(response.data.rows[0].fluidoId)
           setcampoReceitaFluido(response.data.rows[0].receitaFluido)
-
+          setEspecificacaoSolo(response.data.rows[0].especificacaoSolo)
           setPortaSonda(response.data.rows[0].portaSonda)
           setVolumePreparado(response.data.rows[0].volumePrepardo)
           setTesteVicosidade(response.data.rows[0].testeVicosidade)
@@ -2846,7 +2848,7 @@ Phases () {
 
               {campoTipoSolo
                 ? <div>
-                  <label htmlFor=''>Tipos de solo</label>
+                  <label htmlFor=''>Tipo de solo</label>
                   {/* <input
                     type='text' placeholder='Barro'
                     value={tipoSolo}
@@ -2854,7 +2856,7 @@ Phases () {
                   /> */}
                   <div className='selectPlus' style={{ marginTop: '-1px' }}>
                     <select
-                      value={tipoSolo}
+                      value={tipoSolo+"/"+especificacaoSolo}
                       onChange={(text) => { setTipoSolo(text.target.value.split('/')[0]); setEspecificacaoSolo(text.target.value.split('/')[1]); loadDados(text.target.value.split('/')[0]) }}
                     >
                       <option value=''>Selecione...</option>
@@ -3012,13 +3014,13 @@ Phases () {
                   <div className='selectPlus' style={{ marginTop: '-2px' }}>
                     <select
                       value={Fluido}
-                      onChange={(text) => { setFluido(text.target.value); text.target.value != '' ? setReceitaFluido(`Viscosidade esperada (Segundos Marsh - cP): ${text.target.value.toString().split('/')[2]}\npH da Água: ${text.target.value.toString().split('/')[3]}\nQuantidade base para formulação (Metros cúbicos - m²): ${text.target.value.toString().split('/')[4]}\nLimite de escoamento (Número - N): ${text.target.value.toString().split('/')[5]}\nTeor de areia (Porcentagem - %): ${text.target.value.toString().split('/')[6]}`) : false }}
+                      onChange={(text) => {setFluidoId(text.target.value.split("/")[0]); setFluido(text.target.value); text.target.value != '' ? setReceitaFluido(`Viscosidade esperada (Segundos Marsh - cP): ${text.target.value.toString().split('/')[2]}\npH da Água: ${text.target.value.toString().split('/')[3]}\nQuantidade base para formulação (Metros cúbicos - m²): ${text.target.value.toString().split('/')[4]}\nLimite de escoamento (Número - N): ${text.target.value.toString().split('/')[5]}\nTeor de areia (Porcentagem - %): ${text.target.value.toString().split('/')[6]}`) : false }}
                     >
                       <option value=''>Selecione...</option>
                       {fluidos.length > 0
                         ? fluidos.map((fluido) =>
                           <option value={fluido.id + '/' + fluido.nome + '/' + fluido.viscosidadeEsperada + '/' + fluido.qtdePHPA + '/' + fluido.qtdeBase + '/' + fluido.limiteEscoamento + '/' + fluido.teorAreia}>{fluido.nome}</option>)
-                        : <option>Nenhum tipo de solo selecionado ou nenhum fluido cadastrado!</option>}
+                        :  Fluido !== "" ? <option value={Fluido}>{Fluido.split('/')[1].split('0')[0]}</option> : <option>Nenhum tipo de solo selecionado ou nenhum fluido cadastrado!</option>}
                     </select>
                     <button onClick={() => setIsOpenFluido(true)} className='buttonAddInter'><FiPlus size={20} /></button>
                   </div>

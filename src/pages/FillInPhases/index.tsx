@@ -2855,7 +2855,7 @@ export default function FillInPhases () {
                   /> */}
               <div className='selectPlus'>
                 <select
-                  value={especificacaoSolo}
+                  value={tipoSolo+"/"+especificacaoSolo}
                   onChange={(text) => { setTipoSolo(text.target.value.split('/')[0]); setEspecificacaoSolo(text.target.value.split('/')[1]); loadDados(text.target.value.split('/')[0]); console.log(text.target.value) }}
                 >
                   <option value=''>Selecione...</option>
@@ -2877,17 +2877,17 @@ export default function FillInPhases () {
                     value={Fluido}
                     onChange={(text) => setFluido(text.target.value)}
                   /> */}
-                  {console.log(especificacaoSolo)}
+                  {console.log(Fluido)}
               <div className='selectPlus'>
                 <select
                   value={Fluido}
-                  onChange={(text) => {setFluidoId(text.target.value.split("/")[0]); setFluido(text.target.value.split("/")[1].split("/")[0]); text.target.value != '' ? setReceitaFluido(`Viscosidade esperada (Segundos Marsh - cP): ${text.target.value.toString().split('/')[2]}\npH da Água: ${text.target.value.toString().split('/')[3]}\nQuantidade base para formulação (Metros cúbicos - m²): ${text.target.value.toString().split('/')[4]}\nLimite de escoamento (Número - N): ${text.target.value.toString().split('/')[5]}\nTeor de areia (Porcentagem - %): ${text.target.value.toString().split('/')[6]}`) : false }}
+                  onChange={(text) => {setFluidoId(text.target.value.split("/")[0]); setFluido(text.target.value); text.target.value != '' ? setReceitaFluido(`Viscosidade esperada (Segundos Marsh - cP): ${text.target.value.toString().split('/')[2]}\npH da Água: ${text.target.value.toString().split('/')[3]}\nQuantidade base para formulação (Metros cúbicos - m²): ${text.target.value.toString().split('/')[4]}\nLimite de escoamento (Número - N): ${text.target.value.toString().split('/')[5]}\nTeor de areia (Porcentagem - %): ${text.target.value.toString().split('/')[6]}`) : false }}
                 >
                   <option value=''>Selecione...</option>
                   {fluidos.length > 0
                     ? fluidos.map((fluido) =>
                       <option value={fluido.id + '/' + fluido.nome + '/' + fluido.viscosidadeEsperada + '/' + fluido.qtdePHPA + '/' + fluido.qtdeBase + '/' + fluido.limiteEscoamento + '/' + fluido.teorAreia}>{fluido.nome}</option>)
-                    : <option>Nenhum tipo de solo selecionado ou nenhum fluido cadastrado!</option>}
+                    : Fluido !== "" ? <option value={Fluido}>{Fluido.split('/')[1].split('0')[0]}</option> : <option>Nenhum tipo de solo selecionado ou nenhum fluido cadastrado!</option>}
                 </select>
                 <button onClick={() => setIsOpenFluido(true)} className='buttonAddInter'><FiPlus size={20} /></button>
               </div>
