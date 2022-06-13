@@ -45,7 +45,7 @@ Home () {
     }
     console.log(token)
     loadUser(token)
-  }, [])
+  }, [token])
   return (
     <>
       <Sidebar />
