@@ -15,9 +15,9 @@ import { toast } from 'react-toastify'
 import axios from 'axios'
 import { TextField } from '../../ui/Components/TextField'
 import Load from './../../assets/load.gif'
-import { Checkbox, DatePicker, Space } from "antd";
-import moment from "moment";
-import { Select, Radio, List, Typography, Divider } from 'antd'
+import { Checkbox, DatePicker, Space, Select, Radio, List, Typography, Divider } from 'antd'
+import moment from 'moment'
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -27,8 +27,8 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
+} from 'chart.js'
+import { Line } from 'react-chartjs-2'
 import App from '../Phases/App'
 
 type FormData = {
@@ -70,7 +70,7 @@ type FormData = {
   durezaPlastica: string;
   indicePlasticidade: string;
 }
-export default function FillInPhases() {
+export default function FillInPhases () {
   const [modalIsOpen, setIsOpen] = useState(false)
   const [modalIsOpenPhase, setIsOpenPhase] = useState(false)
   const [modalIsOpenInterferencia, setIsOpenInterferencia] = useState(false)
@@ -88,48 +88,48 @@ export default function FillInPhases() {
   const [isOpenModalAdd, setIsOpenModalAdd] = useState(false)
   const [grafico, setGrafico] = useState(false)
 
-  function openModalEdit() {
+  function openModalEdit () {
     setIsOpenModalEdit(true)
   }
 
-  function closeModalEdit() {
+  function closeModalEdit () {
     setIsOpenModalEdit(false)
   }
 
-  function openModalAdd() {
+  function openModalAdd () {
     setIsOpenModalAdd(true)
   }
 
-  function closeModalAdd() {
+  function closeModalAdd () {
     setIsOpenModalAdd(false)
   }
 
-  function openModalInterferencia() {
+  function openModalInterferencia () {
     setIsOpenInterferencia(true)
   }
-  function openModalPontosVerificacao() {
+  function openModalPontosVerificacao () {
     setIsOpenVerificacao(true)
   }
-  function openModalFerramenta() {
+  function openModalFerramenta () {
     setIsOpenFerramenta(true)
   }
-  function afterOpenModalInterferencia() {
+  function afterOpenModalInterferencia () {
 
   }
 
-  function closeModalInterferencia() {
+  function closeModalInterferencia () {
     setIsOpenInterferencia(false)
   }
-  function closeModalVerificacao() {
+  function closeModalVerificacao () {
     setIsOpenVerificacao(false)
   }
-  function closeModalFerramenta() {
+  function closeModalFerramenta () {
     setIsOpenFerramenta(false)
   }
-  function closeModalVerificacaoEdit() {
+  function closeModalVerificacaoEdit () {
     setIsOpenVerificacaoEdit(false)
   }
-  function openModalInterferenciaEdit(interferencia: any) {
+  function openModalInterferenciaEdit (interferencia: any) {
     setInterferenciaId(interferencia.id)
     console.log(interferencia.id)
     setTipoInterferencia(interferencia.tipoInterferencia)
@@ -140,7 +140,7 @@ export default function FillInPhases() {
 
     setIsOpenInterferenciaEdit(true)
   }
-  function openModalPontosVerificacaoEdit(pontosVerificacao: any) {
+  function openModalPontosVerificacaoEdit (pontosVerificacao: any) {
     setInterferenciaId(pontosVerificacao.id)
     setStatus(pontosVerificacao.status)
     setLatitude(pontosVerificacao.latitude)
@@ -151,39 +151,39 @@ export default function FillInPhases() {
 
     setIsOpenVerificacaoEdit(true)
   }
-  function afterOpenModalInterferenciaEdit() {
+  function afterOpenModalInterferenciaEdit () {
 
   }
 
-  function closeModalInterferenciaEdit() {
+  function closeModalInterferenciaEdit () {
     setIsOpenInterferenciaEdit(false)
   }
 
-  function openModalPhases() {
+  function openModalPhases () {
     setIsOpenPhase(true)
   }
 
-  function afterOpenModalPhases() {
+  function afterOpenModalPhases () {
 
   }
 
-  function closeModalPhases() {
+  function closeModalPhases () {
     setIsOpenPhase(false)
   }
 
-  function openModalPhasesSelect() {
+  function openModalPhasesSelect () {
     setIsOpenPhaseSelect(true)
   }
 
-  function afterOpenModalPhasesSelect() {
+  function afterOpenModalPhasesSelect () {
 
   }
 
-  function closeModalPhasesSelect() {
+  function closeModalPhasesSelect () {
     setIsOpenPhaseSelect(false)
   }
 
-  //const [isOpen, setIsOpen] = useState(false)
+  // const [isOpen, setIsOpen] = useState(false)
   const [campoPontosVerificacao, setcampoPontosVerificacao] = useState(false)
   const [disabled, setDisabled] = useState(false)
   const [modalIsOpenPlanejamento, setIsOpenPlanejamento] = useState(false)
@@ -235,12 +235,12 @@ export default function FillInPhases() {
   const [sondagem, setsondagem] = useState('')
   const [criacaoplanoFuro, setcriacaoplanoFuro] = useState('')
   const [url, setUrl] = useState('')
-  //const [ferramentas, setferramentas] = useState('')
+  // const [ferramentas, setferramentas] = useState('')
   const [diametroInterferencia, setDiametroInterferencia] = useState('')
   const [profundidade, setprofundidade] = useState('')
   const [anguloAtaque, setanguloAtaque] = useState('')
   const [posicaoRelogio, setposicaoRelogio] = useState('')
-  const [idEtapa, setIdEtapa] = useState(idConfigTravessia.split("#/preencher-fases/")[1].split("/")[2].split("(")[0])
+  const [idEtapa, setIdEtapa] = useState(idConfigTravessia.split('#/preencher-fases/')[1].split('/')[2].split('(')[0])
   const [azimute, setazimute] = useState('')
   const [latitude, setLatitude] = useState('')
   const [longitude, setLongitude] = useState('')
@@ -434,17 +434,17 @@ export default function FillInPhases() {
   const [teorAreia, setTeorAreia] = useState('')
   const [graficoTravessia, setGraficoTravessia] = useState<any[]>([])
   const [compFuro, setCompFuro] = useState('')
-  //campos tipo de rede
+  // campos tipo de rede
   const [tipoDeRede, setTipoDeRede] = useState('')
-  //const [diametroRede, setDiametroRede] = useState('')
+  // const [diametroRede, setDiametroRede] = useState('')
   const [materialRede, setMaterialRede] = useState('')
   const [espessuaraParede, setEspessuaraParede] = useState('')
   const [distanciaMinima, setDistanciaMinima] = useState('')
   const [distanciaMinimaInter, setDistanciaMinimaInter] = useState('')
   const [proprietarioRede, setProprietarioRede] = useState('')
 
-  var date = moment(new Date()).format('YYYY-MM-DD')
-  var hora = moment(new Date()).format('HH:mm')
+  const date = moment(new Date()).format('YYYY-MM-DD')
+  const hora = moment(new Date()).format('HH:mm')
   let credencial = ''
   let nameImage = ''
   let Image: any
@@ -459,15 +459,15 @@ export default function FillInPhases() {
   // }
   const [camposInterferencia, setCamposInterferencia] = useState(false)
 
-  //Grafico
-  var distancia = ''
-  var dadosF = {}
-  var angulo: number[] = []
-  var variacaoProfundidade: number[] = []
-  var variacaoDistanciaPercorrida: number[] = []
+  // Grafico
+  let distancia = ''
+  const dadosF = {}
+  const angulo: number[] = []
+  const variacaoProfundidade: number[] = []
+  const variacaoDistanciaPercorrida: number[] = []
   // var dadosF:object[] = { angulo, variacaoProfundidade, variacaoDistanciaPercorrida}
-  var comprimentoHaste = 3
-  var coordenadas2 = [
+  let comprimentoHaste = 3
+  const coordenadas2 = [
     { x: 0, y: -1.45521375 },
     { x: 2.9104275, y: -1.45521375 },
     { x: 5.820855001, y: -1.45521375 },
@@ -479,9 +479,9 @@ export default function FillInPhases() {
     { x: 23.7578872, y: -1.45521375 },
     { x: 26.72469626, y: -1.45521375 },
     { x: 29.63512376, y: -1.45521375 },
-    { x: 32.54555126, y: -1.45521375 }
+    { x: 32.54555126, y: -1.45521375 },
   ]
-  var coordenadas = [
+  const coordenadas = [
     { x: 0, y: 0 },
     { x: 2.9104275, y: -0.727606875 },
     { x: 5.820855001, y: -1.45521375 },
@@ -493,7 +493,7 @@ export default function FillInPhases() {
     { x: 23.7578872, y: -1.900235109 },
     { x: 26.72469626, y: -1.45521375 },
     { x: 29.63512376, y: -0.727606875 },
-    { x: 32.54555126, y: 0 }
+    { x: 32.54555126, y: 0 },
 
     // {x:-23.59693508,	y:-48.055697640},
     // {x:-23.59684265,  y:-48.055649689},
@@ -506,22 +506,22 @@ export default function FillInPhases() {
     // {x:-23.59632293,  y:-48.055383479},
     // {x:-23.59624717,  y:-48.055347102}
   ]
-  var interferenciasG = [
-    { x: - 2.5, y: 0 },
-    { x: - 2.3, y: 6 },
-    { x: - 2.4, y: 9 },
-    { x: - 2.5, y: 12 },
-    { x: - 2.5, y: 15 },
-    { x: - 2.5, y: 18 },
-    { x: - 2.5, y: 21 },
-    { x: - 2.5, y: 24 },
-    { x: - 2.5, y: 27 },
-    { x: - 2.6, y: 30 },
-    { x: - 2.6, y: 33 },
-    { x: - 2.5, y: 36 }
+  const interferenciasG = [
+    { x: -2.5, y: 0 },
+    { x: -2.3, y: 6 },
+    { x: -2.4, y: 9 },
+    { x: -2.5, y: 12 },
+    { x: -2.5, y: 15 },
+    { x: -2.5, y: 18 },
+    { x: -2.5, y: 21 },
+    { x: -2.5, y: 24 },
+    { x: -2.5, y: 27 },
+    { x: -2.6, y: 30 },
+    { x: -2.6, y: 33 },
+    { x: -2.5, y: 36 },
 
   ]
-  const NUMBER_CFG = { count: 100, min: 0, max: 100 };
+  const NUMBER_CFG = { count: 100, min: 0, max: 100 }
   const labels: number[] = []
   const data = {
     labels: labels,
@@ -529,16 +529,16 @@ export default function FillInPhases() {
       {
         label: 'Dataset 1',
         data: [10, 30, 39, 20, 25, 34, -10],
-        //borderColor: Utils.CHART_COLORS.red,
-        //backgroundColor: Utils.CHART_COLORS.red,
+        // borderColor: Utils.CHART_COLORS.red,
+        // backgroundColor: Utils.CHART_COLORS.red,
       },
       {
         label: 'Dataset 2',
         data: [18, 33, 22, 19, 11, 39, 30],
-        //borderColor: Utils.CHART_COLORS.blue,
-        //backgroundColor: Utils.CHART_COLORS.blue,
-      }
-    ]
+        // borderColor: Utils.CHART_COLORS.blue,
+        // backgroundColor: Utils.CHART_COLORS.blue,
+      },
+    ],
   }
 
   const config = {
@@ -549,8 +549,8 @@ export default function FillInPhases() {
       plugins: {
         title: {
           display: true,
-          text: 'Suggested Min and Max Settings'
-        }
+          text: 'Suggested Min and Max Settings',
+        },
       },
       scales: {
         y: {
@@ -559,10 +559,10 @@ export default function FillInPhases() {
 
           // the data maximum used for determining the ticks is Math.max(dataMax, suggestedMax)
           suggestedMax: 50,
-        }
-      }
+        },
+      },
     },
-  };
+  }
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -570,8 +570,8 @@ export default function FillInPhases() {
     LineElement,
     Title,
     Tooltip,
-    Legend
-  );
+    Legend,
+  )
 
   const options = {
     responsive: true,
@@ -584,7 +584,7 @@ export default function FillInPhases() {
         text: 'PERFIL PLANO DE FURO',
       },
     },
-  };
+  }
   const options2 = {
     responsive: true,
     plugins: {
@@ -596,8 +596,8 @@ export default function FillInPhases() {
         text: 'PLANTA PLANO DE FURO',
       },
     },
-  };
-  //formulas()
+  }
+  // formulas()
   const dataG = {
     labels,
     datasets: [
@@ -626,7 +626,7 @@ export default function FillInPhases() {
         backgroundColor: 'rgba(53, 162, 255, 0.5)',
       },
     ],
-  };
+  }
   const dataG2 = {
     labels,
     datasets: [
@@ -655,9 +655,9 @@ export default function FillInPhases() {
         backgroundColor: 'rgba(53, 162, 255, 0.5)',
       },
     ],
-  };
-  async function formulas() {
-    const toastId = toast.loading('Gerando grafico...');
+  }
+  async function formulas () {
+    const toastId = toast.loading('Gerando grafico...')
     await api.get(`graficoTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
     ).then((response) => {
       if (response.statusText === 'OK') {
@@ -675,70 +675,70 @@ export default function FillInPhases() {
     })
     variacaoProfundidade.push(0)
     variacaoDistanciaPercorrida.push(0)
-    //distancia = distancia + 4
-    //console.log(distancia)
+    // distancia = distancia + 4
+    // console.log(distancia)
     labels.push(0)
     distancia = String(200)
     comprimentoHaste = 1.5
     const dadoG = [{ arg: 0, val: 0 }]
     var x = 0
-    var y = 0
-    var raioCurvatura = 1
-    var anguloDescida = 45
-    var anguloTrabalho = anguloDescida
-    var qtdHaste = anguloDescida / raioCurvatura
-    var graficoTrue = false
-    var distanciaPercorrida = 0
-    var index = 0
-    var curvaDescida = qtdHaste * comprimentoHaste
+    const y = 0
+    const raioCurvatura = 1
+    const anguloDescida = 45
+    const anguloTrabalho = anguloDescida
+    const qtdHaste = anguloDescida / raioCurvatura
+    const graficoTrue = false
+    const distanciaPercorrida = 0
+    const index = 0
+    const curvaDescida = qtdHaste * comprimentoHaste
     // var umaCasa = 0
-    // var inicioCurva = graficoTravessia[0].profundidadeEntrada - (graficoTravessia[0].profundidadeEntrada * 0.6) 
-    var angulacao = 180
-    var descida = Number(distancia) / 2
-    var subida = Number(distancia) / 2
-    var quantidadeMetros = qtdHaste * comprimentoHaste
-    var proporcaoCurvaDescida = descida * (quantidadeMetros / 100)
-    var diferencaPlato = 100 - curvaDescida
-    var plato = diferencaPlato / 2
-    var descidaReta = (100 - curvaDescida) / 2
-    var platoDescida = (100 - curvaDescida) / 2
-    var profundidadeCurvaDescida = 0
-    var avancoCurvaDescida = 0
-    var diferencaX = 0
-    var diferencaY = 0
-    var acrescimoDifX = 0
-    var acrescimoDifY = 0
-    var inicioCurva = 45 * comprimentoHaste
-    var profundidadeT = (graficoTravessia[0].profundidadeEntrada - inicioCurva) / 2
-    
-    console.log("qtdHaste")
+    // var inicioCurva = graficoTravessia[0].profundidadeEntrada - (graficoTravessia[0].profundidadeEntrada * 0.6)
+    const angulacao = 180
+    const descida = Number(distancia) / 2
+    const subida = Number(distancia) / 2
+    const quantidadeMetros = qtdHaste * comprimentoHaste
+    const proporcaoCurvaDescida = descida * (quantidadeMetros / 100)
+    const diferencaPlato = 100 - curvaDescida
+    const plato = diferencaPlato / 2
+    const descidaReta = (100 - curvaDescida) / 2
+    const platoDescida = (100 - curvaDescida) / 2
+    let profundidadeCurvaDescida = 0
+    let avancoCurvaDescida = 0
+    let diferencaX = 0
+    let diferencaY = 0
+    let acrescimoDifX = 0
+    let acrescimoDifY = 0
+    const inicioCurva = 45 * comprimentoHaste
+    const profundidadeT = (graficoTravessia[0].profundidadeEntrada - inicioCurva) / 2
+
+    console.log('qtdHaste')
     console.log(qtdHaste)
-    console.log("descida")
+    console.log('descida')
     console.log(descida)
-    console.log("quantidadeMetros")
+    console.log('quantidadeMetros')
     console.log(quantidadeMetros)
-    console.log("proporcaoCurvaDescida")
+    console.log('proporcaoCurvaDescida')
     console.log(proporcaoCurvaDescida)
-    console.log("diferencaPlato")
+    console.log('diferencaPlato')
     console.log(diferencaPlato)
-    console.log("plato")
+    console.log('plato')
     console.log(plato)
-    console.log("curvaDescida")
+    console.log('curvaDescida')
     console.log(curvaDescida)
-    console.log("inicioCurva")
+    console.log('inicioCurva')
     console.log(inicioCurva)
-    console.log("profundidadeT")
+    console.log('profundidadeT')
     console.log(profundidadeT)
-    console.log("descidaReta")
+    console.log('descidaReta')
     console.log(descidaReta)
 
-    var descidaRetaArry = []
-    var curvaDescidaArry = []
-    var platoDescidaArry = []
+    const descidaRetaArry = []
+    const curvaDescidaArry = []
+    const platoDescidaArry = []
 
-    //Descida Reta
+    // Descida Reta
     for (var i = 1; i <= descidaReta; i++) {
-      console.log("Descida Reta")
+      console.log('Descida Reta')
       descidaRetaArry.push(i)
       dadoG.push({ arg: i, val: (i * -1) })
     }
@@ -750,7 +750,7 @@ export default function FillInPhases() {
     acrescimoDifX = diferencaX / curvaDescida
     acrescimoDifY = diferencaY / curvaDescida
 
-    //Curva Descida
+    // Curva Descida
     for (var x = 0; x <= (curvaDescida + descidaReta); x++) {
       // angulo.push(Math.atan((x + descidaRetaArry.length + 9) / 100) * (angulacao / Math.PI))
       // variacaoProfundidade.push((Math.sin((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoProfundidade[x])
@@ -759,25 +759,25 @@ export default function FillInPhases() {
       //   variacaoDistanciaPercorrida.push((Math.cos((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoDistanciaPercorrida[x - descidaRetaArry.length])
       //   curvaDescidaArry.push({ x: variacaoDistanciaPercorrida[x - descidaRetaArry.length], y: variacaoProfundidade[x] * -1 })
       //   if (variacaoDistanciaPercorrida[x - descidaRetaArry.length] >= descidaRetaArry[descidaRetaArry.length - 1])
-      if (x >= descidaRetaArry.length && (Number(graficoTravessia[0].profundidadeEntrada)*-1) <= dadoG[dadoG.length - 1].val) {
-        console.log("Curva Descida")                                                                                                                                            //-16           +  ((               25                      -  (                 25                     +         -16                 ))  *-0,1)                                                                            
-        //dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + diferencaX + acrescimoDifX), val: (dadoG[dadoG.length - 1].val - diferencaY - acrescimoDifY) })
-                                    //16              + ((-16+25)*0,1*((-25-(-16))/(-16-25)))
+      if (x >= descidaRetaArry.length && (Number(graficoTravessia[0].profundidadeEntrada) * -1) <= dadoG[dadoG.length - 1].val) {
+        console.log('Curva Descida') // -16           +  ((               25                      -  (                 25                     +         -16                 ))  *-0,1)
+        // dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + diferencaX + acrescimoDifX), val: (dadoG[dadoG.length - 1].val - diferencaY - acrescimoDifY) })
+        // 16              + ((-16+25)*0,1*((-25-(-16))/(-16-25)))
         dadoG.push({ arg: dadoG[dadoG.length - 1].arg + (((curvaDescida + descidaReta) - ((curvaDescida + descidaReta) - dadoG[dadoG.length - 1].arg)) * 0.05) / 2, val: dadoG[dadoG.length - 1].val + ((Number(graficoTravessia[0].profundidadeEntrada) - (Number(graficoTravessia[0].profundidadeEntrada) + dadoG[dadoG.length - 1].val)) * -0.01) })
-        //()dadoG[dadoG.length - 1].arg + ((dadoG[dadoG.length - 1].arg + (curvaDescida + descidaReta - dadoG[dadoG.length - 1].arg)) * 0.1 * ((curvaDescida - dadoG[dadoG.length - 1].arg) / (curvaDescida + descidaReta) - dadoG[dadoG.length - 1].arg))
+        // ()dadoG[dadoG.length - 1].arg + ((dadoG[dadoG.length - 1].arg + (curvaDescida + descidaReta - dadoG[dadoG.length - 1].arg)) * 0.1 * ((curvaDescida - dadoG[dadoG.length - 1].arg) / (curvaDescida + descidaReta) - dadoG[dadoG.length - 1].arg))
       }
     }
 
-    //Descida Plato
+    // Descida Plato
     for (var i = 0; i <= (curvaDescida + descidaReta + (platoDescida * 5)); i++) {
       platoDescidaArry.push(i)
       if (i > dadoG.length) {
-        console.log("Descida Plato")
+        console.log('Descida Plato')
         dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + 1), val: (dadoG[dadoG.length - 1].val) })
       }
     }
-    var tamanho = dadoG.length
-    //Curva subida
+    const tamanho = dadoG.length
+    // Curva subida
     for (var x = dadoG[dadoG.length - 1].arg; x <= Number(distancia); x++) {
       // angulo.push(Math.atan((x + descidaRetaArry.length + 9) / 100) * (angulacao / Math.PI))
       // variacaoProfundidade.push((Math.sin((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoProfundidade[x])
@@ -786,18 +786,18 @@ export default function FillInPhases() {
       //   variacaoDistanciaPercorrida.push((Math.cos((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoDistanciaPercorrida[x - descidaRetaArry.length])
       //   curvaDescidaArry.push({ x: variacaoDistanciaPercorrida[x - descidaRetaArry.length], y: variacaoProfundidade[x] * -1 })
       //   if (variacaoDistanciaPercorrida[x - descidaRetaArry.length] >= descidaRetaArry[descidaRetaArry.length - 1])
-      var diferenca = dadoG[dadoG.length - 1].arg - Number(graficoTravessia[0].profundidadeEntrada)
-      if ( 0 >= dadoG[dadoG.length - 1].val && dadoG[dadoG.length - 1].arg <= Number(distancia) - (descidaReta)) {
-        console.log("Curva Subida")                                                                                                                                            //-16           +  ((               25                      -  (                 25                     +         -16                 ))  *-0,1)                                                                            
-        //dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + diferencaX + acrescimoDifX), val: (dadoG[dadoG.length - 1].val - diferencaY - acrescimoDifY) })
-                                    //16              + ((-16+25)*0,1*((-25-(-16))/(-16-25)))
+      const diferenca = dadoG[dadoG.length - 1].arg - Number(graficoTravessia[0].profundidadeEntrada)
+      if (dadoG[dadoG.length - 1].val <= 0 && dadoG[dadoG.length - 1].arg <= Number(distancia) - (descidaReta)) {
+        console.log('Curva Subida') // -16           +  ((               25                      -  (                 25                     +         -16                 ))  *-0,1)
+        // dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + diferencaX + acrescimoDifX), val: (dadoG[dadoG.length - 1].val - diferencaY - acrescimoDifY) })
+        // 16              + ((-16+25)*0,1*((-25-(-16))/(-16-25)))
         dadoG.push({ arg: dadoG[dadoG.length - 1].arg + (((curvaDescida + descidaReta) - ((curvaDescida + descidaReta) - dadoG[dadoG.length - 1].arg)) * 0.01) / 2, val: Number((dadoG[dadoG.length - 1].val + ((Number(graficoTravessia[0].profundidadeEntrada) - (Number(graficoTravessia[0].profundidadeEntrada) + dadoG[dadoG.length - 1].val)) * 0.01)).toFixed(3)) })
-        //()dadoG[dadoG.length - 1].arg + ((dadoG[dadoG.length - 1].arg + (curvaDescida + descidaReta - dadoG[dadoG.length - 1].arg)) * 0.1 * ((curvaDescida - dadoG[dadoG.length - 1].arg) / (curvaDescida + descidaReta) - dadoG[dadoG.length - 1].arg))
+        // ()dadoG[dadoG.length - 1].arg + ((dadoG[dadoG.length - 1].arg + (curvaDescida + descidaReta - dadoG[dadoG.length - 1].arg)) * 0.1 * ((curvaDescida - dadoG[dadoG.length - 1].arg) / (curvaDescida + descidaReta) - dadoG[dadoG.length - 1].arg))
       }
     }
-    //Descida Reta
+    // Descida Reta
     for (var i = dadoG[dadoG.length - 1].val; i <= 0; i++) {
-      console.log("Subida Reta")
+      console.log('Subida Reta')
       descidaRetaArry.push(i)
       dadoG.push({ arg: dadoG[dadoG.length - 1].arg + 1, val: i })
     }
@@ -821,29 +821,28 @@ export default function FillInPhases() {
     //   //descidaRetaArry.push(i)
     //   dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + 1), val: dadoG[dadoG.length - 1].val + 1 })
     // }
-    //console.log(descidaRetaArry)
+    // console.log(descidaRetaArry)
 
     // for (let i = 1; i <= 10; i++) {
     //   //labels.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
     //   angulo.push(Math.atan(i / 100) * (180 / Math.PI))
     //   variacaoProfundidade.push((Math.sin((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste)+ variacaoProfundidade[i-1] )
     //   variacaoDistanciaPercorrida.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste)+ variacaoDistanciaPercorrida[i-1])
-    //   //if(i < Number(distancia)-2){ 
+    //   //if(i < Number(distancia)-2){
     //     dadoG.push({ x: variacaoProfundidade[i - 1], y: variacaoDistanciaPercorrida[i - 1]*-1 })
     //     labels.push(variacaoProfundidade[i - 1])
     //   // }else{
     //   //   dadoG.push({ x: variacaoProfundidade[Number(distancia) - i], y: variacaoDistanciaPercorrida[Number(distancia) - i]*-1 })
     //   // }
 
-
     //   dadoslabels = [variacaoProfundidade]
-    //   dadosF = [variacaoDistanciaPercorrida] 
+    //   dadosF = [variacaoDistanciaPercorrida]
     //   // console.log(angulo)
     // }
-    // 45 * 1.5 = 67,5 
+    // 45 * 1.5 = 67,5
 
-    //comprimentoHaste = 1.5
-    //distanciaPercorrida = (Number(distancia)-(Number(distancia)*0.1))
+    // comprimentoHaste = 1.5
+    // distanciaPercorrida = (Number(distancia)-(Number(distancia)*0.1))
     // console.log(inicioCurva)
     // console.log(distanciaPercorrida)
     // while (graficoTrue === false && x < 10000) {
@@ -859,7 +858,7 @@ export default function FillInPhases() {
     //   variacaoDistanciaPercorrida.push(x + 1)
     //   //console.log(variacaoDistanciaPercorrida[x])
     //   //i < Number(distancia)-20
-    //   if (variacaoDistanciaPercorrida[x] <= descidaReta) {//        
+    //   if (variacaoDistanciaPercorrida[x] <= descidaReta) {//
 
     //     console.log("Descida reta")
     //     // console.log('variacaoDistanciaPercorrida')
@@ -884,12 +883,12 @@ export default function FillInPhases() {
     //     index = x
 
     //     dadoG.push({ arg: variacaoDistanciaPercorrida[x], val: variacaoProfundidade[x] })
-    //   } 
+    //   }
     //   // else if (variacaoDistanciaPercorrida[x] > (descida + curvaDescida) && variacaoDistanciaPercorrida[x] <= ((descida * 2) + (curvaDescida + subida))) {
     //   //   //labels.push(umaCasa)
     //   //   console.log("Plato")
     //   //   dadoG.push({ arg: variacaoDistanciaPercorrida[x], val: variacaoProfundidade[index] })
-    //   // } 
+    //   // }
     //   //else  {
     //   //   index = index - 1
     //   //   //labels.push(umaCasa)
@@ -916,7 +915,7 @@ export default function FillInPhases() {
     // var x = 0
     // var y = 0
     // i = comprimentoHaste
-    // while(dadoG[dadoG.length - 1].val >= (graficoTravessia[0].profundidadeEntrada * -1) && y < 10000){      
+    // while(dadoG[dadoG.length - 1].val >= (graficoTravessia[0].profundidadeEntrada * -1) && y < 10000){
     //   x = i + 0.05
     //   y = i - 0.05
     //   dadoG.push({ arg: (x) , val: ((y) * -1) })
@@ -924,20 +923,20 @@ export default function FillInPhases() {
     setDadosGrafico(dadoG)
     setLabelsG(labels)
     // console.log('angulo')
-    //console.log(dadoG)
-    toast.dismiss(toastId);
-    //console.log(dadosGafico)
+    // console.log(dadoG)
+    toast.dismiss(toastId)
+    // console.log(dadosGafico)
     if (grafico) {
       setGrafico(false)
     } else {
       setGrafico(true)
     }
-    //return dadoG
+    // return dadoG
   }
-  function openModal() {
+  function openModal () {
     setIsOpen(true)
   }
-  function onSubmitTipoSolo() {
+  function onSubmitTipoSolo () {
     const data = {
       especificacaoSolo: especificacaoSolo,
       descricao: descricao,
@@ -950,7 +949,7 @@ export default function FillInPhases() {
     createNewFileTipoSolo(data)
     reset()
   }
-  async function createNewFileTipoSolo(submit: any) {
+  async function createNewFileTipoSolo (submit: any) {
     setLoading(true)
     const responser = api.post('tipo-solo', {
       data: submit,
@@ -972,14 +971,14 @@ export default function FillInPhases() {
       setLoading(false)
     })
   }
-  function onSubmit(data: FormData) {
+  function onSubmit (data: FormData) {
     console.log(data)
     data.reviewUpload = documentos
     Cadastro(data)
     reset()
   }
 
-  async function Cadastro(submit: any) {
+  async function Cadastro (submit: any) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.post('maquina-perfuratis', {
@@ -1006,7 +1005,7 @@ export default function FillInPhases() {
       setLoading(false)
     })
   }
-  function onSubmitLevantamento(tabela: string) {
+  function onSubmitLevantamento (tabela: string) {
     // console.log(idEtapa)
     const data = {
       banco: tabela,
@@ -1035,7 +1034,7 @@ export default function FillInPhases() {
       Sondagem: sondagem,
       DiametroInterferencia: diametroPerfuracao,
       CriacaoPlanoFuro: criacaoplanoFuro,
-      //Ferramentas: ferramentas,
+      // Ferramentas: ferramentas,
       InformacoesEnvolvidas: infoEnvolvidas,
       Diametro: diametroPerfuracao,
       LocalRelDiretrizFuro: localDiretrizFuro,
@@ -1146,7 +1145,7 @@ export default function FillInPhases() {
     // }
   }
 
-  function onSubmitInterferenciasFisicasMagneticas() {
+  function onSubmitInterferenciasFisicasMagneticas () {
     // console.log(responsavel)
     const data = {
       idConfigTravessia: idConfigTravessia.replace('#/preencher-fases/', ''),
@@ -1195,9 +1194,9 @@ export default function FillInPhases() {
   //   }
   // }
 
-  async function createNewFile(submit: any) {
+  async function createNewFile (submit: any) {
     setLoading(true)
-    toast.info("Carregando...")
+    toast.info('Carregando...')
     // console.log('submit')
     // console.log(submit)
     // eslint-disable-next-line
@@ -1217,13 +1216,13 @@ export default function FillInPhases() {
           loadDados('etapas')
           setidTodosCampos(response.data.id)
           toast.success('Cadastro realizado com sucesso!')
-          if (variavelTitulo === "Planejamento da Travessia") {
-            //console.log(graficoTravessia.length)
+          if (variavelTitulo === 'Planejamento da Travessia') {
+            // console.log(graficoTravessia.length)
             if (graficoTravessia.length > 0) {
               await api.put(`graficoTravessia/${graficoTravessia[0].id}`, {
                 data: submit,
               }).then(async (response) => {
-                //toast.success('Cadastrada com sucesso!')
+                // toast.success('Cadastrada com sucesso!')
                 setLoading(false)
                 reset()
                 setIsOpenPlanejamento(false)
@@ -1279,11 +1278,10 @@ export default function FillInPhases() {
               setIsOpenFluido(false)
               loadDados('etapas')
             }
-            //console.log(data)
-
+            // console.log(data)
           })
           if (submit.banco === 'todos-campos') {
-            window.location.href = window.location.href.split("(")[0].replace("preencher-fases", "etapas").replace("/" + idEtapa, "")
+            window.location.href = window.location.href.split('(')[0].replace('preencher-fases', 'etapas').replace('/' + idEtapa, '')
           }
         } else if (response.statusText === 'Forbidden') {
           toast.error('Ops, Não tem permisão!')
@@ -1311,13 +1309,13 @@ export default function FillInPhases() {
           loadDados('etapas')
           setidTodosCampos(response.data.id)
           toast.success('Alterado com sucesso!')
-          if (variavelTitulo === "Planejamento da Travessia") {
-            //console.log(graficoTravessia.length)
+          if (variavelTitulo === 'Planejamento da Travessia') {
+            // console.log(graficoTravessia.length)
             if (graficoTravessia.length > 0) {
               await api.put(`graficoTravessia/${graficoTravessia[0].id}`, {
                 data: submit,
               }).then(async (response) => {
-                //toast.success('Cadastrada com sucesso!')
+                // toast.success('Cadastrada com sucesso!')
                 setLoading(false)
                 reset()
                 setIsOpenPlanejamento(false)
@@ -1373,11 +1371,10 @@ export default function FillInPhases() {
               setIsOpenFluido(false)
               loadDados('etapas')
             }
-            //console.log(data)
-
+            // console.log(data)
           })
           if (submit.banco === 'todos-campos') {
-            window.location.href = window.location.href.split("(")[0].replace("preencher-fases", "etapas").replace("/" + idEtapa, "")
+            window.location.href = window.location.href.split('(')[0].replace('preencher-fases', 'etapas').replace('/' + idEtapa, '')
           }
         } else if (response.statusText === 'Forbidden') {
           toast.error('Ops, Não tem permisão!')
@@ -1393,7 +1390,7 @@ export default function FillInPhases() {
       })
     }
   }
-  async function loadDados(tipoSoloId: string) {
+  async function loadDados (tipoSoloId: string) {
     setLoading(true)
     setdataExecucao(date)
     sethoraExecucao(hora)
@@ -1570,7 +1567,7 @@ export default function FillInPhases() {
         setLoading(false)
       }
     }).catch(res => {
-      //console.log(res.response.data)
+      // console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
@@ -1582,7 +1579,7 @@ export default function FillInPhases() {
         setLoading(false)
       }
     }).catch(res => {
-      //console.log(res.response.data)
+      // console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
@@ -1593,12 +1590,12 @@ export default function FillInPhases() {
         setLoading(false)
       }
     }).catch(res => {
-      //console.log(res.response.data)
+      // console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
     console.log(tipoSoloId)
-    await api.get('fluido-perfuracao?filter%5BtipoSoloId%5D=' + tipoSoloId,// 
+    await api.get('fluido-perfuracao?filter%5BtipoSoloId%5D=' + tipoSoloId, //
     ).then((response) => {
       console.log(response.data.rows)
       console.log(typeof (response.data.rows))
@@ -1607,17 +1604,17 @@ export default function FillInPhases() {
         setLoading(false)
       }
     }).catch(res => {
-      //console.log(res.response.data)
+      // console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
-    api.get(`todos-campos?filter%5BetapaId%5D=${idConfigTravessia.split("#/preencher-fases/")[1].split("/")[2].split("(")[0]}&filter%5BidTravessia%5D=${idConfigTravessia.split("#/preencher-fases/")[1].split("/")[0]}`,
+    api.get(`todos-campos?filter%5BetapaId%5D=${idConfigTravessia.split('#/preencher-fases/')[1].split('/')[2].split('(')[0]}&filter%5BidTravessia%5D=${idConfigTravessia.split('#/preencher-fases/')[1].split('/')[0]}`,
     ).then((response) => {
       // console.log(response.data.rows)
       if (response.statusText === 'OK') {
         if (response.data.count > 0) {
           // console.log(response.data.rows[0].id)
-          setIdEtapa(idConfigTravessia.split("#/preencher-fases/")[1].split("/")[2].split("(")[0])
+          setIdEtapa(idConfigTravessia.split('#/preencher-fases/')[1].split('/')[2].split('(')[0])
           setidTodosCampos(response.data.rows[0].id)
           setlatitudeEntrada(response.data.rows[0].PontoVerEntradaLat)
           setlongitudeEntrada(response.data.rows[0].PontoVerEntradaLong)
@@ -1638,7 +1635,7 @@ export default function FillInPhases() {
           setsondagem(response.data.rows[0].Sondagem)
           setDiametroInterferencia(response.data.rows[0].DiametroInterferencia)
           setcriacaoplanoFuro(response.data.rows[0].CriacaoPlanoFuro)
-          //setferramentas(response.data.rows[0].Ferramentas)
+          // setferramentas(response.data.rows[0].Ferramentas)
           setInfoEnvolvidas(response.data.rows[0].InformacoesEnvolvidas)
           setLocalDiretrizFuro(response.data.rows[0].LocalRelDiretrizFuro)
           setTipoInterferencia(response.data.rows[0].TipoInterferencia)
@@ -1647,7 +1644,7 @@ export default function FillInPhases() {
           setDataTopografia(response.data.rows[0].DataExecTopografia)
           setEspecificacaoSolo(response.data.rows[0].especificacaoSolo)
           setnomePerfilAcesso(response.data.rows[0].nomePerfilAcesso)
-          response.data.rows[0].dataExecucao === "" ? setdataExecucao(date) : setdataExecucao(response.data.rows[0].dataExecucao)
+          response.data.rows[0].dataExecucao === '' ? setdataExecucao(date) : setdataExecucao(response.data.rows[0].dataExecucao)
           setresponsavelExecucao(response.data.rows[0].responsavelExecucao)
           sethoraExecucao(response.data.rows[0].horaExecucao)
           setcroquiMapeamento(response.data.rows[0].croquiMapeamento)
@@ -1720,8 +1717,8 @@ export default function FillInPhases() {
           setAnguloEntrada(response.data.rows[0].anguloEntrada)
           distancia = (getDistanceFromLatLonInKm(
             { lat: Number(response.data.rows[0].PontoVerEntradaLat), lng: Number(response.data.rows[0].PontoVerEntradaLong) },
-            { lat: Number(response.data.rows[0].PontoVerSaidaLat), lng: Number(response.data.rows[0].PontoVerSaidaLong) }
-          ));
+            { lat: Number(response.data.rows[0].PontoVerSaidaLat), lng: Number(response.data.rows[0].PontoVerSaidaLong) },
+          ))
           setCompFuro(distancia)
           console.log(distancia)
         } else {
@@ -1730,7 +1727,7 @@ export default function FillInPhases() {
         }
         setLoading(false)
       }
-      api.get(`todos-campos?filter%5BidTravessia%5D=${idConfigTravessia.split("#/preencher-fases/")[1].split("/")[0]}&limit=1`,
+      api.get(`todos-campos?filter%5BidTravessia%5D=${idConfigTravessia.split('#/preencher-fases/')[1].split('/')[0]}&limit=1`,
       ).then((response) => {
         // console.log(response.data.rows)
         if (response.statusText === 'OK') {
@@ -1743,7 +1740,7 @@ export default function FillInPhases() {
         toast.error(res.response.data)
         setLoading(false)
       })
-      api.get(`interferencia?filter%5BidTravessia%5D=${idConfigTravessia.split("#/preencher-fases/")[1].split("/")[0]}`,
+      api.get(`interferencia?filter%5BidTravessia%5D=${idConfigTravessia.split('#/preencher-fases/')[1].split('/')[0]}`,
       ).then((response) => {
         if (response.statusText === 'OK') {
           setinterferencias(response.data.rows)
@@ -1753,12 +1750,12 @@ export default function FillInPhases() {
         // toast.error(res.response.data);
         setLoading(false)
       })
-      api.get(`ferramentasTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/preencher-fases/', '').split('/')[1]}&filter%5BetapaId%5D=${idConfigTravessia.split("#/preencher-fases/")[1].split("/")[2].split("(")[0]}`,
+      api.get(`ferramentasTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/preencher-fases/', '').split('/')[1]}&filter%5BetapaId%5D=${idConfigTravessia.split('#/preencher-fases/')[1].split('/')[2].split('(')[0]}`,
       ).then((response) => {
         if (response.statusText === 'OK') {
           console.log(response.data.rows)
           setferramentasT(response.data.rows)
-          //setValorFerramenta(response.data.rows)
+          // setValorFerramenta(response.data.rows)
         }
       }).catch((res) => {
         console.log(res)
@@ -1772,21 +1769,20 @@ export default function FillInPhases() {
     })
     setLoading(false)
   }
-  function getDistanceFromLatLonInKm(position1: { lat: number; lng: number }, position2: { lat: number; lng: number }) {
-    "use strict";
-    var deg2rad = function (deg: number) { return deg * (Math.PI / 180); },
-      R = 6371,
-      dLat = deg2rad(position2.lat - position1.lat),
-      dLng = deg2rad(position2.lng - position1.lng),
-      a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
-        + Math.cos(deg2rad(position1.lat))
-        * Math.cos(deg2rad(position1.lat))
-        * Math.sin(dLng / 2) * Math.sin(dLng / 2),
-      c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  function getDistanceFromLatLonInKm (position1: { lat: number; lng: number }, position2: { lat: number; lng: number }) {
+    const deg2rad = function (deg: number) { return deg * (Math.PI / 180) }
+    const R = 6371
+    const dLat = deg2rad(position2.lat - position1.lat)
+    const dLng = deg2rad(position2.lng - position1.lng)
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(position1.lat)) *
+        Math.cos(deg2rad(position1.lat)) *
+        Math.sin(dLng / 2) * Math.sin(dLng / 2)
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
     console.log(((R * c * 1000).toFixed()))
-    return ((R * c * 1000).toFixed());
+    return ((R * c * 1000).toFixed())
   }
-  async function deleteDados(id: string, tabela: string) {
+  async function deleteDados (id: string, tabela: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete(tabela + id,
@@ -1809,12 +1805,12 @@ export default function FillInPhases() {
         setLoading(false)
       }
     }).catch(res => {
-      //console.log(res.response.data)
+      // console.log(res.response.data)
       toast.error(res.response.data)
       setLoading(false)
     })
   }
-  function update(data: any) {
+  function update (data: any) {
     // console.log('data')
     // console.log(data)
     // setDados(data)
@@ -1867,7 +1863,7 @@ export default function FillInPhases() {
     }
     // console.log(idDados)
   }
-  async function updateDados() {
+  async function updateDados () {
     setLoading(true)
     // console.log('idTodosCampos')
     // console.log(idTodosCampos)
@@ -1892,7 +1888,7 @@ export default function FillInPhases() {
         Sondagem: sondagem,
         DiametroInterferencia: diametroPerfuracao,
         CriacaoPlanoFuro: criacaoplanoFuro,
-        //Ferramentas: ferramentas,
+        // Ferramentas: ferramentas,
         InformacoesEnvolvidas: infoEnvolvidas,
         Diametro: diametroPerfuracao,
         LocalRelDiretrizFuro: localDiretrizFuro,
@@ -2003,13 +1999,13 @@ export default function FillInPhases() {
     // setLoading(true)
     loadDados('etapas')
   }, [])
-  function afterOpenModal() {
+  function afterOpenModal () {
     // references are now sync'd and can be accessed.
   }
-  function closeModal() {
+  function closeModal () {
     setIsOpenPlanejamento(false)
   }
-  async function makeRequisition(e: any) {
+  async function makeRequisition (e: any) {
     e.preventDefault()
     e.target.reset()
 
@@ -2081,7 +2077,7 @@ export default function FillInPhases() {
         toast.error('Erro: Tente mais tarde :(')
       })
   }
-  function salvarInterferencia(tabela: string) {
+  function salvarInterferencia (tabela: string) {
     const data = {
       tipo: variavelTitulo,
       latitude: latitude,
@@ -2128,7 +2124,7 @@ export default function FillInPhases() {
         setLoading(false)
       })
   }
-  function editarInterferencia(tabela: string) {
+  function editarInterferencia (tabela: string) {
     const data = {
       tipo: variavelTitulo,
       latitude: latitude,
@@ -2178,7 +2174,7 @@ export default function FillInPhases() {
       <Sidebar />
       <Navbar />
       <S.Container>
-        <button style={{ background: '#FECE51', width: '50px' }} onClick={() => { window.location.href = window.location.href.split("(")[0].replace("preencher-fases", "etapas").replace("/" + idEtapa, "") }}><FiArrowLeft color='#000' size={25} /></button>
+        <button style={{ background: '#20B6B4', width: '50px' }} onClick={() => { window.location.href = window.location.href.split('(')[0].replace('preencher-fases', 'etapas').replace('/' + idEtapa, '') }}><FiArrowLeft color='#000' size={25} /></button>
         <h2 style={{ marginTop: '10px' }}>{variavelTitulo}</h2>
         <h3 style={{ width: '100%', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', paddingLeft: '10px', paddingRight: '10px' }}>{variavelDescricao}</h3>
         <form>
@@ -2194,7 +2190,7 @@ export default function FillInPhases() {
           </select>
           <button onClick={openModal} className='add'>Registro de interferência</button> */}
 
-          {//</form>camponomePerfilAcesso
+          {// </form>camponomePerfilAcesso
             // ? <div>
             //   <label htmlFor=''>Nome do usuario do perfil de acesso</label>
             //   {/* <input
@@ -2216,7 +2212,7 @@ export default function FillInPhases() {
             //     <button onClick={() => setIsOpenInvite(true)} className='buttonAddInter'><FiPlus size={20} /></button>
             //   </div>
             // </div>
-            //: false
+            // : false
           }
           {campodataExecucao
             ? <div>
@@ -2226,7 +2222,7 @@ export default function FillInPhases() {
                 value={dataExecucao}
                 onChange={(text) => setdataExecucao(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {/* {camporesponsavelExecucao
             ? <div>
@@ -2247,7 +2243,7 @@ export default function FillInPhases() {
                 value={horaExecucao}
                 onChange={(text) => sethoraExecucao(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoEntradaLatitude
             ? <div>
@@ -2257,7 +2253,7 @@ export default function FillInPhases() {
                 value={latitudeEntrada}
                 onChange={(text) => setlatitudeEntrada(text.target.value)}
               />
-            </div>
+              </div>
             : false}
 
           {campoEntradaLongitude
@@ -2268,7 +2264,7 @@ export default function FillInPhases() {
                 value={longitudeEntrada}
                 onChange={(text) => setlongitudeEntrada(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {/* {campoprofundidadeEntrada
             ? <div>
@@ -2288,7 +2284,7 @@ export default function FillInPhases() {
                 value={profundidadeEntrada}
                 onChange={(text) => setprofundidadeEntrada(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoSaidaLatitude
             ? <div>
@@ -2298,7 +2294,7 @@ export default function FillInPhases() {
                 value={latitudeSaida}
                 onChange={(text) => setlatitudeSaida(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {/* <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"> */}
 
@@ -2309,15 +2305,15 @@ export default function FillInPhases() {
                 type='number' placeholder='Longitude'
                 value={longitudeSaida}
                 onChange={(text) => {
-                  setlongitudeSaida(text.target.value);
+                  setlongitudeSaida(text.target.value)
                   distancia = (getDistanceFromLatLonInKm(
                     { lat: Number(latitudeEntrada), lng: Number(longitudeEntrada) },
-                    { lat: Number(latitudeSaida), lng: Number(longitudeSaida) }
-                  ));
+                    { lat: Number(latitudeSaida), lng: Number(longitudeSaida) },
+                  ))
                   setCompFuro(distancia)
                 }}
               />
-            </div>
+              </div>
             : false}
           {campoprofundidadeSaida
             ? <div>
@@ -2327,7 +2323,7 @@ export default function FillInPhases() {
                 value={profundidadeSaida}
                 onChange={(text) => setprofundidadeSaida(text.target.value)}
               />
-            </div>
+              </div>
             : false}
 
           {campoDiametroPerfuracao
@@ -2338,7 +2334,7 @@ export default function FillInPhases() {
                 value={diametroPerfuracao}
                 onChange={(text) => setdiametroPerfuracao(text.target.value)}
               />
-            </div>
+              </div>
             : false}
 
           {campoTipoRede
@@ -2373,7 +2369,7 @@ export default function FillInPhases() {
                 <option value='Tubo gás aço'>Tubo gás aço</option>
                 <option value='Tubo gás esgoto'>Tubo gás esgoto</option>
               </select> */}
-            </div>
+              </div>
             : false}
 
           {campoTipoTubulacao
@@ -2384,10 +2380,10 @@ export default function FillInPhases() {
                 value={tipoTubulacao}
                 onChange={(text) => settipoTubulacao(text.target.value)}
               />
-            </div>
+              </div>
             : false}
 
-          {//campoResponsel? 
+          {// campoResponsel?
             <div>
               <label htmlFor=''>Responsável</label>
               <input
@@ -2397,7 +2393,7 @@ export default function FillInPhases() {
                 onChange={(text) => setresponsavel(text.target.value)}
               />
             </div>
-            //: false
+            // : false
           }
 
           {/* {campoEquipamento
@@ -2451,7 +2447,7 @@ export default function FillInPhases() {
                 /><br /><br />
 
               </form>
-            </div>
+              </div>
             : false}
           {campoConfirmacaoProcedimento
             ? <div>
@@ -2461,7 +2457,7 @@ export default function FillInPhases() {
                 value={ConfirmacaoProcedimento}
                 onChange={(text) => setConfirmacaoProcedimento(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoVolumePreparado
             ? <div>
@@ -2471,7 +2467,7 @@ export default function FillInPhases() {
                 value={VolumePreparado}
                 onChange={(text) => setVolumePreparado(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoTesteVicosidade
             ? <div>
@@ -2481,7 +2477,7 @@ export default function FillInPhases() {
                 value={TesteVicosidade}
                 onChange={(text) => setTesteVicosidade(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoSondagemInterferencia
             ? <div>
@@ -2491,7 +2487,7 @@ export default function FillInPhases() {
                 value={sondagemInterferencia}
                 onChange={(text) => setsondagemInterferencia(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoSondagem
             ? <div>
@@ -2501,7 +2497,7 @@ export default function FillInPhases() {
                 value={sondagem}
                 onChange={(text) => setsondagem(text.target.value)}
               />
-            </div>
+              </div>
             : false}
 
           {campoPlanoFuro
@@ -2512,7 +2508,7 @@ export default function FillInPhases() {
                 value={criacaoplanoFuro}
                 onChange={(text) => setcriacaoplanoFuro(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoFerramentas
             ? <div>
@@ -2522,7 +2518,7 @@ export default function FillInPhases() {
                 <Select
                   className='select'
                   mode='multiple'
-                  //defaultValue={ferramentas?.map((ferramenta) => [ferramenta.nome])} 
+                  // defaultValue={ferramentas?.map((ferramenta) => [ferramenta.nome])}
                   placeholder='Selecione...'
                   onChange={(text) => setferramentas(text)}
                 >
@@ -2534,7 +2530,7 @@ export default function FillInPhases() {
                 <button onClick={openModalFerramenta} className='buttonAddInter'><FiPlus size={20} /></button>
               </div>
 
-            </div>
+              </div>
             : false}
 
           {campoInfoEnvolvidas
@@ -2545,7 +2541,7 @@ export default function FillInPhases() {
                 value={infoEnvolvidas}
                 onChange={(text) => setInfoEnvolvidas(text.target.value)}
               />
-            </div>
+              </div>
             : false}
 
           {campoDiametro
@@ -2557,7 +2553,7 @@ export default function FillInPhases() {
                 value={diametroPerfuracao}
                 onChange={(text) => setdiametroPerfuracao(text.target.value)}
               />
-            </div>
+              </div>
             : false}
 
           {campoLocalizaDiretrizFuro
@@ -2568,7 +2564,7 @@ export default function FillInPhases() {
                 value={localDiretrizFuro}
                 onChange={(text) => setLocalDiretrizFuro(text.target.value)}
               />
-            </div>
+              </div>
             : false}
 
           {campoResponselTopografia
@@ -2579,7 +2575,7 @@ export default function FillInPhases() {
                 value={respTopografia}
                 onChange={(text) => setRespTopografia(text.target.value)}
               />
-            </div>
+              </div>
             : false}
 
           {campoDataTopografia
@@ -2590,7 +2586,7 @@ export default function FillInPhases() {
                 value={dataTopografia}
                 onChange={(text) => setDataTopografia(text.target.value)}
               />
-            </div>
+              </div>
             : false}
 
           {campoEmpresa
@@ -2601,7 +2597,7 @@ export default function FillInPhases() {
                 value={empresa}
                 onChange={(text) => setempresa(text.target.value)}
               />
-            </div>
+              </div>
             : false}
 
           {/* {camponomePerfilAcesso
@@ -2688,7 +2684,7 @@ export default function FillInPhases() {
                 /><br /><br />
 
               </form>
-            </div>
+              </div>
             : false}
 
           {campoequipamentoUtilizado
@@ -2699,7 +2695,7 @@ export default function FillInPhases() {
                 value={equipamentoUtilizado}
                 onChange={(text) => setequipamentoUtilizado(text.target.value)}
               />
-            </div>
+              </div>
             : false}
 
           {campomaterializacaoCampo
@@ -2710,7 +2706,7 @@ export default function FillInPhases() {
                 value={materializacaoCampo}
                 onChange={(text) => setmaterializacaoCampo(text.target.value)}
               />
-            </div>
+              </div>
             : false}
 
           {campoquantidadeInterferencias
@@ -2721,7 +2717,7 @@ export default function FillInPhases() {
                 value={quantidadeInterferencias}
                 onChange={(text) => setquantidadeInterferencias(text.target.value)}
               />
-            </div>
+              </div>
             : false}
 
           {campoparaleloEsquerda
@@ -2733,7 +2729,7 @@ export default function FillInPhases() {
                 value={paraleloEsquerda}
                 onChange={(text) => setparaleloEsquerda(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoparaleloDireita
             ? <div>
@@ -2743,7 +2739,7 @@ export default function FillInPhases() {
                 value={paraleloDireita}
                 onChange={(text) => setparaleloDireita(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoperpendicular
             ? <div>
@@ -2753,7 +2749,7 @@ export default function FillInPhases() {
                 value={perpendicular}
                 onChange={(text) => setperpendicular(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoProfundidade
             ? <div>
@@ -2763,7 +2759,7 @@ export default function FillInPhases() {
                 value={profundidade}
                 onChange={(text) => setprofundidade(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoDiametroInterferencia
             ? <div>
@@ -2773,7 +2769,7 @@ export default function FillInPhases() {
                 value={diametroInterferencia}
                 onChange={(text) => setDiametroInterferencia(text.target.value)}
               />
-            </div>
+              </div>
             : false}
 
           {/* {campoTipoInterferencia
@@ -2794,7 +2790,7 @@ export default function FillInPhases() {
                 value={EmpresaProprietaria}
                 onChange={(text) => setEmpresaProprietaria(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campolargura
             ? <div>
@@ -2805,7 +2801,7 @@ export default function FillInPhases() {
                 value={largura}
                 onChange={(text) => setlargura(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campocomprimento
             ? <div>
@@ -2815,7 +2811,7 @@ export default function FillInPhases() {
                 value={comprimento}
                 onChange={(text) => setcomprimento(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoprofundidadeVala
             ? <div>
@@ -2825,7 +2821,7 @@ export default function FillInPhases() {
                 value={profundidadeVala}
                 onChange={(text) => setprofundidadeVala(text.target.value)}
               />
-            </div>
+              </div>
             : false}
 
           {campoestacaReferencia
@@ -2836,7 +2832,7 @@ export default function FillInPhases() {
                 value={estacaReferencia}
                 onChange={(text) => setestacaReferencia(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoSondagemInterferencia
             ? <div>
@@ -2846,7 +2842,7 @@ export default function FillInPhases() {
                 value={sondagemInterferencia}
                 onChange={(text) => setestacaReferencia(text.target.value)}
               />
-            </div>
+              </div>
             : false}
 
           {campoTipoSolo
@@ -2870,7 +2866,7 @@ export default function FillInPhases() {
                 </select>
                 <button onClick={() => setIsOpenTipoSolo(true)} className='buttonAddInter'><FiPlus size={20} /></button>
               </div>
-            </div>
+              </div>
             : false}
 
           {campoFluido
@@ -2891,11 +2887,11 @@ export default function FillInPhases() {
                   {fluidos.length > 0
                     ? fluidos.map((fluido) =>
                       <option value={fluido.id + '/' + fluido.nome + '/' + fluido.viscosidadeEsperada + '/' + fluido.qtdePHPA + '/' + fluido.qtdeBase + '/' + fluido.limiteEscoamento + '/' + fluido.teorAreia}>{fluido.nome}</option>)
-                    : <option>{"Nenhum tipo de solo selecionado ou nenhum fluido cadastrado!"}</option>}
+                    : <option>Nenhum tipo de solo selecionado ou nenhum fluido cadastrado!</option>}
                 </select>
                 <button onClick={() => setIsOpenFluido(true)} className='buttonAddInter'><FiPlus size={20} /></button>
               </div>
-            </div>
+              </div>
             : false}
           {campoReceitaFluido
             ? <div>
@@ -2905,7 +2901,7 @@ export default function FillInPhases() {
                 value={ReceitaFluido}
                 onChange={(text) => setReceitaFluido(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {camponumeroHastes
             ? <div>
@@ -2916,7 +2912,7 @@ export default function FillInPhases() {
                 value={numeroHastes}
                 onChange={(text) => setnumeroHastes(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoprofundidadePlanejada
             ? <div>
@@ -2926,7 +2922,7 @@ export default function FillInPhases() {
                 value={profundidadePlanejada}
                 onChange={(text) => setprofundidadePlanejada(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoavancoPlanejado
             ? <div>
@@ -2936,7 +2932,7 @@ export default function FillInPhases() {
                 value={avancoPlanejado}
                 onChange={(text) => setavancoPlanejado(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoprofundidadeExecutada
             ? <div>
@@ -2946,7 +2942,7 @@ export default function FillInPhases() {
                 value={profundidadeExecutada}
                 onChange={(text) => setprofundidadeExecutada(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoavancoExecutado
             ? <div>
@@ -2956,7 +2952,7 @@ export default function FillInPhases() {
                 value={avancoExecutado}
                 onChange={(text) => setavancoExecutado(text.target.value)}
               />
-            </div>
+              </div>
             : false}
 
           {campoamarracao
@@ -2967,7 +2963,7 @@ export default function FillInPhases() {
                 value={amarracao}
                 onChange={(text) => setamarracao(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campomaquinaPerfuratriz
             ? <div>
@@ -2985,7 +2981,7 @@ export default function FillInPhases() {
                 </select>
                 <button onClick={() => setIsOpenMaquinaPerfuratriz(true)} className='buttonAddInter'><FiPlus size={20} /></button>
               </div>
-            </div>
+              </div>
             : false}
           {campodiametroAlargamento
             ? <div>
@@ -2995,7 +2991,7 @@ export default function FillInPhases() {
                 value={diametroAlargamento}
                 onChange={(text) => setdiametroAlargamento(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campotempoHaste
             ? <div>
@@ -3005,7 +3001,7 @@ export default function FillInPhases() {
                 value={tempoHaste}
                 onChange={(text) => settempoHaste(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campovazaoBomba
             ? <div>
@@ -3015,50 +3011,55 @@ export default function FillInPhases() {
                 value={vazaoBomba}
                 onChange={(text) => setvazaoBomba(text.target.value)}
               />
-            </div>
+              </div>
             : false}
-          {variavelTitulo === "Execução da Travessia - Furo Piloto"
+          {variavelTitulo === 'Execução da Travessia - Furo Piloto'
             ? <><div>
               <label htmlFor=''>Ângulo de Entrada (º)</label>
               <input
                 type='number'
                 value={anguloEntrada}
-                onChange={(text) => setAnguloEntrada(text.target.value)} />
-            </div>
+                onChange={(text) => setAnguloEntrada(text.target.value)}
+              />
+                </div>
 
               <div>
                 <label htmlFor=''>Comprimento mordentes à entrada (m)</label>
                 <input
                   type='number'
                   value={comprimentoMordenteEntrada}
-                  onChange={(text) => setcomprimentoMordenteEntrada(text.target.value)} />
+                  onChange={(text) => setcomprimentoMordenteEntrada(text.target.value)}
+                />
               </div>
               <div>
                 <label htmlFor=''>Porta sonda até Broca (m)</label>
                 <input
                   type='number'
                   value={portaSondaBroca}
-                  onChange={(text) => setPortaSondaBroca(text.target.value)} />
+                  onChange={(text) => setPortaSondaBroca(text.target.value)}
+                />
               </div>
               <div>
                 <label htmlFor=''>Cabeça da sonda (m)</label>
                 <input
                   type='number'
                   value={cabecaSonda}
-                  onChange={(text) => setCabecaSonda(text.target.value)} />
+                  onChange={(text) => setCabecaSonda(text.target.value)}
+                />
               </div>
               <button style={{ marginTop: '35px', width: '200px' }} onClick={() => { formulas() }} className='finishPhase'>Visualizar plano de furo</button>
-            </>
+              </>
             : false}
-          {grafico ?
-            <><div className="myChartDiv">
+          {grafico
+            ? <><div className='myChartDiv'>
               {/* <canvas id="myChart" width="600" height="400"></canvas> */}
               {/* <Line id="myChart" width="600" height="400" options={options} data={dataG} />
             </div><div className="myChartDiv"> */}
               <App data={dadosGafico} />
               {/* <canvas id="myChart" width="600" height="400"></canvas> */}
               {/* <Line id="myChart" width="600" height="400" options={options2} data={dataG2} /> */}
-            </div></> : false}
+            </div>
+            </> : false}
           {campotipoRedeTubula
             ? <div>
               <label htmlFor=''>Tipo de Rede/Tubulação</label>
@@ -3067,9 +3068,9 @@ export default function FillInPhases() {
                 value={tipoRedeTubula}
                 onChange={(text) => settipoRedeTubula(text.target.value)}
               />
-            </div>
+              </div>
             : false}
-          {variavelTitulo === "Planejamento da Travessia"
+          {variavelTitulo === 'Planejamento da Travessia'
             ? <div>
               <label htmlFor=''>Distancia Entrada x Saida (m)</label>
               <input
@@ -3078,7 +3079,7 @@ export default function FillInPhases() {
                 value={compFuro}
                 onChange={(text) => setCompFuro(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campodiametroRede
             ? <div>
@@ -3088,7 +3089,7 @@ export default function FillInPhases() {
                 value={diametroRede}
                 onChange={(text) => setdiametroRede(text.target.value)}
               />
-            </div>
+              </div>
             : false}
 
           {campoPortaSonda
@@ -3100,7 +3101,7 @@ export default function FillInPhases() {
                 value={PortaSonda}
                 onChange={(text) => setPortaSonda(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoHastes
             ? <div>
@@ -3110,7 +3111,7 @@ export default function FillInPhases() {
                 value={Hastes}
                 onChange={(text) => setHastes(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoSonda
             ? <div>
@@ -3120,7 +3121,7 @@ export default function FillInPhases() {
                 value={Sonda}
                 onChange={(text) => setSonda(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campopaPerfuracao
             ? <div>
@@ -3130,7 +3131,7 @@ export default function FillInPhases() {
                 value={paPerfuracao}
                 onChange={(text) => setpaPerfuracao(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoPullingHead
             ? <div>
@@ -3140,7 +3141,7 @@ export default function FillInPhases() {
                 value={PullingHead}
                 onChange={(text) => setPullingHead(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoLocalizador
             ? <div>
@@ -3150,7 +3151,7 @@ export default function FillInPhases() {
                 value={Localizador}
                 onChange={(text) => setLocalizador(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoLuva
             ? <div>
@@ -3160,7 +3161,7 @@ export default function FillInPhases() {
                 value={Luva}
                 onChange={(text) => setLuva(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoHasteInicial
             ? <div>
@@ -3170,7 +3171,7 @@ export default function FillInPhases() {
                 value={HasteInicial}
                 onChange={(text) => setHasteInicial(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoFlexobarra
             ? <div>
@@ -3180,7 +3181,7 @@ export default function FillInPhases() {
                 value={Flexobarra}
                 onChange={(text) => setFlexobarra(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoRadio
             ? <div>
@@ -3190,7 +3191,7 @@ export default function FillInPhases() {
                 value={Radio}
                 onChange={(text) => setRadio(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoParafuso
             ? <div>
@@ -3200,7 +3201,7 @@ export default function FillInPhases() {
                 value={Parafuso}
                 onChange={(text) => setParafuso(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campomodeloAlargador
             ? <div>
@@ -3210,7 +3211,7 @@ export default function FillInPhases() {
                 value={modeloAlargador}
                 onChange={(text) => setmodeloAlargador(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campocapacidadePortaFusilink
             ? <div>
@@ -3220,7 +3221,7 @@ export default function FillInPhases() {
                 value={capacidadePortaFusilink}
                 onChange={(text) => setcapacidadePortaFusilink(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campocapacidadeSwivel
             ? <div>
@@ -3230,7 +3231,7 @@ export default function FillInPhases() {
                 value={capacidadeSwivel}
                 onChange={(text) => setcapacidadeSwivel(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoDiametroFerramenta
             ? <div>
@@ -3240,7 +3241,7 @@ export default function FillInPhases() {
                 value={DiametroFerramenta}
                 onChange={(text) => setDiametroFerramenta(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoCondicaoFerramenta
             ? <div>
@@ -3250,7 +3251,7 @@ export default function FillInPhases() {
                 value={CondicaoFerramenta}
                 onChange={(text) => setCondicaoFerramenta(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {/*
               <div>
@@ -3337,7 +3338,7 @@ export default function FillInPhases() {
                 <option value='Direita'>Direita</option>
                 <option value='Paralelo'>Paralelo</option>
               </select>
-            </div>
+              </div>
             : false}
 
           {camposInterferencia
@@ -3348,7 +3349,7 @@ export default function FillInPhases() {
                 value={diametroInterferencia}
                 onChange={(text) => setDiametroInterferencia(text.target.value)}
               />
-            </div>
+              </div>
             : false}
 
           {camposInterferencia
@@ -3359,7 +3360,7 @@ export default function FillInPhases() {
                 value={tipoInterferencia}
                 onChange={(text) => setTipoInterferencia(text.target.value)}
               />
-            </div>
+              </div>
             : false}
 
           {camposInterferencia
@@ -3370,7 +3371,7 @@ export default function FillInPhases() {
                 value={profundidade}
                 onChange={(text) => setprofundidade(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campovalaEntradaLatitude
             ? <div>
@@ -3380,7 +3381,7 @@ export default function FillInPhases() {
                 value={valaEntradaLatitude}
                 onChange={(text) => setvalaEntradaLatitude(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campovalaEntradaLongitude
             ? <div>
@@ -3390,7 +3391,7 @@ export default function FillInPhases() {
                 value={valaEntradaLongitude}
                 onChange={(text) => setvalaEntradaLongitude(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {/* {campovalaEntradaAltura
             ? <div>
@@ -3410,7 +3411,7 @@ export default function FillInPhases() {
                 value={valaEntradaComprimento}
                 onChange={(text) => setvalaEntradaComprimento(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campovalaEntradaProfundidade
             ? <div>
@@ -3420,7 +3421,7 @@ export default function FillInPhases() {
                 value={valaEntradaProfundidade}
                 onChange={(text) => setvalaEntradaProfundidade(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campovalaSaidaLatitude
             ? <div>
@@ -3430,7 +3431,7 @@ export default function FillInPhases() {
                 value={valaSaidaLatitude}
                 onChange={(text) => setvalaSaidaLatitude(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campovalaSaidaLongitude
             ? <div>
@@ -3440,7 +3441,7 @@ export default function FillInPhases() {
                 value={valaSaidaLongitude}
                 onChange={(text) => setvalaSaidaLongitude(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {/* {campovalaSaidaAltura
             ? <div>
@@ -3460,7 +3461,7 @@ export default function FillInPhases() {
                 value={valaSaidaComprimento}
                 onChange={(text) => setvalaSaidaComprimento(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campovalaSaidaProfundidade
             ? <div>
@@ -3470,7 +3471,7 @@ export default function FillInPhases() {
                 value={valaSaidaProfundidade}
                 onChange={(text) => setvalaSaidaProfundidade(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoprofundidadeMax
             ? <div>
@@ -3480,7 +3481,7 @@ export default function FillInPhases() {
                 value={profundidadeMax}
                 onChange={(text) => setprofundidadeMax(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {campoprofundidadeMin
             ? <div>
@@ -3490,7 +3491,7 @@ export default function FillInPhases() {
                 value={profundidadeMin}
                 onChange={(text) => setprofundidadeMin(text.target.value)}
               />
-            </div>
+              </div>
             : false}
           {/* {campoMaterialRedeTubula
             ? <div>
@@ -3516,18 +3517,18 @@ export default function FillInPhases() {
                       <th>Longitude</th>
                       <th>Diâmetro</th>
                       {variavelTitulo === 'Sondagem das Interferências' ? <th>Profundidade</th> : false}
-                    </tr>
+                      </tr>
                     : false}
 
                   {interferencias.length > 0
                     ? interferencias.map((inter) =>
                       <tr>
-                        {variavelTitulo === 'Sondagem das Interferências' ? inter.confirmado === true ? <td style={{ paddingLeft: '40px' }}>{<FiCheck size={25} color="green" />}</td> : <td style={{ paddingLeft: '40px' }}>{<FiX size={25} color="red" />}</td> : false}
+                        {variavelTitulo === 'Sondagem das Interferências' ? inter.confirmado === true ? <td style={{ paddingLeft: '40px' }}><FiCheck size={25} color='green' /></td> : <td style={{ paddingLeft: '40px' }}><FiX size={25} color='red' /></td> : false}
                         <td>{inter.tipoInterferencia}</td>
                         <td>{parseFloat(inter.latitude).toPrecision(8)}</td>
                         <td>{parseFloat(inter.longitude).toPrecision(8)}</td>
                         <td>{inter.diametro}</td>
-                        {variavelTitulo === 'Sondagem das Interferências' ? <td >{inter.profundidade}</td> : false}
+                        {variavelTitulo === 'Sondagem das Interferências' ? <td>{inter.profundidade}</td> : false}
                         <td>
                           <button className='button' onClick={() => deleteDados(inter.id, 'interferencia/')}>
                             <FiTrash color='#EA1C24' size={18} />
@@ -3535,7 +3536,7 @@ export default function FillInPhases() {
                         </td>
                         <td>
                           <button className='button' onClick={() => openModalInterferenciaEdit(inter)}>
-                            <FiEye color='#FECE51' size={18} />
+                            <FiEye color='#20B6B4' size={18} />
                           </button>
                         </td>
                       </tr>)
@@ -3543,17 +3544,17 @@ export default function FillInPhases() {
 
                 </table>
               </div>
-            </>
+              </>
             : false}
           {campoFerramentas
             ? <><br /><h4>Ferramentas selecionadas</h4>
               {/* <button onClick={openModalInterferencia} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button> */}
               <div style={{ overflow: 'auto' }}>
-                <table >
+                <table>
                   {ferramentasT.length > 0
                     ? <tr>
                       <th>Nome</th>
-                    </tr>
+                      </tr>
                     : false}
 
                   {ferramentasT.length > 0
@@ -3576,10 +3577,10 @@ export default function FillInPhases() {
                 </table>
               </div>
               <br />
-            </>
+              </>
             : false}
           {campoPontosVerificacao
-            ? <><h4>Pontos de verificação</h4>{/*<button onClick={openModalPontosVerificacao} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button>*/}
+            ? <><h4>Pontos de verificação</h4>{/* <button onClick={openModalPontosVerificacao} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button> */}
               <div style={{ overflow: 'auto' }}>
                 <table>
                   {pontosVerificacao.length > 0
@@ -3589,7 +3590,7 @@ export default function FillInPhases() {
                       <th>Profundidade (m)</th>
                       {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <th>Angulação (º)</th> : false}
                       {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <th>Posição em Horas (h)</th> : false}
-                    </tr>
+                      </tr>
                     : false}
 
                   {pontosVerificacao.length > 0
@@ -3607,7 +3608,7 @@ export default function FillInPhases() {
                         </td>
                         <td>
                           <button className='button' onClick={() => openModalPontosVerificacaoEdit(pontos)}>
-                            <FiEye color='#FECE51' size={18} />
+                            <FiEye color='#20B6B4' size={18} />
                           </button>
                         </td>
                       </tr>)
@@ -3616,32 +3617,32 @@ export default function FillInPhases() {
                 </table>
               </div>
 
-            </>
+              </>
             : false}
           <div className='flexBtns'>
             {!finalizarEtapa
               ? <button onClick={() => { onSubmitLevantamento('todos-campos') }}>{loading
                 ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height='' src={Load}
-                  alt='Loading'
-                />
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height='' src={Load}
+                    alt='Loading'
+                  />
                 : 'Salvar'}
-              </button>
+                </button>
               : false}
             {!finalizarEtapa
               ? idTodosCampos === ''
                 ? <button onClick={() => { toast.info('É preciso salvar a etapa!') }} className='finishPhase'>Finalizar Etapa</button>
                 : <button onClick={() => { updateDados() }} className='finishPhase'>{loading
                   ? <img
-                    width='40px'
-                    style={{ margin: 'auto' }}
-                    height='' src={Load}
-                    alt='Loading'
-                  />
+                      width='40px'
+                      style={{ margin: 'auto' }}
+                      height='' src={Load}
+                      alt='Loading'
+                    />
                   : 'Finalizar Etapa'}
-                </button>
+                  </button>
               : 'Etapa Finalizada!'}
           </div>
           {/* <button className='excluirEtapa' onClick={() => deleteEtapa()}>Excluir etapa</button> */}
@@ -3906,12 +3907,12 @@ export default function FillInPhases() {
               type='submit'
             >{loading
               ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height=''
-                src={Load}
-                alt='Loading'
-              />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height=''
+                  src={Load}
+                  alt='Loading'
+                />
               : 'Salvar'}
             </button>
           </form>
@@ -3947,7 +3948,7 @@ export default function FillInPhases() {
                 <select
                   style={{ backgroundColor: '#252332', color: 'white' }}
                   value={tipoDeRede}
-                  onChange={(text) => { setTipoDeRede(text.target.value); }}//loadDados('etapas')
+                  onChange={(text) => { setTipoDeRede(text.target.value) }}// loadDados('etapas')
                 >
                   <option value=''>Selecione...</option>
                   <option value='Água Potável'>Água Potável</option>
@@ -4042,17 +4043,17 @@ export default function FillInPhases() {
             />
             {variavelTitulo == 'Execução da Travessia - Furo Piloto'
               ? <input
-                type='number' placeholder='Angulacão'
-                value={angulacao}
-                onChange={(text) => setAngulacao(text.target.value)}
-              />
+                  type='number' placeholder='Angulacão'
+                  value={angulacao}
+                  onChange={(text) => setAngulacao(text.target.value)}
+                />
               : false}
             {variavelTitulo == 'Execução da Travessia - Furo Piloto'
               ? <input
-                type='number' placeholder='posicão em Horas'
-                value={posicaoHoras}
-                onChange={(text) => setposicaoHoras(text.target.value)}
-              />
+                  type='number' placeholder='posicão em Horas'
+                  value={posicaoHoras}
+                  onChange={(text) => setposicaoHoras(text.target.value)}
+                />
               : false}
           </div>
           <button className='save' onClick={() => editarInterferencia('pontos-verificacao/')}>{loading
@@ -4064,10 +4065,10 @@ export default function FillInPhases() {
                 src={Load}
                 alt='Loading'
               />
-            )
+              )
             : (
-              'Salvar'
-            )}
+                'Salvar'
+              )}
           </button>
         </S4.ModelsModal>
       </Modal>
@@ -4111,12 +4112,12 @@ export default function FillInPhases() {
           <S2.Btns>
             <button onClick={() => onSubmitLevantamento('user')}>{loading
               ? <img
-                width='40px'
-                style={{ margin: 'auto' }}
-                height=''
-                src={Load}
-                alt='Loading'
-              />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height=''
+                  src={Load}
+                  alt='Loading'
+                />
               : 'Salvar'}
             </button>
             <button onClick={() => setIsOpenInvite(false)}>Cancelar</button>
@@ -4234,10 +4235,10 @@ export default function FillInPhases() {
                 src={Load}
                 alt='Loading'
               />
-            )
+              )
             : (
-              'Salvar'
-            )}
+                'Salvar'
+              )}
           </button>
         </S4.ModelsModal>
       </Modal>
@@ -4307,10 +4308,10 @@ export default function FillInPhases() {
                 src={Load}
                 alt='Loading'
               />
-            )
+              )
             : (
-              'Salvar'
-            )}
+                'Salvar'
+              )}
           </button>
         </S4.ModelsModal>
 
@@ -4387,7 +4388,7 @@ export default function FillInPhases() {
               <div className='selectPlus'>
                 <select
                   value={tipoSolo}
-                  onChange={(text) => { setTipoSolo(text.target.value.split('/')[0]); setEspecificacaoSolo(text.target.value.split('/')[1]); }}//loadDados(text.target.value.split('/')[0]) 
+                  onChange={(text) => { setTipoSolo(text.target.value.split('/')[0]); setEspecificacaoSolo(text.target.value.split('/')[1]) }}// loadDados(text.target.value.split('/')[0])
                 >
                   <option value=''>Selecione...</option>
                   {soilTypes.length > 0
@@ -4464,10 +4465,10 @@ export default function FillInPhases() {
                 src={Load}
                 alt='Loading'
               />
-            )
+              )
             : (
-              'Confirmar'
-            )}
+                'Confirmar'
+              )}
           </button>
         </S4.ModelsModal>
 
