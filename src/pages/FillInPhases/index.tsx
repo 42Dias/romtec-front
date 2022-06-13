@@ -397,6 +397,7 @@ export default function FillInPhases() {
   const [capacidadePortaFusilink, setcapacidadePortaFusilink] = useState('')
   const [capacidadeSwivel, setcapacidadeSwivel] = useState('')
   const [Fluido, setFluido] = useState('')
+  const [FluidoId, setFluidoId] = useState('')
   const [ReceitaFluido, setReceitaFluido] = useState('')
   const [PortaSonda, setPortaSonda] = useState('')
   const [VolumePreparado, setVolumePreparado] = useState('')
@@ -1077,6 +1078,7 @@ export default function FillInPhases() {
       capacidadePortaFusilink: capacidadePortaFusilink,
       capacidadeSwivel: capacidadeSwivel,
       fluido: Fluido,
+      fluidoId: FluidoId,
       receitaFluido: ReceitaFluido,
       portaSonda: PortaSonda,
       confirmacaoProcedimento: ConfirmacaoProcedimento,
@@ -1501,8 +1503,8 @@ export default function FillInPhases() {
         setLoading(false)
       }
     }).catch(res => {
-      // //console.log(res.response.data)
-      toast.error(res.response.data)
+      console.log(res.response)
+      //toast.error(res.response.data)
       setLoading(false)
     })
     api.get(`interferencia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/preencher-fases/', '').split('/')[1]}`,
@@ -1643,7 +1645,7 @@ export default function FillInPhases() {
           setprofundidade(response.data.rows[0].Profundidade)
           setRespTopografia(response.data.rows[0].ResponsavelTopografia)
           setDataTopografia(response.data.rows[0].DataExecTopografia)
-
+          setEspecificacaoSolo(response.data.rows[0].especificacaoSolo)
           setnomePerfilAcesso(response.data.rows[0].nomePerfilAcesso)
           response.data.rows[0].dataExecucao === "" ? setdataExecucao(date) : setdataExecucao(response.data.rows[0].dataExecucao)
           setresponsavelExecucao(response.data.rows[0].responsavelExecucao)
@@ -1676,6 +1678,7 @@ export default function FillInPhases() {
           setcapacidadePortaFusilink(response.data.rows[0].capacidadePortaFusilink)
           setcapacidadeSwivel(response.data.rows[0].capacidadeSwivel)
           setFluido(response.data.rows[0].fluido)
+          setFluidoId(response.data.rows[0].fluidoId)
           setcampoReceitaFluido(response.data.rows[0].receitaFluido)
 
           setPortaSonda(response.data.rows[0].portaSonda)
@@ -2848,7 +2851,7 @@ export default function FillInPhases() {
 
           {campoTipoSolo
             ? <div>
-              <label htmlFor=''>Tipos de solo</label>
+              <label htmlFor=''>Tipo de solo</label>
               {/* <input
                     type='text' placeholder='Barro'
                     value={tipoSolo}
@@ -2856,8 +2859,8 @@ export default function FillInPhases() {
                   /> */}
               <div className='selectPlus'>
                 <select
-                  value={tipoSolo}
-                  onChange={(text) => { setTipoSolo(text.target.value.split('/')[0]); setEspecificacaoSolo(text.target.value.split('/')[1]); loadDados(text.target.value.split('/')[0]) }}
+                  value={especificacaoSolo}
+                  onChange={(text) => { setTipoSolo(text.target.value.split('/')[0]); setEspecificacaoSolo(text.target.value.split('/')[1]); loadDados(text.target.value.split('/')[0]); console.log(text.target.value) }}
                 >
                   <option value=''>Selecione...</option>
                   {soilTypes.length > 0
@@ -2878,10 +2881,11 @@ export default function FillInPhases() {
                     value={Fluido}
                     onChange={(text) => setFluido(text.target.value)}
                   /> */}
+                  {console.log(especificacaoSolo)}
               <div className='selectPlus'>
                 <select
                   value={Fluido}
-                  onChange={(text) => { setFluido(text.target.value); text.target.value != '' ? setReceitaFluido(`Viscosidade esperada (Segundos Marsh - cP): ${text.target.value.toString().split('/')[2]}\npH da Água: ${text.target.value.toString().split('/')[3]}\nQuantidade base para formulação (Metros cúbicos - m²): ${text.target.value.toString().split('/')[4]}\nLimite de escoamento (Número - N): ${text.target.value.toString().split('/')[5]}\nTeor de areia (Porcentagem - %): ${text.target.value.toString().split('/')[6]}`) : false }}
+                  onChange={(text) => {setFluidoId(text.target.value.split("/")[0]); setFluido(text.target.value.split("/")[1].split("/")[0]); text.target.value != '' ? setReceitaFluido(`Viscosidade esperada (Segundos Marsh - cP): ${text.target.value.toString().split('/')[2]}\npH da Água: ${text.target.value.toString().split('/')[3]}\nQuantidade base para formulação (Metros cúbicos - m²): ${text.target.value.toString().split('/')[4]}\nLimite de escoamento (Número - N): ${text.target.value.toString().split('/')[5]}\nTeor de areia (Porcentagem - %): ${text.target.value.toString().split('/')[6]}`) : false }}
                 >
                   <option value=''>Selecione...</option>
                   {fluidos.length > 0
