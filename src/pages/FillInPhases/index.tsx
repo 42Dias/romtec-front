@@ -1642,7 +1642,7 @@ export default function FillInPhases () {
           setprofundidade(response.data.rows[0].Profundidade)
           setRespTopografia(response.data.rows[0].ResponsavelTopografia)
           setDataTopografia(response.data.rows[0].DataExecTopografia)
-          setEspecificacaoSolo(response.data.rows[0].especificacaoSolo)
+          tipoSoloId === "" || tipoSoloId === 'etapas' ? setEspecificacaoSolo(response.data.rows[0].especificacaoSolo) : false
           setnomePerfilAcesso(response.data.rows[0].nomePerfilAcesso)
           response.data.rows[0].dataExecucao === '' ? setdataExecucao(date) : setdataExecucao(response.data.rows[0].dataExecucao)
           setresponsavelExecucao(response.data.rows[0].responsavelExecucao)
