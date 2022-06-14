@@ -1540,14 +1540,57 @@ export default function FillInPhases () {
     api.get('ferramentaList',
     ).then((response) => {
       if (response.statusText === 'OK') {
-        console.log(response.data.rows)
-        setferramentasList(response.data.rows)
+        // console.log(response.data.rows)
+        response.data.rows.map((resp: any) => {
+          setferramentasList(prevArray => [...prevArray, resp])
+        })
+
       }
     }).catch((res) => {
       console.log(res)
       // toast.error(res.response.data);
       setLoading(false)
     })
+    api.get('hastes',
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        // console.log(response.data.rows)
+        response.data.rows.map((resp: any) => {
+          setferramentasList(prevArray => [...prevArray, resp])
+        })
+      }
+    }).catch((res) => {
+      console.log(res)
+      // toast.error(res.response.data);
+      setLoading(false)
+    })
+    api.get('alargadores',
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        // console.log(response.data.rows)
+        response.data.rows.map((resp: any) => {
+          setferramentasList(prevArray => [...prevArray, resp])
+        })
+      }
+    }).catch((res) => {
+      console.log(res)
+      // toast.error(res.response.data);
+      setLoading(false)
+    })
+    api.get('portaSonda',
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        // console.log(response.data.rows)
+        response.data.rows.map((resp: any) => {
+          setferramentasList(prevArray => [...prevArray, resp])
+        })
+      }
+    }).catch((res) => {
+      console.log(res)
+      // toast.error(res.response.data);
+      setLoading(false)
+    })
+    
     api.get('tipoRede',
     ).then((response) => {
       if (response.statusText === 'OK') {
@@ -2535,7 +2578,8 @@ export default function FillInPhases () {
                 >
                   {ferramentasList.length > 0
                     ? ferramentasList.map((ferramenta) =>
-                      <option value={ferramenta.id + '/' + ferramenta.nome}>{ferramenta.nome}</option>)
+                    ferramenta.nome !== undefined ? <option value={ferramenta.id + '/' + ferramenta.nome}>{ferramenta.nome}</option> : 
+                    ferramenta.codigo !== undefined ? <option value={ferramenta.id + '/' + ferramenta.codigo}>{ferramenta.codigo}</option> : false)
                     : <option>Nenhuma ferramenta cadastrada!</option>}
                 </Select>
                 <button onClick={openModalFerramenta} className='buttonAddInter'><FiPlus size={20} /></button>

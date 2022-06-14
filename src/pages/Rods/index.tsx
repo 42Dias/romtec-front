@@ -99,7 +99,6 @@ Rods () {
     const responser = api.delete('hastes/' + id
     ).then((response) => {
       if (response.statusText === 'OK') {
-        toast.success("Excluido com sucesso!")
         loadDados()
         setLoading(false)
         toast.success("Excluido com sucesso!")
