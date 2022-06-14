@@ -38,6 +38,7 @@ export default function
               errorMessage={errors.latEntryCheckpoint?.message}
               placeholder='Latitude'
               type='number'
+                step=".01"
               {...register('latEntryCheckpoint', {
                 required: {
                   value: true,
@@ -50,6 +51,7 @@ export default function
               label='Ponto de verificação de entrada (long)'
               placeholder='Longitude'
               type='number'
+                step=".01"
               {...register('longEntryCheckpoint', {
                 required: true,
               })}
@@ -59,6 +61,7 @@ export default function
               label='Ponto de verificação de saída (lat)'
               placeholder='Latitude'
               type='number'
+                step=".01"
               {...register('latOutputCheckpoint', {
                 required: true,
               })}
@@ -68,6 +71,7 @@ export default function
               label='Ponto de verificação de saída (long)'
               placeholder='Longitude'
               type='number'
+                step=".01"
               {...register('longOutputCheckpoint', {
                 required: true,
               })}

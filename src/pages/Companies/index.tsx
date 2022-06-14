@@ -121,6 +121,7 @@ Companies () {
       if (response.statusText === 'OK') {
         loadDados()
         setLoading(false)
+        toast.success("Excluido com sucesso!")
       }
     }).catch(res => {
       console.log(res.response)

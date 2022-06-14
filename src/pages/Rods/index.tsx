@@ -60,6 +60,7 @@ Rods () {
         toast.success('Recebemos o seu registro')
         setLoading(false)
         loadDados()
+        setIsOpen(false)
       } else if (response.statusText === 'Forbidden') {
         toast.error('Ops, Não tem permisão!')
         setLoading(false)
@@ -93,16 +94,19 @@ Rods () {
   }
   async function deleteDados(id: string) {
     setLoading(true)
+    console.log(id)
     // eslint-disable-next-line
     const responser = api.delete('hastes/' + id
     ).then((response) => {
       if (response.statusText === 'OK') {
+        toast.success("Excluido com sucesso!")
         loadDados()
         setLoading(false)
+        toast.success("Excluido com sucesso!")
       }
     }).catch(res => {
       console.log(res.response)
-      toast.error(res.response)
+      toast.error(res.response.data)
       setLoading(false)
     })
   }
@@ -212,6 +216,7 @@ Rods () {
               <TextField
                 label='Raio de curvatura'
                 type="number"
+                step=".01"
                 {...register('raioCurvatura', {
                   required: true,
                 })}
@@ -220,6 +225,7 @@ Rods () {
               <TextField
                 label='Diâmetro do tubo(mm)*'
                 type="number"
+                step=".01"
                 {...register('diametroTubo', {
                   required: true,
                 })}
@@ -235,6 +241,7 @@ Rods () {
               <TextField
                 label='Diâmetro do Tool Joint(mm)'
                 type="number"
+                step=".01"
                 {...register('diametroToolJoint', {
                   required: true,
                 })}
@@ -243,6 +250,7 @@ Rods () {
               <TextField
                 label='Torque máximo'
                 type="number"
+                step=".01"
                 {...register('torque', {
                   required: true,
                 })}
@@ -251,6 +259,7 @@ Rods () {
               <TextField
                 label='Comprimento total(m)'
                 type="number"
+                step=".01"
                 {...register('comprimentoTotal', {
                   required: true,
                 })}
@@ -266,6 +275,7 @@ Rods () {
               <TextField
                 label='Quantidade de hastes'
                 type='number'
+                step=".01"
                 {...register('quantidade', {
                   required: true,
                 })}
@@ -287,6 +297,7 @@ Rods () {
               <TextField
                 label='Raio de curvatura'
                 type="number"
+                step=".01"
                 value={raioCurvatura}
                 onChange={(text) => setRaioCurvatura(text.target.value)}
               />
@@ -294,6 +305,7 @@ Rods () {
               <TextField
                 label='Diâmetro do tubo(mm)*'
                 type="number"
+                step=".01"
                 value={diametroTubo}
                 onChange={(text) => setDiametroTubo(text.target.value)}
               />
@@ -307,6 +319,7 @@ Rods () {
               <TextField
                 label='Diâmetro do Tool Joint(mm)'
                 type="number"
+                step=".01"
                 value={diametroToolJoint}
                 onChange={(text) => setDiametroToolJoint(text.target.value)}
               />
@@ -314,6 +327,7 @@ Rods () {
               <TextField
                 label='Torque máximo'
                 type="number"
+                step=".01"
                 value={torque}
                 onChange={(text) => setTorque(text.target.value)}
               />
@@ -321,6 +335,7 @@ Rods () {
               <TextField
                 label='Comprimento total(m)'
                 type="number"
+                step=".01"
                 value={comprimentoTotal}
                 onChange={(text) => setComprimentoTotal(text.target.value)}
               />
@@ -334,6 +349,7 @@ Rods () {
               <TextField
                 label='Quantidade de hastes'
                 type='number'
+                step=".01"
                 value={quantidade}
                 onChange={(text) => setQuantidade(text.target.value)}
               />

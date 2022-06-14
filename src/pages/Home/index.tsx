@@ -5,12 +5,12 @@ import { FiSettings } from 'react-icons/fi'
 import image from '../../assets/obra.png'
 import axios from 'axios'
 import { useEffect } from 'react'
-import { ip, password, port, token } from '../../services/api'
+import { getToken, ip, password, port } from '../../services/api'
 import { toast } from 'react-toastify'
 import { Toast } from 'react-toastify/dist/components'
 
-export default function
-Home () {
+export default function Home () {
+  let token = localStorage.getItem('token')?.replace(/"/g, '')
   async function loadUser (token:any) {
     // toast.info(token)
     const response = await axios({
@@ -35,16 +35,17 @@ Home () {
     console.log(response.tenants[0].roles[0])
     localStorage.setItem('roles', JSON.stringify(response.tenants[0].roles[0]))// saves client's data into localStorage:
     console.log(response.tenants[0].tenant.id)
-    localStorage.setItem('tenantId', JSON.stringify(response.tenants[0].tenant.id))// saves client's data into localStorage:
+    localStorage.setItem('tenantId', JSON.stringify(  response.tenants[0].tenant.id))// saves client's data into localStorage:
     localStorage.setItem('id', JSON.stringify(response.id))// saves client's data into localStorage:
     localStorage.setItem('status', JSON.stringify(response.tenants[0].status))// saves client's data into localStorage:
   }
   useEffect(() => {
+    token = localStorage.getItem('token')?.replace(/"/g, '')
     if (token == undefined) {
       window.location.reload()
     }
     console.log(token)
-    loadUser(token)
+    loadUser(getToken())
   }, [token])
   return (
     <>

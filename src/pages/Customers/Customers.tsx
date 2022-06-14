@@ -152,6 +152,7 @@ export function Customers () {
               <TextField
                 label='CNPJ'
                 type='number'
+                step=".01"
                 errorMessage={errors.cnpj?.message}
                 {...register('cnpj', {
                   required: {
@@ -250,6 +251,7 @@ export function Customers () {
               <TextField
                 label='Número'
                 type='number'
+                step=".01"
                 {...register('numero', {
                   required: {
                     value: true,

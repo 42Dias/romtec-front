@@ -2177,6 +2177,7 @@ export default function ConfigurationSteps () {
               <TextField
                 label='Número da etapa'
                 type='number'
+                step=".01"
                 errorMessage={errors.numeroEtapa?.message}
                 {...register('numeroEtapa', {
                   required: {

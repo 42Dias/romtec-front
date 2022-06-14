@@ -102,6 +102,7 @@ Labor () {
       if (response.statusText === 'OK') {
         loadDados()
         setLoading(false)
+        toast.success("Excluido com sucesso!")
       }
     }).catch(res => {
       console.log(res.response)
@@ -244,6 +245,7 @@ Labor () {
               <TextField
                 label='N° de identificação'
                 type='number'
+                step=".01"
                 id='nIdentificacao'
                 errorMessage={errors.nIdentificacao?.message}
                 {...register('nIdentificacao', {
@@ -334,6 +336,7 @@ Labor () {
               <TextField
                 label='Número do certificado'
                 type='number'
+                step=".01"
                 id='numero'
                 {...register('numero', {
                   required: true,
@@ -372,6 +375,7 @@ Labor () {
               <TextField
                 label='N° de identificação'
                 type='number'
+                step=".01"
                 id='nIdentificacao'
                 value={nIdentificacao}
                 onChange={(text) => setNIdentificacao(text.target.value)}
@@ -388,6 +392,7 @@ Labor () {
                 label='RG'
                 id='rg'
                 type='number'
+                step=".01"
                 value={rg}
                 onChange={(text) => setRg(text.target.value)}
               />
@@ -396,6 +401,7 @@ Labor () {
                 label='CPF'
                 id='cpf'
                 type='number'
+                step=".01"
                 value={cpf}
                 onChange={(text) => setCpf(text.target.value)}
               />
@@ -443,6 +449,7 @@ Labor () {
               <TextField
                 label='Número do certificado'
                 type='number'
+                step=".01"
                 value={numero}
                 onChange={(text) => setNumero(text.target.value)}
               />

@@ -1790,6 +1790,7 @@ export default function FillInPhases () {
       if (response.statusText === 'OK') {
         loadDados('etapas')
         setLoading(false)
+        toast.success("Excluido com sucesso!")
       }
     }).catch(res => {
       // //console.log(res.response.data)
@@ -2249,7 +2250,8 @@ export default function FillInPhases () {
             ? <div>
               <label htmlFor=''>Ponto de verificação de entrada (lat)</label>
               <input
-                type='number' placeholder='Latitude'
+                type='number'
+                step=".01" placeholder='Latitude'
                 value={latitudeEntrada}
                 onChange={(text) => setlatitudeEntrada(text.target.value)}
               />
@@ -2260,7 +2262,8 @@ export default function FillInPhases () {
             ? <div>
               <label htmlFor=''>Ponto de verificação de entrada (long)</label>
               <input
-                type='number' placeholder='Longitude'
+                type='number'
+                step=".01" placeholder='Longitude'
                 value={longitudeEntrada}
                 onChange={(text) => setlongitudeEntrada(text.target.value)}
               />
@@ -2270,7 +2273,8 @@ export default function FillInPhases () {
             ? <div>
               <label htmlFor=''>Profundidade PVE (m)</label>
               <input
-                type='number' placeholder='Profundidade PVE (m)'
+                type='number'
+                step=".01" placeholder='Profundidade PVE (m)'
                 value={profundidadePVE}
                 onChange={(text) => setprofundidadePVE(text.target.value)}
               />
@@ -2280,7 +2284,8 @@ export default function FillInPhases () {
             ? <div>
               <label htmlFor=''>Profundidade da travessia (m)</label>
               <input
-                type='number' placeholder='Profundidade da travessia (m)'
+                type='number'
+                step=".01" placeholder='Profundidade da travessia (m)'
                 value={profundidadeEntrada}
                 onChange={(text) => setprofundidadeEntrada(text.target.value)}
               />
@@ -2290,7 +2295,8 @@ export default function FillInPhases () {
             ? <div>
               <label htmlFor=''>Ponto de verificação de saída (lat)</label>
               <input
-                type='number' placeholder='Latitude'
+                type='number'
+                step=".01" placeholder='Latitude'
                 value={latitudeSaida}
                 onChange={(text) => setlatitudeSaida(text.target.value)}
               />
@@ -2302,7 +2308,8 @@ export default function FillInPhases () {
             ? <div>
               <label htmlFor=''>Ponto de verificação de saída (long)</label>
               <input
-                type='number' placeholder='Longitude'
+                type='number'
+                step=".01" placeholder='Longitude'
                 value={longitudeSaida}
                 onChange={(text) => {
                   setlongitudeSaida(text.target.value)
@@ -2319,7 +2326,8 @@ export default function FillInPhases () {
             ? <div>
               <label htmlFor=''>Tolerância da profundidade (m)</label>
               <input
-                type='number' placeholder='Tolerância da profundidade (m)'
+                type='number'
+                step=".01" placeholder='Tolerância da profundidade (m)'
                 value={profundidadeSaida}
                 onChange={(text) => setprofundidadeSaida(text.target.value)}
               />
@@ -2330,7 +2338,8 @@ export default function FillInPhases () {
             ? <div>
               <label htmlFor=''>Diâmetro de perfuração (mm)</label>
               <input
-                type='number' placeholder='200 mm'
+                type='number'
+                step=".01" placeholder='200 mm'
                 value={diametroPerfuracao}
                 onChange={(text) => setdiametroPerfuracao(text.target.value)}
               />
@@ -2464,6 +2473,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Volume preparado (L)</label>
               <input
                 type='number'
+                step=".01"
                 value={VolumePreparado}
                 onChange={(text) => setVolumePreparado(text.target.value)}
               />
@@ -2474,6 +2484,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Teste  de viscosidade  (s/Marsh)</label>
               <input
                 type='number'
+                step=".01"
                 value={TesteVicosidade}
                 onChange={(text) => setTesteVicosidade(text.target.value)}
               />
@@ -2549,6 +2560,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Diâmetro da Perfuração (mm)</label>
               <input
                 type='number'
+                step=".01"
                 placeholder='Diâmetro da Perfuração (mm)'
                 value={diametroPerfuracao}
                 onChange={(text) => setdiametroPerfuracao(text.target.value)}
@@ -2714,6 +2726,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Quantidade de interferencias</label>
               <input
                 type='number'
+                step=".01"
                 value={quantidadeInterferencias}
                 onChange={(text) => setquantidadeInterferencias(text.target.value)}
               />
@@ -2726,6 +2739,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Paralelo esquerda (m)</label>
               <input
                 type='number'
+                step=".01"
                 value={paraleloEsquerda}
                 onChange={(text) => setparaleloEsquerda(text.target.value)}
               />
@@ -2736,6 +2750,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Paralelo Direita (m)</label>
               <input
                 type='number'
+                step=".01"
                 value={paraleloDireita}
                 onChange={(text) => setparaleloDireita(text.target.value)}
               />
@@ -2746,6 +2761,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Paralelo Perpendicular (m)</label>
               <input
                 type='number'
+                step=".01"
                 value={perpendicular}
                 onChange={(text) => setperpendicular(text.target.value)}
               />
@@ -2756,6 +2772,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Profundidade (m)</label>
               <input
                 type='number'
+                step=".01"
                 value={profundidade}
                 onChange={(text) => setprofundidade(text.target.value)}
               />
@@ -2766,6 +2783,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Diametro de Interferência (mm)</label>
               <input
                 type='number'
+                step=".01"
                 value={diametroInterferencia}
                 onChange={(text) => setDiametroInterferencia(text.target.value)}
               />
@@ -2798,6 +2816,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Largura(m)</label>
               <input
                 type='number'
+                step=".01"
                 value={largura}
                 onChange={(text) => setlargura(text.target.value)}
               />
@@ -2808,6 +2827,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Comprimento(m)</label>
               <input
                 type='number'
+                step=".01"
                 value={comprimento}
                 onChange={(text) => setcomprimento(text.target.value)}
               />
@@ -2818,6 +2838,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Profundidade(m)</label>
               <input
                 type='number'
+                step=".01"
                 value={profundidadeVala}
                 onChange={(text) => setprofundidadeVala(text.target.value)}
               />
@@ -2909,6 +2930,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Numero de Hates</label>
               <input
                 type='number'
+                step=".01"
                 value={numeroHastes}
                 onChange={(text) => setnumeroHastes(text.target.value)}
               />
@@ -2919,6 +2941,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Profundidade Planejada (m)</label>
               <input
                 type='number'
+                step=".01"
                 value={profundidadePlanejada}
                 onChange={(text) => setprofundidadePlanejada(text.target.value)}
               />
@@ -2939,6 +2962,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Profundidade Executada (m)</label>
               <input
                 type='number'
+                step=".01"
                 value={profundidadeExecutada}
                 onChange={(text) => setprofundidadeExecutada(text.target.value)}
               />
@@ -2988,6 +3012,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Diametro de Alargamento (mm)</label>
               <input
                 type='number'
+                step=".01"
                 value={diametroAlargamento}
                 onChange={(text) => setdiametroAlargamento(text.target.value)}
               />
@@ -2998,6 +3023,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Tempo Haste (min/s)</label>
               <input
                 type='number'
+                step=".01"
                 value={tempoHaste}
                 onChange={(text) => settempoHaste(text.target.value)}
               />
@@ -3008,6 +3034,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Vazão Bomba (L/min)</label>
               <input
                 type='number'
+                step=".01"
                 value={vazaoBomba}
                 onChange={(text) => setvazaoBomba(text.target.value)}
               />
@@ -3018,6 +3045,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Ângulo de Entrada (º)</label>
               <input
                 type='number'
+                step=".01"
                 value={anguloEntrada}
                 onChange={(text) => setAnguloEntrada(text.target.value)}
               />
@@ -3027,6 +3055,7 @@ export default function FillInPhases () {
                 <label htmlFor=''>Comprimento mordentes à entrada (m)</label>
                 <input
                   type='number'
+                step=".01"
                   value={comprimentoMordenteEntrada}
                   onChange={(text) => setcomprimentoMordenteEntrada(text.target.value)}
                 />
@@ -3035,6 +3064,7 @@ export default function FillInPhases () {
                 <label htmlFor=''>Porta sonda até Broca (m)</label>
                 <input
                   type='number'
+                step=".01"
                   value={portaSondaBroca}
                   onChange={(text) => setPortaSondaBroca(text.target.value)}
                 />
@@ -3043,6 +3073,7 @@ export default function FillInPhases () {
                 <label htmlFor=''>Cabeça da sonda (m)</label>
                 <input
                   type='number'
+                step=".01"
                   value={cabecaSonda}
                   onChange={(text) => setCabecaSonda(text.target.value)}
                 />
@@ -3086,6 +3117,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Diametro da Rede (mm)</label>
               <input
                 type='number'
+                step=".01"
                 value={diametroRede}
                 onChange={(text) => setdiametroRede(text.target.value)}
               />
@@ -3228,6 +3260,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Capacidade do Swivel (t)</label>
               <input
                 type='number'
+                step=".01"
                 value={capacidadeSwivel}
                 onChange={(text) => setcapacidadeSwivel(text.target.value)}
               />
@@ -3238,6 +3271,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Diametro da ferramenta (mm)</label>
               <input
                 type='number'
+                step=".01"
                 value={DiametroFerramenta}
                 onChange={(text) => setDiametroFerramenta(text.target.value)}
               />
@@ -3346,6 +3380,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Diâmetro (mm)</label>
               <input
                 type='number'
+                step=".01"
                 value={diametroInterferencia}
                 onChange={(text) => setDiametroInterferencia(text.target.value)}
               />
@@ -3368,6 +3403,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Profundidade (m)</label>
               <input
                 type='number'
+                step=".01"
                 value={profundidade}
                 onChange={(text) => setprofundidade(text.target.value)}
               />
@@ -3377,7 +3413,8 @@ export default function FillInPhases () {
             ? <div>
               <label htmlFor=''>Vala de entrada latitude</label>
               <input
-                type='number' placeholder='Latitude'
+                type='number'
+                step=".01" placeholder='Latitude'
                 value={valaEntradaLatitude}
                 onChange={(text) => setvalaEntradaLatitude(text.target.value)}
               />
@@ -3387,7 +3424,8 @@ export default function FillInPhases () {
             ? <div>
               <label htmlFor=''>Vala de entrada longitude</label>
               <input
-                type='number' placeholder='Longitude'
+                type='number'
+                step=".01" placeholder='Longitude'
                 value={valaEntradaLongitude}
                 onChange={(text) => setvalaEntradaLongitude(text.target.value)}
               />
@@ -3408,6 +3446,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Vala de entrada comprimento (m)</label>
               <input
                 type='number'
+                step=".01"
                 value={valaEntradaComprimento}
                 onChange={(text) => setvalaEntradaComprimento(text.target.value)}
               />
@@ -3418,6 +3457,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Vala de entrada profundidade (m)</label>
               <input
                 type='number'
+                step=".01"
                 value={valaEntradaProfundidade}
                 onChange={(text) => setvalaEntradaProfundidade(text.target.value)}
               />
@@ -3427,7 +3467,8 @@ export default function FillInPhases () {
             ? <div>
               <label htmlFor=''>Vala de saida latitude</label>
               <input
-                type='number' placeholder='Latitude'
+                type='number'
+                step=".01" placeholder='Latitude'
                 value={valaSaidaLatitude}
                 onChange={(text) => setvalaSaidaLatitude(text.target.value)}
               />
@@ -3437,7 +3478,8 @@ export default function FillInPhases () {
             ? <div>
               <label htmlFor=''>Vala de saida longitude</label>
               <input
-                type='number' placeholder='Longitude'
+                type='number'
+                step=".01" placeholder='Longitude'
                 value={valaSaidaLongitude}
                 onChange={(text) => setvalaSaidaLongitude(text.target.value)}
               />
@@ -3458,6 +3500,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Vala de saida comprimento (m)</label>
               <input
                 type='number'
+                step=".01"
                 value={valaSaidaComprimento}
                 onChange={(text) => setvalaSaidaComprimento(text.target.value)}
               />
@@ -3468,6 +3511,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Vala de saida profundidade (m)</label>
               <input
                 type='number'
+                step=".01"
                 value={valaSaidaProfundidade}
                 onChange={(text) => setvalaSaidaProfundidade(text.target.value)}
               />
@@ -3478,6 +3522,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Profundidade maxima (m)</label>
               <input
                 type='number'
+                step=".01"
                 value={profundidadeMax}
                 onChange={(text) => setprofundidadeMax(text.target.value)}
               />
@@ -3488,6 +3533,7 @@ export default function FillInPhases () {
               <label htmlFor=''>Profundidade minima (m)</label>
               <input
                 type='number'
+                step=".01"
                 value={profundidadeMin}
                 onChange={(text) => setprofundidadeMin(text.target.value)}
               />
@@ -3664,9 +3710,12 @@ export default function FillInPhases () {
           <FiX />
         </button>
         <form>
-          <input placeholder='Latitude' type='number' />
-          <input placeholder='Longitude' type='number' />
-          <input placeholder='Profundidade' type='number' />
+          <input placeholder='Latitude' type='number'
+                step=".01" />
+          <input placeholder='Longitude' type='number'
+                step=".01" />
+          <input placeholder='Profundidade' type='number'
+                step=".01" />
           <button className='init'>Iniciar <FiPlay /></button>
           <div className='flexBtns'>
             <button>Voltar <FiChevronLeft /></button>
@@ -3794,6 +3843,7 @@ export default function FillInPhases () {
             <TextField
               label='Tração (kN)'
               type='number'
+                step=".01"
               {...register('tracao', {
                 required: true,
               })}
@@ -3802,6 +3852,7 @@ export default function FillInPhases () {
             <TextField
               label='Compressão (KN)'
               type='number'
+                step=".01"
               {...register('compressao', {
                 required: true,
               })}
@@ -3810,6 +3861,7 @@ export default function FillInPhases () {
             <TextField
               label='Torque (N.m)'
               type='number'
+                step=".01"
               {...register('torque', {
                 required: true,
               })}
@@ -3818,6 +3870,7 @@ export default function FillInPhases () {
             <TextField
               label='Rotação Spindle (RPM)'
               type='number'
+                step=".01"
               {...register('rotacaoSpindle', {
                 required: true,
               })}
@@ -3826,6 +3879,7 @@ export default function FillInPhases () {
             <TextField
               label='Velocidade Tração (m/min)'
               type='number'
+                step=".01"
               {...register('velocidadeTracao', {
                 required: true,
               })}
@@ -3834,6 +3888,7 @@ export default function FillInPhases () {
             <TextField
               label='Velocidade Compressão (m/min)'
               type='number'
+                step=".01"
               {...register('velocidadeCompressa', {
                 required: true,
               })}
@@ -3842,6 +3897,7 @@ export default function FillInPhases () {
             <TextField
               label='Diâmetro furo piloto (pol)'
               type='number'
+                step=".01"
               {...register('diametroFuroPiloto', {
                 required: true,
               })}
@@ -3850,6 +3906,7 @@ export default function FillInPhases () {
             <TextField
               label='Ângulo de entrada (º)'
               type='number'
+                step=".01"
               {...register('anguloEntrada', {
                 required: true,
               })}
@@ -3858,6 +3915,7 @@ export default function FillInPhases () {
             <TextField
               label='Diâmetro nominal (mm)'
               type='number'
+                step=".01"
               {...register('diametroNominal', {
                 required: true,
               })}
@@ -3866,6 +3924,7 @@ export default function FillInPhases () {
             <TextField
               label='Raio de curvatura (m)'
               type='number'
+                step=".01"
               {...register('raioCurvatura', {
                 required: true,
               })}
@@ -3874,6 +3933,7 @@ export default function FillInPhases () {
             <TextField
               label='Comprimento (m)'
               type='number'
+                step=".01"
               {...register('comprimento', {
                 required: true,
               })}
@@ -3882,6 +3942,7 @@ export default function FillInPhases () {
             <TextField
               label='Vazão (L/min)'
               type='number'
+                step=".01"
               {...register('vazao', {
                 required: true,
               })}
@@ -3890,6 +3951,7 @@ export default function FillInPhases () {
             <TextField
               label='Pressão (psi)'
               type='number'
+                step=".01"
               {...register('pressao', {
                 required: true,
               })}
@@ -3898,6 +3960,7 @@ export default function FillInPhases () {
             <TextField
               label='Alargamento máximo (pol)'
               type='number'
+                step=".01"
               {...register('alergamentoMaximo', {
                 required: true,
               })}
@@ -3965,6 +4028,7 @@ export default function FillInPhases () {
             </div>
             <TextField
               type='number'
+                step=".01"
               label='Diâmetro da rede (mm)'
               value={diametroRede}
               onChange={(text) => setdiametroRede(text.target.value)}
@@ -3980,6 +4044,7 @@ export default function FillInPhases () {
             <TextField
               label='Espessura de parede (mm)'
               type='number'
+                step=".01"
               value={espessuaraParede}
               onChange={(text) => setEspessuaraParede(text.target.value)}
             />
@@ -3987,6 +4052,7 @@ export default function FillInPhases () {
             <TextField
               label='Distância mínima (m)'
               type='number'
+                step=".01"
               value={distanciaMinima}
               onChange={(text) => setDistanciaMinima(text.target.value)}
             />
@@ -4027,30 +4093,35 @@ export default function FillInPhases () {
               </select> */}
 
             <input
-              type='number' placeholder='Latitude'
+              type='number'
+                step=".01" placeholder='Latitude'
               value={latitude}
               onChange={(text) => setLatitude(text.target.value)}
             />
             <input
-              type='number' placeholder='Longitude'
+              type='number'
+                step=".01" placeholder='Longitude'
               value={longitude}
               onChange={(text) => setLongitude(text.target.value)}
             />
             <input
-              type='number' placeholder='Profundidade'
+              type='number'
+                step=".01" placeholder='Profundidade'
               value={profundidade}
               onChange={(text) => setprofundidade(text.target.value)}
             />
             {variavelTitulo == 'Execução da Travessia - Furo Piloto'
               ? <input
-                  type='number' placeholder='Angulacão'
+                  type='number'
+                step=".01" placeholder='Angulacão'
                   value={angulacao}
                   onChange={(text) => setAngulacao(text.target.value)}
                 />
               : false}
             {variavelTitulo == 'Execução da Travessia - Furo Piloto'
               ? <input
-                  type='number' placeholder='posicão em Horas'
+                  type='number'
+                step=".01" placeholder='posicão em Horas'
                   value={posicaoHoras}
                   onChange={(text) => setposicaoHoras(text.target.value)}
                 />
@@ -4221,7 +4292,8 @@ export default function FillInPhases () {
               onChange={(text) => setdescricaoFerramenta(text.target.value)}
             />
             <input
-              type='number' placeholder='Diametro ou Largura'
+              type='number'
+                step=".01" placeholder='Diametro ou Largura'
               value={diametroLarguraFerramenta}
               onChange={(text) => setdiametroLarguraFerramenta(text.target.value)}
             />
@@ -4279,22 +4351,26 @@ export default function FillInPhases () {
               onChange={(text) => setTipoInterferencia(text.target.value)}
             />
             <input
-              type='number' placeholder='Latitude'
+              type='number'
+                step=".01" placeholder='Latitude'
               value={latitude}
               onChange={(text) => setLatitude(text.target.value)}
             />
             <input
-              type='number' placeholder='Longitude'
+              type='number'
+                step=".01" placeholder='Longitude'
               value={longitude}
               onChange={(text) => setLongitude(text.target.value)}
             />
             <input
-              type='number' placeholder='Profundidade (m)'
+              type='number'
+                step=".01" placeholder='Profundidade (m)'
               value={profundidade}
               onChange={(text) => setprofundidade(text.target.value)}
             />
             <input
-              type='number' placeholder='Diâmetro (mm)'
+              type='number'
+                step=".01" placeholder='Diâmetro (mm)'
               value={diametro}
               onChange={(text) => setDiametro(text.target.value)}
             />
@@ -4347,6 +4423,7 @@ export default function FillInPhases () {
             <TextField
               label='Viscosidade esperada (Segundos Marsh - cP)'
               type='number'
+                step=".01"
               value={viscosidadeEsperada}
               onChange={(text) => setViscosidadeEsperada(text.target.value)}
             />
@@ -4354,6 +4431,7 @@ export default function FillInPhases () {
             <TextField
               label='pH da Água'
               type='number'
+                step=".01"
               value={qtdePHPA}
               onChange={(text) => setQtdePHPA(text.target.value)}
             />
@@ -4361,6 +4439,7 @@ export default function FillInPhases () {
             <TextField
               label='Quantidade base para formulação (Metros cúbicos - m²)'
               type='number'
+                step=".01"
               value={qtdeBase}
               onChange={(text) => setQtdeBase(text.target.value)}
             />
@@ -4368,6 +4447,7 @@ export default function FillInPhases () {
             <TextField
               label='Limite de escoamento (Número - N)'
               type='number'
+                step=".01"
               value={limiteEscoamento}
               onChange={(text) => setLimiteEscoamento(text.target.value)}
             />
@@ -4375,6 +4455,7 @@ export default function FillInPhases () {
             <TextField
               label='Teor de areia (Porcentagem - %)'
               type='number'
+                step=".01"
               value={teorAreia}
               onChange={(text) => setTeorAreia(text.target.value)}
             />
@@ -4430,28 +4511,32 @@ export default function FillInPhases () {
             <br />
             <label>Latitude</label>
             <input
-              type='number' placeholder='Latitude'
+              type='number'
+                step=".01" placeholder='Latitude'
               value={latitude}
               onChange={(text) => setLatitude(text.target.value)}
             />
             <br />
             <label>Longitude</label>
             <input
-              type='number' placeholder='Longitude'
+              type='number'
+                step=".01" placeholder='Longitude'
               value={longitude}
               onChange={(text) => setLongitude(text.target.value)}
             />
             <br />
             <label>Profundidade</label>
             <input
-              type='number' placeholder='Profundidade'
+              type='number'
+                step=".01" placeholder='Profundidade'
               value={profundidade}
               onChange={(text) => setprofundidade(text.target.value)}
             />
             <br />
             <label>Diâmetro (mm)</label>
             <input
-              type='number' placeholder='Diâmetro'
+              type='number'
+                step=".01" placeholder='Diâmetro'
               value={diametro}
               onChange={(text) => setDiametro(text.target.value)}
             />

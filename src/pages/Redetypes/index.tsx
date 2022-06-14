@@ -97,6 +97,7 @@ export default function
       if (response.statusText === 'OK') {
         loadDados()
         setLoading(false)
+        toast.success("Excluido com sucesso!")
       }
     }).catch(res => {
       //console.log(res.response.data)
@@ -252,6 +253,7 @@ export default function
               <TextField
                 label='Diâmetro da rede (mm)'
                 type='number'
+                step=".01"
                 {...register('diametroRede', {
                   required: true,
                 })}
@@ -267,6 +269,7 @@ export default function
               <TextField
                 label='Espessura de parede (mm)'
                 type='number'
+                step=".01"
                 {...register('espessuaraParede', {
                   required: true,
                 })}
@@ -275,6 +278,7 @@ export default function
               <TextField
                 label='Distância mínima (m)'
                 type='number'
+                step=".01"
                 {...register('distanciaMinima', {
                   required: true,
                 })}
@@ -343,6 +347,7 @@ export default function
               
               <TextField
                 type='number'
+                step=".01"
                 label='Diâmetro da rede (mm)'
                 value={diametroRede}
                 onChange={(text) => setDiametroRede(text.target.value)}
@@ -358,6 +363,7 @@ export default function
               <TextField
                 label='Espessura de parede (mm)'
                 type='number'
+                step=".01"
                 value={espessuaraParede}
                 onChange={(text) => setespessuaraParede(text.target.value)}
               />
@@ -365,6 +371,7 @@ export default function
               <TextField
                 label='Distância mínima (m)'
                 type='number'
+                step=".01"
                 value={distanciaMinima}
                 onChange={(text) => setdistanciaMinima(text.target.value)}
               />

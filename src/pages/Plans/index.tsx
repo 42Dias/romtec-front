@@ -89,6 +89,7 @@ Plans () {
       if (response.statusText === 'OK') {
         loadDados()
         setLoading(false)
+        toast.success("Excluido com sucesso!")
       }
     }).catch(res => {
       //console.log(res.response.data)
@@ -235,6 +236,7 @@ Plans () {
               <TextField
                 label='Valor'
                 type='number'
+                step=".01"
                 value={valor}
                 onChange={(text) => setValor(text.target.value)}
               />

@@ -138,6 +138,7 @@ export default function
       if (response.statusText === 'OK') {
         loadDados()
         setLoading(false)
+        toast.success("Excluido com sucesso!")
       }
     }).catch(res => {
       console.log(res.response)
@@ -359,6 +360,7 @@ export default function
               <TextField
                 label='Horimetro'
                 type='number'
+                step=".01"
                 {...register('hourmeter', {
                   required: true,
                 })}
@@ -435,6 +437,7 @@ export default function
               <TextField
                 label='Tração (kN)'
                 type='number'
+                step=".01"
                 {...register('tracao', {
                   required: true,
                 })}
@@ -443,6 +446,7 @@ export default function
               <TextField
                 label='Compressão (KN)'
                 type='number'
+                step=".01"
                 {...register('compressao', {
                   required: true,
                 })}
@@ -451,6 +455,7 @@ export default function
               <TextField
                 label='Torque (N.m)'
                 type='number'
+                step=".01"
                 {...register('torque', {
                   required: true,
                 })}
@@ -459,6 +464,7 @@ export default function
               <TextField
                 label='Rotação Spindle (RPM)'
                 type='number'
+                step=".01"
                 {...register('rotacaoSpindle', {
                   required: true,
                 })}
@@ -467,6 +473,7 @@ export default function
               <TextField
                 label='Velocidade Tração (m/min)'
                 type='number'
+                step=".01"
                 {...register('velocidadeTracao', {
                   required: true,
                 })}
@@ -475,6 +482,7 @@ export default function
               <TextField
                 label='Velocidade Compressão (m/min)'
                 type='number'
+                step=".01"
                 {...register('velocidadeCompressa', {
                   required: true,
                 })}
@@ -483,6 +491,7 @@ export default function
               <TextField
                 label='Diâmetro furo piloto (pol)'
                 type='number'
+                step=".01"
                 {...register('diametroFuroPiloto', {
                   required: true,
                 })}
@@ -491,6 +500,7 @@ export default function
               <TextField
                 label='Ângulo de entrada'
                 type='number'
+                step=".01"
                 {...register('anguloEntrada', {
                   required: true,
                 })}
@@ -499,6 +509,7 @@ export default function
               <TextField
                 label='Diâmetro nominal (mm)'
                 type='number'
+                step=".01"
                 {...register('diametroNominal', {
                   required: true,
                 })}
@@ -507,6 +518,7 @@ export default function
               <TextField
                 label='Raio de curvatura (m)'
                 type='number'
+                step=".01"
                 {...register('raioCurvatura', {
                   required: true,
                 })}
@@ -515,6 +527,7 @@ export default function
               <TextField
                 label='Comprimento (m)'
                 type='number'
+                step=".01"
                 {...register('comprimento', {
                   required: true,
                 })}
@@ -523,6 +536,7 @@ export default function
               <TextField
                 label='Vazão (L/min)'
                 type='number'
+                step=".01"
                 {...register('vazao', {
                   required: true,
                 })}
@@ -531,6 +545,7 @@ export default function
               <TextField
                 label='Pressão (psi)'
                 type='number'
+                step=".01"
                 {...register('pressao', {
                   required: true,
                 })}
@@ -539,6 +554,7 @@ export default function
               <TextField
                 label='Alargamento máximo (pol)'
                 type='number'
+                step=".01"
                 {...register('alergamentoMaximo', {
                   required: true,
                 })}
@@ -578,6 +594,7 @@ export default function
               <TextField
                 label='Horimetro'
                 type='number'
+                step=".01"
                 value={hourmeter}
                 onChange={(text) => setHourmeter(text.target.value)}
               />
@@ -651,6 +668,7 @@ export default function
               <TextField
                 label='Tração (ton)'
                 type='number'
+                step=".01"
                 value={tracao}
                 onChange={(text) => setTracao(text.target.value)}
               />
@@ -658,6 +676,7 @@ export default function
               <TextField
                 label='Compressão (KN)'
                 type='number'
+                step=".01"
                 value={compressao}
                 onChange={(text) => setcompressao(text.target.value)}
               />
@@ -665,6 +684,7 @@ export default function
               <TextField
                 label='Torque'
                 type='number'
+                step=".01"
                 value={torque}
                 onChange={(text) => setTorque(text.target.value)}
               />
@@ -672,6 +692,7 @@ export default function
               <TextField
                 label='Rotação Spindle (RPM)'
                 type='number'
+                step=".01"
                 value={rotacaoSpindle}
                 onChange={(text) => setRotacaoSpindle(text.target.value)}
               />
@@ -679,6 +700,7 @@ export default function
               <TextField
                 label='Velocidade Tração (m/min)'
                 type='number'
+                step=".01"
                 value={velocidadeTracao}
                 onChange={(text) => setVelocidadeTracao(text.target.value)}
               />
@@ -686,6 +708,7 @@ export default function
               <TextField
                 label='Velocidade Compressão (m/min)'
                 type='number'
+                step=".01"
                 value={velocidadeCompressa}
                 onChange={(text) => setVelocidadeCompressa(text.target.value)}
               />
@@ -693,6 +716,7 @@ export default function
               <TextField
                 label='Diâmetro furo piloto (pol)'
                 type='number'
+                step=".01"
                 value={diametroFuroPiloto}
                 onChange={(text) => setDiametroFuroPiloto(text.target.value)}
               />
@@ -700,6 +724,7 @@ export default function
               <TextField
                 label='Ângulo de entrada'
                 type='number'
+                step=".01"
                 value={anguloEntrada}
                 onChange={(text) => setVAnguloEntrada(text.target.value)}
               />
@@ -707,6 +732,7 @@ export default function
               <TextField
                 label='Diâmetro nominal (mm)'
                 type='number'
+                step=".01"
                 value={diametroNominal}
                 onChange={(text) => setDiametroNominal(text.target.value)}
               />
@@ -714,6 +740,7 @@ export default function
               <TextField
                 label='Raio de curvatura (m)'
                 type='number'
+                step=".01"
                 value={raioCurvatura}
                 onChange={(text) => setRaioCurvatura(text.target.value)}
               />
@@ -721,6 +748,7 @@ export default function
               <TextField
                 label='Comprimento (m)'
                 type='number'
+                step=".01"
                 value={comprimento}
                 onChange={(text) => setcomprimento(text.target.value)}
               />
@@ -728,6 +756,7 @@ export default function
               <TextField
                 label='Vazão (L/min)'
                 type='number'
+                step=".01"
                 value={vazao}
                 onChange={(text) => setVazao(text.target.value)}
               />
@@ -735,6 +764,7 @@ export default function
               <TextField
                 label='Pressão (psi)'
                 type='number'
+                step=".01"
                 value={pressao}
                 onChange={(text) => setPressao(text.target.value)}
               />
@@ -742,6 +772,7 @@ export default function
               <TextField
                 label='Alargamento máximo (pol)'
                 type='number'
+                step=".01"
                 value={alergamentoMaximo}
                 onChange={(text) => setAlergamentoMaximo(text.target.value)}
               />

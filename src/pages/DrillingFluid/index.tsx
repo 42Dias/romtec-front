@@ -113,6 +113,7 @@ export default function
       if (response.statusText === 'OK') {
         loadDados()
         setLoading(false)
+        toast.success("Excluido com sucesso!")
       }
     }).catch(res => {
       //console.log(res.response.data)
@@ -225,6 +226,7 @@ export default function
               <TextField
                 label='Viscosidade esperada (Segundos Marsh - cP)'
                 type='number'
+                step=".01"
                 {...register('viscosidadeEsperada', {
                   required: false,
                 })}
@@ -233,6 +235,7 @@ export default function
               <TextField
                 label='pH da Água'
                 type='number'
+                step=".01"
                 {...register('qtdePHPA', {
                   required: false,
                 })}
@@ -241,6 +244,7 @@ export default function
               <TextField
                 label='Quantidade base para formulação (Metros cúbicos - m²)'
                 type='number'
+                step=".01"
                 {...register('qtdeBase', {
                   required: false,
                 })}
@@ -249,6 +253,7 @@ export default function
               <TextField
                 label='Limite de escoamento (Número - N)'
                 type='number'
+                step=".01"
                 {...register('limiteEscoamento', {
                   required: false,
                 })}
@@ -257,6 +262,7 @@ export default function
               <TextField
                 label='Teor de areia (Porcentagem - %)'
                 type='number'
+                step=".01"
                 {...register('teorAreia', {
                   required: false,
                 })}
@@ -302,6 +308,7 @@ export default function
               <TextField
                 label='Viscosidade esperada (Segundos Marsh - cP)'
                 type='number'
+                step=".01"
                 value={viscosidadeEsperada}
                 onChange={(text) => setViscosidadeEsperada(text.target.value)}
               />
@@ -309,6 +316,7 @@ export default function
               <TextField
                 label='pH da Água'
                 type='number'
+                step=".01"
                 value={qtdePHPA}
                 onChange={(text) => setQtdePHPA(text.target.value)}
               />
@@ -316,6 +324,7 @@ export default function
               <TextField
                 label='Quantidade base para formulação (Metros cúbicos - m²)'
                 type='number'
+                step=".01"
                 value={qtdeBase}
                 onChange={(text) => setQtdeBase(text.target.value)}
               />
@@ -323,6 +332,7 @@ export default function
               <TextField
                 label='Limite de escoamento (Número - N)'
                 type='number'
+                step=".01"
                 value={limiteEscoamento}
                 onChange={(text) => setLimiteEscoamento(text.target.value)}
               />
@@ -330,6 +340,7 @@ export default function
               <TextField
                 label='Teor de areia (Porcentagem - %)'
                 type='number'
+                step=".01"
                 value={teorAreia}
                 onChange={(text) => setTeorAreia(text.target.value)}
               />

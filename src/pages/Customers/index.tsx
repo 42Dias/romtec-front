@@ -111,6 +111,7 @@ export default function
       if (response.statusText === 'OK') {
         loadDados()
         setLoading(false)
+        toast.success("Excluido com sucesso!")
       }
     }).catch(res => {
       //console.log(res.response.data)
@@ -266,6 +267,7 @@ export default function
               {/* <TextField
                 label='CNPJ'
                 type='number'
+                step=".01"
                 errorMessage={errors.cnpj?.message}
                 {...register('cnpj', {
                   required: {
@@ -298,6 +300,7 @@ export default function
               <TextField
                 label='CEP'
                 type='number'
+                step=".01"
                 {...register('cep', {
                   required: {
                     value: true,
@@ -349,6 +352,7 @@ export default function
               <TextField
                 label='Número'
                 type='number'
+                step=".01"
                 {...register('numero', {
                   required: {
                     value: true,
@@ -519,6 +523,7 @@ export default function
               <TextField
                 label='CNPJ'
                 type='number'
+                step=".01"
                 value={cnpj}
                 onChange={(text) => setCnpj(text.target.value)}
               />
@@ -538,6 +543,7 @@ export default function
               <TextField
                 label='CEP'
                 type='number'
+                step=".01"
                 value={cep}
                 onChange={(text) => setCep(text.target.value)}
               />
@@ -551,6 +557,7 @@ export default function
               <TextField
                 label='Número'
                 type='number'
+                step=".01"
                 value={numero}
                 onChange={(text) => setNumero(text.target.value)}
               />

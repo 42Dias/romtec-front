@@ -89,6 +89,7 @@ Payments () {
       if (response.statusText === 'OK') {
         loadDados()
         setLoading(false)
+        toast.success("Excluido com sucesso!")
       }
     }).catch(res => {
       //console.log(res.response.data)
@@ -226,6 +227,7 @@ Payments () {
               <TextField
                 label='Valor de pagamento'
                 type='number'
+                step=".01"
                 id='valorPago'
                 value={valorPago}
                 onChange={(text) => setValorPago(text.target.value)}
@@ -277,6 +279,7 @@ Payments () {
               <TextField
                 label='Valor de pagamento'
                 type='number'
+                step=".01"
                 id='valorPago'
                 value={valorPago}
                 onChange={(text) => setValorPago(text.target.value)}
