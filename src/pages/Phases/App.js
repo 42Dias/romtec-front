@@ -28,7 +28,7 @@ function App({data}){
     console.log('data')
     console.log(data)
     return (
-      <Chart style={{with: '100%'}} id="chart" dataSource={data} title="Damped Sine Wave">
+      <Chart style={{with: '100%', innerHeight: '10%'}} id="chart" dataSource={data} title="Plano de furo">
         {/* <Pane name="top" /> */}
         <Pane name="bottom" />
         {/* <Series pane="top" /> */}
@@ -44,7 +44,7 @@ function App({data}){
         <Tooltip enabled={true} format="decimal" />
         <Crosshair enabled={true}>
           <HorizontalLine visible={true} />
-          <Label visible={true} format={data} />
+          <Label visible={true} format={crosshairFormat} />
         </Crosshair>
         <Legend visible={true} />
       </Chart>
