@@ -206,6 +206,8 @@ export default function
   const [fluidos, setFluidos] = useState<any[]>([])
   const [dados, setDados] = useState<any[]>([])
   const [dadosGafico, setDadosGrafico] = useState({})
+  const [dadosGaficoInter, setDadosGraficoInter] = useState({})
+  const [dadosGafico2, setDadosGrafico2] = useState({})
   const [labelsG, setLabelsG] = useState<any[]>([])
   const [soilTypes, setSoilTypes] = useState<any[]>([])
   const [interferencias, setinterferencias] = useState<any[]>([])
@@ -702,10 +704,16 @@ export default function
       if (response.statusText === 'OK') {
         console.log(response.data.rows)
         setGraficoTravessia(response.data.rows)
+        
         distancia = (getDistanceFromLatLonInKm(
           { lat: Number(response.data.rows[0].pontoVerEntradaLat), lng: Number(response.data.rows[0].pontoVerEntradaLong) },
           { lat: Number(response.data.rows[0].pontoVerSaidaLat), lng: Number(response.data.rows[0].pontoVerSaidaLong) },
         ))
+        var dadoGafico2 = [
+          {nome: 'Travessia', arg: 0, val: 0},
+          {nome: 'Travessia', arg: 0, val: distancia}
+        ]
+        setDadosGrafico2(dadoGafico2)
       }
     }).catch((res) => {
       console.log(res)
@@ -719,7 +727,7 @@ export default function
     labels.push(0)
     //distancia = String(200)
     comprimentoHaste = 1.5
-    const dadoG = [{ arg: 0, val: 0 }]
+    const dadoG = [{nome: 'nome', arg: 0, val: 0 }]
     var x = 0
     const y = 0
     const raioCurvatura = 1
@@ -770,12 +778,15 @@ export default function
     const curvaDescidaArry = []
     const platoDescidaArry = []
 
+    console.log("descidaReta")
+    console.log(descidaReta)
+
     if(descidaReta < Number(graficoTravessia[0].profundidadeEntrada) && Number(distancia) > 100 && (Number(distancia) - (Number(distancia) * 0.75)) > Number(graficoTravessia[0].profundidadeEntrada)){
       // Descida Reta
     for (var i = 1; i <= descidaReta; i++) {
       console.log('Descida Reta')
       descidaRetaArry.push(i)
-      dadoG.push({ arg: i, val: (i * -1) })
+      dadoG.push({nome: 'Travessia', arg: i, val: (i * -1) })
       inicioCurvaX = dadoG[dadoG.length - 1].arg
       inicioCurvaY = dadoG[dadoG.length - 1].val
       anteriorX = dadoG[dadoG.length - 1].arg
@@ -819,7 +830,7 @@ export default function
         finalY = anteriorY + variacaoY
         // console.log("finalY")
         // console.log(finalY)
-        dadoG.push({arg: finalX, val: finalY})
+        dadoG.push({nome: 'Travessia',arg: finalX, val: finalY})
         anteriorX = dadoG[dadoG.length - 1].arg
         anteriorY = dadoG[dadoG.length - 1].val
       }
@@ -869,28 +880,31 @@ export default function
         anteriorY = dadoG2[dadoG2.length - 1].val
       }
     }
-    console.log(dadoG2[dadoG2.length - 1].arg)
+    
     // Descida Plato
     for (var i = 0; i <= (Number(distancia)*2) ; i++) {
       platoDescidaArry.push(i)
       if (i > dadoG.length && dadoG[dadoG.length - 1].arg < dadoG2[dadoG2.length - 1].arg) {
         console.log('Descida Plato')
-        dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + 1), val: Number(dadoG[dadoG.length - 1].val.toFixed(1)) })
+        dadoG.push({nome: 'Travessia', arg: (dadoG[dadoG.length - 1].arg + 1), val: Number(dadoG[dadoG.length - 1].val.toFixed(1)) })
       }
     }
-    
-    console.log("descidaReta")
-    console.log(descidaReta)
 
+    //Adicionamdo curva subida
     for(var i = (dadoG2.length - 1); i >= 0; i--){
-      dadoG.push({arg: dadoG2[i].arg, val: dadoG2[i].val})
+      dadoG.push({nome: 'Travessia', arg: dadoG2[i].arg, val: dadoG2[i].val})
     }
 
     // Subida Reta
     for (var i = (descidaRetaArry.length - 1); i >= 0 ; i--) {
       console.log('Subida Reta')
-      dadoG.push({ arg: dadoG[dadoG.length - 1].arg + 1, val: (i * -1) })
+      dadoG.push({nome: 'Travessia', arg: dadoG[dadoG.length - 1].arg + 1, val: (i * -1) })
     }
+
+    var dadoGInter = [{nome: 'Interferencia', arg: 40, val: -15 }]
+    //dadoG.push({nome: 'Interferencia', arg: 40, val: -15})
+    setDadosGraficoInter(dadoGInter)
+
     }else{
       toast.error("Não é possivel executar essa travessia!")
     }
@@ -4206,7 +4220,7 @@ export default function
               ? <><div className='myChartDiv'>
                 {/* <canvas id="myChart" width="600" height="400"></canvas> */}
                 {/* <Line id='myChart' width='600' height='400' options={options} data={dataG} /> */}
-                <App data={dadosGafico} />
+                <App data={dadosGafico} data2={dadosGafico2} dataInter={dadosGaficoInter} />
               </div>
                 {/* <div className='myChartDiv'> */}
                 {/* <Line id='myChart' width='600' height='400' options={options2} data={dataG2} /> */}

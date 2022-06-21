@@ -467,6 +467,9 @@ export const GridForm = styled.div`
     max-width: 600px;
     max-height: 400px;
   }
+  #chart{
+    height: 10px;
+  }
 `
 
 export const PhasesModal = styled.div`

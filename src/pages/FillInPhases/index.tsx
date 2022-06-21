@@ -194,6 +194,7 @@ export default function FillInPhases () {
   const [fluidos, setFluidos] = useState<any[]>([])
   const [dados, setDados] = useState<any[]>([])
   const [dadosGafico, setDadosGrafico] = useState({})
+  const [dadosGafico2, setDadosGrafico2] = useState({})
   const [labelsG, setLabelsG] = useState<any[]>([])
   const [soilTypes, setSoilTypes] = useState<any[]>([])
   const [interferencias, setinterferencias] = useState<any[]>([])
@@ -3201,7 +3202,7 @@ export default function FillInPhases () {
               {/* <canvas id="myChart" width="600" height="400"></canvas> */}
               {/* <Line id="myChart" width="600" height="400" options={options} data={dataG} />
             </div><div className="myChartDiv"> */}
-              <App data={dadosGafico} />
+              <App data={dadosGafico} data2={dadosGafico2} dataInter={dadosGafico2} />
               {/* <canvas id="myChart" width="600" height="400"></canvas> */}
               {/* <Line id="myChart" width="600" height="400" options={options2} data={dataG2} /> */}
             </div>
