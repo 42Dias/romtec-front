@@ -668,6 +668,11 @@ export default function FillInPhases () {
           { lat: Number(response.data.rows[0].pontoVerEntradaLat), lng: Number(response.data.rows[0].pontoVerEntradaLong) },
           { lat: Number(response.data.rows[0].pontoVerSaidaLat), lng: Number(response.data.rows[0].pontoVerSaidaLong) },
         ))
+        var dadoGafico2 = [
+          {nome: 'Travessia', arg: 0, val: 0},
+          {nome: 'Travessia', arg: 0, val: distancia}
+        ]
+        setDadosGrafico2(dadoGafico2)
       }
     }).catch((res) => {
       console.log(res)
@@ -712,7 +717,7 @@ export default function FillInPhases () {
     let acrescimoDifX = 0
     let acrescimoDifY = 0
     let inicioCurva = 45 * comprimentoHaste
-    const profundidadeT = (graficoTravessia[0].profundidadeEntrada - inicioCurva) / 2
+    //const profundidadeT = (graficoTravessia[0].profundidadeEntrada - inicioCurva) / 2
     let inicioCurvaX = 0
     let finalCurvaX = curvaDescida
     let inicioCurvaY = 0

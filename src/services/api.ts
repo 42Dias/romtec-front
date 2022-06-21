@@ -1,14 +1,14 @@
 import axios from 'axios'
 
-export let token = localStorage.getItem('token')?.replace(/"/g, '')
-export let tenantId = localStorage.getItem('tenantId')?.replace(/"/g, '')
-export let roles = localStorage.getItem('roles')?.replace(/"/g, '')
-export let id = localStorage.getItem('id')?.replace(/"/g, '')
-export let idPessoa = localStorage.getItem('idPessoa')?.replace(/"/g, '')
-export let status = localStorage.getItem('status')?.replace(/"/g, '')
-export let Email = localStorage.getItem('email')?.replace(/"/g, '')
-export let nome = localStorage.getItem('nome')?.replace(/"/g, '')
-export let password = localStorage.getItem('password')?.replace(/"/g, '')
+export const token = localStorage.getItem('token')?.replace(/"/g, '')
+export const tenantId = localStorage.getItem('tenantId')?.replace(/"/g, '')
+export const roles = localStorage.getItem('roles')?.replace(/"/g, '')
+export const id = localStorage.getItem('id')?.replace(/"/g, '')
+export const idPessoa = localStorage.getItem('idPessoa')?.replace(/"/g, '')
+export const status = localStorage.getItem('status')?.replace(/"/g, '')
+export const Email = localStorage.getItem('email')?.replace(/"/g, '')
+export const nome = localStorage.getItem('nome')?.replace(/"/g, '')
+export const password = localStorage.getItem('password')?.replace(/"/g, '')
 
 //export let ip = 'http://localhost' 
 // export const ip = 'https://projetos.42dias.com.br'  
