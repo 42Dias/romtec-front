@@ -657,6 +657,7 @@ export default function FillInPhases () {
       },
     ],
   }
+
   async function formulas () {
     const toastId = toast.loading('Gerando grafico...')
     await api.get(`graficoTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/preencher-fases/', '').split('/')[1]}`,
@@ -664,14 +665,19 @@ export default function FillInPhases () {
       if (response.statusText === 'OK') {
         console.log(response.data.rows)
         setGraficoTravessia(response.data.rows)
+        
         distancia = (getDistanceFromLatLonInKm(
           { lat: Number(response.data.rows[0].pontoVerEntradaLat), lng: Number(response.data.rows[0].pontoVerEntradaLong) },
           { lat: Number(response.data.rows[0].pontoVerSaidaLat), lng: Number(response.data.rows[0].pontoVerSaidaLong) },
         ))
+
         var dadoGafico2 = [
-          {nome: 'Travessia', arg: 0, val: 0},
-          {nome: 'Travessia', arg: 0, val: distancia}
+          {nome: 'Entrada', arg: Number(response.data.rows[0].pontoVerEntradaLat), val: Number(response.data.rows[0].pontoVerEntradaLong), inter: null},
+          {nome: 'Saida', arg: Number(response.data.rows[0].pontoVerSaidaLat), val: Number(response.data.rows[0].pontoVerSaidaLong), inter: null}
         ]
+        interferencias.map((inter) =>{
+          dadoGafico2.push({nome: 'Inter', arg: Number(inter.latitude), val: Number(inter.longitude), inter: (inter.longitude)})
+        })
         setDadosGrafico2(dadoGafico2)
       }
     }).catch((res) => {
@@ -686,11 +692,11 @@ export default function FillInPhases () {
     labels.push(0)
     //distancia = String(200)
     comprimentoHaste = 1.5
-    const dadoG = [{ arg: 0, val: 0 }]
+    const dadoG = [{nome: 'nome', arg: 0, val: 0, inter: 0 }]
     var x = 0
     const y = 0
     const raioCurvatura = 1
-    const anguloDescida = 45
+    const anguloDescida = 20 //Number(anguloEntrada)
     const anguloTrabalho = anguloDescida
     const qtdHaste = anguloDescida / raioCurvatura
     const graficoTrue = false
@@ -705,19 +711,19 @@ export default function FillInPhases () {
     const descida = Number(distancia) / 2
     const subida = Number(distancia) / 2
     const quantidadeMetros = qtdHaste * comprimentoHaste
-    const proporcaoCurvaDescida = descida * (quantidadeMetros / 100)
-    const diferencaPlato = 100 - curvaDescida
+    const proporcaoCurvaDescida = descida * (quantidadeMetros / descida)
+    const diferencaPlato = descida - curvaDescida
     const plato = diferencaPlato / 2
-    const descidaReta = (100 - curvaDescida) / 2
-    const platoDescida = (100 - curvaDescida) / 2
+    const descidaReta = (descida - curvaDescida) / 2
+    const platoDescida = (descida - curvaDescida) / 2
     let profundidadeCurvaDescida = 0
     let avancoCurvaDescida = 0
     let diferencaX = 0
     let diferencaY = 0
     let acrescimoDifX = 0
     let acrescimoDifY = 0
-    let inicioCurva = 45 * comprimentoHaste
-    //const profundidadeT = (graficoTravessia[0].profundidadeEntrada - inicioCurva) / 2
+    let inicioCurva = anguloDescida * comprimentoHaste
+    const profundidadeT = (graficoTravessia[0].profundidadeEntrada - inicioCurva) / 2
     let inicioCurvaX = 0
     let finalCurvaX = curvaDescida
     let inicioCurvaY = 0
@@ -737,12 +743,16 @@ export default function FillInPhases () {
     const curvaDescidaArry = []
     const platoDescidaArry = []
 
-    if(descidaReta < Number(graficoTravessia[0].profundidadeEntrada) && Number(distancia) > 100 && (Number(distancia) - (Number(distancia) * 0.75)) > Number(graficoTravessia[0].profundidadeEntrada)){
+    console.log("descidaReta")
+    console.log(descidaReta)
+
+    //if(descidaReta < Number(graficoTravessia[0].profundidadeEntrada) && Number(distancia) > 100 && (Number(distancia) - (Number(distancia) * 0.75)) > Number(graficoTravessia[0].profundidadeEntrada)){
       // Descida Reta
-    for (var i = 1; i <= descidaReta; i++) {
+    for (var i = 1; i <= (descidaReta / (90 / anguloDescida - 1) / 2); i++) {
       console.log('Descida Reta')
       descidaRetaArry.push(i)
-      dadoG.push({ arg: i, val: (i * -1) })
+      dadoG.push({nome: 'Travessia', arg: dadoG[dadoG.length - 1].arg + (90 / anguloDescida - 1), val: (i * -1) , inter: 0 })
+      //dadoG.push({nome: 'Travessia', arg: dadoG[dadoG.length - 1].arg + 1, val: (i * -1) , inter: 0 })
       inicioCurvaX = dadoG[dadoG.length - 1].arg
       inicioCurvaY = dadoG[dadoG.length - 1].val
       anteriorX = dadoG[dadoG.length - 1].arg
@@ -757,8 +767,8 @@ export default function FillInPhases () {
     acrescimoDifY = diferencaY / curvaDescida
 
     // Curva Descida
-    for (var x = 0; x <= (curvaDescida + descidaReta); x++) {
-      if (x >= descidaRetaArry[descidaRetaArry.length - 1] && (Number(graficoTravessia[0].profundidadeEntrada) * -1) <= dadoG[dadoG.length - 1].val) {
+    for (var x = 0; x <= (curvaDescida + descidaReta + descidaRetaArry[descidaRetaArry.length - 1]); x++) {
+      if (x >= descidaRetaArry[descidaRetaArry.length - 1] ) {//&& (Number(graficoTravessia[0].profundidadeEntrada) * -1) <= dadoG[dadoG.length - 1].val
         console.log('Curva Descida')
         //Eixo X
         restanteCurvaX = finalCurvaX - anteriorX
@@ -786,7 +796,7 @@ export default function FillInPhases () {
         finalY = anteriorY + variacaoY
         // console.log("finalY")
         // console.log(finalY)
-        dadoG.push({arg: finalX, val: finalY})
+        dadoG.push({nome: 'Travessia',arg: finalX, val: finalY, inter: 0 })
         anteriorX = dadoG[dadoG.length - 1].arg
         anteriorY = dadoG[dadoG.length - 1].val
       }
@@ -836,31 +846,42 @@ export default function FillInPhases () {
         anteriorY = dadoG2[dadoG2.length - 1].val
       }
     }
-    console.log(dadoG2[dadoG2.length - 1].arg)
+    var posicaoInter = 0
     // Descida Plato
     for (var i = 0; i <= (Number(distancia)*2) ; i++) {
       platoDescidaArry.push(i)
       if (i > dadoG.length && dadoG[dadoG.length - 1].arg < dadoG2[dadoG2.length - 1].arg) {
         console.log('Descida Plato')
-        dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + 1), val: Number(dadoG[dadoG.length - 1].val.toFixed(1)) })
+        interferencias.map((inter) =>{
+          posicaoInter = Number(getDistanceFromLatLonInKm(
+            { lat: Number(graficoTravessia[0].pontoVerEntradaLat), lng: Number(graficoTravessia[0].pontoVerEntradaLong) },
+            { lat: Number(inter.latitude), lng: Number(inter.longitude) },
+          ))
+          
+          if(posicaoInter === Number(dadoG[dadoG.length - 1].arg.toFixed(0))){
+            dadoG.push({nome: 'Inter', arg: posicaoInter, val:  Number(dadoG[dadoG.length - 1].val.toFixed(1)), inter: Number(inter.profundidade)*-1  })
+          }
+          
+        })
+        dadoG.push({nome: 'Travessia', arg: (dadoG[dadoG.length - 1].arg + 1), val: Number(dadoG[dadoG.length - 1].val.toFixed(1)), inter: 0  })
       }
     }
-    
-    console.log("descidaReta")
-    console.log(descidaReta)
 
+    //Adicionamdo curva subida
     for(var i = (dadoG2.length - 1); i >= 0; i--){
-      dadoG.push({arg: dadoG2[i].arg, val: dadoG2[i].val})
+      dadoG.push({nome: 'Travessia', arg: dadoG2[i].arg, val: dadoG2[i].val, inter: 0})
     }
 
     // Subida Reta
     for (var i = (descidaRetaArry.length - 1); i >= 0 ; i--) {
       console.log('Subida Reta')
-      dadoG.push({ arg: dadoG[dadoG.length - 1].arg + 1, val: (i * -1) })
+      dadoG.push({nome: 'Travessia', arg: dadoG[dadoG.length - 1].arg + (90 / anguloDescida - 1), val: (i * -1) , inter: 0})
+      //dadoG.push({nome: 'Travessia', arg: dadoG[dadoG.length - 1].arg + 1, val: (i * -1) , inter: 0 })
     }
-    }else{
-      toast.error("Não é possivel executar essa travessia!")
-    }
+
+    // }else{
+    //   toast.error("Não é possivel executar essa travessia!")
+    // }
 
     // Descida Reta
     // for (var i = dadoG[dadoG.length - 1].val; i <= 0; i++) {

@@ -23,12 +23,12 @@ const crosshairFormat = {
 };
 const exportFormats = ['PNG', 'PDF', 'JPEG', 'GIF', 'SVG'];
 export const energySources = [
-  { value: 'nome', name: 'Travessia' },
-  { value: 'nome', name: 'Interferencia' },
+  { value: 'val', name: 'Travessia' },
+  { value: 'inter', name: 'Interferencia' },
 ];
 function App({data, data2, dataInter}){ 
     console.log('data')
-    console.log(data)
+    console.log(data2)
     return (
       // <Chart style={{with: '100%', innerHeight: '10%'}} id="chart" dataSource={data} title="Plano de furo">
       //   {/* <Pane name="top" /> */}
@@ -73,7 +73,7 @@ function App({data, data2, dataInter}){
         //   <Legend visible={true} />
         // </Chart>
         <>
-        
+        <h2 style={{textAlign: 'center'}}>Plano de Furo</h2>
         <Chart
           id="chart"
           dataSource={data}
@@ -85,10 +85,10 @@ function App({data, data2, dataInter}){
           >
             <Point hoverMode="allArgumentPoints" />
           </CommonSeriesSettings>
-          {data.map((item) => <Series
-            key={item.arg}
-            valueField={item.arg}
-            name={item.nome} />)}
+          {energySources.map((item) => <Series
+            key={item.value}
+            valueField={item.value}
+            name={item.name} />)}
           <ArgumentAxis
             valueMarginsEnabled={false}
             discreteAxisDivisionMode="crossLabels"
@@ -121,21 +121,22 @@ function App({data, data2, dataInter}){
           <Export enabled={true} />
           <Tooltip enabled={true} />
         </Chart>
-        
+
+        <h2 style={{textAlign: 'center'}}>Plano de Furo Superior</h2>
         <Chart
           id="chart"
           dataSource={data2}
         >
           <CommonSeriesSettings
-            type="spline"
-            argumentField="val"
+            type="line"
+            argumentField="arg"
           >
             <Point hoverMode="allArgumentPoints" />
           </CommonSeriesSettings>
-          {data2.map((item) => <Series
-            key={item.val}
-            valueField={item.val}
-            name={item.nome} />)}
+          {energySources.map((item) => <Series
+            key={item.value}
+            valueField={item.value}
+            name={item.name} />)}
           <ArgumentAxis
             valueMarginsEnabled={false}
             discreteAxisDivisionMode="crossLabels"
@@ -167,7 +168,8 @@ function App({data, data2, dataInter}){
           </Title>
           <Export enabled={true} />
           <Tooltip enabled={true} />
-        </Chart></>
+        </Chart>
+        </>
     );
   }
 
