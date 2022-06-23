@@ -3206,7 +3206,7 @@ export default function FillInPhases () {
                 type='number'
                 step=".01"
                 value={anguloEntrada}
-                onChange={(text) => setAnguloEntrada(text.target.value)}
+                onChange={(text) => {setAnguloEntrada(text.target.value); setGrafico(false)}}
               />
                 </div>
 
