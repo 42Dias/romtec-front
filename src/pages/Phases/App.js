@@ -28,7 +28,7 @@ export const energySources = [
 ];
 function App({data, data2, dataInter}){ 
     console.log('data')
-    console.log(data2)
+    console.log(data)
     return (
       // <Chart style={{with: '100%', innerHeight: '10%'}} id="chart" dataSource={data} title="Plano de furo">
       //   {/* <Pane name="top" /> */}
@@ -77,7 +77,6 @@ function App({data, data2, dataInter}){
         <Chart
           id="chart"
           dataSource={data}
-          dataSource2={dataInter}
         >
           <CommonSeriesSettings
             type="spline"
