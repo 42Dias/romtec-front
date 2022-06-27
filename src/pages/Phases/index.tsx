@@ -733,7 +733,7 @@ export default function
     // distancia = distancia + 4
     // console.log(distancia)
     labels.push(0)
-    distancia = String(100)
+    //distancia = String(100)
     comprimentoHaste = 1.5
     const dadoG: any = [{ nome: 'Travessia descida', arg: 0, val: 0 }]
     var x = 0
