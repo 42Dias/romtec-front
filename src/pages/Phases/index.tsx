@@ -704,24 +704,24 @@ export default function
       if (response.statusText === 'OK') {
         console.log(response.data.rows)
         setGraficoTravessia(response.data.rows)
-        
+
         distancia = (getDistanceFromLatLonInKm(
           { lat: Number(response.data.rows[0].pontoVerEntradaLat), lng: Number(response.data.rows[0].pontoVerEntradaLong) },
           { lat: Number(response.data.rows[0].pontoVerSaidaLat), lng: Number(response.data.rows[0].pontoVerSaidaLong) },
         ))
 
-        var dadoGafico2:any = [
-          {nome: 'Entrada', arg: Number(response.data.rows[0].pontoVerEntradaLat), val: Number(response.data.rows[0].pontoVerEntradaLong)},
+        var dadoGafico2: any = [
+          { nome: 'Entrada', arg: Number(response.data.rows[0].pontoVerEntradaLat), val: Number(response.data.rows[0].pontoVerEntradaLong) },
           //{nome: 'Meio', arg: Number(response.data.rows[0].pontoVerEntradaLat) + 0.1, val: Number(response.data.rows[0].pontoVerSaidaLong) + 0.9, inter: null},
-          {nome: 'Saida', arg: Number(response.data.rows[0].pontoVerSaidaLat), val: Number(response.data.rows[0].pontoVerSaidaLong)}
+          { nome: 'Saida', arg: Number(response.data.rows[0].pontoVerSaidaLat), val: Number(response.data.rows[0].pontoVerSaidaLong) }
         ]
-        var dadoInterGrafico2 = [{nome: 'Inter', arg: 0, inter: 0}]
-        interferencias.map((inter) =>{
-          dadoGafico2.push({nome: 'Inter', arg: Number(inter.latitude), inter: (inter.longitude)})
+        var dadoInterGrafico2 = [{ nome: 'Inter', arg: 0, inter: 0 }]
+        interferencias.map((inter) => {
+          dadoGafico2.push({ nome: 'Inter', arg: Number(inter.latitude), inter: (inter.longitude) })
         })
-        
+
         setDadosGrafico2(dadoGafico2)
-        
+
       }
     }).catch((res) => {
       console.log(res)
@@ -733,9 +733,9 @@ export default function
     // distancia = distancia + 4
     // console.log(distancia)
     labels.push(0)
-    //distancia = String(200)
+    distancia = String(100)
     comprimentoHaste = 1.5
-    const dadoG:any = [{nome: 'nome', arg: 0, val: 0}]
+    const dadoG: any = [{ nome: 'Travessia descida', arg: 0, val: 0 }]
     var x = 0
     const y = 0
     const raioCurvatura = 1
@@ -766,7 +766,7 @@ export default function
     let inicioCurva = anguloDescida * comprimentoHaste
     const profundidadeT = (graficoTravessia[0].profundidadeEntrada - inicioCurva) / 2
     let inicioCurvaX = 0
-    let finalCurvaX = curvaDescida
+    let finalCurvaX = descidaReta + curvaDescida
     let inicioCurvaY = 0
     let finalCurvaY = Number(graficoTravessia[0].profundidadeEntrada) * -1
     let anteriorX = 0
@@ -791,13 +791,14 @@ export default function
     console.log("curvaDescida")
     console.log(curvaDescida)
 
-    if(descidaReta < Number(graficoTravessia[0].profundidadeEntrada) ){//&& Number(distancia) > 100 && (Number(distancia) - (Number(distancia) * 0.75)) > Number(graficoTravessia[0].profundidadeEntrada)){
-      // Descida Reta
-    for (var i = 1; i <= (descidaReta ); i++) {
+    //if(descidaReta < Number(graficoTravessia[0].profundidadeEntrada) ){//&& Number(distancia) > 100 && (Number(distancia) - (Number(distancia) * 0.75)) > Number(graficoTravessia[0].profundidadeEntrada)){
+    // Descida Reta
+    for (var i = 1; i <= (descidaReta); i++) {
       console.log('Descida Reta')
       descidaRetaArry.push(i)
-      dadoG.push({nome: 'Travessia', arg: dadoG[dadoG.length - 1].arg + (90 / anguloDescida - 1), val: (i * -1) })
-      //dadoG.push({nome: 'Travessia', arg: dadoG[dadoG.length - 1].arg + 1, val: (i * -1) , inter: 0 })
+      // y                + {1/[(90/      a       )-1]}
+      dadoG.push({ nome: 'Travessia descida', arg: dadoG[dadoG.length - 1].arg + 1, val: ((dadoG[dadoG.length - 1].val - (1 / ((90 / anguloDescida) - 1)))) })
+      //dadoG.push({nome: 'Travessia', arg: dadoG[dadoG.length - 1].arg + 1, val: (i * -1)})
       inicioCurvaX = dadoG[dadoG.length - 1].arg
       inicioCurvaY = dadoG[dadoG.length - 1].val
       anteriorX = dadoG[dadoG.length - 1].arg
@@ -811,15 +812,30 @@ export default function
     acrescimoDifX = diferencaX / curvaDescida
     acrescimoDifY = diferencaY / curvaDescida
 
+    console.log("profundidadeCurvaDescida")
+    console.log(profundidadeCurvaDescida)
+    console.log("avancoCurvaDescida")
+    console.log(avancoCurvaDescida)
+    console.log("diferencaX")
+    console.log(diferencaX)
+    console.log("diferencaY")
+    console.log(diferencaY)
+    console.log("acrescimoDifX")
+    console.log(acrescimoDifX)
+    console.log("acrescimoDifY")
+    console.log(acrescimoDifY)
+    console.log("finalCurvaY")
+    console.log(finalCurvaY)
+
     // Curva Descida
-    for (var x = 0; x <= (curvaDescida + descidaReta + descidaRetaArry[descidaRetaArry.length - 1]); x++) {
-      if (x >= descidaRetaArry[descidaRetaArry.length - 1] ) {//&& (Number(graficoTravessia[0].profundidadeEntrada) * -1) <= dadoG[dadoG.length - 1].val
+    for (var x = 0; x <= Number(distancia) * 8; x++) {
+      if (x >= descidaRetaArry[descidaRetaArry.length - 1] && anteriorX <= (descidaReta + curvaDescida)) {//&& (Number(graficoTravessia[0].profundidadeEntrada) * -1) <= dadoG[dadoG.length - 1].val
         console.log('Curva Descida')
         //Eixo X
         restanteCurvaX = finalCurvaX - anteriorX
         // console.log("restanteCurvaX")
         // console.log(restanteCurvaX)
-        variacaoX = restanteCurvaX * 0.15
+        variacaoX = restanteCurvaX * 0.9
         // console.log("variacaoX")
         // console.log(variacaoX)
         diferencaX = ((-1 * (finalCurvaY)) + inicioCurvaY) / (finalCurvaX - inicioCurvaX)
@@ -835,109 +851,116 @@ export default function
         restanteCurvaY = -anteriorY + finalCurvaY
         // console.log("restanteCurvaY")
         // console.log(restanteCurvaY)
-        variacaoY = restanteCurvaY * 0.1
+        variacaoY = (restanteCurvaY * 0.1) //* diferencaX
         // console.log("variacaoY")
         // console.log(variacaoY)
-        finalY = anteriorY + variacaoY
+        finalY = (anteriorY + variacaoY)
         // console.log("finalY")
         // console.log(finalY)
-        dadoG.push({nome: 'Travessia',arg: finalX, val: finalY})
+        dadoG.push({ nome: 'Travessia curva descida', arg: finalX, val: finalY })
         anteriorX = dadoG[dadoG.length - 1].arg
         anteriorY = dadoG[dadoG.length - 1].val
       }
     }
+
     const tamanho = dadoG[dadoG.length - 1].arg
     inicioCurvaX = Number(distancia) - inicioCurvaX
-    finalCurvaX = Number(distancia) - curvaDescida
+    finalCurvaX = Number(distancia) - (curvaDescida + descidaReta)
+    console.log("inicioCurvaX")
+    console.log(inicioCurvaX)
+    console.log("finalCurvaX")
+    console.log(finalCurvaX)
+
+    // Descida Plato
+    for (var i = 0; i <= (Number(distancia) * 2); i++) {
+      platoDescidaArry.push(i)
+      if (i > dadoG[dadoG.length - 1].arg && Number(dadoG[dadoG.length - 1].arg.toFixed(0)) < finalCurvaX - 1) {
+        console.log('Descida Plato')
+        dadoG.push({ nome: 'Travessia plato', arg: Number((dadoG[dadoG.length - 1].arg)) + 1, val: Number(anteriorY) })
+      }
+    }
+
     anteriorX = inicioCurvaX
     anteriorY = inicioCurvaY
-    const dadoG2 = [{ arg: inicioCurvaX, val:  anteriorY}]
+    const dadoG2 = [{ arg: inicioCurvaX, val: anteriorY }]
 
     // Curva subida
-    for (var x = 0; x <= Number(distancia); x++) {
-      if (dadoG2[dadoG2.length - 1].val >= dadoG[dadoG.length - 1].val) {
-        console.log('Curva Subida') 
+    for (var x = 0; x <= Number(distancia) * 8; x++) {
 
-        //Eixo X
-        restanteCurvaX = anteriorX - finalCurvaX
-        // console.log("restanteCurvaX")
-        // console.log(restanteCurvaX)
-        variacaoX = restanteCurvaX * 0.15
-        // console.log("variacaoX")
-        // console.log(variacaoX)
-        diferencaX = ((-1 * (finalCurvaY)) + inicioCurvaY) / (finalCurvaX - inicioCurvaX)
-        // console.log("diferencaX")
-        // console.log(diferencaX)
-        variacaoFinalX = variacaoX * diferencaX
-        // console.log("variacaoFinalX")
-        // console.log(variacaoFinalX)
-        finalX = anteriorX + variacaoFinalX
-        // console.log("finalX")
-        // console.log(finalX)
+      console.log('Curva Subida')
 
-        //Eixo Y
-        restanteCurvaY = -anteriorY + finalCurvaY
-        // console.log("restanteCurvaY")
-        // console.log(restanteCurvaY)
-        variacaoY = restanteCurvaY * 0.1
-        // console.log("variacaoY")
-        // console.log(variacaoY)
-        finalY = anteriorY + variacaoY
-        // console.log("finalY")
-        // console.log(finalY)
+      //Eixo X
+      restanteCurvaX = anteriorX - finalCurvaX
+      // console.log("restanteCurvaX")
+      // console.log(restanteCurvaX)
+      variacaoX = restanteCurvaX * 0.9
+      // console.log("variacaoX")
+      // console.log(variacaoX)
+      diferencaX = ((-1 * (finalCurvaY)) + inicioCurvaY) / (finalCurvaX - inicioCurvaX)
+      // console.log("diferencaX")
+      // console.log(diferencaX)
+      variacaoFinalX = variacaoX * diferencaX
+      // console.log("variacaoFinalX")
+      // console.log(variacaoFinalX)
+      finalX = anteriorX + variacaoFinalX
+      // console.log("finalX")
+      // console.log(finalX)
 
-        dadoG2.push({arg: finalX, val: finalY})
+      //Eixo Y
+      restanteCurvaY = -anteriorY + finalCurvaY
+      // console.log("restanteCurvaY")
+      // console.log(restanteCurvaY)
+      variacaoY = (restanteCurvaY * 0.1) //* (diferencaX * -1)
+      // console.log("variacaoY")
+      // console.log(variacaoY)
+      finalY = anteriorY + variacaoY
+      // console.log("finalY")
+      // console.log(finalY)
+      if (dadoG2[dadoG2.length - 1].val >= dadoG[dadoG.length - 1].val && dadoG2[dadoG2.length - 1].arg > finalCurvaX) {
+        dadoG2.push({ arg: finalX, val: finalY })
         anteriorX = dadoG2[dadoG2.length - 1].arg
         anteriorY = dadoG2[dadoG2.length - 1].val
       }
     }
-    var posicaoInter = 0
-    // Descida Plato
-    for (var i = 0; i <= (Number(distancia)*2) ; i++) {
-      platoDescidaArry.push(i)
-      if (i > dadoG.length && dadoG[dadoG.length - 1].arg < dadoG2[dadoG2.length - 1].arg) {
-        console.log('Descida Plato')
-        interferencias.map((inter) =>{
-          posicaoInter = Number(getDistanceFromLatLonInKm(
-            { lat: Number(graficoTravessia[0].pontoVerEntradaLat), lng: Number(graficoTravessia[0].pontoVerEntradaLong) },
-            { lat: Number(inter.latitude), lng: Number(inter.longitude) },
-          ))
-          
-          if(posicaoInter === Number(dadoG[dadoG.length - 1].arg.toFixed(0))){
-            dadoG.push({nome: 'Inter', arg: posicaoInter, val:  Number(dadoG[dadoG.length - 1].val.toFixed(1)), inter: Number(inter.profundidade)*-1  })
-          }
-          
-        })
-        dadoG.push({nome: 'Travessia', arg: (dadoG[dadoG.length - 1].arg + 1), val: Number(dadoG[dadoG.length - 1].val.toFixed(1))})
-      }
-    }
 
     //Adicionamdo curva subida
-    for(var i = (dadoG2.length - 1); i >= 0; i--){
-      dadoG.push({nome: 'Travessia', arg: dadoG2[i].arg, val: dadoG2[i].val})
+    for (var i = (dadoG2.length - 1); i >= 0; i--) {
+      dadoG.push({ nome: 'Travessia curva subida', arg: dadoG2[i].arg, val: dadoG2[i].val })
     }
 
     // Subida Reta
-    for (var i = (descidaRetaArry.length - 1); i >= 0 ; i--) {
+    for (var i = (descidaRetaArry.length - 1); i >= 0; i--) {
       console.log('Subida Reta')
-      dadoG.push({nome: 'Travessia', arg: dadoG[dadoG.length - 1].arg + (90 / anguloDescida - 1), val: (i * -1)})
+      dadoG.push({ nome: 'Travessia subida', arg: dadoG[dadoG.length - 1].arg + 1, val: ((dadoG[dadoG.length - 1].val + (1 / ((90 / anguloDescida) - 1)))) })
       //dadoG.push({nome: 'Travessia', arg: dadoG[dadoG.length - 1].arg + 1, val: (i * -1) , inter: 0 })
     }
 
-    }else{
-      toast.error("Não é possivel executar essa travessia!")
-      var menor = 0
-      for(var i = 1; i < 100 ; i++){
-        anguloDescida = i
-        qtdHaste = anguloDescida / raioCurvatura
-        curvaDescida = qtdHaste * comprimentoHaste
-        descidaReta = (descida - curvaDescida) / 2
-        if((descidaReta + 4) < Number(graficoTravessia[0].profundidadeEntrada) && menor === 0){
-            menor = i
-            toast.info(`Angulação minima permitida: ${menor}` )
-        }
-      }
-    }
+    var posicaoInter = 0
+    interferencias.map((inter) => {
+      posicaoInter = Number(getDistanceFromLatLonInKm(
+        { lat: Number(graficoTravessia[0].pontoVerEntradaLat), lng: Number(graficoTravessia[0].pontoVerEntradaLong) },
+        { lat: Number(inter.latitude), lng: Number(inter.longitude) },
+      ))
+
+      //if(posicaoInter === Number(dadoG[dadoG.length - 1].arg.toFixed(0))){
+      dadoG.push({ nome: 'Inter', arg: posicaoInter, inter: Number(inter.profundidade) * -1 })
+      //}
+
+    })
+    // }else{
+    //   toast.error("Não é possivel executar essa travessia!")
+    //   var menor = 0
+    //   for(var i = 1; i < 100 ; i++){
+    //     anguloDescida = i
+    //     qtdHaste = anguloDescida / raioCurvatura
+    //     curvaDescida = qtdHaste * comprimentoHaste
+    //     descidaReta = (descida - curvaDescida) / 2
+    //     if((descidaReta + 4) < Number(graficoTravessia[0].profundidadeEntrada) && menor === 0){
+    //         menor = i
+    //         toast.info(`Angulação minima permitida: ${menor}` )
+    //     }
+    //   }
+    // }
 
     // Descida Reta
     // for (var i = dadoG[dadoG.length - 1].val; i <= 0; i++) {
@@ -3749,7 +3772,7 @@ export default function
                     type='number'
                     step=".01"
                     value={anguloEntrada}
-                    onChange={(text) => {setAnguloEntrada(text.target.value); setGrafico(false)}}
+                    onChange={(text) => { setAnguloEntrada(text.target.value); setGrafico(false) }}
                   />
                 </div>
 
