@@ -17,6 +17,8 @@ import {
   Tooltip,
   Size,
 } from "devextreme-react/chart";
+import { api } from "../../services/api";
+import { toast } from "react-toastify";
 
 const crosshairFormat = {
   type: "fixedPoint",
@@ -30,6 +32,23 @@ export const energySources = [
 function App({ data, data2, dataInter }) {
   console.log('data')
   console.log(data)
+
+  function salvarPontos(){
+    const toastId = toast.loading('Salvando grafico...')
+   // data.map((ponto) => {
+      //console.log(ponto)
+      api.post('pontosGrafico', {
+        data: data,
+      }).then((response) => {
+        if (response.statusText === 'OK') {
+          toast.dismiss(toastId)
+        } 
+      }).catch(res => {
+        toast.dismiss(toastId)
+        console.log(res)
+      })
+    //})
+  }
   return (
     // <Chart style={{with: '100%', innerHeight: '10%'}} id="chart" dataSource={data} title="Plano de furo">
     //   {/* <Pane name="top" /> */}
@@ -79,9 +98,9 @@ function App({ data, data2, dataInter }) {
         id="chart"
         dataSource={data}
       >
-        
+
         <CommonSeriesSettings
-          type="spline"
+          type="scatter"
           argumentField="arg"
         >
           <Point hoverMode="allArgumentPoints" />
@@ -122,7 +141,10 @@ function App({ data, data2, dataInter }) {
         <Export enabled={true} />
         <Tooltip enabled={true} />
       </Chart>
-
+      {/* <div style={{width: '100%', textAlign: 'center'}}>
+        <button style={{ marginTop: '35px', width: '200px' }} onClick={() => { salvarPontos() }} className='finishPhase'>Salvar plano de furo</button>
+      </div> */}
+      <br />
       <h2 style={{ textAlign: 'center' }}>Plano de Furo Superior</h2>
       <Chart
         id="chart"

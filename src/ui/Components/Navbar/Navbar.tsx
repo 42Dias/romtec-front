@@ -5,6 +5,9 @@ import { nome } from '../../../services/api'
 import * as S from './Navbar.styled'
 
 export default function Navbar () {
+  if(nome === undefined){
+    window.location.reload()
+  }
   return (
     <S.Nav>
       <div>
