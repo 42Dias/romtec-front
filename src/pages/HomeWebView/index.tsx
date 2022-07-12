@@ -84,7 +84,7 @@ export default function
       console.log(token)
       localStorage.setItem('token', JSON.stringify(token))
       //setTimeout(function () {
-        window.location.href = ip + ':42080/romtec/#/home'
+        window.location.href = 'http://7dd208931cad.sn.mynetname.net' + ':42080/romtec/#/home'
       //}, 1000);
       return response.data
     }).catch((error) => {
