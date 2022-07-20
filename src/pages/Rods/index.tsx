@@ -213,7 +213,7 @@ Rods () {
               />
 
               <TextField
-                label='Raio de curvatura'
+                label='Raio de curvatura (m)'
                 type="number"
                 step=".01"
                 {...register('raioCurvatura', {
@@ -294,7 +294,7 @@ Rods () {
               />
 
               <TextField
-                label='Raio de curvatura'
+                label='Raio de curvatura (m)'
                 type="number"
                 step=".01"
                 value={raioCurvatura}

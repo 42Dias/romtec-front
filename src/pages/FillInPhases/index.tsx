@@ -195,6 +195,7 @@ export default function FillInPhases () {
   const [dados, setDados] = useState<any[]>([])
   const [dadosGafico, setDadosGrafico] = useState({})
   const [dadosGafico2, setDadosGrafico2] = useState({})
+  const [pontosGrafico, setPontosGrafico] = useState({})
   const [labelsG, setLabelsG] = useState<any[]>([])
   const [soilTypes, setSoilTypes] = useState<any[]>([])
   const [interferencias, setinterferencias] = useState<any[]>([])
@@ -1507,6 +1508,17 @@ export default function FillInPhases () {
       if (response.statusText === 'OK') {
         console.log(response.data.rows)
         setinterferencias(response.data.rows)
+      }
+    }).catch((res) => {
+      console.log(res)
+      // toast.error(res.response.data);
+      setLoading(false)
+    })
+    api.get(`pontosGrafico?filter%5BtravessiaId%5D=${idConfigTravessia.replace('#/preencher-fases/', '').split('/')[1]}`,
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        // console.log(response.data.rows)
+        setPontosGrafico(response.data.rows)
       }
     }).catch((res) => {
       console.log(res)
@@ -3128,7 +3140,7 @@ export default function FillInPhases () {
               {/* <canvas id="myChart" width="600" height="400"></canvas> */}
               {/* <Line id="myChart" width="600" height="400" options={options} data={dataG} />
             </div><div className="myChartDiv"> */}
-              <App data={dadosGafico} data2={dadosGafico2} dataInter={dadosGafico2} />
+              <App data={dadosGafico} data2={dadosGafico2} dataPontos={pontosGrafico} />
               {/* <canvas id="myChart" width="600" height="400"></canvas> */}
               {/* <Line id="myChart" width="600" height="400" options={options2} data={dataG2} /> */}
             </div>

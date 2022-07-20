@@ -10,8 +10,8 @@ export const Email = localStorage.getItem('email')?.replace(/"/g, '')
 export const nome = localStorage.getItem('nome')?.replace(/"/g, '')
 export const password = localStorage.getItem('password')?.replace(/"/g, '')
 
-//export let ip = 'http://localhost' 
-export const ip = 'https://projetos.42dias.com.br'  
+export let ip = 'http://localhost' 
+//export const ip = 'https://projetos.42dias.com.br'  
 export const port = '8145' 
 
 // export const ip = 'http://7dd208931cad.sn.mynetname.net'
@@ -29,7 +29,7 @@ export const getTenantId = () => {
 }
 export const api = axios.create({
   baseURL: `${ip}:${port}/api/tenant/${tenantId}/`,
-  timeout: 500000,
+  timeout: 900000,
   headers: { Authorization: 'Bearer ' + getToken() },
 })
 

@@ -211,6 +211,7 @@ export default function
   const [labelsG, setLabelsG] = useState<any[]>([])
   const [soilTypes, setSoilTypes] = useState<any[]>([])
   const [interferencias, setinterferencias] = useState<any[]>([])
+  const [pontosGrafico, setPontosGrafico] = useState<any[]>([])
   const [pontosVerificacao, setPontosVerificacao] = useState<any[]>([])
   const [ferramentasList, setferramentasList] = useState<any[]>([])
   const [etapaDeletar, setEtapaDeletar] = useState('')
@@ -246,6 +247,7 @@ export default function
   const [longitudeEntrada, setlongitudeEntrada] = useState('')
   const [latitudeSaida, setlatitudeSaida] = useState('')
   const [tipoRede, settipoRede] = useState('')
+  const [comprimentoHaste, setComprimentoHaste] = useState(3)
   const [empresa, setempresa] = useState('')
   const [sondagemInterferencia, setsondagemInterferencia] = useState('')
   const [sondagem, setsondagem] = useState('')
@@ -412,6 +414,7 @@ export default function
   const [diametroAlargamento, setdiametroAlargamento] = useState('')
   const [tempoHaste, settempoHaste] = useState('')
   const [vazaoBomba, setvazaoBomba] = useState('')
+  const [raioCurvaturaHaste, setRaioCurvaturaHaste] = useState('28')
   const [tipoRedeTubula, settipoRedeTubula] = useState('')
   const [diametroRede, setdiametroRede] = useState('')
   const [ferramentasUtilizadas, setferramentasUtilizadas] = useState('')
@@ -477,7 +480,7 @@ export default function
   const angulo: number[] = []
   const variacaoProfundidade: number[] = []
   const variacaoDistanciaPercorrida: number[] = []
-  let comprimentoHaste = 3
+  //let comprimentoHaste = 3
   const coordenadas2 = [
     { x: 0, y: -1.45521375 },
     { x: 2.9104275, y: -1.45521375 },
@@ -716,8 +719,8 @@ export default function
           { nome: 'Saida', arg: Number(response.data.rows[0].pontoVerSaidaLat), val: Number(response.data.rows[0].pontoVerSaidaLong) }
         ]
         var dadoInterGrafico2 = [{ nome: 'Inter', arg: 0, inter: 0 }]
-        interferencias.map((inter) => {
-          dadoGafico2.push({ nome: 'Inter', arg: Number(inter.latitude), inter: (inter.longitude) })
+        interferencias.map((inter, index) => {
+          dadoGafico2.push({ nome: `Inter${index}`, arg: Number(inter.latitude), [`Inter${index}`]: (inter.longitude) })
         })
 
         setDadosGrafico2(dadoGafico2)
@@ -730,15 +733,18 @@ export default function
     })
     variacaoProfundidade.push(0)
     variacaoDistanciaPercorrida.push(0)
-    // distancia = distancia + 4
-    // console.log(distancia)
+
     labels.push(0)
     //distancia = String(100)
-    comprimentoHaste = 1.5
+    //comprimentoHaste = 3
     const dadoG: any = [{ nome: 'Travessia descida', arg: 0, val: 0, travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1] }]
     var x = 0
     const y = 0
-    const raioCurvatura = 1
+    const anguloMetro = Number(raioCurvaturaHaste)
+    const raio = (comprimentoHaste / anguloMetro)
+    console.log(raio)
+    const raioCurvatura = Math.atan(raio) * (180 / Math.PI)
+    console.log(raioCurvatura)
     var anguloDescida = Number(anguloEntrada)
     const anguloTrabalho = anguloDescida
     var qtdHaste = anguloDescida / raioCurvatura
@@ -746,8 +752,6 @@ export default function
     const distanciaPercorrida = 0
     const index = 0
     var curvaDescida = qtdHaste * comprimentoHaste
-    // var umaCasa = 0
-    // var inicioCurva = graficoTravessia[0].profundidadeEntrada - (graficoTravessia[0].profundidadeEntrada * 0.6)
     const angulacao = 180
     const descida = Number(distancia) / 2
     const subida = Number(distancia) / 2
@@ -793,7 +797,7 @@ export default function
 
     //if(descidaReta < Number(graficoTravessia[0].profundidadeEntrada) ){//&& Number(distancia) > 100 && (Number(distancia) - (Number(distancia) * 0.75)) > Number(graficoTravessia[0].profundidadeEntrada)){
     // Descida Reta
-    for (var i = 1; i <= (descidaReta); i++) {
+    for (var i = 1; i <= (descidaReta * 0.5); i++) {
       console.log('Descida Reta')
       descidaRetaArry.push(i)
       // y                + {1/[(90/      a       )-1]}
@@ -931,19 +935,29 @@ export default function
     // Subida Reta
     for (var i = (descidaRetaArry.length - 1); i >= 0; i--) {
       console.log('Subida Reta')
-      dadoG.push({ nome: 'Travessia subida', arg: dadoG[dadoG.length - 1].arg + 1, val: ((dadoG[dadoG.length - 1].val + (1 / ((90 / anguloDescida) - 1)))) })
+      dadoG.push({ nome: 'Travessia subida', arg: dadoG[dadoG.length - 1].arg + 1, val: ((dadoG[dadoG.length - 1].val + (1 / ((90 / anguloDescida) - 1)))), travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1] })
       //dadoG.push({nome: 'Travessia', arg: dadoG[dadoG.length - 1].arg + 1, val: (i * -1) , inter: 0 })
     }
 
     var posicaoInter = 0
-    interferencias.map((inter) => {
+    interferencias.map((inter, index) => {
       posicaoInter = Number(getDistanceFromLatLonInKm(
         { lat: Number(graficoTravessia[0].pontoVerEntradaLat), lng: Number(graficoTravessia[0].pontoVerEntradaLong) },
         { lat: Number(inter.latitude), lng: Number(inter.longitude) },
       ))
-
       //if(posicaoInter === Number(dadoG[dadoG.length - 1].arg.toFixed(0))){
-      dadoG.push({ nome: 'Inter', arg: posicaoInter, inter: Number(inter.profundidade) * -1, travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1] })
+      dadoG.push({ nome: `Inter${index}`, arg: posicaoInter, ['Inter'+index]: Number(inter.profundidade) * -1, travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1] })
+      //Diametro interferencia
+      dadoG.push({ nome: `Inter${index}`, arg: posicaoInter + ((Number(inter.diametro) / 1000) / 2), [`Inter${index}`]: Number(inter.profundidade) * -1, travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1] })
+      dadoG.push({ nome: `Inter${index}`, arg: posicaoInter - ((Number(inter.diametro) / 1000) / 2), [`Inter${index}`]: Number(inter.profundidade) * -1, travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1] })
+      dadoG.push({ nome: `Inter${index}`, arg: posicaoInter, [`Inter${index}`]: (Number(inter.profundidade) + ((Number(inter.diametro) / 1000) / 2)) * -1, travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1] })
+      dadoG.push({ nome: `Inter${index}`, arg: posicaoInter, [`Inter${index}`]: (Number(inter.profundidade) - ((Number(inter.diametro) / 1000) / 2)) * -1, travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1] })
+      //Diastancia minima
+      let distamciaMinima = (((Number(inter.diametro) / 1000) / 2) + Number(inter.distanciaMinimaInter))
+      dadoG.push({ nome: `Inter${index}`, arg: posicaoInter + distamciaMinima, [`Inter${index}`]: Number(inter.profundidade) * -1, travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1] })
+      dadoG.push({ nome: `Inter${index}`, arg: posicaoInter - distamciaMinima, [`Inter${index}`]: Number(inter.profundidade) * -1, travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1] })
+      dadoG.push({ nome: `Inter${index}`, arg: posicaoInter, [`Inter${index}`]: (Number(inter.profundidade) + distamciaMinima) < Number(inter.profundidade) ? (Number(inter.profundidade) + distamciaMinima) : (Number(inter.profundidade) + distamciaMinima) * -1, travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1] })
+      dadoG.push({ nome: `Inter${index}`, arg: posicaoInter, [`Inter${index}`]: (Number(inter.profundidade) - distamciaMinima) > Number(inter.profundidade) ? (Number(inter.profundidade) - distamciaMinima) : (Number(inter.profundidade) - distamciaMinima) * -1, travessiaId: idConfigTravessia.replace('#/etapas/', '').split('/')[1] })
       //}
 
     })
@@ -962,131 +976,7 @@ export default function
     //   }
     // }
 
-    // Descida Reta
-    // for (var i = dadoG[dadoG.length - 1].val; i <= 0; i++) {
-    //   console.log('Subida Reta')
-    //   descidaRetaArry.push(i)
-    //   dadoG.push({ arg: dadoG[dadoG.length - 1].arg + 1, val: i })
-    // }
-    // for (var i = 0; i <= (curvaDescida) + tamanho; i++) {
-    //   // angulo.push(Math.atan((i + tamanho + 9) / 100) * (angulacao / Math.PI))
-    //   // variacaoProfundidade.push((Math.sin((angulo[i] * (Math.PI / angulacao))) * comprimentoHaste) + dadoG[dadoG.length - 1].val)
-    //   // variacaoDistanciaPercorrida.push((Math.cos((angulo[i] * (Math.PI / angulacao))) * comprimentoHaste) + dadoG[dadoG.length - 1].arg)
-    //   if (i >= dadoG[tamanho - 1].arg) {
-    //     console.log("Curva subida")
-    //     //variacaoDistanciaPercorrida.push((Math.cos((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoDistanciaPercorrida[x - descidaRetaArry.length])
-    //     //curvaDescidaArry.push({ x: variacaoDistanciaPercorrida[x - descidaRetaArry.length], y: variacaoProfundidade[x] * -1 })
-    //     variacaoProfundidade.push(((-1 + (curvaDescida * ((((raioCurvatura * 100) / 45)) / 100))) * -1) + variacaoProfundidade[variacaoProfundidade.length - 1])
-    //     //if (variacaoDistanciaPercorrida[x - descidaRetaArry.length] >= descidaRetaArry[descidaRetaArry.length - 1])
-    //     dadoG.push({ arg: dadoG[dadoG.length - 1].arg + 1, val: variacaoProfundidade[variacaoProfundidade.length - 1] * -1 })
-    //   }
-    // }
-
-    // //Subida Reta
-    // for (var i = 0; i <= descidaReta; i++) {
-    //   console.log("Subida Reta")
-    //   //descidaRetaArry.push(i)
-    //   dadoG.push({ arg: (dadoG[dadoG.length - 1].arg + 1), val: dadoG[dadoG.length - 1].val + 1 })
-    // }
-    // console.log(descidaRetaArry)
-
-    // for (let i = 1; i <= 10; i++) {
-    //   //labels.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
-    //   angulo.push(Math.atan(i / 100) * (180 / Math.PI))
-    //   variacaoProfundidade.push((Math.sin((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste)+ variacaoProfundidade[i-1] )
-    //   variacaoDistanciaPercorrida.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste)+ variacaoDistanciaPercorrida[i-1])
-    //   //if(i < Number(distancia)-2){
-    //     dadoG.push({ x: variacaoProfundidade[i - 1], y: variacaoDistanciaPercorrida[i - 1]*-1 })
-    //     labels.push(variacaoProfundidade[i - 1])
-    //   // }else{
-    //   //   dadoG.push({ x: variacaoProfundidade[Number(distancia) - i], y: variacaoDistanciaPercorrida[Number(distancia) - i]*-1 })
-    //   // }
-
-    //   dadoslabels = [variacaoProfundidade]
-    //   dadosF = [variacaoDistanciaPercorrida]
-    //   // console.log(angulo)
-    // }
-    // 45 * 1.5 = 67,5
-
-    // comprimentoHaste = 1.5
-    // distanciaPercorrida = (Number(distancia)-(Number(distancia)*0.1))
-    // console.log(inicioCurva)
-    // console.log(distanciaPercorrida)
-    // while (graficoTrue === false && x < 10000) {
-    //   //console.log(variacaoProfundidade[variacaoProfundidade.length - 1] )
-    //   //labels.push((Math.cos((angulo[i - 1] * (Math.PI / 180))) * comprimentoHaste))
-    //   // angulo.push(Math.atan(i / 100) * (angulacao / Math.PI))
-    //   // variacaoProfundidade.push((Math.sin((angulo[i - 1] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoProfundidade[i - 1])
-    //   // variacaoDistanciaPercorrida.push((Math.cos((angulo[i - 1] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoDistanciaPercorrida[i - 1])
-    //   // umaCasa = Number(variacaoDistanciaPercorrida[i - 1].toFixed(0))//umaCasa+comprimentoHaste
-    //   // labels.push(umaCasa)
-    //   y = y - 1
-    //   variacaoProfundidade.push(y)
-    //   variacaoDistanciaPercorrida.push(x + 1)
-    //   //console.log(variacaoDistanciaPercorrida[x])
-    //   //i < Number(distancia)-20
-    //   if (variacaoDistanciaPercorrida[x] <= descidaReta) {//
-
-    //     console.log("Descida reta")
-    //     // console.log('variacaoDistanciaPercorrida')
-    //     // console.log(variacaoDistanciaPercorrida[i - 1])
-    //     // console.log('variacaoProfundidade')
-    //     // console.log(variacaoProfundidade[i - 1]* -1)
-    //     // if(inicioCurva > variacaoProfundidade[i - 1]){
-    //     //   console.log("Descida")
-    //     //   dadoG.push({ arg: variacaoDistanciaPercorrida[i - 1], val: variacaoProfundidade[i - 1] * -1 })
-    //     // }else{
-    //     //   console.log("Descida2")
-    //     //   dadoG.push({ arg: variacaoDistanciaPercorrida[i - 1] , val: variacaoProfundidade[i - 1] * -1 })
-    //     // }
-    //     dadoG.push({ arg: variacaoDistanciaPercorrida[x], val: variacaoProfundidade[x] })
-
-    //     //distanciaPercorrida = Number(distancia) - (variacaoDistanciaPercorrida[x])
-    //   } else if (variacaoDistanciaPercorrida[x] > descidaReta && variacaoDistanciaPercorrida[x] <= (descidaReta + curvaDescida)) {
-    //     console.log("Inicio curva")
-    //     angulo.push(Math.atan(x / 100) * (angulacao / Math.PI))
-    //     variacaoProfundidade.push((Math.sin((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoProfundidade[x])
-    //     variacaoDistanciaPercorrida.push((Math.cos((angulo[x] * (Math.PI / angulacao))) * comprimentoHaste) + variacaoDistanciaPercorrida[x])
-    //     index = x
-
-    //     dadoG.push({ arg: variacaoDistanciaPercorrida[x], val: variacaoProfundidade[x] })
-    //   }
-    //   // else if (variacaoDistanciaPercorrida[x] > (descida + curvaDescida) && variacaoDistanciaPercorrida[x] <= ((descida * 2) + (curvaDescida + subida))) {
-    //   //   //labels.push(umaCasa)
-    //   //   console.log("Plato")
-    //   //   dadoG.push({ arg: variacaoDistanciaPercorrida[x], val: variacaoProfundidade[index] })
-    //   // }
-    //   //else  {
-    //   //   index = index - 1
-    //   //   //labels.push(umaCasa)
-    //   //   console.log("Subida")
-    //   //   // console.log(variacaoDistanciaPercorrida[i - 1])
-    //   //   // console.log(index)
-    //   //   // console.log(variacaoProfundidade[index] * -1)
-    //   //   dadoG.push({ arg: variacaoDistanciaPercorrida[x], val: variacaoProfundidade[index] })
-
-    //   // }
-    //   // if (index === 0 && x != 1) {
-    //   //   graficoTrue = true
-    //   // }
-
-    //   //dadosF = [{ x: variacaoDistanciaPercorrida, y: variacaoProfundidade }]
-    //   // console.log(angulo)
-    //   x = x + 1
-    // }
-    // var i = 0
-    // while(dadoG[dadoG.length - 1].val >= profundidadeT && i < 10000){
-    //   i = i + comprimentoHaste
-    //   dadoG.push({ arg: i, val: (i * -1) })
-    // }
-    // var x = 0
-    // var y = 0
-    // i = comprimentoHaste
-    // while(dadoG[dadoG.length - 1].val >= (graficoTravessia[0].profundidadeEntrada * -1) && y < 10000){
-    //   x = i + 0.05
-    //   y = i - 0.05
-    //   dadoG.push({ arg: (x) , val: ((y) * -1) })
-    // }
+    
     setDadosGrafico(dadoG)
     setLabelsG(labels)
     // console.log('angulo')
@@ -1309,6 +1199,8 @@ export default function
       distanciaMinima: distanciaMinima,
       materialRede: materialRede,
       proprietario: proprietarioRede,
+      raioCurvatura: raioCurvaturaHaste,
+      comprimentoHaste: comprimentoHaste,
 
     }
 
@@ -1603,11 +1495,24 @@ export default function
       // toast.error(res.response.data);
       setLoading(false)
     })
+    api.get(`pontosGrafico?filter%5BtravessiaId%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        // console.log(response.data.rows)
+        setPontosGrafico(response.data.rows)
+      }
+    }).catch((res) => {
+      console.log(res)
+      // toast.error(res.response.data);
+      setLoading(false)
+    })
     api.get(`graficoTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/etapas/', '').split('/')[1]}`,
     ).then((response) => {
       if (response.statusText === 'OK') {
         // console.log(response.data.rows)
         setGraficoTravessia(response.data.rows)
+        setRaioCurvaturaHaste(response.data.rows[0].raioCurvatura)
+        setComprimentoHaste(response.data.rows[0].comprimentoHaste)
         distancia = (getDistanceFromLatLonInKm(
           { lat: Number(response.data.rows[0].PontoVerEntradaLat), lng: Number(response.data.rows[0].PontoVerEntradaLong) },
           { lat: Number(response.data.rows[0].PontoVerSaidaLat), lng: Number(response.data.rows[0].PontoVerSaidaLong) },
@@ -2720,6 +2625,7 @@ export default function
       status: status,
       posicaoHoras: posicaoHoras,
       confirmado: true,
+      distanciaMinimaInter: distanciaMinimaInter
     }
     api.put(tabela + interferenciaId, {
       data: data,
@@ -3719,12 +3625,12 @@ export default function
                   <div className='selectPlus' style={{ marginTop: '-2px' }}>
                     <select
                       name='' id='' value={maquinaPerfuratriz}
-                      onChange={(text) => { setmaquinaPerfuratriz(text.target.value); setAnguloEntrada(text.target.value.split('/')[2]) }}
+                      onChange={(text) => { setmaquinaPerfuratriz(text.target.value); setAnguloEntrada(text.target.value.split('/')[2]); setComprimentoHaste(Number(text.target.value.split('/')[3])); setRaioCurvaturaHaste(text.target.value.split('/')[4]) }}
                     >
                       <option value=''>Selecione...</option>
                       {maquinasPerfuratriz.length > 0
                         ? maquinasPerfuratriz.map((maquina) =>
-                          <option value={maquina.id + '/' + maquina.modelo + '/' + maquina.anguloEntrada}>{maquina.modelo}</option>)
+                          <option value={maquina.id + '/' + maquina.modelo + '/' + maquina.anguloEntrada + '/' + maquina.comprimento + '/' + maquina.raioCurvatura}>{maquina.modelo}</option>)
                         : <option>Nenhuma maquina cadastrada!</option>}
                     </select>
                     <button onClick={() => setIsOpenMaquinaPerfuratriz(true)} className='buttonAddInter'><FiPlus size={20} /></button>
@@ -3803,6 +3709,24 @@ export default function
                       step=".01"
                       value={cabecaSonda}
                       onChange={(text) => setCabecaSonda(text.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor=''>Raio de Curvatura Haste (m)</label>
+                    <input
+                      type='number'
+                      step=".01"
+                      value={raioCurvaturaHaste}
+                      onChange={(text) => {setRaioCurvaturaHaste(text.target.value); setGrafico(false)}}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor=''>Comprimento Haste (m)</label>
+                    <input
+                      type='number'
+                      step=".01"
+                      value={comprimentoHaste}
+                      onChange={(text) => {setComprimentoHaste(Number(text.target.value)); setGrafico(false)}}
                     />
                   </div>
                   <button style={{ marginTop: '35px', width: '200px' }} onClick={() => { formulas() }} className='finishPhase'>Visualizar plano de furo</button>
@@ -4273,7 +4197,7 @@ export default function
               ? <><div className='myChartDiv'>
                 {/* <canvas id="myChart" width="600" height="400"></canvas> */}
                 {/* <Line id='myChart' width='600' height='400' options={options} data={dataG} /> */}
-                <App data={dadosGafico} data2={dadosGafico2} dataInter={dadosGaficoInter} />
+                <App data={dadosGafico} data2={dadosGafico2} dataPontos={pontosGrafico} />
               </div>
                 {/* <div className='myChartDiv'> */}
                 {/* <Line id='myChart' width='600' height='400' options={options2} data={dataG2} /> */}
