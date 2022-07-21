@@ -10,7 +10,7 @@ export default function Sidebar () {
     <>
       <S.Navbar>
         <S.ShowSidebar>
-          <button
+          <button id='menu'
             onClick={() => setIsOpen(true)}
           >
             <FaIcons.FaBars />
