@@ -10,12 +10,12 @@ export const Email = localStorage.getItem('email')?.replace(/"/g, '')
 export const nome = localStorage.getItem('nome')?.replace(/"/g, '')
 export const password = localStorage.getItem('password')?.replace(/"/g, '')
 
-export let ip = 'http://localhost' 
+//export let ip = 'http://localhost' 
 //export const ip = 'https://projetos.42dias.com.br'  
-export const port = '8145' 
+//export const port = '8145' 
 
-//export const ip = 'http://7dd208931cad.sn.mynetname.net'
-//export const port = '42145'
+export const ip = 'http://7dd208931cad.sn.mynetname.net'
+export const port = '42145'
 
 export const getToken = () => {
   let _token = localStorage.getItem('token')
