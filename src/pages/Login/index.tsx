@@ -71,7 +71,12 @@ export default function Login() {
       }
     }).catch(res => {
       //console.log(res.response.data)
-      toast.error(res.response.data)
+      if(res.response?.data !== undefined){
+        toast.error(res.response.data)
+      }else{
+        toast.error("Erro no servidor!")
+      }
+      
       setLoading(false)
     })
   }

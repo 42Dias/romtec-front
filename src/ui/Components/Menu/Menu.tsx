@@ -52,6 +52,9 @@ const Menu = ({ children, onClose }: Props) => {
             <Link to='/fluido-de-perfuracao'>Fluido de Perfuração</Link>
           </li>
           <li>
+            <Link to='/safepipe'>Safepipe</Link>
+          </li>
+          <li>
             <Link to='/companhias'>Companhias</Link>
           </li>
           <h4><FiTool size={20} />Ferramentas</h4>

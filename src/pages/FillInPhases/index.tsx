@@ -70,7 +70,7 @@ type FormData = {
   durezaPlastica: string;
   indicePlasticidade: string;
 }
-export default function FillInPhases () {
+export default function FillInPhases() {
   const [modalIsOpen, setIsOpen] = useState(false)
   const [modalIsOpenPhase, setIsOpenPhase] = useState(false)
   const [modalIsOpenInterferencia, setIsOpenInterferencia] = useState(false)
@@ -87,49 +87,51 @@ export default function FillInPhases () {
   const [isOpenModalEdit, setIsOpenModalEdit] = useState(false)
   const [isOpenModalAdd, setIsOpenModalAdd] = useState(false)
   const [grafico, setGrafico] = useState(false)
+  const [safepipes, setsafepipes] = useState<any[]>([])
+  const [safepipe, setSafepipe] = useState("")
 
-  function openModalEdit () {
+  function openModalEdit() {
     setIsOpenModalEdit(true)
   }
 
-  function closeModalEdit () {
+  function closeModalEdit() {
     setIsOpenModalEdit(false)
   }
 
-  function openModalAdd () {
+  function openModalAdd() {
     setIsOpenModalAdd(true)
   }
 
-  function closeModalAdd () {
+  function closeModalAdd() {
     setIsOpenModalAdd(false)
   }
 
-  function openModalInterferencia () {
+  function openModalInterferencia() {
     setIsOpenInterferencia(true)
   }
-  function openModalPontosVerificacao () {
+  function openModalPontosVerificacao() {
     setIsOpenVerificacao(true)
   }
-  function openModalFerramenta () {
+  function openModalFerramenta() {
     setIsOpenFerramenta(true)
   }
-  function afterOpenModalInterferencia () {
+  function afterOpenModalInterferencia() {
 
   }
 
-  function closeModalInterferencia () {
+  function closeModalInterferencia() {
     setIsOpenInterferencia(false)
   }
-  function closeModalVerificacao () {
+  function closeModalVerificacao() {
     setIsOpenVerificacao(false)
   }
-  function closeModalFerramenta () {
+  function closeModalFerramenta() {
     setIsOpenFerramenta(false)
   }
-  function closeModalVerificacaoEdit () {
+  function closeModalVerificacaoEdit() {
     setIsOpenVerificacaoEdit(false)
   }
-  function openModalInterferenciaEdit (interferencia: any) {
+  function openModalInterferenciaEdit(interferencia: any) {
     setInterferenciaId(interferencia.id)
     console.log(interferencia.id)
     setTipoInterferencia(interferencia.tipoInterferencia)
@@ -140,7 +142,7 @@ export default function FillInPhases () {
 
     setIsOpenInterferenciaEdit(true)
   }
-  function openModalPontosVerificacaoEdit (pontosVerificacao: any) {
+  function openModalPontosVerificacaoEdit(pontosVerificacao: any) {
     setInterferenciaId(pontosVerificacao.id)
     setStatus(pontosVerificacao.status)
     setLatitude(pontosVerificacao.latitude)
@@ -151,35 +153,35 @@ export default function FillInPhases () {
 
     setIsOpenVerificacaoEdit(true)
   }
-  function afterOpenModalInterferenciaEdit () {
+  function afterOpenModalInterferenciaEdit() {
 
   }
 
-  function closeModalInterferenciaEdit () {
+  function closeModalInterferenciaEdit() {
     setIsOpenInterferenciaEdit(false)
   }
 
-  function openModalPhases () {
+  function openModalPhases() {
     setIsOpenPhase(true)
   }
 
-  function afterOpenModalPhases () {
+  function afterOpenModalPhases() {
 
   }
 
-  function closeModalPhases () {
+  function closeModalPhases() {
     setIsOpenPhase(false)
   }
 
-  function openModalPhasesSelect () {
+  function openModalPhasesSelect() {
     setIsOpenPhaseSelect(true)
   }
 
-  function afterOpenModalPhasesSelect () {
+  function afterOpenModalPhasesSelect() {
 
   }
 
-  function closeModalPhasesSelect () {
+  function closeModalPhasesSelect() {
     setIsOpenPhaseSelect(false)
   }
 
@@ -659,7 +661,7 @@ export default function FillInPhases () {
     ],
   }
 
-  async function formulas () {
+  async function formulas() {
     const toastId = toast.loading('Gerando grafico...')
     await api.get(`graficoTravessia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/preencher-fases/', '').split('/')[1]}`,
     ).then((response) => {
@@ -932,10 +934,10 @@ export default function FillInPhases () {
       setCamposInterferencia(true)
     }
   }
-  function openModal () {
+  function openModal() {
     setIsOpen(true)
   }
-  function onSubmitTipoSolo () {
+  function onSubmitTipoSolo() {
     const data = {
       especificacaoSolo: especificacaoSolo,
       descricao: descricao,
@@ -948,7 +950,7 @@ export default function FillInPhases () {
     createNewFileTipoSolo(data)
     reset()
   }
-  async function createNewFileTipoSolo (submit: any) {
+  async function createNewFileTipoSolo(submit: any) {
     setLoading(true)
     const responser = api.post('tipo-solo', {
       data: submit,
@@ -970,14 +972,14 @@ export default function FillInPhases () {
       setLoading(false)
     })
   }
-  function onSubmit (data: FormData) {
+  function onSubmit(data: FormData) {
     console.log(data)
     data.reviewUpload = documentos
     Cadastro(data)
     reset()
   }
 
-  async function Cadastro (submit: any) {
+  async function Cadastro(submit: any) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.post('maquina-perfuratis', {
@@ -1004,7 +1006,7 @@ export default function FillInPhases () {
       setLoading(false)
     })
   }
-  function onSubmitLevantamento (tabela: string) {
+  function onSubmitLevantamento(tabela: string) {
     // console.log(idEtapa)
     const data = {
       banco: tabela,
@@ -1133,6 +1135,7 @@ export default function FillInPhases () {
       espessuaraParede: espessuaraParede,
       distanciaMinima: distanciaMinima,
       proprietario: proprietarioRede,
+      safepipeId: safepipe,
     }
 
     // console.log(data)
@@ -1144,7 +1147,7 @@ export default function FillInPhases () {
     // }
   }
 
-  function onSubmitInterferenciasFisicasMagneticas () {
+  function onSubmitInterferenciasFisicasMagneticas() {
     // console.log(responsavel)
     const data = {
       idConfigTravessia: idConfigTravessia.replace('#/preencher-fases/', ''),
@@ -1193,7 +1196,7 @@ export default function FillInPhases () {
   //   }
   // }
 
-  async function createNewFile (submit: any) {
+  async function createNewFile(submit: any) {
     setLoading(true)
     toast.info('Carregando...')
     // console.log('submit')
@@ -1389,7 +1392,7 @@ export default function FillInPhases () {
       })
     }
   }
-  async function loadDados (tipoSoloId: string) {
+  async function loadDados(tipoSoloId: string) {
     setLoading(true)
     setdataExecucao(date)
     sethoraExecucao(hora)
@@ -1503,6 +1506,17 @@ export default function FillInPhases () {
       //toast.error(res.response.data)
       setLoading(false)
     })
+    api.get(`safepipe?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/preencher-fases/', '').split('/')[0]}`,
+    ).then((response) => {
+      if (response.statusText === 'OK') {
+        setsafepipes(response.data.rows)
+        setLoading(false)
+      }
+    }).catch(res => {
+      //console.log(res.response.data)
+      toast.error(res.response.data)
+      setLoading(false)
+    })
     api.get(`interferencia?filter%5BidTravessia%5D=${idConfigTravessia.replace('#/preencher-fases/', '').split('/')[1]}`,
     ).then((response) => {
       if (response.statusText === 'OK') {
@@ -1600,7 +1614,7 @@ export default function FillInPhases () {
       // toast.error(res.response.data);
       setLoading(false)
     })
-    
+
     api.get('tipoRede',
     ).then((response) => {
       if (response.statusText === 'OK') {
@@ -1768,6 +1782,7 @@ export default function FillInPhases () {
           setprofundidadeMin(response.data.rows[0].profundidadeMin)
           setMaterialRedeTubula(response.data.rows[0].MaterialRedeTubula)
           setAnguloEntrada(response.data.rows[0].anguloEntrada)
+          setSafepipe(response.data.rows[0].safepipeId)
           distancia = (getDistanceFromLatLonInKm(
             { lat: Number(response.data.rows[0].PontoVerEntradaLat), lng: Number(response.data.rows[0].PontoVerEntradaLong) },
             { lat: Number(response.data.rows[0].PontoVerSaidaLat), lng: Number(response.data.rows[0].PontoVerSaidaLong) },
@@ -1822,20 +1837,20 @@ export default function FillInPhases () {
     })
     setLoading(false)
   }
-  function getDistanceFromLatLonInKm (position1: { lat: number; lng: number }, position2: { lat: number; lng: number }) {
+  function getDistanceFromLatLonInKm(position1: { lat: number; lng: number }, position2: { lat: number; lng: number }) {
     const deg2rad = function (deg: number) { return deg * (Math.PI / 180) }
     const R = 6371
     const dLat = deg2rad(position2.lat - position1.lat)
     const dLng = deg2rad(position2.lng - position1.lng)
     const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(deg2rad(position1.lat)) *
-        Math.cos(deg2rad(position1.lat)) *
-        Math.sin(dLng / 2) * Math.sin(dLng / 2)
+      Math.cos(deg2rad(position1.lat)) *
+      Math.cos(deg2rad(position1.lat)) *
+      Math.sin(dLng / 2) * Math.sin(dLng / 2)
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
     console.log(((R * c * 1000).toFixed()))
     return ((R * c * 1000).toFixed())
   }
-  async function deleteDados (id: string, tabela: string) {
+  async function deleteDados(id: string, tabela: string) {
     setLoading(true)
     // eslint-disable-next-line
     const responser = api.delete(tabela + id,
@@ -1864,7 +1879,7 @@ export default function FillInPhases () {
       setLoading(false)
     })
   }
-  function update (data: any) {
+  function update(data: any) {
     // console.log('data')
     // console.log(data)
     // setDados(data)
@@ -1917,7 +1932,7 @@ export default function FillInPhases () {
     }
     // console.log(idDados)
   }
-  async function updateDados () {
+  async function updateDados() {
     setLoading(true)
     // console.log('idTodosCampos')
     // console.log(idTodosCampos)
@@ -2053,13 +2068,13 @@ export default function FillInPhases () {
     // setLoading(true)
     loadDados('etapas')
   }, [])
-  function afterOpenModal () {
+  function afterOpenModal() {
     // references are now sync'd and can be accessed.
   }
-  function closeModal () {
+  function closeModal() {
     setIsOpenPlanejamento(false)
   }
-  async function makeRequisition (e: any) {
+  async function makeRequisition(e: any) {
     e.preventDefault()
     e.target.reset()
 
@@ -2131,7 +2146,7 @@ export default function FillInPhases () {
         toast.error('Erro: Tente mais tarde :(')
       })
   }
-  function salvarInterferencia (tabela: string) {
+  function salvarInterferencia(tabela: string) {
     const data = {
       tipo: variavelTitulo,
       latitude: latitude,
@@ -2178,7 +2193,7 @@ export default function FillInPhases () {
         setLoading(false)
       })
   }
-  function editarInterferencia (tabela: string) {
+  function editarInterferencia(tabela: string) {
     const data = {
       tipo: variavelTitulo,
       latitude: latitude,
@@ -2276,7 +2291,7 @@ export default function FillInPhases () {
                 value={dataExecucao}
                 onChange={(text) => setdataExecucao(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {/* {camporesponsavelExecucao
             ? <div>
@@ -2297,7 +2312,7 @@ export default function FillInPhases () {
                 value={horaExecucao}
                 onChange={(text) => sethoraExecucao(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoEntradaLatitude
             ? <div>
@@ -2308,7 +2323,7 @@ export default function FillInPhases () {
                 value={latitudeEntrada}
                 onChange={(text) => setlatitudeEntrada(text.target.value)}
               />
-              </div>
+            </div>
             : false}
 
           {campoEntradaLongitude
@@ -2320,7 +2335,7 @@ export default function FillInPhases () {
                 value={longitudeEntrada}
                 onChange={(text) => setlongitudeEntrada(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {/* {campoprofundidadeEntrada
             ? <div>
@@ -2342,7 +2357,7 @@ export default function FillInPhases () {
                 value={profundidadeEntrada}
                 onChange={(text) => setprofundidadeEntrada(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoSaidaLatitude
             ? <div>
@@ -2353,7 +2368,7 @@ export default function FillInPhases () {
                 value={latitudeSaida}
                 onChange={(text) => setlatitudeSaida(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {/* <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"> */}
 
@@ -2373,7 +2388,7 @@ export default function FillInPhases () {
                   setCompFuro(distancia)
                 }}
               />
-              </div>
+            </div>
             : false}
           {campoprofundidadeSaida
             ? <div>
@@ -2384,7 +2399,7 @@ export default function FillInPhases () {
                 value={profundidadeSaida}
                 onChange={(text) => setprofundidadeSaida(text.target.value)}
               />
-              </div>
+            </div>
             : false}
 
           {campoDiametroPerfuracao
@@ -2396,7 +2411,7 @@ export default function FillInPhases () {
                 value={diametroPerfuracao}
                 onChange={(text) => setdiametroPerfuracao(text.target.value)}
               />
-              </div>
+            </div>
             : false}
 
           {campoTipoRede
@@ -2431,7 +2446,7 @@ export default function FillInPhases () {
                 <option value='Tubo gás aço'>Tubo gás aço</option>
                 <option value='Tubo gás esgoto'>Tubo gás esgoto</option>
               </select> */}
-              </div>
+            </div>
             : false}
 
           {campoTipoTubulacao
@@ -2442,7 +2457,7 @@ export default function FillInPhases () {
                 value={tipoTubulacao}
                 onChange={(text) => settipoTubulacao(text.target.value)}
               />
-              </div>
+            </div>
             : false}
 
           {// campoResponsel?
@@ -2509,7 +2524,7 @@ export default function FillInPhases () {
                 /><br /><br />
 
               </form>
-              </div>
+            </div>
             : false}
           {campoConfirmacaoProcedimento
             ? <div>
@@ -2519,7 +2534,7 @@ export default function FillInPhases () {
                 value={ConfirmacaoProcedimento}
                 onChange={(text) => setConfirmacaoProcedimento(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoVolumePreparado
             ? <div>
@@ -2530,7 +2545,7 @@ export default function FillInPhases () {
                 value={VolumePreparado}
                 onChange={(text) => setVolumePreparado(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoTesteVicosidade
             ? <div>
@@ -2541,7 +2556,7 @@ export default function FillInPhases () {
                 value={TesteVicosidade}
                 onChange={(text) => setTesteVicosidade(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoSondagemInterferencia
             ? <div>
@@ -2551,7 +2566,7 @@ export default function FillInPhases () {
                 value={sondagemInterferencia}
                 onChange={(text) => setsondagemInterferencia(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoSondagem
             ? <div>
@@ -2561,7 +2576,7 @@ export default function FillInPhases () {
                 value={sondagem}
                 onChange={(text) => setsondagem(text.target.value)}
               />
-              </div>
+            </div>
             : false}
 
           {campoPlanoFuro
@@ -2572,7 +2587,7 @@ export default function FillInPhases () {
                 value={criacaoplanoFuro}
                 onChange={(text) => setcriacaoplanoFuro(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoFerramentas
             ? <div>
@@ -2588,14 +2603,14 @@ export default function FillInPhases () {
                 >
                   {ferramentasList.length > 0
                     ? ferramentasList.map((ferramenta) =>
-                    ferramenta.nome !== undefined ? <option value={ferramenta.id + '/' + ferramenta.nome}>{ferramenta.nome}</option> : 
-                    ferramenta.codigo !== undefined ? <option value={ferramenta.id + '/' + ferramenta.codigo}>{ferramenta.codigo}</option> : false)
+                      ferramenta.nome !== undefined ? <option value={ferramenta.id + '/' + ferramenta.nome}>{ferramenta.nome}</option> :
+                        ferramenta.codigo !== undefined ? <option value={ferramenta.id + '/' + ferramenta.codigo}>{ferramenta.codigo}</option> : false)
                     : <option>Nenhuma ferramenta cadastrada!</option>}
                 </Select>
                 <button onClick={openModalFerramenta} className='buttonAddInter'><FiPlus size={20} /></button>
               </div>
 
-              </div>
+            </div>
             : false}
 
           {campoInfoEnvolvidas
@@ -2606,7 +2621,7 @@ export default function FillInPhases () {
                 value={infoEnvolvidas}
                 onChange={(text) => setInfoEnvolvidas(text.target.value)}
               />
-              </div>
+            </div>
             : false}
 
           {campoDiametro
@@ -2619,7 +2634,7 @@ export default function FillInPhases () {
                 value={diametroPerfuracao}
                 onChange={(text) => setdiametroPerfuracao(text.target.value)}
               />
-              </div>
+            </div>
             : false}
 
           {campoLocalizaDiretrizFuro
@@ -2630,7 +2645,7 @@ export default function FillInPhases () {
                 value={localDiretrizFuro}
                 onChange={(text) => setLocalDiretrizFuro(text.target.value)}
               />
-              </div>
+            </div>
             : false}
 
           {campoResponselTopografia
@@ -2641,7 +2656,7 @@ export default function FillInPhases () {
                 value={respTopografia}
                 onChange={(text) => setRespTopografia(text.target.value)}
               />
-              </div>
+            </div>
             : false}
 
           {campoDataTopografia
@@ -2652,7 +2667,7 @@ export default function FillInPhases () {
                 value={dataTopografia}
                 onChange={(text) => setDataTopografia(text.target.value)}
               />
-              </div>
+            </div>
             : false}
 
           {campoEmpresa
@@ -2663,7 +2678,7 @@ export default function FillInPhases () {
                 value={empresa}
                 onChange={(text) => setempresa(text.target.value)}
               />
-              </div>
+            </div>
             : false}
 
           {/* {camponomePerfilAcesso
@@ -2750,7 +2765,7 @@ export default function FillInPhases () {
                 /><br /><br />
 
               </form>
-              </div>
+            </div>
             : false}
 
           {campoequipamentoUtilizado
@@ -2761,7 +2776,7 @@ export default function FillInPhases () {
                 value={equipamentoUtilizado}
                 onChange={(text) => setequipamentoUtilizado(text.target.value)}
               />
-              </div>
+            </div>
             : false}
 
           {campomaterializacaoCampo
@@ -2772,7 +2787,7 @@ export default function FillInPhases () {
                 value={materializacaoCampo}
                 onChange={(text) => setmaterializacaoCampo(text.target.value)}
               />
-              </div>
+            </div>
             : false}
 
           {campoquantidadeInterferencias
@@ -2784,7 +2799,7 @@ export default function FillInPhases () {
                 value={quantidadeInterferencias}
                 onChange={(text) => setquantidadeInterferencias(text.target.value)}
               />
-              </div>
+            </div>
             : false}
 
           {campoparaleloEsquerda
@@ -2797,7 +2812,7 @@ export default function FillInPhases () {
                 value={paraleloEsquerda}
                 onChange={(text) => setparaleloEsquerda(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoparaleloDireita
             ? <div>
@@ -2808,7 +2823,7 @@ export default function FillInPhases () {
                 value={paraleloDireita}
                 onChange={(text) => setparaleloDireita(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoperpendicular
             ? <div>
@@ -2819,7 +2834,7 @@ export default function FillInPhases () {
                 value={perpendicular}
                 onChange={(text) => setperpendicular(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoProfundidade
             ? <div>
@@ -2830,7 +2845,7 @@ export default function FillInPhases () {
                 value={profundidade}
                 onChange={(text) => setprofundidade(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoDiametroInterferencia
             ? <div>
@@ -2841,7 +2856,7 @@ export default function FillInPhases () {
                 value={diametroInterferencia}
                 onChange={(text) => setDiametroInterferencia(text.target.value)}
               />
-              </div>
+            </div>
             : false}
 
           {/* {campoTipoInterferencia
@@ -2862,7 +2877,7 @@ export default function FillInPhases () {
                 value={EmpresaProprietaria}
                 onChange={(text) => setEmpresaProprietaria(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campolargura
             ? <div>
@@ -2874,7 +2889,7 @@ export default function FillInPhases () {
                 value={largura}
                 onChange={(text) => setlargura(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campocomprimento
             ? <div>
@@ -2885,7 +2900,7 @@ export default function FillInPhases () {
                 value={comprimento}
                 onChange={(text) => setcomprimento(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoprofundidadeVala
             ? <div>
@@ -2896,7 +2911,7 @@ export default function FillInPhases () {
                 value={profundidadeVala}
                 onChange={(text) => setprofundidadeVala(text.target.value)}
               />
-              </div>
+            </div>
             : false}
 
           {campoestacaReferencia
@@ -2907,7 +2922,7 @@ export default function FillInPhases () {
                 value={estacaReferencia}
                 onChange={(text) => setestacaReferencia(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoSondagemInterferencia
             ? <div>
@@ -2917,7 +2932,7 @@ export default function FillInPhases () {
                 value={sondagemInterferencia}
                 onChange={(text) => setestacaReferencia(text.target.value)}
               />
-              </div>
+            </div>
             : false}
 
           {campoTipoSolo
@@ -2930,7 +2945,7 @@ export default function FillInPhases () {
                   /> */}
               <div className='selectPlus'>
                 <select
-                  value={tipoSolo+"/"+especificacaoSolo}
+                  value={tipoSolo + "/" + especificacaoSolo}
                   onChange={(text) => { setTipoSolo(text.target.value.split('/')[0]); setEspecificacaoSolo(text.target.value.split('/')[1]); loadDados(text.target.value.split('/')[0]); console.log(text.target.value) }}
                 >
                   <option value=''>Selecione...</option>
@@ -2941,7 +2956,7 @@ export default function FillInPhases () {
                 </select>
                 <button onClick={() => setIsOpenTipoSolo(true)} className='buttonAddInter'><FiPlus size={20} /></button>
               </div>
-              </div>
+            </div>
             : false}
 
           {campoFluido
@@ -2952,11 +2967,11 @@ export default function FillInPhases () {
                     value={Fluido}
                     onChange={(text) => setFluido(text.target.value)}
                   /> */}
-                  {console.log(Fluido)}
+              {console.log(Fluido)}
               <div className='selectPlus'>
                 <select
                   value={Fluido}
-                  onChange={(text) => {setFluidoId(text.target.value.split("/")[0]); setFluido(text.target.value); text.target.value != '' ? setReceitaFluido(`Viscosidade esperada (Segundos Marsh - cP): ${text.target.value.toString().split('/')[2]}\npH da Água: ${text.target.value.toString().split('/')[3]}\nQuantidade base para formulação (Metros cúbicos - m²): ${text.target.value.toString().split('/')[4]}\nLimite de escoamento (Número - N): ${text.target.value.toString().split('/')[5]}\nTeor de areia (Porcentagem - %): ${text.target.value.toString().split('/')[6]}`) : false }}
+                  onChange={(text) => { setFluidoId(text.target.value.split("/")[0]); setFluido(text.target.value); text.target.value != '' ? setReceitaFluido(`Viscosidade esperada (Segundos Marsh - cP): ${text.target.value.toString().split('/')[2]}\npH da Água: ${text.target.value.toString().split('/')[3]}\nQuantidade base para formulação (Metros cúbicos - m²): ${text.target.value.toString().split('/')[4]}\nLimite de escoamento (Número - N): ${text.target.value.toString().split('/')[5]}\nTeor de areia (Porcentagem - %): ${text.target.value.toString().split('/')[6]}`) : false }}
                 >
                   <option value=''>Selecione...</option>
                   {fluidos.length > 0
@@ -2966,7 +2981,7 @@ export default function FillInPhases () {
                 </select>
                 <button onClick={() => setIsOpenFluido(true)} className='buttonAddInter'><FiPlus size={20} /></button>
               </div>
-              </div>
+            </div>
             : false}
           {campoReceitaFluido
             ? <div>
@@ -2976,7 +2991,7 @@ export default function FillInPhases () {
                 value={ReceitaFluido}
                 onChange={(text) => setReceitaFluido(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {camponumeroHastes
             ? <div>
@@ -2988,7 +3003,7 @@ export default function FillInPhases () {
                 value={numeroHastes}
                 onChange={(text) => setnumeroHastes(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoprofundidadePlanejada
             ? <div>
@@ -2999,7 +3014,7 @@ export default function FillInPhases () {
                 value={profundidadePlanejada}
                 onChange={(text) => setprofundidadePlanejada(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoavancoPlanejado
             ? <div>
@@ -3009,7 +3024,7 @@ export default function FillInPhases () {
                 value={avancoPlanejado}
                 onChange={(text) => setavancoPlanejado(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoprofundidadeExecutada
             ? <div>
@@ -3020,7 +3035,7 @@ export default function FillInPhases () {
                 value={profundidadeExecutada}
                 onChange={(text) => setprofundidadeExecutada(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoavancoExecutado
             ? <div>
@@ -3030,7 +3045,7 @@ export default function FillInPhases () {
                 value={avancoExecutado}
                 onChange={(text) => setavancoExecutado(text.target.value)}
               />
-              </div>
+            </div>
             : false}
 
           {campoamarracao
@@ -3041,7 +3056,7 @@ export default function FillInPhases () {
                 value={amarracao}
                 onChange={(text) => setamarracao(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campomaquinaPerfuratriz
             ? <div>
@@ -3059,7 +3074,7 @@ export default function FillInPhases () {
                 </select>
                 <button onClick={() => setIsOpenMaquinaPerfuratriz(true)} className='buttonAddInter'><FiPlus size={20} /></button>
               </div>
-              </div>
+            </div>
             : false}
           {campodiametroAlargamento
             ? <div>
@@ -3070,7 +3085,7 @@ export default function FillInPhases () {
                 value={diametroAlargamento}
                 onChange={(text) => setdiametroAlargamento(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campotempoHaste
             ? <div>
@@ -3081,8 +3096,35 @@ export default function FillInPhases () {
                 value={tempoHaste}
                 onChange={(text) => settempoHaste(text.target.value)}
               />
-              </div>
+            </div>
             : false}
+
+          {variavelTitulo === "Puxamento de Rede"
+            ? <><div>
+              <label htmlFor=''>Safepipe</label>
+              <div className='selectPlus' style={{ marginTop: '-2px' }}>
+                <select
+                  style={{ width: '100%' }}
+                  className='select'
+                  placeholder='Selecione...'
+                  value={safepipe}
+                  onChange={(text) => setSafepipe(text.target.value)}
+                >
+                  <option>Selecione...</option>
+                  {safepipes.length > 0
+                    ? safepipes.map((safepipe) => <option value={safepipe.id}>{safepipe.nome}</option>)
+                    : <option>Nenhuma safepipe cadastrada! Aproxime uma etiqueta para cadastar.</option>}
+                </select>
+
+              </div>
+
+            </div>
+
+              <div>
+
+              </div></>
+            : false}
+
           {campovazaoBomba
             ? <div>
               <label htmlFor=''>Vazão Bomba (L/min)</label>
@@ -3092,7 +3134,7 @@ export default function FillInPhases () {
                 value={vazaoBomba}
                 onChange={(text) => setvazaoBomba(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {variavelTitulo === 'Execução da Travessia - Furo Piloto'
             ? <><div>
@@ -3101,15 +3143,15 @@ export default function FillInPhases () {
                 type='number'
                 step=".01"
                 value={anguloEntrada}
-                onChange={(text) => {setAnguloEntrada(text.target.value); setGrafico(false)}}
+                onChange={(text) => { setAnguloEntrada(text.target.value); setGrafico(false) }}
               />
-                </div>
+            </div>
 
               <div>
                 <label htmlFor=''>Comprimento mordentes à entrada (m)</label>
                 <input
                   type='number'
-                step=".01"
+                  step=".01"
                   value={comprimentoMordenteEntrada}
                   onChange={(text) => setcomprimentoMordenteEntrada(text.target.value)}
                 />
@@ -3118,7 +3160,7 @@ export default function FillInPhases () {
                 <label htmlFor=''>Porta sonda até Broca (m)</label>
                 <input
                   type='number'
-                step=".01"
+                  step=".01"
                   value={portaSondaBroca}
                   onChange={(text) => setPortaSondaBroca(text.target.value)}
                 />
@@ -3127,20 +3169,20 @@ export default function FillInPhases () {
                 <label htmlFor=''>Cabeça da sonda (m)</label>
                 <input
                   type='number'
-                step=".01"
+                  step=".01"
                   value={cabecaSonda}
                   onChange={(text) => setCabecaSonda(text.target.value)}
                 />
               </div>
               <button style={{ marginTop: '35px', width: '200px' }} onClick={() => { formulas() }} className='finishPhase'>Visualizar plano de furo</button>
-              </>
+            </>
             : false}
           {grafico
             ? <><div className='myChartDiv'>
               {/* <canvas id="myChart" width="600" height="400"></canvas> */}
               {/* <Line id="myChart" width="600" height="400" options={options} data={dataG} />
             </div><div className="myChartDiv"> */}
-              <App data={dadosGafico} data2={dadosGafico2} dataPontos={pontosGrafico} />
+              <App data={dadosGafico} data2={dadosGafico2} dataPontos={pontosGrafico} graficoTravessia={graficoTravessia}/>
               {/* <canvas id="myChart" width="600" height="400"></canvas> */}
               {/* <Line id="myChart" width="600" height="400" options={options2} data={dataG2} /> */}
             </div>
@@ -3153,7 +3195,7 @@ export default function FillInPhases () {
                 value={tipoRedeTubula}
                 onChange={(text) => settipoRedeTubula(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {variavelTitulo === 'Planejamento da Travessia'
             ? <div>
@@ -3164,7 +3206,7 @@ export default function FillInPhases () {
                 value={compFuro}
                 onChange={(text) => setCompFuro(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campodiametroRede
             ? <div>
@@ -3175,7 +3217,7 @@ export default function FillInPhases () {
                 value={diametroRede}
                 onChange={(text) => setdiametroRede(text.target.value)}
               />
-              </div>
+            </div>
             : false}
 
           {campoPortaSonda
@@ -3187,7 +3229,7 @@ export default function FillInPhases () {
                 value={PortaSonda}
                 onChange={(text) => setPortaSonda(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoHastes
             ? <div>
@@ -3197,7 +3239,7 @@ export default function FillInPhases () {
                 value={Hastes}
                 onChange={(text) => setHastes(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoSonda
             ? <div>
@@ -3207,7 +3249,7 @@ export default function FillInPhases () {
                 value={Sonda}
                 onChange={(text) => setSonda(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campopaPerfuracao
             ? <div>
@@ -3217,7 +3259,7 @@ export default function FillInPhases () {
                 value={paPerfuracao}
                 onChange={(text) => setpaPerfuracao(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoPullingHead
             ? <div>
@@ -3227,7 +3269,7 @@ export default function FillInPhases () {
                 value={PullingHead}
                 onChange={(text) => setPullingHead(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoLocalizador
             ? <div>
@@ -3237,7 +3279,7 @@ export default function FillInPhases () {
                 value={Localizador}
                 onChange={(text) => setLocalizador(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoLuva
             ? <div>
@@ -3247,7 +3289,7 @@ export default function FillInPhases () {
                 value={Luva}
                 onChange={(text) => setLuva(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoHasteInicial
             ? <div>
@@ -3257,7 +3299,7 @@ export default function FillInPhases () {
                 value={HasteInicial}
                 onChange={(text) => setHasteInicial(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoFlexobarra
             ? <div>
@@ -3267,7 +3309,7 @@ export default function FillInPhases () {
                 value={Flexobarra}
                 onChange={(text) => setFlexobarra(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoRadio
             ? <div>
@@ -3277,7 +3319,7 @@ export default function FillInPhases () {
                 value={Radio}
                 onChange={(text) => setRadio(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoParafuso
             ? <div>
@@ -3287,7 +3329,7 @@ export default function FillInPhases () {
                 value={Parafuso}
                 onChange={(text) => setParafuso(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campomodeloAlargador
             ? <div>
@@ -3297,7 +3339,7 @@ export default function FillInPhases () {
                 value={modeloAlargador}
                 onChange={(text) => setmodeloAlargador(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campocapacidadePortaFusilink
             ? <div>
@@ -3307,7 +3349,7 @@ export default function FillInPhases () {
                 value={capacidadePortaFusilink}
                 onChange={(text) => setcapacidadePortaFusilink(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campocapacidadeSwivel
             ? <div>
@@ -3318,7 +3360,7 @@ export default function FillInPhases () {
                 value={capacidadeSwivel}
                 onChange={(text) => setcapacidadeSwivel(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoDiametroFerramenta
             ? <div>
@@ -3329,7 +3371,7 @@ export default function FillInPhases () {
                 value={DiametroFerramenta}
                 onChange={(text) => setDiametroFerramenta(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoCondicaoFerramenta
             ? <div>
@@ -3339,7 +3381,7 @@ export default function FillInPhases () {
                 value={CondicaoFerramenta}
                 onChange={(text) => setCondicaoFerramenta(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {/*
               <div>
@@ -3426,7 +3468,7 @@ export default function FillInPhases () {
                 <option value='Direita'>Direita</option>
                 <option value='Paralelo'>Paralelo</option>
               </select>
-              </div>
+            </div>
             : false}
 
           {camposInterferencia
@@ -3438,7 +3480,7 @@ export default function FillInPhases () {
                 value={diametroInterferencia}
                 onChange={(text) => setDiametroInterferencia(text.target.value)}
               />
-              </div>
+            </div>
             : false}
 
           {camposInterferencia
@@ -3449,7 +3491,7 @@ export default function FillInPhases () {
                 value={tipoInterferencia}
                 onChange={(text) => setTipoInterferencia(text.target.value)}
               />
-              </div>
+            </div>
             : false}
 
           {camposInterferencia
@@ -3461,7 +3503,7 @@ export default function FillInPhases () {
                 value={profundidade}
                 onChange={(text) => setprofundidade(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campovalaEntradaLatitude
             ? <div>
@@ -3472,7 +3514,7 @@ export default function FillInPhases () {
                 value={valaEntradaLatitude}
                 onChange={(text) => setvalaEntradaLatitude(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campovalaEntradaLongitude
             ? <div>
@@ -3483,7 +3525,7 @@ export default function FillInPhases () {
                 value={valaEntradaLongitude}
                 onChange={(text) => setvalaEntradaLongitude(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {/* {campovalaEntradaAltura
             ? <div>
@@ -3504,7 +3546,7 @@ export default function FillInPhases () {
                 value={valaEntradaComprimento}
                 onChange={(text) => setvalaEntradaComprimento(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campovalaEntradaProfundidade
             ? <div>
@@ -3515,7 +3557,7 @@ export default function FillInPhases () {
                 value={valaEntradaProfundidade}
                 onChange={(text) => setvalaEntradaProfundidade(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campovalaSaidaLatitude
             ? <div>
@@ -3526,7 +3568,7 @@ export default function FillInPhases () {
                 value={valaSaidaLatitude}
                 onChange={(text) => setvalaSaidaLatitude(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campovalaSaidaLongitude
             ? <div>
@@ -3537,7 +3579,7 @@ export default function FillInPhases () {
                 value={valaSaidaLongitude}
                 onChange={(text) => setvalaSaidaLongitude(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {/* {campovalaSaidaAltura
             ? <div>
@@ -3558,7 +3600,7 @@ export default function FillInPhases () {
                 value={valaSaidaComprimento}
                 onChange={(text) => setvalaSaidaComprimento(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campovalaSaidaProfundidade
             ? <div>
@@ -3569,7 +3611,7 @@ export default function FillInPhases () {
                 value={valaSaidaProfundidade}
                 onChange={(text) => setvalaSaidaProfundidade(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoprofundidadeMax
             ? <div>
@@ -3580,7 +3622,7 @@ export default function FillInPhases () {
                 value={profundidadeMax}
                 onChange={(text) => setprofundidadeMax(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {campoprofundidadeMin
             ? <div>
@@ -3591,7 +3633,7 @@ export default function FillInPhases () {
                 value={profundidadeMin}
                 onChange={(text) => setprofundidadeMin(text.target.value)}
               />
-              </div>
+            </div>
             : false}
           {/* {campoMaterialRedeTubula
             ? <div>
@@ -3617,7 +3659,7 @@ export default function FillInPhases () {
                       <th>Longitude</th>
                       <th>Diâmetro</th>
                       {variavelTitulo === 'Sondagem das Interferências' ? <th>Profundidade</th> : false}
-                      </tr>
+                    </tr>
                     : false}
 
                   {interferencias.length > 0
@@ -3644,7 +3686,7 @@ export default function FillInPhases () {
 
                 </table>
               </div>
-              </>
+            </>
             : false}
           {campoFerramentas
             ? <><br /><h4>Ferramentas selecionadas</h4>
@@ -3654,7 +3696,7 @@ export default function FillInPhases () {
                   {ferramentasT.length > 0
                     ? <tr>
                       <th>Nome</th>
-                      </tr>
+                    </tr>
                     : false}
 
                   {ferramentasT.length > 0
@@ -3677,7 +3719,7 @@ export default function FillInPhases () {
                 </table>
               </div>
               <br />
-              </>
+            </>
             : false}
           {campoPontosVerificacao
             ? <><h4>Pontos de verificação</h4>{/* <button onClick={openModalPontosVerificacao} className='buttonAddInter'>Adicionar <FiPlus size={20} /></button> */}
@@ -3690,7 +3732,7 @@ export default function FillInPhases () {
                       <th>Profundidade (m)</th>
                       {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <th>Angulação (º)</th> : false}
                       {variavelTitulo == 'Execução da Travessia - Furo Piloto' ? <th>Posição em Horas (h)</th> : false}
-                      </tr>
+                    </tr>
                     : false}
 
                   {pontosVerificacao.length > 0
@@ -3717,32 +3759,32 @@ export default function FillInPhases () {
                 </table>
               </div>
 
-              </>
+            </>
             : false}
           <div className='flexBtns'>
             {!finalizarEtapa
               ? <button onClick={() => { onSubmitLevantamento('todos-campos') }}>{loading
                 ? <img
-                    width='40px'
-                    style={{ margin: 'auto' }}
-                    height='' src={Load}
-                    alt='Loading'
-                  />
+                  width='40px'
+                  style={{ margin: 'auto' }}
+                  height='' src={Load}
+                  alt='Loading'
+                />
                 : 'Salvar'}
-                </button>
+              </button>
               : false}
             {!finalizarEtapa
               ? idTodosCampos === ''
                 ? <button onClick={() => { toast.info('É preciso salvar a etapa!') }} className='finishPhase'>Finalizar Etapa</button>
                 : <button onClick={() => { updateDados() }} className='finishPhase'>{loading
                   ? <img
-                      width='40px'
-                      style={{ margin: 'auto' }}
-                      height='' src={Load}
-                      alt='Loading'
-                    />
+                    width='40px'
+                    style={{ margin: 'auto' }}
+                    height='' src={Load}
+                    alt='Loading'
+                  />
                   : 'Finalizar Etapa'}
-                  </button>
+                </button>
               : 'Etapa Finalizada!'}
           </div>
           {/* <button className='excluirEtapa' onClick={() => deleteEtapa()}>Excluir etapa</button> */}
@@ -3765,11 +3807,11 @@ export default function FillInPhases () {
         </button>
         <form>
           <input placeholder='Latitude' type='number'
-                step=".01" />
+            step=".01" />
           <input placeholder='Longitude' type='number'
-                step=".01" />
+            step=".01" />
           <input placeholder='Profundidade' type='number'
-                step=".01" />
+            step=".01" />
           <button className='init'>Iniciar <FiPlay /></button>
           <div className='flexBtns'>
             <button>Voltar <FiChevronLeft /></button>
@@ -3897,7 +3939,7 @@ export default function FillInPhases () {
             <TextField
               label='Tração (kN)'
               type='number'
-                step=".01"
+              step=".01"
               {...register('tracao', {
                 required: true,
               })}
@@ -3906,7 +3948,7 @@ export default function FillInPhases () {
             <TextField
               label='Compressão (KN)'
               type='number'
-                step=".01"
+              step=".01"
               {...register('compressao', {
                 required: true,
               })}
@@ -3915,7 +3957,7 @@ export default function FillInPhases () {
             <TextField
               label='Torque (N.m)'
               type='number'
-                step=".01"
+              step=".01"
               {...register('torque', {
                 required: true,
               })}
@@ -3924,7 +3966,7 @@ export default function FillInPhases () {
             <TextField
               label='Rotação Spindle (RPM)'
               type='number'
-                step=".01"
+              step=".01"
               {...register('rotacaoSpindle', {
                 required: true,
               })}
@@ -3933,7 +3975,7 @@ export default function FillInPhases () {
             <TextField
               label='Velocidade Tração (m/min)'
               type='number'
-                step=".01"
+              step=".01"
               {...register('velocidadeTracao', {
                 required: true,
               })}
@@ -3942,7 +3984,7 @@ export default function FillInPhases () {
             <TextField
               label='Velocidade Compressão (m/min)'
               type='number'
-                step=".01"
+              step=".01"
               {...register('velocidadeCompressa', {
                 required: true,
               })}
@@ -3951,7 +3993,7 @@ export default function FillInPhases () {
             <TextField
               label='Diâmetro furo piloto (pol)'
               type='number'
-                step=".01"
+              step=".01"
               {...register('diametroFuroPiloto', {
                 required: true,
               })}
@@ -3960,7 +4002,7 @@ export default function FillInPhases () {
             <TextField
               label='Ângulo de entrada (º)'
               type='number'
-                step=".01"
+              step=".01"
               {...register('anguloEntrada', {
                 required: true,
               })}
@@ -3969,7 +4011,7 @@ export default function FillInPhases () {
             <TextField
               label='Diâmetro nominal (mm)'
               type='number'
-                step=".01"
+              step=".01"
               {...register('diametroNominal', {
                 required: true,
               })}
@@ -3978,7 +4020,7 @@ export default function FillInPhases () {
             <TextField
               label='Raio de curvatura (m)'
               type='number'
-                step=".01"
+              step=".01"
               {...register('raioCurvatura', {
                 required: true,
               })}
@@ -3987,7 +4029,7 @@ export default function FillInPhases () {
             <TextField
               label='Comprimento (m)'
               type='number'
-                step=".01"
+              step=".01"
               {...register('comprimento', {
                 required: true,
               })}
@@ -3996,7 +4038,7 @@ export default function FillInPhases () {
             <TextField
               label='Vazão (L/min)'
               type='number'
-                step=".01"
+              step=".01"
               {...register('vazao', {
                 required: true,
               })}
@@ -4005,7 +4047,7 @@ export default function FillInPhases () {
             <TextField
               label='Pressão (psi)'
               type='number'
-                step=".01"
+              step=".01"
               {...register('pressao', {
                 required: true,
               })}
@@ -4014,7 +4056,7 @@ export default function FillInPhases () {
             <TextField
               label='Alargamento máximo (pol)'
               type='number'
-                step=".01"
+              step=".01"
               {...register('alergamentoMaximo', {
                 required: true,
               })}
@@ -4024,12 +4066,12 @@ export default function FillInPhases () {
               type='submit'
             >{loading
               ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height=''
-                  src={Load}
-                  alt='Loading'
-                />
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src={Load}
+                alt='Loading'
+              />
               : 'Salvar'}
             </button>
           </form>
@@ -4082,7 +4124,7 @@ export default function FillInPhases () {
             </div>
             <TextField
               type='number'
-                step=".01"
+              step=".01"
               label='Diâmetro da rede (mm)'
               value={diametroRede}
               onChange={(text) => setdiametroRede(text.target.value)}
@@ -4098,7 +4140,7 @@ export default function FillInPhases () {
             <TextField
               label='Espessura de parede (mm)'
               type='number'
-                step=".01"
+              step=".01"
               value={espessuaraParede}
               onChange={(text) => setEspessuaraParede(text.target.value)}
             />
@@ -4106,7 +4148,7 @@ export default function FillInPhases () {
             <TextField
               label='Distância mínima (m)'
               type='number'
-                step=".01"
+              step=".01"
               value={distanciaMinima}
               onChange={(text) => setDistanciaMinima(text.target.value)}
             />
@@ -4148,37 +4190,37 @@ export default function FillInPhases () {
 
             <input
               type='number'
-                step=".01" placeholder='Latitude'
+              step=".01" placeholder='Latitude'
               value={latitude}
               onChange={(text) => setLatitude(text.target.value)}
             />
             <input
               type='number'
-                step=".01" placeholder='Longitude'
+              step=".01" placeholder='Longitude'
               value={longitude}
               onChange={(text) => setLongitude(text.target.value)}
             />
             <input
               type='number'
-                step=".01" placeholder='Profundidade'
+              step=".01" placeholder='Profundidade'
               value={profundidade}
               onChange={(text) => setprofundidade(text.target.value)}
             />
             {variavelTitulo == 'Execução da Travessia - Furo Piloto'
               ? <input
-                  type='number'
+                type='number'
                 step=".01" placeholder='Angulacão'
-                  value={angulacao}
-                  onChange={(text) => setAngulacao(text.target.value)}
-                />
+                value={angulacao}
+                onChange={(text) => setAngulacao(text.target.value)}
+              />
               : false}
             {variavelTitulo == 'Execução da Travessia - Furo Piloto'
               ? <input
-                  type='number'
+                type='number'
                 step=".01" placeholder='posicão em Horas'
-                  value={posicaoHoras}
-                  onChange={(text) => setposicaoHoras(text.target.value)}
-                />
+                value={posicaoHoras}
+                onChange={(text) => setposicaoHoras(text.target.value)}
+              />
               : false}
           </div>
           <button className='save' onClick={() => editarInterferencia('pontos-verificacao/')}>{loading
@@ -4190,10 +4232,10 @@ export default function FillInPhases () {
                 src={Load}
                 alt='Loading'
               />
-              )
+            )
             : (
-                'Salvar'
-              )}
+              'Salvar'
+            )}
           </button>
         </S4.ModelsModal>
       </Modal>
@@ -4237,12 +4279,12 @@ export default function FillInPhases () {
           <S2.Btns>
             <button onClick={() => onSubmitLevantamento('user')}>{loading
               ? <img
-                  width='40px'
-                  style={{ margin: 'auto' }}
-                  height=''
-                  src={Load}
-                  alt='Loading'
-                />
+                width='40px'
+                style={{ margin: 'auto' }}
+                height=''
+                src={Load}
+                alt='Loading'
+              />
               : 'Salvar'}
             </button>
             <button onClick={() => setIsOpenInvite(false)}>Cancelar</button>
@@ -4347,7 +4389,7 @@ export default function FillInPhases () {
             />
             <input
               type='number'
-                step=".01" placeholder='Diametro ou Largura'
+              step=".01" placeholder='Diametro ou Largura'
               value={diametroLarguraFerramenta}
               onChange={(text) => setdiametroLarguraFerramenta(text.target.value)}
             />
@@ -4361,10 +4403,10 @@ export default function FillInPhases () {
                 src={Load}
                 alt='Loading'
               />
-              )
+            )
             : (
-                'Salvar'
-              )}
+              'Salvar'
+            )}
           </button>
         </S4.ModelsModal>
       </Modal>
@@ -4406,25 +4448,25 @@ export default function FillInPhases () {
             />
             <input
               type='number'
-                step=".01" placeholder='Latitude'
+              step=".01" placeholder='Latitude'
               value={latitude}
               onChange={(text) => setLatitude(text.target.value)}
             />
             <input
               type='number'
-                step=".01" placeholder='Longitude'
+              step=".01" placeholder='Longitude'
               value={longitude}
               onChange={(text) => setLongitude(text.target.value)}
             />
             <input
               type='number'
-                step=".01" placeholder='Profundidade (m)'
+              step=".01" placeholder='Profundidade (m)'
               value={profundidade}
               onChange={(text) => setprofundidade(text.target.value)}
             />
             <input
               type='number'
-                step=".01" placeholder='Diâmetro (mm)'
+              step=".01" placeholder='Diâmetro (mm)'
               value={diametro}
               onChange={(text) => setDiametro(text.target.value)}
             />
@@ -4438,10 +4480,10 @@ export default function FillInPhases () {
                 src={Load}
                 alt='Loading'
               />
-              )
+            )
             : (
-                'Salvar'
-              )}
+              'Salvar'
+            )}
           </button>
         </S4.ModelsModal>
 
@@ -4477,7 +4519,7 @@ export default function FillInPhases () {
             <TextField
               label='Viscosidade esperada (Segundos Marsh - cP)'
               type='number'
-                step=".01"
+              step=".01"
               value={viscosidadeEsperada}
               onChange={(text) => setViscosidadeEsperada(text.target.value)}
             />
@@ -4485,7 +4527,7 @@ export default function FillInPhases () {
             <TextField
               label='pH da Água'
               type='number'
-                step=".01"
+              step=".01"
               value={qtdePHPA}
               onChange={(text) => setQtdePHPA(text.target.value)}
             />
@@ -4493,7 +4535,7 @@ export default function FillInPhases () {
             <TextField
               label='Quantidade base para formulação (Metros cúbicos - m²)'
               type='number'
-                step=".01"
+              step=".01"
               value={qtdeBase}
               onChange={(text) => setQtdeBase(text.target.value)}
             />
@@ -4501,7 +4543,7 @@ export default function FillInPhases () {
             <TextField
               label='Limite de escoamento (Número - N)'
               type='number'
-                step=".01"
+              step=".01"
               value={limiteEscoamento}
               onChange={(text) => setLimiteEscoamento(text.target.value)}
             />
@@ -4509,7 +4551,7 @@ export default function FillInPhases () {
             <TextField
               label='Teor de areia (Porcentagem - %)'
               type='number'
-                step=".01"
+              step=".01"
               value={teorAreia}
               onChange={(text) => setTeorAreia(text.target.value)}
             />
@@ -4566,7 +4608,7 @@ export default function FillInPhases () {
             <label>Latitude</label>
             <input
               type='number'
-                step=".01" placeholder='Latitude'
+              step=".01" placeholder='Latitude'
               value={latitude}
               onChange={(text) => setLatitude(text.target.value)}
             />
@@ -4574,7 +4616,7 @@ export default function FillInPhases () {
             <label>Longitude</label>
             <input
               type='number'
-                step=".01" placeholder='Longitude'
+              step=".01" placeholder='Longitude'
               value={longitude}
               onChange={(text) => setLongitude(text.target.value)}
             />
@@ -4582,7 +4624,7 @@ export default function FillInPhases () {
             <label>Profundidade</label>
             <input
               type='number'
-                step=".01" placeholder='Profundidade'
+              step=".01" placeholder='Profundidade'
               value={profundidade}
               onChange={(text) => setprofundidade(text.target.value)}
             />
@@ -4590,7 +4632,7 @@ export default function FillInPhases () {
             <label>Diâmetro (mm)</label>
             <input
               type='number'
-                step=".01" placeholder='Diâmetro'
+              step=".01" placeholder='Diâmetro'
               value={diametro}
               onChange={(text) => setDiametro(text.target.value)}
             />
@@ -4604,10 +4646,10 @@ export default function FillInPhases () {
                 src={Load}
                 alt='Loading'
               />
-              )
+            )
             : (
-                'Confirmar'
-              )}
+              'Confirmar'
+            )}
           </button>
         </S4.ModelsModal>
 

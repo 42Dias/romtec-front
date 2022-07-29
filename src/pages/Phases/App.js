@@ -28,9 +28,25 @@ const crosshairFormat = {
 const exportFormats = ['PNG', 'PDF', 'JPEG', 'GIF', 'SVG'];
 export let interferencias = [
   { value: 'val', name: 'Travessia' },
+  { value: 'tolMin', name: 'Profundidade minima' },
+  { value: 'tolMax', name: 'Profundidade maxima' },
+  { value: 'inicioCurva', name: 'Inicio da curva' },
+  { value: 'finalCurva', name: 'Final da curva' },
+  { value: 'inicioCurva2', name: 'Inicio da curva subida' },
+  { value: 'finalCurva2', name: 'Final da curva subida' },
+  { value: 'entradaMin', name: 'Angulação Minima' },
+  { value: 'entradaMin2', name: 'Angulação Minima saida' },
+  { value: 'entradaMax', name: 'Angulação Maxima' },
+  { value: 'entradaMax2', name: 'Angulação Maxima saida' },
+  //{ value: 'entradaIdeal', name: 'Angulação Ideal' },
+  //{ value: 'entradaIdeal2', name: 'Angulação Ideal saida' },
+  { value: 'haste', name: 'Haste' },
+  // { value: 'saidaMin', name: 'Ponto de saida Minimo' },
+  // { value: 'saidaMax', name: 'Ponto de saida Maximo' },
+  // { value: 'saidaIdeal', name: 'Ponto de saida Ideal' },
 ];
 
-function App({ data, data2, dataPontos }) {
+function App({ data, data2, dataPontos, graficoTravessia}) {
   const qtdPontos = dataPontos.length
   let toastId
   console.log('data')
@@ -40,13 +56,13 @@ function App({ data, data2, dataPontos }) {
     //console.log(inter)
     if (inter.nome === `Inter${index}`) {
       index++
-      interferencias.push({ value: inter.nome, name: inter.nome })
+      interferencias.push({ value: inter.nome, name: "Interferencia " + index })
     }
   })
   let uniqueInter = interferencias.filter((value, index, self) =>
-  index === self.findIndex((t) => (
-    t.value === value.value
-  )))
+    index === self.findIndex((t) => (
+      t.value === value.value
+    )))
   console.log(interferencias)
   console.log(uniqueInter)
   function deletarPontos() {
@@ -183,6 +199,17 @@ function App({ data, data2, dataPontos }) {
         </div>
       </S.GridForm>
       <div style={{ width: '100%', textAlign: 'center' }}>
+        {graficoTravessia.map((grafico) =>
+          <>
+            <h2>Detalhes do grafico:</h2><br />
+            <label>Comprimento haste: {grafico.comprimentoHaste}</label><br />
+            <label>Angulação entrada: {grafico.anguloMaquina}</label><br />
+            <label>Profundidade minima: {grafico.profundidadeMin}</label><br />
+            <label>Profundidade: {grafico.profundidadeEntrada}</label><br />
+            <label>Profundidade maxima: {grafico.profundidadeMax}</label>
+          </>
+        )}
+        <br/>
         <button style={{ marginTop: '35px', width: '200px' }} onClick={() => { dataPontos.length > 0 ? deletarPontos() : salvarPontos(true) }} className='finishPhase'>Salvar plano de furo</button>
       </div>
       <br />

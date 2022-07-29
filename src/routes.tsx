@@ -41,6 +41,7 @@ import ExecutionOfTheCrossingMobile from './pages/ExecutionOfTheCrossingMobileMo
 import PhasesMobile from './pages/PhasesMobile'
 import FillInPhases from './pages/FillInPhases'
 import CrossingStages from './pages/CrossingStages'
+import Safepipe from './pages/Safepipe'
 
 const Routes = (): JSX.Element => {
   return (
@@ -87,6 +88,7 @@ const Routes = (): JSX.Element => {
           <Route path='/etapas-mobile' exact component={PhasesMobile} />
           <Route path='/preencher-fases/:idEtapa/:id/:etapaId' exact component={FillInPhases} />
           <Route path='/etapas-da-travessia' exact component={CrossingStages} />
+          <Route path='/safepipe' exact component={Safepipe} />
         </Switch>
       </HashRouter>
     </HashRouter>
